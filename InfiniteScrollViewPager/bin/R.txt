@@ -1,0 +1,4 @@
+int drawable defaultimage 0x7f020000
+int id si_image 0x7f040000
+int id si_layout 0x7f040001
+int layout screenshot_item 0x7f030000

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageView 
+        android:id="@+id/course_item_im"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#cccccc"
+        android:contentDescription="@string/app_name"
+        />
+    
+    <ImageView 
+        android:id="@+id/course_start_btn"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/start"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="17dp"
+        android:layout_marginLeft="17dp"
+        />
+    
+    <TextView 
+        android:id="@+id/course_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginBottom="17dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/course_start_btn"
+        android:layout_marginLeft="10dp"
+        android:textColor="#ffffff"
+        android:text="asdfasdf"
+        android:textSize="16dp"
+        />
+</RelativeLayout>

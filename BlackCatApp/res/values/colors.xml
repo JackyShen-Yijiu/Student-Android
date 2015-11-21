@@ -1,0 +1,42 @@
+<resources>
+
+    <!-- app的主色调 -->
+    <color name="app_main_color">#ff6633</color>
+    <!-- 按钮按下颜色 -->
+    <color name="btn_press_color">#ff5a2b</color>
+    <!-- 全科颜色 -->
+    <color name="coach_general">#2c8ff5</color>
+    <!-- 登录，注册输入框的边框颜色 -->
+    <color name="login_register_et_stroke">#cccccc</color>
+    <!-- 登录，注册输入框的填充颜色 -->
+    <color name="login_register_et_solid">#00ffffff</color>
+    <!-- 选择教练点选按钮未选中颜色(背景) -->
+    <color name="select_coach_radiobtn_bk_noselected">#00dddddd</color>
+    <!-- 选择教练点选按钮未选中颜色(字体) -->
+    <color name="select_coach_radiobtn_text_noselected">#333333</color>
+    <!-- 报名分隔线颜色(文本框和输入框) -->
+    <color name="enroll_devider">#cccccc</color>
+    <!-- 找回密码，验证码发送-->
+    <color name="find_password_btn">#cccccc</color>
+    <!-- 选择车型未选中颜色(字体) -->
+    <color name="select_carstyle_text_noselected">#999999</color>
+    <!-- 个人中心选中颜色(背景) -->
+    <color name="person_center_press_bkground">#f3f3f4</color>
+    <!-- 更改手机号验证码按钮背景（按） -->
+    <color name="change_phone_code_btn_press">#ff841e</color>
+    <!-- 更改手机号验证码按钮背景（没按） -->
+    <color name="change_phone_code_btn_nopress">#ff9728</color>
+    <!-- 预约详情取消按钮（没按） -->
+    <color name="appointment_detail_cancel_btn_nopress">#cdd4d9</color>
+    <!--预约详情取消按钮（按） -->
+    <color name="appointment_detail_cancel_btn_press">#b8bec3</color>
+    
+    <color name="btn_gray_normal">#999999</color>
+    <color name="top_bar_normal_bg">#00acff</color>
+    <color name="btn_gray_pressed_status">#b5b5b6</color>
+    <color name="btn_blue_normal">#1e90ff</color>
+    <color name="btn_blue_pressed">#0066FF</color>
+    <color name="orange">#FFA500</color>
+    <color name="common_bg">#fcfcfc</color>
+
+</resources>

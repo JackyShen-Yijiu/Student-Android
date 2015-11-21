@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@color/appointment_detail_cancel_btn_press" android:state_pressed="true"></item>
+    <item android:drawable="@color/appointment_detail_cancel_btn_nopress" android:state_pressed="false"></item>
+
+</selector>

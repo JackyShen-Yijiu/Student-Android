@@ -1,0 +1,26 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:gravity="center"
+    android:paddingRight="6dp"
+    android:paddingLeft="6dp"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:id="@+id/select_coach_hori_headpic_im"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/select_coach_hori_name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/select_coach_hori_headpic_im"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:textColor="#333333"
+        android:textSize="14dp" />
+
+</RelativeLayout>

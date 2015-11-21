@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#00000000"
+    android:orientation="horizontal"
+    android:paddingBottom="8dp"
+    android:paddingTop="8dp" >
+
+    <CheckBox
+        android:id="@+id/studycontent_left_ck"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:button="@drawable/cancel_appointment_radio_bkground"
+        android:gravity="center_vertical"
+        android:textColor="#333333"
+        android:paddingLeft="10dp"
+        android:textSize="14dp" />
+
+    <CheckBox
+        android:id="@+id/studycontent_right_ck"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:button="@drawable/cancel_appointment_radio_bkground"
+        android:gravity="center_vertical"
+        android:textColor="#333333"
+        android:textSize="14dp"
+        android:paddingLeft="10dp"
+        android:visibility="gone" />
+
+</LinearLayout>

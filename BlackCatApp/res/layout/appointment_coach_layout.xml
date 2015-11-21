@@ -1,0 +1,66 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="90dp"
+    android:paddingLeft="15dp" >
+
+    <ImageView
+        android:id="@+id/appointment_car_headpic_im"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/app_name" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/appointment_car_headpic_im"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/appointment_car_coach_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/appointment_car_coach_shuttle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/shuttle_bkground"
+                android:contentDescription="@string/app_name"
+                android:text="@string/shuttle"
+                android:visibility="gone"
+                android:textColor="@color/app_main_color"
+                android:textSize="10dp" />
+
+            <TextView
+                android:id="@+id/appointment_car_coach_general"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:background="@drawable/general_bkground"
+                android:contentDescription="@string/app_name"
+                android:text="@string/general"
+                android:visibility="gone"
+                android:textColor="@color/coach_general"
+                android:textSize="10dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/appointment_car_school_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:textColor="#999999"
+            android:textSize="16dp" />
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00000000" >
+
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/main_bmapView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clickable="true"
+        android:visibility="gone" />
+    <!-- 高度动态控制 -->
+
+    <RelativeLayout
+        android:id="@+id/main_top_headpic_im"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="4dp" >
+
+        <cn.sft.infinitescrollviewpager.InfiniteViewPager
+            android:id="@+id/main_top_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:id="@+id/main_top_dotlayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:orientation="horizontal" >
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/main_top_defaultimage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/defaultimage"
+            android:contentDescription="@string/app_name" />
+    </RelativeLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/main_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/main_devider_im"
+        android:layout_below="@+id/main_top_headpic_im"
+        android:overScrollMode="never" />
+
+    <ImageView
+        android:id="@+id/main_devider_im"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="4dp"
+        android:layout_above="@+id/main_radiobtn"
+        android:background="#d9d9d9"
+        android:contentDescription="@string/app_name" />
+
+    <RadioGroup
+        android:id="@+id/main_radiobtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/main_leftblank1_btn"
+            style="@style/main_radiobutton" />
+
+        <RadioButton
+            android:id="@+id/main_leftblank2_btn"
+            style="@style/main_radiobutton"/>
+
+        <RadioButton
+            android:id="@+id/main_enroll_btn"
+            style="@style/main_radiobutton"
+            android:text="@string/enroll" />
+
+        <RadioButton
+            android:id="@+id/main_course1_btn"
+            style="@style/main_radiobutton"
+            android:text="@string/course1" />
+
+        <RadioButton
+            android:id="@+id/main_course2_btn"
+            style="@style/main_radiobutton"
+            android:text="@string/course2" />
+
+        <RadioButton
+            android:id="@+id/main_course3_btn"
+            style="@style/main_radiobutton"
+            android:text="@string/course3" />
+
+        <RadioButton
+            android:id="@+id/main_course4_btn"
+            style="@style/main_radiobutton"
+            android:text="@string/course4" />
+
+        <RadioButton
+            android:id="@+id/main_rightblank1_btn"
+            style="@style/main_radiobutton" />
+
+        <RadioButton
+            android:id="@+id/main_rightblank2_btn"
+            style="@style/main_radiobutton" />
+    </RadioGroup>
+
+</RelativeLayout>

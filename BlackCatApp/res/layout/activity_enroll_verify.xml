@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#00000000"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/register_registerlayout_paddingleftright"
+    android:paddingRight="@dimen/register_registerlayout_paddingleftright" >
+
+    <EditText
+        android:id="@+id/vertify_name_et"
+        style="@style/register_et_style"
+        android:hint="@string/real_name" />
+
+    <EditText
+        android:id="@+id/vertify_idcard_et"
+        style="@style/register_et_style"
+        android:hint="@string/idcard" />
+
+    <EditText
+        android:id="@+id/vertify_contact_et"
+        style="@style/register_et_style"
+        android:hint="@string/contact" />
+
+    <EditText
+        android:id="@+id/vertify_address_et"
+        style="@style/register_et_style"
+        android:ems="10"
+        android:hint="@string/address" >
+    </EditText>
+
+    <EditText
+        android:id="@+id/vertify_school_et"
+        style="@style/register_et_style"
+        android:hint="@string/belongto_school" />
+
+    <EditText
+        android:id="@+id/vertify_student_et"
+        style="@style/register_et_style"
+        android:hint="@string/student_number" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/vertify_exam_et"
+        style="@style/register_et_style"
+        android:hint="@string/exam_number" />
+
+    <Button
+        android:id="@+id/vertify_commit_btn"
+        style="@style/btn_style"
+        android:layout_marginBottom="@dimen/register_register_btn_marginbottom"
+        android:layout_marginTop="@dimen/register_register_btn_margintop"
+        android:text="@string/commit" />
+
+</LinearLayout>

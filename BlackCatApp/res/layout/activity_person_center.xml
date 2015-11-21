@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/person_center_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="15dp" >
+
+        <ImageView
+            android:id="@+id/person_center_headpic_im"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@string/app_name" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_marginLeft="10dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1" >
+
+            <TextView
+                android:id="@+id/person_center_phone_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1521654132032"
+                android:textColor="#333333"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/person_center_id_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/person_center_phone_tv"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="10dp"
+                android:text="ID:451616"
+                android:textColor="#999999"
+                android:textSize="13dp" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/person_center_arrow"
+            android:contentDescription="@string/app_name" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="15dp"
+        android:background="#e6e6e6"
+        android:contentDescription="@string/app_name" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/person_center_school_tv"
+            style="@style/person_center_text_style"
+            android:layout_width="wrap_content"
+            android:drawableLeft="@drawable/ic_launcher"
+            android:drawableRight="@null"
+            android:text="@string/enroll_school" />
+
+        <TextView
+            android:id="@+id/person_center_school_value_tv"
+            style="@style/person_center_text_style"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:drawableLeft="@null"
+            android:drawableRight="@drawable/ic_launcher"
+            android:gravity="right|center_vertical" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="15dp"
+        android:background="#e6e6e6"
+        android:contentDescription="@string/app_name" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/person_center_carstyle_tv"
+            style="@style/person_center_text_style"
+            android:layout_width="wrap_content"
+            android:drawableLeft="@drawable/ic_launcher"
+            android:drawableRight="@null"
+            android:text="@string/enroll_carstyle" />
+
+        <TextView
+            android:id="@+id/person_center_carstyle_value_tv"
+            style="@style/person_center_text_style"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:drawableLeft="@null"
+            android:drawableRight="@drawable/ic_launcher"
+            android:gravity="right|center_vertical" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#cccccc"
+        android:contentDescription="@string/app_name" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#f7f9fb"
+        android:contentDescription="@string/app_name" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#cccccc"
+        android:contentDescription="@string/app_name" />
+
+    <TextView
+        android:id="@+id/person_center_favourite_tv"
+        style="@style/person_center_text_style"
+        android:drawableLeft="@drawable/ic_launcher"
+        android:text="@string/my_favourite" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="15dp"
+        android:background="#e6e6e6"
+        android:contentDescription="@string/app_name" />
+
+    <TextView
+        android:id="@+id/person_center_coach_tv"
+        style="@style/person_center_text_style"
+        android:drawableLeft="@drawable/ic_launcher"
+        android:text="@string/my_coach" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#cccccc"
+        android:contentDescription="@string/app_name" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#f7f9fb"
+        android:contentDescription="@string/app_name" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#cccccc"
+        android:contentDescription="@string/app_name" />
+
+    <TextView
+        android:id="@+id/person_center_setting_tv"
+        style="@style/person_center_text_style"
+        android:drawableLeft="@drawable/ic_launcher"
+        android:text="@string/setting" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#cccccc"
+        android:contentDescription="@string/app_name" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#f7f9fb"
+        android:contentDescription="@string/app_name" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#cccccc"
+        android:contentDescription="@string/app_name" />
+
+    <Button
+        android:id="@+id/person_center_logout_btn"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@null"
+        android:text="@string/logout"
+        android:textColor="#333333"
+        android:textSize="14dp" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#cccccc"
+        android:contentDescription="@string/app_name" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#f7f9fb"
+        android:contentDescription="@string/app_name" />
+
+</LinearLayout>

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/enroll_rootlayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#cccccc" >
+
+    <ScrollView
+        android:id="@+id/enroll_info_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:id="@+id/enroll_carema_layout"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:background="#cccccc" >
+
+                <ImageView
+                    android:layout_width="71dp"
+                    android:layout_height="71dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/enroll_photo_layout_bkground"
+                    android:contentDescription="@string/app_name" />
+
+                <ImageView
+                    android:layout_width="29dp"
+                    android:layout_height="29dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/enroll_photo_btn_bkground"
+                    android:contentDescription="@string/app_name" />
+
+                <ImageView
+                    android:id="@+id/enroll_headpic_im"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/app_name" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:orientation="vertical" >
+
+                <EditText
+                    android:id="@+id/enroll_name_et"
+                    style="@style/enroll_et_style"
+                    android:inputType="text" />
+
+                <ImageView style="@style/enroll_devider_style" />
+
+                <EditText
+                    android:id="@+id/enroll_card_et"
+                    style="@style/enroll_et_style"
+                    android:inputType="number" />
+
+                <ImageView style="@style/enroll_devider_style" />
+
+                <EditText
+                    android:id="@+id/enroll_contact_et"
+                    style="@style/enroll_et_style"
+                    android:inputType="phone" />
+
+                <ImageView style="@style/enroll_devider_style" />
+
+                <EditText
+                    android:id="@+id/enroll_address_et"
+                    style="@style/enroll_et_style"
+                    android:inputType="text" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="#cccccc"
+                android:contentDescription="@string/app_name" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:orientation="vertical" >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/enroll_tv_height" >
+
+                    <TextView
+                        style="@style/enroll_tv_style"
+                        android:text="@string/enroll_school" />
+
+                    <TextView
+                        android:id="@+id/enroll_school_tv"
+                        style="@style/enroll_right_tv_style" />
+                </RelativeLayout>
+
+                <ImageView style="@style/enroll_devider_style" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/enroll_tv_height" >
+
+                    <TextView
+                        style="@style/enroll_tv_style"
+                        android:text="@string/enroll_carstyle" />
+
+                    <TextView
+                        android:id="@+id/enroll_carstyle_tv"
+                        style="@style/enroll_right_tv_style" />
+                </RelativeLayout>
+
+                <ImageView style="@style/enroll_devider_style" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/enroll_tv_height" >
+
+                    <TextView
+                        style="@style/enroll_tv_style"
+                        android:text="@string/enroll_coach" />
+
+                    <TextView
+                        android:id="@+id/enroll_coach_tv"
+                        style="@style/enroll_right_tv_style" />
+                </RelativeLayout>
+
+                <ImageView style="@style/enroll_devider_style" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/enroll_tv_height" >
+
+                    <TextView
+                        style="@style/enroll_tv_style"
+                        android:text="@string/enroll_class" />
+
+                    <TextView
+                        android:id="@+id/enroll_class_tv"
+                        style="@style/enroll_right_tv_style" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/enroll_commit_btn"
+                android:layout_marginTop="15dp"
+                style="@style/btn_style"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/enroll_commit_btn_height"
+                android:text="@string/commit" />
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

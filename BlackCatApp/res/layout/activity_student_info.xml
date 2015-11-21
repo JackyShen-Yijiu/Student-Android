@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#00000000" >
+
+    <ScrollView
+        android:id="@+id/student_detail_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#00000000" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/student_headpic_im"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:contentDescription="@string/app_name"
+                android:scaleType="fitXY" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="15dp" >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="73dp" >
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true" >
+
+                        <TextView
+                            android:id="@+id/student_name_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#333333"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/student_id_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/student_name_tv"
+                            android:layout_marginTop="7dp"
+                            android:textColor="#999999"
+                            android:textSize="12dp" />
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#cccccc"
+                    android:contentDescription="@string/app_name" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#cccccc"
+                    android:contentDescription="@string/app_name" />
+
+                <TextView
+                    android:id="@+id/student_car_info_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="17dp"
+                    android:text="@string/student_car"
+                    android:textColor="#333333"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="13dp"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/enroll_school_colon"
+                        android:textColor="#333333"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:id="@+id/student_school_tv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="7dp"
+                        android:layout_weight="1"
+                        android:textColor="#333333"
+                        android:textSize="14dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/car_style_colon"
+                        android:textColor="#333333"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:id="@+id/student_carstyle_tv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="7dp"
+                        android:layout_weight="1"
+                        android:textColor="#333333"
+                        android:textSize="14dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/car_progress"
+                        android:textColor="#333333"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:id="@+id/student_progress_tv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="7dp"
+                        android:layout_weight="1"
+                        android:textColor="@color/app_main_color"
+                        android:textSize="14dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/address_colon"
+                        android:textColor="#333333"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:id="@+id/student_address_tv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="7dp"
+                        android:layout_weight="1"
+                        android:textColor="#333333"
+                        android:textSize="14dp" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="17dp"
+                    android:background="#cccccc"
+                    android:contentDescription="@string/app_name" />
+
+                <RelativeLayout
+                    android:id="@+id/student_comment_comment_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:paddingTop="@dimen/coachdetail_layout_paddingtopbottom" >
+
+                    <TextView
+                        android:id="@+id/student_caochcomment_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/caoch_comment"
+                        android:textColor="#333333"
+                        android:layout_marginBottom="15dp"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:id="@+id/student_comment_nocomment_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/student_caochcomment_tv"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="15dp"
+                        android:text="@string/no_comment"
+                        android:textColor="#333333"
+                        android:textSize="14dp" />
+
+                    <me.maxwin.view.XListView
+                        android:id="@+id/student_comment_listview"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:layout_below="@+id/student_comment_nocomment_tv"
+                        android:background="#ffffff"
+                        android:cacheColorHint="#00000000"
+                        android:descendantFocusability="blocksDescendants"
+                        android:divider="@null"
+                        android:dividerHeight="1dp"
+                        android:fadingEdge="none"
+                        android:focusable="false"
+                        android:focusableInTouchMode="true"
+                        android:listSelector="@android:color/transparent"
+                        android:overScrollMode="always"
+                        android:scrollbars="none" />
+                </RelativeLayout>
+                
+                <RelativeLayout
+                    android:id="@+id/student_comment_coach_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/coachdetail_layout_paddingtopbottom" >
+
+                    <TextView
+                        android:id="@+id/student_comment_caoch_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/subject_coach"
+                        android:textColor="#333333"
+                        android:layout_marginBottom="15dp"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:id="@+id/student_comment_nocoach_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/student_comment_caoch_tv"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="15dp"
+                        android:text="@string/no_coach"
+                        android:textColor="#333333"
+                        android:textSize="14dp" />
+
+                    <me.maxwin.view.XListView
+                        android:id="@+id/student_comment_coach_listview"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:layout_below="@+id/student_comment_nocoach_tv"
+                        android:background="#ffffff"
+                        android:cacheColorHint="#00000000"
+                        android:descendantFocusability="blocksDescendants"
+                        android:divider="@null"
+                        android:dividerHeight="2dp"
+                        android:fadingEdge="none"
+                        android:focusable="false"
+                        android:focusableInTouchMode="true"
+                        android:listSelector="@android:color/transparent"
+                        android:overScrollMode="always"
+                        android:scrollbars="none" />
+                </RelativeLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

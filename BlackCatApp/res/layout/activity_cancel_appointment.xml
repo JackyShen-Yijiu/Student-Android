@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#cccccc"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:orientation="vertical"
+        android:paddingLeft="15dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="19dp"
+            android:text="@string/cancel_reason"
+            android:textColor="#333333"
+            android:textSize="14dp" />
+
+        <RadioGroup
+            android:id="@+id/cancel_appiontment_radiogroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <RadioButton
+                android:id="@+id/cancel_appointment_first_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/cancel_appointment_radio_bkground"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="@string/cancel_1"
+                android:textColor="#333333"
+                android:textSize="14dp" />
+
+            <RadioButton
+                android:id="@+id/cancel_appointment_second_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:button="@drawable/cancel_appointment_radio_bkground"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="@string/cancel_2"
+                android:textColor="#333333"
+                android:textSize="14dp" />
+
+            <RadioButton
+                android:id="@+id/cancel_appointment_three_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:button="@drawable/cancel_appointment_radio_bkground"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="@string/cancel_3"
+                android:textColor="#333333"
+                android:textSize="14dp" />
+
+            <RadioButton
+                android:id="@+id/cancel_appointment_foue_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="20dp"
+                android:button="@drawable/cancel_appointment_radio_bkground"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="@string/cancel_4"
+                android:textColor="#333333"
+                android:textSize="14dp" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
+        android:background="#ffffff"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="13dp" >
+
+        <EditText
+            android:id="@+id/cancel_appointment_et"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:gravity="top"
+            android:singleLine="false"
+            android:textColor="#333333"
+            android:textColorHint="#999999"
+            android:textSize="14dp" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:textColor="#333333"
+        android:gravity="center"
+        android:text="@string/cancel_appointment_tip" />
+
+    <Button
+        android:id="@+id/cancel_appointment_btn"
+        style="@style/btn_style"
+        android:layout_width="match_parent"
+        android:layout_margin="15dp"
+        android:text="@string/commit" />
+
+</LinearLayout>

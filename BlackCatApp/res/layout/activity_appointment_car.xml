@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:widget="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#00000000"
+    android:orientation="vertical" >
+
+    <cn.sft.pull.LoadMoreView
+        xmlns:test="http://schemas.android.com/apk/res/com.sft.blackcatapp"
+        android:id="@+id/appointment_car_horizon_listview"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:divider="@android:color/transparent"
+        test:deviderColor="#00000000"
+        test:deviderWidth="0dp" />
+
+    <TextView
+        android:id="@+id/appointment_car_no_coach_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:singleLine="false"
+        android:text="@string/appointment_car_no_coach"
+        android:textColor="#333333"
+        android:textSize="14dp" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#cccccc"
+        android:contentDescription="@string/app_name" />
+
+    <com.sft.viewutil.MyHorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="44dp" >
+
+        <RadioGroup
+            android:id="@+id/appointment_car_radiogroup"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:layout_gravity="center_vertical"
+            android:orientation="horizontal"
+            android:scrollbars="none" >
+
+            <RadioButton
+                android:id="@+id/appointment_car_first_btn"
+                style="@style/appointment_car_radiobutton"
+                android:checked="true" />
+
+            <RadioButton
+                android:id="@+id/appointment_car_second_btn"
+                style="@style/appointment_car_radiobutton" />
+
+            <RadioButton
+                android:id="@+id/appointment_car_three_btn"
+                style="@style/appointment_car_radiobutton" />
+
+            <RadioButton
+                android:id="@+id/appointment_car_four_btn"
+                style="@style/appointment_car_radiobutton" />
+
+            <RadioButton
+                android:id="@+id/appointment_car_five_btn"
+                style="@style/appointment_car_radiobutton" />
+
+            <RadioButton
+                android:id="@+id/appointment_car_six_btn"
+                style="@style/appointment_car_radiobutton" />
+
+            <RadioButton
+                android:id="@+id/appointment_car_seven_btn"
+                style="@style/appointment_car_radiobutton" />
+        </RadioGroup>
+    </com.sft.viewutil.MyHorizontalScrollView>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#cccccc"
+        android:contentDescription="@string/app_name" />
+
+    <ScrollView
+        android:id="@+id/appointment_car_time_layout"
+        android:layout_width="match_parent"
+        android:layout_height="150dp" >
+
+        <com.sft.viewutil.ScrollTimeLayout
+            android:id="@+id/appointment_car_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+        </com.sft.viewutil.ScrollTimeLayout>
+    </ScrollView>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#cccccc"
+        android:contentDescription="@string/app_name" />
+
+    <LinearLayout
+        android:id="@+id/appointment_car_shuttle_layout"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1" >
+
+            <TextView
+                android:id="@+id/appointment_car_address_title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="接送地址"
+                android:textColor="#333333"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/appointment_car_address_content_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/appointment_car_address_title_tv"
+                android:layout_marginTop="5dp"
+                android:textColor="#333333"
+                android:textSize="14dp" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="1dp"
+            android:layout_height="42dp"
+            android:layout_gravity="center_vertical"
+            android:background="#cccccc"
+            android:contentDescription="@string/app_name" />
+
+        <ImageView
+            android:id="@+id/appointment_car_location_im"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/location" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#dddddd" >
+
+        <TextView
+            android:id="@+id/appointment_car_appointtime_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:paddingLeft="20dp"
+            android:text="当前预约"
+            android:textColor="#999999"
+            android:textSize="14dp" />
+
+        <TextView
+            android:id="@+id/appointment_car_examtime_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/appointment_car_appointtime_tv"
+            android:layout_marginTop="6dp"
+            android:paddingLeft="20dp"
+            android:text="已确认"
+            android:textColor="#999999"
+            android:textSize="14dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:background="#ffffff"
+            android:orientation="horizontal"
+            android:paddingLeft="20dp" >
+
+            <TextView
+                android:id="@+id/appointment_car_select_course_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:textColor="#333333"
+                android:textSize="14dp"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/appointment_car_commit_btn"
+                style="@style/btn_style"
+                android:layout_width="match_parent"
+                android:layout_height="37dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="20dp"
+                android:text="@string/commit" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#00f2f4f6"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/shuttle_address_changlayout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="7dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="7dp"
+        android:background="@drawable/change_shuttle_addess_bkground" >
+
+        <LinearLayout
+            android:id="@+id/shuttle_address_et_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:visibility="gone" >
+
+            <ImageView
+                android:id="@+id/shuttle_address_search_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="8dp"
+                android:background="@drawable/shuttle_address_find" />
+
+            <com.sft.viewutil.ClearEditText
+                android:id="@+id/shuttle_address_edittext"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="15dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:cacheColorHint="#00000000"
+                android:ems="10"
+                android:hint="@string/input_shuttle_address"
+                android:textColor="#333333"
+                android:textSize="14dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/shuttle_address_change_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="8dp"
+            android:drawableLeft="@drawable/shuttle_address_find"
+            android:drawablePadding="8dp"
+            android:gravity="center_vertical"
+            android:text="@string/change_shuttle_address"
+            android:textColor="#999999"
+            android:textSize="14dp" />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#cccccc"
+        android:contentDescription="@string/app_name" />
+
+    <ListView
+        android:id="@+id/shuttle_address_suggest_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="15dp"
+        android:background="#ffffff"
+        android:cacheColorHint="#00000000"
+        android:descendantFocusability="blocksDescendants"
+        android:divider="#cccccc"
+        android:dividerHeight="1dp"
+        android:fadingEdge="none"
+        android:listSelector="@android:color/transparent"
+        android:overScrollMode="always"
+        android:scrollbars="none" />
+
+    <LinearLayout
+        android:id="@+id/shuttle_address_list_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#f2f4f6"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="#cccccc"
+            android:contentDescription="@string/app_name" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="#ffffff"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:text="@string/history_shuttle_address"
+            android:textColor="#333333"
+            android:textSize="14dp" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#cccccc"
+            android:contentDescription="@string/app_name" />
+
+        <ListView
+            android:id="@+id/shuttle_address_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:cacheColorHint="#00000000"
+            android:descendantFocusability="blocksDescendants"
+            android:divider="@null"
+            android:fadingEdge="none"
+            android:listSelector="@android:color/transparent"
+            android:overScrollMode="always"
+            android:scrollbars="none" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#cccccc"
+            android:contentDescription="@string/app_name" />
+    </LinearLayout>
+
+</LinearLayout>

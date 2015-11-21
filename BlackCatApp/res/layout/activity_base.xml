@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffffff" >
+
+    <LinearLayout
+        android:id="@+id/base_titlebar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base_titlebar_height"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+            <TextView
+                android:id="@+id/base_left_tv"
+                android:gravity="left|center_vertical"
+                android:layout_width="50dp"
+                android:layout_marginLeft="15dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/app_main_color"
+                android:textSize="14dp" />
+
+            <ImageButton
+                android:id="@+id/base_left_btn"
+                android:layout_width="@dimen/base_titlebar_leftright_btn_width"
+                android:layout_height="@dimen/base_titlebar_leftright_btn_height"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:contentDescription="@string/app_name" />
+
+            <TextView
+                android:id="@+id/base_title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/app_name"
+                android:textColor="#333333"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/base_right_btn"
+                android:layout_width="@dimen/base_titlebar_leftright_btn_width"
+                android:layout_height="@dimen/base_titlebar_leftright_btn_height"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:contentDescription="@string/app_name" />
+
+            <TextView
+                android:id="@+id/base_right_tv"
+                android:layout_width="wrap_content"
+                android:minWidth="50dp"
+                android:layout_marginRight="15dp"
+                android:gravity="right|center_vertical"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/app_main_color"
+                android:textSize="14dp" />
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/base_deviderline"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#cccccc"
+            android:contentDescription="@string/app_name" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/base_content_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/base_titlebar_layout"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+</RelativeLayout>

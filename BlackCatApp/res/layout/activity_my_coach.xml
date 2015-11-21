@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#00000000" >
+
+    <me.maxwin.view.XListView
+        android:id="@+id/my_coach_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:cacheColorHint="#00000000"
+        android:descendantFocusability="blocksDescendants"
+        android:divider="@null"
+        android:dividerHeight="2dp"
+        android:fadingEdge="none"
+        android:listSelector="@android:color/transparent"
+        android:overScrollMode="always"
+        android:scrollbars="none"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/my_coach_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <ImageView
+            android:id="@+id/my_coach_devider_im"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/app_name" />
+
+        <ImageView
+            android:id="@+id/my_coach_no_im"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_below="@+id/my_coach_devider_im"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/no_favourite" />
+
+        <TextView
+            android:id="@+id/my_coach_no_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/my_coach_no_im"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="19dp"
+            android:text="@string/nocoach"
+            android:textColor="#333333"
+            android:textSize="16dp" />
+    </RelativeLayout>
+
+</RelativeLayout>

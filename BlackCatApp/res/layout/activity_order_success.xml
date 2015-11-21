@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#daffffff"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:layout_width="57dp"
+        android:layout_height="52dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="87dp"
+        android:background="@drawable/order_success"
+        android:contentDescription="@string/app_name" />
+
+    <TextView
+        android:id="@+id/order_success_result_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="43dp"
+        android:text="@string/buy_success"
+        android:textColor="#009944"
+        android:textSize="36dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="62dp"
+        android:gravity="center_horizontal"
+        android:text="@string/buy_success_tip"
+        android:textColor="#4d4d4d"
+        android:textSize="12dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <Button
+            android:id="@+id/order_success_btn"
+            style="@style/btn_style"
+            android:layout_width="117dp"
+            android:layout_height="29dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="127dp"
+            android:text="@string/continue_buy"
+            android:textColor="#ffffff"
+            android:textSize="12dp" />
+    </RelativeLayout>
+
+</LinearLayout>
