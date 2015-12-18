@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="baseactivity-out">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/BlackCatApp/libs/baseactivity-out.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

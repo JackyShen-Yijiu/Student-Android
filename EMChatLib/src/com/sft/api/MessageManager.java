@@ -13,13 +13,13 @@ import com.easemob.chat.NormalFileMessageBody;
 import com.easemob.chat.TextMessageBody;
 import com.easemob.chat.VideoMessageBody;
 import com.easemob.chat.VoiceMessageBody;
-import com.sft.emchatlib.R;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.widget.Toast;
+import com.sft.emchatlib.R;
 
 @SuppressLint({ "ClickableViewAccessibility", "ShowToast" })
 public class MessageManager {
@@ -156,12 +156,12 @@ public class MessageManager {
 		File file = new File(filePath);
 		if (file == null || !file.exists()) {
 			String st7 = context.getResources().getString(R.string.File_does_not_exist);
-			Toast.makeText(context, st7, 0).show();
+			Toast.makeText(context, st7, Toast.LENGTH_SHORT).show();
 			return;
 		}
 		if (file.length() > 10 * 1024 * 1024) {
 			String st6 = context.getResources().getString(R.string.The_file_is_not_greater_than_10_m);
-			Toast.makeText(context, st6, 0).show();
+			Toast.makeText(context, st6, Toast.LENGTH_LONG).show();
 			return;
 		}
 

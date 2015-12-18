@@ -1,0 +1,7 @@
+include ':BlackCatApp'
+include ':Cropper'
+include ':EMChatLib'
+include ':InfiniteScrollViewPager'
+include ':pullrefreshloadmorelib'
+include ':QiniuTool'
+include ':SwipeRefreshLoadListview'

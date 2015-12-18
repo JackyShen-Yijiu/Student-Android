@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/BlackCatApp/BlackCatApp.iml" filepath="$PROJECT_DIR$/BlackCatApp/BlackCatApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Cropper/Cropper.iml" filepath="$PROJECT_DIR$/Cropper/Cropper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/EMChatLib/EMChatLib.iml" filepath="$PROJECT_DIR$/EMChatLib/EMChatLib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/InfiniteScrollViewPager/InfiniteScrollViewPager.iml" filepath="$PROJECT_DIR$/InfiniteScrollViewPager/InfiniteScrollViewPager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/QiniuTool/QiniuTool.iml" filepath="$PROJECT_DIR$/QiniuTool/QiniuTool.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SwipeRefreshLoadListview/SwipeRefreshLoadListview.iml" filepath="$PROJECT_DIR$/SwipeRefreshLoadListview/SwipeRefreshLoadListview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pullrefreshloadmorelib/pullrefreshloadmorelib.iml" filepath="$PROJECT_DIR$/pullrefreshloadmorelib/pullrefreshloadmorelib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/student.iml" filepath="$PROJECT_DIR$/student.iml" />
+    </modules>
+  </component>
+</project>

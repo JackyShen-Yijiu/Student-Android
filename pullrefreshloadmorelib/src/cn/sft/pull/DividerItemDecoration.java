@@ -10,33 +10,22 @@ import android.view.View;
 
 public class DividerItemDecoration extends RecyclerView.ItemDecoration {
 
-	/*
-	 * RecyclerViewµÄ²¼¾Ö·½Ïò£¬Ä¬ÈÏÏÈ¸³Öµ Îª×İÏò²¼¾Ö RecyclerView ²¼¾Ö¿ÉºáÏò£¬Ò²¿É×İÏò ºáÏòºÍ×İÏò¶ÔÓ¦µÄ·Ö¸îÏë»­·¨²»Ò»Ñù
-	 */
+
 	private int mOrientation = LinearLayoutManager.VERTICAL;
 
-	/**
-	 * itemÖ®¼ä·Ö¸îÏßµÄsize£¬Ä¬ÈÏÎª1
-	 */
+
 	private int mItemSize = 1;
 
-	/**
-	 * »æÖÆitem·Ö¸îÏßµÄ»­±Ê£¬ºÍÉèÖÃÆäÊôĞÔ À´»æÖÆ¸öĞÔ·Ö¸îÏß
-	 */
+
 	private Paint mPaint;
 
-	/**
-	 * ¹¹Ôì·½·¨´«Èë²¼¾Ö·½Ïò£¬²»¿É²»´«
-	 * 
-	 * @param context
-	 * @param orientation
-	 */
+
 	public DividerItemDecoration(Context context, int orientation,
 			int deviderWidth, int deviderColor) {
 		this.mOrientation = orientation;
 		if (orientation != LinearLayoutManager.VERTICAL
 				&& orientation != LinearLayoutManager.HORIZONTAL) {
-			throw new IllegalArgumentException("Çë´«ÈëÕıÈ·µÄ²ÎÊı");
+			throw new IllegalArgumentException("ï¿½ë´«ï¿½ï¿½ï¿½ï¿½È·ï¿½Ä²ï¿½ï¿½ï¿½");
 		}
 		// mItemSize = (int) TypedValue.applyDimension((int) deviderWidth,
 		// TypedValue.COMPLEX_UNIT_DIP, context.getResources()
@@ -44,7 +33,7 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
 		mItemSize = deviderWidth;
 		mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 		mPaint.setColor(deviderColor);
-		/* ÉèÖÃÌî³ä */
+		/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 		mPaint.setStyle(Paint.Style.FILL);
 	}
 
@@ -57,12 +46,7 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
 		}
 	}
 
-	/**
-	 * »æÖÆ×İÏò item ·Ö¸îÏß
-	 * 
-	 * @param canvas
-	 * @param parent
-	 */
+
 	private void drawVertical(Canvas canvas, RecyclerView parent) {
 		final int left = parent.getPaddingLeft();
 		final int right = parent.getMeasuredWidth() - parent.getPaddingRight();
@@ -77,12 +61,7 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
 		}
 	}
 
-	/**
-	 * »æÖÆºáÏò item ·Ö¸îÏß
-	 * 
-	 * @param canvas
-	 * @param parent
-	 */
+
 	private void drawHorizontal(Canvas canvas, RecyclerView parent) {
 		final int top = parent.getPaddingTop();
 		final int bottom = parent.getMeasuredHeight()
@@ -98,14 +77,6 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
 		}
 	}
 
-	/**
-	 * ÉèÖÃitem·Ö¸îÏßµÄsize
-	 * 
-	 * @param outRect
-	 * @param view
-	 * @param parent
-	 * @param state
-	 */
 	@Override
 	public void getItemOffsets(Rect outRect, View view, RecyclerView parent,
 			RecyclerView.State state) {
