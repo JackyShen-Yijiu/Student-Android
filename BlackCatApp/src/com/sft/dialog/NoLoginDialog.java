@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.sft.blackcatapp.MainActivity;
+import com.sft.blackcatapp.OldMainActivity;
 import com.sft.blackcatapp.R;
 
 @SuppressLint("InflateParams")
@@ -63,7 +63,7 @@ public class NoLoginDialog extends Dialog implements
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.dialog_no_login_confirm_btn:
-			context.sendBroadcast(new Intent(MainActivity.class.getName())
+			context.sendBroadcast(new Intent(OldMainActivity.class.getName())
 					.putExtra("isRequestLogin", true));
 			dismiss();
 			break;

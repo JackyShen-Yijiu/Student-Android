@@ -41,7 +41,7 @@ public class EnrollSuccessActivity extends BaseActivity {
 		switch (v.getId()) {
 		case R.id.base_left_btn:
 		case R.id.base_right_tv:
-			sendBroadcast(new Intent(MainActivity.class.getName()).putExtra(
+			sendBroadcast(new Intent(OldMainActivity.class.getName()).putExtra(
 					"isEnrollSuccess", true));
 			finish();
 			break;
@@ -51,7 +51,7 @@ public class EnrollSuccessActivity extends BaseActivity {
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			sendBroadcast(new Intent(MainActivity.class.getName()).putExtra(
+			sendBroadcast(new Intent(OldMainActivity.class.getName()).putExtra(
 					"isEnrollSuccess", true));
 		}
 		return super.onKeyDown(keyCode, event);

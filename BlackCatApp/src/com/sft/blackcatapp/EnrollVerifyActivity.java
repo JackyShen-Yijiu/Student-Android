@@ -214,7 +214,7 @@ public class EnrollVerifyActivity extends BaseActivity {
 
 					@Override
 					public void onDismiss(DialogInterface dialog) {
-						sendBroadcast(new Intent(MainActivity.class.getName()).putExtra("isVertify", true));
+						sendBroadcast(new Intent(OldMainActivity.class.getName()).putExtra("isVertify", true));
 						finish();
 					}
 				});

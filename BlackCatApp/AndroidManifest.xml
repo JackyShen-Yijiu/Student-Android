@@ -67,7 +67,10 @@
             android:name="com.sft.blackcatapp.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.sft.blackcatapp.MainActivity"
+            android:name=".OldMainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.sft.blackcatapp.RegisterActivity"

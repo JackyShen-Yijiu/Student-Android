@@ -228,4 +228,13 @@
     <string name="unpress_end">松开&#160;结束</string>
     <string name="unpress_cancel">松开手指取消发送</string>
 
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="drawer_open">open</string>
+    <string name="drawer_close">close</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

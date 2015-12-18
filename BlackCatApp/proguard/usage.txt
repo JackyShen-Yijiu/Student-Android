@@ -1158,7 +1158,7 @@ com.sft.blackcatapp.LoginActivity:
     private static final java.lang.String login
     private static final java.lang.String version
     private static final java.lang.String qiniutoken
-com.sft.blackcatapp.MainActivity:
+com.sft.blackcatapp.OldMainActivity:
     private static final java.lang.String subjectContent
     private static final java.lang.String headlineNews
     private static final java.lang.String coach

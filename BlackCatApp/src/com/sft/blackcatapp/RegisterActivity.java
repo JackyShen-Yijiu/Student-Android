@@ -237,7 +237,7 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 	public void loginResult(boolean result, int code, String message) {
 		if (result) {
 			app.isLogin = true;
-			Intent intent = new Intent(this, MainActivity.class);
+			Intent intent = new Intent(this, OldMainActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(intent);

@@ -2,10 +2,12 @@ package com.sft.util;
 
 import com.sft.blackcatapp.R;
 
+import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.os.Build;
 import android.widget.RemoteViews;
 
 /**
@@ -143,7 +145,25 @@ public class MyNotification {
 	 */
 	@SuppressWarnings("deprecation")
 	public void changeNotificationText(String content) {
-		notification.setLatestEventInfo(mContext, titleStr, content, contentIntent);
+
+		final int sdkVersion = Integer.parseInt(Build.VERSION.SDK);
+
+
+			if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
+				if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+					Notification noti = new Notification.Builder(mContext)
+                            .setContentTitle(titleStr)
+                            .setContentText(content)
+                                    //.setSmallIcon(R.drawable.new_mail)
+                                    //.setLargeIcon(aBitmap)
+                            .build(); // available from API level 11 and onwards
+				} else {
+
+                }
+			} else {
+
+			}
+
 
 		// 设置setLatestEventInfo方法,如果不设置会App报错异常
 		// NotificationManager mNotificationManager = (NotificationManager)

@@ -122,7 +122,7 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 			login();
 			break;
 		case R.id.login_lookaround_btn:
-			intent = new Intent(this, MainActivity.class);
+			intent = new Intent(this, OldMainActivity.class);
 			break;
 		case R.id.login_forget_tv:
 			intent = new Intent(this, FindPasswordActivity.class);
@@ -251,7 +251,7 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 
 			if (isMyServiceRunning()) {
 				app.isLogin = true;
-				Intent intent = new Intent(this, MainActivity.class);
+				Intent intent = new Intent(this, OldMainActivity.class);
 				startActivity(intent);
 				finish();
 			} else {
@@ -297,21 +297,21 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 					@Override
 					public void onDismiss(DialogInterface dialog) {
 						app.isLogin = true;
-						Intent intent = new Intent(context, MainActivity.class);
+						Intent intent = new Intent(context, OldMainActivity.class);
 						startActivity(intent);
 						finish();
 					}
 				});
 			} else {
 				app.isLogin = true;
-				Intent intent = new Intent(context, MainActivity.class);
+				Intent intent = new Intent(context, OldMainActivity.class);
 				startActivity(intent);
 				finish();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			app.isLogin = true;
-			Intent intent = new Intent(context, MainActivity.class);
+			Intent intent = new Intent(context, OldMainActivity.class);
 			startActivity(intent);
 			finish();
 		}

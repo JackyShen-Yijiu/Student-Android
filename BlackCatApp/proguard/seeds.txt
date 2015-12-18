@@ -24194,8 +24194,8 @@ com.sft.blackcatapp.FindPasswordActivity
 com.sft.blackcatapp.FindPasswordActivity: FindPasswordActivity()
 com.sft.blackcatapp.LoginActivity
 com.sft.blackcatapp.LoginActivity: LoginActivity()
-com.sft.blackcatapp.MainActivity
-com.sft.blackcatapp.MainActivity: MainActivity()
+com.sft.blackcatapp.OldMainActivity
+com.sft.blackcatapp.OldMainActivity: MainActivity()
 com.sft.blackcatapp.MallActivity
 com.sft.blackcatapp.MallActivity: MallActivity()
 com.sft.blackcatapp.MapActivity
