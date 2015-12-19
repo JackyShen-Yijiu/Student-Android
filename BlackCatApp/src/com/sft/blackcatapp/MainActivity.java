@@ -1,7 +1,12 @@
 package com.sft.blackcatapp;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +16,14 @@ import android.widget.AdapterView.OnItemClickListener;
 
 import com.sft.adapter.MenuAdapter;
 import com.sft.common.MenuInfo;
+import com.sft.fragment.IntroducesFragment;
+import com.sft.fragment.SubjectFourFragment;
+import com.sft.fragment.SubjectOneFragment;
+import com.sft.fragment.SubjectThreeFragment;
+import com.sft.fragment.SubjectTwoFragment;
+
+import java.util.LinkedList;
+import java.util.List;
 
 import cn.sft.infinitescrollviewpager.BitMapURLExcepteionListner;
 import cn.sft.infinitescrollviewpager.PageChangeListener;
@@ -27,6 +40,8 @@ public class MainActivity extends FragmentActivity implements PageChangeListener
     private ListView mLvMenu;
     private MenuAdapter mMenuAdapter;
     private View mMenuHeaderView;
+    private ViewPager mVpFragment;
+    private HomePageAdapter mHomePageAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +80,15 @@ public class MainActivity extends FragmentActivity implements PageChangeListener
             }
         });
 
+        mVpFragment = (ViewPager) findViewById(R.id.vp_home);
+        
+        mHomePageAdapter = new HomePageAdapter(this.getSupportFragmentManager());
+        mHomePageAdapter.addFragmentClass(IntroducesFragment.class);
+        mHomePageAdapter.addFragmentClass(SubjectOneFragment.class);
+        mHomePageAdapter.addFragmentClass(SubjectTwoFragment.class);
+        mHomePageAdapter.addFragmentClass(SubjectThreeFragment.class);
+        mHomePageAdapter.addFragmentClass(SubjectFourFragment.class);
+        mVpFragment.setAdapter(mHomePageAdapter);
 	}
 
 	@Override
@@ -75,5 +99,32 @@ public class MainActivity extends FragmentActivity implements PageChangeListener
 	@Override
 	public void onPageChanged(int position) {
 
+	}
+	
+	private class HomePageAdapter extends FragmentStatePagerAdapter {
+	    
+	    private List<Class<? extends Fragment>> mData = new LinkedList<Class<? extends Fragment>>();
+
+        public HomePageAdapter(FragmentManager fm) {
+            super(fm);
+            // TODO Auto-generated constructor stub
+        }
+
+        @Override
+        public Fragment getItem(int arg0) {
+            // TODO Auto-generated method stub
+            Class<? extends Fragment> fragClass = mData.get(arg0);
+            return   Fragment.instantiate(MainActivity.this, fragClass.getName(), null);
+        }
+
+        @Override
+        public int getCount() {
+            // TODO Auto-generated method stub
+            return mData.size();
+        }
+
+	    public void addFragmentClass(Class<? extends Fragment> fragClass) {
+	        mData.add(fragClass);
+	    }
 	}
 }

@@ -25,7 +25,7 @@ public class MenuFragment extends Fragment {
     ViewGroup container, @Nullable
     Bundle savedInstanceState) {
         // TODO Auto-generated method stub
-        view = inflater.inflate(R.layout.menu_fragment, container, false);
+        view = inflater.inflate(R.layout.introduces_fragment, container, false);
         
         mLvMenu = (ListView) view.findViewById(R.id.lv_menu);
         mMenuAdapter = new MenuAdapter();

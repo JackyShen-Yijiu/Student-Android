@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.sft.blackcatapp.R;
 
-public class MainFragment extends Fragment {
+public class SubjectFourFragment extends Fragment {
     
     private View view;
 
@@ -17,7 +17,7 @@ public class MainFragment extends Fragment {
     ViewGroup container, @Nullable
     Bundle savedInstanceState) {
         // TODO Auto-generated method stub
-        view = inflater.inflate(R.layout.menu_fragment, container, false);
+        view = inflater.inflate(R.layout.subject_four_fragment, container, false);
 
         return view;
     }
