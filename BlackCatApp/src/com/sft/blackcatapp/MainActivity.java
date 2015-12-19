@@ -1,9 +1,7 @@
 package com.sft.blackcatapp;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.widget.AdapterView;
@@ -50,6 +48,10 @@ public class MainActivity extends FragmentActivity implements PageChangeListener
                 // TODO Auto-generated method stub
                 if (position == 0) {
                     
+                } else {
+                    //MenuInfo info = (MenuInfo) mMenuAdapter.getItem(position);
+                    //Class<? extends Activity> mClass = info.mActivityClass;
+                    
                 }
             }
         });
@@ -65,15 +67,4 @@ public class MainActivity extends FragmentActivity implements PageChangeListener
 	public void onPageChanged(int position) {
 
 	}
-	
-/*    public void switchContent(final Fragment fragment) {
-        mDrawerLayout.closeDrawers();
-        FragmentManager fm = getSupportFragmentManager();
-        try {
-            fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-            fm.beginTransaction().replace(R.id.frame_content, fragment).commit();
-        } catch (Exception e) {
-            fm.beginTransaction().replace(R.id.frame_content, fragment).commitAllowingStateLoss();
-        }
-    }*/
 }
