@@ -3,6 +3,7 @@ package com.sft.blackcatapp;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -25,6 +26,7 @@ public class MainActivity extends FragmentActivity implements PageChangeListener
 	private DrawerLayout mDrawerLayout;
     private ListView mLvMenu;
     private MenuAdapter mMenuAdapter;
+    private View mMenuHeaderView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,8 @@ public class MainActivity extends FragmentActivity implements PageChangeListener
         mMenuAdapter.addMenuItem(new MenuInfo(R.drawable.market, "商城"));
         mMenuAdapter.addMenuItem(new MenuInfo(R.drawable.me, "我"));
         
+        mMenuHeaderView = LayoutInflater.from(this).inflate(R.layout.menu_top, null);
+        mLvMenu.addHeaderView(mMenuHeaderView);
         mLvMenu.setAdapter(mMenuAdapter);
         
         mLvMenu.setOnItemClickListener(new OnItemClickListener() {

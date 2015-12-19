@@ -26,7 +26,8 @@
         android:layout_width="240dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@drawable/bg" >
+        android:paddingTop="30dp"
+        android:background="@drawable/bg">
 
         <ListView
             android:id="@+id/lv_menu"
