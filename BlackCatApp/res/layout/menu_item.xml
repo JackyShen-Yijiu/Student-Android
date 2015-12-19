@@ -6,7 +6,7 @@
     android:paddingTop="12dp"
     android:paddingBottom="12dp"
     android:paddingLeft="12dp"
-    android:background="#ffffff">
+    android:background="@android:color/transparent">
     
     <ImageView android:id="@+id/iv_menu_item" 
         android:layout_width="24dp"
