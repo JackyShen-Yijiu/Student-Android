@@ -8,6 +8,7 @@ dependencies {
     compile project(':pullrefreshloadmorelib')
     compile project(':QiniuTool')
     compile project(':EMChatLib')
+    compile project(':SlidingMenu')
 }
 
 android {
