@@ -37,12 +37,12 @@ public class MainActivity extends FragmentActivity implements PageChangeListener
         mLvMenu = (ListView) findViewById(R.id.lv_menu);
         mMenuAdapter = new MenuAdapter();
         
-        mMenuAdapter.addMenuItem(new MenuInfo(R.drawable.home, "首页", OldMainActivity.class));
-        mMenuAdapter.addMenuItem(new MenuInfo(R.drawable.search_coach, "查找教练", OldMainActivity.class));
-        mMenuAdapter.addMenuItem(new MenuInfo(R.drawable.messagelist, "消息", OldMainActivity.class));
-        mMenuAdapter.addMenuItem(new MenuInfo(R.drawable.signin, "签到", OldMainActivity.class));
-        mMenuAdapter.addMenuItem(new MenuInfo(R.drawable.market, "商城", OldMainActivity.class));
-        mMenuAdapter.addMenuItem(new MenuInfo(R.drawable.me, "我", OldMainActivity.class));
+        mMenuAdapter.addMenuItem(new MenuInfo(R.drawable.home, "首页"));
+        mMenuAdapter.addMenuItem(new MenuInfo(R.drawable.search_coach, "查找教练"));
+        mMenuAdapter.addMenuItem(new MenuInfo(R.drawable.messagelist, "消息"));
+        mMenuAdapter.addMenuItem(new MenuInfo(R.drawable.signin, "签到"));
+        mMenuAdapter.addMenuItem(new MenuInfo(R.drawable.market, "商城"));
+        mMenuAdapter.addMenuItem(new MenuInfo(R.drawable.me, "我"));
         
         mLvMenu.setAdapter(mMenuAdapter);
         
@@ -50,12 +50,13 @@ public class MainActivity extends FragmentActivity implements PageChangeListener
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // TODO Auto-generated method stub
-                if (position == 0) {
+                switch (position) {
+                    case 0:
+                        
+                        break;
 
-                } else {
-                    //MenuInfo info = (MenuInfo) mMenuAdapter.getItem(position);
-                    //Class<? extends Activity> mClass = info.mActivityClass;
-
+                    default:
+                        break;
                 }
             }
         });

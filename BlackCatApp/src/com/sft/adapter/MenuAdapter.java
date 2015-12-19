@@ -59,9 +59,6 @@ public class MenuAdapter extends BaseAdapter {
         return convertView;
     }
     
-    public void addMenuItem(int picResId, String name, Class<? extends Activity> fragmentClass) {
-        mData.add(new MenuInfo(picResId, name, fragmentClass));
-    }
     
     public void addMenuItem(MenuInfo menuInfo) {
         mData.add(menuInfo);

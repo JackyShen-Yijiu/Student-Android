@@ -30,8 +30,8 @@ public class MenuFragment extends Fragment {
         mLvMenu = (ListView) view.findViewById(R.id.lv_menu);
         mMenuAdapter = new MenuAdapter();
         
-        mMenuAdapter.addMenuItem(new MenuInfo(R.drawable.app_logo, "首页", OldMainActivity.class));
-        mMenuAdapter.addMenuItem(new MenuInfo(R.drawable.app_logo, "查找驾校", OldMainActivity.class));
+        mMenuAdapter.addMenuItem(new MenuInfo(R.drawable.app_logo, "首页"));
+        mMenuAdapter.addMenuItem(new MenuInfo(R.drawable.app_logo, "查找驾校"));
         
         mLvMenu.setAdapter(mMenuAdapter);
         
