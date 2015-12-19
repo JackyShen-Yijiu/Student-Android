@@ -1,15 +1,15 @@
 package com.sft.common;
 
-import android.support.v4.app.Fragment;
+import android.app.Activity;
 
 public class MenuInfo {
     public int mResID;
     public String mName;
-    public Class<? extends Fragment> mFragmentClass;
+    public Class<? extends Activity> mActivityClass;
     
-    public MenuInfo(int picResId, String name, Class<? extends Fragment> fragmentClass) {
+    public MenuInfo(int picResId, String name, Class<? extends Activity> activityClass) {
         mResID = picResId;
         mName = name;
-        mFragmentClass = fragmentClass;
+        mActivityClass = activityClass;
     }
 }

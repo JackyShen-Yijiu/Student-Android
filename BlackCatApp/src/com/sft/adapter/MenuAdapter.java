@@ -1,5 +1,6 @@
 package com.sft.adapter;
 
+import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.TextureView;
@@ -58,7 +59,7 @@ public class MenuAdapter extends BaseAdapter {
         return convertView;
     }
     
-    public void addMenuItem(int picResId, String name, Class<? extends Fragment> fragmentClass) {
+    public void addMenuItem(int picResId, String name, Class<? extends Activity> fragmentClass) {
         mData.add(new MenuInfo(picResId, name, fragmentClass));
     }
     

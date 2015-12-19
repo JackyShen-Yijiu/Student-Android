@@ -5,6 +5,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.AdapterView.OnItemClickListener;
+
+import com.sft.adapter.MenuAdapter;
+import com.sft.common.MenuInfo;
+
 import cn.sft.infinitescrollviewpager.BitMapURLExcepteionListner;
 import cn.sft.infinitescrollviewpager.PageChangeListener;
 
@@ -14,10 +22,11 @@ import cn.sft.infinitescrollviewpager.PageChangeListener;
  * @author Administrator
  * 
  */
-@SuppressWarnings("deprecation")
 public class MainActivity extends FragmentActivity implements PageChangeListener, BitMapURLExcepteionListner {
 
 	private DrawerLayout mDrawerLayout;
+    private ListView mLvMenu;
+    private MenuAdapter mMenuAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +35,24 @@ public class MainActivity extends FragmentActivity implements PageChangeListener
 
 		//设置抽屉DrawerLayout
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+		
+        mLvMenu = (ListView) findViewById(R.id.lv_menu);
+        mMenuAdapter = new MenuAdapter();
+        
+        mMenuAdapter.addMenuItem(new MenuInfo(R.drawable.app_logo, "首页", OldMainActivity.class));
+        mMenuAdapter.addMenuItem(new MenuInfo(R.drawable.app_logo, "查找驾校", OldMainActivity.class));
+        
+        mLvMenu.setAdapter(mMenuAdapter);
+        
+        mLvMenu.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // TODO Auto-generated method stub
+                if (position == 0) {
+                    
+                }
+            }
+        });
 
 	}
 
@@ -39,7 +66,7 @@ public class MainActivity extends FragmentActivity implements PageChangeListener
 
 	}
 	
-    public void switchContent(final Fragment fragment) {
+/*    public void switchContent(final Fragment fragment) {
         mDrawerLayout.closeDrawers();
         FragmentManager fm = getSupportFragmentManager();
         try {
@@ -48,11 +75,5 @@ public class MainActivity extends FragmentActivity implements PageChangeListener
         } catch (Exception e) {
             fm.beginTransaction().replace(R.id.frame_content, fragment).commitAllowingStateLoss();
         }
-
-/*        mHandler.postDelayed(new Runnable() {
-            public void run() {
-                getSlidingMenu().showContent();
-            }
-        }, 50);*/
-    }
+    }*/
 }

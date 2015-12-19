@@ -9,11 +9,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.AdapterView.OnItemSelectedListener;
-
-import com.kankan.phone.MainActivity;
 import com.sft.adapter.MenuAdapter;
-import com.sft.blackcatapp.MallActivity;
+import com.sft.blackcatapp.OldMainActivity;
 import com.sft.blackcatapp.R;
 import com.sft.common.MenuInfo;
 
@@ -33,8 +30,8 @@ public class MenuFragment extends Fragment {
         mLvMenu = (ListView) view.findViewById(R.id.lv_menu);
         mMenuAdapter = new MenuAdapter();
         
-        mMenuAdapter.addMenuItem(new MenuInfo(R.drawable.app_logo, "首页", MenuFragment.class));
-        mMenuAdapter.addMenuItem(new MenuInfo(R.drawable.app_logo, "查找驾校", MenuFragment.class));
+        mMenuAdapter.addMenuItem(new MenuInfo(R.drawable.app_logo, "首页", OldMainActivity.class));
+        mMenuAdapter.addMenuItem(new MenuInfo(R.drawable.app_logo, "查找驾校", OldMainActivity.class));
         
         mLvMenu.setAdapter(mMenuAdapter);
         
@@ -42,7 +39,9 @@ public class MenuFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // TODO Auto-generated method stub
-                
+                if (position == 0) {
+                    
+                }
             }
         });
         return view;
@@ -54,8 +53,8 @@ public class MenuFragment extends Fragment {
         super.onResume();
     }
     
-    public void openFragment(Class<? extends Fragment> fragmentClass, Bundle arguments) {
+/*    public void openFragment(Class<? extends Fragment> fragmentClass, Bundle arguments) {
         Fragment fragment = Fragment.instantiate(getActivity(), fragmentClass.getName(), arguments);
-        ((MallActivity) getActivity()).switchContent(fragment);
-    }
+        ((MainActivity) getActivity()).switchContent(fragment);
+    }*/
 }
