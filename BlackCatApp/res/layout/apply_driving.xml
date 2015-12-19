@@ -1,0 +1,215 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:id="@+id/ll_title"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#ccc"
+        android:orientation="horizontal" >
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_title"
+        android:layout_marginTop="21dp" >
+
+        <TextView
+            android:id="@+id/textView_title_one"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="25dp"
+            android:background="@drawable/press_one"
+            android:gravity="center"
+            android:text="选择驾校"
+            android:textColor="#fff"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textView_title_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/unpress_two"
+            android:gravity="center"
+            android:text="填写信息"
+            android:textColor="#333"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textView_title_three"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="18dp"
+            android:layout_toRightOf="@+id/textView_title_two"
+            android:background="@drawable/unpress_three"
+            android:gravity="center"
+            android:text="报名验证"
+            android:textColor="#333"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_title_one"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_below="@+id/rl_title"
+        android:layout_marginTop="21dp"
+        android:background="#ccc"
+        android:orientation="horizontal" >
+    </LinearLayout>
+
+    <!-- 1 -->
+    <RelativeLayout
+        android:id="@+id/rl_msg_one"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_title_one"
+        android:background="@drawable/bg_item" >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="17dp"
+        android:textColor="#333"
+        android:text="驾照类型" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="24dp"
+        android:drawableRight="@drawable/arrow_right"
+        android:drawablePadding="10dp"
+        android:textSize="14sp"
+        android:textColor="#999"
+        android:text="C1小车手动挡" />
+</RelativeLayout>
+
+    <!-- 2 -->
+<RelativeLayout
+        android:id="@+id/rl_msg_two"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_msg_one"
+        android:background="@drawable/bg_item" >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="17dp"
+        android:textColor="#333"
+        android:text="报考驾校" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="24dp"
+        android:drawableRight="@drawable/arrow_right"
+        android:drawablePadding="10dp"
+        android:textSize="14sp"
+        android:textColor="#999"
+        android:text="一步互联网驾校" />
+</RelativeLayout>
+
+<!-- 3 -->
+<RelativeLayout
+        android:id="@+id/rl_msg_three"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_msg_two"
+        android:background="@drawable/bg_item" >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="17dp"
+        android:textColor="#333"
+        android:text="报考班型" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="24dp"
+        android:drawableRight="@drawable/arrow_right"
+        android:drawablePadding="10dp"
+        android:textSize="14sp"
+        android:textColor="#999"
+        android:text="一步互联网驾校快班" />
+</RelativeLayout>
+
+<!-- 4 -->
+   <RelativeLayout
+        android:id="@+id/rl_msg_four"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_msg_three"
+        android:background="@drawable/bg_item" >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="17dp"
+        android:textColor="#333"
+        android:text="报考教练" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="24dp"
+        android:drawableRight="@drawable/arrow_right"
+        android:drawablePadding="10dp"
+        android:textSize="14sp"
+        android:textColor="#999"
+        android:text="系统分配" />
+</RelativeLayout>
+
+   <TextView
+       android:id="@+id/textView1"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignParentLeft="true"
+       android:layout_below="@+id/rl_msg_four"
+       android:layout_marginLeft="16dp"
+       android:layout_marginTop="16dp"
+       android:textColor="#f00"
+       android:textSize="12sp"
+       android:text="温馨提示:" />
+
+   <TextView
+       android:id="@+id/textView2"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignLeft="@+id/textView1"
+       android:layout_marginTop="5dp"
+       android:layout_marginRight="15dp"
+       android:layout_below="@+id/textView1"
+       android:text="     请认真填写以上信息，您填写的信息将作为报名信息录入车考驾照系统内，如果信息错误，将影响你的报名流程。"
+       android:textSize="10sp" />
+
+   <Button
+       android:id="@+id/button_next"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_alignParentBottom="true"
+       android:layout_centerHorizontal="true"
+       android:background="#ff6633"
+       android:textSize="16sp"
+       android:textColor="#ffffff"
+       android:text="提交" />
+  
+</RelativeLayout>

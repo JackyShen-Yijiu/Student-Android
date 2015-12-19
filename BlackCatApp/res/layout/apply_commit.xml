@@ -1,0 +1,175 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:id="@+id/ll_title"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#ccc"
+        android:orientation="horizontal" >
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_title"
+        android:layout_marginTop="21dp" >
+
+        <TextView
+            android:id="@+id/textView_title_one"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="25dp"
+            android:background="@drawable/unpress_one"
+            android:gravity="center"
+            android:text="选择驾校"
+            android:textColor="#333"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textView_title_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/unpress_two"
+            android:gravity="center"
+            android:text="填写信息"
+            android:textColor="#333"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textView_title_three"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="22dp"
+            android:background="@drawable/press_three"
+            android:gravity="center"
+            android:text="报名验证"
+            android:textColor="#fff"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_title_one"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_below="@+id/rl_title"
+        android:layout_marginTop="21dp"
+        android:background="#ccc"
+        android:orientation="horizontal" >
+    </LinearLayout>
+   <Button
+       android:id="@+id/button_next"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_alignParentBottom="true"
+       android:layout_centerHorizontal="true"
+       android:background="#ff6633"
+       android:textSize="16sp"
+       android:textColor="#ffffff"
+       android:text="下一步" />
+
+   <TextView
+       android:id="@+id/textView1"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignParentLeft="true"
+       android:layout_below="@+id/ll_title_one"
+       android:layout_marginLeft="16dp"
+       android:layout_marginTop="16dp"
+       android:textColor="#f00"
+       android:textSize="12sp"
+       android:text="恭喜您，报名成功！" />
+
+   <TextView
+       android:id="@+id/textView2"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignLeft="@+id/textView1"
+       android:layout_below="@+id/textView1"
+       android:layout_marginTop="5dp"
+       android:layout_marginRight="8dp"
+       android:text="请您于7日内携带资料前往您所报名的驾校确认报名信息，并支付报名费用。"
+       android:textSize="12sp" />
+
+   <TextView
+       android:id="@+id/textView3"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_below="@+id/textView2"
+       android:layout_centerHorizontal="true"
+       android:text="您的订单报名二维码"
+       android:textColor="#f00"
+       android:textSize="12sp" />
+
+   <ImageView
+       android:id="@+id/imageView1"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_below="@+id/textView3"
+       android:layout_centerHorizontal="true"
+       android:layout_marginTop="10dp"
+       android:src="@drawable/dimension" />
+
+   <TextView
+       android:id="@+id/textView4"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_below="@+id/imageView1"
+       android:layout_centerHorizontal="true"
+       android:layout_marginTop="10dp"
+       android:textColor="#f00"
+       android:textSize="12sp"
+       android:text="您的订单编码号为：1234567898907" />
+
+   <TextView
+       android:id="@+id/textView5"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignLeft="@+id/textView2"
+       android:layout_below="@+id/textView4"
+       android:layout_marginTop="15dp"
+       android:textColor="#f00"
+       android:textSize="12sp"
+       android:text="携带资料说明：" />
+
+   <TextView
+       android:id="@+id/textView6"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignLeft="@+id/textView5"
+       android:layout_below="@+id/textView5"
+       android:layout_marginTop="5dp"
+       android:layout_marginRight="8dp"
+       android:textSize="12sp"
+       android:text="    报名时请您携带身份证，体检表，户口本，报名电子订单二维码，相关流程如有疑问请致电：010-1234354。" />
+      <TextView
+       android:id="@+id/textView7"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignLeft="@+id/textView2"
+       android:layout_below="@+id/textView6"
+       android:layout_marginTop="15dp"
+       android:textColor="#f00"
+       android:textSize="12sp"
+       android:text="订单二维码使用说明：" />
+
+   <TextView
+       android:id="@+id/textView8"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignLeft="@+id/textView5"
+       android:layout_below="@+id/textView7"
+       android:layout_marginTop="5dp"
+       android:layout_marginRight="8dp"
+       android:textSize="12sp"
+       android:text="    再确认订单信息时，只需将此二维码提供给驾校工作人员即可，有工作人员扫描二维码，确认报名信息。" />
+  
+</RelativeLayout>
