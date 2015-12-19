@@ -70,6 +70,9 @@
             android:name="com.sft.blackcatapp.MainActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name="com.sft.blackcatapp.OldMainActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="com.sft.blackcatapp.RegisterActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -354,7 +357,7 @@
         <!-- 设置推送应用的appkey d9f9dc8db6bc3dd2c913ced0 test:a9d3780a093c23df7e3e2402 -->
         <meta-data
             android:name="JPUSH_APPKEY"
-            android:value="d9f9dc8db6bc3dd2c913ced0" />
+            android:value="a9d3780a093c23df7e3e2402" />
         <!-- </>值来自开发者平台取得的AppKey -->
         <!-- 推送 ======================================================================== -->
 
@@ -362,7 +365,7 @@
         <!-- 设置环信应用的appkey black-cat#yibuxuecheprod black-cat#yibuxuechetest -->
         <meta-data
             android:name="EASEMOB_APPKEY"
-            android:value="black-cat#yibuxuecheprod" />
+            android:value="black-cat#yibuxuechetest" />
         <!-- 声明sdk所需的service -->
         <service android:name="com.easemob.chat.EMChatService" />
 

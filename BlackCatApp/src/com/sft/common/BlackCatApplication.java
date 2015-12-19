@@ -62,7 +62,7 @@ public class BlackCatApplication extends Application {
 	public CarModelVO selectEnrollCarStyle;
 	// 用户报名选择的班级
 	public ClassVO selectEnrollClass;
-	//我的豆币
+	// 我的豆币
 	public String currency;
 
 	public static BlackCatApplication getInstance() {
@@ -87,8 +87,7 @@ public class BlackCatApplication extends Application {
 		List<RunningAppProcessInfo> l = am.getRunningAppProcesses();
 		Iterator<RunningAppProcessInfo> i = l.iterator();
 		while (i.hasNext()) {
-			ActivityManager.RunningAppProcessInfo info = (ActivityManager.RunningAppProcessInfo) (i
-					.next());
+			ActivityManager.RunningAppProcessInfo info = (i.next());
 			try {
 				if (info.pid == pID) {
 					processName = info.processName;
@@ -110,9 +109,11 @@ public class BlackCatApplication extends Application {
 								res == null ? "" : res.toString()));
 			}
 		}, new UploadOptions(null, null, false, new UpProgressHandler() {
+			@Override
 			public void progress(String key, double percent) {
 			}
 		}, new UpCancellationSignal() {
+			@Override
 			public boolean isCancelled() {
 				// return true 停止上传
 				return false;

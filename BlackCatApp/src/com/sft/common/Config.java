@@ -11,8 +11,8 @@ public class Config {
 	// 友盟appkey
 	public static final String UMENG_CHANNELID = "ceshi";
 	//
-	// public static final String IP = "http://101.200.204.240:8181/";
-	public static final String IP = "http://123.57.63.15:8181/";
+	public static final String IP = "http://101.200.204.240:8181/";
+	// public static final String IP = "http://123.57.63.15:8181/";
 	// 默认头像下载地址
 	public static final String HEAD_URL = "http://7xnjg0.com1.z0.glb.clouddn.com/";
 	// 上次登录用户的手机号
@@ -47,7 +47,8 @@ public class Config {
 
 	public static final String SYSTEM_PUSH = "systempush";
 
-	public static String path = getSDPath() + File.separator + "BlackCat" + File.separator;
+	public static String path = getSDPath() + File.separator + "BlackCat"
+			+ File.separator;
 	/**
 	 * 用户头像保存的位置
 	 */
@@ -99,7 +100,8 @@ public class Config {
 	}
 
 	public enum SubjectStatu {
-		SUBJECT_NONE("0"), SUBJECT_ONE("1"), SUBJECT_THREE("3"), SUBJECT_TWO("2"), SUBJECT_FOUR("4");
+		SUBJECT_NONE("0"), SUBJECT_ONE("1"), SUBJECT_THREE("3"), SUBJECT_TWO(
+				"2"), SUBJECT_FOUR("4");
 		private String index;
 
 		private SubjectStatu(String index) {
@@ -138,10 +140,10 @@ public class Config {
 	}
 
 	public enum PushType {
-		userapplysuccess("userapplysuccess"), reservationsucess("reservationsucess"), walletupdate(
-				"walletupdate"), newversion("newversion"), reservationcancel(
-						"reservationcancel"), reservationcoachcomment("reservationcoachcomment"), systemmsg(
-								"systemmsg");
+		userapplysuccess("userapplysuccess"), reservationsucess(
+				"reservationsucess"), walletupdate("walletupdate"), newversion(
+				"newversion"), reservationcancel("reservationcancel"), reservationcoachcomment(
+				"reservationcoachcomment"), systemmsg("systemmsg");
 		private String index;
 
 		private PushType(String index) {
@@ -155,7 +157,8 @@ public class Config {
 
 	public static String getSDPath() {
 		File sdDir = null;
-		boolean sdCardExist = Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED); // 判断sd卡是否存在
+		boolean sdCardExist = Environment.getExternalStorageState().equals(
+				android.os.Environment.MEDIA_MOUNTED); // 判断sd卡是否存在
 		if (sdCardExist) {
 			sdDir = Environment.getExternalStorageDirectory();// 获取根目录
 			return sdDir.toString();

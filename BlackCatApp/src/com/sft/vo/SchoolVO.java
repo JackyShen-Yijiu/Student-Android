@@ -29,6 +29,46 @@ public class SchoolVO extends DBVO {
 	private String distance;
 	private String maxprice;
 	private String minprice;
+	private int coachcount;
+	private int commentcount;
+	private String id;
+	private String schoollevel;
+
+	public int getCoachcount() {
+		return coachcount;
+	}
+
+	public void setCoachcount(int coachcount) {
+		this.coachcount = coachcount;
+	}
+
+	public int getCommentcount() {
+		return commentcount;
+	}
+
+	public void setCommentcount(int commentcount) {
+		this.commentcount = commentcount;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getSchoollevel() {
+		return schoollevel;
+	}
+
+	public void setSchoollevel(String schoollevel) {
+		this.schoollevel = schoollevel;
+	}
+
+	public void setPictures(String[] pictures) {
+		this.pictures = pictures;
+	}
 
 	@Override
 	public boolean equals(Object o) {

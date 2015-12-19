@@ -3,16 +3,6 @@ package com.sft.blackcatapp;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.sft.api.UserLogin;
-import com.sft.common.Config;
-import com.sft.listener.EMLoginListener;
-import com.sft.util.DownLoadService;
-import com.sft.util.JSONUtil;
-import com.sft.viewutil.ZProgressHUD;
-import com.sft.vo.UserVO;
-import com.sft.vo.VersionVO;
-import com.umeng.analytics.AnalyticsConfig;
-
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
 import android.app.AlertDialog;
@@ -28,6 +18,16 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.infinitescrollviewpager.MyHandler;
+
+import com.sft.api.UserLogin;
+import com.sft.common.Config;
+import com.sft.listener.EMLoginListener;
+import com.sft.util.DownLoadService;
+import com.sft.util.JSONUtil;
+import com.sft.viewutil.ZProgressHUD;
+import com.sft.vo.UserVO;
+import com.sft.vo.VersionVO;
+import com.umeng.analytics.AnalyticsConfig;
 
 public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 
@@ -47,12 +47,14 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 
 	private void initView() {
 		ImageView image = (ImageView) findViewById(R.id.welcome_image);
-		RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) image.getLayoutParams();
+		RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) image
+				.getLayoutParams();
 		params.width = (int) (screenWidth * 5 / 12f);
 		params.height = (int) (params.width * 243 / 509f);
 
 		ImageView devider = (ImageView) findViewById(R.id.welcom_devider);
-		RelativeLayout.LayoutParams deviderparams = (RelativeLayout.LayoutParams) devider.getLayoutParams();
+		RelativeLayout.LayoutParams deviderparams = (RelativeLayout.LayoutParams) devider
+				.getLayoutParams();
 		deviderparams.height = (int) (screenHeight * 41 / 128f);
 	}
 
@@ -71,7 +73,8 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 			handler = new MyHandler(2000) {
 				@Override
 				public void run() {
-					Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
+					Intent intent = new Intent(WelcomeActivity.this,
+							LoginActivity.class);
 					startActivity(intent);
 					finish();
 				}
@@ -85,15 +88,18 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 		paramMap.put("mobile", phone);
 		paramMap.put("usertype", "1");
 		paramMap.put("password", util.MD5(password));
-		HttpSendUtils.httpPostSend(login, this, Config.IP + "api/v1/userinfo/userlogin", paramMap);
+		HttpSendUtils.httpPostSend(login, this, Config.IP
+				+ "api/v1/userinfo/userlogin", paramMap);
 	}
 
 	private void obtainVersionInfo() {
-		HttpSendUtils.httpGetSend(version, this, Config.IP + "api/v1/appversion/1");
+		HttpSendUtils.httpGetSend(version, this, Config.IP
+				+ "api/v1/appversion/1");
 	}
 
 	private void obtainQiNiuToken() {
-		HttpSendUtils.httpGetSend(qiniutoken, this, Config.IP + "api/v1/info/qiniuuptoken");
+		HttpSendUtils.httpGetSend(qiniutoken, this, Config.IP
+				+ "api/v1/info/qiniuuptoken");
 	}
 
 	@Override
@@ -110,7 +116,8 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 		new MyHandler(2000) {
 			@Override
 			public void run() {
-				Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
+				Intent intent = new Intent(WelcomeActivity.this,
+						LoginActivity.class);
 				startActivity(intent);
 				finish();
 			}
@@ -128,8 +135,9 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 		if (type.equals(login)) {
 			try {
 				if (data != null) {
-					app.userVO = (UserVO) JSONUtil.toJavaBean(UserVO.class, data);
-					util.saveParam(Config.LAST_LOGIN_PHONE, app.userVO.getTelephone());
+					app.userVO = JSONUtil.toJavaBean(UserVO.class, data);
+					util.saveParam(Config.LAST_LOGIN_PHONE,
+							app.userVO.getTelephone());
 					obtainVersionInfo();
 				} else {
 					ZProgressHUD.getInstance(this).show();
@@ -154,7 +162,8 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 			}
 		} else if (type.equals(version)) {
 			try {
-				VersionVO versionVO = (VersionVO) JSONUtil.toJavaBean(VersionVO.class, data);
+				VersionVO versionVO = JSONUtil
+						.toJavaBean(VersionVO.class, data);
 				app.versionVO = versionVO;
 				obtainQiNiuToken();
 			} catch (Exception e) {
@@ -173,12 +182,14 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 				app.qiniuToken = dataString;
 
 				new UserLogin(this).userLogin(app.userVO.getUserid(),
-						util.MD5(util.readParam(Config.LAST_LOGIN_PASSWORD)), app.userVO.getNickname());
+						util.MD5(util.readParam(Config.LAST_LOGIN_PASSWORD)),
+						app.userVO.getNickname());
 			}
 		}
 		return true;
 	}
 
+	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			return true;
@@ -194,8 +205,10 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 	private boolean isMyServiceRunning() {
 		util.print(DownLoadService.class.getName());
 		ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-		for (RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-			if (DownLoadService.class.getName().equals(service.service.getClassName())) {
+		for (RunningServiceInfo service : manager
+				.getRunningServices(Integer.MAX_VALUE)) {
+			if (DownLoadService.class.getName().equals(
+					service.service.getClassName())) {
 				return true;
 			}
 		}
@@ -207,7 +220,7 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 		if (result) {
 			if (isMyServiceRunning()) {
 				app.isLogin = true;
-				Intent intent = new Intent(this, MainActivity.class);
+				Intent intent = new Intent(this, OldMainActivity.class);
 				startActivity(intent);
 				finish();
 			} else {
@@ -218,13 +231,15 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 				@Override
 				public void run() {
 					ZProgressHUD.getInstance(WelcomeActivity.this).show();
-					ZProgressHUD.getInstance(WelcomeActivity.this).dismissWithFailure("初始化聊天失败");
+					ZProgressHUD.getInstance(WelcomeActivity.this)
+							.dismissWithFailure("初始化聊天失败");
 				}
 			});
 			new MyHandler(1000) {
 				@Override
 				public void run() {
-					Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
+					Intent intent = new Intent(WelcomeActivity.this,
+							LoginActivity.class);
 					startActivity(intent);
 					finish();
 				}
@@ -235,47 +250,57 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 	private void showDialog(final Context context) {
 
 		// 是否需要更新
-		String curVersion = util.getAppVersion().replace("v", "").replace("V", "").replace(".", "");
-		String newVersion = app.versionVO.getVersionCode().replace("v", "").replace("V", "").replace(".", "");
+		String curVersion = util.getAppVersion().replace("v", "")
+				.replace("V", "").replace(".", "");
+		String newVersion = app.versionVO.getVersionCode().replace("v", "")
+				.replace("V", "").replace(".", "");
 
 		try {
 			if (Integer.parseInt(newVersion) > Integer.parseInt(curVersion)) {
 				AlertDialog.Builder builder = new AlertDialog.Builder(this);
 				builder.setTitle("发现新版本");
 				builder.setMessage(getString(R.string.app_name) + "有新版本啦！");
-				builder.setPositiveButton("立即更新", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int whichButton) {
-						startService(new Intent(WelcomeActivity.this, DownLoadService.class).putExtra("url",
-								app.versionVO.getDownloadUrl()));
-						dialog.dismiss();
-					}
-				});
-				builder.setNegativeButton("以后再说", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int whichButton) {
-						dialog.dismiss();
-					}
-				});
+				builder.setPositiveButton("立即更新",
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								startService(new Intent(WelcomeActivity.this,
+										DownLoadService.class).putExtra("url",
+										app.versionVO.getDownloadUrl()));
+								dialog.dismiss();
+							}
+						});
+				builder.setNegativeButton("以后再说",
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								dialog.dismiss();
+							}
+						});
 				Dialog dialog = builder.create();
 				dialog.show();
 				dialog.setOnDismissListener(new OnDismissListener() {
 					@Override
 					public void onDismiss(DialogInterface dialog) {
 						app.isLogin = true;
-						Intent intent = new Intent(context, MainActivity.class);
+						Intent intent = new Intent(context,
+								OldMainActivity.class);
 						startActivity(intent);
 						finish();
 					}
 				});
 			} else {
 				app.isLogin = true;
-				Intent intent = new Intent(context, MainActivity.class);
+				Intent intent = new Intent(context, OldMainActivity.class);
 				startActivity(intent);
 				finish();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			app.isLogin = true;
-			Intent intent = new Intent(context, MainActivity.class);
+			Intent intent = new Intent(context, OldMainActivity.class);
 			startActivity(intent);
 			finish();
 		}
