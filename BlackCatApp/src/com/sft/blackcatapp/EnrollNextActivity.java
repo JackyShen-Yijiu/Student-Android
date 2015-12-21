@@ -106,7 +106,7 @@ public class EnrollNextActivity extends BaseActivity {
 		contactEt.setHint(setHint(R.string.contact));
 		addressEt.setHint(setHint(R.string.address));
 
-		resizeDrawalbeLeftSize();
+		// resizeDrawalbeLeftSize();
 	}
 
 	private void initData() {
@@ -147,35 +147,35 @@ public class EnrollNextActivity extends BaseActivity {
 				// 没有报过名，读取数据库中保存的用户选择信息填充
 				school = Util.getEnrollUserSelectedSchool(this);
 				if (school != null) {
-					schoolTv.setText(school.getName());
+					// schoolTv.setText(school.getName());
 				}
 
 				carStyle = Util.getEnrollUserSelectedCarStyle(this);
 				if (carStyle != null) {
-					carStyleTv.setText(carStyle.getCode());
+					// carStyleTv.setText(carStyle.getCode());
 				}
 
 				classId = Util.getEnrollUserSelectedClass(this);
 				if (classId != null) {
-					classTv.setText(classId.getClassname());
+					// classTv.setText(classId.getClassname());
 				}
 
 				coach = Util.getEnrollUserSelectedCoach(this);
 				if (coach != null) {
-					coachTv.setText(coach.getName());
+					// coachTv.setText(coach.getName());
 				}
 			} else {
 				// 用户已经报过名
-				if (EnrollResult.SUBJECT_ENROLLING.getValue().equals(
-						enrollState)) {
-					commitBtn.setText("报名审核中...");
-				} else {
-					commitBtn.setText("已成功报名");
-				}
-				schoolTv.setText(app.userVO.getApplyschoolinfo().getName());
-				coachTv.setText(app.userVO.getApplycoachinfo().getName());
-				carStyleTv.setText(app.userVO.getCarmodel().getCode());
-				classTv.setText(app.userVO.getApplyclasstypeinfo().getName());
+				// if (EnrollResult.SUBJECT_ENROLLING.getValue().equals(
+				// enrollState)) {
+				// commitBtn.setText("报名审核中...");
+				// } else {
+				// commitBtn.setText("已成功报名");
+				// }
+				// schoolTv.setText(app.userVO.getApplyschoolinfo().getName());
+				// coachTv.setText(app.userVO.getApplycoachinfo().getName());
+				// carStyleTv.setText(app.userVO.getCarmodel().getCode());
+				// classTv.setText(app.userVO.getApplyclasstypeinfo().getName());
 
 				nameEt.setEnabled(false);
 				contactEt.setEnabled(false);
@@ -193,7 +193,7 @@ public class EnrollNextActivity extends BaseActivity {
 		Drawable arrow = r.getDrawable(R.drawable.person_center_arrow);
 		arrow.setBounds(0, 0, size, size);
 
-		schoolTv.setCompoundDrawables(null, null, arrow, null);
+		// schoolTv.setCompoundDrawables(null, null, arrow, null);
 		carStyleTv.setCompoundDrawables(null, null, arrow, null);
 		coachTv.setCompoundDrawables(null, null, arrow, null);
 		classTv.setCompoundDrawables(null, null, arrow, null);

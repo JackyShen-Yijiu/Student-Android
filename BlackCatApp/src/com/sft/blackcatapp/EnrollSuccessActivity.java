@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Button;
 
 /**
  * 报名成功提示界面
@@ -13,11 +14,14 @@ import android.view.View;
  */
 public class EnrollSuccessActivity extends BaseActivity {
 
+	private Button button_sus;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		addView(R.layout.activity_enroll_success);
+		addView(R.layout.apply_commit);
 		initView();
+		setListener();
 	}
 
 	@Override
@@ -31,6 +35,12 @@ public class EnrollSuccessActivity extends BaseActivity {
 		showTitlebarText(BaseActivity.SHOW_RIGHT_TEXT);
 		setText(0, R.string.finish);
 		setTitleText(R.string.enroll);
+		button_sus = (Button) findViewById(R.id.button_sus);
+	}
+
+	private void setListener() {
+		button_sus.setOnClickListener(this);
+
 	}
 
 	@Override
@@ -41,6 +51,11 @@ public class EnrollSuccessActivity extends BaseActivity {
 		switch (v.getId()) {
 		case R.id.base_left_btn:
 		case R.id.base_right_tv:
+			sendBroadcast(new Intent(MainActivity.class.getName()).putExtra(
+					"isEnrollSuccess", true));
+			finish();
+			break;
+		case R.id.button_sus:
 			sendBroadcast(new Intent(MainActivity.class.getName()).putExtra(
 					"isEnrollSuccess", true));
 			finish();

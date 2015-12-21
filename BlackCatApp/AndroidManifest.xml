@@ -93,6 +93,10 @@
         <activity
             android:name="com.sft.blackcatapp.EnrollActivity"
             android:screenOrientation="portrait" />
+        <!-- 新增 -->
+        <activity
+            android:name="com.sft.blackcatapp.EnrollNextActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.sft.blackcatapp.EnrollClassActivity"
             android:screenOrientation="portrait" />

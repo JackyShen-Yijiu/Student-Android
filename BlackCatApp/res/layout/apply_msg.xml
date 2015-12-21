@@ -39,7 +39,7 @@
             android:background="@drawable/press_two"
             android:gravity="center"
             android:text="填写信息"
-            android:textColor="#333"
+            android:textColor="#fff"
             android:textSize="15sp" />
 
         <TextView
@@ -167,7 +167,7 @@
    <Button
        android:id="@+id/enroll_commit_btn"
        android:layout_width="match_parent"
-       android:layout_height="wrap_content"
+       android:layout_height="50dp"
        android:layout_alignParentBottom="true"
        android:layout_centerHorizontal="true"
        android:background="#ff6633"

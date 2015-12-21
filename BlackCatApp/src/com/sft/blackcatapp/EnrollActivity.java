@@ -75,7 +75,6 @@ public class EnrollActivity extends BaseActivity {
 	private RelativeLayout coachRL;
 	private RelativeLayout classRL;
 
-	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		addView(R.layout.apply_driving);
@@ -176,6 +175,7 @@ public class EnrollActivity extends BaseActivity {
 		carStyleTv.setOnClickListener(this);
 		coachTv.setOnClickListener(this);
 		classTv.setOnClickListener(this);
+
 		// nameEt.addTextChangedListener(new MyEditChangedListener(realName));
 		// cardEt.addTextChangedListener(new MyEditChangedListener(idcard));
 		// contactEt.addTextChangedListener(new MyEditChangedListener(contact));
@@ -235,7 +235,7 @@ public class EnrollActivity extends BaseActivity {
 				// enroll();
 				Intent intentt = new Intent(this, EnrollNextActivity.class);
 				startActivity(intentt);
-				finish();
+				// finish();
 				break;
 			}
 			if (intent != null) {
