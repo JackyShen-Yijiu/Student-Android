@@ -95,16 +95,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView2"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/bg_item" >
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="17dp"
-        android:textColor="#999"
-        android:text="报名时填写的手机号" />
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp" >
+  <EditText
+        android:id="@+id/testing_phone_et"
+        style="@style/register_et_style"
+        android:hint="@string/contact" />
 
 </RelativeLayout>
 
@@ -114,16 +110,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rl_msg_one"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/bg_item" >
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="17dp"
-        android:textColor="#999"
-        android:text="身份证号" />
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp">
+   <EditText
+        android:id="@+id/testing_name_et"
+        style="@style/register_et_style"
+        android:hint="@string/real_name" />
 </RelativeLayout>
 
 <!-- 3 -->
@@ -132,35 +124,16 @@
     android:id="@+id/rl_msg_three"
     android:layout_width="230dp"
     android:layout_height="wrap_content"
-    android:layout_below="@+id/rl_msg_two"
-    android:layout_marginTop="10dp"
-    android:background="@drawable/bg_item" >
+    android:layout_marginRight="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_below="@+id/rl_msg_two">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="17dp"
-        android:textColor="#999"
-        android:text="联系方式" />
+  <EditText
+        android:id="@+id/testing_code_et"
+        style="@style/register_et_testing_style"
+        android:hint="@string/idcard" />
 
 </RelativeLayout>
-
-   
-      <Button
-          android:id="@+id/button1"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_alignBottom="@+id/rl_msg_three"
-          android:layout_alignParentRight="true"
-          android:layout_alignTop="@+id/rl_msg_three"
-          android:layout_marginRight="17dp"
-          android:background="#ff9728"
-          android:padding="10dp"
-          android:text="发送验证码"
-          android:textColor="#fff"
-          android:textSize="16sp" />
       
       <Button
        android:id="@+id/button_next"
@@ -173,5 +146,16 @@
        android:textColor="#ffffff"
        android:text="下一步" />
 
+      <Button
+          android:id="@+id/button_send"
+          android:layout_width="wrap_content"
+          android:layout_height="45dp"
+          android:layout_alignBottom="@+id/rl_msg_three"
+          android:layout_toRightOf="@+id/rl_msg_three"
+          android:background="#ff9728"
+          android:padding="10dp"
+          android:text="发送验证码"
+          android:textColor="#fff"
+          android:textSize="16sp" />
   
 </RelativeLayout>
