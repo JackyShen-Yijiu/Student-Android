@@ -5,13 +5,14 @@ import android.content.Context;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.sft.common.Config;
 import com.sft.util.LogUtil;
 
 public class ApiHttpClient {
 
-	public static String Base_URL = "http://101.200.204.240:8181/";
+	// public static String Base_URL = "http://101.200.204.240:8181/";
 	// public static String Base_URL = "http://123.57.63.15:8181/";
-	public static String API_URL = Base_URL + "api/v1/%s";
+	public static String API_URL = Config.IP + "api/v1/%s";
 	public static final String DELETE = "DELETE";
 	public static final String GET = "GET";
 	public static final String POST = "POST";
@@ -43,14 +44,14 @@ public class ApiHttpClient {
 
 	public static void getWithFullPath(String partUrl,
 			AsyncHttpResponseHandler handler) {
-		LogUtil.print(Base_URL + partUrl);
-		client.get(Base_URL + partUrl, handler);
+		LogUtil.print(Config.IP + partUrl);
+		client.get(Config.IP + partUrl, handler);
 	}
 
 	public static void postWithFullPath(String partUrl, RequestParams params,
 			AsyncHttpResponseHandler handler) {
-		LogUtil.print(Base_URL + partUrl);
-		client.post(Base_URL + partUrl, params, handler);
+		LogUtil.print(Config.IP + partUrl);
+		client.post(Config.IP + partUrl, params, handler);
 	}
 
 	public static void get(String partUrl, RequestParams params,
@@ -60,6 +61,7 @@ public class ApiHttpClient {
 
 	public static String getAbsoluteApiUrl(String partUrl) {
 		String url = String.format(API_URL, partUrl);
+		LogUtil.print(url);
 		return url;
 	}
 

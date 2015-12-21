@@ -1,5 +1,6 @@
 package com.sft.adapter;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import android.annotation.SuppressLint;
@@ -116,19 +117,28 @@ public class SchoolListAdapter extends BaseAdapter {
 		holder.name.setText(name);
 		String location = mData.get(position).getAddress();
 		holder.location.setText(location);
-		// TODO 这里要改
 		String level = mData.get(position).getSchoollevel();
-		if (level != null && level.length() == 1) {
-
-			holder.rate.setRating(Integer.parseInt(level));
+		int levelInt = 0;
+		try {
+			levelInt = Integer.parseInt(level);
+			holder.rate.setRating(levelInt);
+		} catch (Exception e) {
+			holder.rate.setRating(0);
 		}
 		String distance = mData.get(position).getDistance();
-		holder.distance.setText(distance + "km");
+		double distanceDouble = 0;
+		try {
+			distanceDouble = Double.parseDouble(distance);
+			DecimalFormat df = new DecimalFormat("#.00");
+			holder.distance.setText(df.format(distanceDouble / 1000) + "km");
+		} catch (Exception e) {
+			holder.distance.setText(distance + "km");
+		}
 		String price = mData.get(position).getPrice();
 		holder.price.setText(price);
 
 		holder.coachAndComment.setText(mData.get(position).getCommentcount()
-				+ "条评论|" + mData.get(position).getCoachcount() + "名认证教练");
+				+ "条评论 | " + mData.get(position).getCoachcount() + "名认证教练");
 		String headUrl = mData.get(position).getLogoimg().getOriginalpic();
 
 		LinearLayout.LayoutParams headParams = (LinearLayout.LayoutParams) holder.headPic

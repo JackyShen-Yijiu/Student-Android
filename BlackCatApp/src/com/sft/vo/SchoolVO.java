@@ -103,6 +103,9 @@ public class SchoolVO extends DBVO {
 	}
 
 	public String getName() {
+		if (name == null) {
+			return "驾校不详";
+		}
 		return TextUtils.isEmpty(name) ? "null" : name;
 	}
 
@@ -151,6 +154,9 @@ public class SchoolVO extends DBVO {
 	}
 
 	public String getAddress() {
+		if (address == null) {
+			return "地址不详";
+		}
 		return TextUtils.isEmpty(address) ? "null" : address;
 	}
 
@@ -213,6 +219,9 @@ public class SchoolVO extends DBVO {
 	}
 
 	public String getPrice() {
+		if (minprice == null || maxprice == null) {
+			return "暂无价格";
+		}
 		return "¥" + minprice + "-¥" + maxprice;
 	}
 

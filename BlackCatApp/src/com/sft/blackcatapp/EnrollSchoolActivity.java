@@ -137,7 +137,7 @@ public class EnrollSchoolActivity extends BaseActivity implements
 		isSearchSchool = false;
 		initMyLocation();
 		// initView();
-		// initData();
+		// initsaData();
 		// setListener();
 		// obtainHeadLineNews();
 		// obtainNearBySchool();
@@ -277,6 +277,7 @@ public class EnrollSchoolActivity extends BaseActivity implements
 	// 搜索成功
 	protected void processSuccess(String value) {
 		if (value != null) {
+			LogUtil.print(value);
 			try {
 				List<SchoolVO> schoolList = (List<SchoolVO>) JSONUtil
 						.parseJsonToList(value,
@@ -369,19 +370,19 @@ public class EnrollSchoolActivity extends BaseActivity implements
 
 		selectSchool = (SchoolVO) getIntent().getSerializableExtra("school");
 
-		if (app.userVO != null
-				&& app.userVO.getApplystate().equals(
-						EnrollResult.SUBJECT_NONE.getValue())) {
-			showTitlebarText(BaseActivity.SHOW_RIGHT_TEXT);
-			setText(0, R.string.finish);
-		} else {
-			showTitlebarText(BaseActivity.SHOW_RIGHT_TEXT);
-			if (currCity != null) {
-				currCity = currCity.replace("市", "");
-				setRightText(currCity);
+		// if (app.userVO != null
+		// && app.userVO.getApplystate().equals(
+		// EnrollResult.SUBJECT_NONE.getValue())) {
+		// showTitlebarText(BaseActivity.SHOW_RIGHT_TEXT);
+		// setText(0, R.string.finish);
+		// } else {
+		showTitlebarText(BaseActivity.SHOW_RIGHT_TEXT);
+		if (currCity != null) {
+			currCity = currCity.replace("市", "");
+			setRightText(currCity);
 
-			}
 		}
+		// }
 
 		View headerView = View.inflate(mContext, R.layout.enroll_school_header,
 				null);

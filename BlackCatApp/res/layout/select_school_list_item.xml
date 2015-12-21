@@ -50,9 +50,10 @@
 
                     <TextView
                         android:id="@+id/select_school_coachname_tv"
-                        android:layout_width="wrap_content"
+                        android:layout_width="130dp"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
+                        android:singleLine="true"
                         android:textColor="#333333"
                         android:textSize="16dp" />
 
@@ -83,11 +84,12 @@
 
                     <TextView
                         android:id="@+id/select_school_location_tv"
-                        android:layout_width="wrap_content"
+                        android:layout_width="175dp"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginBottom="7dp"
                         android:layout_marginTop="7dp"
+                        android:singleLine="true"
                         android:textColor="#999999"
                         android:textSize="14dp" />
                     <TextView
