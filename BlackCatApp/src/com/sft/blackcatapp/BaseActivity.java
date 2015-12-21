@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -195,6 +196,14 @@ public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity
 			rightTV.setText(ids[1]);
 	}
 
+	protected void setRightText(String name) {
+		Drawable cityIcon = getResources()
+				.getDrawable(R.drawable.location_city);
+		rightTV.setCompoundDrawablesWithIntrinsicBounds(cityIcon, null, null,
+				null);
+		rightTV.setText(name);
+	}
+
 	protected void showTitlebarBtn(int index) {
 		leftBtn.setVisibility(View.GONE);
 		rightBtn.setVisibility(View.GONE);
@@ -259,7 +268,7 @@ public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity
 	@Override
 	public synchronized boolean doCallBack(String type, Object jsonString) {
 		try {
-			// util.print("json=" + jsonString + " type= " + type);
+			util.print("json=" + jsonString + " type= " + type);
 
 			JSONObject jsonObject = new JSONObject(jsonString.toString());
 			result = jsonObject.getString("type");

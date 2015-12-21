@@ -14,12 +14,14 @@ import android.content.Intent;
 import cn.jpush.android.api.JPushInterface;
 
 import com.baidu.mapapi.SDKInitializer;
+import com.loopj.android.http.AsyncHttpClient;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.UpCancellationSignal;
 import com.qiniu.android.storage.UpCompletionHandler;
 import com.qiniu.android.storage.UpProgressHandler;
 import com.qiniu.android.storage.UploadManager;
 import com.qiniu.android.storage.UploadOptions;
+import com.sft.api.ApiHttpClient;
 import com.sft.blackcatapp.CropImageActivity;
 import com.sft.library.DemoHXSDKHelper;
 import com.sft.vo.CarModelVO;
@@ -77,7 +79,15 @@ public class BlackCatApplication extends Application {
 		uploadManager = new UploadManager();
 		app = this;
 
+		initHttpClient();
 		DemoHXSDKHelper.getInstance().onInit(this);
+	}
+
+	private void initHttpClient() {
+		// 初始化网络请求
+		AsyncHttpClient client = new AsyncHttpClient();
+		ApiHttpClient.setHttpClient(client);
+
 	}
 
 	protected String getAppName(int pID) {
