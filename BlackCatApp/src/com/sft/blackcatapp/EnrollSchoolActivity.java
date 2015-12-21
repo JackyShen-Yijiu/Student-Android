@@ -5,20 +5,26 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import me.maxwin.view.XListView;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.infinitescrollviewpager.BitMapURLExcepteionListner;
 import cn.sft.infinitescrollviewpager.InfinitePagerAdapter;
@@ -33,7 +39,10 @@ import com.sft.common.Config.EnrollResult;
 import com.sft.dialog.EnrollSelectConfilctDialog;
 import com.sft.dialog.EnrollSelectConfilctDialog.OnSelectConfirmListener;
 import com.sft.util.JSONUtil;
+import com.sft.util.LogUtil;
 import com.sft.util.Util;
+import com.sft.view.RefreshLayout;
+import com.sft.view.RefreshLayout.OnLoadListener;
 import com.sft.vo.HeadLineNewsVO;
 import com.sft.vo.SchoolVO;
 
@@ -45,14 +54,17 @@ import com.sft.vo.SchoolVO;
  */
 public class EnrollSchoolActivity extends BaseActivity implements
 		OnItemClickListener, OnSelectConfirmListener,
-		BitMapURLExcepteionListner, PageChangeListener {
+		BitMapURLExcepteionListner, PageChangeListener, OnRefreshListener,
+		OnLoadListener {
 
 	private final static String nearBySchool = "nearBySchool";
 	private static final String headlineNews = "headlineNews";
+	private static final String schoolBySearch = "schoolBySearch";
 	// 学校列表
-	private XListView schoolList;
+	private ListView schoolListView;
 
 	private SchoolVO selectSchool;
+	private List<SchoolVO> schoolList = new ArrayList<SchoolVO>();
 	//
 	private SchoolListAdapter adapter;
 	// 当前选择的学校
@@ -87,8 +99,14 @@ public class EnrollSchoolActivity extends BaseActivity implements
 
 	private int viewPagerHeight;
 	private RelativeLayout adLayout;
+	private EditText searchSchool;
+	private RefreshLayout swipeLayout;
 
 	//
+
+	private int index = 1; // 分页
+	private boolean isRefreshing = false;
+	private boolean isLoadingMore = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -96,9 +114,56 @@ public class EnrollSchoolActivity extends BaseActivity implements
 		addView(R.layout.activity_enroll_school);
 		mContext = this;
 		initView();
-		obtainHeadLineNews();
+		initData();
 		setListener();
+		obtainHeadLineNews();
 		obtainNearBySchool();
+	}
+
+	private void initData() {
+		searchSchool.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
+		searchSchool.setOnEditorActionListener(new OnEditorActionListener() {
+
+			@Override
+			public boolean onEditorAction(TextView v, int actionId,
+					KeyEvent event) {
+				if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+					// 先隐藏键盘
+					((InputMethodManager) searchSchool.getContext()
+							.getSystemService(Context.INPUT_METHOD_SERVICE))
+							.hideSoftInputFromWindow(EnrollSchoolActivity.this
+									.getCurrentFocus().getWindowToken(),
+									InputMethodManager.HIDE_NOT_ALWAYS);
+
+					// 实现搜索
+					LogUtil.print("搜索");
+					schoolname = searchSchool.getText().toString().trim();
+					searchSchool();
+					return true;
+				}
+				return false;
+			}
+
+		});
+	}
+
+	private String cityname;
+	private String licensetype;
+	private String schoolname;
+	private String ordertype;
+
+	private void searchSchool() {
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("latitude", app.latitude);
+		paramMap.put("longitude", app.longtitude);
+		paramMap.put("radius", "10000");
+		// paramMap.put("index", index + "");
+		// paramMap.put("cityname", cityname);
+		// paramMap.put("licensetype", licensetype);
+		// paramMap.put("ordertype", ordertype);
+		paramMap.put("schoolname", schoolname);
+		HttpSendUtils.httpGetSend(schoolBySearch, this, Config.IP
+				+ "api/v1/searchschool", paramMap);
 	}
 
 	// 获取头部轮播图图片
@@ -117,9 +182,16 @@ public class EnrollSchoolActivity extends BaseActivity implements
 	private void initView() {
 		setTitleText(R.string.select_school);
 
-		schoolList = (XListView) findViewById(R.id.enroll_select_school_listview);
-		schoolList.setPullRefreshEnable(false);
-		schoolList.setPullLoadEnable(false);
+		swipeLayout = (RefreshLayout) findViewById(R.id.enroll_school_swipe_container);
+		swipeLayout.setOnRefreshListener(this);
+		swipeLayout.setColorScheme(android.R.color.holo_blue_bright,
+				android.R.color.holo_green_light,
+				android.R.color.holo_orange_light,
+				android.R.color.holo_red_light);
+
+		schoolListView = (ListView) findViewById(R.id.enroll_select_school_listview);
+		// schoolListView.setPullRefreshEnable(false);
+		// schoolListView.setPullLoadEnable(false);
 
 		selectSchool = (SchoolVO) getIntent().getSerializableExtra("school");
 
@@ -133,12 +205,19 @@ public class EnrollSchoolActivity extends BaseActivity implements
 		View headerView = View.inflate(mContext, R.layout.enroll_school_header,
 				null);
 
-		schoolList.addHeaderView(headerView);
-		adLayout = (RelativeLayout) findViewById(R.id.enroll_school_top_headpic_im);
-		topViewPager = (InfiniteViewPager) findViewById(R.id.enroll_school_top_viewpager);
-		dotLayout = (LinearLayout) findViewById(R.id.enroll_school_top_dotlayout);
-		defaultImage = (ImageView) findViewById(R.id.enroll_school_top_defaultimage);
+		schoolListView.addHeaderView(headerView);
+		adLayout = (RelativeLayout) headerView
+				.findViewById(R.id.enroll_school_top_headpic_im);
+		topViewPager = (InfiniteViewPager) headerView
+				.findViewById(R.id.enroll_school_top_viewpager);
+		dotLayout = (LinearLayout) headerView
+				.findViewById(R.id.enroll_school_top_dotlayout);
+		defaultImage = (ImageView) headerView
+				.findViewById(R.id.enroll_school_top_defaultimage);
+		searchSchool = (EditText) headerView
+				.findViewById(R.id.enroll_school_search_et);
 
+		searchSchool.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
 		RelativeLayout.LayoutParams headParams = (RelativeLayout.LayoutParams) adLayout
 				.getLayoutParams();
 		headParams.width = screenWidth;
@@ -221,16 +300,40 @@ public class EnrollSchoolActivity extends BaseActivity implements
 	}
 
 	private void setData(List<SchoolVO> school, int selectIndex) {
-		if (selectIndex >= 0) {
-			// 将已选择的驾校放在第一位
-			school.add(0, school.get(selectIndex));
-			school.remove(selectIndex + 1);
+
+		if (index == 1) {
+			if (!isRefreshing) {
+				schoolList.addAll(school);
+				adapter = new SchoolListAdapter(this, schoolList);
+				schoolListView.setAdapter(adapter);
+			}
+			schoolList.clear();
 		}
-		adapter = new SchoolListAdapter(this, school);
-		if (selectIndex >= 0) {
-			adapter.setSelected(0);
+
+		if (school.size() == 0 && index != 1) {
+			toast.setText("没有更多数据了");
+		} else {
+
+			schoolList.addAll(school);
+			if (selectIndex >= 0) {
+				// 将已选择的驾校放在第一位
+				schoolList.add(0, schoolList.get(selectIndex));
+				schoolList.remove(selectIndex + 1);
+			}
+			adapter.notifyDataSetChanged();
+			LogUtil.print("aaaaaaaaa" + schoolList.size());
+			if (selectIndex >= 0) {
+				adapter.setSelected(0);
+			}
 		}
-		schoolList.setAdapter(adapter);
+		if (isRefreshing) {
+			swipeLayout.setRefreshing(false);
+			isRefreshing = false;
+		}
+		if (isLoadingMore) {
+			swipeLayout.setLoading(false);
+			isLoadingMore = false;
+		}
 	}
 
 	private void obtainNearBySchool() {
@@ -238,15 +341,18 @@ public class EnrollSchoolActivity extends BaseActivity implements
 		paramMap.put("latitude", app.latitude);
 		paramMap.put("longitude", app.longtitude);
 		paramMap.put("radius", "10000");
-		paramMap.put("index", "1");
+		paramMap.put("index", index + "");
 		paramMap.put("count", "10");
 		HttpSendUtils.httpGetSend(nearBySchool, this, Config.IP
 				+ "api/v1/searchschool", paramMap);
 	}
 
 	private void setListener() {
-		schoolList.setOnItemClickListener(this);
+		schoolListView.setOnItemClickListener(this);
 		topViewPager.setPageChangeListener(this);
+		// searchSchool.seton
+		swipeLayout.setOnRefreshListener(this);
+		swipeLayout.setOnLoadListener(this);
 	}
 
 	@Override
@@ -346,6 +452,7 @@ public class EnrollSchoolActivity extends BaseActivity implements
 							}
 							schoolList.add(schoolVO);
 						}
+
 						setData(schoolList, selectIndex);
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -368,6 +475,33 @@ public class EnrollSchoolActivity extends BaseActivity implements
 					}
 					if (length > 0) {
 						setViewPager();
+					}
+				}
+			} else {
+				if (type.equals(schoolBySearch)) {
+					if (dataArray != null) {
+						try {
+							int selectIndex = -1;
+							int length = dataArray.length();
+							List<SchoolVO> schoolList = new ArrayList<SchoolVO>();
+							for (int i = 0; i < length; i++) {
+								SchoolVO schoolVO;
+								schoolVO = JSONUtil.toJavaBean(SchoolVO.class,
+										dataArray.getJSONObject(i));
+								if (selectSchool != null) {
+									if (selectSchool.getSchoolid().equals(
+											schoolVO.getSchoolid())) {
+										selectIndex = i;
+									}
+								}
+								schoolList.add(schoolVO);
+							}
+
+							this.schoolList.clear();
+							setData(schoolList, selectIndex);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
 					}
 				}
 			}
@@ -411,6 +545,25 @@ public class EnrollSchoolActivity extends BaseActivity implements
 				}
 			}
 		}
+	}
+
+	// 上啦刷新
+	@Override
+	public void onRefresh() {
+
+		index = 1;
+
+		isRefreshing = true;
+		obtainNearBySchool();
+
+	}
+
+	// 下拉加载
+	@Override
+	public void onLoad() {
+		index++;
+		isLoadingMore = true;
+		obtainNearBySchool();
 	}
 
 }

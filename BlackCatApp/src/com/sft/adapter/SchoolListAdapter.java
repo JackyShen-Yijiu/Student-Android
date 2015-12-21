@@ -16,7 +16,6 @@ import android.widget.TextView;
 import cn.sft.infinitescrollviewpager.BitmapManager;
 
 import com.sft.blackcatapp.R;
-import com.sft.util.LogUtil;
 import com.sft.vo.SchoolVO;
 
 @SuppressLint("InflateParams")
@@ -121,7 +120,6 @@ public class SchoolListAdapter extends BaseAdapter {
 		String level = mData.get(position).getSchoollevel();
 		if (level.length() == 1) {
 
-			LogUtil.print("level" + level);
 			holder.rate.setRating(Integer.parseInt(level));
 		}
 		String distance = mData.get(position).getDistance();

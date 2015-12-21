@@ -36,7 +36,7 @@
     <LinearLayout
         android:id="@+id/enroll_school_select_ll"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="35dp"
         android:layout_below="@+id/enroll_school_top_headpic_im"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
@@ -168,11 +168,32 @@
     </LinearLayout>
 
     <ImageView
+        android:id="@+id/enroll_school_divide_line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#dddddd"
         android:layout_below="@+id/enroll_school_select_ll"
         android:layout_marginTop="6dp"
         android:contentDescription="@string/app_name" />
-
+    
+    <EditText 
+       android:id="@+id/enroll_school_search_et"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_below="@+id/enroll_school_divide_line"
+        android:hint="@string/search_school"
+        android:imeOptions="actionSearch"
+        android:singleLine="true"
+       
+        />
+     <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#dddddd"
+        android:layout_below="@+id/enroll_school_search_et"
+        android:layout_marginTop="6dp"
+        android:contentDescription="@string/app_name" />
 </RelativeLayout>
