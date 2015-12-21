@@ -1,12 +1,15 @@
 package com.sft.blackcatapp;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import org.apache.http.Header;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
@@ -22,6 +25,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
@@ -33,10 +37,17 @@ import cn.sft.infinitescrollviewpager.MyHandler;
 import cn.sft.infinitescrollviewpager.PageChangeListener;
 import cn.sft.infinitescrollviewpager.PageClickListener;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
+import com.google.gson.reflect.TypeToken;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.sft.adapter.SchoolListAdapter;
+import com.sft.api.ApiHttpClient;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
-import com.sft.dialog.EnrollSelectConfilctDialog;
 import com.sft.dialog.EnrollSelectConfilctDialog.OnSelectConfirmListener;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
@@ -56,6 +67,16 @@ public class EnrollSchoolActivity extends BaseActivity implements
 		OnItemClickListener, OnSelectConfirmListener,
 		BitMapURLExcepteionListner, PageChangeListener, OnRefreshListener,
 		OnLoadListener {
+
+	// 定位相关
+	private LocationClient mLocationClient = null;
+	private MyLocationListenner myListener = new MyLocationListenner();
+	private String currCity = null;
+
+	private String cityname;
+	private String licensetype;
+	private String schoolname;
+	private String ordertype;
 
 	private final static String nearBySchool = "nearBySchool";
 	private static final String headlineNews = "headlineNews";
@@ -113,11 +134,60 @@ public class EnrollSchoolActivity extends BaseActivity implements
 		super.onCreate(savedInstanceState);
 		addView(R.layout.activity_enroll_school);
 		mContext = this;
-		initView();
-		initData();
-		setListener();
-		obtainHeadLineNews();
-		obtainNearBySchool();
+		isSearchSchool = false;
+		initMyLocation();
+		// initView();
+		// initData();
+		// setListener();
+		// obtainHeadLineNews();
+		// obtainNearBySchool();
+	}
+
+	private void initMyLocation() {
+		mLocationClient = new LocationClient(this);// 百度定位对象
+		mLocationClient.registerLocationListener(myListener);// 设置监听事件
+		setLocationOption();
+
+		mLocationClient.start();
+
+	}
+
+	public class MyLocationListenner implements BDLocationListener {
+		@Override
+		public void onReceiveLocation(BDLocation location) {
+			// 定位成功
+			currCity = location.getCity();
+			LogUtil.print(location.getCity());
+			if (mLocationClient != null) {
+				mLocationClient.stop();// 结束定位
+
+			}
+
+			initView();
+			initData();
+			setListener();
+			obtainHeadLineNews();
+			cityname = currCity;
+			licensetype = "";
+			schoolname = "";
+			ordertype = "";
+			obtainNearBySchool();
+		}
+
+	}
+
+	// 设置相关参数
+	private void setLocationOption() {
+		LocationClientOption option = new LocationClientOption();
+		option.setOpenGps(true); // 打开gps
+		option.setServiceName("com.baidu.location.service_v2.9");
+		// option.setPoiExtraInfo(true);
+		option.setAddrType("all");
+		option.setPriority(LocationClientOption.NetWorkFirst);
+		option.setPriority(LocationClientOption.GpsFirst); // gps
+		// option.setPoiNumber(10);
+		option.disableCache(true);
+		mLocationClient.setLocOption(option);
 	}
 
 	private void initData() {
@@ -138,7 +208,7 @@ public class EnrollSchoolActivity extends BaseActivity implements
 					// 实现搜索
 					LogUtil.print("搜索");
 					schoolname = searchSchool.getText().toString().trim();
-					searchSchool();
+					searchSchool(true);
 					return true;
 				}
 				return false;
@@ -147,23 +217,127 @@ public class EnrollSchoolActivity extends BaseActivity implements
 		});
 	}
 
-	private String cityname;
-	private String licensetype;
-	private String schoolname;
-	private String ordertype;
+	AsyncHttpResponseHandler handler = new AsyncHttpResponseHandler() {
 
-	private void searchSchool() {
-		Map<String, String> paramMap = new HashMap<String, String>();
-		paramMap.put("latitude", app.latitude);
-		paramMap.put("longitude", app.longtitude);
-		paramMap.put("radius", "10000");
-		// paramMap.put("index", index + "");
+		@Override
+		public void onSuccess(int paramInt, Header[] paramArrayOfHeader,
+				byte[] paramArrayOfByte) {
+			String value = parseJson(paramArrayOfByte);
+			if (!TextUtils.isEmpty(msg)) {
+				// 加载失败，弹出失败对话框
+				toast.setText(msg);
+			} else {
+				processSuccess(value);
+
+			}
+		}
+
+		@Override
+		public void onFailure(int paramInt, Header[] paramArrayOfHeader,
+				byte[] paramArrayOfByte, Throwable paramThrowable) {
+
+		}
+	};
+
+	private String parseJson(byte[] responseBody) {
+		String value = null;
+		JSONObject dataObject = null;
+		JSONArray dataArray = null;
+		String dataString = null;
+		try {
+
+			JSONObject jsonObject = new JSONObject(new String(responseBody));
+			result = jsonObject.getString("type");
+			msg = jsonObject.getString("msg");
+			try {
+				dataObject = jsonObject.getJSONObject("data");
+
+			} catch (Exception e2) {
+				try {
+					dataArray = jsonObject.getJSONArray("data");
+				} catch (Exception e3) {
+					dataString = jsonObject.getString("data");
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		if (dataObject != null) {
+			value = dataObject.toString();
+		} else if (dataArray != null) {
+			value = dataArray.toString();
+
+		} else if (dataString != null) {
+			value = dataString;
+		}
+		return value;
+	}
+
+	// 搜索成功
+	protected void processSuccess(String value) {
+		if (value != null) {
+			try {
+				List<SchoolVO> schoolList = (List<SchoolVO>) JSONUtil
+						.parseJsonToList(value,
+								new TypeToken<List<SchoolVO>>() {
+								}.getType());
+				int selectIndex = -1;
+				for (int i = 0; i < schoolList.size(); i++) {
+					SchoolVO schoolVO = schoolList.get(i);
+					if (selectSchool != null) {
+						if (selectSchool.getSchoolid().equals(
+								schoolVO.getSchoolid())) {
+							selectIndex = i;
+						}
+					}
+				}
+				if (isSearchSchool) {
+					setSearchData(schoolList, selectIndex);
+				} else {
+					setData(schoolList, selectIndex);
+
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	private boolean isSearchSchool = false;
+	private int searchIndex = 1;
+	private TextView classSelect;
+	private TextView distanceSelect;
+	private TextView commentSelect;
+	private TextView priceSelect;
+
+	private void searchSchool(boolean isSearch) {
+		if (isSearch) {
+			searchIndex = 1;
+		}
+		isSearchSchool = true;
+		LogUtil.print(schoolname);
+		// Map<String, String> paramMap = new HashMap<String, String>();
+		// paramMap.put("latitude", app.latitude);
+		// paramMap.put("longitude", app.longtitude);
+		// paramMap.put("radius", "10000");
+		// paramMap.put("schoolname", schoolName);
+		// paramMap.put("index", "1");
+		// paramMap.put("count", "10");
 		// paramMap.put("cityname", cityname);
 		// paramMap.put("licensetype", licensetype);
 		// paramMap.put("ordertype", ordertype);
+		// HttpSendUtils.httpGetSend(schoolBySearch, this, Config.IP
+		// + "api/v1/searchschool", paramMap);
+		RequestParams paramMap = new RequestParams();
+		paramMap.put("latitude", app.latitude);
+		paramMap.put("longitude", app.longtitude);
+		paramMap.put("radius", "10000");
 		paramMap.put("schoolname", schoolname);
-		HttpSendUtils.httpGetSend(schoolBySearch, this, Config.IP
-				+ "api/v1/searchschool", paramMap);
+		paramMap.put("index", searchIndex + "");
+		paramMap.put("count", "10");
+
+		ApiHttpClient.get("searchschool", paramMap, handler);
 	}
 
 	// 获取头部轮播图图片
@@ -200,6 +374,13 @@ public class EnrollSchoolActivity extends BaseActivity implements
 						EnrollResult.SUBJECT_NONE.getValue())) {
 			showTitlebarText(BaseActivity.SHOW_RIGHT_TEXT);
 			setText(0, R.string.finish);
+		} else {
+			showTitlebarText(BaseActivity.SHOW_RIGHT_TEXT);
+			if (currCity != null) {
+				currCity = currCity.replace("市", "");
+				setRightText(currCity);
+
+			}
 		}
 
 		View headerView = View.inflate(mContext, R.layout.enroll_school_header,
@@ -216,6 +397,15 @@ public class EnrollSchoolActivity extends BaseActivity implements
 				.findViewById(R.id.enroll_school_top_defaultimage);
 		searchSchool = (EditText) headerView
 				.findViewById(R.id.enroll_school_search_et);
+
+		classSelect = (TextView) headerView
+				.findViewById(R.id.enroll_school_class_select_tv);
+		distanceSelect = (TextView) headerView
+				.findViewById(R.id.enroll_school_distance_select_tv);
+		commentSelect = (TextView) headerView
+				.findViewById(R.id.enroll_school_comment_select_tv);
+		priceSelect = (TextView) headerView
+				.findViewById(R.id.enroll_school_price_select_tv);
 
 		searchSchool.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
 		RelativeLayout.LayoutParams headParams = (RelativeLayout.LayoutParams) adLayout
@@ -337,14 +527,26 @@ public class EnrollSchoolActivity extends BaseActivity implements
 	}
 
 	private void obtainNearBySchool() {
-		Map<String, String> paramMap = new HashMap<String, String>();
+		// Map<String, String> paramMap = new HashMap<String, String>();
+		// paramMap.put("latitude", app.latitude);
+		// paramMap.put("longitude", app.longtitude);
+		// paramMap.put("radius", "10000");
+		// paramMap.put("index", index + "");
+		// paramMap.put("count", "10");
+		// HttpSendUtils.httpGetSend(nearBySchool, this, Config.IP
+		// + "api/v1/searchschool", paramMap);
+		RequestParams paramMap = new RequestParams();
 		paramMap.put("latitude", app.latitude);
 		paramMap.put("longitude", app.longtitude);
 		paramMap.put("radius", "10000");
+		paramMap.put("cityname", cityname);
+		paramMap.put("licensetype", licensetype);
+		paramMap.put("schoolname", schoolname);
+		paramMap.put("ordertype", ordertype);
 		paramMap.put("index", index + "");
 		paramMap.put("count", "10");
-		HttpSendUtils.httpGetSend(nearBySchool, this, Config.IP
-				+ "api/v1/searchschool", paramMap);
+
+		ApiHttpClient.get("searchschool", paramMap, handler);
 	}
 
 	private void setListener() {
@@ -353,6 +555,11 @@ public class EnrollSchoolActivity extends BaseActivity implements
 		// searchSchool.seton
 		swipeLayout.setOnRefreshListener(this);
 		swipeLayout.setOnLoadListener(this);
+
+		classSelect.setOnClickListener(this);
+		distanceSelect.setOnClickListener(this);
+		commentSelect.setOnClickListener(this);
+		priceSelect.setOnClickListener(this);
 	}
 
 	@Override
@@ -365,30 +572,109 @@ public class EnrollSchoolActivity extends BaseActivity implements
 			finish();
 			break;
 		case R.id.base_right_tv:
-			if (adapter == null || adapter.getIndex() < 0) {
-				finish();
-				break;
-			}
-
-			school = adapter.getItem(adapter.getIndex());
-			String checkResult = Util.isConfilctEnroll(school);
-			if (checkResult == null) {
-				setResult(v.getId(), new Intent().putExtra("school", school));
-				finish();
-			} else if (checkResult.length() == 0) {
-				app.selectEnrollSchool = school;
-				Util.updateEnrollSchool(this, school, false);
-				setResult(v.getId(), new Intent().putExtra("school", school));
-				finish();
-			} else {
-				// 提示
-				EnrollSelectConfilctDialog dialog = new EnrollSelectConfilctDialog(
-						this, checkResult);
-				dialog.show();
-			}
+			// if (adapter == null || adapter.getIndex() < 0) {
+			// finish();
+			// break;
+			// }
+			//
+			// school = adapter.getItem(adapter.getIndex());
+			// String checkResult = Util.isConfilctEnroll(school);
+			// if (checkResult == null) {
+			// setResult(v.getId(), new Intent().putExtra("school", school));
+			// finish();
+			// } else if (checkResult.length() == 0) {
+			// app.selectEnrollSchool = school;
+			// Util.updateEnrollSchool(this, school, false);
+			// setResult(v.getId(), new Intent().putExtra("school", school));
+			// finish();
+			// } else {
+			// // 提示
+			// EnrollSelectConfilctDialog dialog = new
+			// EnrollSelectConfilctDialog(
+			// this, checkResult);
+			// dialog.show();
+			// }
 
 			break;
+
+		case R.id.enroll_school_class_select_tv:
+			index = 1;
+			showPopupWindow(classSelect);
+			break;
+		case R.id.enroll_school_distance_select_tv:
+			index = 1;
+			cityname = currCity;
+			schoolname = "";
+			ordertype = "1";
+			obtainNearBySchool();
+			break;
+		case R.id.enroll_school_comment_select_tv:
+			index = 1;
+			cityname = currCity;
+			schoolname = "";
+			ordertype = "2";
+			obtainNearBySchool();
+			break;
+		case R.id.enroll_school_price_select_tv:
+			index = 1;
+			cityname = currCity;
+			schoolname = "";
+			ordertype = "3";
+			obtainNearBySchool();
+			break;
+
+		case R.id.pop_window_one:
+			cityname = currCity;
+			licensetype = "1";
+			schoolname = "";
+			ordertype = "";
+			LogUtil.print("====" + licensetype);
+			obtainNearBySchool();
+			if (popupWindow != null) {
+				popupWindow.dismiss();
+			}
+			break;
+		case R.id.pop_window_two:
+			cityname = currCity;
+			licensetype = "2";
+			schoolname = "";
+			LogUtil.print("====" + licensetype);
+			ordertype = "";
+			obtainNearBySchool();
+			if (popupWindow != null) {
+				popupWindow.dismiss();
+			}
+			break;
 		}
+	}
+
+	private PopupWindow popupWindow;
+
+	private void showPopupWindow(View parent) {
+		if (popupWindow == null) {
+			View view = View.inflate(mContext, R.layout.pop_window, null);
+
+			TextView c1Car = (TextView) view.findViewById(R.id.pop_window_one);
+			c1Car.setText(R.string.c1_automatic_gear_car);
+			TextView c2Car = (TextView) view.findViewById(R.id.pop_window_two);
+			c2Car.setText(R.string.c2_manual_gear_car);
+			c1Car.setOnClickListener(this);
+			c2Car.setOnClickListener(this);
+
+			popupWindow = new PopupWindow(view, LayoutParams.WRAP_CONTENT,
+					LayoutParams.WRAP_CONTENT);
+		}
+		popupWindow.setFocusable(true);
+		popupWindow.setOutsideTouchable(true);
+		// 这个是为了点击“返回Back”也能使其消失，并且并不会影响你的背景
+		popupWindow.setBackgroundDrawable(new BitmapDrawable());
+		// WindowManager windowManager = (WindowManager)
+		// getSystemService(Context.WINDOW_SERVICE);
+		// int xPos = -popupWindow.getWidth() / 2
+		// + getCustomTitle().getCenter().getWidth() / 2;
+
+		popupWindow.showAsDropDown(parent);
+
 	}
 
 	@Override
@@ -477,39 +763,46 @@ public class EnrollSchoolActivity extends BaseActivity implements
 						setViewPager();
 					}
 				}
-			} else {
-				if (type.equals(schoolBySearch)) {
-					if (dataArray != null) {
-						try {
-							int selectIndex = -1;
-							int length = dataArray.length();
-							List<SchoolVO> schoolList = new ArrayList<SchoolVO>();
-							for (int i = 0; i < length; i++) {
-								SchoolVO schoolVO;
-								schoolVO = JSONUtil.toJavaBean(SchoolVO.class,
-										dataArray.getJSONObject(i));
-								if (selectSchool != null) {
-									if (selectSchool.getSchoolid().equals(
-											schoolVO.getSchoolid())) {
-										selectIndex = i;
-									}
-								}
-								schoolList.add(schoolVO);
-							}
-
-							this.schoolList.clear();
-							setData(schoolList, selectIndex);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		return true;
+	}
+
+	private void setSearchData(List<SchoolVO> school, int selectIndex) {
+		if (searchIndex == 1) {
+			if (school.size() == 0) {
+				toast.setText("没有搜索到您要找的驾校");
+				return;
+			} else {
+				schoolList.clear();
+			}
+		}
+		if (searchIndex != 1 && school.size() == 0) {
+			System.out.println(searchIndex + "-------" + school.size());
+			toast.setText("没有更多数据了");
+		}
+		if (selectIndex >= 0) {
+			// 将已选择的驾校放在第一位
+			schoolList.add(0, schoolList.get(selectIndex));
+			schoolList.remove(selectIndex + 1);
+		}
+		schoolList.addAll(school);
+		adapter.notifyDataSetChanged();
+		if (selectIndex >= 0) {
+			adapter.setSelected(0);
+		}
+
+		if (isRefreshing) {
+			swipeLayout.setRefreshing(false);
+			isRefreshing = false;
+		}
+		if (isLoadingMore) {
+			swipeLayout.setLoading(false);
+			isLoadingMore = false;
+		}
 	}
 
 	@Override
@@ -551,19 +844,28 @@ public class EnrollSchoolActivity extends BaseActivity implements
 	@Override
 	public void onRefresh() {
 
-		index = 1;
-
 		isRefreshing = true;
-		obtainNearBySchool();
+		if (isSearchSchool) {
+			searchIndex = 1;
+			searchSchool(false);
+		} else {
+			index = 1;
+			obtainNearBySchool();
+		}
 
 	}
 
 	// 下拉加载
 	@Override
 	public void onLoad() {
-		index++;
 		isLoadingMore = true;
-		obtainNearBySchool();
+		if (isSearchSchool) {
+			searchIndex++;
+			searchSchool(false);
+		} else {
+			index++;
+			obtainNearBySchool();
+		}
 	}
 
 }

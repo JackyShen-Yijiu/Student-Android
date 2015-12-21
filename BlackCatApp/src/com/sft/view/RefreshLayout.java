@@ -158,7 +158,10 @@ public class RefreshLayout extends SwipeRefreshLayout implements
 	 * @return
 	 */
 	private boolean isPullUp() {
-		return (mYDown - mLastY) >= mTouchSlop;
+		if (mLastY >= 10) {
+			return (mYDown - mLastY) >= (mTouchSlop + 20);
+		}
+		return false;
 	}
 
 	/**
@@ -169,6 +172,7 @@ public class RefreshLayout extends SwipeRefreshLayout implements
 			// 设置状态
 			setLoading(true);
 			//
+			System.out.println(mYDown + "加载更多" + mLastY);
 			mOnLoadListener.onLoad();
 		}
 	}

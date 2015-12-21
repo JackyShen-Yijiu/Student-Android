@@ -118,7 +118,7 @@ public class SchoolListAdapter extends BaseAdapter {
 		holder.location.setText(location);
 		// TODO 这里要改
 		String level = mData.get(position).getSchoollevel();
-		if (level.length() == 1) {
+		if (level != null && level.length() == 1) {
 
 			holder.rate.setRating(Integer.parseInt(level));
 		}
