@@ -1,57 +1,78 @@
 package com.sft.blackcatapp;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import android.annotation.SuppressLint;
+import android.app.LocalActivityManager;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.os.Parcelable;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
+import cn.sft.baseactivity.util.HttpSendUtils;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
+import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.MapView;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
-import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
+import com.sft.adapter.HomePageAdapter;
+import com.sft.common.Config;
+import com.sft.common.Config.EnrollResult;
+import com.sft.dialog.NoLoginDialog;
 import com.sft.fragment.MenuFragment;
 import com.sft.fragment.MenuFragment.SLMenuListOnItemClickListener;
-import com.sft.util.CommonUtil;
-import com.sft.view.ColumnHorizontalScrollView;
+import com.sft.util.JSONUtil;
+import com.sft.util.Util;
+import com.sft.viewutil.ZProgressHUD;
+import com.sft.vo.CoachVO;
+import com.sft.vo.QuestionVO;
+import com.sft.vo.SchoolVO;
 
-public class MainActivity extends SlidingFragmentActivity implements
+public class MainActivity extends BaseMainActivity implements
 		SLMenuListOnItemClickListener, OnClickListener {
+
+	//
+	private static final String subjectContent = "subjectContent";
+	private static final String coach = "coach";
+	private static final String school = "school";
+	private static final String questionaddress = "questionaddress";
+	//
+	private MapView mapView;
+	//
+	private BaiduMap mBaiduMap;
+
+	private LocalActivityManager activityManager = null;
+
 	private ImageView home_btn;
 	private SlidingMenu mSlidingMenu;
-	private RelativeLayout rl_column;
-	/** 自定义HorizontalScrollView */
-	private ColumnHorizontalScrollView mColumnHorizontalScrollView;
-	private LinearLayout mRadioGroup_content;
 	/** 左阴影部分 */
 	public ImageView shade_left;
+	/** Item宽度 */
 	/** 右阴影部分 */
 	public ImageView shade_right;
-	private LinearLayout ll_more_columns;
-	private ImageView button_more_columns;
-	private ViewPager mViewPager;
-	// private ArrayList<ChannelItem> userChannelList = new
-	// ArrayList<ChannelItem>();
-	/** 屏幕宽度 */
-	private int mScreenWidth = 0;
-	/** Item宽度 */
-	private int mItemWidth = 0;
-	/** 当前选中的栏目 */
-	private int columnSelectIndex = 0;
-	private ArrayList<Fragment> fragments = new ArrayList<Fragment>();
 	/** 请求CODE */
 	public final static int CHANNELREQUEST = 1;
 	/** 调整返回的RESULTCODE */
 	public final static int CHANNELRESULT = 10;
+	private HomePageAdapter mHomePageAdapter;
+	private ViewPager viewPager;
 
 	@SuppressLint("NewApi")
 	@Override
@@ -59,35 +80,52 @@ public class MainActivity extends SlidingFragmentActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.frame_content);
 		initView();
-		initTopMenu();
-		// setChangelView();
+		initData(savedInstanceState);
 		setListener();
+
+		obtainFavouriteSchool();
+		obtainFavouriteCoach();
+		obtainQuestionAddress();
+		obtainSubjectContent();
+		setTag();
+		if (app != null && app.isLogin) {
+			util.print("userid=" + app.userVO.getUserid());
+		}
+
+	}
+
+	private int sum = 0;
+
+	private void setTag() {
+		if (app.isLogin) {
+			JPushInterface.setAlias(this, app.userVO.getUserid(),
+					new MyTagAliasCallback());
+		}
+	}
+
+	private class MyTagAliasCallback implements TagAliasCallback {
+
+		@Override
+		public void gotResult(int arg0, String arg1, Set<String> arg2) {
+			sum++;
+			if (arg0 != 0 && sum < 5) {
+				setTag();
+			}
+		}
 
 	}
 
 	private void initView() {
+
+		mapView = (MapView) findViewById(R.id.main_bmapView);
+		mBaiduMap = mapView.getMap();
+		viewPager = (ViewPager) findViewById(R.id.main_content_vp);
+
 		// set the Behind View
 		setBehindContentView(R.layout.frame_left_menu);
 		home_btn = (ImageView) findViewById(R.id.home_btn);
 		// customize the SlidingMenu
 		mSlidingMenu = getSlidingMenu();
-
-		// mSlidingMenu.setMode(SlidingMenu.LEFT);// 设置左右都可以划出SlidingMenu菜单
-		// mSlidingMenu.setSecondaryShadowDrawable(R.drawable.shadow);
-		//
-		// // mSlidingMenu.setShadowWidth(5);
-		// // mSlidingMenu.setBehindOffset(100);
-		// mSlidingMenu.setShadowDrawable(R.drawable.shadow);// 设置阴影图片
-		// mSlidingMenu.setShadowWidthRes(R.dimen.shadow_width); // 设置阴影图片的宽度
-		// mSlidingMenu.setBehindOffsetRes(R.dimen.slidingmenu_offset); //
-		// SlidingMenu划出时主页面显示的剩余宽度
-		// mSlidingMenu.setFadeDegree(0.35f);
-		// // 设置SlidingMenu 的手势模式
-		// // TOUCHMODE_FULLSCREEN 全屏模式，在整个content页面中，滑动，可以打开SlidingMenu
-		// // TOUCHMODE_MARGIN
-		// // 边缘模式，在content页面中，如果想打开SlidingMenu,你需要在屏幕边缘滑动才可以打开SlidingMenu
-		// // TOUCHMODE_NONE 不能通过手势打开SlidingMenu
-		// mSlidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
 
 		mSlidingMenu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
 		mSlidingMenu.setFadeEnabled(false);
@@ -120,167 +158,53 @@ public class MainActivity extends SlidingFragmentActivity implements
 		fragmentTransaction.commit();
 	}
 
-	private void initTopMenu() {
+	private void initData(Bundle savedInstanceState) {
 
-		mScreenWidth = CommonUtil.getWindowsWidth(this);
-		mItemWidth = mScreenWidth / 7;// 一个Item宽度为屏幕的1/7
-		// rl_column = (RelativeLayout) findViewById(R.id.rl_column);
-		// mColumnHorizontalScrollView = (ColumnHorizontalScrollView)
-		// findViewById(R.id.mColumnHorizontalScrollView);
-		//
-		// mRadioGroup_content = (LinearLayout)
-		// findViewById(R.id.mRadioGroup_content);
-		// shade_left = (ImageView) findViewById(R.id.shade_left);
-		// shade_right = (ImageView) findViewById(R.id.shade_right);
-		// ll_more_columns = (LinearLayout) findViewById(R.id.ll_more_columns);
-		// button_more_columns = (ImageView)
-		// findViewById(R.id.button_more_columns);
-		// mViewPager = (ViewPager) findViewById(R.id.mViewPager);
+		// 如果用户没有报名，读取用户报名填写过的信息
+		if (app.userVO != null
+				&& app.userVO.getApplystate().equals(
+						EnrollResult.SUBJECT_NONE.getValue())) {
+			app.selectEnrollSchool = Util.getEnrollUserSelectedSchool(this);
+			app.selectEnrollCoach = Util.getEnrollUserSelectedCoach(this);
+			app.selectEnrollCarStyle = Util.getEnrollUserSelectedCarStyle(this);
+			app.selectEnrollClass = Util.getEnrollUserSelectedClass(this);
+		}
+		/*
+		 * 在一个Activity的一部分中显示其他Activity”要用到LocalActivityManagerity
+		 * 作用体现在manager获取View：manager.startActivity(String,
+		 * Intent).getDecorView()
+		 */
+		activityManager = new LocalActivityManager(this, true);
+		activityManager.dispatchCreate(savedInstanceState);
+
+		// 加入2个子Activity
+		Intent i1 = new Intent(this, SubjectEnrollActivity.class);
+		Intent i2 = new Intent(this, SubjectOneActivity.class);
+		Intent i3 = new Intent(this, SubjectTwoActivity.class);
+		Intent i4 = new Intent(this, SubjectThreeActivity.class);
+		Intent i5 = new Intent(this, SubjectFourActivity.class);
+
+		List<View> listViews = new ArrayList<View>(); // 实例化listViews
+		listViews.add(activityManager
+				.startActivity("SubjectEnrollActivity", i1).getDecorView());
+		listViews.add(activityManager.startActivity("SubjectOneActivity", i2)
+				.getDecorView());
+		listViews.add(activityManager.startActivity("SubjectTwoActivity", i3)
+				.getDecorView());
+		listViews.add(activityManager.startActivity("SubjectThreeActivity", i4)
+				.getDecorView());
+		listViews.add(activityManager.startActivity("SubjectFourActivity", i5)
+				.getDecorView());
+
+		viewPager.setAdapter(new MyPageAdapter(listViews));
+
+		app.curCity = util.readParam(Config.USER_CITY);
+		initMyLocation();
 	}
 
 	private void setListener() {
 		home_btn.setOnClickListener(this);
-		// button_more_columns.setOnClickListener(this);
 	}
-
-	// /**
-	// * 当栏目项发生变化时候调用
-	// * */
-	// private void setChangelView() {
-	// // initColumnData();
-	// // initTabColumn();
-	// // initFragment();
-	// }
-
-	// /** 获取Column栏目 数据 */
-	// private void initColumnData() {
-	// userChannelList.add(new ChannelItem(1, "推荐", 1, 1));
-	// userChannelList.add(new ChannelItem(2, "热点", 2, 1));
-	// userChannelList.add(new ChannelItem(3, "杭州", 3, 1));
-	// userChannelList.add(new ChannelItem(4, "时尚", 4, 1));
-	// userChannelList.add(new ChannelItem(5, "科技", 5, 1));
-	// userChannelList.add(new ChannelItem(6, "体育", 6, 1));
-	// userChannelList.add(new ChannelItem(7, "军事", 7, 1));
-	// userChannelList.add(new ChannelItem(8, "财经", 1, 0));
-	// userChannelList.add(new ChannelItem(9, "汽车", 2, 0));
-	// userChannelList.add(new ChannelItem(10, "房产", 3, 0));
-	// userChannelList.add(new ChannelItem(11, "社会", 4, 0));
-	// userChannelList.add(new ChannelItem(12, "情感", 5, 0));
-	// }
-
-	// /**
-	// * 初始化Column栏目项
-	// * */
-	// private void initTabColumn() {
-	// mRadioGroup_content.removeAllViews();
-	// int count = userChannelList.size();
-	// mColumnHorizontalScrollView.setParam(this, mScreenWidth,
-	// mRadioGroup_content, shade_left, shade_right, ll_more_columns,
-	// rl_column);
-	// for (int i = 0; i < count; i++) {
-	// LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-	// mItemWidth, LayoutParams.WRAP_CONTENT);
-	// params.leftMargin = 5;
-	// params.rightMargin = 5;
-	// TextView columnTextView = new TextView(this);
-	// columnTextView.setTextAppearance(this,
-	// R.style.top_category_scroll_view_item_text);
-	// columnTextView.setBackgroundResource(R.drawable.radio_buttong_bg);
-	// columnTextView.setGravity(Gravity.CENTER);
-	// columnTextView.setPadding(5, 5, 5, 5);
-	// columnTextView.setId(i);
-	// columnTextView.setText(userChannelList.get(i).getName());
-	// columnTextView.setTextColor(getResources().getColorStateList(
-	// R.color.top_category_scroll_text_color_day));
-	// if (columnSelectIndex == i) {
-	// columnTextView.setSelected(true);
-	// }
-	// columnTextView.setOnClickListener(new OnClickListener() {
-	//
-	// @Override
-	// public void onClick(View v) {
-	// for (int i = 0; i < mRadioGroup_content.getChildCount(); i++) {
-	// View localView = mRadioGroup_content.getChildAt(i);
-	// if (localView != v)
-	// localView.setSelected(false);
-	// else {
-	// localView.setSelected(true);
-	// mViewPager.setCurrentItem(i);
-	// }
-	// }
-	// Toast.makeText(getApplicationContext(),
-	// userChannelList.get(v.getId()).getName(),
-	// Toast.LENGTH_SHORT).show();
-	// }
-	// });
-	// mRadioGroup_content.addView(columnTextView, i, params);
-	// }
-	// }
-
-	/**
-	 * 选择的Column里面的Tab
-	 * */
-	private void selectTab(int tab_postion) {
-		columnSelectIndex = tab_postion;
-		for (int i = 0; i < mRadioGroup_content.getChildCount(); i++) {
-			View checkView = mRadioGroup_content.getChildAt(tab_postion);
-			int k = checkView.getMeasuredWidth();
-			int l = checkView.getLeft();
-			int i2 = l + k / 2 - mScreenWidth / 2;
-			mColumnHorizontalScrollView.smoothScrollTo(i2, 0);
-		}
-		// 判断是否选中
-		for (int j = 0; j < mRadioGroup_content.getChildCount(); j++) {
-			View checkView = mRadioGroup_content.getChildAt(j);
-			boolean ischeck;
-			if (j == tab_postion) {
-				ischeck = true;
-			} else {
-				ischeck = false;
-			}
-			checkView.setSelected(ischeck);
-		}
-	}
-
-	// /**
-	// * 初始化Fragment
-	// * */
-	// private void initFragment() {
-	// fragments.clear();// 清空
-	// int count = userChannelList.size();
-	// for (int i = 0; i < count; i++) {
-	// Bundle data = new Bundle();
-	// data.putString("text", userChannelList.get(i).getName());
-	// data.putInt("id", userChannelList.get(i).getId());
-	// NewsFragment newfragment = new NewsFragment();
-	// newfragment.setArguments(data);
-	// fragments.add(newfragment);
-	// }
-	// NewsFragmentPagerAdapter mAdapetr = new NewsFragmentPagerAdapter(
-	// getSupportFragmentManager(), fragments);
-	// mViewPager.setAdapter(mAdapetr);
-	// mViewPager.setOnPageChangeListener(pageListener);
-	// }
-
-	/**
-	 * ViewPager切换监听方法
-	 * */
-	public OnPageChangeListener pageListener = new OnPageChangeListener() {
-
-		@Override
-		public void onPageScrollStateChanged(int arg0) {
-		}
-
-		@Override
-		public void onPageScrolled(int arg0, float arg1, int arg2) {
-		}
-
-		@Override
-		public void onPageSelected(int position) {
-			mViewPager.setCurrentItem(position);
-			selectTab(position);
-		}
-	};
 
 	// 左侧菜单条目点击
 	@Override
@@ -288,9 +212,13 @@ public class MainActivity extends SlidingFragmentActivity implements
 		Intent intent;
 		switch (position) {
 		case 0:
-			Toast.makeText(getBaseContext(), "首页", 0).show();
-			// intent = new Intent(this, SecondActivity.class);
-			// startActivity(intent);
+			if (app.isLogin) {
+				intent = new Intent(this, PersonCenterActivity.class);
+				getParent().startActivityForResult(intent, position);
+			} else {
+				NoLoginDialog dialog = new NoLoginDialog(this);
+				dialog.show();
+			}
 			break;
 		case 1:
 			Toast.makeText(getBaseContext(), "查找教练", 0).show();
@@ -312,7 +240,6 @@ public class MainActivity extends SlidingFragmentActivity implements
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
 		switch (requestCode) {
 		// case CHANNELREQUEST:
 		// if (resultCode == CHANNELRESULT) {
@@ -332,14 +259,210 @@ public class MainActivity extends SlidingFragmentActivity implements
 		case R.id.home_btn:
 			toggle(); // 动态判断自动关闭或开启SlidingMenu
 			break;
-		// case R.id.button_more_columns:
-		// Intent intent_channel = new Intent(this, ChannelActivity.class);
-		// startActivityForResult(intent_channel, CHANNELREQUEST);
-		// overridePendingTransition(R.anim.slide_in_right,
-		// R.anim.slide_out_left);
-		// break;
 		default:
 			break;
 		}
+	}
+
+	private void obtainSubjectContent() {
+		HttpSendUtils.httpGetSend(subjectContent, this, Config.IP
+				+ "api/v1/trainingcontent");
+	}
+
+	private void obtainQuestionAddress() {
+		HttpSendUtils.httpGetSend(questionaddress, this, Config.IP
+				+ "api/v1/info/examquestion");
+	}
+
+	private void obtainFavouriteSchool() {
+		if (app.isLogin) {
+			Map<String, String> headerMap = new HashMap<String, String>();
+			headerMap.put("authorization", app.userVO.getToken());
+			HttpSendUtils.httpGetSend(school, this, Config.IP
+					+ "api/v1/userinfo/favoriteschool", null, 10000, headerMap);
+		}
+	}
+
+	private void obtainFavouriteCoach() {
+		if (app.isLogin) {
+			Map<String, String> headerMap = new HashMap<String, String>();
+			headerMap.put("authorization", app.userVO.getToken());
+			HttpSendUtils.httpGetSend(coach, this, Config.IP
+					+ "api/v1/userinfo/favoritecoach", null, 10000, headerMap);
+		}
+	}
+
+	@Override
+	public synchronized boolean doCallBack(String type, Object jsonString) {
+		if (super.doCallBack(type, jsonString)) {
+			return true;
+		}
+		try {
+			if (type.equals(coach)) {
+				if (dataArray != null) {
+					List<CoachVO> list = new ArrayList<CoachVO>();
+					int length = dataArray.length();
+					for (int i = 0; i < length; i++) {
+						CoachVO coachVO = JSONUtil.toJavaBean(CoachVO.class,
+								dataArray.getJSONObject(i));
+						list.add(coachVO);
+					}
+					app.favouriteCoach = list;
+				}
+			} else if (type.equals(school)) {
+				if (dataArray != null) {
+					List<SchoolVO> list = new ArrayList<SchoolVO>();
+					int length = dataArray.length();
+					for (int i = 0; i < length; i++) {
+						SchoolVO schoolVO = JSONUtil.toJavaBean(SchoolVO.class,
+								dataArray.getJSONObject(i));
+						list.add(schoolVO);
+					}
+					app.favouriteSchool = list;
+				}
+			} else if (type.equals(questionaddress)) {
+				try {
+					if (data != null) {
+						QuestionVO questionVO = JSONUtil.toJavaBean(
+								QuestionVO.class, data);
+						app.questionVO = questionVO;
+					}
+				} catch (Exception e) {
+					ZProgressHUD.getInstance(this).show();
+					ZProgressHUD.getInstance(this).dismissWithFailure(
+							"题库地址数据错误");
+					e.printStackTrace();
+				}
+			} else if (type.equals(subjectContent)) {
+				try {
+					if (data != null) {
+						String two = data.getString("subjecttwo");
+						two = two.replace("[", "").replace("]", "")
+								.replace("\"", "");
+						app.subjectTwoContent = Arrays.asList(two.split(","));
+
+						String three = data.getString("subjectthree");
+						three = three.replace("[", "").replace("]", "");
+						app.subjectThreeContent = Arrays.asList(three
+								.split(","));
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
+
+	private class MyPageAdapter extends PagerAdapter {
+
+		private List<View> list;
+
+		private MyPageAdapter(List<View> list) {
+			this.list = list;
+		}
+
+		@Override
+		public void destroyItem(ViewGroup view, int position, Object arg2) {
+			ViewPager pViewPager = ((ViewPager) view);
+			pViewPager.removeView(list.get(position));
+		}
+
+		@Override
+		public void finishUpdate(View arg0) {
+		}
+
+		@Override
+		public int getCount() {
+			return list.size();
+		}
+
+		@Override
+		public Object instantiateItem(ViewGroup view, int position) {
+			ViewPager pViewPager = ((ViewPager) view);
+			pViewPager.addView(list.get(position));
+			return list.get(position);
+		}
+
+		@Override
+		public boolean isViewFromObject(View arg0, Object arg1) {
+			return arg0 == arg1;
+		}
+
+		@Override
+		public void restoreState(Parcelable arg0, ClassLoader arg1) {
+		}
+
+		@Override
+		public Parcelable saveState() {
+			return null;
+		}
+
+		@Override
+		public void startUpdate(View arg0) {
+		}
+	}
+
+	private LocationClient mLocationClient;
+
+	private void initMyLocation() {
+		// 定位初始化
+		mLocationClient = new LocationClient(this);
+		mLocationClient.registerLocationListener(new MyLocationListener());
+		// 设置定位的相关配置
+		LocationClientOption option = new LocationClientOption();
+		// option.disableCache(true); // 是否允许缓存
+		option.setOpenGps(true); // 开启GPS
+		option.setCoorType("bd09ll");// 返回的定位结果是百度经纬度，默认值gcj02
+		option.setScanSpan(2000);// 设置发起定位请求的间隔时间为2000ms
+		option.setIsNeedAddress(true);// 返回的定位结果包含地址信息
+		option.setNeedDeviceDirect(false);// 返回的定位结果包含手机机头的方向
+		mLocationClient.setLocOption(option);
+
+		startLocation();
+	}
+
+	/**
+	 * 实现定位回调监听
+	 */
+	public class MyLocationListener implements BDLocationListener {
+		@Override
+		public void onReceiveLocation(BDLocation location) {
+
+			if (location == null)
+				return;
+			app.latitude = String.valueOf(location.getLatitude());
+			app.longtitude = String.valueOf(location.getLongitude());
+			String curCity = location.getAddress().city;
+			if (curCity != null) {
+				curCity = curCity.replace("市", "");
+				app.curCity = curCity;
+				util.saveParam(Config.USER_CITY, curCity);
+				stopLocation();
+			}
+		}
+	}
+
+	private void startLocation() {
+		// 开启定位图层
+		mBaiduMap.setMyLocationEnabled(true);
+		if (mLocationClient != null && !mLocationClient.isStarted()) {
+			mLocationClient.start();
+		}
+	}
+
+	private void stopLocation() {
+		// 当不需要定位图层时关闭定位图层
+		mBaiduMap.setMyLocationEnabled(false);
+		if (mLocationClient != null)
+			mLocationClient.stop();
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		stopLocation();
 	}
 }

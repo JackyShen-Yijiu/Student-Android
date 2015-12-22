@@ -228,7 +228,7 @@
     <string name="unpress_end">松开&#160;结束</string>
     <string name="unpress_cancel">松开手指取消发送</string>
     <string name="search_school">搜索</string>
-    <string name="c1_automatic_gear_car">C1自动档小车</string>
-    <string name="c2_manual_gear_car">C2手动档小车</string>
+    <string name="c1_automatic_gear_car">C1手动档小车</string>
+    <string name="c2_manual_gear_car">C2自动档小车</string>
 
 </resources>

@@ -3,6 +3,12 @@
     android:layout_height="fill_parent"
     android:background="@drawable/home_bg" >
 
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/main_bmapView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clickable="true"
+        android:visibility="gone" />
     <RelativeLayout
         android:id="@+id/title_layout"
         android:layout_width="fill_parent"
@@ -26,14 +32,14 @@
             android:textSize="18sp" />
     </RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/aaa"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/main_content_vp"
         android:layout_width="match_parent"
-        android:layout_height="40.0dip"
+        android:layout_height="match_parent"
         android:layout_below="@id/title_layout"
-        android:orientation="horizontal" >
+         >
 
-    </LinearLayout>
+    </android.support.v4.view.ViewPager>
 
 
 </RelativeLayout>
