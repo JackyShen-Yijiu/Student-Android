@@ -100,6 +100,13 @@
             <activity
             android:name="com.sft.blackcatapp.TestingPhoneActivity"
             android:screenOrientation="portrait" />
+            <activity
+            android:name="com.sft.blackcatapp.TestingMsgActivity"
+            android:screenOrientation="portrait" />
+            <activity
+            android:name="com.sft.blackcatapp.TestingCommit"
+            android:screenOrientation="portrait" />
+         <!-- 新增(end) -->
         <activity
             android:name="com.sft.blackcatapp.EnrollClassActivity"
             android:screenOrientation="portrait" />
