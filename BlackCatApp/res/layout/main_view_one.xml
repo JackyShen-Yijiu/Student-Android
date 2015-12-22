@@ -1,0 +1,121 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/bg_main" >
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/imageView3"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="51dp"
+        android:layout_toLeftOf="@+id/imageView2"
+        android:src="@drawable/introduce_three" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="38dp"
+        android:src="@drawable/text_main" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView1"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="25dp"
+        android:src="@drawable/introduce_two" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="18dp"
+        android:layout_marginBottom="20dp" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textColor="#ff9727"
+            android:text="一步介绍" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+             android:textSize="14sp"
+            android:textColor="#828282"
+            android:text="科目1" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+             android:textSize="14sp"
+            android:textColor="#828282"
+            android:text="科目2" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+             android:textSize="14sp"
+            android:textColor="#828282"
+            android:text="科目3" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+             android:textSize="14sp"
+            android:textColor="#828282"
+            android:text="科目4" />
+    </LinearLayout>
+
+    <FrameLayout 
+        android:id="@+id/fr_main"
+		android:layout_above="@+id/linearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="12dp"
+        android:src="@drawable/bottom_model" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="26dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/main_two" />
+
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/imageView3"
+        android:layout_marginTop="22dp"
+        android:layout_toRightOf="@+id/imageView3"
+        android:src="@drawable/introduce_one" />
+
+</RelativeLayout>

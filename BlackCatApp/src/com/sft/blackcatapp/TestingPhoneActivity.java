@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -105,6 +106,36 @@ public class TestingPhoneActivity extends BaseActivity {
 		}
 	}
 
+	@Override
+	public synchronized boolean doCallBack(String type, Object jsonString) {
+		if (super.doCallBack(type, jsonString)) {
+
+			return true;
+		}
+
+		if (type.equals(obtainCode)) {
+			codeHandler = new MyHandler(true, 1000) {
+				private int time = codeTime;
+
+				public void run() {
+					if (time-- > 0) {
+						sendCodeBtn.setText("剩余(" + time + "s)");
+						sendCodeBtn.setBackgroundColor(Color
+								.parseColor("#cccccc"));
+						sendCodeBtn.setEnabled(false);
+					} else {
+						codeHandler.cancle();
+						sendCodeBtn.setEnabled(true);
+						sendCodeBtn.setText(R.string.more_send_auth_code);
+						sendCodeBtn
+								.setBackgroundResource(R.drawable.btn_bkground);
+					}
+				}
+			};
+		}
+		return true;
+	}
+
 	private String checkInput() {
 		String phone = phoneEt.getText().toString();
 		if (TextUtils.isEmpty(phone)) {
@@ -139,6 +170,14 @@ public class TestingPhoneActivity extends BaseActivity {
 			ZProgressHUD.getInstance(this).dismissWithFailure("手机号为空");
 
 		}
+	}
+
+	@Override
+	protected void onDestroy() {
+		if (codeHandler != null) {
+			codeHandler.cancle();
+		}
+		super.onDestroy();
 	}
 
 }

@@ -3,14 +3,6 @@ package com.sft.blackcatapp;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.sft.common.Config;
-import com.sft.common.Config.EnrollResult;
-import com.sft.common.Config.SubjectStatu;
-import com.sft.dialog.NoLoginDialog;
-import com.sft.util.JSONUtil;
-import com.sft.viewutil.ZProgressHUD;
-import com.sft.vo.UserBaseStateVO;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -20,6 +12,14 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
+
+import com.sft.common.Config;
+import com.sft.common.Config.EnrollResult;
+import com.sft.common.Config.SubjectStatu;
+import com.sft.dialog.NoLoginDialog;
+import com.sft.util.JSONUtil;
+import com.sft.viewutil.ZProgressHUD;
+import com.sft.vo.UserBaseStateVO;
 
 /**
  * 科目三
@@ -37,7 +37,8 @@ public class SubjectThreeActivity extends BaseActivity {
 	private LinearLayout threeLayout;
 	//
 	private RelativeLayout approintmentBtn;
-	private RelativeLayout approintmentCarBtn, courseBtn, walletBtn, messageBtn, myBtn;
+	private RelativeLayout approintmentCarBtn, courseBtn, walletBtn,
+			messageBtn, myBtn;
 
 	private TextView appointmentText, appointmentCarText, courseText;
 
@@ -74,7 +75,6 @@ public class SubjectThreeActivity extends BaseActivity {
 		appointmentCarText = (TextView) findViewById(R.id.main_appointment_car_tv);
 		courseText = (TextView) findViewById(R.id.main_appointment_course_tv);
 
-		
 		ImageView imageAppointment = (ImageView) findViewById(R.id.main_appointment_im);
 		RelativeLayout.LayoutParams paramsAppointment = (RelativeLayout.LayoutParams) imageAppointment
 				.getLayoutParams();
@@ -88,27 +88,36 @@ public class SubjectThreeActivity extends BaseActivity {
 		paramsAppointmentCar.height = (int) (screenDensity * 63);
 
 		ImageView imageCourse = (ImageView) findViewById(R.id.main_appointment_course_im);
-		RelativeLayout.LayoutParams paramsCourse = (RelativeLayout.LayoutParams) imageCourse.getLayoutParams();
+		RelativeLayout.LayoutParams paramsCourse = (RelativeLayout.LayoutParams) imageCourse
+				.getLayoutParams();
 		paramsCourse.width = (int) (screenDensity * 86);
 		paramsCourse.height = (int) (screenDensity * 53);
-		
+
 		appointmentText.setText("科三预约列表");
 		appointmentCarText.setText("我要预约");
 		courseText.setText("科三课件");
-		
-		findViewById(R.id.main_appointment_layout).setBackgroundColor(Color.parseColor("#ff6633"));
-		findViewById(R.id.main_appointment_car_layout).setBackgroundColor(Color.parseColor("#ff9900"));
-		findViewById(R.id.main_appointment_course_layout).setBackgroundColor(Color.parseColor("#bd1f4a"));
-		findViewById(R.id.main_wallet_layout).setBackgroundColor(Color.parseColor("#01a300"));
-		findViewById(R.id.main_message_layout).setBackgroundColor(Color.parseColor("#0094a6"));
-		findViewById(R.id.main_my_layout).setBackgroundColor(Color.parseColor("#2d8aef"));
+
+		findViewById(R.id.main_appointment_layout).setBackgroundColor(
+				Color.parseColor("#ff6633"));
+		findViewById(R.id.main_appointment_car_layout).setBackgroundColor(
+				Color.parseColor("#ff9900"));
+		findViewById(R.id.main_appointment_course_layout).setBackgroundColor(
+				Color.parseColor("#bd1f4a"));
+		findViewById(R.id.main_wallet_layout).setBackgroundColor(
+				Color.parseColor("#01a300"));
+		findViewById(R.id.main_message_layout).setBackgroundColor(
+				Color.parseColor("#0094a6"));
+		findViewById(R.id.main_my_layout).setBackgroundColor(
+				Color.parseColor("#2d8aef"));
 
 	}
 
 	private void resizeLayout() {
-		LinearLayout.LayoutParams threeLayoutParams = (LinearLayout.LayoutParams) threeLayout.getLayoutParams();
+		LinearLayout.LayoutParams threeLayoutParams = (LinearLayout.LayoutParams) threeLayout
+				.getLayoutParams();
 		threeLayoutParams.height = (int) ((screenWidth - 12 * screenDensity) / 3);
-		LinearLayout.LayoutParams twoLayoutParams = (LinearLayout.LayoutParams) twoLayout.getLayoutParams();
+		LinearLayout.LayoutParams twoLayoutParams = (LinearLayout.LayoutParams) twoLayout
+				.getLayoutParams();
 		twoLayoutParams.height = (int) ((screenWidth - 11 * screenDensity) * 2 / 3);
 	}
 
@@ -134,8 +143,9 @@ public class SubjectThreeActivity extends BaseActivity {
 		Intent intent = null;
 		switch (v.getId()) {
 		case R.id.main_appointment_layout:
-			if (app.userVO.getApplystate().equals(EnrollResult.SUBJECT_NONE.getValue())) {
-				intent = new Intent(this, EnrollVerifyActivity.class);
+			if (app.userVO.getApplystate().equals(
+					EnrollResult.SUBJECT_NONE.getValue())) {
+				intent = new Intent(this, TestingPhoneActivity.class);
 			} else {
 				checkUserEnrollState(checkEnrollState_my);
 			}
@@ -146,8 +156,9 @@ public class SubjectThreeActivity extends BaseActivity {
 			intent.putExtra("title", "科目三课件");
 			break;
 		case R.id.main_appointment_car_layout:
-			if (app.userVO.getApplystate().equals(EnrollResult.SUBJECT_NONE.getValue())) {
-				intent = new Intent(this, EnrollVerifyActivity.class);
+			if (app.userVO.getApplystate().equals(
+					EnrollResult.SUBJECT_NONE.getValue())) {
+				intent = new Intent(this, TestingPhoneActivity.class);
 			} else {
 				checkUserEnrollState(checkEnrollState_car);
 			}
@@ -168,12 +179,14 @@ public class SubjectThreeActivity extends BaseActivity {
 	}
 
 	private void checkUserEnrollState(String type) {
-		if (app.userVO.getApplystate().equals(Config.EnrollResult.SUBJECT_ENROLLING.getValue())) {
+		if (app.userVO.getApplystate().equals(
+				Config.EnrollResult.SUBJECT_ENROLLING.getValue())) {
 			Map<String, String> paramsMap = new HashMap<String, String>();
 			paramsMap.put("userid", app.userVO.getUserid());
 			Map<String, String> headerMap = new HashMap<String, String>();
 			headerMap.put("authorization", app.userVO.getToken());
-			HttpSendUtils.httpGetSend(type, this, Config.IP + "api/v1/userinfo/getmyapplystate", paramsMap, 10000,
+			HttpSendUtils.httpGetSend(type, this, Config.IP
+					+ "api/v1/userinfo/getmyapplystate", paramsMap, 10000,
 					headerMap);
 		} else {
 			runIntent(type);
@@ -181,7 +194,8 @@ public class SubjectThreeActivity extends BaseActivity {
 	}
 
 	private void runIntent(String type) {
-		if (app.userVO.getApplystate().equals(EnrollResult.SUBJECT_ENROLLING.getValue())) {
+		if (app.userVO.getApplystate().equals(
+				EnrollResult.SUBJECT_ENROLLING.getValue())) {
 			ZProgressHUD.getInstance(this).show();
 			ZProgressHUD.getInstance(this).dismissWithFailure("您已报名，请等待驾校审核");
 			return;
@@ -198,13 +212,15 @@ public class SubjectThreeActivity extends BaseActivity {
 				ZProgressHUD.getInstance(this).dismissWithSuccess("待学习科目三再预约");
 			}
 		} else if (type.equals(checkEnrollState_car)) {
-			if (app.userVO.getSubject().getSubjectid().equals(SubjectStatu.SUBJECT_THREE.getValue())) {
+			if (app.userVO.getSubject().getSubjectid()
+					.equals(SubjectStatu.SUBJECT_THREE.getValue())) {
 				Intent intent = new Intent(this, AppointmentCarActivity.class);
 				intent.putExtra("subject", "3");
 				startActivity(intent);
 			} else if (subjectId.equals(SubjectStatu.SUBJECT_FOUR.getValue())) {
 				ZProgressHUD.getInstance(this).show();
-				ZProgressHUD.getInstance(this).dismissWithSuccess("已学完科目三，无需预约");
+				ZProgressHUD.getInstance(this)
+						.dismissWithSuccess("已学完科目三，无需预约");
 			} else {
 				ZProgressHUD.getInstance(this).show();
 				ZProgressHUD.getInstance(this).dismissWithSuccess("待学习科目三再预约");
@@ -220,8 +236,10 @@ public class SubjectThreeActivity extends BaseActivity {
 		try {
 			if (type.contains("checkEnrollState")) {
 				if (data != null) {
-					UserBaseStateVO baseStateVO = (UserBaseStateVO) JSONUtil.toJavaBean(UserBaseStateVO.class, data);
-					if (!baseStateVO.getApplystate().equals(app.userVO.getApplystate())) {
+					UserBaseStateVO baseStateVO = (UserBaseStateVO) JSONUtil
+							.toJavaBean(UserBaseStateVO.class, data);
+					if (!baseStateVO.getApplystate().equals(
+							app.userVO.getApplystate())) {
 						app.userVO.setApplystate(baseStateVO.getApplystate());
 					}
 					runIntent(type);

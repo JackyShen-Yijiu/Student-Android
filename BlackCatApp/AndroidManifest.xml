@@ -97,6 +97,9 @@
         <activity
             android:name="com.sft.blackcatapp.EnrollNextActivity"
             android:screenOrientation="portrait" />
+            <activity
+            android:name="com.sft.blackcatapp.TestingPhoneActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.sft.blackcatapp.EnrollClassActivity"
             android:screenOrientation="portrait" />
