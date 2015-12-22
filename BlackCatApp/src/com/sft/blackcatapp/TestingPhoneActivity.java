@@ -3,7 +3,6 @@ package com.sft.blackcatapp;
 import java.util.HashMap;
 import java.util.Map;
 
-import android.R;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;

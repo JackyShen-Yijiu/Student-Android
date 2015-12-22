@@ -38,5 +38,7 @@
     <color name="btn_blue_pressed">#0066FF</color>
     <color name="orange">#FFA500</color>
     <color name="common_bg">#fcfcfc</color>
-
+	
+    <color name="drawer_selector">#33ffffff</color>
+    <color name="drawer_unselector">#00000000</color>
 </resources>

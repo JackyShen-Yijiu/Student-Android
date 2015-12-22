@@ -220,7 +220,7 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 		if (result) {
 			if (isMyServiceRunning()) {
 				app.isLogin = true;
-				Intent intent = new Intent(this, OldMainActivity.class);
+				Intent intent = new Intent(this, MainActivity.class);
 				startActivity(intent);
 				finish();
 			} else {
@@ -285,22 +285,21 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 					@Override
 					public void onDismiss(DialogInterface dialog) {
 						app.isLogin = true;
-						Intent intent = new Intent(context,
-								OldMainActivity.class);
+						Intent intent = new Intent(context, MainActivity.class);
 						startActivity(intent);
 						finish();
 					}
 				});
 			} else {
 				app.isLogin = true;
-				Intent intent = new Intent(context, OldMainActivity.class);
+				Intent intent = new Intent(context, MainActivity.class);
 				startActivity(intent);
 				finish();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			app.isLogin = true;
-			Intent intent = new Intent(context, OldMainActivity.class);
+			Intent intent = new Intent(context, MainActivity.class);
 			startActivity(intent);
 			finish();
 		}

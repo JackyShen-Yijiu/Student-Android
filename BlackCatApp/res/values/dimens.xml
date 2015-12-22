@@ -4,6 +4,9 @@
     <dimen name="base_titlebar_height">50dp</dimen>
     <dimen name="base_titlebar_leftright_btn_width">50dp</dimen>
     <dimen name="base_titlebar_leftright_btn_height">50dp</dimen>
+    <!-- 主页 -->
+    <dimen name="shadow_width">10dp</dimen>
+    <dimen name="slidingmenu_offset">100dp</dimen>
 
     <!-- 登录界面 -->
     <dimen name="login_logo_width">90dp</dimen>
