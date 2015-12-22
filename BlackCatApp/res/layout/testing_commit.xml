@@ -66,9 +66,9 @@
         android:orientation="horizontal" >
     </LinearLayout>
    <Button
-       android:id="@+id/button_next"
+       android:id="@+id/button_sus"
        android:layout_width="match_parent"
-       android:layout_height="wrap_content"
+       android:layout_height="50dp"
        android:layout_alignParentBottom="true"
        android:layout_centerHorizontal="true"
        android:background="#ff6633"

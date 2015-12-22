@@ -35,6 +35,7 @@
     <string name="commit">提交</string>
     <string name="real_name">真实姓名</string>
     <string name="idcard">身份证号</string>
+    <string name="testcode">验证码</string>
     <string name="contact">联系方式</string>
     <string name="address">常用地址</string>
     <string name="enroll_school">报考驾校</string>

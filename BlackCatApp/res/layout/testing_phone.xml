@@ -131,7 +131,7 @@
   <EditText
         android:id="@+id/testing_code_et"
         style="@style/register_et_testing_style"
-        android:hint="@string/idcard" />
+        android:hint="@string/testcode" />
 
 </RelativeLayout>
       

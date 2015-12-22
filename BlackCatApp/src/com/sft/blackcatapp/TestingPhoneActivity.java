@@ -39,6 +39,7 @@ public class TestingPhoneActivity extends BaseActivity {
 	private Button sendCodeBtn;
 	// 获取验证码
 	private final static String obtainCode = "obtainCode";
+	private final static String register = "register";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,12 @@ public class TestingPhoneActivity extends BaseActivity {
 		addView(R.layout.testing_phone);
 		initView();
 		setListener();
+	}
+
+	@Override
+	protected void onResume() {
+		register(getClass().getName());
+		super.onResume();
 	}
 
 	private void initView() {
@@ -77,8 +84,8 @@ public class TestingPhoneActivity extends BaseActivity {
 		case R.id.base_right_btn:
 			break;
 		case R.id.button_next:
-			Intent intentt = new Intent(this, TestingMsgActivity.class);
-			startActivity(intentt);
+			// Intent intentt = new Intent(this, TestingMsgActivity.class);
+			// startActivity(intentt);
 			// finish();
 			register();
 			break;
@@ -97,43 +104,13 @@ public class TestingPhoneActivity extends BaseActivity {
 			paramMap.put("mobile", phoneEt.getText().toString());
 			paramMap.put("smscode", codeEt.getText().toString());
 			paramMap.put("name", nameEt.getText().toString());
-			paramMap.put("usertype", "1");
+			// paramMap.put("usertype", "1");
 			HttpSendUtils.httpPostSend("register", this, Config.IP
 					+ "api/v1/userinfo/signup", paramMap);
 		} else {
 			ZProgressHUD.getInstance(this).show();
 			ZProgressHUD.getInstance(this).dismissWithFailure(checkResult);
 		}
-	}
-
-	@Override
-	public synchronized boolean doCallBack(String type, Object jsonString) {
-		if (super.doCallBack(type, jsonString)) {
-
-			return true;
-		}
-
-		if (type.equals(obtainCode)) {
-			codeHandler = new MyHandler(true, 1000) {
-				private int time = codeTime;
-
-				public void run() {
-					if (time-- > 0) {
-						sendCodeBtn.setText("剩余(" + time + "s)");
-						sendCodeBtn.setBackgroundColor(Color
-								.parseColor("#cccccc"));
-						sendCodeBtn.setEnabled(false);
-					} else {
-						codeHandler.cancle();
-						sendCodeBtn.setEnabled(true);
-						sendCodeBtn.setText(R.string.more_send_auth_code);
-						sendCodeBtn
-								.setBackgroundResource(R.drawable.btn_bkground);
-					}
-				}
-			};
-		}
-		return true;
 	}
 
 	private String checkInput() {
@@ -170,6 +147,58 @@ public class TestingPhoneActivity extends BaseActivity {
 			ZProgressHUD.getInstance(this).dismissWithFailure("手机号为空");
 
 		}
+	}
+
+	@Override
+	public void doException(String type, Exception e, int code) {
+		if (type.equals(register)) {
+			commitBtn.setEnabled(true);
+		}
+		super.doException(type, e, code);
+	}
+
+	@Override
+	public void doTimeOut(String type) {
+		if (type.equals(register)) {
+			commitBtn.setEnabled(true);
+		}
+		super.doTimeOut(type);
+	}
+
+	@Override
+	public synchronized boolean doCallBack(String type, Object jsonString) {
+		if (super.doCallBack(type, jsonString)) {
+
+			return true;
+		}
+		if (type.equals(register)) {
+			Intent intent = new Intent(this, TestingMsgActivity.class);
+			startActivity(intent);
+			// finish();
+		}
+
+		if (type.equals(obtainCode)) {
+			codeHandler = new MyHandler(true, 1000) {
+				private int time = codeTime;
+
+				public void run() {
+					if (time-- > 0) {
+						sendCodeBtn.setText("剩余(" + time + "s)");
+						sendCodeBtn.setBackgroundColor(Color
+								.parseColor("#cccccc"));
+						sendCodeBtn.setEnabled(false);
+					} else {
+						codeHandler.cancle();
+						sendCodeBtn.setEnabled(true);
+						sendCodeBtn.setText(R.string.more_send_auth_code);
+						sendCodeBtn
+								.setBackgroundResource(R.drawable.btn_bkground);
+					}
+				}
+			};
+		}
+
+		return true;
 	}
 
 	@Override

@@ -31,10 +31,6 @@ import com.sft.vo.SchoolVO;
 @SuppressWarnings("unused")
 public class EnrollActivity extends BaseActivity {
 
-	private static final String realName = "realName";
-	private static final String idcard = "idcard";
-	private static final String contact = "contact";
-	private static final String address = "address";
 	private static final String enroll = "enroll";
 	private RelativeLayout rootLayout;
 	// 头像图片
@@ -102,15 +98,6 @@ public class EnrollActivity extends BaseActivity {
 		classRL = (RelativeLayout) findViewById(R.id.enroll_class_rl);
 
 		commitBtn = (Button) findViewById(R.id.enroll_commit_btn);
-		// nameEt = (EditText) findViewById(R.id.enroll_name_et);
-		// cardEt = (EditText) findViewById(R.id.enroll_card_et);
-		// contactEt = (EditText) findViewById(R.id.enroll_contact_et);
-		// addressEt = (EditText) findViewById(R.id.enroll_address_et);
-
-		// nameEt.setHint(setHint(R.string.real_name));
-		// cardEt.setHint(setHint(R.string.idcard));
-		// contactEt.setHint(setHint(R.string.contact));
-		// addressEt.setHint(setHint(R.string.address));
 
 		resizeDrawalbeLeftSize();
 	}
@@ -244,49 +231,7 @@ public class EnrollActivity extends BaseActivity {
 		}
 	}
 
-	// private void enroll() {
-	// String checkResult = checkEnrollInfo();
-	// if (checkResult == null) {
-	// Map<String, String> paramMap = new HashMap<String, String>();
-	// // paramMap.put("name", nameEt.getText().toString());
-	// // paramMap.put("idcardnumber", cardEt.getText().toString());
-	// // paramMap.put("telephone", contactEt.getText().toString());
-	// // paramMap.put("address", addressEt.getText().toString());
-	// // paramMap.put("userid", app.userVO.getUserid());
-	//
-	// paramMap.put("carmodel", carStyle.toString());
-	// paramMap.put("schoolid", school.getSchoolid());
-	// paramMap.put("classtypeid", classId.getCalssid());
-	// paramMap.put("coachid", coach.getCoachid());
-	//
-	// Map<String, String> headerMap = new HashMap<String, String>();
-	// headerMap.put("authorization", app.userVO.getToken());
-	// HttpSendUtils.httpPostSend(enroll, this, Config.IP
-	// + "api/v1/userinfo/userapplyschool", paramMap, 10000,
-	// headerMap);
-	// } else {
-	// ZProgressHUD.getInstance(this).show();
-	// ZProgressHUD.getInstance(this).dismissWithFailure(checkResult);
-	// }
-	// }
-
 	private String checkEnrollInfo() {
-		// if (TextUtils.isEmpty(name)) {
-		// return "姓名为空";
-		// }
-		// String idcard = cardEt.getText().toString();
-		// if (TextUtils.isEmpty(idcard)) {
-		// return "身份证号为空";
-		// }
-		//
-		// String phone = contactEt.getText().toString();
-		// if (TextUtils.isEmpty(phone)) {
-		// return "联系方式为空";
-		// }
-		// String address = addressEt.getText().toString();
-		// if (TextUtils.isEmpty(address)) {
-		// return "常用地址为空";
-		// }
 		if (carStyle == null) {
 			return "车型为空";
 		}
