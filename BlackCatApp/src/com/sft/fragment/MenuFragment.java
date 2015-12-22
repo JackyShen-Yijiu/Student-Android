@@ -21,7 +21,7 @@ import cn.sft.infinitescrollviewpager.BitmapManager;
 
 import com.joooonho.SelectableRoundedImageView;
 import com.sft.adapter.MyAdapter;
-import com.sft.blackcatapp.EditPersonInfoActivity;
+import com.sft.blackcatapp.PersonCenterActivity;
 import com.sft.blackcatapp.R;
 import com.sft.common.BlackCatApplication;
 
@@ -96,10 +96,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 		map.put("item", "消息");
 		mMenuTitles.add(map);
 		map = new HashMap<String, String>();
-		map.put("item", "签到");
-		mMenuTitles.add(map);
-		map = new HashMap<String, String>();
-		map.put("item", "商城");
+		map.put("item", "钱包");
 		mMenuTitles.add(map);
 		map = new HashMap<String, String>();
 		map.put("item", "我");
@@ -138,7 +135,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 		Intent intent = null;
 		switch (v.getId()) {
 		case R.id.fragment_menu_headpic_im:
-			intent = new Intent(getActivity(), EditPersonInfoActivity.class);
+			intent = new Intent(getActivity(), PersonCenterActivity.class);
 			startActivity(intent);
 			break;
 

@@ -4,16 +4,6 @@
      >
 
     <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_below="@+id/imageView3"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="51dp"
-        android:layout_toLeftOf="@+id/imageView2"
-        android:src="@drawable/introduce_three" />
-
-    <ImageView
         android:id="@+id/imageView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,24 +12,31 @@
         android:layout_marginTop="38dp"
         android:src="@drawable/text_main" />
 
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="18dp"
+        android:src="@drawable/subject_one_question_bank" />
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/imageView3"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="90dp"
         android:layout_toRightOf="@+id/imageView3"
-        android:src="@drawable/introduce_one" />
+        android:src="@drawable/subject_one_mock" />
 
     <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/imageView4"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignLeft="@+id/imageView2"
         android:layout_below="@+id/imageView1"
-        android:layout_marginLeft="22dp"
-        android:layout_marginTop="63dp"
-        android:src="@drawable/introduce_two" />
+        android:layout_marginTop="114dp"
+        android:src="@drawable/subject_one_error_data" />
 
 </RelativeLayout>

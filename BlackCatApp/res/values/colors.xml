@@ -41,4 +41,7 @@
 	
     <color name="drawer_selector">#33ffffff</color>
     <color name="drawer_unselector">#00000000</color>
+    
+    <color name="bottom_text_unselector">#828282</color>
+    <color name="bottom_text_selector">#ff9727</color>
 </resources>

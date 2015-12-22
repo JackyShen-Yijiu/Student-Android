@@ -11,7 +11,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="51dp"
         android:layout_toLeftOf="@+id/imageView2"
-        android:src="@drawable/introduce_three" />
+        android:src="@drawable/subject_two_appointment" />
 
     <ImageView
         android:id="@+id/imageView1"
@@ -28,18 +28,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/imageView3"
-        android:layout_marginLeft="15dp"
         android:layout_marginTop="35dp"
         android:layout_toRightOf="@+id/imageView3"
-        android:src="@drawable/introduce_one" />
+        android:src="@drawable/subject_two_appointment_list" />
 
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imageView1"
         android:layout_below="@+id/imageView1"
-        android:layout_marginLeft="22dp"
-        android:layout_marginTop="63dp"
-        android:src="@drawable/introduce_two" />
+        android:layout_marginTop="107dp"
+        android:src="@drawable/subject_two_courseware" />
 
 </RelativeLayout>

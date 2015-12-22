@@ -16,11 +16,12 @@ import android.os.Parcelable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.TextView;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
 import cn.sft.baseactivity.util.HttpSendUtils;
@@ -36,8 +37,14 @@ import com.sft.adapter.HomePageAdapter;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
 import com.sft.dialog.NoLoginDialog;
+import com.sft.fragment.IntroducesFragment;
 import com.sft.fragment.MenuFragment;
 import com.sft.fragment.MenuFragment.SLMenuListOnItemClickListener;
+import com.sft.fragment.SubjectFourFragment;
+import com.sft.fragment.SubjectOneFragment;
+import com.sft.fragment.SubjectThreeFragment;
+import com.sft.fragment.SubjectTwoFragment;
+import com.sft.util.CommonUtil;
 import com.sft.util.JSONUtil;
 import com.sft.util.Util;
 import com.sft.viewutil.ZProgressHUD;
@@ -120,6 +127,14 @@ public class MainActivity extends BaseMainActivity implements
 		mapView = (MapView) findViewById(R.id.main_bmapView);
 		mBaiduMap = mapView.getMap();
 		viewPager = (ViewPager) findViewById(R.id.main_content_vp);
+		carImageView = (ImageView) findViewById(R.id.main_car_iv);
+
+		bottomProgress = (ImageView) findViewById(R.id.main_bottom_progress_iv);
+		introduce = (TextView) findViewById(R.id.main_yibu_introduce_tv);
+		subjectOne = (TextView) findViewById(R.id.main_subject_one_tv);
+		subjectTwo = (TextView) findViewById(R.id.main_subject_two_tv);
+		subjectThree = (TextView) findViewById(R.id.main_subject_three_tv);
+		subjectFour = (TextView) findViewById(R.id.main_subject_four_tv);
 
 		// set the Behind View
 		setBehindContentView(R.layout.frame_left_menu);
@@ -174,36 +189,47 @@ public class MainActivity extends BaseMainActivity implements
 		 * 作用体现在manager获取View：manager.startActivity(String,
 		 * Intent).getDecorView()
 		 */
-		activityManager = new LocalActivityManager(this, true);
-		activityManager.dispatchCreate(savedInstanceState);
+		// activityManager = new LocalActivityManager(this, true);
+		// activityManager.dispatchCreate(savedInstanceState);
+		//
+		// // 加入2个子Activity
+		// Intent i1 = new Intent(this, SubjectEnrollActivity.class);
+		// Intent i2 = new Intent(this, SubjectOneActivity.class);
+		// Intent i3 = new Intent(this, SubjectTwoActivity.class);
+		// Intent i4 = new Intent(this, SubjectThreeActivity.class);
+		// Intent i5 = new Intent(this, SubjectFourActivity.class);
+		//
+		// List<View> listViews = new ArrayList<View>(); // 实例化listViews
+		// listViews.add(activityManager
+		// .startActivity("SubjectEnrollActivity", i1).getDecorView());
+		// listViews.add(activityManager.startActivity("SubjectOneActivity", i2)
+		// .getDecorView());
+		// listViews.add(activityManager.startActivity("SubjectTwoActivity", i3)
+		// .getDecorView());
+		// listViews.add(activityManager.startActivity("SubjectThreeActivity",
+		// i4)
+		// .getDecorView());
+		// listViews.add(activityManager.startActivity("SubjectFourActivity",
+		// i5)
+		// .getDecorView());
+		//
+		// viewPager.setAdapter(new MyPageAdapter(listViews));
 
-		// 加入2个子Activity
-		Intent i1 = new Intent(this, SubjectEnrollActivity.class);
-		Intent i2 = new Intent(this, SubjectOneActivity.class);
-		Intent i3 = new Intent(this, SubjectTwoActivity.class);
-		Intent i4 = new Intent(this, SubjectThreeActivity.class);
-		Intent i5 = new Intent(this, SubjectFourActivity.class);
-
-		List<View> listViews = new ArrayList<View>(); // 实例化listViews
-		listViews.add(activityManager
-				.startActivity("SubjectEnrollActivity", i1).getDecorView());
-		listViews.add(activityManager.startActivity("SubjectOneActivity", i2)
-				.getDecorView());
-		listViews.add(activityManager.startActivity("SubjectTwoActivity", i3)
-				.getDecorView());
-		listViews.add(activityManager.startActivity("SubjectThreeActivity", i4)
-				.getDecorView());
-		listViews.add(activityManager.startActivity("SubjectFourActivity", i5)
-				.getDecorView());
-
-		viewPager.setAdapter(new MyPageAdapter(listViews));
-
+		mHomePageAdapter = new HomePageAdapter(
+				this.getSupportFragmentManager(), getBaseContext());
+		mHomePageAdapter.addFragmentClass(IntroducesFragment.class);
+		mHomePageAdapter.addFragmentClass(SubjectOneFragment.class);
+		mHomePageAdapter.addFragmentClass(SubjectTwoFragment.class);
+		mHomePageAdapter.addFragmentClass(SubjectThreeFragment.class);
+		mHomePageAdapter.addFragmentClass(SubjectFourFragment.class);
+		viewPager.setAdapter(mHomePageAdapter);
 		app.curCity = util.readParam(Config.USER_CITY);
 		initMyLocation();
 	}
 
 	private void setListener() {
 		home_btn.setOnClickListener(this);
+		viewPager.setOnPageChangeListener(new MainOnPageChangeListener());
 	}
 
 	// 左侧菜单条目点击
@@ -211,27 +237,43 @@ public class MainActivity extends BaseMainActivity implements
 	public void selectItem(int position, String title) {
 		Intent intent;
 		switch (position) {
+
 		case 0:
+			// Toast.makeText(getBaseContext(), "查找教练", 0).show();
+			intent = new Intent(this, MainActivity.class);
+			startActivity(intent);
+			break;
+		case 1:
+			// Toast.makeText(getBaseContext(), "查找教练", 0).show();
+			intent = new Intent(this, EnrollSchoolActivity.class);
+			startActivity(intent);
+			break;
+		case 2:
 			if (app.isLogin) {
-				intent = new Intent(this, PersonCenterActivity.class);
-				getParent().startActivityForResult(intent, position);
+				intent = new Intent(this, MessageActivity.class);
+				startActivity(intent);
 			} else {
 				NoLoginDialog dialog = new NoLoginDialog(this);
 				dialog.show();
 			}
 			break;
-		case 1:
-			Toast.makeText(getBaseContext(), "查找教练", 0).show();
-			// intent = new Intent(this, SecondActivity.class);
-			// startActivity(intent);
-			break;
-		case 2:
-			// intent = new Intent(this, SecondActivity.class);
-			// startActivity(intent);
-			break;
 		case 3:
-			// intent = new Intent(this, SecondActivity.class);
-			// startActivity(intent);
+			if (app.isLogin) {
+				intent = new Intent(this, MyWalletActivity.class);
+				startActivity(intent);
+			} else {
+				NoLoginDialog dialog = new NoLoginDialog(this);
+				dialog.show();
+			}
+			break;
+		case 4:
+			if (app.isLogin) {
+				intent = new Intent(this, PersonCenterActivity.class);
+				startActivityForResult(intent, position);
+			} else {
+				NoLoginDialog dialog = new NoLoginDialog(this);
+				dialog.show();
+			}
 			break;
 		default:
 			break;
@@ -382,6 +424,8 @@ public class MainActivity extends BaseMainActivity implements
 		@Override
 		public Object instantiateItem(ViewGroup view, int position) {
 			ViewPager pViewPager = ((ViewPager) view);
+			list.get(position).setBackgroundColor(
+					getResources().getColor(android.R.color.transparent));
 			pViewPager.addView(list.get(position));
 			return list.get(position);
 		}
@@ -406,6 +450,13 @@ public class MainActivity extends BaseMainActivity implements
 	}
 
 	private LocationClient mLocationClient;
+	private ImageView carImageView;
+	private ImageView bottomProgress;
+	private TextView introduce;
+	private TextView subjectOne;
+	private TextView subjectTwo;
+	private TextView subjectThree;
+	private TextView subjectFour;
 
 	private void initMyLocation() {
 		// 定位初始化
@@ -464,5 +515,76 @@ public class MainActivity extends BaseMainActivity implements
 	protected void onPause() {
 		super.onPause();
 		stopLocation();
+	}
+
+	class MainOnPageChangeListener implements OnPageChangeListener {
+
+		@Override
+		public void onPageScrolled(int position, float positionOffset,
+				int positionOffsetPixels) {
+			int carPointX = (int) ((positionOffset + position) * CommonUtil
+					.dip2px(getBaseContext(), 65));
+			// 让红点移动,修改红点的leftMargin
+			android.widget.RelativeLayout.LayoutParams layoutParams = (android.widget.RelativeLayout.LayoutParams) carImageView
+					.getLayoutParams();
+			layoutParams.leftMargin = carPointX;
+			carImageView.setLayoutParams(layoutParams);
+		}
+
+		@Override
+		public void onPageSelected(int position) {
+			setBottomState(position);
+		}
+
+		@Override
+		public void onPageScrollStateChanged(int state) {
+
+		}
+
+	}
+
+	private void setBottomState(int postion) {
+		introduce.setTextColor(getResources().getColor(
+				R.color.bottom_text_unselector));
+		subjectOne.setTextColor(getResources().getColor(
+				R.color.bottom_text_unselector));
+		subjectTwo.setTextColor(getResources().getColor(
+				R.color.bottom_text_unselector));
+		subjectThree.setTextColor(getResources().getColor(
+				R.color.bottom_text_unselector));
+		subjectFour.setTextColor(getResources().getColor(
+				R.color.bottom_text_unselector));
+		// bottomProgress.setBackgroundDrawable(null);
+
+		switch (postion) {
+		case 0:
+			introduce.setTextColor(getResources().getColor(
+					R.color.bottom_text_selector));
+			bottomProgress.setImageResource(R.drawable.bottom_model);
+			break;
+		case 1:
+			subjectOne.setTextColor(getResources().getColor(
+					R.color.bottom_text_selector));
+			bottomProgress.setImageResource(R.drawable.subject_one_bottom);
+			break;
+		case 2:
+			subjectTwo.setTextColor(getResources().getColor(
+					R.color.bottom_text_selector));
+			bottomProgress.setImageResource(R.drawable.subject_two_bottom);
+			break;
+		case 3:
+			subjectThree.setTextColor(getResources().getColor(
+					R.color.bottom_text_selector));
+			bottomProgress.setImageResource(R.drawable.subject_three_bottom);
+			break;
+		case 4:
+			subjectFour.setTextColor(getResources().getColor(
+					R.color.bottom_text_selector));
+			bottomProgress.setImageResource(R.drawable.subject_four_bottom);
+			break;
+
+		default:
+			break;
+		}
 	}
 }

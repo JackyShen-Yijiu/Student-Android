@@ -209,6 +209,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.sft.blackcatapp.SubjectEnrollActivity"
+            android:theme="@android:style/Theme.Translucent"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.sft.blackcatapp.MyCoachActivity"

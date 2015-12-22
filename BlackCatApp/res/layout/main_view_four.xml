@@ -4,16 +4,6 @@
      >
 
     <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_below="@+id/imageView3"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="51dp"
-        android:layout_toLeftOf="@+id/imageView2"
-        android:src="@drawable/introduce_three" />
-
-    <ImageView
         android:id="@+id/imageView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,24 +12,32 @@
         android:layout_marginTop="38dp"
         android:src="@drawable/text_main" />
 
-
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/imageView3"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="35dp"
-        android:layout_toRightOf="@+id/imageView3"
-        android:src="@drawable/introduce_one" />
+        android:layout_marginRight="53dp"
+        android:layout_marginTop="96dp"
+        android:src="@drawable/subject_three_appointment" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignBottom="@+id/imageView3"
+        android:layout_alignRight="@+id/imageView2"
+        android:layout_marginBottom="95dp"
+        android:src="@drawable/subject_three_courseware" />
 
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imageView1"
         android:layout_below="@+id/imageView1"
-        android:layout_marginLeft="22dp"
-        android:layout_marginTop="63dp"
-        android:src="@drawable/introduce_two" />
+        android:layout_marginTop="139dp"
+        android:src="@drawable/subject_three_appointment_list" />
 
 </RelativeLayout>

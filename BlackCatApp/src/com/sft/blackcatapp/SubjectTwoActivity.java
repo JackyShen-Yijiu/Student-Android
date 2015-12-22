@@ -4,10 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -45,12 +43,13 @@ public class SubjectTwoActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		addView(R.layout.activity_subject_two);
+		addView(R.layout.main_view_three);
 		initView();
-		resizeLayout();
-		setListener();
+		// resizeLayout();
+		// setListener();
 	}
 
+	@Override
 	protected void onResume() {
 		register(getClass().getName());
 		super.onResume();
@@ -61,54 +60,65 @@ public class SubjectTwoActivity extends BaseActivity {
 		showTitlebarBtn(0);
 		setTitleText(R.string.school);
 
-		twoLayout = (LinearLayout) findViewById(R.id.main_two_layout);
-		threeLayout = (LinearLayout) findViewById(R.id.main_three_layout);
-
-		approintmentBtn = (RelativeLayout) findViewById(R.id.main_appointment_layout);
-		approintmentCarBtn = (RelativeLayout) findViewById(R.id.main_appointment_car_layout);
-		courseBtn = (RelativeLayout) findViewById(R.id.main_appointment_course_layout);
-		walletBtn = (RelativeLayout) findViewById(R.id.main_wallet_layout);
-		messageBtn = (RelativeLayout) findViewById(R.id.main_message_layout);
-		myBtn = (RelativeLayout) findViewById(R.id.main_my_layout);
-
-		appointmentText = (TextView) findViewById(R.id.main_appointment_tv);
-		appointmentCarText = (TextView) findViewById(R.id.main_appointment_car_tv);
-		courseText = (TextView) findViewById(R.id.main_appointment_course_tv);
-
-		ImageView imageAppointment = (ImageView) findViewById(R.id.main_appointment_im);
-		RelativeLayout.LayoutParams paramsAppointment = (RelativeLayout.LayoutParams) imageAppointment
-				.getLayoutParams();
-		paramsAppointment.width = (int) (screenDensity * 112);
-		paramsAppointment.height = (int) (screenDensity * 136);
-
-		ImageView imageAppointmentCar = (ImageView) findViewById(R.id.main_appointment_car_im);
-		RelativeLayout.LayoutParams paramsAppointmentCar = (RelativeLayout.LayoutParams) imageAppointmentCar
-				.getLayoutParams();
-		paramsAppointmentCar.width = (int) (screenDensity * 67);
-		paramsAppointmentCar.height = (int) (screenDensity * 63);
-
-		ImageView imageCourse = (ImageView) findViewById(R.id.main_appointment_course_im);
-		RelativeLayout.LayoutParams paramsCourse = (RelativeLayout.LayoutParams) imageCourse
-				.getLayoutParams();
-		paramsCourse.width = (int) (screenDensity * 86);
-		paramsCourse.height = (int) (screenDensity * 53);
-
-		appointmentText.setText("科二预约列表");
-		appointmentCarText.setText("我要预约");
-		courseText.setText("科二课件");
-
-		findViewById(R.id.main_appointment_layout).setBackgroundColor(
-				Color.parseColor("#ff9900"));
-		findViewById(R.id.main_appointment_car_layout).setBackgroundColor(
-				Color.parseColor("#bd1f4a"));
-		findViewById(R.id.main_appointment_course_layout).setBackgroundColor(
-				Color.parseColor("#ff6633"));
-		findViewById(R.id.main_wallet_layout).setBackgroundColor(
-				Color.parseColor("#01a300"));
-		findViewById(R.id.main_message_layout).setBackgroundColor(
-				Color.parseColor("#0094a6"));
-		findViewById(R.id.main_my_layout).setBackgroundColor(
-				Color.parseColor("#2d8aef"));
+		// twoLayout = (LinearLayout) findViewById(R.id.main_two_layout);
+		// threeLayout = (LinearLayout) findViewById(R.id.main_three_layout);
+		//
+		// approintmentBtn = (RelativeLayout)
+		// findViewById(R.id.main_appointment_layout);
+		// approintmentCarBtn = (RelativeLayout)
+		// findViewById(R.id.main_appointment_car_layout);
+		// courseBtn = (RelativeLayout)
+		// findViewById(R.id.main_appointment_course_layout);
+		// walletBtn = (RelativeLayout) findViewById(R.id.main_wallet_layout);
+		// messageBtn = (RelativeLayout) findViewById(R.id.main_message_layout);
+		// myBtn = (RelativeLayout) findViewById(R.id.main_my_layout);
+		//
+		// appointmentText = (TextView) findViewById(R.id.main_appointment_tv);
+		// appointmentCarText = (TextView)
+		// findViewById(R.id.main_appointment_car_tv);
+		// courseText = (TextView)
+		// findViewById(R.id.main_appointment_course_tv);
+		//
+		// ImageView imageAppointment = (ImageView)
+		// findViewById(R.id.main_appointment_im);
+		// RelativeLayout.LayoutParams paramsAppointment =
+		// (RelativeLayout.LayoutParams) imageAppointment
+		// .getLayoutParams();
+		// paramsAppointment.width = (int) (screenDensity * 112);
+		// paramsAppointment.height = (int) (screenDensity * 136);
+		//
+		// ImageView imageAppointmentCar = (ImageView)
+		// findViewById(R.id.main_appointment_car_im);
+		// RelativeLayout.LayoutParams paramsAppointmentCar =
+		// (RelativeLayout.LayoutParams) imageAppointmentCar
+		// .getLayoutParams();
+		// paramsAppointmentCar.width = (int) (screenDensity * 67);
+		// paramsAppointmentCar.height = (int) (screenDensity * 63);
+		//
+		// ImageView imageCourse = (ImageView)
+		// findViewById(R.id.main_appointment_course_im);
+		// RelativeLayout.LayoutParams paramsCourse =
+		// (RelativeLayout.LayoutParams) imageCourse
+		// .getLayoutParams();
+		// paramsCourse.width = (int) (screenDensity * 86);
+		// paramsCourse.height = (int) (screenDensity * 53);
+		//
+		// appointmentText.setText("科二预约列表");
+		// appointmentCarText.setText("我要预约");
+		// courseText.setText("科二课件");
+		//
+		// findViewById(R.id.main_appointment_layout).setBackgroundColor(
+		// Color.parseColor("#ff9900"));
+		// findViewById(R.id.main_appointment_car_layout).setBackgroundColor(
+		// Color.parseColor("#bd1f4a"));
+		// findViewById(R.id.main_appointment_course_layout).setBackgroundColor(
+		// Color.parseColor("#ff6633"));
+		// findViewById(R.id.main_wallet_layout).setBackgroundColor(
+		// Color.parseColor("#01a300"));
+		// findViewById(R.id.main_message_layout).setBackgroundColor(
+		// Color.parseColor("#0094a6"));
+		// findViewById(R.id.main_my_layout).setBackgroundColor(
+		// Color.parseColor("#2d8aef"));
 
 	}
 
@@ -231,8 +241,8 @@ public class SubjectTwoActivity extends BaseActivity {
 		try {
 			if (type.contains("checkEnrollState")) {
 				if (data != null) {
-					UserBaseStateVO baseStateVO = (UserBaseStateVO) JSONUtil
-							.toJavaBean(UserBaseStateVO.class, data);
+					UserBaseStateVO baseStateVO = JSONUtil.toJavaBean(
+							UserBaseStateVO.class, data);
 					if (!baseStateVO.getApplystate().equals(
 							app.userVO.getApplystate())) {
 						app.userVO.setApplystate(baseStateVO.getApplystate());

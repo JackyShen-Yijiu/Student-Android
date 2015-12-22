@@ -1,16 +1,13 @@
 package com.sft.blackcatapp;
 
-import com.sft.dialog.NoLoginDialog;
-import com.sft.viewutil.ZProgressHUD;
-
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
+
+import com.sft.dialog.NoLoginDialog;
+import com.sft.viewutil.ZProgressHUD;
 
 /**
  * 科目四
@@ -31,12 +28,13 @@ public class SubjectFourActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		addView(R.layout.activity_subject_two);
+		addView(R.layout.main_view_five);
 		initView();
-		resizeLayout();
-		setListener();
+		// resizeLayout();
+		// setListener();
 	}
 
+	@Override
 	protected void onResume() {
 		register(getClass().getName());
 		super.onResume();
@@ -47,55 +45,74 @@ public class SubjectFourActivity extends BaseActivity {
 		showTitlebarBtn(0);
 		setTitleText(R.string.school);
 
-		twoLayout = (LinearLayout) findViewById(R.id.main_two_layout);
-		threeLayout = (LinearLayout) findViewById(R.id.main_three_layout);
-
-		libraryBtn = (RelativeLayout) findViewById(R.id.main_appointment_layout);
-		examBtn = (RelativeLayout) findViewById(R.id.main_appointment_car_layout);
-		myFaultBtn = (RelativeLayout) findViewById(R.id.main_appointment_course_layout);
-		walletBtn = (RelativeLayout) findViewById(R.id.main_wallet_layout);
-		messageBtn = (RelativeLayout) findViewById(R.id.main_message_layout);
-		myBtn = (RelativeLayout) findViewById(R.id.main_my_layout);
-
-		
-		ImageView imageAppointment = (ImageView) findViewById(R.id.main_appointment_im);
-		imageAppointment.setBackgroundResource(R.drawable.question_bank);
-		RelativeLayout.LayoutParams paramsAppointment = (RelativeLayout.LayoutParams) imageAppointment
-				.getLayoutParams();
-		paramsAppointment.width = (int) (screenDensity * 118);
-		paramsAppointment.height = (int) (screenDensity * 131);
-
-		ImageView imageAppointmentCar = (ImageView) findViewById(R.id.main_appointment_car_im);
-		imageAppointmentCar.setBackgroundResource(R.drawable.mock_examination);
-		RelativeLayout.LayoutParams paramsAppointmentCar = (RelativeLayout.LayoutParams) imageAppointmentCar
-				.getLayoutParams();
-		paramsAppointmentCar.width = (int) (screenDensity * 53);
-		paramsAppointmentCar.height = (int) (screenDensity * 90);
-
-		ImageView imageCourse = (ImageView) findViewById(R.id.main_appointment_course_im);
-		imageCourse.setBackgroundResource(R.drawable.my_mistakes);
-		RelativeLayout.LayoutParams paramsCourse = (RelativeLayout.LayoutParams) imageCourse.getLayoutParams();
-		paramsCourse.width = (int) (screenDensity * 64);
-		paramsCourse.height = (int) (screenDensity * 64);
-		
-		
-		((TextView) findViewById(R.id.main_appointment_tv)).setText("科四" + getString(R.string.question_bank));
-		((TextView) findViewById(R.id.main_appointment_car_tv)).setText("科四" + getString(R.string.mock_examination));
-		((TextView) findViewById(R.id.main_appointment_course_tv)).setText(R.string.my_mistakes);
-		
-		findViewById(R.id.main_appointment_layout).setBackgroundColor(Color.parseColor("#bd1f4a"));
-		findViewById(R.id.main_appointment_car_layout).setBackgroundColor(Color.parseColor("#ff6633"));
-		findViewById(R.id.main_appointment_course_layout).setBackgroundColor(Color.parseColor("#ff9900"));
-		findViewById(R.id.main_wallet_layout).setBackgroundColor(Color.parseColor("#01a300"));
-		findViewById(R.id.main_message_layout).setBackgroundColor(Color.parseColor("#0094a6"));
-		findViewById(R.id.main_my_layout).setBackgroundColor(Color.parseColor("#2d8aef"));
+		// twoLayout = (LinearLayout) findViewById(R.id.main_two_layout);
+		// threeLayout = (LinearLayout) findViewById(R.id.main_three_layout);
+		//
+		// libraryBtn = (RelativeLayout)
+		// findViewById(R.id.main_appointment_layout);
+		// examBtn = (RelativeLayout)
+		// findViewById(R.id.main_appointment_car_layout);
+		// myFaultBtn = (RelativeLayout)
+		// findViewById(R.id.main_appointment_course_layout);
+		// walletBtn = (RelativeLayout) findViewById(R.id.main_wallet_layout);
+		// messageBtn = (RelativeLayout) findViewById(R.id.main_message_layout);
+		// myBtn = (RelativeLayout) findViewById(R.id.main_my_layout);
+		//
+		// ImageView imageAppointment = (ImageView)
+		// findViewById(R.id.main_appointment_im);
+		// imageAppointment.setBackgroundResource(R.drawable.question_bank);
+		// RelativeLayout.LayoutParams paramsAppointment =
+		// (RelativeLayout.LayoutParams) imageAppointment
+		// .getLayoutParams();
+		// paramsAppointment.width = (int) (screenDensity * 118);
+		// paramsAppointment.height = (int) (screenDensity * 131);
+		//
+		// ImageView imageAppointmentCar = (ImageView)
+		// findViewById(R.id.main_appointment_car_im);
+		// imageAppointmentCar.setBackgroundResource(R.drawable.mock_examination);
+		// RelativeLayout.LayoutParams paramsAppointmentCar =
+		// (RelativeLayout.LayoutParams) imageAppointmentCar
+		// .getLayoutParams();
+		// paramsAppointmentCar.width = (int) (screenDensity * 53);
+		// paramsAppointmentCar.height = (int) (screenDensity * 90);
+		//
+		// ImageView imageCourse = (ImageView)
+		// findViewById(R.id.main_appointment_course_im);
+		// imageCourse.setBackgroundResource(R.drawable.my_mistakes);
+		// RelativeLayout.LayoutParams paramsCourse =
+		// (RelativeLayout.LayoutParams) imageCourse
+		// .getLayoutParams();
+		// paramsCourse.width = (int) (screenDensity * 64);
+		// paramsCourse.height = (int) (screenDensity * 64);
+		//
+		// ((TextView) findViewById(R.id.main_appointment_tv)).setText("科四"
+		// + getString(R.string.question_bank));
+		// ((TextView) findViewById(R.id.main_appointment_car_tv)).setText("科四"
+		// + getString(R.string.mock_examination));
+		// ((TextView) findViewById(R.id.main_appointment_course_tv))
+		// .setText(R.string.my_mistakes);
+		//
+		// findViewById(R.id.main_appointment_layout).setBackgroundColor(
+		// Color.parseColor("#bd1f4a"));
+		// findViewById(R.id.main_appointment_car_layout).setBackgroundColor(
+		// Color.parseColor("#ff6633"));
+		// findViewById(R.id.main_appointment_course_layout).setBackgroundColor(
+		// Color.parseColor("#ff9900"));
+		// findViewById(R.id.main_wallet_layout).setBackgroundColor(
+		// Color.parseColor("#01a300"));
+		// findViewById(R.id.main_message_layout).setBackgroundColor(
+		// Color.parseColor("#0094a6"));
+		// findViewById(R.id.main_my_layout).setBackgroundColor(
+		// Color.parseColor("#2d8aef"));
 
 	}
 
 	private void resizeLayout() {
-		LinearLayout.LayoutParams threeLayoutParams = (LinearLayout.LayoutParams) threeLayout.getLayoutParams();
+		LinearLayout.LayoutParams threeLayoutParams = (LinearLayout.LayoutParams) threeLayout
+				.getLayoutParams();
 		threeLayoutParams.height = (int) ((screenWidth - 12 * screenDensity) / 3);
-		LinearLayout.LayoutParams twoLayoutParams = (LinearLayout.LayoutParams) twoLayout.getLayoutParams();
+		LinearLayout.LayoutParams twoLayoutParams = (LinearLayout.LayoutParams) twoLayout
+				.getLayoutParams();
 		twoLayoutParams.height = (int) ((screenWidth - 11 * screenDensity) * 2 / 3);
 	}
 
@@ -124,7 +141,8 @@ public class SubjectFourActivity extends BaseActivity {
 			// 题库
 			if (app.questionVO != null) {
 				intent = new Intent(this, QuestionActivity.class);
-				intent.putExtra("url", app.questionVO.getSubjectfour().getQuestionlisturl());
+				intent.putExtra("url", app.questionVO.getSubjectfour()
+						.getQuestionlisturl());
 			} else {
 				ZProgressHUD.getInstance(this).show();
 				ZProgressHUD.getInstance(this).dismissWithFailure("暂无题库");
@@ -134,7 +152,8 @@ public class SubjectFourActivity extends BaseActivity {
 			// 我的错题
 			if (app.questionVO != null) {
 				intent = new Intent(this, QuestionActivity.class);
-				intent.putExtra("url", app.questionVO.getSubjectfour().getQuestionerrorurl());
+				intent.putExtra("url", app.questionVO.getSubjectfour()
+						.getQuestionerrorurl());
 			} else {
 				ZProgressHUD.getInstance(this).show();
 				ZProgressHUD.getInstance(this).dismissWithFailure("暂无题库");
@@ -144,7 +163,8 @@ public class SubjectFourActivity extends BaseActivity {
 			// 模拟考试
 			if (app.questionVO != null) {
 				intent = new Intent(this, QuestionActivity.class);
-				intent.putExtra("url", app.questionVO.getSubjectfour().getQuestiontesturl());
+				intent.putExtra("url", app.questionVO.getSubjectfour()
+						.getQuestiontesturl());
 			} else {
 				ZProgressHUD.getInstance(this).show();
 				ZProgressHUD.getInstance(this).dismissWithFailure("暂无题库");
