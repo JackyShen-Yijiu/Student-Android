@@ -69,7 +69,7 @@ public class SubjectTwoActivity extends BaseActivity {
 		// findViewById(R.id.main_appointment_car_layout);
 		// courseBtn = (RelativeLayout)
 		// findViewById(R.id.main_appointment_course_layout);
-		// walletBtn = (RelativeLayout) findViewById(R.id.main_wallet_layout);
+		walletBtn = (RelativeLayout) findViewById(R.id.main_wallet_layout);
 		// messageBtn = (RelativeLayout) findViewById(R.id.main_message_layout);
 		// myBtn = (RelativeLayout) findViewById(R.id.main_my_layout);
 		//

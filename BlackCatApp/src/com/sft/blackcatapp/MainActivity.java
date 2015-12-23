@@ -524,7 +524,6 @@ public class MainActivity extends BaseMainActivity implements
 				int positionOffsetPixels) {
 			int carPointX = (int) ((positionOffset + position) * CommonUtil
 					.dip2px(getBaseContext(), 65));
-			// 让红点移动,修改红点的leftMargin
 			android.widget.RelativeLayout.LayoutParams layoutParams = (android.widget.RelativeLayout.LayoutParams) carImageView
 					.getLayoutParams();
 			layoutParams.leftMargin = carPointX;

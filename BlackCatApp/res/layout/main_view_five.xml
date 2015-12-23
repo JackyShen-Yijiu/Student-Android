@@ -15,7 +15,7 @@
     
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/subject_four_courseware_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/imageView1"
@@ -24,20 +24,20 @@
         android:src="@drawable/subject_four_courseware" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/subject_four_question_bank_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageView4"
+        android:layout_alignBottom="@+id/subject_four_error_data_iv"
         android:layout_marginBottom="32dp"
-        android:layout_toRightOf="@+id/imageView3"
+        android:layout_toRightOf="@+id/subject_four_courseware_iv"
         android:src="@drawable/subject_four_question_bank" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/subject_four_error_data_iv"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_alignLeft="@+id/imageView3"
-        android:layout_below="@+id/imageView3"
+        android:layout_alignLeft="@+id/subject_four_courseware_iv"
+        android:layout_below="@+id/subject_four_courseware_iv"
         android:layout_marginTop="77dp"
         android:src="@drawable/subject_four_error_data" />
 
