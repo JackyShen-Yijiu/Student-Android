@@ -12,6 +12,8 @@ import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+import com.sft.util.SharedPreferencesUtil;
+
 /**
  * 实现类似于人人网APP的引导页
  * 
@@ -42,10 +44,13 @@ public class GuideActivity extends Activity {
 
 		findViewById(R.id.button1).setOnClickListener(new OnClickListener() {
 
+			@Override
 			public void onClick(View arg0) {
-				Intent intent = new Intent(GuideActivity.this,
-						WelcomeActivity.class);
-				startActivity(intent);
+				startActivity(new Intent(GuideActivity.this,
+						LoginActivity.class));
+				SharedPreferencesUtil.putBoolean(getApplicationContext(),
+						WelcomeActivity.IS_APP_FIRST_OPEN, false);
+				finish();
 			}
 		});
 

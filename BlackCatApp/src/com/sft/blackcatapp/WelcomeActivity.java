@@ -12,6 +12,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import cn.sft.baseactivity.util.HttpSendUtils;
@@ -22,6 +23,7 @@ import com.sft.common.Config;
 import com.sft.listener.EMLoginListener;
 import com.sft.util.DownLoadService;
 import com.sft.util.JSONUtil;
+import com.sft.util.SharedPreferencesUtil;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.UserVO;
 import com.sft.vo.VersionVO;
@@ -33,6 +35,7 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 	private static final String version = "version";
 	private static final String qiniutoken = "qiniutoken";
 
+	public static String IS_APP_FIRST_OPEN = "is_app_first_open";
 	private MyHandler handler;
 
 	@Override
@@ -63,22 +66,41 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 		app.userVO = null;
 		app.isLogin = false;
 
-		String lastLoginPhone = util.readParam(Config.LAST_LOGIN_ACCOUNT);
-		String password = util.readParam(Config.LAST_LOGIN_PASSWORD);
-		if (!TextUtils.isEmpty(lastLoginPhone) && !TextUtils.isEmpty(password)) {
-			AnalyticsConfig.setAppkey(this, Config.UMENG_APPKEY);
-			AnalyticsConfig.setChannel(Config.UMENG_CHANNELID);
-			login(lastLoginPhone, password);
-		} else {
-			handler = new MyHandler(2000) {
+		boolean isFirstOpen = SharedPreferencesUtil.getBoolean(
+				getApplicationContext(), IS_APP_FIRST_OPEN, true);
+		if (isFirstOpen) {
+			new Handler().postDelayed(new Runnable() {
+
 				@Override
 				public void run() {
 					Intent intent = new Intent(WelcomeActivity.this,
-							LoginActivity.class);
+							GuideActivity.class);
 					startActivity(intent);
-					finish();
+					WelcomeActivity.this.finish();
 				}
-			};
+			}, 1000);
+			// startActivity(new Intent(WelcomeActivity.this,
+			// GuideActivity.class));
+		} else {
+
+			String lastLoginPhone = util.readParam(Config.LAST_LOGIN_ACCOUNT);
+			String password = util.readParam(Config.LAST_LOGIN_PASSWORD);
+			if (!TextUtils.isEmpty(lastLoginPhone)
+					&& !TextUtils.isEmpty(password)) {
+				AnalyticsConfig.setAppkey(this, Config.UMENG_APPKEY);
+				AnalyticsConfig.setChannel(Config.UMENG_CHANNELID);
+				login(lastLoginPhone, password);
+			} else {
+				handler = new MyHandler(2000) {
+					@Override
+					public void run() {
+						Intent intent = new Intent(WelcomeActivity.this,
+								LoginActivity.class);
+						startActivity(intent);
+						finish();
+					}
+				};
+			}
 		}
 
 	}

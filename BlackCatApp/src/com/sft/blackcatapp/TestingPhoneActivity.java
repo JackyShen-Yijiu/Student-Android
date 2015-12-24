@@ -1,8 +1,5 @@
 package com.sft.blackcatapp;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -84,8 +81,7 @@ public class TestingPhoneActivity extends BaseActivity {
 		case R.id.base_right_btn:
 			break;
 		case R.id.button_next:
-			// Intent intentt = new Intent(this, TestingMsgActivity.class);
-			// startActivity(intentt);
+
 			// finish();
 			register();
 			break;
@@ -98,15 +94,17 @@ public class TestingPhoneActivity extends BaseActivity {
 	private void register() {
 		String checkResult = checkInput();
 		if (checkResult == null) {
-			// 注册
-			commitBtn.setEnabled(false);
-			Map<String, String> paramMap = new HashMap<String, String>();
-			paramMap.put("mobile", phoneEt.getText().toString());
-			paramMap.put("smscode", codeEt.getText().toString());
-			paramMap.put("name", nameEt.getText().toString());
-			// paramMap.put("usertype", "1");
-			HttpSendUtils.httpPostSend("register", this, Config.IP
-					+ "api/v1/userinfo/signup", paramMap);
+			// //
+			// commitBtn.setEnabled(false);
+			// Map<String, String> paramMap = new HashMap<String, String>();
+			// paramMap.put("mobile", phoneEt.getText().toString());
+			// paramMap.put("smscode", codeEt.getText().toString());
+			// paramMap.put("name", nameEt.getText().toString());
+			// // paramMap.put("usertype", "1");
+			// HttpSendUtils.httpPostSend("register", this, Config.IP
+			// + "api/v1/userinfo/enrollverificationv2", paramMap);
+			Intent intentt = new Intent(this, TestingMsgActivity.class);
+			startActivity(intentt);
 		} else {
 			ZProgressHUD.getInstance(this).show();
 			ZProgressHUD.getInstance(this).dismissWithFailure(checkResult);
@@ -172,8 +170,8 @@ public class TestingPhoneActivity extends BaseActivity {
 			return true;
 		}
 		if (type.equals(register)) {
-			Intent intent = new Intent(this, TestingMsgActivity.class);
-			startActivity(intent);
+			// Intent intent = new Intent(this, TestingMsgActivity.class);
+			// startActivity(intent);
 			// finish();
 		}
 
@@ -181,6 +179,7 @@ public class TestingPhoneActivity extends BaseActivity {
 			codeHandler = new MyHandler(true, 1000) {
 				private int time = codeTime;
 
+				@Override
 				public void run() {
 					if (time-- > 0) {
 						sendCodeBtn.setText("剩余(" + time + "s)");
