@@ -220,13 +220,13 @@
                         android:textColor="#ffffff"
                         android:textSize="16dp" />
 
-                    <ImageView
+                    <!-- <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="#cccccc"
-                        android:contentDescription="@string/app_name" />
+                        android:contentDescription="@string/app_name" /> -->
 
-                    <TextView
+                   <!--  <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="11dp"
@@ -240,7 +240,7 @@
                         android:id="@+id/appointment_detail_horizon_listview"
                         android:layout_width="match_parent"
                         android:layout_marginBottom="10dp"
-                        android:layout_height="45dp" />
+                        android:layout_height="45dp" /> -->
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

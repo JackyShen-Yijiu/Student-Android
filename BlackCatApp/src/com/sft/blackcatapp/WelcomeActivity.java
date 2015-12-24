@@ -14,8 +14,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.infinitescrollviewpager.MyHandler;
 
@@ -46,16 +44,18 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 	}
 
 	private void initView() {
-		ImageView image = (ImageView) findViewById(R.id.welcome_image);
-		RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) image
-				.getLayoutParams();
-		params.width = (int) (screenWidth * 5 / 12f);
-		params.height = (int) (params.width * 243 / 509f);
-
-		ImageView devider = (ImageView) findViewById(R.id.welcom_devider);
-		RelativeLayout.LayoutParams deviderparams = (RelativeLayout.LayoutParams) devider
-				.getLayoutParams();
-		deviderparams.height = (int) (screenHeight * 41 / 128f);
+		// ImageView image = (ImageView) findViewById(R.id.welcome_image);
+		// RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)
+		// image
+		// .getLayoutParams();
+		// params.width = (int) (screenWidth * 5 / 12f);
+		// params.height = (int) (params.width * 243 / 509f);
+		//
+		// ImageView devider = (ImageView) findViewById(R.id.welcom_devider);
+		// RelativeLayout.LayoutParams deviderparams =
+		// (RelativeLayout.LayoutParams) devider
+		// .getLayoutParams();
+		// deviderparams.height = (int) (screenHeight * 41 / 128f);
 	}
 
 	private void initData() {

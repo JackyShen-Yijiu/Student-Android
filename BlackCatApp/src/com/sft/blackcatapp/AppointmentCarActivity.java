@@ -1,5 +1,6 @@
 package com.sft.blackcatapp;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -28,18 +29,24 @@ import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.infinitescrollviewpager.MyHandler;
 import cn.sft.pull.AutoScrollListener;
 import cn.sft.pull.LoadMoreView;
+import cn.sft.pull.LoadMoreView.LoadMoreListener;
 import cn.sft.pull.OnItemClickListener;
 
 import com.sft.adapter.AppointmentCarCoachHoriListAdapter;
+import com.sft.adapter.AppointmentDetailStudentHoriListAdapter;
 import com.sft.common.Config;
 import com.sft.common.Config.SubjectStatu;
 import com.sft.dialog.CustomDialog;
 import com.sft.util.JSONUtil;
+import com.sft.util.LogUtil;
 import com.sft.util.Util;
 import com.sft.viewutil.ScrollTimeLayout;
+import com.sft.viewutil.ScrollTimeLayout.OnTimeLayoutSelectedListener;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.CoachCourseVO;
 import com.sft.vo.CoachVO;
+import com.sft.vo.MyAppointmentVO;
+import com.sft.vo.commentvo.CommentUser;
 import com.sft.vo.uservo.StudentSubject;
 
 /**
@@ -50,11 +57,13 @@ import com.sft.vo.uservo.StudentSubject;
  */
 @SuppressLint("SimpleDateFormat")
 public class AppointmentCarActivity extends BaseActivity implements
-		OnCheckedChangeListener, OnItemClickListener, AutoScrollListener {
+		OnCheckedChangeListener, OnItemClickListener, AutoScrollListener,
+		LoadMoreListener {
 
 	private static final String coachCourse = "coachCourse";
 	private static final String appointmentCourse = "appointmentCourse";
 	private static final String favouriteCoach = "favouriteCoach";
+	private static final String sameTimeStudent = "sameTimeStudent";
 	// 日期列表
 	private RadioGroup dateGroup;
 	// radiobtn;
@@ -78,6 +87,15 @@ public class AppointmentCarActivity extends BaseActivity implements
 	private TextView noCoachTv;
 	// 提交按钮
 	private Button commitBtn;
+
+	// 同时段学员
+	private LoadMoreView studentListView;
+	//
+	private int studentPage = 1;
+	//
+	private MyAppointmentVO appointmentVO;
+	private AppointmentDetailStudentHoriListAdapter sameTimeStudentAdapter;
+	private List<CommentUser> userList = new ArrayList<CommentUser>();
 	//
 	private AppointmentCarCoachHoriListAdapter adapter;
 	// 预约学车教练列表
@@ -102,8 +120,10 @@ public class AppointmentCarActivity extends BaseActivity implements
 		initDate();
 		resizeLayout();
 		setListener();
+		// obtainSameTimeStudent(studentPage);
 	}
 
+	@Override
 	protected void onResume() {
 		register(getClass().getName());
 		super.onResume();
@@ -159,6 +179,11 @@ public class AppointmentCarActivity extends BaseActivity implements
 				commitBtn.setOnClickListener(this);
 			}
 		}
+
+		studentListView = (LoadMoreView) findViewById(R.id.appointment_detail_horizon_listview);
+		studentListView.setPullLoadMoreEnable(true);
+		studentListView.setHorizontal();
+
 	}
 
 	private void setAppointmentTimeInfo() {
@@ -185,6 +210,8 @@ public class AppointmentCarActivity extends BaseActivity implements
 	}
 
 	private void initData() {
+		appointmentVO = (MyAppointmentVO) getIntent().getSerializableExtra(
+				"appointment");
 		coachListView.setVisibility(View.GONE);
 		obtainFavouriteCoach();
 	}
@@ -240,6 +267,9 @@ public class AppointmentCarActivity extends BaseActivity implements
 		shuttleLayout.setOnClickListener(this);
 		dateGroup.setOnCheckedChangeListener(this);
 		coachListView.setAutoScrollListener(this);
+		studentListView.setLoadMoreListener(this);
+		timeLayout
+				.setOnTimeLayoutSelectedListener(new MyOnTimeLayoutSelectedListener());
 	}
 
 	private void obtainFavouriteCoach() {
@@ -247,6 +277,15 @@ public class AppointmentCarActivity extends BaseActivity implements
 		headerMap.put("authorization", app.userVO.getToken());
 		HttpSendUtils.httpGetSend(favouriteCoach, this, Config.IP
 				+ "api/v1/userinfo/favoritecoach", null, 10000, headerMap);
+	}
+
+	private void obtainSameTimeStudent(int page) {
+		Map<String, String> headerMap = new HashMap<String, String>();
+		headerMap.put("coachid", selectCoach.getCoachid());
+		headerMap.put("begintime", beginTimeStemp + "");
+		headerMap.put("endtime", endTimeStemp + "");
+		HttpSendUtils.httpGetSend(sameTimeStudent, this, Config.IP
+				+ "api/v1/courseinfo/sametimestudentsv2", headerMap);
 	}
 
 	private void obtainCaochCourse(String coachId) {
@@ -319,10 +358,10 @@ public class AppointmentCarActivity extends BaseActivity implements
 				if (index >= 0) {
 					// 包含相同元素
 					coachList.remove(index);
-				} 
+				}
 				coachList.add(0, coach);
-				adapter = new AppointmentCarCoachHoriListAdapter(this, coachList,
-						(int) (screenWidth - 75 * screenDensity));
+				adapter = new AppointmentCarCoachHoriListAdapter(this,
+						coachList, (int) (screenWidth - 75 * screenDensity));
 				adapter.setSelected(0);
 				coachListView.setAdapter(adapter);
 				if (selectCoach == null
@@ -429,8 +468,8 @@ public class AppointmentCarActivity extends BaseActivity implements
 				if (dataArray != null) {
 					int length = dataArray.length();
 					for (int i = 0; i < length; i++) {
-						CoachVO coachVO = (CoachVO) JSONUtil.toJavaBean(
-								CoachVO.class, dataArray.getJSONObject(i));
+						CoachVO coachVO = JSONUtil.toJavaBean(CoachVO.class,
+								dataArray.getJSONObject(i));
 						if (coachList.contains(coachVO)) {
 							continue;
 						}
@@ -448,7 +487,7 @@ public class AppointmentCarActivity extends BaseActivity implements
 				if (dataArray != null) {
 					int length = dataArray.length();
 					for (int i = 0; i < length; i++) {
-						CoachCourseVO coachCourseVO = (CoachCourseVO) JSONUtil
+						CoachCourseVO coachCourseVO = JSONUtil
 								.toJavaBean(CoachCourseVO.class,
 										dataArray.getJSONObject(i));
 						courseList.add(coachCourseVO);
@@ -470,17 +509,54 @@ public class AppointmentCarActivity extends BaseActivity implements
 					Intent intent = new Intent();
 					setResult(RESULT_OK, intent);
 					new MyHandler(1500) {
+						@Override
 						public void run() {
 							dialog.dismiss();
 							finish();
 						};
 					};
 				}
+			} else if (sameTimeStudent.equals(type)) {
+				if (dataArray != null) {
+					int length = dataArray.length();
+					if (length > 0)
+						studentPage++;
+					for (int i = 0; i < length; i++) {
+						CommentUser commentUser = JSONUtil.toJavaBean(
+								CommentUser.class, dataArray.getJSONObject(i)
+										.getJSONObject("userid"));
+						if (!commentUser.get_id()
+								.equals(app.userVO.getUserid()))
+							userList.add(commentUser);
+					}
+				}
+				if (sameTimeStudentAdapter == null) {
+					sameTimeStudentAdapter = new AppointmentDetailStudentHoriListAdapter(
+							getBaseContext(), userList);
+				} else {
+					sameTimeStudentAdapter.setData(userList);
+				}
+				studentListView.setAdapter(sameTimeStudentAdapter);
+				studentListView.setLoadMoreCompleted();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return true;
+	}
+
+	@Override
+	public void doException(String type, Exception e, int code) {
+		if (sameTimeStudent.equals(type))
+			studentListView.setLoadMoreCompleted();
+		super.doException(type, e, code);
+	}
+
+	@Override
+	public void doTimeOut(String type) {
+		if (sameTimeStudent.equals(type))
+			studentListView.setLoadMoreCompleted();
+		super.doTimeOut(type);
 	}
 
 	@Override
@@ -527,6 +603,73 @@ public class AppointmentCarActivity extends BaseActivity implements
 		}
 		if (scorooToPosition != curSelect) {
 			onItemClick(scorooToPosition);
+		}
+	}
+
+	@Override
+	public void onLoadMore() {
+		obtainSameTimeStudent(studentPage);
+	}
+
+	String selectBeginTime = "24:00:00";
+	String selectEndTime = "24:00:00";
+
+	private long beginTimeStemp;
+	private long endTimeStemp;
+
+	class MyOnTimeLayoutSelectedListener implements
+			OnTimeLayoutSelectedListener {
+
+		@Override
+		public void TimeLayoutSelectedListener() {
+			if (timeLayout.getSelectCourseList() == null
+					|| timeLayout.getSelectCourseList().size() == 0) {
+				return;
+			}
+			selectEndTime = "24:00:00";
+			selectBeginTime = "24:00:00";
+			for (CoachCourseVO coachCourseVO : timeLayout.getSelectCourseList()) {
+				String begintime = coachCourseVO.getCoursetime().getBegintime();
+				String endtime = coachCourseVO.getCoursetime().getEndtime();
+				if (begintime.length() < selectBeginTime.length()) {
+					selectBeginTime = begintime;
+				} else if (begintime.length() == selectBeginTime.length()) {
+
+					if (begintime.compareTo(selectBeginTime) < 0) {
+						selectBeginTime = begintime;
+					}
+				}
+
+				if (endtime.length() < selectEndTime.length()) {
+					selectBeginTime = begintime;
+				} else if (endtime.length() == selectEndTime.length()) {
+
+					if (endtime.compareTo(selectEndTime) > 0) {
+						selectEndTime = endtime;
+					}
+				}
+
+				// 转换成时间戳
+				SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
+						"yyyy-MM-dd HH:mm:ss");
+				Date begindate = null;
+				Date enddate = null;
+				if (selectDate != null) {
+					try {
+						begindate = simpleDateFormat.parse(selectDate + " "
+								+ selectBeginTime);
+						enddate = simpleDateFormat.parse(selectDate + " "
+								+ selectEndTime);
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+				}
+				beginTimeStemp = begindate.getTime() / 1000;
+				endTimeStemp = enddate.getTime() / 1000;
+			}
+			LogUtil.print("时间戳" + beginTimeStemp);
+			LogUtil.print(selectDate + " " + selectBeginTime);
+			obtainSameTimeStudent(studentPage);
 		}
 	}
 }

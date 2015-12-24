@@ -76,7 +76,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 
 		String url = app.userVO.getHeadportrait().getOriginalpic();
 		if (TextUtils.isEmpty(url)) {
-			personIcon.setBackgroundResource(R.drawable.default_small_pic);
+			personIcon.setImageResource(R.drawable.default_small_pic);
 		} else {
 			BitmapManager.INSTANCE.loadBitmap2(url, personIcon,
 					headpicParam.width, headpicParam.height);

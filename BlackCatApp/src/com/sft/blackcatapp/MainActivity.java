@@ -242,6 +242,7 @@ public class MainActivity extends BaseMainActivity implements
 			// Toast.makeText(getBaseContext(), "查找教练", 0).show();
 			intent = new Intent(this, MainActivity.class);
 			startActivity(intent);
+			this.finish();
 			break;
 		case 1:
 			// Toast.makeText(getBaseContext(), "查找教练", 0).show();
