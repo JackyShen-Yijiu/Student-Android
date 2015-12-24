@@ -24,7 +24,7 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                android:textColor="@color/app_main_color"
+                android:textColor="@color/app_main_title_color"
                 android:textSize="14dp" />
 
             <ImageButton
@@ -63,7 +63,7 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:textColor="@color/app_main_color"
+                android:textColor="@color/app_main_title_color"
                 android:textSize="14dp" />
         </RelativeLayout>
 

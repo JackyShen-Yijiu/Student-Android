@@ -5,19 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.sft.adapter.CoachCommentListAdapter;
-import com.sft.common.Config;
-import com.sft.common.Config.EnrollResult;
-import com.sft.dialog.EnrollSelectConfilctDialog;
-import com.sft.dialog.EnrollSelectConfilctDialog.OnSelectConfirmListener;
-import com.sft.util.JSONUtil;
-import com.sft.util.Util;
-import com.sft.viewutil.ZProgressHUD;
-import com.sft.vo.CoachCommentVO;
-import com.sft.vo.CoachVO;
-import com.sft.vo.SchoolVO;
-import com.sft.vo.commonvo.Subject;
-
+import me.maxwin.view.XListView;
+import me.maxwin.view.XListView.IXListViewListener;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
@@ -40,8 +29,19 @@ import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.infinitescrollviewpager.BitmapManager;
 import cn.sft.infinitescrollviewpager.MyHandler;
-import me.maxwin.view.XListView;
-import me.maxwin.view.XListView.IXListViewListener;
+
+import com.sft.adapter.CoachCommentListAdapter;
+import com.sft.common.Config;
+import com.sft.common.Config.EnrollResult;
+import com.sft.dialog.EnrollSelectConfilctDialog;
+import com.sft.dialog.EnrollSelectConfilctDialog.OnSelectConfirmListener;
+import com.sft.util.JSONUtil;
+import com.sft.util.Util;
+import com.sft.viewutil.ZProgressHUD;
+import com.sft.vo.CoachCommentVO;
+import com.sft.vo.CoachVO;
+import com.sft.vo.SchoolVO;
+import com.sft.vo.commonvo.Subject;
 
 /**
  * 教练详情界面
@@ -50,8 +50,9 @@ import me.maxwin.view.XListView.IXListViewListener;
  * 
  */
 @SuppressLint({ "ClickableViewAccessibility", "CutPasteId" })
-public class CoachDetailActivity extends BaseActivity
-		implements OnItemClickListener, IXListViewListener, OnCheckedChangeListener, OnSelectConfirmListener {
+public class CoachDetailActivity extends BaseActivity implements
+		OnItemClickListener, IXListViewListener, OnCheckedChangeListener,
+		OnSelectConfirmListener {
 
 	private static final String coachDetail = "coachDetail";
 	private static final String coachComment = "coachComment";
@@ -119,10 +120,13 @@ public class CoachDetailActivity extends BaseActivity
 	@Override
 	protected void onResume() {
 		register(getClass().getName());
-		if (app.userVO == null || app.userVO.getApplystate().equals(EnrollResult.SUBJECT_NONE.getValue())) {
+		if (app.userVO == null
+				|| app.userVO.getApplystate().equals(
+						EnrollResult.SUBJECT_NONE.getValue())) {
 			enrollBtn.setText(R.string.enroll);
 		} else {
-			if (app.userVO.getApplystate().equals(EnrollResult.SUBJECT_ENROLLING.getValue())) {
+			if (app.userVO.getApplystate().equals(
+					EnrollResult.SUBJECT_ENROLLING.getValue())) {
 				enrollBtn.setText(R.string.verifying);
 			} else {
 				enrollBtn.setText(R.string.appointment);
@@ -132,7 +136,8 @@ public class CoachDetailActivity extends BaseActivity
 	}
 
 	private void initView() {
-		showTitlebarBtn(BaseActivity.SHOW_LEFT_BTN | BaseActivity.SHOW_RIGHT_BTN);
+		showTitlebarBtn(BaseActivity.SHOW_LEFT_BTN
+				| BaseActivity.SHOW_RIGHT_BTN);
 		setBtnBkground(R.drawable.base_left_btn_bkground, R.drawable.phone);
 		setTitleText(R.string.coach_detail);
 
@@ -181,7 +186,8 @@ public class CoachDetailActivity extends BaseActivity
 			enrollBtn.setVisibility(View.GONE);
 		} else {
 			String schoolId = app.userVO.getApplyschoolinfo().getId();
-			if (TextUtils.isEmpty(schoolId) || schoolId.equals(coachVO.getDriveschoolinfo().getId())) {
+			if (TextUtils.isEmpty(schoolId)
+					|| schoolId.equals(coachVO.getDriveschoolinfo().getId())) {
 				enrollBtn.setVisibility(View.VISIBLE);
 			} else {
 				enrollBtn.setVisibility(View.GONE);
@@ -220,29 +226,34 @@ public class CoachDetailActivity extends BaseActivity
 	private void obtainEnrollCoachDetail() {
 		util.print("coachid=" + coachVO.getCoachid());
 		HttpSendUtils.httpGetSend(coachDetail, this,
-				Config.IP + "api/v1/userinfo/getuserinfo" + "/2/userid/" + coachVO.getCoachid());
+				Config.IP + "api/v1/userinfo/getuserinfo" + "/2/userid/"
+						+ coachVO.getCoachid());
 	}
 
 	private void obtainCoachComment(int index) {
 		HttpSendUtils.httpGetSend(coachComment, this,
-				Config.IP + "api/v1/courseinfo/getusercomment" + "/2/" + coachVO.getCoachid() + "/" + index);
+				Config.IP + "api/v1/courseinfo/getusercomment" + "/2/"
+						+ coachVO.getCoachid() + "/" + index);
 	}
 
 	private void setData() {
 		if (coachVO != null) {
 			String headRul = coachVO.getHeadportrait().getOriginalpic();
-			RelativeLayout.LayoutParams headParams = (RelativeLayout.LayoutParams) (findViewById(
-					R.id.coach_detail_head_layout)).getLayoutParams();
+			RelativeLayout.LayoutParams headParams = (RelativeLayout.LayoutParams) (findViewById(R.id.coach_detail_head_layout))
+					.getLayoutParams();
 			headParams.width = screenWidth;
 			headParams.height = (int) (screenWidth * 2 / 3f);
 			scrollView.scrollTo(0, 0);
 			if (TextUtils.isEmpty(headRul)) {
-				coachHeadPicIm.setBackgroundResource(R.drawable.default_big_pic);
+				coachHeadPicIm
+						.setBackgroundResource(R.drawable.default_big_pic);
 			} else {
-				BitmapManager.INSTANCE.loadBitmap2(headRul, coachHeadPicIm, screenWidth, headParams.height);
+				BitmapManager.INSTANCE.loadBitmap2(headRul, coachHeadPicIm,
+						screenWidth, headParams.height);
 			}
 			coachNameTv.setText(coachVO.getName());
-			shuttle.setVisibility(coachVO.getIs_shuttle().equals("true") ? View.VISIBLE : View.GONE);
+			shuttle.setVisibility(coachVO.getIs_shuttle().equals("true") ? View.VISIBLE
+					: View.GONE);
 			List<Subject> subjects = coachVO.getSubject();
 			String subject = "";
 			for (int i = 0; i < subjects.size(); i++) {
@@ -285,7 +296,8 @@ public class CoachDetailActivity extends BaseActivity
 			break;
 		case R.id.base_right_btn:
 			try {
-				Intent phoneIntent = new Intent("android.intent.action.CALL", Uri.parse("tel:" + coachVO.getMobile()));
+				Intent phoneIntent = new Intent("android.intent.action.CALL",
+						Uri.parse("tel:" + coachVO.getMobile()));
 				startActivity(phoneIntent);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -299,12 +311,14 @@ public class CoachDetailActivity extends BaseActivity
 			startActivityForResult(intent, R.id.coach_detail_place_tv);
 			break;
 		case R.id.coach_detail_enroll_btn:
-			if (app.userVO.getApplystate().equals(EnrollResult.SUBJECT_NONE.getValue())) {
+			if (app.userVO.getApplystate().equals(
+					EnrollResult.SUBJECT_NONE.getValue())) {
 
 				String checkResult = Util.isConfilctEnroll(coachVO);
 				if (checkResult == null) {
 					intent = new Intent();
-					intent.putExtra("activityName", SubjectEnrollActivity.class.getName());
+					intent.putExtra("activityName",
+							SubjectEnrollActivity.class.getName());
 					intent.putExtra("coach", coachVO);
 					setResult(RESULT_OK, intent);
 					finish();
@@ -312,7 +326,8 @@ public class CoachDetailActivity extends BaseActivity
 					app.selectEnrollCoach = coachVO;
 					Util.updateEnrollCoach(this, coachVO, false);
 					intent = new Intent();
-					intent.putExtra("activityName", SubjectEnrollActivity.class.getName());
+					intent.putExtra("activityName",
+							SubjectEnrollActivity.class.getName());
 					intent.putExtra("coach", coachVO);
 					setResult(RESULT_OK, intent);
 					finish();
@@ -320,29 +335,35 @@ public class CoachDetailActivity extends BaseActivity
 					app.selectEnrollCoach = coachVO;
 					Util.updateEnrollCoach(this, coachVO, true);
 					intent = new Intent();
-					intent.putExtra("activityName", SubjectEnrollActivity.class.getName());
+					intent.putExtra("activityName",
+							SubjectEnrollActivity.class.getName());
 					intent.putExtra("coach", coachVO);
 					setResult(RESULT_OK, intent);
 					finish();
 				} else {
-					EnrollSelectConfilctDialog dialog = new EnrollSelectConfilctDialog(this, checkResult);
+					EnrollSelectConfilctDialog dialog = new EnrollSelectConfilctDialog(
+							this, checkResult);
 					dialog.show();
 				}
 
-			} else if (app.userVO.getApplystate().equals(EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue())) {
+			} else if (app.userVO.getApplystate().equals(
+					EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue())) {
 				intent = new Intent(this, AppointmentCarActivity.class);
 				intent.putExtra("coach", coachVO);
 				startActivity(intent);
-			} else if (app.userVO.getApplystate().equals(EnrollResult.SUBJECT_ENROLLING.getValue())) {
+			} else if (app.userVO.getApplystate().equals(
+					EnrollResult.SUBJECT_ENROLLING.getValue())) {
 				ZProgressHUD.getInstance(this).show();
-				ZProgressHUD.getInstance(this).dismissWithFailure("正在报名中，请等待审核");
+				ZProgressHUD.getInstance(this)
+						.dismissWithFailure("正在报名中，请等待审核");
 			}
 			break;
 		}
 	}
 
 	@Override
-	protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
+	protected void onActivityResult(int requestCode, int resultCode,
+			final Intent data) {
 		if (data != null) {
 			if (resultCode == R.id.base_left_btn) {
 				// 用户在驾校详情页按回退键返回
@@ -367,7 +388,7 @@ public class CoachDetailActivity extends BaseActivity
 		if (type.equals(coachDetail)) {
 			if (data != null) {
 				try {
-					coachVO = (CoachVO) JSONUtil.toJavaBean(CoachVO.class, data);
+					coachVO = JSONUtil.toJavaBean(CoachVO.class, data);
 					setData();
 					obtainCoachComment(commentPage);
 				} catch (Exception e) {
@@ -396,13 +417,15 @@ public class CoachDetailActivity extends BaseActivity
 					if (commentVoList == null)
 						commentVoList = new ArrayList<CoachCommentVO>();
 					for (int i = 0; i < length; i++) {
-						CoachCommentVO coachCommentVO = (CoachCommentVO) JSONUtil.toJavaBean(CoachCommentVO.class,
+						CoachCommentVO coachCommentVO = JSONUtil.toJavaBean(
+								CoachCommentVO.class,
 								dataArray.getJSONObject(i));
 						commentVoList.add(coachCommentVO);
 					}
 					int curPosition = 0;
 					if (adapter == null) {
-						adapter = new CoachCommentListAdapter(this, commentVoList);
+						adapter = new CoachCommentListAdapter(this,
+								commentVoList);
 					} else {
 						curPosition = adapter.getCount();
 						adapter.setData(commentVoList);
@@ -418,14 +441,16 @@ public class CoachDetailActivity extends BaseActivity
 		} else if (type.equals(addCoach)) {
 			if (!app.favouriteCoach.contains(coachVO)) {
 				app.favouriteCoach.add(coachVO);
-				sendBroadcast(new Intent(MyFavouriteActiviy.class.getName()).putExtra("isRefresh", true)
-						.putExtra("activityName", FavouriteCoachActivity.class.getName()));
+				sendBroadcast(new Intent(MyFavouriteActiviy.class.getName())
+						.putExtra("isRefresh", true).putExtra("activityName",
+								FavouriteCoachActivity.class.getName()));
 			}
 		} else if (type.equals(deleteCoach)) {
 			if (app.favouriteCoach.contains(coachVO)) {
 				app.favouriteCoach.remove(coachVO);
-				sendBroadcast(new Intent(MyFavouriteActiviy.class.getName()).putExtra("isRefresh", true)
-						.putExtra("activityName", FavouriteCoachActivity.class.getName()));
+				sendBroadcast(new Intent(MyFavouriteActiviy.class.getName())
+						.putExtra("isRefresh", true).putExtra("activityName",
+								FavouriteCoachActivity.class.getName()));
 			}
 		}
 		return true;
@@ -442,7 +467,8 @@ public class CoachDetailActivity extends BaseActivity
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
 
 	}
 
@@ -451,20 +477,25 @@ public class CoachDetailActivity extends BaseActivity
 		Map<String, String> headerMap = new HashMap<String, String>();
 		headerMap.put("authorization", app.userVO.getToken());
 
-		String url = Config.IP + "api/v1/userinfo/favoritecoach/" + coachVO.getCoachid();
+		String url = Config.IP + "api/v1/userinfo/favoritecoach/"
+				+ coachVO.getCoachid();
 		if (isChecked) {
-			HttpSendUtils.httpPutSend(addCoach, this, url, null, 10000, headerMap);
+			HttpSendUtils.httpPutSend(addCoach, this, url, null, 10000,
+					headerMap);
 		} else {
-			HttpSendUtils.httpDeleteSend(deleteCoach, this, url, null, 10000, headerMap);
+			HttpSendUtils.httpDeleteSend(deleteCoach, this, url, null, 10000,
+					headerMap);
 		}
 	}
 
 	@Override
 	public void forOperResult(Intent intent) {
-		boolean showStudentInfo = intent.getBooleanExtra("showStudentInfo", false);
+		boolean showStudentInfo = intent.getBooleanExtra("showStudentInfo",
+				false);
 		if (showStudentInfo) {
 			int position = intent.getIntExtra("position", 0);
-			String studentId = ((CoachCommentVO) adapter.getItem(position)).getUserid().get_id();
+			String studentId = ((CoachCommentVO) adapter.getItem(position))
+					.getUserid().get_id();
 			Intent intent2 = new Intent(this, StudentInfoActivity.class);
 			intent2.putExtra("studentId", studentId);
 			startActivity(intent2);
@@ -487,11 +518,13 @@ public class CoachDetailActivity extends BaseActivity
 			Util.updateEnrollCoach(this, coachVO, isFreshAll);
 			if (isFreshAll) {
 				app.selectEnrollSchool = Util.getEnrollUserSelectedSchool(this);
-				app.selectEnrollCarStyle = Util.getEnrollUserSelectedCarStyle(this);
+				app.selectEnrollCarStyle = Util
+						.getEnrollUserSelectedCarStyle(this);
 				app.selectEnrollClass = Util.getEnrollUserSelectedClass(this);
 			}
 			Intent intent = new Intent();
-			intent.putExtra("activityName", SubjectEnrollActivity.class.getName());
+			intent.putExtra("activityName",
+					SubjectEnrollActivity.class.getName());
 			intent.putExtra("coach", coachVO);
 			setResult(RESULT_OK, intent);
 			finish();
