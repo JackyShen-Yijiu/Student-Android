@@ -24,6 +24,7 @@ import com.sft.adapter.MyAdapter;
 import com.sft.blackcatapp.PersonCenterActivity;
 import com.sft.blackcatapp.R;
 import com.sft.common.BlackCatApplication;
+import com.sft.dialog.NoLoginDialog;
 
 public class MenuFragment extends Fragment implements OnItemClickListener,
 		OnClickListener {
@@ -67,19 +68,22 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 		personIcon = (SelectableRoundedImageView) rootView
 				.findViewById(R.id.fragment_menu_headpic_im);
 		personIcon.setScaleType(ScaleType.CENTER_CROP);
+		personIcon.setImageResource(R.drawable.default_small_pic);
 		personIcon.setOval(true);
 		listView.setCacheColorHint(android.R.color.transparent);
 		listView.setDividerHeight(0);
 		listView.setSelector(R.drawable.drawer_list_item_selector);
 		RelativeLayout.LayoutParams headpicParam = (android.widget.RelativeLayout.LayoutParams) personIcon
 				.getLayoutParams();
+		if (app.isLogin) {
 
-		String url = app.userVO.getHeadportrait().getOriginalpic();
-		if (TextUtils.isEmpty(url)) {
-			personIcon.setImageResource(R.drawable.default_small_pic);
-		} else {
-			BitmapManager.INSTANCE.loadBitmap2(url, personIcon,
-					headpicParam.width, headpicParam.height);
+			String url = app.userVO.getHeadportrait().getOriginalpic();
+			if (TextUtils.isEmpty(url)) {
+				personIcon.setImageResource(R.drawable.default_small_pic);
+			} else {
+				BitmapManager.INSTANCE.loadBitmap2(url, personIcon,
+						headpicParam.width, headpicParam.height);
+			}
 		}
 
 	}
@@ -90,7 +94,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 		map.put("item", "首页");
 		mMenuTitles.add(map);
 		map = new HashMap<String, String>();
-		map.put("item", "查找教练");
+		map.put("item", "查找驾校");
 		mMenuTitles.add(map);
 		map = new HashMap<String, String>();
 		map.put("item", "消息");
@@ -135,8 +139,14 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 		Intent intent = null;
 		switch (v.getId()) {
 		case R.id.fragment_menu_headpic_im:
-			intent = new Intent(getActivity(), PersonCenterActivity.class);
-			startActivity(intent);
+			if (app.isLogin) {
+				intent = new Intent(getActivity(), PersonCenterActivity.class);
+				startActivity(intent);
+
+			} else {
+				NoLoginDialog dialog = new NoLoginDialog(getActivity());
+				dialog.show();
+			}
 			break;
 
 		default:

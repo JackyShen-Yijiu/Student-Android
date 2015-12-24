@@ -59,6 +59,7 @@
                 android:textSize="14sp" />
 
             <ImageView
+                android:id="@+id/enroll_school_arrow1_iv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -93,6 +94,7 @@
                 android:textSize="14sp" />
 
             <ImageView
+                android:id="@+id/enroll_school_arrow2_iv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -127,6 +129,7 @@
                 android:textSize="14sp" />
 
             <ImageView
+                android:id="@+id/enroll_school_arrow3_iv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -161,6 +164,7 @@
                 android:textSize="14sp" />
 
             <ImageView
+                android:id="@+id/enroll_school_arrow4_iv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"

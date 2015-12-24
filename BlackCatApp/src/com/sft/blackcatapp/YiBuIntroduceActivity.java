@@ -8,6 +8,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
+import com.sft.dialog.NoLoginDialog;
+
 public class YiBuIntroduceActivity extends BaseActivity {
 
 	private String url = null;
@@ -95,9 +97,15 @@ public class YiBuIntroduceActivity extends BaseActivity {
 			break;
 		case R.id.base_right_tv:
 			// 报名
-			Intent intent = new Intent(this, EnrollActivity.class);
-			startActivity(intent);
-			finish();
+			if (!app.isLogin) {
+				NoLoginDialog dialog = new NoLoginDialog(this);
+				dialog.show();
+			} else {
+
+				Intent intent = new Intent(this, EnrollActivity.class);
+				startActivity(intent);
+				finish();
+			}
 			break;
 		}
 	}

@@ -12,16 +12,15 @@ import android.app.LocalActivityManager;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
 import cn.sft.baseactivity.util.HttpSendUtils;
@@ -399,57 +398,6 @@ public class MainActivity extends BaseMainActivity implements
 		return true;
 	}
 
-	private class MyPageAdapter extends PagerAdapter {
-
-		private List<View> list;
-
-		private MyPageAdapter(List<View> list) {
-			this.list = list;
-		}
-
-		@Override
-		public void destroyItem(ViewGroup view, int position, Object arg2) {
-			ViewPager pViewPager = ((ViewPager) view);
-			pViewPager.removeView(list.get(position));
-		}
-
-		@Override
-		public void finishUpdate(View arg0) {
-		}
-
-		@Override
-		public int getCount() {
-			return list.size();
-		}
-
-		@Override
-		public Object instantiateItem(ViewGroup view, int position) {
-			ViewPager pViewPager = ((ViewPager) view);
-			list.get(position).setBackgroundColor(
-					getResources().getColor(android.R.color.transparent));
-			pViewPager.addView(list.get(position));
-			return list.get(position);
-		}
-
-		@Override
-		public boolean isViewFromObject(View arg0, Object arg1) {
-			return arg0 == arg1;
-		}
-
-		@Override
-		public void restoreState(Parcelable arg0, ClassLoader arg1) {
-		}
-
-		@Override
-		public Parcelable saveState() {
-			return null;
-		}
-
-		@Override
-		public void startUpdate(View arg0) {
-		}
-	}
-
 	private LocationClient mLocationClient;
 	private ImageView carImageView;
 	private ImageView bottomProgress;
@@ -514,8 +462,9 @@ public class MainActivity extends BaseMainActivity implements
 
 	@Override
 	protected void onPause() {
-		super.onPause();
+		mapView.onPause();
 		stopLocation();
+		super.onPause();
 	}
 
 	class MainOnPageChangeListener implements OnPageChangeListener {
@@ -587,4 +536,29 @@ public class MainActivity extends BaseMainActivity implements
 			break;
 		}
 	}
+
+	@Override
+	protected void onDestroy() {
+		app.isLogin = false;
+		super.onDestroy();
+	}
+
+	private long firstTime;
+
+	@Override
+	public boolean onKeyUp(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			long secondTime = System.currentTimeMillis();
+			if (secondTime - firstTime > 800) {// 如果两次按键时间间隔大于800毫秒，则不退出
+				Toast.makeText(MainActivity.this, "再按一次退出程序...",
+						Toast.LENGTH_SHORT).show();
+				firstTime = secondTime;// 更新firstTime
+				return true;
+			} else {
+				System.exit(0);// 否则退出程序
+			}
+		}
+		return super.onKeyUp(keyCode, event);
+	}
+
 }

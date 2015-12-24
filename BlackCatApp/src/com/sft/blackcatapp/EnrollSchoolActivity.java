@@ -133,6 +133,7 @@ public class EnrollSchoolActivity extends BaseActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		addView(R.layout.activity_enroll_school);
+		setRightText("定位中");
 		mContext = this;
 		isSearchSchool = false;
 		initMyLocation();
@@ -311,6 +312,7 @@ public class EnrollSchoolActivity extends BaseActivity implements
 	private TextView distanceSelect;
 	private TextView commentSelect;
 	private TextView priceSelect;
+	private ImageView arrow1, arrow2, arrow3, arrow4;
 
 	private void searchSchool(boolean isSearch) {
 		if (isSearch) {
@@ -407,6 +409,14 @@ public class EnrollSchoolActivity extends BaseActivity implements
 				.findViewById(R.id.enroll_school_comment_select_tv);
 		priceSelect = (TextView) headerView
 				.findViewById(R.id.enroll_school_price_select_tv);
+		arrow1 = (ImageView) headerView
+				.findViewById(R.id.enroll_school_arrow1_iv);
+		arrow2 = (ImageView) headerView
+				.findViewById(R.id.enroll_school_arrow2_iv);
+		arrow3 = (ImageView) headerView
+				.findViewById(R.id.enroll_school_arrow3_iv);
+		arrow4 = (ImageView) headerView
+				.findViewById(R.id.enroll_school_arrow4_iv);
 
 		searchSchool.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
 		RelativeLayout.LayoutParams headParams = (RelativeLayout.LayoutParams) adLayout
@@ -563,6 +573,8 @@ public class EnrollSchoolActivity extends BaseActivity implements
 		priceSelect.setOnClickListener(this);
 	}
 
+	private boolean isClassSelected = false;
+
 	@Override
 	public void onClick(View v) {
 		if (!onClickSingleView()) {
@@ -600,6 +612,7 @@ public class EnrollSchoolActivity extends BaseActivity implements
 
 		case R.id.enroll_school_class_select_tv:
 			index = 1;
+
 			showPopupWindow(classSelect);
 			break;
 		case R.id.enroll_school_distance_select_tv:
@@ -607,6 +620,7 @@ public class EnrollSchoolActivity extends BaseActivity implements
 			cityname = currCity;
 			schoolname = "";
 			ordertype = "1";
+			setSelectState(2);
 			obtainNearBySchool();
 			break;
 		case R.id.enroll_school_comment_select_tv:
@@ -614,6 +628,7 @@ public class EnrollSchoolActivity extends BaseActivity implements
 			cityname = currCity;
 			schoolname = "";
 			ordertype = "2";
+			setSelectState(3);
 			obtainNearBySchool();
 			break;
 		case R.id.enroll_school_price_select_tv:
@@ -621,10 +636,13 @@ public class EnrollSchoolActivity extends BaseActivity implements
 			cityname = currCity;
 			schoolname = "";
 			ordertype = "3";
+			setSelectState(4);
 			obtainNearBySchool();
 			break;
 
 		case R.id.pop_window_one:
+			setSelectState(1);
+			isClassSelected = true;
 			cityname = currCity;
 			licensetype = "1";
 			schoolname = "";
@@ -636,6 +654,8 @@ public class EnrollSchoolActivity extends BaseActivity implements
 			}
 			break;
 		case R.id.pop_window_two:
+			setSelectState(1);
+			isClassSelected = true;
 			cityname = currCity;
 			licensetype = "2";
 			schoolname = "";
@@ -646,6 +666,60 @@ public class EnrollSchoolActivity extends BaseActivity implements
 				popupWindow.dismiss();
 			}
 			break;
+		}
+	}
+
+	private void setSelectState(int position) {
+
+		classSelect.setTextColor(getResources().getColor(
+				R.color.default_text_color));
+		priceSelect.setTextColor(getResources().getColor(
+				R.color.default_text_color));
+		commentSelect.setTextColor(getResources().getColor(
+				R.color.default_text_color));
+		distanceSelect.setTextColor(getResources().getColor(
+				R.color.default_text_color));
+		arrow1.setImageResource(R.drawable.arrow_below);
+		arrow2.setImageResource(R.drawable.arrow_below);
+		arrow3.setImageResource(R.drawable.arrow_below);
+		arrow4.setImageResource(R.drawable.arrow_below);
+		switch (position) {
+		case 1:
+			classSelect.setTextColor(getResources().getColor(
+					R.color.app_main_color));
+			arrow1.setImageResource(R.drawable.arrow_below_selector);
+			break;
+		case 2:
+			if (isClassSelected) {
+				classSelect.setTextColor(getResources().getColor(
+						R.color.app_main_color));
+				arrow1.setImageResource(R.drawable.arrow_below_selector);
+			}
+			distanceSelect.setTextColor(getResources().getColor(
+					R.color.app_main_color));
+			arrow2.setImageResource(R.drawable.arrow_below_selector);
+			break;
+		case 3:
+			if (isClassSelected) {
+				classSelect.setTextColor(getResources().getColor(
+						R.color.app_main_color));
+				arrow1.setImageResource(R.drawable.arrow_below_selector);
+			}
+			commentSelect.setTextColor(getResources().getColor(
+					R.color.app_main_color));
+			arrow3.setImageResource(R.drawable.arrow_below_selector);
+			break;
+		case 4:
+			if (isClassSelected) {
+				classSelect.setTextColor(getResources().getColor(
+						R.color.app_main_color));
+				arrow1.setImageResource(R.drawable.arrow_below_selector);
+			}
+			priceSelect.setTextColor(getResources().getColor(
+					R.color.app_main_color));
+			arrow4.setImageResource(R.drawable.arrow_below_selector);
+			break;
+
 		}
 	}
 

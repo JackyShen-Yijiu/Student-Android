@@ -54,6 +54,7 @@ public class IntroducesFragment extends BaseFragment implements OnClickListener 
 
 	@Override
 	public void onClick(View v) {
+
 		Intent intent = new Intent(mContext, YiBuIntroduceActivity.class);
 		switch (v.getId()) {
 		case R.id.introduce_superiority:

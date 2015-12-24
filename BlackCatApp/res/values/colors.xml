@@ -45,4 +45,5 @@
     
     <color name="bottom_text_unselector">#828282</color>
     <color name="bottom_text_selector">#ff9727</color>
+    <color name="default_text_color">#333</color>
 </resources>
