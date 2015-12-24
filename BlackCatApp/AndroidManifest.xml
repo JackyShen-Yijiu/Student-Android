@@ -280,6 +280,9 @@
         <activity
             android:name="com.sft.emchat.ShowNormalFileActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="com.sft.blackcatapp.YiBuIntroduceActivity"
+            android:screenOrientation="portrait" />
 
         <service android:name="com.sft.util.DownLoadService" />
 

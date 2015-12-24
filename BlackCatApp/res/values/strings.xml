@@ -31,6 +31,9 @@
     <string name="select_school">附近驾校</string>
     <string name="school_detail">驾校详情</string>
     <string name="enroll">报名</string>
+    <string name="yibu_favourable_class">一步优惠班</string>
+    <string name="yibu_procedure">一步流程</string>
+    <string name="yibu_superiority">一步优势</string>
     <string name="enroll_info_table">报名信息表</string>
     <string name="commit">提交</string>
     <string name="real_name">真实姓名</string>

@@ -4,13 +4,13 @@
      >
 
     <ImageView
-        android:id="@+id/subject_two_appointment_iv"
+        android:id="@+id/introduce_procedure"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_below="@+id/subject_two_courseware_iv"
+        android:layout_below="@+id/introduce_superiority"
         android:layout_marginRight="10dp"
         android:layout_marginTop="51dp"
-        android:layout_toLeftOf="@+id/subject_two_appointment_list_iv"
+        android:layout_toLeftOf="@+id/introduce_favourable_class"
         android:src="@drawable/introduce_three" />
 
     <ImageView
@@ -24,17 +24,17 @@
 
 
     <ImageView
-        android:id="@+id/subject_two_appointment_list_iv"
+        android:id="@+id/introduce_favourable_class"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/subject_two_courseware_iv"
+        android:layout_alignTop="@+id/introduce_superiority"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="35dp"
-        android:layout_toRightOf="@+id/subject_two_courseware_iv"
+        android:layout_toRightOf="@+id/introduce_superiority"
         android:src="@drawable/introduce_one" />
 
     <ImageView
-        android:id="@+id/subject_two_courseware_iv"
+        android:id="@+id/introduce_superiority"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imageView1"
