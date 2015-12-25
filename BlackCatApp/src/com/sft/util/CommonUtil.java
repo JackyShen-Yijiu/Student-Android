@@ -28,4 +28,11 @@ public class CommonUtil {
 		final float scale = context.getResources().getDisplayMetrics().density;
 		return (int) (pxValue / scale + 0.5f);
 	}
+
+	/**
+	 * 获取颜色
+	 */
+	public static int getColor(Context context, int colorId) {
+		return context.getResources().getColor(colorId);
+	}
 }

@@ -101,7 +101,7 @@ public class ClassVO extends DBVO {
 	}
 
 	public String getPrice() {
-		return price;
+		return price == null ? "0" : price;
 	}
 
 	public void setPrice(String price) {

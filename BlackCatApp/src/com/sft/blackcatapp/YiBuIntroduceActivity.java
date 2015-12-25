@@ -102,7 +102,7 @@ public class YiBuIntroduceActivity extends BaseActivity {
 				dialog.show();
 			} else {
 
-				Intent intent = new Intent(this, EnrollActivity.class);
+				Intent intent = new Intent(this, ApplyActivity.class);
 				startActivity(intent);
 				finish();
 			}
