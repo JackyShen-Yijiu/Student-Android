@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,12 +16,16 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView.ScaleType;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import cn.sft.infinitescrollviewpager.BitmapManager;
 
 import com.joooonho.SelectableRoundedImageView;
 import com.sft.adapter.MyAdapter;
+import com.sft.blackcatapp.EnrollSchoolActivity;
+import com.sft.blackcatapp.MainActivity;
+import com.sft.blackcatapp.MessageActivity;
+import com.sft.blackcatapp.MyWalletActivity;
 import com.sft.blackcatapp.PersonCenterActivity;
 import com.sft.blackcatapp.R;
 import com.sft.common.BlackCatApplication;
@@ -28,7 +33,7 @@ import com.sft.dialog.NoLoginDialog;
 
 public class MenuFragment extends Fragment implements OnItemClickListener,
 		OnClickListener {
-	private ListView listView;
+	// private ListView listView;
 	private ArrayList<HashMap<String, String>> mMenuTitles;
 	private MyAdapter myAdapter;
 	private SLMenuListOnItemClickListener mCallback;
@@ -38,6 +43,10 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 	private SelectableRoundedImageView personIcon;
 
 	BlackCatApplication app;
+	private TextView username;
+	private TextView drivingSchool;
+	private TextView code;
+	private Context mContext;
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -56,23 +65,28 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 		if (app == null) {
 			app = BlackCatApplication.getInstance();
 		}
-		View rootView = inflater.inflate(R.layout.fragment_menu, null);
+		mContext = getActivity();
+		View rootView = inflater.inflate(R.layout.fragment_menu_new, null);
 		initView(rootView);
-		setData();
+		// setData();
 		setListener();
 		return rootView;
 	}
 
 	private void initView(View rootView) {
-		listView = (ListView) rootView.findViewById(R.id.left_menu);
+		username = (TextView) rootView
+				.findViewById(R.id.fragment_menu_username);
+		drivingSchool = (TextView) rootView
+				.findViewById(R.id.fragment_menu_driving_school);
+		code = (TextView) rootView.findViewById(R.id.fragment_menu_code);
 		personIcon = (SelectableRoundedImageView) rootView
 				.findViewById(R.id.fragment_menu_headpic_im);
 		personIcon.setScaleType(ScaleType.CENTER_CROP);
 		personIcon.setImageResource(R.drawable.default_small_pic);
 		personIcon.setOval(true);
-		listView.setCacheColorHint(android.R.color.transparent);
-		listView.setDividerHeight(0);
-		listView.setSelector(R.drawable.drawer_list_item_selector);
+		// listView.setCacheColorHint(android.R.color.transparent);
+		// listView.setDividerHeight(0);
+		// listView.setSelector(R.drawable.drawer_list_item_selector);
 		RelativeLayout.LayoutParams headpicParam = (android.widget.RelativeLayout.LayoutParams) personIcon
 				.getLayoutParams();
 		if (app.isLogin) {
@@ -84,33 +98,51 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 				BitmapManager.INSTANCE.loadBitmap2(url, personIcon,
 						headpicParam.width, headpicParam.height);
 			}
+			username.setText(app.userVO.getName());
+			drivingSchool.setText(app.userVO.getApplyschoolinfo().getName());
 		}
 
+		//
+		rootView.findViewById(R.id.fragment_menu_home_btn).setOnClickListener(
+				this);
+		rootView.findViewById(R.id.fragment_menu_driving_school_btn)
+				.setOnClickListener(this);
+		rootView.findViewById(R.id.fragment_menu_message_btn)
+				.setOnClickListener(this);
+		rootView.findViewById(R.id.fragment_menu_mall_btn).setOnClickListener(
+				this);
+		rootView.findViewById(R.id.fragment_menu_activity_btn)
+				.setOnClickListener(this);
+		rootView.findViewById(R.id.fragment_menu_signin_btn)
+				.setOnClickListener(this);
+		rootView.findViewById(R.id.fragment_menu_setting_btn)
+				.setOnClickListener(this);
+
 	}
 
-	private void setData() {
-		mMenuTitles = new ArrayList<HashMap<String, String>>();
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("item", "首页");
-		mMenuTitles.add(map);
-		map = new HashMap<String, String>();
-		map.put("item", "查找驾校");
-		mMenuTitles.add(map);
-		map = new HashMap<String, String>();
-		map.put("item", "消息");
-		mMenuTitles.add(map);
-		map = new HashMap<String, String>();
-		map.put("item", "钱包");
-		mMenuTitles.add(map);
-		map = new HashMap<String, String>();
-		map.put("item", "我");
-		mMenuTitles.add(map);
-		myAdapter = new MyAdapter(getActivity(), mMenuTitles, icons);
-		listView.setAdapter(myAdapter);
-	}
+	// private void setData() {
+	// mMenuTitles = new ArrayList<HashMap<String, String>>();
+	// HashMap<String, String> map = new HashMap<String, String>();
+	// map.put("item", "首页");
+	// mMenuTitles.add(map);
+	// map = new HashMap<String, String>();
+	// map.put("item", "查找驾校");
+	// mMenuTitles.add(map);
+	// map = new HashMap<String, String>();
+	// map.put("item", "消息");
+	// mMenuTitles.add(map);
+	// map = new HashMap<String, String>();
+	// map.put("item", "钱包");
+	// mMenuTitles.add(map);
+	// map = new HashMap<String, String>();
+	// map.put("item", "我");
+	// mMenuTitles.add(map);
+	// myAdapter = new MyAdapter(getActivity(), mMenuTitles, icons);
+	// listView.setAdapter(myAdapter);
+	// }
 
 	private void setListener() {
-		listView.setOnItemClickListener(this);
+		// listView.setOnItemClickListener(this);
 		personIcon.setOnClickListener(this);
 	}
 
@@ -149,6 +181,42 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 			}
 			break;
 
+		case R.id.fragment_menu_home_btn:
+			intent = new Intent(mContext, MainActivity.class);
+			startActivity(intent);
+			((Activity) mContext).finish();
+			break;
+		case R.id.fragment_menu_driving_school_btn:
+			intent = new Intent(mContext, EnrollSchoolActivity.class);
+			mContext.startActivity(intent);
+			break;
+		case R.id.fragment_menu_message_btn:
+			if (app.isLogin) {
+				intent = new Intent(mContext, MessageActivity.class);
+				mContext.startActivity(intent);
+			} else {
+				NoLoginDialog dialog = new NoLoginDialog(mContext);
+				dialog.show();
+			}
+			break;
+		case R.id.fragment_menu_mall_btn:
+			if (app.isLogin) {
+				intent = new Intent(mContext, MyWalletActivity.class);
+				mContext.startActivity(intent);
+			} else {
+				NoLoginDialog dialog = new NoLoginDialog(mContext);
+				dialog.show();
+			}
+			break;
+		case R.id.fragment_menu_activity_btn:
+
+			break;
+		case R.id.fragment_menu_signin_btn:
+
+			break;
+		case R.id.fragment_menu_setting_btn:
+
+			break;
 		default:
 			break;
 		}
