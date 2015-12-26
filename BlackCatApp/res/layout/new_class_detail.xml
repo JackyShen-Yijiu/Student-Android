@@ -1,19 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#f7f9fb" >
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingLeft="15dp" >
+    android:orientation="vertical"
+     android:paddingLeft="15dp" >
 
             <TextView android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -163,6 +153,5 @@
                 android:textColor="#333333"
                 android:textSize="14dp" />
         </LinearLayout>
-    </LinearLayout>
 
-</ScrollView>
+
