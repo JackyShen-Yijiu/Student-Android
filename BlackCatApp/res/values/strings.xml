@@ -210,8 +210,8 @@
     <string name="course_date">授课日期:&#160;</string>
     <string name="active_date">活动日期:&#160;</string>
     <string name="license">适用驾照类型:&#160;</string>
-    <string name="class_info">班级信息</string>
-    <string name="class_introduction">班级简介</string>
+    <string name="class_info">课程信息</string>
+    <string name="class_introduction">课程描述</string>
     <string name="cur_progress">当前进度:&#160;</string>
     <string name="reveiver">收件人信息</string>
     <string name="product_name">姓名</string>

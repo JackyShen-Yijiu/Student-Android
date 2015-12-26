@@ -23,8 +23,8 @@ import com.sft.vo.ClassVO;
  */
 public class ClassDetailActivity extends BaseActivity {
 
-	private TextView schoolNameTv;
-	private TextView schoolAddressTv;
+	// private TextView schoolNameTv;
+	// private TextView schoolAddressTv;
 
 	private TextView styleTv, dataTv, weekTv, brandTv, priceTv, countTv;
 
@@ -39,7 +39,7 @@ public class ClassDetailActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		addView(R.layout.activity_class_detail);
+		addView(R.layout.new_class_detail);
 		initView();
 	}
 
@@ -52,8 +52,10 @@ public class ClassDetailActivity extends BaseActivity {
 	private void initView() {
 		setTitleText(R.string.class_detail);
 
-		schoolNameTv = (TextView) findViewById(R.id.class_detail_school_name_tv);
-		schoolAddressTv = (TextView) findViewById(R.id.class_detail_school_address_tv);
+		// schoolNameTv = (TextView)
+		// findViewById(R.id.class_detail_school_name_tv);
+		// schoolAddressTv = (TextView)
+		// findViewById(R.id.class_detail_school_address_tv);
 		styleTv = (TextView) findViewById(R.id.class_detail_style_tv);
 		dataTv = (TextView) findViewById(R.id.class_detail_date_tv);
 		weekTv = (TextView) findViewById(R.id.class_detail_week_tv);
@@ -80,8 +82,8 @@ public class ClassDetailActivity extends BaseActivity {
 	private void initData() {
 		classVO = (ClassVO) getIntent().getSerializableExtra("class");
 
-		schoolNameTv.setText(classVO.getSchoolinfo().getName());
-		schoolAddressTv.setText(classVO.getSchoolinfo().getAddress());
+		// schoolNameTv.setText(classVO.getSchoolinfo().getName());
+		// schoolAddressTv.setText(classVO.getSchoolinfo().getAddress());
 		styleTv.setText(getString(R.string.license)
 				+ classVO.getCarmodel().getCode());
 		weekTv.setText(getString(R.string.course_date)
