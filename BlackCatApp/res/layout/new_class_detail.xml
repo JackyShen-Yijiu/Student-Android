@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<<<<<<< HEAD
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#f7f9fb"
@@ -63,6 +64,27 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:orientation="horizontal" >
+=======
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+     android:paddingLeft="15dp" >
+
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:textColor="#000000"
+                android:text="一步特惠班详情"/>
+	
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#e6e6e6"
+                android:contentDescription="@string/app_name" />
+>>>>>>> ac91f46375988a07273f9f542766018202bb9bdc
 
             <TextView
                 android:id="@+id/class_detail_feature_tv"
@@ -117,6 +139,7 @@
                 android:textColor="@color/app_main_color"
                 android:textSize="14dp" />
         </LinearLayout>
+<<<<<<< HEAD
 
         <TextView
             android:id="@+id/class_detail_count_tv"
@@ -157,3 +180,7 @@
        
     </LinearLayout>
 
+=======
+
+
+>>>>>>> ac91f46375988a07273f9f542766018202bb9bdc

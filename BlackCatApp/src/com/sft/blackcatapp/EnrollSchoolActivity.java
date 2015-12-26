@@ -37,10 +37,6 @@ import cn.sft.infinitescrollviewpager.MyHandler;
 import cn.sft.infinitescrollviewpager.PageChangeListener;
 import cn.sft.infinitescrollviewpager.PageClickListener;
 
-import com.baidu.location.BDLocation;
-import com.baidu.location.BDLocationListener;
-import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -68,9 +64,6 @@ public class EnrollSchoolActivity extends BaseActivity implements
 		BitMapURLExcepteionListner, PageChangeListener, OnRefreshListener,
 		OnLoadListener {
 
-	// 定位相关
-	private LocationClient mLocationClient = null;
-	private MyLocationListenner myListener = new MyLocationListenner();
 	private String currCity = null;
 
 	private String cityname;
@@ -80,7 +73,6 @@ public class EnrollSchoolActivity extends BaseActivity implements
 
 	private final static String nearBySchool = "nearBySchool";
 	private static final String headlineNews = "headlineNews";
-	private static final String schoolBySearch = "schoolBySearch";
 	// 学校列表
 	private ListView schoolListView;
 
@@ -134,62 +126,66 @@ public class EnrollSchoolActivity extends BaseActivity implements
 		super.onCreate(savedInstanceState);
 		addView(R.layout.activity_enroll_school);
 		setRightText("定位中");
+		currCity = app.curCity;
 		mContext = this;
 		isSearchSchool = false;
-		initMyLocation();
-		// initView();
-		// initsaData();
-		// setListener();
-		// obtainHeadLineNews();
-		// obtainNearBySchool();
+		initView();
+		initData();
+		setListener();
+		obtainHeadLineNews();
+		cityname = currCity;
+		licensetype = "";
+		schoolname = "";
+		ordertype = "";
+		obtainNearBySchool();
 	}
 
-	private void initMyLocation() {
-		mLocationClient = new LocationClient(this);// 百度定位对象
-		mLocationClient.registerLocationListener(myListener);// 设置监听事件
-		setLocationOption();
+	// private void initMyLocation() {
+	// mLocationClient = new LocationClient(this);// 百度定位对象
+	// mLocationClient.registerLocationListener(myListener);// 设置监听事件
+	// setLocationOption();
+	//
+	// mLocationClient.start();
+	//
+	// }
 
-		mLocationClient.start();
+	// public class MyLocationListenner implements BDLocationListener {
+	// @Override
+	// public void onReceiveLocation(BDLocation location) {
+	// // 定位成功
+	// currCity = location.getCity();
+	// LogUtil.print(location.getCity());
+	// if (mLocationClient != null) {
+	// mLocationClient.stop();// 结束定位
+	//
+	// }
+	//
+	// initView();
+	// initData();
+	// setListener();
+	// obtainHeadLineNews();
+	// cityname = currCity;
+	// licensetype = "";
+	// schoolname = "";
+	// ordertype = "";
+	// obtainNearBySchool();
+	// }
+	//
+	// }
 
-	}
-
-	public class MyLocationListenner implements BDLocationListener {
-		@Override
-		public void onReceiveLocation(BDLocation location) {
-			// 定位成功
-			currCity = location.getCity();
-			LogUtil.print(location.getCity());
-			if (mLocationClient != null) {
-				mLocationClient.stop();// 结束定位
-
-			}
-
-			initView();
-			initData();
-			setListener();
-			obtainHeadLineNews();
-			cityname = currCity;
-			licensetype = "";
-			schoolname = "";
-			ordertype = "";
-			obtainNearBySchool();
-		}
-
-	}
-
-	// 设置相关参数
-	private void setLocationOption() {
-		LocationClientOption option = new LocationClientOption();
-		option.setOpenGps(true); // 打开gps
-		option.setServiceName("com.baidu.location.service_v2.9");
-		// option.setPoiExtraInfo(true);
-		option.setAddrType("all");
-		option.setPriority(LocationClientOption.NetWorkFirst);
-		option.setPriority(LocationClientOption.GpsFirst); // gps
-		// option.setPoiNumber(10);
-		option.disableCache(true);
-		mLocationClient.setLocOption(option);
-	}
+	// // 设置相关参数
+	// private void setLocationOption() {
+	// LocationClientOption option = new LocationClientOption();
+	// option.setOpenGps(true); // 打开gps
+	// option.setServiceName("com.baidu.location.service_v2.9");
+	// // option.setPoiExtraInfo(true);
+	// option.setAddrType("all");
+	// option.setPriority(LocationClientOption.NetWorkFirst);
+	// option.setPriority(LocationClientOption.GpsFirst); // gps
+	// // option.setPoiNumber(10);
+	// option.disableCache(true);
+	// mLocationClient.setLocOption(option);
+	// }
 
 	private void initData() {
 		searchSchool.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
@@ -320,18 +316,6 @@ public class EnrollSchoolActivity extends BaseActivity implements
 		}
 		isSearchSchool = true;
 		LogUtil.print(schoolname);
-		// Map<String, String> paramMap = new HashMap<String, String>();
-		// paramMap.put("latitude", app.latitude);
-		// paramMap.put("longitude", app.longtitude);
-		// paramMap.put("radius", "10000");
-		// paramMap.put("schoolname", schoolName);
-		// paramMap.put("index", "1");
-		// paramMap.put("count", "10");
-		// paramMap.put("cityname", cityname);
-		// paramMap.put("licensetype", licensetype);
-		// paramMap.put("ordertype", ordertype);
-		// HttpSendUtils.httpGetSend(schoolBySearch, this, Config.IP
-		// + "api/v1/searchschool", paramMap);
 		RequestParams paramMap = new RequestParams();
 		paramMap.put("latitude", app.latitude);
 		paramMap.put("longitude", app.longtitude);

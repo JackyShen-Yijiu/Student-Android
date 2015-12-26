@@ -12,10 +12,9 @@ import android.animation.ValueAnimator.AnimatorUpdateListener;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewTreeObserver;
@@ -23,6 +22,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
@@ -123,6 +123,7 @@ public class ApplyActivity extends BaseActivity implements
 		schoolTv = (TextView) findViewById(R.id.enroll_school_tv);
 		schoolRl = (RelativeLayout) findViewById(R.id.enroll_school_rl);
 		coachTv = (TextView) findViewById(R.id.enroll_coach_tv);
+		coachRl = (RelativeLayout) findViewById(R.id.enroll_coach_rl);
 		// carStyleTv = (TextView) findViewById(R.id.enroll_carstyle_tv);
 		nameEt = (EditText) findViewById(R.id.enroll_name_et);
 		contactEt = (EditText) findViewById(R.id.enroll_contact_et);
@@ -131,6 +132,7 @@ public class ApplyActivity extends BaseActivity implements
 
 		licenseTypeC1 = (TextView) findViewById(R.id.apply_license_type_c1);
 		licenseTypeC2 = (TextView) findViewById(R.id.apply_license_type_c2);
+		classTypeLayout = (RelativeLayout) findViewById(R.id.enroll_class_rl);
 		classDetailLayout = (RelativeLayout) findViewById(R.id.apply_class_detail);
 		// classDetailLayout.setVisibility(View.GONE);
 		classDetailLayout.measure(0, 0);
@@ -165,6 +167,7 @@ public class ApplyActivity extends BaseActivity implements
 
 	private void initData() {
 		enrollState = app.userVO.getApplystate();
+
 		// String name = util.readParam(realName + app.userVO.getUserid());
 		// if (!TextUtils.isEmpty(name)) {
 		// nameEt.setText(name);
@@ -233,20 +236,23 @@ public class ApplyActivity extends BaseActivity implements
 		commitBtn.setOnClickListener(this);
 		schoolRl.setOnClickListener(this);
 		// carStyleTv.setOnClickListener(this);
-		coachTv.setOnClickListener(this);
+		coachRl.setOnClickListener(this);
 		// classTv.setOnClickListener(this);
 
-		nameEt.addTextChangedListener(new MyEditChangedListener(realName));
-		contactEt.addTextChangedListener(new MyEditChangedListener(contact));
+		// nameEt.addTextChangedListener(new MyEditChangedListener(realName));
+		// contactEt.addTextChangedListener(new MyEditChangedListener(contact));
 
 		licenseTypeC1.setOnClickListener(this);
 		licenseTypeC2.setOnClickListener(this);
 		applyClassTypeLayout.setOnClassTypeSelectedListener(this);
-		classDetailLayout.setOnClickListener(new OnClickListener() {
+		classTypeLayout.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View paramView) {
-				closeClassDetail();
+				if (isExtend) {
+
+					closeClassDetail();
+				}
 			}
 		});
 	}
@@ -286,36 +292,92 @@ public class ApplyActivity extends BaseActivity implements
 						intent.putExtra("carStyle", carStyle);
 				}
 				break;
-			case R.id.enroll_coach_tv:
+			case R.id.enroll_coach_rl:
 				if (school == null) {
 					ZProgressHUD.getInstance(this).show();
 					ZProgressHUD.getInstance(this).dismissWithFailure("先选择驾校");
 				} else {
-					intent = new Intent(this, EnrollCoachActivity.class);
-					intent.putExtra("schoolId", school.getSchoolid());
-					if (coach != null)
-						intent.putExtra("coach", coach);
+					// intent = new Intent(this, EnrollCoachActivity.class);
+					// intent.putExtra("schoolId", school.getSchoolid());
+					// if (coach != null)
+					// intent.putExtra("coach", coach);
+					showPopupWindow(coachTv);
 				}
 				break;
-			case R.id.enroll_class_tv:
-				if (school == null) {
-					ZProgressHUD.getInstance(this).show();
-					ZProgressHUD.getInstance(this).dismissWithFailure("先选择驾校");
-				} else {
-					intent = new Intent(this, EnrollClassActivity.class);
-					intent.putExtra("schoolId", school.getSchoolid());
-					if (classId != null)
-						intent.putExtra("class", classId);
-				}
-				break;
+			// case R.id.enroll_class_tv:
+			// if (school == null) {
+			// ZProgressHUD.getInstance(this).show();
+			// ZProgressHUD.getInstance(this).dismissWithFailure("先选择驾校");
+			// } else {
+			// intent = new Intent(this, EnrollClassActivity.class);
+			// intent.putExtra("schoolId", school.getSchoolid());
+			// if (classId != null)
+			// intent.putExtra("class", classId);
+			// }
+			// break;
 			case R.id.enroll_commit_btn:
 				enroll();
 				break;
+
+			case R.id.pop_window_one:
+				isSystemAdd = true;
+				coachTv.setText(getResources().getString(
+						R.string.apply_system_distribute));
+				if (popupWindow != null) {
+					popupWindow.dismiss();
+				}
+				break;
+			case R.id.pop_window_two:
+				isSystemAdd = false;
+				coachTv.setText(getResources().getString(
+						R.string.apply_add_byself));
+				intent = new Intent(this, EnrollCoachActivity.class);
+				intent.putExtra("schoolId", school.getSchoolid());
+				if (coach != null)
+					intent.putExtra("coach", coach);
+
+				if (popupWindow != null) {
+					popupWindow.dismiss();
+				}
+				break;
+
 			}
 			if (intent != null) {
 				startActivityForResult(intent, v.getId());
 			}
 		}
+	}
+
+	private boolean isSystemAdd = true;
+	private PopupWindow popupWindow;
+
+	private void showPopupWindow(View parent) {
+		if (popupWindow == null) {
+			View view = View.inflate(this, R.layout.pop_window, null);
+
+			TextView addSystem = (TextView) view
+					.findViewById(R.id.pop_window_one);
+			addSystem.setText(R.string.apply_system_distribute);
+			TextView addByself = (TextView) view
+					.findViewById(R.id.pop_window_two);
+			addByself.setText(R.string.apply_add_byself);
+			addSystem.setOnClickListener(this);
+			addByself.setOnClickListener(this);
+
+			popupWindow = new PopupWindow(view, LayoutParams.WRAP_CONTENT,
+					LayoutParams.WRAP_CONTENT);
+		}
+		popupWindow.setFocusable(true);
+		popupWindow.setOutsideTouchable(true);
+		// 这个是为了点击“返回Back”也能使其消失，并且并不会影响你的背景
+		popupWindow.setBackgroundDrawable(new BitmapDrawable());
+		// WindowManager windowManager = (WindowManager)
+		// getSystemService(Context.WINDOW_SERVICE);
+		// int xPos = -popupWindow.getWidth() / 2
+		// + getCustomTitle().getCenter().getWidth() / 2;
+
+		popupWindow.showAsDropDown(parent);
+
 	}
 
 	private void changeLicenseTextColor(int tag) {
@@ -348,9 +410,15 @@ public class ApplyActivity extends BaseActivity implements
 			paramMap.put("userid", app.userVO.getUserid());
 
 			paramMap.put("schoolid", school.getSchoolid());
-			paramMap.put("coachid", coach.getCoachid());
+			if (isSystemAdd) {
+				paramMap.put("coachid", "-1");
+			} else {
+				paramMap.put("coachid", coach.getCoachid());
+			}
 			paramMap.put("classtypeid", classId.getCalssid());
 			paramMap.put("carmodel", carStyle.toString());
+			paramMap.put("idcardnumber", "");
+			paramMap.put("address", "");
 
 			Map<String, String> headerMap = new HashMap<String, String>();
 			headerMap.put("authorization", app.userVO.getToken());
@@ -376,9 +444,9 @@ public class ApplyActivity extends BaseActivity implements
 		if (school == null) {
 			return "驾校为空";
 		}
-		if (coach == null) {
-			return "教练为空";
-		}
+		// if (coach == null) {
+		// return "教练为空";
+		// }
 		if (classId == null) {
 			return "班型为空";
 		}
@@ -417,21 +485,21 @@ public class ApplyActivity extends BaseActivity implements
 				coachTv.setText(coach.getName());
 			}
 			break;
-		case R.id.enroll_carstyle_tv:
-			// 报名页面选择车型，在选择车型的页面进行了保存
-			carStyle = (CarModelVO) data.getSerializableExtra("carStyle");
-			carStyleTv.setText(carStyle.getCode());
-			break;
-		case R.id.enroll_coach_tv:
+		// case R.id.enroll_carstyle_tv:
+		// // 报名页面选择车型，在选择车型的页面进行了保存
+		// carStyle = (CarModelVO) data.getSerializableExtra("carStyle");
+		// carStyleTv.setText(carStyle.getCode());
+		// break;
+		case R.id.pop_window_two:
 			// 报名页面选择教练
 			coach = (CoachVO) data.getSerializableExtra("coach");
 			coachTv.setText(coach.getName());
 			break;
-		case R.id.enroll_class_tv:
-			// 报名页面选择班级
-			classId = (ClassVO) data.getSerializableExtra("class");
-			classTv.setText(classId.getClassname());
-			break;
+		// case R.id.enroll_class_tv:
+		// // 报名页面选择班级
+		// classId = (ClassVO) data.getSerializableExtra("class");
+		// classTv.setText(classId.getClassname());
+		// break;
 		case R.id.main_my_layout:
 			// 我喜欢的教练，驾校
 			school = null;
@@ -559,10 +627,18 @@ public class ApplyActivity extends BaseActivity implements
 					applyClassTypeLayout.setData(list);
 				}
 			} else if (type.equals(enroll)) {
-				// Intent intent = new Intent(this,
-				// EnrollSuccessActivity.class);
-				// startActivity(intent);
-				// finish();
+				if ("success".equals(dataString)) {
+					// 报名成功
+					Intent intent = new Intent(this,
+							EnrollSuccessActivity.class);
+					startActivity(intent);
+					finish();
+				} else {
+					// 不成功
+					ZProgressHUD.getInstance(this).show();
+					ZProgressHUD.getInstance(this)
+							.dismissWithFailure(msg, 2000);
+				}
 			} else if (type.equals(carStyleString)) {
 				if (dataArray != null) {
 					int length = dataArray.length();
@@ -597,38 +673,40 @@ public class ApplyActivity extends BaseActivity implements
 		addClassType();
 	}
 
-	private class MyEditChangedListener implements TextWatcher {
-		private String style;
-
-		public MyEditChangedListener(String style) {
-			this.style = style;
-		}
-
-		@Override
-		public void beforeTextChanged(CharSequence s, int start, int count,
-				int after) {
-		}
-
-		@Override
-		public void onTextChanged(CharSequence s, int start, int before,
-				int count) {
-			util.saveParam(style + app.userVO.getUserid(), s.toString());
-		}
-
-		@Override
-		public void afterTextChanged(Editable s) {
-		}
-	}
+	// private class MyEditChangedListener implements TextWatcher {
+	// private String style;
+	//
+	// public MyEditChangedListener(String style) {
+	// this.style = style;
+	// }
+	//
+	// @Override
+	// public void beforeTextChanged(CharSequence s, int start, int count,
+	// int after) {
+	// }
+	//
+	// @Override
+	// public void onTextChanged(CharSequence s, int start, int before,
+	// int count) {
+	// util.saveParam(style + app.userVO.getUserid(), s.toString());
+	// }
+	//
+	// @Override
+	// public void afterTextChanged(Editable s) {
+	// }
+	// }
 
 	private RelativeLayout classDetailLayout;
 	private int targetHeight;
 	private RelativeLayout schoolRl;
 
 	private boolean isFirstOpen = false;
+	private boolean isExtend = false;
 
 	@Override
 	public void ClassTypeSelectedListener(ClassVO seleClassVO) {
 
+		classId = seleClassVO;
 		setClassDetailData(seleClassVO);
 		if (!isFirstOpen) {
 			setClassDetailAnimator();
@@ -660,6 +738,7 @@ public class ApplyActivity extends BaseActivity implements
 			@Override
 			public void onAnimationEnd(Animator arg0) {
 				isFirstOpen = false;
+				isExtend = false;
 			}
 
 			@Override
@@ -670,6 +749,8 @@ public class ApplyActivity extends BaseActivity implements
 	}
 
 	private ValueAnimator animator;
+	private RelativeLayout classTypeLayout;
+	private RelativeLayout coachRl;
 
 	private void setClassDetailAnimator() {
 		animator = ValueAnimator.ofInt(0, targetHeight);
@@ -679,6 +760,25 @@ public class ApplyActivity extends BaseActivity implements
 				classDetailLayout.getLayoutParams().height = (Integer) animator
 						.getAnimatedValue();
 				classDetailLayout.requestLayout();
+			}
+		});
+		animator.addListener(new AnimatorListener() {
+			@Override
+			public void onAnimationStart(Animator arg0) {
+
+			}
+
+			@Override
+			public void onAnimationRepeat(Animator arg0) {
+			}
+
+			@Override
+			public void onAnimationEnd(Animator arg0) {
+				isExtend = true;
+			}
+
+			@Override
+			public void onAnimationCancel(Animator arg0) {
 			}
 		});
 		animator.setDuration(300);

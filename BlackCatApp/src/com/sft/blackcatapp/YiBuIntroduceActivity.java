@@ -8,6 +8,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
+import com.sft.common.Config.EnrollResult;
 import com.sft.dialog.NoLoginDialog;
 
 public class YiBuIntroduceActivity extends BaseActivity {
@@ -102,9 +103,20 @@ public class YiBuIntroduceActivity extends BaseActivity {
 				dialog.show();
 			} else {
 
-				Intent intent = new Intent(this, ApplyActivity.class);
-				startActivity(intent);
-				finish();
+				String enrollState = app.userVO.getApplystate();
+				if (EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue().equals(
+						enrollState)) {
+
+					Intent intent = new Intent(this,
+							EnrollSuccessActivity.class);
+					startActivity(intent);
+					finish();
+				} else {
+					Intent intent = new Intent(this, ApplyActivity.class);
+					startActivity(intent);
+					finish();
+
+				}
 			}
 			break;
 		}

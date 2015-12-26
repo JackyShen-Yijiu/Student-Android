@@ -2,65 +2,14 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
-    <LinearLayout
-        android:id="@+id/ll_title"
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="#ccc"
-        android:orientation="horizontal" >
-    </LinearLayout>
+    
 
-    <RelativeLayout
-        android:id="@+id/rl_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ll_title"
-        android:layout_marginTop="21dp" >
-
-        <TextView
-            android:id="@+id/textView_title_one"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="25dp"
-            android:background="@drawable/unpress_one"
-            android:gravity="center"
-            android:text="选择驾校"
-            android:textColor="#333"
-            android:textSize="15sp" />
-
-        <TextView
-            android:id="@+id/textView_title_two"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/unpress_two"
-            android:gravity="center"
-            android:text="填写信息"
-            android:textColor="#333"
-            android:textSize="15sp" />
-
-        <TextView
-            android:id="@+id/textView_title_three"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="22dp"
-            android:background="@drawable/press_three"
-            android:gravity="center"
-            android:text="报名验证"
-            android:textColor="#fff"
-            android:textSize="15sp" />
-
-    </RelativeLayout>
+    
 
     <LinearLayout
         android:id="@+id/ll_title_one"
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:layout_below="@+id/rl_title"
         android:layout_marginTop="21dp"
         android:background="#ccc"
         android:orientation="horizontal" >
@@ -110,24 +59,13 @@
        android:textSize="12sp" />
 
    <ImageView
-       android:id="@+id/imageView1"
+       android:id="@+id/apply_commit_qrcode"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:layout_below="@+id/textView3"
        android:layout_centerHorizontal="true"
        android:layout_marginTop="10dp"
        android:src="@drawable/dimension" />
-
-   <TextView
-       android:id="@+id/textView4"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_below="@+id/imageView1"
-       android:layout_centerHorizontal="true"
-       android:layout_marginTop="10dp"
-       android:textColor="#f00"
-       android:textSize="12sp"
-       android:text="您的订单编码号为：1234567898907" />
 
    <TextView
        android:id="@+id/textView5"
@@ -171,5 +109,28 @@
        android:layout_marginRight="8dp"
        android:textSize="12sp"
        android:text="    再确认订单信息时，只需将此二维码提供给驾校工作人员即可，有工作人员扫描二维码，确认报名信息。" />
+
+   <TextView
+       android:id="@+id/tv_qrcode "
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_above="@+id/textView5"
+       android:layout_marginLeft="35dp"
+       android:layout_toRightOf="@+id/textView7"
+       android:text="12334423"
+       android:textColor="#f00"
+       android:textSize="12sp" />
+
+   <TextView
+       android:id="@+id/textView4"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_below="@+id/apply_commit_qrcode"
+       android:layout_marginLeft="52dp"
+       android:layout_marginRight="60dp"
+       android:layout_marginTop="15dp"
+       android:text="您的订单编码号为："
+       android:textColor="#f00"
+       android:textSize="12sp" />
   
 </RelativeLayout>

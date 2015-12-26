@@ -9,9 +9,11 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sft.blackcatapp.R;
+import com.sft.util.LogUtil;
 import com.sft.vo.ClassVO;
 
 public class ApplyClassTypeRowLayout extends LinearLayout implements
@@ -81,6 +83,14 @@ public class ApplyClassTypeRowLayout extends LinearLayout implements
 
 		String name = classVO.getClassname() + "班¥" + classVO.getPrice();
 		className.setText(name);
+
+		RelativeLayout.LayoutParams params = (android.widget.RelativeLayout.LayoutParams) ck
+				.getLayoutParams();
+		className.measure(0, 0);
+		params.height = className.getMeasuredHeight();
+		params.width = className.getMeasuredWidth();
+		ck.requestLayout();
+		LogUtil.print("params.height" + params.height);
 
 	}
 
