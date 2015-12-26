@@ -5,13 +5,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.animation.Animator;
+import android.animation.Animator.AnimatorListener;
+import android.animation.ValueAnimator;
+import android.animation.ValueAnimator.AnimatorUpdateListener;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -24,10 +31,12 @@ import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
 import com.sft.util.CommonUtil;
 import com.sft.util.JSONUtil;
-import com.sft.util.LogUtil;
+import com.sft.util.UTC2LOC;
 import com.sft.util.Util;
 import com.sft.view.ApplyClassTypeLayout;
 import com.sft.view.ApplyClassTypeLayout.OnClassTypeSelectedListener;
+import com.sft.viewutil.MultipleTextViewGroup;
+import com.sft.viewutil.MultipleTextViewGroup.MultipleTextViewVO;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.CarModelVO;
 import com.sft.vo.ClassVO;
@@ -74,6 +83,16 @@ public class ApplyActivity extends BaseActivity implements
 	private TextView licenseTypeC1;
 	private TextView licenseTypeC2;
 	private List<CarModelVO> listCarModelVOs;
+	private TextView styleTv;
+	private TextView dataTv;
+	private TextView weekTv;
+	private TextView brandTv;
+	private TextView priceTv;
+	private TextView countTv;
+	private TextView introductionTv;
+	private int multipleTextViewGroupWidth;
+	private MultipleTextViewGroup multipleTextViewGroup;
+	private ClassVO classVO;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +121,7 @@ public class ApplyActivity extends BaseActivity implements
 		applyClassTypeLayout = (ApplyClassTypeLayout) findViewById(R.id.apply_class_type_ll);
 
 		schoolTv = (TextView) findViewById(R.id.enroll_school_tv);
+		schoolRl = (RelativeLayout) findViewById(R.id.enroll_school_rl);
 		coachTv = (TextView) findViewById(R.id.enroll_coach_tv);
 		// carStyleTv = (TextView) findViewById(R.id.enroll_carstyle_tv);
 		nameEt = (EditText) findViewById(R.id.enroll_name_et);
@@ -111,6 +131,36 @@ public class ApplyActivity extends BaseActivity implements
 
 		licenseTypeC1 = (TextView) findViewById(R.id.apply_license_type_c1);
 		licenseTypeC2 = (TextView) findViewById(R.id.apply_license_type_c2);
+		classDetailLayout = (RelativeLayout) findViewById(R.id.apply_class_detail);
+		// classDetailLayout.setVisibility(View.GONE);
+		classDetailLayout.measure(0, 0);
+		targetHeight = classDetailLayout.getMeasuredHeight();
+		classDetailLayout.getLayoutParams().height = 0;
+		classDetailLayout.requestLayout();
+		// 班级详情
+		styleTv = (TextView) findViewById(R.id.class_detail_style_tv);
+		dataTv = (TextView) findViewById(R.id.class_detail_date_tv);
+		weekTv = (TextView) findViewById(R.id.class_detail_week_tv);
+		brandTv = (TextView) findViewById(R.id.class_detail_brand_tv);
+		priceTv = (TextView) findViewById(R.id.class_detail_price_tv);
+		countTv = (TextView) findViewById(R.id.class_detail_count_tv);
+		introductionTv = (TextView) findViewById(R.id.class_detail_introduction_content_tv);
+		multipleTextViewGroup = (MultipleTextViewGroup) findViewById(R.id.class_detail_multiple_tv);
+
+		final ViewTreeObserver vto = multipleTextViewGroup
+				.getViewTreeObserver();
+		vto.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+			@Override
+			public boolean onPreDraw() {
+				if (multipleTextViewGroupWidth <= 0) {
+					multipleTextViewGroupWidth = multipleTextViewGroup
+							.getMeasuredWidth();
+					initData();
+				}
+				return true;
+			}
+		});
+
 	}
 
 	private void initData() {
@@ -172,11 +222,16 @@ public class ApplyActivity extends BaseActivity implements
 		// commitBtn.setEnabled(false);
 		// }
 		// }
+		// classVO = (ClassVO) getIntent().getSerializableExtra("class");
+
+		// schoolNameTv.setText(classVO.getSchoolinfo().getName());
+		// schoolAddressTv.setText(classVO.getSchoolinfo().getAddress());
+
 	}
 
 	private void setListener() {
 		commitBtn.setOnClickListener(this);
-		schoolTv.setOnClickListener(this);
+		schoolRl.setOnClickListener(this);
 		// carStyleTv.setOnClickListener(this);
 		coachTv.setOnClickListener(this);
 		// classTv.setOnClickListener(this);
@@ -187,6 +242,13 @@ public class ApplyActivity extends BaseActivity implements
 		licenseTypeC1.setOnClickListener(this);
 		licenseTypeC2.setOnClickListener(this);
 		applyClassTypeLayout.setOnClassTypeSelectedListener(this);
+		classDetailLayout.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View paramView) {
+				closeClassDetail();
+			}
+		});
 	}
 
 	@Override
@@ -209,7 +271,7 @@ public class ApplyActivity extends BaseActivity implements
 				carStyle = listCarModelVOs.get(1);
 				changeLicenseTextColor(2);
 				break;
-			case R.id.enroll_school_tv:
+			case R.id.enroll_school_rl:
 				intent = new Intent(this, EnrollSchoolActivity.class);
 				if (school != null)
 					intent.putExtra("school", school);
@@ -333,7 +395,7 @@ public class ApplyActivity extends BaseActivity implements
 			return;
 		}
 		switch (requestCode) {
-		case R.id.enroll_school_tv:
+		case R.id.enroll_school_rl:
 			// 报名页面选择学校
 			SchoolVO tempSchool = (SchoolVO) data
 					.getSerializableExtra("school");
@@ -558,8 +620,107 @@ public class ApplyActivity extends BaseActivity implements
 		}
 	}
 
+	private RelativeLayout classDetailLayout;
+	private int targetHeight;
+	private RelativeLayout schoolRl;
+
+	private boolean isFirstOpen = false;
+
 	@Override
 	public void ClassTypeSelectedListener(ClassVO seleClassVO) {
-		LogUtil.print("点击班型le " + seleClassVO.getClassname());
+
+		setClassDetailData(seleClassVO);
+		if (!isFirstOpen) {
+			setClassDetailAnimator();
+			isFirstOpen = true;
+		}
+	}
+
+	private void closeClassDetail() {
+		animator = ValueAnimator.ofInt(targetHeight, 0);
+		animator.addUpdateListener(new AnimatorUpdateListener() {
+			@Override
+			public void onAnimationUpdate(ValueAnimator animator) {
+				classDetailLayout.getLayoutParams().height = (Integer) animator
+						.getAnimatedValue();
+				classDetailLayout.requestLayout();
+			}
+		});
+		animator.setDuration(300);
+		animator.addListener(new AnimatorListener() {
+			@Override
+			public void onAnimationStart(Animator arg0) {
+
+			}
+
+			@Override
+			public void onAnimationRepeat(Animator arg0) {
+			}
+
+			@Override
+			public void onAnimationEnd(Animator arg0) {
+				isFirstOpen = false;
+			}
+
+			@Override
+			public void onAnimationCancel(Animator arg0) {
+			}
+		});
+		animator.start();
+	}
+
+	private ValueAnimator animator;
+
+	private void setClassDetailAnimator() {
+		animator = ValueAnimator.ofInt(0, targetHeight);
+		animator.addUpdateListener(new AnimatorUpdateListener() {
+			@Override
+			public void onAnimationUpdate(ValueAnimator animator) {
+				classDetailLayout.getLayoutParams().height = (Integer) animator
+						.getAnimatedValue();
+				classDetailLayout.requestLayout();
+			}
+		});
+		animator.setDuration(300);
+		animator.start();
+	}
+
+	private void setClassDetailData(ClassVO seleClassVO) {
+		styleTv.setText(getString(R.string.license)
+				+ seleClassVO.getCarmodel().getCode());
+		weekTv.setText(getString(R.string.course_date)
+				+ seleClassVO.getClasschedule());
+		brandTv.setText(getString(R.string.car_brand)
+				+ seleClassVO.getCartype());
+		priceTv.setText(seleClassVO.getPrice());
+		countTv.setText(getString(R.string.enroll_count)
+				+ seleClassVO.getApplycount());
+
+		String beginDate = seleClassVO.getBegindate();
+		beginDate = UTC2LOC.instance.getDate(beginDate, "yyyy.MM.dd");
+		String endDate = seleClassVO.getBegindate();
+		endDate = UTC2LOC.instance.getDate(endDate, "yyyy.MM.dd");
+		dataTv.setText(getString(R.string.active_date) + beginDate + "-"
+				+ endDate);
+
+		introductionTv.setText(seleClassVO.getClassdesc());
+
+		List<MultipleTextViewVO> multipleList = new ArrayList<MultipleTextViewGroup.MultipleTextViewVO>();
+		int length = seleClassVO.getVipserverlist().size();
+		for (int i = 0; i < length; i++) {
+			MultipleTextViewVO vo = multipleTextViewGroup.new MultipleTextViewVO();
+			vo.setText(seleClassVO.getVipserverlist().get(i).getName());
+
+			String color = seleClassVO.getVipserverlist().get(i).getCoclor();
+			if (color != null && color.length() == 6) {
+				vo.setColor(Color.parseColor("#" + color));
+			} else {
+				vo.setColor(Color.parseColor("#ff6633"));
+			}
+			multipleList.add(vo);
+		}
+
+		multipleTextViewGroup.setTextViews(multipleList,
+				multipleTextViewGroupWidth);
 	}
 }

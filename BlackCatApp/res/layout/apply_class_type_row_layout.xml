@@ -12,7 +12,7 @@
 
      <CheckBox
         android:id="@+id/apply_class_type_row_ck"
-        android:layout_width="80dp"
+        android:layout_width="60dp"
         android:layout_height="20dp"
         android:background="@null"
         android:button="@null" />

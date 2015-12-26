@@ -78,6 +78,7 @@ public class ApplyClassTypeLayout extends LinearLayout implements
 		LinearLayout.LayoutParams typeParams = new LayoutParams(
 				LinearLayout.LayoutParams.WRAP_CONTENT,
 				LinearLayout.LayoutParams.WRAP_CONTENT, 1);
+		typeParams.rightMargin = CommonUtil.dip2px(context, 25);
 
 		LinearLayout.LayoutParams rowParams = new LayoutParams(
 				LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -86,13 +87,6 @@ public class ApplyClassTypeLayout extends LinearLayout implements
 		rowParams.setLayoutDirection(LinearLayout.HORIZONTAL);
 
 		for (int i = 0; i < row - 1; i++) {
-			// 此时每行有column个
-			// if (i == 0) {
-			// rowParams.topMargin = CommonUtil.dip2px(context, 1);
-			// } else {
-			// rowParams.topMargin = CommonUtil.dip2px(context, 27);
-			//
-			// }
 			LinearLayout innerLayout = new LinearLayout(context);
 			addView(innerLayout, rowParams);
 
@@ -102,9 +96,6 @@ public class ApplyClassTypeLayout extends LinearLayout implements
 				rowLayout.setSelectedChangeListener(this);
 				// 参数
 				rowLayout.setValue(list.get(i * column + j));
-				if (j != 0) {
-					typeParams.leftMargin = CommonUtil.dip2px(context, 25);
-				}
 				innerLayout.addView(rowLayout, typeParams);
 				rowLayoutList.add(rowLayout);
 			}
@@ -112,7 +103,6 @@ public class ApplyClassTypeLayout extends LinearLayout implements
 		}
 
 		LinearLayout innerLayout = new LinearLayout(context);
-		// rowParams.topMargin = CommonUtil.dip2px(context, 27);
 		addView(innerLayout, rowParams);
 
 		lastConut = lastConut == 0 ? column : lastConut;
@@ -122,9 +112,6 @@ public class ApplyClassTypeLayout extends LinearLayout implements
 			rowLayout.setSelectedChangeListener(this);
 			// 参数
 			rowLayout.setValue(list.get((row - 1) * column + i));
-			if (i != 0) {
-				typeParams.leftMargin = CommonUtil.dip2px(context, 25);
-			}
 			innerLayout.addView(rowLayout, typeParams);
 			rowLayoutList.add(rowLayout);
 		}
