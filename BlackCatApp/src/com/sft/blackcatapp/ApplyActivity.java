@@ -26,15 +26,18 @@ import com.sft.util.CommonUtil;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
 import com.sft.util.Util;
+import com.sft.view.ApplyClassTypeLayout;
+import com.sft.view.ApplyClassTypeLayout.OnClassTypeSelectedListener;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.CarModelVO;
 import com.sft.vo.ClassVO;
 import com.sft.vo.CoachVO;
 import com.sft.vo.SchoolVO;
 
-public class ApplyActivity extends BaseActivity {
+public class ApplyActivity extends BaseActivity implements
+		OnClassTypeSelectedListener {
 
-	private LinearLayout applyClassTypeLayout;
+	private ApplyClassTypeLayout applyClassTypeLayout;
 	private static final String realName = "realName";
 	private static final String contact = "contact";
 	private static final String enroll = "enroll";
@@ -96,7 +99,7 @@ public class ApplyActivity extends BaseActivity {
 		enroll_rootlayout.setFocusableInTouchMode(true);
 		enroll_rootlayout.requestFocus();
 
-		applyClassTypeLayout = (LinearLayout) findViewById(R.id.apply_class_type_ll);
+		applyClassTypeLayout = (ApplyClassTypeLayout) findViewById(R.id.apply_class_type_ll);
 
 		schoolTv = (TextView) findViewById(R.id.enroll_school_tv);
 		coachTv = (TextView) findViewById(R.id.enroll_coach_tv);
@@ -183,6 +186,7 @@ public class ApplyActivity extends BaseActivity {
 
 		licenseTypeC1.setOnClickListener(this);
 		licenseTypeC2.setOnClickListener(this);
+		applyClassTypeLayout.setOnClassTypeSelectedListener(this);
 	}
 
 	@Override
@@ -467,7 +471,6 @@ public class ApplyActivity extends BaseActivity {
 	private void obtainEnrollClass() {
 		if (school != null) {
 			String schoolId = school.getSchoolid();
-			LogUtil.print("schoolId===" + schoolId);
 			HttpSendUtils.httpGetSend(classInfo, this, Config.IP
 					+ "api/v1/driveschool/schoolclasstype/" + schoolId);
 		}
@@ -485,11 +488,13 @@ public class ApplyActivity extends BaseActivity {
 					int length = dataArray.length();
 					List<ClassVO> list = new ArrayList<ClassVO>();
 					for (int i = 0; i < length; i++) {
-						ClassVO classVO = (ClassVO) JSONUtil.toJavaBean(
-								ClassVO.class, dataArray.getJSONObject(i));
+						ClassVO classVO = JSONUtil.toJavaBean(ClassVO.class,
+								dataArray.getJSONObject(i));
 						list.add(classVO);
 					}
-					setclassName(list);
+					// setclassName(list);
+					applyClassTypeLayout.clearData();
+					applyClassTypeLayout.setData(list);
 				}
 			} else if (type.equals(enroll)) {
 				// Intent intent = new Intent(this,
@@ -501,9 +506,8 @@ public class ApplyActivity extends BaseActivity {
 					int length = dataArray.length();
 					listCarModelVOs = new ArrayList<CarModelVO>();
 					for (int i = 0; i < length; i++) {
-						CarModelVO carStyleVO = (CarModelVO) JSONUtil
-								.toJavaBean(CarModelVO.class,
-										dataArray.getJSONObject(i));
+						CarModelVO carStyleVO = JSONUtil.toJavaBean(
+								CarModelVO.class, dataArray.getJSONObject(i));
 						listCarModelVOs.add(carStyleVO);
 					}
 					setLienseType(listCarModelVOs);
@@ -552,5 +556,10 @@ public class ApplyActivity extends BaseActivity {
 		@Override
 		public void afterTextChanged(Editable s) {
 		}
+	}
+
+	@Override
+	public void ClassTypeSelectedListener(ClassVO seleClassVO) {
+		LogUtil.print("点击班型le " + seleClassVO.getClassname());
 	}
 }

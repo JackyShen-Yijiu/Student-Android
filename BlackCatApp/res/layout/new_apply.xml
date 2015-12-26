@@ -110,16 +110,15 @@
                     android:text="报考班型:"
                     android:textColor="#333" />
 
-                <LinearLayout
+                <com.sft.view.ApplyClassTypeLayout
                     android:id="@+id/apply_class_type_ll"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@+id/apply_apply_class_type_tv"
-                    android:layout_marginLeft="18dp"
                     android:layout_toRightOf="@+id/apply_apply_class_type_tv"
                     android:layout_marginBottom="27dp"
                     android:orientation="vertical" >
-                </LinearLayout>
+                </com.sft.view.ApplyClassTypeLayout>
             </RelativeLayout>
 
             <!-- 4 -->
