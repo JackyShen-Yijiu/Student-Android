@@ -33,7 +33,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="13dp"
-            android:text="您的Y码:10012021430"
             android:textColor="#f2f2f2"
             android:textSize="14sp" />
     </LinearLayout>
@@ -45,7 +44,7 @@
         android:layout_below="@id/fragment_menu_headpic_im"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="40dp"
-        android:text="25.80"
+        android:text="0.00"
         android:textColor="#ff3c00"
         android:textSize="24sp" />
 
@@ -57,6 +56,7 @@
         android:layout_alignBottom="@+id/fragment_menu_number"
         android:layout_toRightOf="@+id/fragment_menu_number"
         android:text="豆币"
+        android:layout_marginLeft="2dp"
         android:textColor="#f2f2f2"
         android:textSize="16sp" />
 
@@ -128,12 +128,12 @@
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/fragment_menu_mall_duihuangquan"
+            android:id="@+id/fragment_menu_mall_couponcount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="13dp"
             android:layout_toLeftOf="@+id/fragment_menu_zhang"
-            android:text="2"
+            android:text="0"
             android:textColor="#ff3c00"
             android:textSize="14sp" />
 
@@ -176,7 +176,7 @@
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/fragment_menu_cash"
+            android:id="@+id/fragment_menu_money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="13dp"

@@ -23,6 +23,7 @@ import com.sft.common.Config;
 import com.sft.listener.EMLoginListener;
 import com.sft.util.DownLoadService;
 import com.sft.util.JSONUtil;
+import com.sft.util.LogUtil;
 import com.sft.util.SharedPreferencesUtil;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.UserVO;
@@ -277,6 +278,8 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 		String newVersion = app.versionVO.getVersionCode().replace("v", "")
 				.replace("V", "").replace(".", "");
 
+		LogUtil.print("new:::" + newVersion);
+		LogUtil.print("old:::" + curVersion);
 		try {
 			if (Integer.parseInt(newVersion) > Integer.parseInt(curVersion)) {
 				AlertDialog.Builder builder = new AlertDialog.Builder(this);
