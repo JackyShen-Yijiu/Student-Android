@@ -503,15 +503,23 @@ public class MainActivity extends BaseMainActivity implements
 
 			if (position == 2) {
 
-				String enrollState = BlackCatApplication.app.userVO
-						.getApplystate();
-				if (!EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue().equals(
-						enrollState)) {
+				if (app.isLogin) {
+					String enrollState = BlackCatApplication.app.userVO
+							.getApplystate();
+					if (!EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue().equals(
+							enrollState)) {
+						Intent intent = new Intent(getBaseContext(),
+								ApplyActivity.class);
+						startActivity(intent);
+						viewPager.setCurrentItem(position - 1);
+					}
+				} else {
 					Intent intent = new Intent(getBaseContext(),
-							ApplyActivity.class);
+							LoginActivity.class);
 					startActivity(intent);
+					finish();
+					viewPager.setCurrentItem(position - 1);
 				}
-				viewPager.setCurrentItem(position - 1);
 			}
 		}
 

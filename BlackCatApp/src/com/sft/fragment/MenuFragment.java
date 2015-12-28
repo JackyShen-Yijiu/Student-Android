@@ -91,20 +91,26 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 	}
 
 	private void obtainMyMoney() {
-		Map<String, String> paramMap = new HashMap<String, String>();
-		paramMap.put("userid", app.userVO.getUserid());
-		paramMap.put("usertype", "1");
+		if (app.isLogin) {
 
-		Map<String, String> headerMap = new HashMap<String, String>();
-		headerMap.put("authorization", app.userVO.getToken());
-		HttpSendUtils.httpGetSend(mymoney, this, Config.IP
-				+ "api/v1/userinfo/getmymoney", paramMap, 10000, headerMap);
+			Map<String, String> paramMap = new HashMap<String, String>();
+			paramMap.put("userid", app.userVO.getUserid());
+			paramMap.put("usertype", "1");
+
+			Map<String, String> headerMap = new HashMap<String, String>();
+			headerMap.put("authorization", app.userVO.getToken());
+			HttpSendUtils.httpGetSend(mymoney, this, Config.IP
+					+ "api/v1/userinfo/getmymoney", paramMap, 10000, headerMap);
+		}
 	}
 
 	@Override
 	public void onResume() {
 		super.onResume();
-		setPersonInfo();
+		if (app.isLogin) {
+
+			setPersonInfo();
+		}
 	}
 
 	private void initView(View rootView) {
@@ -163,7 +169,12 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 			BitmapManager.INSTANCE.loadBitmap2(url, personIcon,
 					headpicParam.width, headpicParam.height);
 		}
-		username.setText(app.userVO.getDisplaymobile());
+		if (TextUtils.isEmpty(app.userVO.getDisplaymobile())) {
+
+			username.setText("未登陆");
+		} else {
+			username.setText(app.userVO.getDisplaymobile());
+		}
 		if (TextUtils.isEmpty(app.userVO.getApplyschoolinfo().getName())) {
 
 			drivingSchool.setText("您未选择驾校");

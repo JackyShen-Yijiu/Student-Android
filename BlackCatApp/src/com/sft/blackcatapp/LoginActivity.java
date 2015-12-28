@@ -124,6 +124,7 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 			login();
 			break;
 		case R.id.login_lookaround_btn:
+			finish();
 			intent = new Intent(this, MainActivity.class);
 			break;
 		case R.id.login_forget_tv:

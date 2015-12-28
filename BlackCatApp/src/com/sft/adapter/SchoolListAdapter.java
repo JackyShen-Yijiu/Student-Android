@@ -38,6 +38,7 @@ public class SchoolListAdapter extends BaseAdapter {
 	}
 
 	public void setSelected(int index) {
+		isSelected = new boolean[mData.size()];
 		if (index >= 0) {
 			for (int i = 0; i < mData.size(); i++) {
 				isSelected[i] = false;

@@ -1,5 +1,7 @@
 package com.sft.vo;
 
+import android.text.TextUtils;
+
 public class MyMoneyVO {
 
 	// "userid": "56766efb98945d9922d63b3a",
@@ -30,7 +32,7 @@ public class MyMoneyVO {
 	}
 
 	public String getFcode() {
-		return fcode == null ? "" : fcode;
+		return TextUtils.isEmpty(fcode) ? "" : "您的Y码:" + fcode;
 	}
 
 	public void setFcode(String fcode) {

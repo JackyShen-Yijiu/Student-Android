@@ -10,7 +10,6 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.text.TextUtils;
@@ -467,20 +466,20 @@ public class EnrollSchoolActivity extends BaseActivity implements
 
 		@Override
 		public void onPageClick(int position) {
-			try {
-				if (adList != null && adList.size() > position) {
-					String url = adList.get(position).getHeadportrait()
-							.getOriginalpic();
-					if (!TextUtils.isEmpty(url)) {
-						Intent intent = new Intent();
-						intent.setAction("android.intent.action.VIEW");
-						Uri content_url = Uri.parse(url);
-						intent.setData(content_url);
-						startActivity(intent);
-					}
-				}
-			} catch (Exception e) {
-			}
+			// try {
+			// if (adList != null && adList.size() > position) {
+			// String url = adList.get(position).getHeadportrait()
+			// .getOriginalpic();
+			// if (!TextUtils.isEmpty(url)) {
+			// Intent intent = new Intent();
+			// intent.setAction("android.intent.action.VIEW");
+			// Uri content_url = Uri.parse(url);
+			// intent.setData(content_url);
+			// startActivity(intent);
+			// }
+			// }
+			// } catch (Exception e) {
+			// }
 		}
 	}
 

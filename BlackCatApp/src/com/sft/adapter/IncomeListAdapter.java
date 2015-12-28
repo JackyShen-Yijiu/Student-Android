@@ -2,10 +2,6 @@ package com.sft.adapter;
 
 import java.util.List;
 
-import com.sft.blackcatapp.R;
-import com.sft.util.UTC2LOC;
-import com.sft.vo.IncomeVO;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,6 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.sft.blackcatapp.R;
+import com.sft.util.UTC2LOC;
+import com.sft.vo.IncomeVO;
 
 @SuppressLint("InflateParams")
 public class IncomeListAdapter extends BaseAdapter {
@@ -51,14 +51,17 @@ public class IncomeListAdapter extends BaseAdapter {
 		if (convertView == null) {
 			holder = new ViewHolder();
 			convertView = mInflater.inflate(R.layout.mywallet_list_item, null);
-			holder.date = (TextView) convertView.findViewById(R.id.mywallet_item_date_tv);
-			holder.income = (TextView) convertView.findViewById(R.id.mywallet_item_income_tv);
+			holder.date = (TextView) convertView
+					.findViewById(R.id.mywallet_item_date_tv);
+			holder.income = (TextView) convertView
+					.findViewById(R.id.mywallet_item_income_tv);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		holder.date.setText(UTC2LOC.instance.getDate(mData.get(position).getCreatetime(), "yyyy/mm/dd"));
+		holder.date.setText(UTC2LOC.instance.getDate(mData.get(position)
+				.getCreatetime(), "yyyy/MM/dd"));
 		holder.income.setText(mData.get(position).getAmount());
 		return convertView;
 	}

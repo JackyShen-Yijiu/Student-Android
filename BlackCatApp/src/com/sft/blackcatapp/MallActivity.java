@@ -19,6 +19,7 @@ import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.infinitescrollviewpager.BitMapURLExcepteionListner;
 import cn.sft.infinitescrollviewpager.InfinitePagerAdapter;
 import cn.sft.infinitescrollviewpager.InfiniteViewPager;
+import cn.sft.infinitescrollviewpager.PageChangeListener;
 import cn.sft.infinitescrollviewpager.PageClickListener;
 
 import com.sft.adapter.MallProductAdapter;
@@ -34,7 +35,7 @@ import com.sft.vo.ProductVO;
  * 
  */
 public class MallActivity extends BaseActivity implements
-		BitMapURLExcepteionListner, OnItemClickListener {
+		BitMapURLExcepteionListner, OnItemClickListener, PageChangeListener {
 
 	private static final String headlineNews = "headlineNews";
 
@@ -88,6 +89,7 @@ public class MallActivity extends BaseActivity implements
 		setViewPager();
 
 		productListView.setOnItemClickListener(this);
+		topViewPager.setPageChangeListener(this);
 	}
 
 	private void obtainHeadLineNews() {
@@ -216,5 +218,20 @@ public class MallActivity extends BaseActivity implements
 		Intent intent = new Intent(this, ProductDetailActivity.class);
 		intent.putExtra("product", productVO);
 		startActivity(intent);
+	}
+
+	@Override
+	public void onPageChanged(int position) {
+		if (imageViews != null) {
+			for (int i = 0; i < imageViews.length; i++) {
+				imageViews[position].setBackgroundColor(Color
+						.parseColor("#21b8c6"));
+				// 不是当前选中的page，其小圆点设置为未选中的状态
+				if (position != i) {
+					imageViews[i].setBackgroundColor(Color
+							.parseColor("#eeeeee"));
+				}
+			}
+		}
 	}
 }
