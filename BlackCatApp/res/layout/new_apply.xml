@@ -85,7 +85,6 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@id/apply_textview"
-                    android:text="一步互联网驾校"
                     android:textColor="#333"
                     android:textSize="14sp" />
             </RelativeLayout>

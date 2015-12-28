@@ -104,15 +104,14 @@ public class YiBuIntroduceActivity extends BaseActivity {
 			} else {
 
 				String enrollState = app.userVO.getApplystate();
-				if (EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue().equals(
-						enrollState)) {
-
-					Intent intent = new Intent(this,
-							EnrollSuccessActivity.class);
+				if (EnrollResult.SUBJECT_NONE.getValue().equals(enrollState)) {
+					Intent intent = new Intent(this, ApplyActivity.class);
 					startActivity(intent);
 					finish();
+
 				} else {
-					Intent intent = new Intent(this, ApplyActivity.class);
+					Intent intent = new Intent(this,
+							EnrollSuccessActivity.class);
 					startActivity(intent);
 					finish();
 

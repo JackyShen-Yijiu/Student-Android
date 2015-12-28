@@ -33,6 +33,7 @@ import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.MapView;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.sft.adapter.HomePageAdapter;
+import com.sft.common.BlackCatApplication;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
 import com.sft.dialog.NoLoginDialog;
@@ -467,11 +468,27 @@ public class MainActivity extends BaseMainActivity implements
 		super.onPause();
 	}
 
+	private boolean isOnly = false;
+
 	class MainOnPageChangeListener implements OnPageChangeListener {
 
 		@Override
 		public void onPageScrolled(int position, float positionOffset,
 				int positionOffsetPixels) {
+			// if (!isOnly) {
+			//
+			// if (position == 1 && positionOffset > 0) {
+			// String enrollState = app.userVO.getApplystate();
+			// if (!EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue().equals(
+			// enrollState)) {
+			// Intent intent = new Intent(getBaseContext(),
+			// ApplyActivity.class);
+			// startActivity(intent);
+			// isOnly = true;
+			// }
+			//
+			// }
+			// }
 			int carPointX = (int) ((positionOffset + position) * CommonUtil
 					.dip2px(getBaseContext(), 65));
 			android.widget.RelativeLayout.LayoutParams layoutParams = (android.widget.RelativeLayout.LayoutParams) carImageView
@@ -483,6 +500,19 @@ public class MainActivity extends BaseMainActivity implements
 		@Override
 		public void onPageSelected(int position) {
 			setBottomState(position);
+
+			if (position == 2) {
+
+				String enrollState = BlackCatApplication.app.userVO
+						.getApplystate();
+				if (!EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue().equals(
+						enrollState)) {
+					Intent intent = new Intent(getBaseContext(),
+							ApplyActivity.class);
+					startActivity(intent);
+				}
+				viewPager.setCurrentItem(position - 1);
+			}
 		}
 
 		@Override

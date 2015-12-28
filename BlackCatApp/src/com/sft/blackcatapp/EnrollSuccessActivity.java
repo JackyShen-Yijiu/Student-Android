@@ -10,15 +10,15 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
-import cn.sft.infinitescrollviewpager.BitmapManager;
 
 import com.sft.common.Config;
+import com.sft.common.Config.EnrollResult;
 import com.sft.util.JSONUtil;
+import com.sft.util.LogUtil;
 import com.sft.vo.SuccessVO;
+import com.squareup.picasso.Picasso;
 
 /**
  * 报名成功提示界面
@@ -48,7 +48,7 @@ public class EnrollSuccessActivity extends BaseActivity {
 
 		Map<String, String> headerMap = new HashMap<String, String>();
 		headerMap.put("authorization", app.userVO.getToken());
-		HttpSendUtils.httpPostSend(applySuccess, this, Config.IP
+		HttpSendUtils.httpGetSend(applySuccess, this, Config.IP
 				+ "api/v1/userinfo/getapplyschoolinfo", paramMap, 10000,
 				headerMap);
 	}
@@ -60,10 +60,11 @@ public class EnrollSuccessActivity extends BaseActivity {
 	}
 
 	private void initView() {
-		showTitlebarBtn(0);
+		app.isEnrollAgain = false;
+		showTitlebarBtn(1);
 		showTitlebarText(BaseActivity.SHOW_RIGHT_TEXT);
-		setText(0, R.string.finish);
-		setTitleText(R.string.enroll);
+		setText(0, R.string.enroll_again);
+		setTitleText("");
 		button_sus = (Button) findViewById(R.id.button_sus);
 		qrcode = (ImageView) findViewById(R.id.apply_commit_qrcode);
 		tv_qrcode = (TextView) findViewById(R.id.tv_qrcode);
@@ -81,9 +82,16 @@ public class EnrollSuccessActivity extends BaseActivity {
 		}
 		switch (v.getId()) {
 		case R.id.base_left_btn:
+			finish();
+			break;
 		case R.id.base_right_tv:
-			sendBroadcast(new Intent(MainActivity.class.getName()).putExtra(
-					"isEnrollSuccess", true));
+			// sendBroadcast(new Intent(MainActivity.class.getName()).putExtra(
+			// "isEnrollSuccess", true));
+			// finish();
+			app.isEnrollAgain = true;
+			app.userVO.setApplystate(EnrollResult.SUBJECT_NONE.getValue());
+			Intent intent = new Intent(this, ApplyActivity.class);
+			startActivity(intent);
 			finish();
 			break;
 		case R.id.button_sus:
@@ -116,7 +124,11 @@ public class EnrollSuccessActivity extends BaseActivity {
 				if (data != null) {
 					SuccessVO successVO = JSONUtil.toJavaBean(SuccessVO.class,
 							data);
+					if (successVO == null) {
+						LogUtil.print("successVO");
+					}
 					if (successVO != null) {
+						LogUtil.print(successVO.name);
 						setQrCode(successVO.scanauditurl);
 						tv_qrcode.setText(successVO.userid);
 					}
@@ -130,13 +142,13 @@ public class EnrollSuccessActivity extends BaseActivity {
 
 	// 设置二维码
 	private void setQrCode(String scanauditurl) {
-		LinearLayout.LayoutParams headParam = (LayoutParams) qrcode
-				.getLayoutParams();
 		if (!TextUtils.isEmpty(scanauditurl)) {
 			String url = Config.IP + "api/v1/create_qrcode?text="
 					+ scanauditurl + "&size=10";
-			BitmapManager.INSTANCE.loadBitmap2(url, qrcode, headParam.width,
-					headParam.height);
+			System.out.println(url);
+			// BitmapManager.INSTANCE.loadBitmap2(url, qrcode, headParam.width,
+			// headParam.height);
+			Picasso.with(getBaseContext()).load(url).into(qrcode);
 		} else {
 			qrcode.setImageResource(R.drawable.default_small_pic);
 		}

@@ -6,17 +6,17 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.graphics.Bitmap;
+import cn.sft.sqlhelper.DBHelper;
+
 import com.sft.common.BlackCatApplication;
 import com.sft.common.Config;
 import com.sft.vo.CarModelVO;
 import com.sft.vo.ClassVO;
 import com.sft.vo.CoachVO;
 import com.sft.vo.SchoolVO;
-
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.graphics.Bitmap;
-import cn.sft.sqlhelper.DBHelper;
 
 @SuppressLint("SimpleDateFormat")
 public class Util {
@@ -42,8 +42,10 @@ public class Util {
 	}
 
 	public static File savePic(Bitmap bitmap, String path, String name) {
-		File file = new File(Config.PICPATH + File.separator + path + File.separator);
-		File f = new File(Config.PICPATH + File.separator + path + File.separator + name);
+		File file = new File(Config.PICPATH + File.separator + path
+				+ File.separator);
+		File f = new File(Config.PICPATH + File.separator + path
+				+ File.separator + name);
 		try {
 			if (!file.exists()) {
 				file.mkdirs();
@@ -64,6 +66,9 @@ public class Util {
 	}
 
 	public static String isConfilctEnroll(Object obj) {
+		if (app == null) {
+			app = BlackCatApplication.getInstance();
+		}
 		if (obj instanceof SchoolVO) {
 			SchoolVO school = (SchoolVO) obj;
 			if (app.selectEnrollSchool == null) {
@@ -71,7 +76,8 @@ public class Util {
 			} else {
 				if (school.equals(app.selectEnrollSchool)) {
 					return null;
-				} else if (app.selectEnrollClass == null && app.selectEnrollCoach == null
+				} else if (app.selectEnrollClass == null
+						&& app.selectEnrollCoach == null
 						&& app.selectEnrollCarStyle == null) {
 					return "确定要更换报名的驾校？";
 				} else {
@@ -85,7 +91,8 @@ public class Util {
 					// 之前没有选择过驾校和教练
 					return "refresh";
 				} else {
-					if (coach.getDriveschoolinfo().getId().equals(app.selectEnrollSchool.getSchoolid())) {
+					if (coach.getDriveschoolinfo().getId()
+							.equals(app.selectEnrollSchool.getSchoolid())) {
 						// 选择了驾校没有选择教练
 						return "";
 					} else {
@@ -96,8 +103,11 @@ public class Util {
 				if (coach.equals(app.selectEnrollCoach)) {
 					// 同一个教练，无需更新
 					return null;
-				} else if (coach.getDriveschoolinfo().getId()
-						.equals(app.selectEnrollCoach.getDriveschoolinfo().getId())) {
+				} else if (coach
+						.getDriveschoolinfo()
+						.getId()
+						.equals(app.selectEnrollCoach.getDriveschoolinfo()
+								.getId())) {
 					// 不同教练，同一个学校
 					return "确定要更换报名的教练？";
 				}
@@ -110,8 +120,9 @@ public class Util {
 
 	public static void saveAppointmentCoach(Context context, CoachVO coachVO) {
 		// 如果有此教练先删除，在添加，保证顺序（后预约的在最前面）
-		DBHelper.getInstance(context).delete(CoachVO.class, "db_userid", getUserid(), "db_coachStyle",
-				CoachVO.APPOINTMENT_COACH, "coachid", coachVO.getCoachid());
+		DBHelper.getInstance(context).delete(CoachVO.class, "db_userid",
+				getUserid(), "db_coachStyle", CoachVO.APPOINTMENT_COACH,
+				"coachid", coachVO.getCoachid());
 
 		coachVO.setDb_userid(getUserid());
 		coachVO.setDb_coachStyle(CoachVO.APPOINTMENT_COACH);
@@ -119,13 +130,14 @@ public class Util {
 	}
 
 	public static List<CoachVO> getAppointmentCoach(Context context) {
-		return DBHelper.getInstance(context).query(CoachVO.class, "db_userid", getUserid(), "db_coachStyle",
-				CoachVO.APPOINTMENT_COACH);
+		return DBHelper.getInstance(context).query(CoachVO.class, "db_userid",
+				getUserid(), "db_coachStyle", CoachVO.APPOINTMENT_COACH);
 	}
 
 	public static CoachVO getEnrollUserSelectedCoach(Context context) {
-		List<CoachVO> list = DBHelper.getInstance(context).query(CoachVO.class, "db_userid", getUserid(),
-				"db_coachStyle", CoachVO.ENROLL_USER_SELECTED);
+		List<CoachVO> list = DBHelper.getInstance(context).query(CoachVO.class,
+				"db_userid", getUserid(), "db_coachStyle",
+				CoachVO.ENROLL_USER_SELECTED);
 		if (list != null && list.size() > 0) {
 			return list.get(0);
 		}
@@ -133,8 +145,9 @@ public class Util {
 	}
 
 	public static SchoolVO getEnrollUserSelectedSchool(Context context) {
-		List<SchoolVO> list = DBHelper.getInstance(context).query(SchoolVO.class, "db_userid", getUserid(),
-				"db_schoolStyle", SchoolVO.ENROLL_USER_SELECTED);
+		List<SchoolVO> list = DBHelper.getInstance(context).query(
+				SchoolVO.class, "db_userid", getUserid(), "db_schoolStyle",
+				SchoolVO.ENROLL_USER_SELECTED);
 
 		if (list != null && list.size() > 0) {
 			return list.get(0);
@@ -143,8 +156,9 @@ public class Util {
 	}
 
 	public static CarModelVO getEnrollUserSelectedCarStyle(Context context) {
-		List<CarModelVO> list = DBHelper.getInstance(context).query(CarModelVO.class, "db_userid", getUserid(),
-				"db_carmodelStyle", CarModelVO.ENROLL_USER_SELECTED);
+		List<CarModelVO> list = DBHelper.getInstance(context).query(
+				CarModelVO.class, "db_userid", getUserid(), "db_carmodelStyle",
+				CarModelVO.ENROLL_USER_SELECTED);
 
 		if (list != null && list.size() > 0) {
 			return list.get(0);
@@ -153,8 +167,9 @@ public class Util {
 	}
 
 	public static ClassVO getEnrollUserSelectedClass(Context context) {
-		List<ClassVO> list = DBHelper.getInstance(context).query(ClassVO.class, "db_userid", getUserid(),
-				"db_classStyle", ClassVO.ENROLL_USER_SELECTED);
+		List<ClassVO> list = DBHelper.getInstance(context).query(ClassVO.class,
+				"db_userid", getUserid(), "db_classStyle",
+				ClassVO.ENROLL_USER_SELECTED);
 
 		if (list != null && list.size() > 0) {
 			return list.get(0);
@@ -163,26 +178,28 @@ public class Util {
 	}
 
 	public static void deleteEnrollUserSelectedCoach(Context context) {
-		DBHelper.getInstance(context).delete(CoachVO.class, "db_userid", getUserid(), "db_coachStyle",
-				CoachVO.ENROLL_USER_SELECTED);
+		DBHelper.getInstance(context).delete(CoachVO.class, "db_userid",
+				getUserid(), "db_coachStyle", CoachVO.ENROLL_USER_SELECTED);
 	}
 
 	public static void deleteEnrollUserSelectedSchool(Context context) {
-		DBHelper.getInstance(context).delete(SchoolVO.class, "db_userid", getUserid(), "db_schoolStyle",
-				SchoolVO.ENROLL_USER_SELECTED);
+		DBHelper.getInstance(context).delete(SchoolVO.class, "db_userid",
+				getUserid(), "db_schoolStyle", SchoolVO.ENROLL_USER_SELECTED);
 	}
 
 	public static void deleteEnrollUserSelectedCarStyle(Context context) {
-		DBHelper.getInstance(context).delete(CarModelVO.class, "db_userid", getUserid(), "db_carmodelStyle",
+		DBHelper.getInstance(context).delete(CarModelVO.class, "db_userid",
+				getUserid(), "db_carmodelStyle",
 				CarModelVO.ENROLL_USER_SELECTED);
 	}
 
 	public static void deleteEnrollUserSelectedClass(Context context) {
-		DBHelper.getInstance(context).delete(ClassVO.class, "db_userid", getUserid(), "db_classStyle",
-				ClassVO.ENROLL_USER_SELECTED);
+		DBHelper.getInstance(context).delete(ClassVO.class, "db_userid",
+				getUserid(), "db_classStyle", ClassVO.ENROLL_USER_SELECTED);
 	}
 
-	public static void updateEnrollSchool(Context context, SchoolVO schoolVO, boolean isChecked) {
+	public static void updateEnrollSchool(Context context, SchoolVO schoolVO,
+			boolean isChecked) {
 		deleteEnrollUserSelectedSchool(context);
 		schoolVO.setDb_schoolStyle(SchoolVO.ENROLL_USER_SELECTED);
 		schoolVO.setDb_userid(getUserid());
@@ -191,7 +208,9 @@ public class Util {
 		int type = -1;
 		// 更新了驾校后，判断是否需要更新教练，班级及车型
 		CoachVO coach = getEnrollUserSelectedCoach(context);
-		if (coach != null && !coach.getDriveschoolinfo().getId().equals(schoolVO.getSchoolid())) {
+		if (coach != null
+				&& !coach.getDriveschoolinfo().getId()
+						.equals(schoolVO.getSchoolid())) {
 			// 已选择的教练不在当前的驾校，删除
 			deleteEnrollUserSelectedCoach(context);
 			type = EnrollInfoChangedListener.coachChange;
@@ -220,7 +239,8 @@ public class Util {
 		updateEnrollSchool(context, schoolVO, true);
 	}
 
-	public static void updateEnrollCoach(Context context, CoachVO coachVO, boolean isChecked) {
+	public static void updateEnrollCoach(Context context, CoachVO coachVO,
+			boolean isChecked) {
 		deleteEnrollUserSelectedCoach(context);
 		coachVO.setDb_coachStyle(CoachVO.ENROLL_USER_SELECTED);
 		coachVO.setDb_userid(getUserid());
@@ -259,7 +279,8 @@ public class Util {
 		// 课程更换只能在当前选择的驾校中操作，此处无需处理
 	}
 
-	public static void updateEnrollCarStyle(Context context, CarModelVO carModelVO) {
+	public static void updateEnrollCarStyle(Context context,
+			CarModelVO carModelVO) {
 		deleteEnrollUserSelectedCarStyle(context);
 		carModelVO.setDb_carmodelStyle(CarModelVO.ENROLL_USER_SELECTED);
 		carModelVO.setDb_userid(getUserid());

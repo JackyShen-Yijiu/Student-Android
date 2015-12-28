@@ -14,11 +14,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
+import com.sft.blackcatapp.ApplyActivity;
 import com.sft.blackcatapp.AppointmentCarActivity;
 import com.sft.blackcatapp.CourseActivity;
 import com.sft.blackcatapp.MyAppointmentActivity;
 import com.sft.blackcatapp.R;
-import com.sft.blackcatapp.TestingPhoneActivity;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
 import com.sft.common.Config.SubjectStatu;
@@ -80,7 +80,7 @@ public class SubjectTwoFragment extends BaseFragment implements OnClickListener 
 		case R.id.subject_two_appointment_list_iv:
 			if (app.userVO.getApplystate().equals(
 					EnrollResult.SUBJECT_NONE.getValue())) {
-				intent = new Intent(mContext, TestingPhoneActivity.class);
+				intent = new Intent(mContext, ApplyActivity.class);
 			} else {
 				checkUserEnrollState(checkEnrollState_my);
 			}
@@ -93,7 +93,7 @@ public class SubjectTwoFragment extends BaseFragment implements OnClickListener 
 		case R.id.subject_two_appointment_iv:
 			if (app.userVO.getApplystate().equals(
 					EnrollResult.SUBJECT_NONE.getValue())) {
-				intent = new Intent(mContext, TestingPhoneActivity.class);
+				intent = new Intent(mContext, ApplyActivity.class);
 			} else {
 				checkUserEnrollState(checkEnrollState_car);
 			}
