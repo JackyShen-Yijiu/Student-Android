@@ -274,7 +274,7 @@
         android:id="@+id/fragment_menu_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-       android:text="联系电话:400-600-5299" 
+       android:text="联系电话:400-626-9255" 
        android:layout_below="@id/GridLayout1"
        android:layout_marginTop="24dp"
        android:layout_marginLeft="15dp"

@@ -183,7 +183,7 @@
     <TextView
         android:id="@+id/person_center_enroll_detail_tv"
         style="@style/person_center_text_style"
-        android:drawableLeft="@drawable/ic_launcher"
+        android:drawableLeft="@drawable/person_center_enroll_detail"
         android:text="@string/enroll_detail" />
     <ImageView
         android:layout_width="match_parent"

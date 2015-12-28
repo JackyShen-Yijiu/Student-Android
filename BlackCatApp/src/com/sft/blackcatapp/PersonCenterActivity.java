@@ -147,10 +147,11 @@ public class PersonCenterActivity extends BaseActivity {
 		Drawable setting = r.getDrawable(R.drawable.person_center_setting);
 		setting.setBounds(0, 0, size, size);
 		settingTv.setCompoundDrawables(setting, null, arrow, null);// 设置左图标
-
-		Drawable enroll = r.getDrawable(R.drawable.person_center_enroll_detail);
-		setting.setBounds(0, 0, size, size);
-		enrollDetailTv.setCompoundDrawables(enroll, null, arrow, null);// 设置左图标
+		//
+		// Drawable enroll = r.getDrawable(R.drawable.person_center_setting);
+		// setting.setBounds(0, 0, size, size);
+		// enrollDetailTv.setCompoundDrawables(enroll, null, arrow, null);//
+		// 设置左图标
 	}
 
 	private void setListener() {

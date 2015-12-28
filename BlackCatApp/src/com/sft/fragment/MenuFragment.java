@@ -73,6 +73,12 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 		return rootView;
 	}
 
+	@Override
+	public void onResume() {
+		super.onResume();
+		setPersonInfo();
+	}
+
 	private void initView(View rootView) {
 		username = (TextView) rootView
 				.findViewById(R.id.fragment_menu_username);
@@ -87,19 +93,10 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 		// listView.setCacheColorHint(android.R.color.transparent);
 		// listView.setDividerHeight(0);
 		// listView.setSelector(R.drawable.drawer_list_item_selector);
-		RelativeLayout.LayoutParams headpicParam = (android.widget.RelativeLayout.LayoutParams) personIcon
-				.getLayoutParams();
+
 		if (app.isLogin) {
 
-			String url = app.userVO.getHeadportrait().getOriginalpic();
-			if (TextUtils.isEmpty(url)) {
-				personIcon.setImageResource(R.drawable.default_small_pic);
-			} else {
-				BitmapManager.INSTANCE.loadBitmap2(url, personIcon,
-						headpicParam.width, headpicParam.height);
-			}
-			username.setText(app.userVO.getName());
-			drivingSchool.setText(app.userVO.getApplyschoolinfo().getName());
+			setPersonInfo();
 		}
 
 		//
@@ -118,6 +115,25 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 		rootView.findViewById(R.id.fragment_menu_setting_btn)
 				.setOnClickListener(this);
 
+	}
+
+	private void setPersonInfo() {
+		RelativeLayout.LayoutParams headpicParam = (android.widget.RelativeLayout.LayoutParams) personIcon
+				.getLayoutParams();
+		String url = app.userVO.getHeadportrait().getOriginalpic();
+		if (TextUtils.isEmpty(url)) {
+			personIcon.setImageResource(R.drawable.default_small_pic);
+		} else {
+			BitmapManager.INSTANCE.loadBitmap2(url, personIcon,
+					headpicParam.width, headpicParam.height);
+		}
+		username.setText(app.userVO.getDisplaymobile());
+		if (TextUtils.isEmpty(app.userVO.getApplyschoolinfo().getName())) {
+
+			drivingSchool.setText("您未选择驾校");
+		} else {
+			drivingSchool.setText(app.userVO.getApplyschoolinfo().getName());
+		}
 	}
 
 	// private void setData() {
@@ -215,6 +231,15 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 
 			break;
 		case R.id.fragment_menu_setting_btn:
+
+			if (app.isLogin) {
+				intent = new Intent(getActivity(), PersonCenterActivity.class);
+				startActivity(intent);
+
+			} else {
+				NoLoginDialog dialog = new NoLoginDialog(getActivity());
+				dialog.show();
+			}
 
 			break;
 		default:
