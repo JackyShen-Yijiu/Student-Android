@@ -7,15 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.sft.adapter.CoachListAdapter;
-import com.sft.common.Config;
-import com.sft.common.Config.EnrollResult;
-import com.sft.dialog.EnrollSelectConfilctDialog;
-import com.sft.dialog.EnrollSelectConfilctDialog.OnSelectConfirmListener;
-import com.sft.util.JSONUtil;
-import com.sft.util.Util;
-import com.sft.vo.CoachVO;
-
+import me.maxwin.view.XListView;
+import me.maxwin.view.XListView.IXListViewListener;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -33,8 +26,15 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
 import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.infinitescrollviewpager.MyHandler;
-import me.maxwin.view.XListView;
-import me.maxwin.view.XListView.IXListViewListener;
+
+import com.sft.adapter.CoachListAdapter;
+import com.sft.common.Config;
+import com.sft.common.Config.EnrollResult;
+import com.sft.dialog.EnrollSelectConfilctDialog;
+import com.sft.dialog.EnrollSelectConfilctDialog.OnSelectConfirmListener;
+import com.sft.util.JSONUtil;
+import com.sft.util.Util;
+import com.sft.vo.CoachVO;
 
 /**
  * 选择教练界面
@@ -44,8 +44,8 @@ import me.maxwin.view.XListView.IXListViewListener;
  */
 @SuppressLint("InflateParams")
 @SuppressWarnings({ "unchecked", "rawtypes" })
-public class EnrollCoachActivity extends BaseActivity
-		implements OnItemClickListener, IXListViewListener, OnSelectConfirmListener {
+public class EnrollCoachActivity extends BaseActivity implements
+		OnItemClickListener, IXListViewListener, OnSelectConfirmListener {
 
 	private static final String schoolCoach = "schoolCoach";
 	private static final String nearbyCoach = "nearbyCoach";
@@ -94,6 +94,7 @@ public class EnrollCoachActivity extends BaseActivity
 		}
 	}
 
+	@Override
 	protected void onResume() {
 		register(getClass().getName());
 		super.onResume();
@@ -107,7 +108,9 @@ public class EnrollCoachActivity extends BaseActivity
 
 		selectCoach = (CoachVO) getIntent().getSerializableExtra("coach");
 
-		if (app.userVO != null && app.userVO.getApplystate().equals(EnrollResult.SUBJECT_NONE.getValue())) {
+		if (app.userVO != null
+				&& app.userVO.getApplystate().equals(
+						EnrollResult.SUBJECT_NONE.getValue())) {
 			showTitlebarText(BaseActivity.SHOW_RIGHT_TEXT);
 			setText(0, R.string.finish);
 		}
@@ -124,13 +127,19 @@ public class EnrollCoachActivity extends BaseActivity
 
 	private void initData() {
 		List<View> listViews = new ArrayList<View>(); // 实例化listViews
-		distanceView = getLayoutInflater().inflate(R.layout.activity_select_coach_distance, null);
-		gradeView = getLayoutInflater().inflate(R.layout.activity_select_coach_distance, null);
+		distanceView = getLayoutInflater().inflate(
+				R.layout.activity_select_coach_distance, null);
+		gradeView = getLayoutInflater().inflate(
+				R.layout.activity_select_coach_distance, null);
 
-		distanceListView = (XListView) distanceView.findViewById(R.id.select_coach_distance_listview);
-		gradeListView = (XListView) gradeView.findViewById(R.id.select_coach_distance_listview);
-		distanceLayout = (RelativeLayout) distanceView.findViewById(R.id.select_coach_distance_layout);
-		gradeLayout = (RelativeLayout) gradeView.findViewById(R.id.select_coach_distance_layout);
+		distanceListView = (XListView) distanceView
+				.findViewById(R.id.select_coach_distance_listview);
+		gradeListView = (XListView) gradeView
+				.findViewById(R.id.select_coach_distance_listview);
+		distanceLayout = (RelativeLayout) distanceView
+				.findViewById(R.id.select_coach_distance_layout);
+		gradeLayout = (RelativeLayout) gradeView
+				.findViewById(R.id.select_coach_distance_layout);
 
 		gradeListView.setPullRefreshEnable(false);
 		distanceListView.setPullRefreshEnable(false);
@@ -149,7 +158,8 @@ public class EnrollCoachActivity extends BaseActivity
 		} else {
 
 			if (distanceAdapter == null) {
-				distanceAdapter = new CoachListAdapter(this, sortListByDistance());
+				distanceAdapter = new CoachListAdapter(this,
+						sortListByDistance());
 			} else {
 				distanceAdapter.setData(sortListByDistance());
 			}
@@ -172,6 +182,7 @@ public class EnrollCoachActivity extends BaseActivity
 
 	private List<CoachVO> sortListByDistance() {
 		Comparator comp = new Comparator() {
+			@Override
 			public int compare(Object o1, Object o2) {
 				CoachVO c1 = (CoachVO) o1;
 				CoachVO c2 = (CoachVO) o2;
@@ -203,6 +214,7 @@ public class EnrollCoachActivity extends BaseActivity
 
 	private List<CoachVO> sortListByRate() {
 		Comparator comp = new Comparator() {
+			@Override
 			public int compare(Object o1, Object o2) {
 				CoachVO c1 = (CoachVO) o1;
 				CoachVO c2 = (CoachVO) o2;
@@ -262,7 +274,8 @@ public class EnrollCoachActivity extends BaseActivity
 				setResult(v.getId(), new Intent().putExtra("coach", coach));
 				finish();
 			} else {
-				EnrollSelectConfilctDialog dialog = new EnrollSelectConfilctDialog(this, checkResult);
+				EnrollSelectConfilctDialog dialog = new EnrollSelectConfilctDialog(
+						this, checkResult);
 				dialog.show();
 			}
 
@@ -272,16 +285,18 @@ public class EnrollCoachActivity extends BaseActivity
 
 	private void obtainNearByCoach() {
 		Map<String, String> paramMap = new HashMap<String, String>();
-//		paramMap.put("latitude", app.latitude);
-//		paramMap.put("longitude", app.longtitude);
-		paramMap.put("latitude", "40.096263");
-		paramMap.put("longitude", "116.1270");
+		paramMap.put("latitude", app.latitude);
+		paramMap.put("longitude", app.longtitude);
+		// paramMap.put("latitude", "40.096263");
+		// paramMap.put("longitude", "116.1270");
 		paramMap.put("radius", "100000");
-		HttpSendUtils.httpGetSend(nearbyCoach, this, Config.IP + "api/v1/userinfo/nearbycoach", paramMap);
+		HttpSendUtils.httpGetSend(nearbyCoach, this, Config.IP
+				+ "api/v1/userinfo/nearbycoach", paramMap);
 	}
 
 	private void obtainSchoolCoach(int index) {
-		HttpSendUtils.httpGetSend(schoolCoach, this, Config.IP + "api/v1/getschoolcoach/" + schoolId + "/" + index);
+		HttpSendUtils.httpGetSend(schoolCoach, this, Config.IP
+				+ "api/v1/getschoolcoach/" + schoolId + "/" + index);
 	}
 
 	@Override
@@ -300,7 +315,8 @@ public class EnrollCoachActivity extends BaseActivity
 					}
 					int curIndex = distanceList.size();
 					for (int i = 0; i < length; i++) {
-						CoachVO coachVO = (CoachVO) JSONUtil.toJavaBean(CoachVO.class, dataArray.getJSONObject(i));
+						CoachVO coachVO = JSONUtil.toJavaBean(CoachVO.class,
+								dataArray.getJSONObject(i));
 						distanceList.add(coachVO);
 						gradeList.add(coachVO);
 					}
@@ -312,7 +328,8 @@ public class EnrollCoachActivity extends BaseActivity
 				if (dataArray != null) {
 					int length = dataArray.length();
 					for (int i = 0; i < length; i++) {
-						CoachVO coachVO = (CoachVO) JSONUtil.toJavaBean(CoachVO.class, dataArray.getJSONObject(i));
+						CoachVO coachVO = JSONUtil.toJavaBean(CoachVO.class,
+								dataArray.getJSONObject(i));
 						distanceList.add(coachVO);
 						gradeList.add(coachVO);
 					}
@@ -326,12 +343,15 @@ public class EnrollCoachActivity extends BaseActivity
 	}
 
 	@Override
-	protected void onActivityResult(int requestCode, final int resultCode, final Intent data) {
+	protected void onActivityResult(int requestCode, final int resultCode,
+			final Intent data) {
 		if (data != null) {
 			if (resultCode == R.id.base_left_btn) {
 				// 用户没有报名点击了回退键
 				CoachVO coach = (CoachVO) data.getSerializableExtra("coach");
-				if (app.userVO != null && app.userVO.getApplystate().equals(EnrollResult.SUBJECT_NONE.getValue())
+				if (app.userVO != null
+						&& app.userVO.getApplystate().equals(
+								EnrollResult.SUBJECT_NONE.getValue())
 						&& coach != null) {
 					int position = distanceAdapter.getData().indexOf(coach);
 					distanceAdapter.setSelected(position);
@@ -354,7 +374,8 @@ public class EnrollCoachActivity extends BaseActivity
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
 		CoachVO coachVO = null;
 		if (viewPager.getCurrentItem() == 0) {
 			coachVO = distanceAdapter.getItem(position - 1);
@@ -370,8 +391,10 @@ public class EnrollCoachActivity extends BaseActivity
 		@Override
 		public void onPageSelected(int position) {
 			radioGroup.setOnCheckedChangeListener(null);
-			radioGroup.check(position == 0 ? R.id.selectcoach_distance_btn : R.id.selectcoach_grade_btn);
-			radioGroup.setOnCheckedChangeListener(new MyOnCheckedChangeListener());
+			radioGroup.check(position == 0 ? R.id.selectcoach_distance_btn
+					: R.id.selectcoach_grade_btn);
+			radioGroup
+					.setOnCheckedChangeListener(new MyOnCheckedChangeListener());
 		}
 
 		@Override
@@ -462,7 +485,8 @@ public class EnrollCoachActivity extends BaseActivity
 			Util.updateEnrollCoach(this, coach, isFreshAll);
 			if (isFreshAll) {
 				app.selectEnrollSchool = Util.getEnrollUserSelectedSchool(this);
-				app.selectEnrollCarStyle = Util.getEnrollUserSelectedCarStyle(this);
+				app.selectEnrollCarStyle = Util
+						.getEnrollUserSelectedCarStyle(this);
 				app.selectEnrollClass = Util.getEnrollUserSelectedClass(this);
 			}
 			setResult(R.id.base_right_tv, new Intent().putExtra("coach", coach));

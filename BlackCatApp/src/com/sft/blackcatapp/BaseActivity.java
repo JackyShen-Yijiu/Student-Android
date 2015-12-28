@@ -297,7 +297,8 @@ public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity
 
 	@Override
 	public void doException(String type, Exception e, int code) {
-		util.print("type= " + type + " 异常  code=" + code);
+		e.printStackTrace();
+		util.print("type= " + type + " 异常  code=" + code + e.toString());
 		if (code == 0) {
 			ZProgressHUD.getInstance(this).show();
 			ZProgressHUD.getInstance(this).dismissWithFailure("网络异常", 2000);

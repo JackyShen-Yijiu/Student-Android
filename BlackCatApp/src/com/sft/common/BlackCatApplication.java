@@ -52,6 +52,7 @@ public class BlackCatApplication extends Application {
 	// 我喜欢的驾校
 	public List<SchoolVO> favouriteSchool;
 	public boolean isLogin = false;
+	public boolean isEnrollAgain = false;
 	// 科目二内容
 	public List<String> subjectTwoContent;
 	// 科目三内容
