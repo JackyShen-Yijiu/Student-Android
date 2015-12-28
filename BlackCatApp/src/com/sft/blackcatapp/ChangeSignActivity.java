@@ -3,18 +3,15 @@ package com.sft.blackcatapp;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.sft.common.Config;
+import com.sft.viewutil.ZProgressHUD;
+
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
-
-import com.sft.common.Config;
-import com.sft.viewutil.ZProgressHUD;
 
 /**
  * 修改签名
@@ -24,7 +21,7 @@ import com.sft.viewutil.ZProgressHUD;
  */
 public class ChangeSignActivity extends BaseActivity {
 
-	private EditText et;// 定义一个文本输入框
+	private EditText et;
 	private Button btn;
 
 	private static final String changeSign = "changeSign";
@@ -32,8 +29,6 @@ public class ChangeSignActivity extends BaseActivity {
 	private static final String changeNickName = "changeNickName";
 
 	private String type;
-	private CharSequence temp;
-	private TextView tv;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +46,7 @@ public class ChangeSignActivity extends BaseActivity {
 	private void initView() {
 		btn = (Button) findViewById(R.id.callback_btn);
 		et = (EditText) findViewById(R.id.callback_et);
-		tv = (TextView) findViewById(R.id.text_dialog);
+
 		type = getIntent().getStringExtra("type");
 
 		if (type.equals("sign")) {
@@ -64,39 +59,10 @@ public class ChangeSignActivity extends BaseActivity {
 			setTitleText(R.string.nickname);
 			et.setHint(setHint(R.string.nickname));
 		}
-
 	}
-
-	final int MAX_LENGTH = 20;
-	int Rest_Length = MAX_LENGTH;
 
 	private void setListener() {
 		btn.setOnClickListener(this);
-
-		et.addTextChangedListener(new TextWatcher() {
-
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before,
-					int count) {
-				if (Rest_Length > 0) {
-					Rest_Length = MAX_LENGTH - et.getText().length();
-				}
-			}
-
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after) {
-				tv.setText("您还能输入" + Rest_Length + "个字");
-
-			}
-
-			@Override
-			public void afterTextChanged(Editable s) {
-				tv.setText("您还能输入" + Rest_Length + "个字");
-			}
-
-		});
-
 	}
 
 	@Override
@@ -129,8 +95,7 @@ public class ChangeSignActivity extends BaseActivity {
 
 			Map<String, String> headerMap = new HashMap<String, String>();
 			headerMap.put("authorization", app.userVO.getToken());
-			HttpSendUtils.httpPostSend(changeSign, this, Config.IP
-					+ "api/v1/userinfo/updateuserinfo", paramMap, 10000,
+			HttpSendUtils.httpPostSend(changeSign, this, Config.IP + "api/v1/userinfo/updateuserinfo", paramMap, 10000,
 					headerMap);
 		} else {
 			ZProgressHUD.getInstance(this).show();
@@ -147,8 +112,7 @@ public class ChangeSignActivity extends BaseActivity {
 
 			Map<String, String> headerMap = new HashMap<String, String>();
 			headerMap.put("authorization", app.userVO.getToken());
-			HttpSendUtils.httpPostSend(changeName, this, Config.IP
-					+ "api/v1/userinfo/updateuserinfo", paramMap, 10000,
+			HttpSendUtils.httpPostSend(changeName, this, Config.IP + "api/v1/userinfo/updateuserinfo", paramMap, 10000,
 					headerMap);
 		} else {
 			ZProgressHUD.getInstance(this).show();
@@ -165,9 +129,8 @@ public class ChangeSignActivity extends BaseActivity {
 
 			Map<String, String> headerMap = new HashMap<String, String>();
 			headerMap.put("authorization", app.userVO.getToken());
-			HttpSendUtils.httpPostSend(changeNickName, this, Config.IP
-					+ "api/v1/userinfo/updateuserinfo", paramMap, 10000,
-					headerMap);
+			HttpSendUtils.httpPostSend(changeNickName, this, Config.IP + "api/v1/userinfo/updateuserinfo", paramMap,
+					10000, headerMap);
 		} else {
 			ZProgressHUD.getInstance(this).show();
 			ZProgressHUD.getInstance(this).dismissWithFailure("签名不能为空");
