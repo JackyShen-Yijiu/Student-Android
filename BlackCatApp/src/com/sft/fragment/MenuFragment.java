@@ -98,14 +98,8 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 				BitmapManager.INSTANCE.loadBitmap2(url, personIcon,
 						headpicParam.width, headpicParam.height);
 			}
-			username.setText(app.userVO.getDisplaymobile());
-			if (TextUtils.isEmpty(app.userVO.getApplyschoolinfo().getName())) {
-
-				drivingSchool.setText(" 您未选择驾校");
-			} else {
-				drivingSchool
-						.setText(app.userVO.getApplyschoolinfo().getName());
-			}
+			username.setText(app.userVO.getName());
+			drivingSchool.setText(app.userVO.getApplyschoolinfo().getName());
 		}
 
 		//

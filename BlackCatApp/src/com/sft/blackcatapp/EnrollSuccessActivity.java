@@ -48,7 +48,7 @@ public class EnrollSuccessActivity extends BaseActivity {
 
 		Map<String, String> headerMap = new HashMap<String, String>();
 		headerMap.put("authorization", app.userVO.getToken());
-		HttpSendUtils.httpGetSend(applySuccess, this, Config.IP
+		HttpSendUtils.httpPostSend(applySuccess, this, Config.IP
 				+ "api/v1/userinfo/getapplyschoolinfo", paramMap, 10000,
 				headerMap);
 	}
@@ -60,10 +60,10 @@ public class EnrollSuccessActivity extends BaseActivity {
 	}
 
 	private void initView() {
-		showTitlebarBtn(1);
+		showTitlebarBtn(0);
 		showTitlebarText(BaseActivity.SHOW_RIGHT_TEXT);
-		setText(0, R.string.enroll_again);
-		setTitleText("");
+		setText(0, R.string.finish);
+		setTitleText(R.string.enroll);
 		button_sus = (Button) findViewById(R.id.button_sus);
 		qrcode = (ImageView) findViewById(R.id.apply_commit_qrcode);
 		tv_qrcode = (TextView) findViewById(R.id.tv_qrcode);
@@ -81,15 +81,10 @@ public class EnrollSuccessActivity extends BaseActivity {
 		}
 		switch (v.getId()) {
 		case R.id.base_left_btn:
-			finish();
-			break;
 		case R.id.base_right_tv:
-			// sendBroadcast(new Intent(MainActivity.class.getName()).putExtra(
-			// "isEnrollSuccess", true));
-			// finish();
-			app.isEnrollAgain = true;
-			Intent intent = new Intent(this, ApplyActivity.class);
-			startActivity(intent);
+			sendBroadcast(new Intent(MainActivity.class.getName()).putExtra(
+					"isEnrollSuccess", true));
+			finish();
 			break;
 		case R.id.button_sus:
 			sendBroadcast(new Intent(MainActivity.class.getName()).putExtra(

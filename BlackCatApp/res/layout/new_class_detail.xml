@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<<<<<<< HEAD
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#f7f9fb"
@@ -138,6 +139,7 @@
                 android:textColor="@color/app_main_color"
                 android:textSize="14dp" />
         </LinearLayout>
+<<<<<<< HEAD
 
         <TextView
             android:id="@+id/class_detail_count_tv"
@@ -178,3 +180,7 @@
        
     </LinearLayout>
 
+=======
+
+
+>>>>>>> ac91f46375988a07273f9f542766018202bb9bdc

@@ -419,9 +419,6 @@ public class ApplyActivity extends BaseActivity implements
 			paramMap.put("carmodel", carStyle.toString());
 			paramMap.put("idcardnumber", "");
 			paramMap.put("address", "");
-			if (app.isEnrollAgain) {
-				paramMap.put("applyagain", "1");
-			}
 
 			Map<String, String> headerMap = new HashMap<String, String>();
 			headerMap.put("authorization", app.userVO.getToken());
