@@ -35,4 +35,11 @@ public class CommonUtil {
 	public static int getColor(Context context, int colorId) {
 		return context.getResources().getColor(colorId);
 	}
+
+	/**
+	 * 获取字符串
+	 */
+	public static String getString(Context context, int stringId) {
+		return context.getResources().getString(stringId);
+	}
 }
