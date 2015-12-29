@@ -45,7 +45,6 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@+id/textView3"
-                    android:text="C1小车手动挡"
                     android:textColor="#333" />
 
                 <TextView
@@ -55,7 +54,6 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="25dp"
                     android:layout_toRightOf="@+id/apply_license_type_c1"
-                    android:text="C2小车自动挡"
                     android:textColor="#333" />
             </RelativeLayout>
 
