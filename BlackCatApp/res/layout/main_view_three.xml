@@ -7,38 +7,27 @@
         android:id="@+id/subject_two_appointment_iv"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_below="@+id/subject_two_courseware_iv"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="51dp"
-        android:layout_toLeftOf="@+id/subject_two_appointment_list_iv"
-        android:src="@drawable/subject_two_appointment" />
-
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="38dp"
-        android:src="@drawable/text_main" />
-
-
-    <ImageView
-        android:id="@+id/subject_two_appointment_list_iv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/subject_two_courseware_iv"
-        android:layout_marginTop="35dp"
-        android:layout_toRightOf="@+id/subject_two_courseware_iv"
-        android:src="@drawable/subject_two_appointment_list" />
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="51dp"
+        android:src="@drawable/sub_order" />
 
     <ImageView
         android:id="@+id/subject_two_courseware_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/imageView1"
-        android:layout_below="@+id/imageView1"
-        android:layout_marginTop="107dp"
-        android:src="@drawable/subject_two_courseware" />
+        android:layout_alignBottom="@+id/subject_two_appointment_iv"
+        android:layout_marginBottom="52dp"
+        android:layout_marginLeft="30dp"
+        android:layout_toRightOf="@+id/subject_two_appointment_iv"
+        android:src="@drawable/sub_courseware" />
+
+    <ImageView
+        android:id="@+id/subject_two_appointment_list_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/subject_two_courseware_iv"
+        android:layout_below="@+id/subject_two_courseware_iv"
+        android:src="@drawable/sub_order_list" />
 
 </RelativeLayout>

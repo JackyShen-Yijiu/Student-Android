@@ -1,7 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/bg_main" >
+    android:clipToPadding="true"  
+	android:fitsSystemWindows="true"  
+    android:background="@drawable/start_one" >
 
     <com.baidu.mapapi.map.MapView
         android:id="@+id/main_bmapView"
@@ -38,33 +40,27 @@
         android:id="@+id/main_content_vp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/title_layout"
-        android:background="@drawable/star_one" >
+        android:layout_below="@id/title_layout" >
     </android.support.v4.view.ViewPager>
 
-    
-
-    
     <RelativeLayout
         android:id="@+id/relativeLayout1"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginBottom="45dp"
-        android:layout_marginLeft="20dp" >
+        android:layout_marginBottom="68dp" >
         <ImageView
         android:id="@+id/main_bottom_progress_iv"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="20dp"
-        android:src="@drawable/bottom_model" />
+        android:src="@drawable/loding_one" />
 
         <ImageView
             android:id="@+id/main_car_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
             android:src="@drawable/main_car" />
     </RelativeLayout>
     <LinearLayout
@@ -85,7 +81,7 @@
             android:gravity="center"
             android:textSize="16sp"
             android:textColor="#ff9727"
-            android:text="一步介绍" />
+            android:text="欢迎您" />
 
         <TextView
             android:id="@+id/main_subject_one_tv"
@@ -95,7 +91,7 @@
             android:gravity="center"
              android:textSize="14sp"
             android:textColor="#828282"
-            android:text="科目1" />
+            android:text="科目一" />
 
         <TextView
             android:id="@+id/main_subject_two_tv"
@@ -105,7 +101,7 @@
             android:gravity="center"
              android:textSize="14sp"
             android:textColor="#828282"
-            android:text="科目2" />
+            android:text="科目二" />
 
         <TextView
             android:id="@+id/main_subject_three_tv"
@@ -115,7 +111,7 @@
             android:gravity="center"
              android:textSize="14sp"
             android:textColor="#828282"
-            android:text="科目3" />
+            android:text="科目三" />
 
         <TextView
             android:id="@+id/main_subject_four_tv"
@@ -125,7 +121,7 @@
             android:gravity="center"
              android:textSize="14sp"
             android:textColor="#828282"
-            android:text="科目4" />
+            android:text="科目四" />
     </LinearLayout>
 
 </RelativeLayout>

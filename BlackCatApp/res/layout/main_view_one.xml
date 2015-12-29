@@ -4,42 +4,32 @@
      >
 
     <ImageView
-        android:id="@+id/introduce_procedure"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_below="@+id/introduce_superiority"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="51dp"
-        android:layout_toLeftOf="@+id/introduce_favourable_class"
-        android:src="@drawable/introduce_three" />
-
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="38dp"
-        android:src="@drawable/text_main" />
-
-
-    <ImageView
         android:id="@+id/introduce_favourable_class"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/introduce_superiority"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="35dp"
-        android:layout_toRightOf="@+id/introduce_superiority"
-        android:src="@drawable/introduce_one" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="120dp"
+        android:layout_marginRight="71dp"
+        android:src="@drawable/introduce_class" />
 
     <ImageView
         android:id="@+id/introduce_superiority"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_above="@+id/introduce_favourable_class"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="60dp"
+        android:src="@drawable/introduce_good" />
+
+    <ImageView
+        android:id="@+id/introduce_procedure"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView1"
-        android:layout_marginLeft="22dp"
-        android:layout_marginTop="63dp"
-        android:src="@drawable/introduce_two" />
+        android:layout_alignBottom="@+id/introduce_superiority"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="47dp"
+        android:layout_marginRight="53dp"
+        android:src="@drawable/introduce_teem" />
 
 </RelativeLayout>

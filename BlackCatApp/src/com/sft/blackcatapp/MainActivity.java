@@ -11,6 +11,7 @@ import android.annotation.SuppressLint;
 import android.app.LocalActivityManager;
 import android.content.Intent;
 import android.graphics.Canvas;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
@@ -18,6 +19,7 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -85,6 +87,15 @@ public class MainActivity extends BaseMainActivity implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+			// 透明状态栏
+			getWindow().addFlags(
+					WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+			// 透明导航栏
+			getWindow().addFlags(
+					WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+		}
 		setContentView(R.layout.frame_content);
 		initView();
 		initData(savedInstanceState);
@@ -102,6 +113,7 @@ public class MainActivity extends BaseMainActivity implements
 	}
 
 	private int sum = 0;
+	private ImageView bottomProgress;
 
 	private void setTag() {
 		if (app.isLogin) {
@@ -146,7 +158,7 @@ public class MainActivity extends BaseMainActivity implements
 		mSlidingMenu.setFadeEnabled(false);
 		mSlidingMenu.setBehindScrollScale(0.25f);
 		mSlidingMenu.setFadeDegree(0.25f);
-		mSlidingMenu.setBackgroundResource(R.drawable.bg);
+		mSlidingMenu.setBackgroundResource(R.drawable.left_bg);
 		mSlidingMenu
 				.setBehindCanvasTransformer(new SlidingMenu.CanvasTransformer() {
 					@Override
@@ -227,6 +239,7 @@ public class MainActivity extends BaseMainActivity implements
 		mHomePageAdapter.addFragmentClass(SubjectThreeFragment.class);
 		mHomePageAdapter.addFragmentClass(SubjectFourFragment.class);
 		viewPager.setAdapter(mHomePageAdapter);
+		viewPager.setOffscreenPageLimit(4);
 		app.curCity = util.readParam(Config.USER_CITY);
 		initMyLocation();
 	}
@@ -405,7 +418,6 @@ public class MainActivity extends BaseMainActivity implements
 
 	private LocationClient mLocationClient;
 	private ImageView carImageView;
-	private ImageView bottomProgress;
 	private TextView introduce;
 	private TextView subjectOne;
 	private TextView subjectTwo;
@@ -510,8 +522,8 @@ public class MainActivity extends BaseMainActivity implements
 				if (app.isLogin) {
 					String enrollState = BlackCatApplication.app.userVO
 							.getApplystate();
-					if (!EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue().equals(
-							enrollState)) {
+					if (EnrollResult.SUBJECT_NONE.getValue()
+							.equals(enrollState)) {
 						Intent intent = new Intent(getBaseContext(),
 								ApplyActivity.class);
 						startActivity(intent);
@@ -551,27 +563,27 @@ public class MainActivity extends BaseMainActivity implements
 		case 0:
 			introduce.setTextColor(getResources().getColor(
 					R.color.bottom_text_selector));
-			bottomProgress.setImageResource(R.drawable.bottom_model);
+			bottomProgress.setImageResource(R.drawable.loding_one);
 			break;
 		case 1:
 			subjectOne.setTextColor(getResources().getColor(
 					R.color.bottom_text_selector));
-			bottomProgress.setImageResource(R.drawable.subject_one_bottom);
+			bottomProgress.setImageResource(R.drawable.loding_two);
 			break;
 		case 2:
 			subjectTwo.setTextColor(getResources().getColor(
 					R.color.bottom_text_selector));
-			bottomProgress.setImageResource(R.drawable.subject_two_bottom);
+			bottomProgress.setImageResource(R.drawable.loding_three);
 			break;
 		case 3:
 			subjectThree.setTextColor(getResources().getColor(
 					R.color.bottom_text_selector));
-			bottomProgress.setImageResource(R.drawable.subject_three_bottom);
+			bottomProgress.setImageResource(R.drawable.loding_four);
 			break;
 		case 4:
 			subjectFour.setTextColor(getResources().getColor(
 					R.color.bottom_text_selector));
-			bottomProgress.setImageResource(R.drawable.subject_four_bottom);
+			bottomProgress.setImageResource(R.drawable.loding_five);
 			break;
 
 		default:

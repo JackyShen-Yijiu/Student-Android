@@ -4,38 +4,31 @@
      >
 
     <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="38dp"
-        android:src="@drawable/text_main" />
-
-    <ImageView
         android:id="@+id/subject_three_courseware_iv"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_above="@+id/subject_three_appointment_list_iv"
-        android:layout_toRightOf="@+id/subject_three_appointment_list_iv"
-        android:src="@drawable/subject_three_courseware" />
+        android:layout_alignRight="@+id/subject_three_appointment_list_iv"
+        android:layout_marginBottom="68dp"
+        android:src="@drawable/sub_courseware" />
 
     <ImageView
         android:id="@+id/subject_three_appointment_list_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="47dp"
-        android:src="@drawable/subject_three_appointment_list" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="113dp"
+        android:layout_marginRight="28dp"
+        android:src="@drawable/sub_order_list" />
 
     <ImageView
         android:id="@+id/subject_three_appointment_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/subject_three_appointment_list_iv"
-        android:layout_alignLeft="@+id/subject_three_courseware_iv"
-        android:layout_marginLeft="34dp"
-        android:src="@drawable/subject_three_appointment" />
+        android:layout_marginBottom="62dp"
+        android:layout_toLeftOf="@+id/subject_three_appointment_list_iv"
+        android:src="@drawable/sub_order" />
 
 </RelativeLayout>
