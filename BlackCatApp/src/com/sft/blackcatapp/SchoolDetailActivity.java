@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -282,20 +281,20 @@ public class SchoolDetailActivity extends BaseActivity implements
 
 		@Override
 		public void onPageClick(int position) {
-			try {
-				if (adList != null && adList.size() > position) {
-					String url = adList.get(position).getHeadportrait()
-							.getOriginalpic();
-					if (!TextUtils.isEmpty(url)) {
-						Intent intent = new Intent();
-						intent.setAction("android.intent.action.VIEW");
-						Uri content_url = Uri.parse(url);
-						intent.setData(content_url);
-						startActivity(intent);
-					}
-				}
-			} catch (Exception e) {
-			}
+			// try {
+			// if (adList != null && adList.size() > position) {
+			// String url = adList.get(position).getHeadportrait()
+			// .getOriginalpic();
+			// if (!TextUtils.isEmpty(url)) {
+			// Intent intent = new Intent();
+			// intent.setAction("android.intent.action.VIEW");
+			// Uri content_url = Uri.parse(url);
+			// intent.setData(content_url);
+			// startActivity(intent);
+			// }
+			// }
+			// } catch (Exception e) {
+			// }
 		}
 	}
 

@@ -190,22 +190,22 @@ public class PersonCenterActivity extends BaseActivity {
 			intent = new Intent(this, MyCoachActivity.class);
 			startActivity(intent);
 			break;
-		case R.id.person_center_school_value_tv:
-			intent = new Intent(this, EnrollSchoolActivity.class);
-			SchoolVO school = Util.getEnrollUserSelectedSchool(this);
-			if (school != null) {
-				intent.putExtra("school", school);
-			}
-			startActivityForResult(intent, R.id.person_center_school_value_tv);
-			break;
-		case R.id.person_center_carstyle_value_tv:
-			intent = new Intent(this, EnrollCarStyleActivity.class);
-			CarModelVO carModel = Util.getEnrollUserSelectedCarStyle(this);
-			if (carModel != null) {
-				intent.putExtra("carStyle", carModel);
-			}
-			startActivityForResult(intent, R.id.person_center_carstyle_value_tv);
-			break;
+		// case R.id.person_center_school_value_tv:
+		// intent = new Intent(this, EnrollSchoolActivity.class);
+		// SchoolVO school = Util.getEnrollUserSelectedSchool(this);
+		// if (school != null) {
+		// intent.putExtra("school", school);
+		// }
+		// startActivityForResult(intent, R.id.person_center_school_value_tv);
+		// break;
+		// case R.id.person_center_carstyle_value_tv:
+		// intent = new Intent(this, EnrollCarStyleActivity.class);
+		// CarModelVO carModel = Util.getEnrollUserSelectedCarStyle(this);
+		// if (carModel != null) {
+		// intent.putExtra("carStyle", carModel);
+		// }
+		// startActivityForResult(intent, R.id.person_center_carstyle_value_tv);
+		// break;
 		case R.id.person_center_favourite_tv:
 			intent = new Intent(this, MyFavouriteActiviy.class);
 			startActivityForResult(intent, R.id.person_center_favourite_tv);
@@ -234,7 +234,7 @@ public class PersonCenterActivity extends BaseActivity {
 						Intent intent = new Intent(PersonCenterActivity.this,
 								ApplyActivity.class);
 						startActivity(intent);
-						finish();
+						// finish();
 					}
 				};
 			} else {

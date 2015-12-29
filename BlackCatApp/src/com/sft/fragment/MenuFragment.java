@@ -251,6 +251,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 			break;
 		case R.id.fragment_menu_driving_school_btn:
 			intent = new Intent(mContext, EnrollSchoolActivity.class);
+			intent.putExtra("isFromMenu", true);
 			mContext.startActivity(intent);
 			break;
 		case R.id.fragment_menu_message_btn:

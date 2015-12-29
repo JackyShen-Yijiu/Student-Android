@@ -394,10 +394,7 @@
                     android:text="     请认真填写以上信息，您填写的信息将作为报名信息录入车考驾照系统内，如果信息错误，将影响你的报名流程。"
                     android:textSize="12sp" />
             </RelativeLayout>
-        </RelativeLayout>
-    </ScrollView>
-
-    <Button
+             <Button
         android:id="@+id/enroll_commit_btn"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -406,5 +403,9 @@
         android:text="下一步"
         android:textColor="#ffffff"
         android:textSize="16sp" />
+        </RelativeLayout>
+    </ScrollView>
+
+   
 
 </RelativeLayout>

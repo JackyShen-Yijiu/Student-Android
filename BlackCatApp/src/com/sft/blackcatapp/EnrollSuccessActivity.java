@@ -131,6 +131,8 @@ public class EnrollSuccessActivity extends BaseActivity {
 						LogUtil.print(successVO.name);
 						setQrCode(successVO.scanauditurl);
 						tv_qrcode.setText(successVO.userid);
+						app.userVO.setApplystate(EnrollResult.SUBJECT_ENROLLING
+								.getValue());
 					}
 				}
 			}

@@ -124,6 +124,9 @@ public class EnrollSchoolActivity extends BaseActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		addView(R.layout.activity_enroll_school);
+
+		isFromMenu = getIntent().getBooleanExtra("isFromMenu", false);
+
 		setRightText("定位中");
 		currCity = app.curCity;
 		mContext = this;
@@ -708,6 +711,8 @@ public class EnrollSchoolActivity extends BaseActivity implements
 
 	private PopupWindow popupWindow;
 
+	private boolean isFromMenu;
+
 	private void showPopupWindow(View parent) {
 		if (popupWindow == null) {
 			View view = View.inflate(mContext, R.layout.pop_window, null);
@@ -741,6 +746,7 @@ public class EnrollSchoolActivity extends BaseActivity implements
 		Intent intent = new Intent(this, SchoolDetailActivity.class);
 		SchoolVO schoolVO = adapter.getItem(position - 1);
 		intent.putExtra("school", schoolVO);
+
 		startActivityForResult(intent, 0);
 	}
 
@@ -760,6 +766,11 @@ public class EnrollSchoolActivity extends BaseActivity implements
 					adapter.notifyDataSetChanged();
 				}
 				return;
+			}
+			if (isFromMenu) {
+				data.setClass(this, ApplyActivity.class);
+				data.putExtra("isFromMenu", isFromMenu);
+				startActivity(data);
 			}
 			new MyHandler(200) {
 				@Override

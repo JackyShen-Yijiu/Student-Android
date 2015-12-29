@@ -98,11 +98,27 @@ public class ApplyActivity extends BaseActivity implements
 		super.onCreate(savedInstanceState);
 
 		addView(R.layout.new_apply);
+
+		boolean isFromMenu = getIntent().getBooleanExtra("isFromMenu", false);
 		initView();
 		initData();
 		setListener();
 		obtainEnrollCarStyle();
-		obtainNearBySchool();
+		if (isFromMenu) {
+			SchoolVO schoolVO = (SchoolVO) getIntent().getSerializableExtra(
+					"school");
+			CoachVO coachVO = (CoachVO) getIntent().getSerializableExtra(
+					"coach");
+			if (schoolVO != null) {
+				setDefaultData(schoolVO);
+			}
+			if (coachVO != null) {
+				coachTv.setText(coachVO.getName());
+			}
+		} else {
+
+			obtainNearBySchool();
+		}
 
 	}
 
