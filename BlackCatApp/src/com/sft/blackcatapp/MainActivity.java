@@ -173,6 +173,10 @@ public class MainActivity extends BaseMainActivity implements
 		fragmentTransaction.commit();
 	}
 
+	public void changeMenu() {
+		mSlidingMenu.toggle();
+	}
+
 	private void initData(Bundle savedInstanceState) {
 
 		// 如果用户没有报名，读取用户报名填写过的信息
