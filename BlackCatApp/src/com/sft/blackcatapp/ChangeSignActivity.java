@@ -26,13 +26,13 @@ public class ChangeSignActivity extends BaseActivity {
 
 	private EditText et;
 	private Button btn;
+	private TextView mTextView;
 
 	private static final String changeSign = "changeSign";
 	private static final String changeName = "changeName";
 	private static final String changeNickName = "changeNickName";
 
 	private String type;
-	private TextView tv;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,50 +50,50 @@ public class ChangeSignActivity extends BaseActivity {
 	private void initView() {
 		btn = (Button) findViewById(R.id.callback_btn);
 		et = (EditText) findViewById(R.id.callback_et);
-		tv = (TextView) findViewById(R.id.text_dialog);
 		type = getIntent().getStringExtra("type");
 
-		if (type.equals("sign")) {
-			setTitleText(R.string.personal_sign);
-			et.setHint(setHint(R.string.simple_sign));
-		} else if (type.equals("name")) {
-			setTitleText(R.string.name);
-			et.setHint(setHint(R.string.name));
-		} else {
-			setTitleText(R.string.nickname);
-			et.setHint(setHint(R.string.nickname));
-		}
-	}
+		mTextView = (TextView) findViewById(R.id.text_dialog);
 
-	final int MAX_LENGTH = 20;
-	int Rest_Length = MAX_LENGTH;
+	}
 
 	private void setListener() {
 		btn.setOnClickListener(this);
-
-		et.addTextChangedListener(new TextWatcher() {
-
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before,
-					int count) {
-				if (Rest_Length > 0) {
-					Rest_Length = MAX_LENGTH - et.getText().length();
-				}
-			}
-
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after) {
-				tv.setText("您还能输入" + Rest_Length + "个字");
-			}
-
-			@Override
-			public void afterTextChanged(Editable s) {
-				tv.setText("您还能输入" + Rest_Length + "个字");
-			}
-
-		});
+		et.addTextChangedListener(mTextWatcher);
 	}
+
+	TextWatcher mTextWatcher = new TextWatcher() {
+		private CharSequence temp;
+		private int editStart;
+		private int editEnd;
+
+		@Override
+		public void beforeTextChanged(CharSequence s, int arg1, int arg2,
+				int arg3) {
+			temp = s;
+		}
+
+		@Override
+		public void onTextChanged(CharSequence s, int arg1, int arg2, int arg3) {
+			mTextView.setText(s);
+		}
+
+		@Override
+		public void afterTextChanged(Editable s) {
+			editStart = et.getSelectionStart();
+			editEnd = et.getSelectionEnd();
+			if (temp.length() > 20) {
+				// Toast.makeText(ChangeSignActivity.this, "你输入的字数已经超过了限制！",
+				// Toast.LENGTH_SHORT).show();
+				ZProgressHUD.getInstance(ChangeSignActivity.this).show();
+				ZProgressHUD.getInstance(ChangeSignActivity.this)
+						.dismissWithFailure("你输入的字数已经超过了限制！");
+				s.delete(editStart - 1, editEnd);
+				int tempSelection = editStart;
+				et.setText(s);
+				et.setSelection(tempSelection);
+			}
+		}
+	};
 
 	@Override
 	public void onClick(View v) {

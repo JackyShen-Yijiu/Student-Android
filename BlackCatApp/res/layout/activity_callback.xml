@@ -4,13 +4,13 @@
     android:layout_height="fill_parent"
     android:background="#cccccc"
     android:orientation="vertical" >
-<TextView 
-        android:id="@+id/text_dialog"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="你还可以输入20字"
-        android:textSize="12sp"
-        android:textColor="#000"/>
+    
+    
+    <TextView 
+       android:id="@+id/text_dialog"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:textColor="#000" />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="90dp"
@@ -25,7 +25,8 @@
             android:id="@+id/callback_et"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:maxLength="20"
+            android:hint="您还可以输入20字"
+            android:textSize="12sp"
             android:gravity="top|left"
             android:background="@null"
             android:singleLine="false" />

@@ -3,10 +3,6 @@ package com.sft.blackcatapp;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.sft.common.Config;
-import com.sft.viewutil.ZProgressHUD;
-import com.sft.vo.MyAppointmentVO;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -19,13 +15,18 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.infinitescrollviewpager.MyHandler;
 
+import com.sft.common.Config;
+import com.sft.viewutil.ZProgressHUD;
+import com.sft.vo.MyAppointmentVO;
+
 /**
  * 取消预约
  * 
  * @author Administrator
  * 
  */
-public class CancelAppointmentActivity extends BaseActivity implements OnCheckedChangeListener {
+public class CancelAppointmentActivity extends BaseActivity implements
+		OnCheckedChangeListener {
 
 	private static final String cancelAppointment = "cancelAppointment";
 	//
@@ -84,20 +85,24 @@ public class CancelAppointmentActivity extends BaseActivity implements OnChecked
 			ZProgressHUD.getInstance(this).dismissWithFailure("请选择取消原因");
 			return;
 		}
-		MyAppointmentVO appointmentVO = (MyAppointmentVO) getIntent().getSerializableExtra("appointmentVO");
+		MyAppointmentVO appointmentVO = (MyAppointmentVO) getIntent()
+				.getSerializableExtra("appointmentVO");
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("userid", app.userVO.getUserid());
 		paramMap.put("reservationid", appointmentVO.get_id());
 		paramMap.put("cancelreason", cancelReason);
 		String cancelContent = cancelEt.getText().toString();
-		paramMap.put("cancelcontent", TextUtils.isEmpty(cancelContent) ? " " : cancelContent);
+		paramMap.put("cancelcontent", TextUtils.isEmpty(cancelContent) ? " "
+				: cancelContent);
 
-		util.print("reservationid=" + appointmentVO.get_id() + " userid=" + app.userVO.getUserid());
+		util.print("reservationid=" + appointmentVO.get_id() + " userid="
+				+ app.userVO.getUserid());
 		util.print("cancelReason=" + cancelReason + " content=" + cancelContent);
 		Map<String, String> headerMap = new HashMap<String, String>();
 		headerMap.put("authorization", app.userVO.getToken());
-		HttpSendUtils.httpPostSend(cancelAppointment, this, Config.IP + "api/v1/courseinfo/cancelreservation", paramMap,
-				10000, headerMap);
+		HttpSendUtils.httpPostSend(cancelAppointment, this, Config.IP
+				+ "api/v1/courseinfo/cancelreservation", paramMap, 10000,
+				headerMap);
 	}
 
 	@Override
