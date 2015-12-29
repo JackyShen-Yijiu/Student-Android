@@ -185,13 +185,7 @@ public class CoachDetailActivity extends BaseActivity implements
 			collectCk.setEnabled(false);
 			enrollBtn.setVisibility(View.GONE);
 		} else {
-			String schoolId = app.userVO.getApplyschoolinfo().getId();
-			if (TextUtils.isEmpty(schoolId)
-					|| schoolId.equals(coachVO.getDriveschoolinfo().getId())) {
-				enrollBtn.setVisibility(View.VISIBLE);
-			} else {
-				enrollBtn.setVisibility(View.GONE);
-			}
+			enrollBtn.setVisibility(View.VISIBLE);
 		}
 
 		if (app.favouriteCoach != null) {

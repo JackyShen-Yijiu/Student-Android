@@ -223,8 +223,25 @@ public class PersonCenterActivity extends BaseActivity {
 			startActivity(intent);
 			break;
 		case R.id.person_center_enroll_detail_tv:
-			intent = new Intent(this, EnrollActivity.class);
-			startActivity(intent);
+			String applystate = app.userVO.getApplystate();
+			if (EnrollResult.SUBJECT_NONE.getValue().equals(applystate)) {
+				ZProgressHUD.getInstance(this).show();
+				ZProgressHUD.getInstance(this).dismissWithFailure("您还没有报名");
+
+				new MyHandler(1000) {
+					@Override
+					public void run() {
+						Intent intent = new Intent(PersonCenterActivity.this,
+								ApplyActivity.class);
+						startActivity(intent);
+						finish();
+					}
+				};
+			} else {
+				Intent intent1 = new Intent(PersonCenterActivity.this,
+						EnrollSuccessActivity.class);
+				startActivity(intent1);
+			}
 			break;
 		}
 	}
