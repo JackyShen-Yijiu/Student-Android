@@ -102,10 +102,6 @@
         android:background="#e6e6e6"
         android:contentDescription="@string/app_name" />
 
-    <TextView
-        android:id="@+id/setting_rate_tv"
-        style="@style/person_center_text_style"
-        android:text="@string/set_rate" />
 
     <ImageView
         android:layout_width="match_parent"

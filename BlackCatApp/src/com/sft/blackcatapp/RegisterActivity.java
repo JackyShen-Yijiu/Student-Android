@@ -198,6 +198,7 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 		if (super.doCallBack(type, jsonString)) {
 			if (type.equals(register)) {
 				registerBtn.setEnabled(true);
+
 			}
 			return true;
 		}
@@ -256,11 +257,23 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 	public void loginResult(boolean result, int code, String message) {
 		if (result) {
 			app.isLogin = true;
-			Intent intent = new Intent(this, MainActivity.class);
-			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			startActivity(intent);
-			finish();
+			ZProgressHUD.getInstance(RegisterActivity.this).show();
+			ZProgressHUD.getInstance(RegisterActivity.this).dismissWithFailure(
+					"注册成功");
+			new MyHandler(1000) {
+				private Intent intent;
+
+				@Override
+				public void run() {
+					intent = new Intent(RegisterActivity.this,
+							MainActivity.class);
+					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+					intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+					startActivity(intent);
+					finish();
+				}
+			};
+
 		} else {
 			runOnUiThread(new Runnable() {
 

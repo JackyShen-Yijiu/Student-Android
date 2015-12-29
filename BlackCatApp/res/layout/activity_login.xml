@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#00000000" >
+    android:background="@drawable/log_bg" >
 
     <ImageView
         android:id="@+id/login_logo_iv"
@@ -11,6 +11,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/login_logo_margintop"
         android:background="@drawable/app_logo"
+        android:clipToPadding="true"
+   		 android:fitsSystemWindows="true"
         android:contentDescription="@string/app_name" />
 
     <RelativeLayout
@@ -31,6 +33,7 @@
             <EditText
                 android:id="@+id/login_phone_et"
                 style="@style/login_et_style"
+                android:background="#fff"
                 android:drawableLeft="@drawable/acc_drawable_left"
                 android:hint="@string/phonenumber"
                 android:inputType="phone"
@@ -47,6 +50,7 @@
             <EditText
                 android:id="@+id/login_passwd_et"
                 style="@style/login_password_et_style"
+                android:background="#fff"
                 android:layout_below="@+id/login_deivder_im"
                 android:drawableLeft="@drawable/pass_drawable_left"
                 android:hint="@string/password" />

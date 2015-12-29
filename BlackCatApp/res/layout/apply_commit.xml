@@ -65,8 +65,7 @@
        android:layout_below="@+id/textView3"
        android:layout_centerHorizontal="true"
        android:layout_marginTop="10dp"
-       android:scaleType="centerCrop"
-       android:src="@drawable/dimension" />
+       android:scaleType="centerCrop"/>
 
    <TextView
        android:id="@+id/textView5"
@@ -118,7 +117,6 @@
        android:layout_above="@+id/textView5"
        android:layout_marginLeft="35dp"
        android:layout_toRightOf="@+id/textView7"
-       android:text="12334423"
        android:textColor="#f00"
        android:textSize="12sp" />
 

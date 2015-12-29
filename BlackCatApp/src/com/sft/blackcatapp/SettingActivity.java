@@ -49,24 +49,27 @@ public class SettingActivity extends BaseActivity implements
 		messageCk = (CheckBox) findViewById(R.id.setting_newmessage_ck);
 
 		aboutUsTv = (TextView) findViewById(R.id.setting_aboutus_tv);
-		rateTv = (TextView) findViewById(R.id.setting_rate_tv);
 		callbackTv = (TextView) findViewById(R.id.setting_callback_tv);
 
-		if (app.userVO.getUsersetting().getNewmessagereminder().equals("true")) {
-			messageCk.setChecked(true);
-		} else {
-			messageCk.setChecked(false);
-		}
-		if (app.userVO.getUsersetting().getReservationreminder().equals("true")) {
-			appointmentCk.setChecked(true);
-		} else {
-			appointmentCk.setChecked(false);
-		}
+		// if
+		// (app.userVO.getUsersetting().getNewmessagereminder().equals("true"))
+		// {
+		// messageCk.setChecked(true);
+		// } else {
+		// messageCk.setChecked(false);
+		// }
+		// if
+		// (app.userVO.getUsersetting().getReservationreminder().equals("true"))
+		// {
+		// appointmentCk.setChecked(true);
+		// } else {
+		// appointmentCk.setChecked(false);
+		// }
 	}
 
 	private void setListener() {
 		aboutUsTv.setOnClickListener(this);
-		rateTv.setOnClickListener(this);
+		// rateTv.setOnClickListener(this);
 		callbackTv.setOnClickListener(this);
 
 		appointmentCk.setOnCheckedChangeListener(this);
@@ -108,8 +111,6 @@ public class SettingActivity extends BaseActivity implements
 			break;
 		case R.id.setting_callback_tv:
 			intent = new Intent(this, CallBackActivity.class);
-			break;
-		case R.id.setting_rate_tv:
 			break;
 		}
 		if (intent != null) {
