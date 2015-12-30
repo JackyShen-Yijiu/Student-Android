@@ -1,6 +1,0 @@
-viewPager = (InfiniteViewPager) findViewById(R.id.pager);
-PagerAdapter wrappedAdapter = new InfinitePagerAdapter(
-	MainActivity.this, new int[] { R.drawable.ic_launcher,
-			R.drawable.ic_launcher });
-viewPager.setAdapter(wrappedAdapter);
-viewPager.setPageChangeListener(this);
