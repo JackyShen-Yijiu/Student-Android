@@ -9,27 +9,28 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="160dp"
-        android:layout_marginRight="70dp"
-        android:src="@drawable/introduce_class" />
-
-    <ImageView
-        android:id="@+id/introduce_superiority"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_above="@+id/introduce_favourable_class"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="60dp"
-        android:src="@drawable/introduce_good" />
+        android:layout_marginBottom="132dp"
+        android:layout_marginRight="81dp"
+        android:src="@drawable/circle_feature_class" />
 
     <ImageView
         android:id="@+id/introduce_procedure"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/introduce_superiority"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="47dp"
-        android:layout_marginRight="53dp"
-        android:src="@drawable/introduce_teem" />
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="36dp"
+        android:layout_marginTop="184dp"
+        android:src="@drawable/circle_cooperation" />
+
+    <ImageView
+        android:id="@+id/introduce_superiority"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="259dp"
+        android:src="@drawable/circle_goodness" />
 
 </RelativeLayout>

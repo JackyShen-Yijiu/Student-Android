@@ -407,7 +407,7 @@
         <!-- 设置推送应用的appkey d9f9dc8db6bc3dd2c913ced0 test:a9d3780a093c23df7e3e2402 -->
         <meta-data
             android:name="JPUSH_APPKEY"
-            android:value="a9d3780a093c23df7e3e2402" />
+            android:value="d9f9dc8db6bc3dd2c913ced0" />
         <!-- </>值来自开发者平台取得的AppKey -->
         <!-- 推送 ======================================================================== -->
 

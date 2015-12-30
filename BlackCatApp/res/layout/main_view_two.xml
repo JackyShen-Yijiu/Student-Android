@@ -7,29 +7,30 @@
         android:id="@+id/subject_one_question_bank_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="21dp"
-        android:src="@drawable/subject_two_bank" />
+        android:layout_marginBottom="185dp"
+        android:layout_marginLeft="38dp"
+        android:src="@drawable/circle_question_bank" />
+
+    <ImageView
+        android:id="@+id/subject_one_error_data_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="114dp"
+        android:layout_marginRight="70dp"
+        android:src="@drawable/circle_error_recognition" />
 
     <ImageView
         android:id="@+id/subject_one_mock_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/subject_one_question_bank_iv"
-        android:layout_marginBottom="132dp"
-        android:layout_marginLeft="22dp"
-        android:layout_toRightOf="@+id/subject_one_question_bank_iv"
-        android:src="@drawable/subject_two_topic" />
-
-    <ImageView
-        android:id="@+id/subject_one_error_data_iv"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/subject_one_mock_iv"
-        android:layout_marginBottom="123dp"
-        android:layout_marginRight="15dp"
-        android:src="@drawable/subject_two_enrro" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="52dp"
+        android:layout_marginTop="140dp"
+        android:src="@drawable/circle_analog" />
 
 </RelativeLayout>

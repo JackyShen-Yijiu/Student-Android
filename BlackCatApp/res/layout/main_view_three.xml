@@ -5,29 +5,32 @@
 
     <ImageView
         android:id="@+id/subject_two_appointment_iv"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="51dp"
-        android:src="@drawable/sub_order" />
-
-    <ImageView
-        android:id="@+id/subject_two_courseware_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/subject_two_appointment_iv"
-        android:layout_marginBottom="52dp"
-        android:layout_marginLeft="30dp"
-        android:layout_toRightOf="@+id/subject_two_appointment_iv"
-        android:src="@drawable/sub_courseware" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="191dp"
+        android:layout_marginLeft="18dp"
+        android:src="@drawable/sub_order" />
 
     <ImageView
         android:id="@+id/subject_two_appointment_list_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/subject_two_courseware_iv"
-        android:layout_below="@+id/subject_two_courseware_iv"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="122dp"
+        android:layout_marginRight="95dp"
         android:src="@drawable/sub_order_list" />
+
+    <ImageView
+        android:id="@+id/subject_two_courseware_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="265dp"
+        android:layout_marginRight="47dp"
+        android:src="@drawable/sub_courseware" />
 
 </RelativeLayout>
