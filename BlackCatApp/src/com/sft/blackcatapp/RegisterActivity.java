@@ -6,6 +6,7 @@ import java.util.Map;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -207,6 +208,7 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 			codeHandler = new MyHandler(true, 1000) {
 				private int time = codeTime;
 
+				@Override
 				public void run() {
 					if (time-- > 0) {
 						sendCodeBtn.setText("剩余(" + time + "s)");
@@ -224,7 +226,7 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 			};
 		} else if (type.equals(register)) {
 			try {
-				app.userVO = (UserVO) JSONUtil.toJavaBean(UserVO.class, data);
+				app.userVO = JSONUtil.toJavaBean(UserVO.class, data);
 				util.saveParam(Config.LAST_LOGIN_PHONE,
 						app.userVO.getTelephone());
 				util.saveParam(Config.LAST_LOGIN_ACCOUNT, phoneEt.getText()
@@ -253,26 +255,44 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 		super.onDestroy();
 	}
 
+	private Handler myHandler = new Handler() {
+		@Override
+		public void handleMessage(android.os.Message msg) {
+			Intent intent = new Intent(RegisterActivity.this,
+					MainActivity.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(intent);
+			finish();
+		};
+	};
+
 	@Override
 	public void loginResult(boolean result, int code, String message) {
 		if (result) {
-			app.isLogin = true;
-			ZProgressHUD.getInstance(RegisterActivity.this).show();
-			ZProgressHUD.getInstance(RegisterActivity.this).dismissWithFailure(
-					"注册成功");
-			new MyHandler(1000) {
-				private Intent intent;
+			runOnUiThread(new Runnable() {
 
 				@Override
 				public void run() {
-					intent = new Intent(RegisterActivity.this,
-							MainActivity.class);
-					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-					intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-					startActivity(intent);
-					finish();
+					app.isLogin = true;
+					ZProgressHUD.getInstance(RegisterActivity.this).show();
+					ZProgressHUD.getInstance(RegisterActivity.this)
+							.dismissWithFailure("注册成功");
+					new Thread(new Runnable() {
+
+						@Override
+						public void run() {
+							try {
+								Thread.sleep(1000);
+								myHandler.sendMessage(myHandler.obtainMessage());
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+						}
+					}).start();
 				}
-			};
+
+			});
 
 		} else {
 			runOnUiThread(new Runnable() {
