@@ -7,28 +7,30 @@
         android:id="@+id/subject_four_question_bank_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="37dp"
-        android:layout_toRightOf="@+id/subject_four_courseware_iv"
-        android:src="@drawable/subject_two_bank" />
-
-    <ImageView
-        android:id="@+id/subject_four_courseware_iv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="23dp"
-        android:src="@drawable/subject_two_topic" />
+        android:layout_marginRight="67dp"
+        android:layout_marginTop="160dp"
+        android:src="@drawable/sb_question_bank" />
 
     <ImageView
         android:id="@+id/subject_four_error_data_iv"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_alignLeft="@+id/subject_four_question_bank_iv"
-        android:layout_below="@+id/subject_four_question_bank_iv"
-        android:layout_marginLeft="33dp"
-        android:layout_marginTop="43dp"
-        android:src="@drawable/subject_two_enrro" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="150dp"
+        android:layout_marginRight="35dp"
+        android:src="@drawable/sb_error" />
+
+    <ImageView
+        android:id="@+id/subject_four_courseware_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="200dp"
+        android:layout_marginLeft="35dp"
+        android:src="@drawable/sb_simulation" />
 
 </RelativeLayout>

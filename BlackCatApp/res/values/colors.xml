@@ -44,6 +44,6 @@
     <color name="drawer_unselector">#00000000</color>
     
     <color name="bottom_text_unselector">#828282</color>
-    <color name="bottom_text_selector">#ff9727</color>
+    <color name="bottom_text_selector">#68e6ff</color>
     <color name="default_text_color">#333</color>
 </resources>

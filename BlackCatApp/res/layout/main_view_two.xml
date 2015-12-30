@@ -9,9 +9,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginBottom="185dp"
+        android:layout_marginBottom="200dp"
         android:layout_marginLeft="38dp"
-        android:src="@drawable/circle_question_bank" />
+        android:src="@drawable/sb_question_bank" />
 
     <ImageView
         android:id="@+id/subject_one_error_data_iv"
@@ -19,9 +19,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="114dp"
+        android:layout_marginBottom="140dp"
         android:layout_marginRight="70dp"
-        android:src="@drawable/circle_error_recognition" />
+        android:src="@drawable/sb_error" />
 
     <ImageView
         android:id="@+id/subject_one_mock_iv"
@@ -31,6 +31,6 @@
         android:layout_alignParentTop="true"
         android:layout_marginRight="52dp"
         android:layout_marginTop="140dp"
-        android:src="@drawable/circle_analog" />
+        android:src="@drawable/sb_simulation" />
 
 </RelativeLayout>

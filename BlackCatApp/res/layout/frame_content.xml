@@ -31,10 +31,17 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="一步学车美一步"
+            android:text="快乐学车美一步"
             android:textColor="#fefefe"
             android:textSize="18sp" />
     </RelativeLayout>
+    <ImageView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title_layout"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/view_balloon"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/main_content_vp"
@@ -80,7 +87,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:textSize="16sp"
-            android:textColor="#ff9727"
+            android:textColor="#68e6ff"
             android:text="欢迎您" />
 
         <TextView
