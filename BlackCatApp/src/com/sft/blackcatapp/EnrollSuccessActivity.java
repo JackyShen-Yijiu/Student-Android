@@ -68,6 +68,7 @@ public class EnrollSuccessActivity extends BaseActivity {
 		button_sus = (Button) findViewById(R.id.button_sus);
 		qrcode = (ImageView) findViewById(R.id.apply_commit_qrcode);
 		tv_qrcode = (TextView) findViewById(R.id.tv_qrcode);
+		carryData = (TextView) findViewById(R.id.apply_commit_carry_data);
 	}
 
 	private void setListener() {
@@ -112,6 +113,7 @@ public class EnrollSuccessActivity extends BaseActivity {
 	}
 
 	private ImageView qrcode;
+	private TextView carryData;
 
 	@Override
 	public synchronized boolean doCallBack(String type, Object jsonString) {
@@ -128,11 +130,15 @@ public class EnrollSuccessActivity extends BaseActivity {
 						LogUtil.print("successVO");
 					}
 					if (successVO != null) {
-						LogUtil.print(successVO.name);
+						LogUtil.print(EnrollSuccessActivity.class.getName()
+								+ successVO.name);
 						setQrCode(successVO.scanauditurl);
 						tv_qrcode.setText(successVO.userid);
 						app.userVO.setApplystate(EnrollResult.SUBJECT_ENROLLING
 								.getValue());
+						if (successVO.applynotes != null) {
+							carryData.setText(successVO.applynotes);
+						}
 					}
 				}
 			}

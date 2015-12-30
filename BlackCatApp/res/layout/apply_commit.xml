@@ -79,7 +79,7 @@
        android:text="携带资料说明：" />
 
    <TextView
-       android:id="@+id/textView6"
+       android:id="@+id/apply_commit_carry_data"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:layout_alignLeft="@+id/textView5"
@@ -87,13 +87,13 @@
        android:layout_marginTop="5dp"
        android:layout_marginRight="8dp"
        android:textSize="12sp"
-       android:text="    报名时请您携带身份证，体检表，户口本，报名电子订单二维码，相关流程如有疑问请致电：010-1234354。" />
+       android:text="" />
       <TextView
        android:id="@+id/textView7"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:layout_alignLeft="@+id/textView2"
-       android:layout_below="@+id/textView6"
+       android:layout_below="@+id/apply_commit_carry_data"
        android:layout_marginTop="15dp"
        android:textColor="#f00"
        android:textSize="12sp"

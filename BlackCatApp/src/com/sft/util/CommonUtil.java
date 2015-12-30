@@ -1,5 +1,8 @@
 package com.sft.util;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import android.app.Activity;
 import android.content.Context;
 import android.util.DisplayMetrics;
@@ -41,5 +44,37 @@ public class CommonUtil {
 	 */
 	public static String getString(Context context, int stringId) {
 		return context.getResources().getString(stringId);
+	}
+
+	/**
+	 * 手机号验证
+	 * 
+	 * @param str
+	 * @return 验证通过返回true
+	 */
+	public static boolean isMobile(String str) {
+		Pattern p = null;
+		Matcher m = null;
+		boolean b = false;
+		p = Pattern.compile("^[1][3,4,5,8][0-9]{9}$"); // 验证手机号
+		m = p.matcher(str);
+		b = m.matches();
+		return b;
+	}
+
+	/**
+	 * 姓名验证
+	 * 
+	 * @param str
+	 * @return 验证通过返回true
+	 */
+	public static boolean isRightName(String str) {
+		Pattern p = null;
+		Matcher m = null;
+		boolean b = false;
+		p = Pattern.compile("^(([\u4e00-\u9fa5]{2,6})|([a-zA-Z]{2,6}))$");
+		m = p.matcher(str);
+		b = m.matches();
+		return b;
 	}
 }

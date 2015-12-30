@@ -27,6 +27,8 @@ import cn.sft.baseactivity.util.HttpSendUtils;
 
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
+import com.sft.dialog.EnrollSelectConfilctDialog;
+import com.sft.dialog.EnrollSelectConfilctDialog.OnSelectConfirmListener;
 import com.sft.util.CommonUtil;
 import com.sft.util.JSONUtil;
 import com.sft.util.SharedPreferencesUtil;
@@ -43,7 +45,7 @@ import com.sft.vo.CoachVO;
 import com.sft.vo.SchoolVO;
 
 public class ApplyActivity extends BaseActivity implements
-		OnClassTypeSelectedListener {
+		OnClassTypeSelectedListener, OnSelectConfirmListener {
 
 	private ApplyClassTypeLayout applyClassTypeLayout;
 	private static final String realName = "realName";
@@ -51,6 +53,7 @@ public class ApplyActivity extends BaseActivity implements
 	private static final String enroll = "enroll";
 	private final static String carStyleString = "carStyle";
 	private final static String firstSchool = "firstSchool";
+	private final static String ycode = "ycode";
 
 	String[] tempStrings;
 	// 姓名输入框
@@ -127,6 +130,16 @@ public class ApplyActivity extends BaseActivity implements
 				+ "api/v1/info/carmodel");
 	}
 
+	private void obtainYCode() {
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("userid", app.userVO.getUserid());
+		paramMap.put("fcode", yCodeEt.getText().toString());
+		Map<String, String> headerMap = new HashMap<String, String>();
+		headerMap.put("authorization", app.userVO.getToken());
+		HttpSendUtils.httpGetSend(ycode, this, Config.IP
+				+ "verifyfcodecorrectl", paramMap, 10000, headerMap);
+	}
+
 	private void obtainNearBySchool() {
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("latitude", app.latitude);
@@ -155,6 +168,7 @@ public class ApplyActivity extends BaseActivity implements
 		// carStyleTv = (TextView) findViewById(R.id.enroll_carstyle_tv);
 		nameEt = (EditText) findViewById(R.id.enroll_name_et);
 		contactEt = (EditText) findViewById(R.id.enroll_contact_et);
+		yCodeEt = (EditText) findViewById(R.id.enroll_ycode_et);
 
 		commitBtn = (Button) findViewById(R.id.enroll_commit_btn);
 
@@ -351,7 +365,18 @@ public class ApplyActivity extends BaseActivity implements
 		// }
 		// break;
 		case R.id.enroll_commit_btn:
-			enroll();
+			String checkResult = checkEnrollInfo();
+			if (checkResult == null) {
+				String yCode = yCodeEt.getText().toString();
+
+				if (!TextUtils.isEmpty(yCode)) {
+					obtainYCode();
+				} else {
+					enroll(checkResult);
+				}
+			} else {
+				enroll(checkResult);
+			}
 			// 保存数据
 			SharedPreferencesUtil.putString(this,
 					realName + app.userVO.getUserid(), nameEt.getText()
@@ -442,8 +467,8 @@ public class ApplyActivity extends BaseActivity implements
 		}
 	}
 
-	private void enroll() {
-		String checkResult = checkEnrollInfo();
+	private void enroll(String checkResult) {
+
 		if (checkResult == null) {
 			Map<String, String> paramMap = new HashMap<String, String>();
 			paramMap.put("name", nameEt.getText().toString());
@@ -460,8 +485,14 @@ public class ApplyActivity extends BaseActivity implements
 			paramMap.put("carmodel", carStyle.toString());
 			paramMap.put("idcardnumber", "");
 			paramMap.put("address", "");
+			if (TextUtils.isEmpty(yCodeEt.getText().toString())) {
+
+				paramMap.put("fcode", "");
+			} else {
+				paramMap.put("fcode", yCodeEt.getText().toString());
+
+			}
 			if (app.isEnrollAgain) {
-				System.out.println("-------------");
 				paramMap.put("applyagain", "1");
 			}
 
@@ -477,27 +508,34 @@ public class ApplyActivity extends BaseActivity implements
 	}
 
 	private String checkEnrollInfo() {
+		if (carStyle == null) {
+			return "车型为空";
+		}
+		if (school == null) {
+			return "驾校为空";
+		}
+		if (classId == null) {
+			return "班型为空";
+		}
+
 		String name = nameEt.getText().toString();
 		if (TextUtils.isEmpty(name)) {
 			return "姓名为空";
+		} else {
+			if (!CommonUtil.isRightName(name)) {
+				return "姓名不能包含特殊字符";
+			}
 		}
 
 		String phone = contactEt.getText().toString();
 		if (TextUtils.isEmpty(phone)) {
 			return "联系方式为空";
+		} else {
+			if (!CommonUtil.isMobile(phone)) {
+				return "手机号格式不正确";
+			}
 		}
-		if (school == null) {
-			return "驾校为空";
-		}
-		// if (coach == null) {
-		// return "教练为空";
-		// }
-		if (classId == null) {
-			return "班型为空";
-		}
-		if (carStyle == null) {
-			return "车型为空";
-		}
+
 		return null;
 	}
 
@@ -649,6 +687,13 @@ public class ApplyActivity extends BaseActivity implements
 						e.printStackTrace();
 					}
 				}
+			} else if (type.equals(ycode)) {
+				if (result != null && result.equals("0")) {
+					EnrollSelectConfilctDialog dialog = new EnrollSelectConfilctDialog(
+							ApplyActivity.this, "您的Y码不正确，是否要继续报名？");
+					dialog.setBtnText("继续报名", "修改Y码");
+					dialog.show();
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -725,6 +770,7 @@ public class ApplyActivity extends BaseActivity implements
 	private ValueAnimator animator;
 	private RelativeLayout classTypeLayout;
 	private RelativeLayout coachRl;
+	private EditText yCodeEt;
 
 	private void setClassDetailAnimator() {
 		animator = ValueAnimator.ofInt(0, targetHeight);
@@ -796,5 +842,15 @@ public class ApplyActivity extends BaseActivity implements
 
 		multipleTextViewGroup.setTextViews(multipleList,
 				multipleTextViewGroupWidth);
+	}
+
+	@Override
+	public void selectConfirm(boolean isConfirm, boolean isFreshAll) {
+
+		if (isConfirm) {
+			enroll(null);
+		} else {
+
+		}
 	}
 }
