@@ -20,6 +20,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
+import cn.jpush.android.api.JPushInterface;
 import cn.sft.listener.ICallBack;
 
 import com.sft.common.BlackCatApplication;
@@ -324,13 +325,21 @@ public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity
 	@Override
 	protected void onResume() {
 		super.onResume();
+		// 友盟session统计
 		MobclickAgent.onResume(this);
+
+		// 极光统计
+		JPushInterface.onResume(this);
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
+		// 友盟session统计
 		MobclickAgent.onPause(this);
+		// 极光统计
+		JPushInterface.onPause(this);
+
 	}
 
 	@Override

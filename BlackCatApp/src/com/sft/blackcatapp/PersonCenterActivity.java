@@ -238,9 +238,11 @@ public class PersonCenterActivity extends BaseActivity {
 					}
 				};
 			} else {
-				Intent intent1 = new Intent(PersonCenterActivity.this,
-						EnrollSuccessActivity.class);
-				startActivity(intent1);
+				// Intent intent1 = new Intent(PersonCenterActivity.this,
+				// EnrollSuccessActivity.class);
+				// startActivity(intent1);
+				ZProgressHUD.getInstance(this).show();
+				ZProgressHUD.getInstance(this).dismissWithFailure("您已报名");
 			}
 			break;
 		}

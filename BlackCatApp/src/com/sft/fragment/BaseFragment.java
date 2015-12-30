@@ -158,13 +158,15 @@ public class BaseFragment extends Fragment implements ICallBack {
 	@Override
 	public void onResume() {
 		super.onResume();
-		MobclickAgent.onResume(getActivity());
+		// 统计页面
+		MobclickAgent.onPageStart(this.getClass().getSimpleName());
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
-		MobclickAgent.onPause(getActivity());
+		// 统计页面
+		MobclickAgent.onPageStart(this.getClass().getSimpleName());
 	}
 
 	@Override

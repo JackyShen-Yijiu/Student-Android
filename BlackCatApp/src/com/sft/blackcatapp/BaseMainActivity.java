@@ -20,6 +20,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
+import cn.jpush.android.api.JPushInterface;
 import cn.sft.baseactivity.util.Util;
 import cn.sft.listener.ICallBack;
 
@@ -332,12 +333,17 @@ public class BaseMainActivity extends SlidingFragmentActivity implements
 	protected void onResume() {
 		super.onResume();
 		MobclickAgent.onResume(this);
+		// 极光统计
+		JPushInterface.onResume(this);
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
+		// 友盟统计
 		MobclickAgent.onPause(this);
+		// 极光统计
+		JPushInterface.onPause(this);
 	}
 
 	@Override

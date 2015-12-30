@@ -7,7 +7,8 @@
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="21" />
-
+    
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER" />
@@ -37,14 +38,37 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    
+    <!--     极光推送权限 --> 
+    	<permission android:name="com.sft.blackcatapp.permission.JPUSH_MESSAGE" 
+         android:protectionLevel="signature" /> 
+    <uses-permission android:name="com.sft.blackcatapp.permission.JPUSH_MESSAGE" /> 
+     <!--   官方定义的权限，允许应用接收JPUSH内部代码发送的广播消息。 --> 
+	<uses-permission android:name="RECEIVE_USER_PRESENT" /> 
+ 	  <!-- 允许应用可以接收点亮屏幕或解锁广播。 --> 
+ 	<uses-permission android:name="INTERNET"/> 
+	<!-- 允许应用可以访问网络。 --> 
+ 	<uses-permission android:name="WAKE_LOCK"/>	 
+ 	<!-- 允许应用在手机屏幕关闭后后台进程仍然运行 --> 
+ 	<uses-permission android:name="READ_PHONE_STATE"/>	 
+ 	<!-- 允许应用访问手机状态。 --> 
+ 	<uses-permission android:name="WRITE_EXTERNAL_STORAGE"/> 
+ 	<!-- 允许应用写入外部存储。 -->	 
+ 	<uses-permission android:name="READ_EXTERNAL_STORAGE"/>	 
+ 	<!-- 允许应用读取外部存储。 --> 
+ 	<uses-permission android:name="WRITE_SETTINGS"/> 
+ 	<!-- 允许应用读写系统设置项。 -->	 
+ 	<uses-permission android:name="VIBRATE"/> 
+ 	<!-- 允许应用震动。 -->	 
+ 	<uses-permission android:name="MOUNT_UNMOUNT_FILESYSTEMS"/>	 
+ 	<!-- 允许应用挂载/卸载 外部文件系统。 --> 
+ 	<uses-permission android:name="ACCESS_NETWORK_STATE"/>	 
+ 	<!-- 允许应用获取网络信息状态，如当前的网络连接是否有效。 --> 
+ 	<uses-permission android:name="SYSTEM_ALERT_WINDOW"/> 	
+ 	<!-- 允许应用显示系统窗口，位于显示的顶层。 -->	 
+    
 
-    <permission
-        android:name="com.sft.blackcatapp.permission.JPUSH_MESSAGE"
-        android:protectionLevel="signature" />
-
-    <uses-permission android:name="com.sft.blackcatapp.permission.JPUSH_MESSAGE" />
 
     <application
         tools:replace="android:icon, android:theme"
