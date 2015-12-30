@@ -27,6 +27,8 @@ public class Config {
 	public static final String USER_AUTO_LOGIN = "userautologin";
 	// 用户当前所在城市
 	public static final String USER_CITY = "usercity";
+	// 用户报名信息
+	public static final String USER_ENROLL_INFO = "userenrollinfo";
 
 	// 聊天对方的头像url字段
 	public static final String CHAT_HEAD_RUL = "headUrl";

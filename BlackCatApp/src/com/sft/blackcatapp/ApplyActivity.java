@@ -137,7 +137,7 @@ public class ApplyActivity extends BaseActivity implements
 		Map<String, String> headerMap = new HashMap<String, String>();
 		headerMap.put("authorization", app.userVO.getToken());
 		HttpSendUtils.httpGetSend(ycode, this, Config.IP
-				+ "verifyfcodecorrectl", paramMap, 10000, headerMap);
+				+ "api/v1/verifyfcodecorrect", paramMap, 10000, headerMap);
 	}
 
 	private void obtainNearBySchool() {
@@ -653,6 +653,7 @@ public class ApplyActivity extends BaseActivity implements
 				}
 			} else if (type.equals(enroll)) {
 				if ("success".equals(dataString)) {
+
 					// 报名成功
 					Intent intent = new Intent(this,
 							EnrollSuccessActivity.class);

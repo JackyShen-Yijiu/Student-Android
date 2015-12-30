@@ -21,10 +21,12 @@ import cn.sft.infinitescrollviewpager.MyHandler;
 import com.easemob.chat.EMChatManager;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
-import com.sft.util.Util;
+import com.sft.util.JSONUtil;
+import com.sft.util.SharedPreferencesUtil;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.CarModelVO;
 import com.sft.vo.SchoolVO;
+import com.sft.vo.SuccessVO;
 
 /**
  * 个人中心
@@ -79,22 +81,22 @@ public class PersonCenterActivity extends BaseActivity {
 
 		logoutBtn = (Button) findViewById(R.id.person_center_logout_btn);
 
-		if (app.userVO.getApplystate().equals(
-				EnrollResult.SUBJECT_NONE.getValue())) {
-			// 用户没有报名，但可能填写过一些信息
-			SchoolVO school = Util.getEnrollUserSelectedSchool(this);
-			if (school != null) {
-				schoolValueTv.setText(school.getName());
-			}
-
-			CarModelVO carModel = Util.getEnrollUserSelectedCarStyle(this);
-			if (carModel != null) {
-				carStyleValueTv.setText(carModel.getName());
-			}
-		} else {
-			schoolValueTv.setText(app.userVO.getApplyschoolinfo().getName());
-			carStyleValueTv.setText(app.userVO.getCarmodel().getName());
-		}
+		// if (app.userVO.getApplystate().equals(
+		// EnrollResult.SUBJECT_NONE.getValue())) {
+		// // 用户没有报名，但可能填写过一些信息
+		// SchoolVO school = Util.getEnrollUserSelectedSchool(this);
+		// if (school != null) {
+		// schoolValueTv.setText(school.getName());
+		// }
+		//
+		// CarModelVO carModel = Util.getEnrollUserSelectedCarStyle(this);
+		// if (carModel != null) {
+		// carStyleValueTv.setText(carModel.getName());
+		// }
+		// } else {
+		// schoolValueTv.setText(app.userVO.getApplyschoolinfo().getName());
+		// carStyleValueTv.setText(app.userVO.getCarmodel().getName());
+		// }
 	}
 
 	private void initData() {
@@ -110,6 +112,19 @@ public class PersonCenterActivity extends BaseActivity {
 		} else {
 			BitmapManager.INSTANCE.loadBitmap2(url, headPicIm,
 					headpicParam.width, headpicParam.height);
+		}
+		String enrollInfo = SharedPreferencesUtil.getString(this,
+				Config.USER_ENROLL_INFO, null);
+		if (!TextUtils.isEmpty(enrollInfo)) {
+			try {
+				SuccessVO successVO = JSONUtil.toJavaBean(SuccessVO.class,
+						enrollInfo);
+				schoolValueTv.setText(successVO.applyschoolinfo.name);
+				carStyleValueTv.setText(successVO.carmodel.code
+						+ successVO.carmodel.name);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -237,12 +252,18 @@ public class PersonCenterActivity extends BaseActivity {
 						// finish();
 					}
 				};
-			} else {
+			} else if (EnrollResult.SUBJECT_ENROLLING.getValue().equals(
+					applystate)) {
+				Intent intent1 = new Intent(PersonCenterActivity.this,
+						EnrollSuccessActivity.class);
+				startActivity(intent1);
+			} else if (EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue().equals(
+					applystate)) {
 				// Intent intent1 = new Intent(PersonCenterActivity.this,
 				// EnrollSuccessActivity.class);
 				// startActivity(intent1);
 				ZProgressHUD.getInstance(this).show();
-				ZProgressHUD.getInstance(this).dismissWithFailure("您已报名");
+				ZProgressHUD.getInstance(this).dismissWithSuccess("您已报名");
 			}
 			break;
 		}

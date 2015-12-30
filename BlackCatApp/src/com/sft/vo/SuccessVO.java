@@ -25,7 +25,7 @@ public class SuccessVO implements Serializable {
 		public int modelsid;
 	}
 
-	class applyclasstypeinfo {
+	public class applyclasstypeinfo {
 		public String id;
 		public String name;
 		public String price;

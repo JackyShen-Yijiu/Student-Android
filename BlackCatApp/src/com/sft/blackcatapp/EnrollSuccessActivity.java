@@ -17,6 +17,7 @@ import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
+import com.sft.util.SharedPreferencesUtil;
 import com.sft.vo.SuccessVO;
 import com.squareup.picasso.Picasso;
 
@@ -91,6 +92,8 @@ public class EnrollSuccessActivity extends BaseActivity {
 			// finish();
 			app.isEnrollAgain = true;
 			app.userVO.setApplystate(EnrollResult.SUBJECT_NONE.getValue());
+			SharedPreferencesUtil.putString(getBaseContext(),
+					Config.USER_ENROLL_INFO, "");
 			Intent intent = new Intent(this, ApplyActivity.class);
 			startActivity(intent);
 			finish();
@@ -130,8 +133,9 @@ public class EnrollSuccessActivity extends BaseActivity {
 						LogUtil.print("successVO");
 					}
 					if (successVO != null) {
-						LogUtil.print(EnrollSuccessActivity.class.getName()
-								+ successVO.name);
+						// 保存报名信息
+						SharedPreferencesUtil.putString(getBaseContext(),
+								Config.USER_ENROLL_INFO, data.toString());
 						setQrCode(successVO.scanauditurl);
 						tv_qrcode.setText(successVO.userid);
 						app.userVO.setApplystate(EnrollResult.SUBJECT_ENROLLING
