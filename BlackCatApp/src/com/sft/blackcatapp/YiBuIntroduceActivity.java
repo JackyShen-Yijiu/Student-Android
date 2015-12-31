@@ -1,5 +1,8 @@
 package com.sft.blackcatapp;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -7,10 +10,14 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
+import cn.sft.baseactivity.util.HttpSendUtils;
 
+import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
 import com.sft.dialog.NoLoginDialog;
+import com.sft.util.JSONUtil;
 import com.sft.viewutil.ZProgressHUD;
+import com.sft.vo.UserBaseStateVO;
 
 public class YiBuIntroduceActivity extends BaseActivity {
 
@@ -91,6 +98,23 @@ public class YiBuIntroduceActivity extends BaseActivity {
 		webview.loadUrl(url);
 	}
 
+	private void checkUserEnrollState() {
+		if (!app.userVO.getApplystate().equals(
+				Config.EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue())) {
+			Map<String, String> paramsMap = new HashMap<String, String>();
+			paramsMap.put("userid", app.userVO.getUserid());
+			Map<String, String> headerMap = new HashMap<String, String>();
+			headerMap.put("authorization", app.userVO.getToken());
+			HttpSendUtils.httpGetSend(checkEnrollState, this, Config.IP
+					+ "api/v1/userinfo/getmyapplystate", paramsMap, 10000,
+					headerMap);
+		} else {
+			enroll();
+		}
+	}
+
+	private static final String checkEnrollState = "checkEnrollState";
+
 	@Override
 	public void onClick(View v) {
 		if (!onClickSingleView()) {
@@ -107,26 +131,52 @@ public class YiBuIntroduceActivity extends BaseActivity {
 				dialog.show();
 			} else {
 
-				String enrollState = app.userVO.getApplystate();
-				if (EnrollResult.SUBJECT_NONE.getValue().equals(enrollState)) {
-					Intent intent = new Intent(this, ApplyActivity.class);
-					startActivity(intent);
-					finish();
+				checkUserEnrollState();
 
-				} else if (EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue()
-						.equals(app.userVO.getApplystate())) {
-					ZProgressHUD.getInstance(this).show();
-					ZProgressHUD.getInstance(this).dismissWithSuccess(
-							"审核已通过，不能再重新报名！");
-				} else {
-					Intent intent = new Intent(this,
-							EnrollSuccessActivity.class);
-					startActivity(intent);
-					finish();
-
-				}
 			}
 			break;
+		}
+	}
+
+	@Override
+	public synchronized boolean doCallBack(String type, Object jsonString) {
+		if (super.doCallBack(type, jsonString)) {
+			return true;
+		}
+
+		try {
+			if (data != null) {
+				UserBaseStateVO baseStateVO = JSONUtil.toJavaBean(
+						UserBaseStateVO.class, data);
+				if (!baseStateVO.getApplystate().equals(
+						app.userVO.getApplystate())) {
+					app.userVO.setApplystate(baseStateVO.getApplystate());
+
+				}
+				enroll();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
+
+	private void enroll() {
+		String enrollState = app.userVO.getApplystate();
+		if (EnrollResult.SUBJECT_NONE.getValue().equals(enrollState)) {
+			Intent intent = new Intent(this, ApplyActivity.class);
+			startActivity(intent);
+			finish();
+
+		} else if (EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue().equals(
+				app.userVO.getApplystate())) {
+			ZProgressHUD.getInstance(this).show();
+			ZProgressHUD.getInstance(this).dismissWithSuccess("审核已通过，不能再重新报名！");
+		} else {
+			Intent intent = new Intent(this, EnrollSuccessActivity.class);
+			startActivity(intent);
+			finish();
+
 		}
 	}
 }

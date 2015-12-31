@@ -9,6 +9,8 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ProgressBar;
 
+import com.sft.common.Config;
+
 /**
  * 购买成功
  * 
@@ -71,7 +73,7 @@ public class ProductOrderSuccessActivity extends BaseActivity {
 	}
 
 	private void setListener() {
-		returnBtn.setOnClickListener(this);
+		// returnBtn.setOnClickListener(this);
 	}
 
 	@Override
@@ -84,6 +86,10 @@ public class ProductOrderSuccessActivity extends BaseActivity {
 			// case R.id.order_success_btn:
 			// finish();
 			// break;
+			Intent intent1 = new Intent(this, MallActivity.class);
+			intent1.putExtra("moneytype",
+					Config.MoneyType.COIN_CERTIFICATE.getValue());
+			startActivity(intent1);
 			break;
 		}
 	}

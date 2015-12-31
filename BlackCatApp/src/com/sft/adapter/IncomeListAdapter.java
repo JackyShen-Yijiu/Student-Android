@@ -75,7 +75,7 @@ public class IncomeListAdapter extends BaseAdapter {
 		}
 		holder.date.setText(UTC2LOC.instance.getDate(mData.get(position)
 				.getCreatetime(), "yyyy/MM/dd"));
-		holder.income.setText("+" + mData.get(position).getAmount() + "YB");
+		holder.income.setText(mData.get(position).getAmount() + "YB");
 		return convertView;
 	}
 

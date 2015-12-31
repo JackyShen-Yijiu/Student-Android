@@ -19,6 +19,7 @@ import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
 import com.sft.util.SharedPreferencesUtil;
 import com.sft.vo.SuccessVO;
+import com.sft.vo.UserBaseStateVO;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -125,6 +126,21 @@ public class EnrollSuccessActivity extends BaseActivity {
 		return super.onKeyDown(keyCode, event);
 	}
 
+	private void checkUserEnrollState() {
+		if (app.userVO.getApplystate().equals(
+				Config.EnrollResult.SUBJECT_NONE.getValue())) {
+			Map<String, String> paramsMap = new HashMap<String, String>();
+			paramsMap.put("userid", app.userVO.getUserid());
+			Map<String, String> headerMap = new HashMap<String, String>();
+			headerMap.put("authorization", app.userVO.getToken());
+			HttpSendUtils.httpGetSend(checkEnrollState, this, Config.IP
+					+ "api/v1/userinfo/getmyapplystate", paramsMap, 10000,
+					headerMap);
+		} else {
+		}
+	}
+
+	private static final String checkEnrollState = "checkEnrollState";
 	private ImageView qrcode;
 	private TextView carryData;
 
@@ -150,9 +166,19 @@ public class EnrollSuccessActivity extends BaseActivity {
 						tv_qrcode.setText(successVO.userid);
 						// app.userVO.setApplystate(EnrollResult.SUBJECT_ENROLLING
 						// .getValue());
+						checkUserEnrollState();
 						if (successVO.applynotes != null) {
 							carryData.setText(successVO.applynotes);
 						}
+					}
+				}
+			} else if (type.equals(checkEnrollState)) {
+				if (data != null) {
+					UserBaseStateVO baseStateVO = JSONUtil.toJavaBean(
+							UserBaseStateVO.class, data);
+					if (!baseStateVO.getApplystate().equals(
+							app.userVO.getApplystate())) {
+						app.userVO.setApplystate(baseStateVO.getApplystate());
 					}
 				}
 			}
