@@ -271,20 +271,24 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 				dialog.show();
 			}
 			break;
-		// case R.id.fragment_menu_mall_btn:
-		// if (app.isLogin) {
-		// intent = new Intent(mContext, MyWalletActivity.class);
-		// mContext.startActivity(intent);
-		// } else {
-		// NoLoginDialog dialog = new NoLoginDialog(mContext);
-		// dialog.show();
-		// }
-		// break;
+		case R.id.fragment_menu_mall_btn:
+			// if (app.isLogin) {
+			// intent = new Intent(mContext, MyWalletActivity.class);
+			// mContext.startActivity(intent);
+			// } else {
+			// NoLoginDialog dialog = new NoLoginDialog(mContext);
+			// dialog.show();
+			// }
+			ZProgressHUD.getInstance(mContext).show();
+			ZProgressHUD.getInstance(mContext).dismissWithFailure("敬请期待！");
+			break;
 		case R.id.fragment_menu_activity_btn:
-
+			ZProgressHUD.getInstance(mContext).show();
+			ZProgressHUD.getInstance(mContext).dismissWithFailure("敬请期待！");
 			break;
 		case R.id.fragment_menu_signin_btn:
-
+			ZProgressHUD.getInstance(mContext).show();
+			ZProgressHUD.getInstance(mContext).dismissWithFailure("敬请期待！");
 			break;
 		case R.id.fragment_menu_setting_btn:
 
