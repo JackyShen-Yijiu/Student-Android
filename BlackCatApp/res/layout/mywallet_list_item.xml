@@ -15,6 +15,7 @@
         android:layout_weight="1" >
 
         <TextView
+            android:id="@+id/my_wallet_title_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/share_income"
@@ -31,13 +32,32 @@
             android:textSize="14dp" />
     </RelativeLayout>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
+        android:orientation="vertical"
+         >
+        
+    <TextView 
+        android:id="@+id/mywallet_item_name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/app_main_color"
+        android:textSize="12dp"
+        android:visibility="gone"
+        android:text="兑换券单号"
+        />
     <TextView 
         android:id="@+id/mywallet_item_income_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="15dp"
-        android:layout_gravity="center_vertical"
         android:textColor="@color/app_main_color"
-        android:textSize="22dp"
+        android:layout_marginTop="10dp"
+        android:textSize="12dp"
         />
+    </LinearLayout>
 </LinearLayout>

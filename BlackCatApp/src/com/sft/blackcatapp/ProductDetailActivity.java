@@ -1,7 +1,5 @@
 package com.sft.blackcatapp;
 
-import com.sft.vo.ProductVO;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
@@ -14,11 +12,14 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.sft.util.LogUtil;
+import com.sft.vo.ProductVO;
+
 /**
  * 商品详情
  * 
  * @author Administrator
- *
+ * 
  */
 public class ProductDetailActivity extends BaseActivity {
 
@@ -48,8 +49,9 @@ public class ProductDetailActivity extends BaseActivity {
 	@SuppressLint("SetJavaScriptEnabled")
 	private void initData() {
 		currencyTv.setText(app.currency);
-		ProductVO productVO = (ProductVO) getIntent().getSerializableExtra("product");
-		String url = productVO.getDetailsimg();
+		ProductVO productVO = (ProductVO) getIntent().getSerializableExtra(
+				"product");
+		String url = productVO.getDetailurl();
 		setTitleText("商品详情");
 		WebSettings webSettings = webView.getSettings();
 		webView.setWebViewClient(new WebViewClient() {
@@ -64,9 +66,11 @@ public class ProductDetailActivity extends BaseActivity {
 		webView.loadUrl(url);
 
 		try {
-			if (Long.parseLong(app.currency) >= Long.parseLong(productVO.getProductprice())) {
+			LogUtil.print(productVO.getProductprice() + "------" + app.currency);
+			if (Long.parseLong(app.currency) >= Long.parseLong(productVO
+					.getProductprice())) {
 				buyBtn.setEnabled(true);
-				buyBtn.setTextColor(getResources().getColor(R.color.app_main_color));
+				buyBtn.setTextColor(Color.parseColor("#ffffff"));
 			} else {
 				buyBtn.setEnabled(false);
 				buyBtn.setTextColor(Color.parseColor("#999999"));
@@ -89,11 +93,13 @@ public class ProductDetailActivity extends BaseActivity {
 			break;
 		case R.id.product_detail_buy_btn:
 			Intent intent = new Intent(this, ProductOrderActivity.class);
-			intent.putExtra("product", getIntent().getSerializableExtra("product"));
+			intent.putExtra("product",
+					getIntent().getSerializableExtra("product"));
 			startActivity(intent);
 		}
 	}
 
+	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()) {
 			webView.goBack();
