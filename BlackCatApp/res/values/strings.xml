@@ -154,9 +154,9 @@
     <string name="coach_confirm_appointment_time">教练会对所预约课程确定</string>
     <string name="send">发送</string>
     <string name="change_shopping">兑换商品</string>
-    <string name="my_wallet">我的钱包</string>
-    <string name="my_change">我的零钱</string>
-    <string name="invite_friends">赚积分</string>
+    <string name="my_wallet">我的积分</string>
+    <string name="my_change">YB</string>
+    <string name="invite_friends">邀请好友</string>
     <string name="deal_detail">交易详情</string>
     <string name="share_income">分享收益</string>
     <string name="invite_friends_get_bonus">一步学车设计了最先进的用户激励机制\n推荐用户和学员，可以长久的获利\n赶快去邀请小伙伴来用吧！\n记得让他们在注册时填写你的邀请码</string>
@@ -194,8 +194,8 @@
     <string name="capacity">能力</string>
     <string name="take_picture">拍照</string>
     <string name="photo_album">相册</string>
-    <string name="my_invit_code">我的邀请码:</string>
-    <string name="change_commodity">兑换商品</string>
+    <string name="my_invit_code">我的Y码:</string>
+    <string name="change_commodity">积分兑换</string>
     <string name="class_detail">班级详情</string>
     <string name="subject_two_content">科目二教学内容</string>
     <string name="subject_three_content">科目三教学内容</string>
