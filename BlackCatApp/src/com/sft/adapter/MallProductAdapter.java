@@ -2,8 +2,6 @@ package com.sft.adapter;
 
 import java.util.List;
 
-import com.sft.vo.ProductVO;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.View;
@@ -13,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import cn.sft.infinitescrollviewpager.BitmapManager;
+
+import com.sft.vo.ProductVO;
 
 @SuppressLint({ "InflateParams", "ResourceAsColor" })
 public class MallProductAdapter extends BaseAdapter {
@@ -59,10 +59,12 @@ public class MallProductAdapter extends BaseAdapter {
 			holder.image = image;
 			convertView.setTag(holder);
 		} else {
+
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		BitmapManager.INSTANCE.loadBitmap2(mData.get(position).getProductimg(), holder.image, width, heigth);
+		BitmapManager.INSTANCE.loadBitmap2(mData.get(position).getProductimg(),
+				holder.image, width, heigth);
 
 		return convertView;
 	}

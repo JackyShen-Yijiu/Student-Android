@@ -67,12 +67,12 @@
                 android:textSize="14dp" />
         </RelativeLayout>
 
-        <ImageView
+        <!-- <ImageView
             android:id="@+id/base_deviderline"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#cccccc"
-            android:contentDescription="@string/app_name" />
+            android:contentDescription="@string/app_name" /> -->
     </LinearLayout>
 
     <LinearLayout

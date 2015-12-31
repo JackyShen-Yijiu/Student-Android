@@ -141,7 +141,14 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 			setPersonInfo();
 		}
 
-		//
+		rootView.findViewById(R.id.fragment_menu_content_first)
+				.setOnClickListener(this);
+		rootView.findViewById(R.id.fragment_menu_content_seccond)
+				.setOnClickListener(this);
+		rootView.findViewById(R.id.fragment_menu_content_third)
+				.setOnClickListener(this);
+
+		// 底部图片点击
 		rootView.findViewById(R.id.fragment_menu_home_btn).setOnClickListener(
 				this);
 		rootView.findViewById(R.id.fragment_menu_driving_school_btn)
@@ -263,15 +270,15 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 				dialog.show();
 			}
 			break;
-		case R.id.fragment_menu_mall_btn:
-			if (app.isLogin) {
-				intent = new Intent(mContext, MyWalletActivity.class);
-				mContext.startActivity(intent);
-			} else {
-				NoLoginDialog dialog = new NoLoginDialog(mContext);
-				dialog.show();
-			}
-			break;
+		// case R.id.fragment_menu_mall_btn:
+		// if (app.isLogin) {
+		// intent = new Intent(mContext, MyWalletActivity.class);
+		// mContext.startActivity(intent);
+		// } else {
+		// NoLoginDialog dialog = new NoLoginDialog(mContext);
+		// dialog.show();
+		// }
+		// break;
 		case R.id.fragment_menu_activity_btn:
 
 			break;
@@ -297,6 +304,23 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 					+ number));
 			startActivity(intent1);
 			break;
+		case R.id.fragment_menu_content_first:
+			// 积分
+			if (app.isLogin) {
+				intent = new Intent(mContext, MyWalletActivity.class);
+				mContext.startActivity(intent);
+			} else {
+				NoLoginDialog dialog = new NoLoginDialog(mContext);
+				dialog.show();
+			}
+			break;
+		case R.id.fragment_menu_content_seccond:
+			// 兑换券
+			break;
+		case R.id.fragment_menu_content_third:
+			// 现金
+			break;
+
 		default:
 			break;
 		}

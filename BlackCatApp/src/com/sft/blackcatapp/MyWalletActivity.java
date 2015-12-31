@@ -5,21 +5,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
+import cn.sft.baseactivity.util.HttpSendUtils;
+
 import com.sft.adapter.IncomeListAdapter;
 import com.sft.common.Config;
 import com.sft.dialog.BonusDialog;
 import com.sft.util.JSONUtil;
 import com.sft.vo.IncomeVO;
 import com.sft.vo.MyWalletVO;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
-import cn.sft.baseactivity.util.HttpSendUtils;
 
 /**
  * 我的钱包
@@ -39,13 +38,13 @@ public class MyWalletActivity extends BaseActivity {
 	//
 	private Button changeBtn;
 	//
-	private TextView showListTv;
-	//
-	private ImageView showImage;
+	// private TextView showListTv;
+	// //
+	// private ImageView showImage;
 	//
 	private TextView invitCodeTv;
 
-	private int clickNum = 0;
+	// private int clickNum = 0;
 
 	// 每次请求的数目
 	private int pageCount = 10;
@@ -79,13 +78,13 @@ public class MyWalletActivity extends BaseActivity {
 		changeBtn = (Button) findViewById(R.id.my_wallet_change_btn);
 		incomeList = (ListView) findViewById(R.id.my_wallet_listview);
 		invitCodeTv = (TextView) findViewById(R.id.my_wallet_invit_code_tv);
-		showListTv = (TextView) findViewById(R.id.my_wallet_show_tv);
-		showImage = (ImageView) findViewById(R.id.my_wallet_show_im);
+		// showListTv = (TextView) findViewById(R.id.my_wallet_show_tv);
+		// showImage = (ImageView) findViewById(R.id.my_wallet_show_im);
 	}
 
 	private void setListener() {
 		inviteBtn.setOnClickListener(this);
-		showListTv.setOnClickListener(this);
+		// showListTv.setOnClickListener(this);
 		changeBtn.setOnClickListener(this);
 	}
 
@@ -102,8 +101,8 @@ public class MyWalletActivity extends BaseActivity {
 
 		Map<String, String> headerMap = new HashMap<String, String>();
 		headerMap.put("authorization", app.userVO.getToken());
-		HttpSendUtils.httpGetSend(myWallet, this, Config.IP + "api/v1/userinfo/getmywallet", paramsMap, 10000,
-				headerMap);
+		HttpSendUtils.httpGetSend(myWallet, this, Config.IP
+				+ "api/v1/userinfo/getmywallet", paramsMap, 10000, headerMap);
 	}
 
 	private List<IncomeVO> dataList = new ArrayList<IncomeVO>();
@@ -116,7 +115,8 @@ public class MyWalletActivity extends BaseActivity {
 		try {
 			if (type.equals(myWallet)) {
 				if (data != null) {
-					MyWalletVO walletVO = (MyWalletVO) JSONUtil.toJavaBean(MyWalletVO.class, data);
+					MyWalletVO walletVO = JSONUtil.toJavaBean(MyWalletVO.class,
+							data);
 					app.currency = walletVO.getWallet();
 					myChangeTv.setText(walletVO.getWallet());
 
@@ -144,15 +144,15 @@ public class MyWalletActivity extends BaseActivity {
 		case R.id.base_left_btn:
 			finish();
 			break;
-		case R.id.my_wallet_show_tv:
-			if (++clickNum % 2 == 0) {
-				incomeList.setVisibility(View.INVISIBLE);
-				showImage.setBackgroundResource(R.drawable.wallet_show);
-			} else {
-				incomeList.setVisibility(View.VISIBLE);
-				showImage.setBackgroundResource(R.drawable.wallet_hide);
-			}
-			break;
+		// case R.id.my_wallet_show_tv:
+		// if (++clickNum % 2 == 0) {
+		// incomeList.setVisibility(View.INVISIBLE);
+		// showImage.setBackgroundResource(R.drawable.wallet_show);
+		// } else {
+		// incomeList.setVisibility(View.VISIBLE);
+		// showImage.setBackgroundResource(R.drawable.wallet_hide);
+		// }
+		// break;
 		case R.id.my_wallet_change_btn:
 			Intent intent = new Intent(this, MallActivity.class);
 			startActivity(intent);
@@ -168,8 +168,8 @@ public class MyWalletActivity extends BaseActivity {
 	public void forOperResult(Intent intent) {
 		boolean invite = intent.getBooleanExtra("sendInvite", false);
 		if (invite) {
-//			Intent intent2 = new Intent(this, MyWalletInviteActivity.class);
-//			startActivity(intent2);
+			// Intent intent2 = new Intent(this, MyWalletInviteActivity.class);
+			// startActivity(intent2);
 		}
 	}
 }
