@@ -695,6 +695,9 @@ public class ApplyActivity extends BaseActivity implements
 					dialog.setBtnText("继续报名", "修改Y码");
 					dialog.show();
 				}
+				if (result != null && result.equals("1")) {
+					enroll(null);
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

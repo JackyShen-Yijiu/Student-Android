@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.sft.blackcatapp"
-    android:versionCode="1"
+    android:versionCode="3"
     android:versionName="1.1" >
 
     <uses-sdk
@@ -415,7 +415,7 @@
         <!-- 设置环信应用的appkey black-cat#yibuxuecheprod black-cat#yibuxuechetest -->
         <meta-data
             android:name="EASEMOB_APPKEY"
-            android:value="black-cat#yibuxuechetest" />
+            android:value="black-cat#yibuxuecheprod" />
         <!-- 声明sdk所需的service -->
         <service android:name="com.easemob.chat.EMChatService" />
 

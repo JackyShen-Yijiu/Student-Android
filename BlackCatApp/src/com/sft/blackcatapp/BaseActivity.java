@@ -141,6 +141,7 @@ public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity
 
 		setListener();
 
+		util.setShowLogPrint(false);
 		if (app == null) {
 			app = BlackCatApplication.getInstance();
 		}

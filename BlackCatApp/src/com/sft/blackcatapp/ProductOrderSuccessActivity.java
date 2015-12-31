@@ -82,6 +82,9 @@ public class ProductOrderSuccessActivity extends BaseActivity {
 			return;
 		}
 		switch (v.getId()) {
+		case R.id.base_left_btn:
+			finish();
+			break;
 		case R.id.base_right_tv:
 			// case R.id.order_success_btn:
 			// finish();
