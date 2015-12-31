@@ -38,6 +38,7 @@ import com.sft.common.Config;
 import com.sft.dialog.NoLoginDialog;
 import com.sft.util.CommonUtil;
 import com.sft.util.JSONUtil;
+import com.sft.util.LogUtil;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.MyMoneyVO;
 
@@ -402,12 +403,13 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 
 	private void setData(MyMoneyVO myMoneyVO) {
 		app.currency = myMoneyVO.getWallet();
+		LogUtil.print(myMoneyVO.getWallet() + "--");
 		code.setText(myMoneyVO.getFcode());
-		if (TextUtils.isEmpty(myMoneyVO.getWallet())) {
-			doubiNumber.setText("0.00");
-
-		}
-		doubiNumber.setText(myMoneyVO.getWallet());
+		// if (TextUtils.isEmpty(myMoneyVO.getWallet())) {
+		// doubiNumber.setText("0.00");
+		//
+		// }
+		// doubiNumber.setText(myMoneyVO.getWallet());
 		earnings.setText(myMoneyVO.getWallet());
 		couponcount.setText(myMoneyVO.getCouponcount());
 		money.setText(myMoneyVO.getMoney());

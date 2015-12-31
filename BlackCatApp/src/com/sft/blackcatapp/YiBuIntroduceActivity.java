@@ -10,6 +10,7 @@ import android.widget.ProgressBar;
 
 import com.sft.common.Config.EnrollResult;
 import com.sft.dialog.NoLoginDialog;
+import com.sft.viewutil.ZProgressHUD;
 
 public class YiBuIntroduceActivity extends BaseActivity {
 
@@ -109,6 +110,11 @@ public class YiBuIntroduceActivity extends BaseActivity {
 					startActivity(intent);
 					finish();
 
+				} else if (EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue()
+						.equals(app.userVO.getApplystate())) {
+					ZProgressHUD.getInstance(this).show();
+					ZProgressHUD.getInstance(this).dismissWithSuccess(
+							"审核已通过，不能再重新报名！");
 				} else {
 					Intent intent = new Intent(this,
 							EnrollSuccessActivity.class);

@@ -19,6 +19,7 @@ import com.sft.common.Config;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
 import com.sft.vo.MallVO;
+import com.sft.vo.MyCuponVO;
 import com.sft.vo.ProductVO;
 
 /**
@@ -44,6 +45,7 @@ public class MallActivity extends BaseActivity implements
 	private ListView productListView;
 	private String producttype = "0";
 	private String cityname;
+	private MyCuponVO myCuponVO;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,7 @@ public class MallActivity extends BaseActivity implements
 		cityname = app.curCity;
 		LogUtil.print(cityname);
 		producttype = getIntent().getStringExtra("moneytype");
+		myCuponVO = (MyCuponVO) getIntent().getSerializableExtra("myCupon");
 		initView();
 		obtainHeadLineNews();
 	}
@@ -228,6 +231,12 @@ public class MallActivity extends BaseActivity implements
 		ProductVO productVO = (ProductVO) parent.getAdapter().getItem(position);
 		Intent intent = new Intent(this, ProductDetailActivity.class);
 		intent.putExtra("product", productVO);
+		if (Config.MoneyType.COIN_CERTIFICATE.getValue().equals(producttype)) {
+			intent.putExtra("isCupon", true);
+		}
+		if (myCuponVO != null) {
+			intent.putExtra("myCupon", myCuponVO);
+		}
 		startActivity(intent);
 	}
 

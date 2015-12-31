@@ -3,9 +3,7 @@ package com.sft.blackcatapp;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.sft.common.Config;
-import com.sft.viewutil.ZProgressHUD;
-import com.sft.vo.ProductVO;
+import org.json.JSONObject;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -19,11 +17,19 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
+import com.sft.common.Config;
+import com.sft.util.JSONUtil;
+import com.sft.viewutil.ZProgressHUD;
+import com.sft.vo.MyCuponVO;
+import com.sft.vo.ProductBuySuccessVO;
+import com.sft.vo.ProductVO;
+
 /**
  * 订单信息
- *
+ * 
  */
-public class ProductOrderActivity extends BaseActivity implements OnFocusChangeListener {
+public class ProductOrderActivity extends BaseActivity implements
+		OnFocusChangeListener {
 
 	private static final String buy = "buy";
 	// 姓名
@@ -94,7 +100,10 @@ public class ProductOrderActivity extends BaseActivity implements OnFocusChangeL
 				ZProgressHUD.getInstance(this).dismissWithFailure(result);
 				return;
 			}
-			ProductVO productVO = (ProductVO) getIntent().getSerializableExtra("product");
+			ProductVO productVO = (ProductVO) getIntent().getSerializableExtra(
+					"product");
+			MyCuponVO myCuponVO = (MyCuponVO) getIntent().getSerializableExtra(
+					"myCupon");
 
 			Map<String, String> paramsMap = new HashMap<String, String>();
 			paramsMap.put("usertype", "1");
@@ -103,12 +112,18 @@ public class ProductOrderActivity extends BaseActivity implements OnFocusChangeL
 			paramsMap.put("name", nameEt.getText().toString());
 			paramsMap.put("mobile", phoneEt.getText().toString());
 			paramsMap.put("address", addressEt.getText().toString());
+			if (myCuponVO != null) {
+
+				paramsMap.put("couponid", myCuponVO.get_id());
+			}
 
 			Map<String, String> headerMap = new HashMap<String, String>();
 			headerMap.put("authorization", app.userVO.getToken());
 
-			HttpSendUtils.httpPostSend(buy, this, Config.IP + "api/v1/userinfo/buyproduct", paramsMap, 10000,
-					headerMap);
+			HttpSendUtils
+					.httpPostSend(buy, this, Config.IP
+							+ "api/v1/userinfo/buyproduct", paramsMap, 10000,
+							headerMap);
 			break;
 		}
 	}
@@ -152,8 +167,20 @@ public class ProductOrderActivity extends BaseActivity implements OnFocusChangeL
 		if (super.doCallBack(type, jsonString)) {
 			return true;
 		}
+		ProductBuySuccessVO productBuySuccessVO = null;
 		if (type.equals(buy)) {
+			try {
+				JSONObject extra = jsonObject.getJSONObject("extra");
+				productBuySuccessVO = JSONUtil.toJavaBean(
+						ProductBuySuccessVO.class, extra);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			Intent intent = new Intent(this, ProductOrderSuccessActivity.class);
+			if (productBuySuccessVO != null) {
+				intent.putExtra("finishorderurl",
+						productBuySuccessVO.getFinishorderurl());
+			}
 			startActivity(intent);
 		}
 		return true;

@@ -31,6 +31,7 @@
     <string name="select_school">附近驾校</string>
     <string name="school_detail">驾校详情</string>
     <string name="enroll">报名</string>
+    <string name="go_and_see">再去看看</string>
     <string name="enroll_again">重新报名</string>
     <string name="yibu_favourable_class">一步特色班</string>
     <string name="yibu_procedure">合作驾校</string>
@@ -155,7 +156,8 @@
     <string name="send">发送</string>
     <string name="change_shopping">兑换商品</string>
     <string name="my_wallet">我的积分</string>
-    <string name="my_cupon">兑换券</string>
+    <string name="my_cupon">商城兑换券</string>
+    <string name="my_amount">可取现金额</string>
     <string name="amount">现金</string>
     <string name="my_change">YB</string>
     <string name="invite_friends">邀请好友</string>

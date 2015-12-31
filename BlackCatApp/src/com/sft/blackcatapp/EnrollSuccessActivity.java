@@ -18,7 +18,6 @@ import com.sft.common.Config.EnrollResult;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
 import com.sft.util.SharedPreferencesUtil;
-import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.SuccessVO;
 import com.squareup.picasso.Picasso;
 
@@ -95,9 +94,9 @@ public class EnrollSuccessActivity extends BaseActivity {
 					+ "==========" + app.userVO.getApplystate());
 			if (EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue().equals(
 					app.userVO.getApplystate())) {
-				ZProgressHUD.getInstance(this).show();
-				ZProgressHUD.getInstance(this).dismissWithSuccess(
-						"审核已通过，不能再重新报名！");
+				// ZProgressHUD.getInstance(this).show();
+				// ZProgressHUD.getInstance(this).dismissWithSuccess(
+				// "审核已通过，不能再重新报名！");
 			} else {
 
 				app.isEnrollAgain = true;

@@ -111,7 +111,7 @@ public class AboutUsActivity extends BaseActivity {
 		settings.setSupportZoom(false);
 		settings.setDisplayZoomControls(false);
 
-		webview.loadUrl("http://www.yibuxueche.com/about.html?ver=10.1");
+		webview.loadUrl("http://www.yibuxueche.com/about.html?ver=1.1");
 	}
 
 	@Override

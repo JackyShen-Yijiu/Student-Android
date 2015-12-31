@@ -65,6 +65,7 @@ public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity
 	protected JSONObject data = null;
 	protected JSONArray dataArray = null;
 	protected String dataString = null;
+	protected JSONObject jsonObject;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -271,7 +272,7 @@ public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity
 		try {
 			util.print("json=" + jsonString + " type= " + type);
 
-			JSONObject jsonObject = new JSONObject(jsonString.toString());
+			jsonObject = new JSONObject(jsonString.toString());
 			result = jsonObject.getString("type");
 			msg = jsonObject.getString("msg");
 			try {

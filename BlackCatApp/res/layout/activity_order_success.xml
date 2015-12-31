@@ -5,7 +5,7 @@
     android:background="#daffffff"
     android:orientation="vertical" >
 
-    <ImageView
+    <!-- <ImageView
         android:layout_width="57dp"
         android:layout_height="52dp"
         android:layout_gravity="center_horizontal"
@@ -51,6 +51,22 @@
             android:text="@string/continue_buy"
             android:textColor="#ffffff"
             android:textSize="12dp" />
-    </RelativeLayout>
+    </RelativeLayout> -->
+     <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <WebView
+            android:id="@+id/order_success_webview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ProgressBar
+            android:id="@+id/order_success_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+             />
+    </FrameLayout>
 
 </LinearLayout>

@@ -61,6 +61,9 @@ public class MallProductAdapter extends BaseAdapter {
 						.findViewById(R.id.mall_item_cupon);
 				holder.jifenLayout = (RelativeLayout) convertView
 						.findViewById(R.id.mall_item_jifen);
+
+				holder.image = (ImageView) convertView
+						.findViewById(R.id.mall_item_img);
 				holder.name = (TextView) convertView
 						.findViewById(R.id.mall_item_name);
 				holder.price = (TextView) convertView

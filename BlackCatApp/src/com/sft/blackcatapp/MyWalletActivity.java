@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -103,6 +104,7 @@ public class MyWalletActivity extends BaseActivity {
 		incomeList = (ListView) findViewById(R.id.my_wallet_listview);
 		invitCodeTv = (TextView) findViewById(R.id.my_wallet_invit_code_tv);
 		unitTv = (TextView) findViewById(R.id.my_wallet_unit_tv);
+		invitNameTv = (TextView) findViewById(R.id.my_wallet_invit_name_tv);
 	}
 
 	private void changeMoneyType() {
@@ -112,6 +114,8 @@ public class MyWalletActivity extends BaseActivity {
 			containOneBtnLl.setVisibility(View.GONE);
 			setTitleText(R.string.my_wallet);
 			unitTv.setText("YB");
+			invitNameTv.setText("我的邀请码:");
+			invitCodeTv.setText(app.userVO.getInvitationcode());
 			producttype = Config.MoneyType.INTEGRAL_RETURN.getValue();
 			obtainWallet();
 		} else if (Config.MoneyType.COIN_CERTIFICATE.getValue().equals(
@@ -119,15 +123,18 @@ public class MyWalletActivity extends BaseActivity {
 			producttype = Config.MoneyType.COIN_CERTIFICATE.getValue();
 			setTitleText(R.string.my_cupon);
 			unitTv.setText("张");
+			invitNameTv.setText("");
 			containTwoBtnLl.setVisibility(View.GONE);
 			containOneBtnLl.setVisibility(View.VISIBLE);
 			obtainCoinCertificate();
 		} else if (Config.MoneyType.AMOUNT_IN_CASH.getValue().equals(moneytype)) {
+			invitNameTv.setText("");
 			producttype = Config.MoneyType.AMOUNT_IN_CASH.getValue();
-			setTitleText(R.string.my_cupon);
+			setTitleText(R.string.my_amount);
 			unitTv.setText("元");
 			exchangeBtn.setText("取现");
 			exchangeBtn.setEnabled(false);
+			exchangeBtn.setBackgroundColor(Color.parseColor("#999999"));
 			containTwoBtnLl.setVisibility(View.GONE);
 			containOneBtnLl.setVisibility(View.VISIBLE);
 			obtainAmountInCash();
@@ -142,7 +149,7 @@ public class MyWalletActivity extends BaseActivity {
 	}
 
 	private void initData() {
-		invitCodeTv.setText(app.userVO.getInvitationcode());
+
 	}
 
 	// 获取积分收益
@@ -163,7 +170,7 @@ public class MyWalletActivity extends BaseActivity {
 	private void obtainCoinCertificate() {
 		Map<String, String> paramsMap = new HashMap<String, String>();
 		paramsMap.put("userid", app.userVO.getUserid());
-		paramsMap.put("userid", "562cb02e93d4ca260b40e544");
+		// paramsMap.put("userid", "562cb02e93d4ca260b40e544");
 
 		Map<String, String> headerMap = new HashMap<String, String>();
 		// headerMap
@@ -197,6 +204,8 @@ public class MyWalletActivity extends BaseActivity {
 	private String moneytype;
 	private Button exchangeBtn;
 	private TextView unitTv;
+	private List<MyCuponVO> myCuponList;
+	private TextView invitNameTv;
 
 	@Override
 	public synchronized boolean doCallBack(String type, Object jsonString) {
@@ -223,8 +232,7 @@ public class MyWalletActivity extends BaseActivity {
 			} else if (type.equals(myCoinCertificate)) {
 				if (dataArray != null) {
 					int length = dataArray.length();
-					LogUtil.print(length + "aaaaaa");
-					List<MyCuponVO> myCuponList = new ArrayList<MyCuponVO>();
+					myCuponList = new ArrayList<MyCuponVO>();
 					for (int i = 0; i < length; i++) {
 
 						MyCuponVO myCuponVO = JSONUtil.toJavaBean(
@@ -292,6 +300,10 @@ public class MyWalletActivity extends BaseActivity {
 		case R.id.my_wallet_exchange_btn:
 			Intent intent1 = new Intent(this, MallActivity.class);
 			intent1.putExtra("moneytype", moneytype);
+			if (myCuponList != null && myCuponList.size() > 0) {
+				intent1.putExtra("myCupon", myCuponList.get(0));
+
+			}
 			startActivity(intent1);
 			break;
 		}
