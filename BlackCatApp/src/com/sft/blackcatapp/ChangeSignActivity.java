@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,9 +29,9 @@ public class ChangeSignActivity extends BaseActivity {
 	private Button btn;
 	private TextView mTextView;
 
-	private static final String changeSign = "changeSign";
-	private static final String changeName = "changeName";
-	private static final String changeNickName = "changeNickName";
+	private static final String changeSign = "sign";
+	private static final String changeName = "name";
+	private static final String changeNickName = "nickname";
 
 	private String type;
 
@@ -51,8 +52,18 @@ public class ChangeSignActivity extends BaseActivity {
 		btn = (Button) findViewById(R.id.callback_btn);
 		et = (EditText) findViewById(R.id.callback_et);
 		type = getIntent().getStringExtra("type");
-
+		Log.v(type, type);
 		mTextView = (TextView) findViewById(R.id.text_dialog);
+
+		if (type.equals(changeSign)) {
+			setTitleText(R.string.change_personalized);
+		}
+		if (type.equals(changeName)) {
+			setTitleText(R.string.change_name);
+		}
+		if (type.equals(changeNickName)) {
+			setTitleText(R.string.change_nickname);
+		}
 
 	}
 

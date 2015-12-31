@@ -18,6 +18,7 @@ import cn.sft.baseactivity.util.MyHandler;
 import com.sft.api.UserLogin;
 import com.sft.common.Config;
 import com.sft.listener.EMLoginListener;
+import com.sft.util.CommonUtil;
 import com.sft.util.JSONUtil;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.UserVO;
@@ -143,6 +144,10 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 		String phone = phoneEt.getText().toString();
 		if (TextUtils.isEmpty(phone)) {
 			return "手机号为空";
+		} else {
+			if (!CommonUtil.isMobile(phone)) {
+				return "手机号格式不正确";
+			}
 		}
 		if (phone.length() != 11) {
 			return "请输入正确的手机号";

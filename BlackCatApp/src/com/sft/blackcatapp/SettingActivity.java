@@ -51,20 +51,16 @@ public class SettingActivity extends BaseActivity implements
 		aboutUsTv = (TextView) findViewById(R.id.setting_aboutus_tv);
 		callbackTv = (TextView) findViewById(R.id.setting_callback_tv);
 
-		// if
-		// (app.userVO.getUsersetting().getNewmessagereminder().equals("true"))
-		// {
-		// messageCk.setChecked(true);
-		// } else {
-		// messageCk.setChecked(false);
-		// }
-		// if
-		// (app.userVO.getUsersetting().getReservationreminder().equals("true"))
-		// {
-		// appointmentCk.setChecked(true);
-		// } else {
-		// appointmentCk.setChecked(false);
-		// }
+		if (app.userVO.getUsersetting().getNewmessagereminder().equals("true")) {
+			messageCk.setChecked(true);
+		} else {
+			messageCk.setChecked(false);
+		}
+		if (app.userVO.getUsersetting().getReservationreminder().equals("true")) {
+			appointmentCk.setChecked(true);
+		} else {
+			appointmentCk.setChecked(false);
+		}
 	}
 
 	private void setListener() {

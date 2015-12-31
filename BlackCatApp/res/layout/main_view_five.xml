@@ -33,4 +33,14 @@
         android:layout_marginLeft="35dp"
         android:src="@drawable/sb_simulation" />
 
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="75dp"
+        android:layout_marginRight="15dp"
+        android:src="@drawable/telescope" />
+
 </RelativeLayout>

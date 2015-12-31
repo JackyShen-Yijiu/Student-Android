@@ -100,7 +100,8 @@ public class MainActivity extends BaseMainActivity implements
 		initView();
 		initData(savedInstanceState);
 		setListener();
-
+		// 气球按钮
+		// initBalloon();
 		obtainFavouriteSchool();
 		obtainFavouriteCoach();
 		obtainQuestionAddress();
@@ -549,40 +550,50 @@ public class MainActivity extends BaseMainActivity implements
 	private void setBottomState(int postion) {
 		introduce.setTextColor(getResources().getColor(
 				R.color.bottom_text_unselector));
+		introduce.setTextSize(16);
 		subjectOne.setTextColor(getResources().getColor(
 				R.color.bottom_text_unselector));
+		subjectOne.setTextSize(16);
 		subjectTwo.setTextColor(getResources().getColor(
 				R.color.bottom_text_unselector));
+		subjectTwo.setTextSize(16);
 		subjectThree.setTextColor(getResources().getColor(
 				R.color.bottom_text_unselector));
+		subjectThree.setTextSize(16);
 		subjectFour.setTextColor(getResources().getColor(
 				R.color.bottom_text_unselector));
+		subjectFour.setTextSize(16);
 		// bottomProgress.setBackgroundDrawable(null);
 
 		switch (postion) {
 		case 0:
 			introduce.setTextColor(getResources().getColor(
 					R.color.bottom_text_selector));
+			introduce.setTextSize(18);
 			bottomProgress.setImageResource(R.drawable.loding_one);
 			break;
 		case 1:
 			subjectOne.setTextColor(getResources().getColor(
 					R.color.bottom_text_selector));
+			subjectOne.setTextSize(18);
 			bottomProgress.setImageResource(R.drawable.loding_two);
 			break;
 		case 2:
 			subjectTwo.setTextColor(getResources().getColor(
 					R.color.bottom_text_selector));
+			subjectTwo.setTextSize(18);
 			bottomProgress.setImageResource(R.drawable.loding_three);
 			break;
 		case 3:
 			subjectThree.setTextColor(getResources().getColor(
 					R.color.bottom_text_selector));
+			subjectThree.setTextSize(18);
 			bottomProgress.setImageResource(R.drawable.loding_four);
 			break;
 		case 4:
 			subjectFour.setTextColor(getResources().getColor(
 					R.color.bottom_text_selector));
+			subjectFour.setTextSize(18);
 			bottomProgress.setImageResource(R.drawable.loding_five);
 			break;
 

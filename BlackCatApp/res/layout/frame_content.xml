@@ -3,7 +3,7 @@
     android:layout_height="fill_parent"
     android:clipToPadding="true"  
 	android:fitsSystemWindows="true"  
-    android:background="@drawable/start_one" >
+    android:background="@drawable/star_one" >
 
     <com.baidu.mapapi.map.MapView
         android:id="@+id/main_bmapView"
@@ -86,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:textColor="#68e6ff"
             android:text="欢迎您" />
 

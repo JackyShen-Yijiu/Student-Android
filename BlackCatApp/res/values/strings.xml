@@ -171,6 +171,9 @@
     <string name="no_comment">暂无评论</string>
     <string name="simple_sign">一句话签名</string>
     <string name="change_headpic">更换头像</string>
+    <string name="change_name">修改姓名</string>
+    <string name="change_nickname">修改昵称</string>
+    <string name="change_personalized">修改个性签名</string>
     <string name="appointment">预约</string>
     <string name="input_shuttle_address">输入接送地址</string>
     <string name="no_coach">没有教练</string>
