@@ -11,9 +11,17 @@ public class ProductVO extends DBVO {
 	private String productprice;
 	private String productimg;
 	private String productdesc;
+	private String detailurl;
 	private String viewcount;
 	private String buycount;
 	private String detailsimg;
+	private String address;
+	private String cityname;
+	private String county;
+	private int distinct;
+	private String is_scanconsumption;
+	private String merchantid;
+	private String productcount;
 
 	public String getProductid() {
 		return productid;
@@ -21,6 +29,14 @@ public class ProductVO extends DBVO {
 
 	public void setProductid(String productid) {
 		this.productid = productid;
+	}
+
+	public String getDetailurl() {
+		return detailurl;
+	}
+
+	public void setDetailurl(String detailurl) {
+		this.detailurl = detailurl;
 	}
 
 	public String getProductname() {
@@ -77,6 +93,71 @@ public class ProductVO extends DBVO {
 
 	public void setDetailsimg(String detailsimg) {
 		this.detailsimg = detailsimg;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getCityname() {
+		return cityname;
+	}
+
+	public void setCityname(String cityname) {
+		this.cityname = cityname;
+	}
+
+	public String getCounty() {
+		return county;
+	}
+
+	public void setCounty(String county) {
+		this.county = county;
+	}
+
+	public String getDistinct() {
+
+		return (distinct / 1000) + "km";
+	}
+
+	public void setDistinct(int distinct) {
+		this.distinct = distinct;
+	}
+
+	public String getIs_scanconsumption() {
+		return is_scanconsumption;
+	}
+
+	public void setIs_scanconsumption(String is_scanconsumption) {
+		this.is_scanconsumption = is_scanconsumption;
+	}
+
+	public String getMerchantid() {
+		return merchantid;
+	}
+
+	public void setMerchantid(String merchantid) {
+		this.merchantid = merchantid;
+	}
+
+	public String getProductcount() {
+		return productcount;
+	}
+
+	public String getCount() {
+		return buycount + "人已兑换" + "|剩余" + productcount + "份";
+	}
+
+	public void setProductcount(String productcount) {
+		this.productcount = productcount;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 }

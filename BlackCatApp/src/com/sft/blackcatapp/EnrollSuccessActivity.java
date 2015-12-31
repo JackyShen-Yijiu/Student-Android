@@ -18,6 +18,7 @@ import com.sft.common.Config.EnrollResult;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
 import com.sft.util.SharedPreferencesUtil;
+import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.SuccessVO;
 import com.squareup.picasso.Picasso;
 
@@ -90,13 +91,23 @@ public class EnrollSuccessActivity extends BaseActivity {
 			// sendBroadcast(new Intent(MainActivity.class.getName()).putExtra(
 			// "isEnrollSuccess", true));
 			// finish();
-			app.isEnrollAgain = true;
-			app.userVO.setApplystate(EnrollResult.SUBJECT_NONE.getValue());
-			SharedPreferencesUtil.putString(getBaseContext(),
-					Config.USER_ENROLL_INFO, "");
-			Intent intent = new Intent(this, ApplyActivity.class);
-			startActivity(intent);
-			finish();
+			LogUtil.print(EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue()
+					+ "==========" + app.userVO.getApplystate());
+			if (EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue().equals(
+					app.userVO.getApplystate())) {
+				ZProgressHUD.getInstance(this).show();
+				ZProgressHUD.getInstance(this).dismissWithSuccess(
+						"审核已通过，不能再重新报名！");
+			} else {
+
+				app.isEnrollAgain = true;
+				app.userVO.setApplystate(EnrollResult.SUBJECT_NONE.getValue());
+				SharedPreferencesUtil.putString(getBaseContext(),
+						Config.USER_ENROLL_INFO, "");
+				Intent intent = new Intent(this, ApplyActivity.class);
+				startActivity(intent);
+				finish();
+			}
 			break;
 		case R.id.button_sus:
 			sendBroadcast(new Intent(MainActivity.class.getName()).putExtra(
@@ -138,8 +149,8 @@ public class EnrollSuccessActivity extends BaseActivity {
 								Config.USER_ENROLL_INFO, data.toString());
 						setQrCode(successVO.scanauditurl);
 						tv_qrcode.setText(successVO.userid);
-						app.userVO.setApplystate(EnrollResult.SUBJECT_ENROLLING
-								.getValue());
+						// app.userVO.setApplystate(EnrollResult.SUBJECT_ENROLLING
+						// .getValue());
 						if (successVO.applynotes != null) {
 							carryData.setText(successVO.applynotes);
 						}

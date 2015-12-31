@@ -9,15 +9,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
+import com.sft.adapter.AmountInCashistAdapter;
+import com.sft.adapter.CupontAdapter;
 import com.sft.adapter.IncomeListAdapter;
 import com.sft.common.Config;
 import com.sft.dialog.BonusDialog;
 import com.sft.util.JSONUtil;
+import com.sft.util.LogUtil;
+import com.sft.vo.AmountInCashVO;
 import com.sft.vo.IncomeVO;
+import com.sft.vo.MyCuponVO;
 import com.sft.vo.MyWalletVO;
 
 /**
@@ -28,7 +34,14 @@ import com.sft.vo.MyWalletVO;
  */
 public class MyWalletActivity extends BaseActivity {
 
+	// 积分收益
 	private final static String myWallet = "myWallet";
+	// 兑换券
+	private final static String myCoinCertificate = "myCoinCertificate";
+	// 现金额
+	private final static String myAmountInCash = "myAmountInCash";
+	private LinearLayout containOneBtnLl;
+	private LinearLayout containTwoBtnLl;
 	// 收益列表
 	private ListView incomeList;
 	// 我的零钱
@@ -50,17 +63,24 @@ public class MyWalletActivity extends BaseActivity {
 	private int pageCount = 10;
 	// 当前请求的条数
 	private int seqindex = 0;
-	//
-	private IncomeListAdapter adapter;
+	// 积分收益adapter
+	private IncomeListAdapter walletAdapter;
+	// 兑换券adapter
+	private CupontAdapter cupontAdapter;
+	// 现金额adapter
+	private AmountInCashistAdapter amountAdapter;
+	private String producttype;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		addView(R.layout.activity_my_wallet);
+		moneytype = getIntent().getStringExtra("moneytype");
 		initView();
 		initData();
 		setListener();
-		obtainWallet();
+		changeMoneyType();
+
 	}
 
 	@Override
@@ -70,28 +90,62 @@ public class MyWalletActivity extends BaseActivity {
 	}
 
 	private void initView() {
-		setTitleText(R.string.my_wallet);
+
 		showTitlebarText(BaseActivity.SHOW_RIGHT_TEXT);
+
+		containTwoBtnLl = (LinearLayout) findViewById(R.id.my_wallet_towbtn_ll);
+		containOneBtnLl = (LinearLayout) findViewById(R.id.my_wallet__onebtn_ll);
 
 		myChangeTv = (TextView) findViewById(R.id.my_wallet_change_tv);
 		inviteBtn = (Button) findViewById(R.id.my_wallet_invite_btn);
 		changeBtn = (Button) findViewById(R.id.my_wallet_change_btn);
+		exchangeBtn = (Button) findViewById(R.id.my_wallet_exchange_btn);
 		incomeList = (ListView) findViewById(R.id.my_wallet_listview);
 		invitCodeTv = (TextView) findViewById(R.id.my_wallet_invit_code_tv);
-		// showListTv = (TextView) findViewById(R.id.my_wallet_show_tv);
-		// showImage = (ImageView) findViewById(R.id.my_wallet_show_im);
+		unitTv = (TextView) findViewById(R.id.my_wallet_unit_tv);
+	}
+
+	private void changeMoneyType() {
+
+		if (Config.MoneyType.INTEGRAL_RETURN.getValue().equals(moneytype)) {
+			containTwoBtnLl.setVisibility(View.VISIBLE);
+			containOneBtnLl.setVisibility(View.GONE);
+			setTitleText(R.string.my_wallet);
+			unitTv.setText("YB");
+			producttype = Config.MoneyType.INTEGRAL_RETURN.getValue();
+			obtainWallet();
+		} else if (Config.MoneyType.COIN_CERTIFICATE.getValue().equals(
+				moneytype)) {
+			producttype = Config.MoneyType.COIN_CERTIFICATE.getValue();
+			setTitleText(R.string.my_cupon);
+			unitTv.setText("张");
+			containTwoBtnLl.setVisibility(View.GONE);
+			containOneBtnLl.setVisibility(View.VISIBLE);
+			obtainCoinCertificate();
+		} else if (Config.MoneyType.AMOUNT_IN_CASH.getValue().equals(moneytype)) {
+			producttype = Config.MoneyType.AMOUNT_IN_CASH.getValue();
+			setTitleText(R.string.my_cupon);
+			unitTv.setText("元");
+			exchangeBtn.setText("取现");
+			exchangeBtn.setEnabled(false);
+			containTwoBtnLl.setVisibility(View.GONE);
+			containOneBtnLl.setVisibility(View.VISIBLE);
+			obtainAmountInCash();
+		}
 	}
 
 	private void setListener() {
 		inviteBtn.setOnClickListener(this);
 		// showListTv.setOnClickListener(this);
 		changeBtn.setOnClickListener(this);
+		exchangeBtn.setOnClickListener(this);
 	}
 
 	private void initData() {
 		invitCodeTv.setText(app.userVO.getInvitationcode());
 	}
 
+	// 获取积分收益
 	private void obtainWallet() {
 		Map<String, String> paramsMap = new HashMap<String, String>();
 		paramsMap.put("userid", app.userVO.getUserid());
@@ -105,7 +159,44 @@ public class MyWalletActivity extends BaseActivity {
 				+ "api/v1/userinfo/getmywallet", paramsMap, 10000, headerMap);
 	}
 
+	// 获取兑换券
+	private void obtainCoinCertificate() {
+		Map<String, String> paramsMap = new HashMap<String, String>();
+		paramsMap.put("userid", app.userVO.getUserid());
+		paramsMap.put("userid", "562cb02e93d4ca260b40e544");
+
+		Map<String, String> headerMap = new HashMap<String, String>();
+		// headerMap
+		// .put("authorization",
+		// "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiI1NjJjYjAyZTkzZDRjYTI2MGI0MGU1NDQiLCJ0aW1lc3RhbXAiOiIyMDE1LTEwLTI1VDEwOjQwOjUwLjI1MVoiLCJhdWQiOiJibGFja2NhdGUiLCJpYXQiOjE0NDU3Njk2NTB9.ooSYJ5zJ7ZIsaVwK0o0UuFGMS_xJQhSNcBNEtNAB25w");
+		headerMap.put("authorization", app.userVO.getToken());
+		HttpSendUtils.httpGetSend(myCoinCertificate, this, Config.IP
+				+ "api/v1/userinfo/getmycupon", paramsMap, 10000, headerMap);
+	}
+
+	// 现金额
+	private void obtainAmountInCash() {
+		Map<String, String> paramsMap = new HashMap<String, String>();
+		paramsMap.put("userid", app.userVO.getUserid());
+		// paramsMap.put("userid", "562cb02e93d4ca260b40e544");
+		paramsMap.put("index", "1");
+		paramsMap.put("count", "10");
+
+		Map<String, String> headerMap = new HashMap<String, String>();
+		// headerMap
+		// .put("authorization",
+		// "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiI1NjJjYjAyZTkzZDRjYTI2MGI0MGU1NDQiLCJ0aW1lc3RhbXAiOiIyMDE1LTEwLTI1VDEwOjQwOjUwLjI1MVoiLCJhdWQiOiJibGFja2NhdGUiLCJpYXQiOjE0NDU3Njk2NTB9.ooSYJ5zJ7ZIsaVwK0o0UuFGMS_xJQhSNcBNEtNAB25w");
+		headerMap.put("authorization", app.userVO.getToken());
+		HttpSendUtils
+				.httpGetSend(myAmountInCash, this, Config.IP
+						+ "api/v1/userinfo/getmymoneylist", paramsMap, 10000,
+						headerMap);
+	}
+
 	private List<IncomeVO> dataList = new ArrayList<IncomeVO>();
+	private String moneytype;
+	private Button exchangeBtn;
+	private TextView unitTv;
 
 	@Override
 	public synchronized boolean doCallBack(String type, Object jsonString) {
@@ -121,12 +212,48 @@ public class MyWalletActivity extends BaseActivity {
 					myChangeTv.setText(walletVO.getWallet());
 
 					dataList.addAll(walletVO.getList());
-					if (adapter == null) {
-						adapter = new IncomeListAdapter(this, dataList);
+					if (walletAdapter == null) {
+						walletAdapter = new IncomeListAdapter(this, dataList,
+								producttype);
 					} else {
-						adapter.setData(dataList);
+						walletAdapter.setData(dataList);
 					}
-					incomeList.setAdapter(adapter);
+					incomeList.setAdapter(walletAdapter);
+				}
+			} else if (type.equals(myCoinCertificate)) {
+				if (dataArray != null) {
+					int length = dataArray.length();
+					LogUtil.print(length + "aaaaaa");
+					List<MyCuponVO> myCuponList = new ArrayList<MyCuponVO>();
+					for (int i = 0; i < length; i++) {
+
+						MyCuponVO myCuponVO = JSONUtil.toJavaBean(
+								MyCuponVO.class, dataArray.getJSONObject(i));
+						myCuponList.add(myCuponVO);
+						LogUtil.print(myCuponVO.getCreatetime());
+					}
+					myChangeTv.setText(myCuponList.size() + "");
+					if (cupontAdapter == null) {
+						cupontAdapter = new CupontAdapter(this, myCuponList);
+					} else {
+						cupontAdapter.setData(myCuponList);
+					}
+					incomeList.setAdapter(cupontAdapter);
+				}
+			} else if (type.equals(myAmountInCash)) {
+				if (data != null) {
+					AmountInCashVO amountInCashVO = JSONUtil.toJavaBean(
+							AmountInCashVO.class, data);
+
+					myChangeTv.setText(amountInCashVO.getMoney() + "");
+
+					if (amountAdapter == null) {
+						amountAdapter = new AmountInCashistAdapter(this,
+								amountInCashVO.getMoneylist());
+					} else {
+						amountAdapter.setData(amountInCashVO.getMoneylist());
+					}
+					incomeList.setAdapter(amountAdapter);
 				}
 			}
 		} catch (Exception e) {
@@ -155,11 +282,17 @@ public class MyWalletActivity extends BaseActivity {
 		// break;
 		case R.id.my_wallet_change_btn:
 			Intent intent = new Intent(this, MallActivity.class);
+			intent.putExtra("moneytype", moneytype);
 			startActivity(intent);
 			break;
 		case R.id.my_wallet_invite_btn:
 			BonusDialog dialog = new BonusDialog(this);
 			dialog.show();
+			break;
+		case R.id.my_wallet_exchange_btn:
+			Intent intent1 = new Intent(this, MallActivity.class);
+			intent1.putExtra("moneytype", moneytype);
+			startActivity(intent1);
 			break;
 		}
 	}

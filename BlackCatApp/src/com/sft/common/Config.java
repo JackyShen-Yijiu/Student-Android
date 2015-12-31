@@ -101,6 +101,21 @@ public class Config {
 		}
 	}
 
+	public enum MoneyType {
+		// 报考状态 0 积分收益；1 兑换券 ；2现金额
+		// coin certificate("1"), amount_in_cash("2")
+		INTEGRAL_RETURN("0"), COIN_CERTIFICATE("1"), AMOUNT_IN_CASH("2");
+		private String index;
+
+		private MoneyType(String index) {
+			this.index = index;
+		}
+
+		public String getValue() {
+			return index;
+		}
+	}
+
 	public enum SubjectStatu {
 		SUBJECT_NONE("0"), SUBJECT_ONE("1"), SUBJECT_THREE("3"), SUBJECT_TWO(
 				"2"), SUBJECT_FOUR("4");

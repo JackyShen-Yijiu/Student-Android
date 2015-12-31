@@ -17,13 +17,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="0"
             android:textColor="#ffffff"
             android:textSize="65dp" />
         <TextView
+            android:id="@+id/my_wallet_unit_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/my_change"
             android:layout_marginTop="60dp"
             android:textColor="#ffffff"
             android:textSize="38dp" />
@@ -112,6 +111,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/my_wallet_towbtn_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
@@ -142,6 +142,29 @@
             android:text="@string/change_commodity"
             android:textColor="@drawable/mywallet_invite_btn_text_bkground"
             android:textSize="15dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/my_wallet__onebtn_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:background="#f7f9fb"
+        android:orientation="horizontal"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:visibility="gone" >
+
+        <Button
+            android:id="@+id/my_wallet_exchange_btn"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:background="@color/app_main_color"
+            android:text="@string/exchange"
+            android:textColor="#fff"
+            android:textSize="15dp" />
+
     </LinearLayout>
 
 </LinearLayout>

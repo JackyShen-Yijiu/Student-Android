@@ -308,6 +308,8 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 			// 积分
 			if (app.isLogin) {
 				intent = new Intent(mContext, MyWalletActivity.class);
+				intent.putExtra("moneytype",
+						Config.MoneyType.INTEGRAL_RETURN.getValue());
 				mContext.startActivity(intent);
 			} else {
 				NoLoginDialog dialog = new NoLoginDialog(mContext);
@@ -316,9 +318,27 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 			break;
 		case R.id.fragment_menu_content_seccond:
 			// 兑换券
+			if (app.isLogin) {
+				intent = new Intent(mContext, MyWalletActivity.class);
+				intent.putExtra("moneytype",
+						Config.MoneyType.COIN_CERTIFICATE.getValue());
+				mContext.startActivity(intent);
+			} else {
+				NoLoginDialog dialog = new NoLoginDialog(mContext);
+				dialog.show();
+			}
 			break;
 		case R.id.fragment_menu_content_third:
 			// 现金
+			if (app.isLogin) {
+				intent = new Intent(mContext, MyWalletActivity.class);
+				intent.putExtra("moneytype",
+						Config.MoneyType.AMOUNT_IN_CASH.getValue());
+				mContext.startActivity(intent);
+			} else {
+				NoLoginDialog dialog = new NoLoginDialog(mContext);
+				dialog.show();
+			}
 			break;
 
 		default:
@@ -381,6 +401,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 	}
 
 	private void setData(MyMoneyVO myMoneyVO) {
+		app.currency = myMoneyVO.getWallet();
 		code.setText(myMoneyVO.getFcode());
 		if (TextUtils.isEmpty(myMoneyVO.getWallet())) {
 			doubiNumber.setText("0.00");

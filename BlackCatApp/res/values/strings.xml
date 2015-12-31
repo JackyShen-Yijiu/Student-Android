@@ -32,9 +32,9 @@
     <string name="school_detail">驾校详情</string>
     <string name="enroll">报名</string>
     <string name="enroll_again">重新报名</string>
-    <string name="yibu_favourable_class">一步优惠班</string>
-    <string name="yibu_procedure">一步流程</string>
-    <string name="yibu_superiority">一步优势</string>
+    <string name="yibu_favourable_class">一步特色班</string>
+    <string name="yibu_procedure">合作驾校</string>
+    <string name="yibu_superiority">平台优势</string>
     <string name="enroll_info_table">报名信息表</string>
     <string name="commit">提交</string>
     <string name="real_name">真实姓名</string>
@@ -155,8 +155,11 @@
     <string name="send">发送</string>
     <string name="change_shopping">兑换商品</string>
     <string name="my_wallet">我的积分</string>
+    <string name="my_cupon">兑换券</string>
+    <string name="amount">现金</string>
     <string name="my_change">YB</string>
     <string name="invite_friends">邀请好友</string>
+    <string name="exchange">兑换券兑换</string>
     <string name="deal_detail">交易详情</string>
     <string name="share_income">分享收益</string>
     <string name="invite_friends_get_bonus">一步学车设计了最先进的用户激励机制\n推荐用户和学员，可以长久的获利\n赶快去邀请小伙伴来用吧！\n记得让他们在注册时填写你的邀请码</string>
@@ -171,7 +174,7 @@
     <string name="no_comment">暂无评论</string>
     <string name="simple_sign">一句话签名</string>
     <string name="change_headpic">更换头像</string>
-    <string name="change_name">修改姓名</string>
+ <string name="change_name">修改姓名</string>
     <string name="change_nickname">修改昵称</string>
     <string name="change_personalized">修改个性签名</string>
     <string name="appointment">预约</string>
