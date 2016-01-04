@@ -34,6 +34,7 @@ import cn.sft.pull.OnItemClickListener;
 
 import com.sft.adapter.AppointmentCarCoachHoriListAdapter;
 import com.sft.adapter.AppointmentDetailStudentHoriListAdapter;
+import com.sft.blackcatapp.R;
 import com.sft.common.Config;
 import com.sft.common.Config.SubjectStatu;
 import com.sft.dialog.CustomDialog;

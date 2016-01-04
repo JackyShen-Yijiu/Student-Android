@@ -13,6 +13,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
+import com.sft.blackcatapp.R;
 import com.sft.util.DownLoadService;
 
 /**

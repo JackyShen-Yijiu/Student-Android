@@ -18,6 +18,7 @@ import cn.sft.baseactivity.util.HttpSendUtils;
 import com.sft.adapter.AmountInCashistAdapter;
 import com.sft.adapter.CupontAdapter;
 import com.sft.adapter.IncomeListAdapter;
+import com.sft.blackcatapp.R;
 import com.sft.common.Config;
 import com.sft.dialog.BonusDialog;
 import com.sft.util.JSONUtil;

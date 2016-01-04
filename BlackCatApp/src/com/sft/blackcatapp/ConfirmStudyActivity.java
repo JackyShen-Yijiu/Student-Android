@@ -17,6 +17,7 @@ import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.infinitescrollviewpager.BitmapManager;
 import cn.sft.infinitescrollviewpager.MyHandler;
 
+import com.sft.blackcatapp.R;
 import com.sft.common.Config;
 import com.sft.common.Config.AppointmentResult;
 import com.sft.common.Config.SubjectStatu;

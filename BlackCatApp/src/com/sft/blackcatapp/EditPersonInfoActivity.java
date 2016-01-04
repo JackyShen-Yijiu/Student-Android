@@ -3,6 +3,7 @@ package com.sft.blackcatapp;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.sft.blackcatapp.R;
 import com.sft.common.Config;
 
 import android.app.AlertDialog;

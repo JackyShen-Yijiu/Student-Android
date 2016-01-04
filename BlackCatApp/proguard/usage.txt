@@ -437,7 +437,6 @@ cn.sft.baseactivity.util.Util:
     public boolean isMobileNO(java.lang.String)
     public java.util.List isRunningService(int)
     public boolean isShowLogPrint()
-    public void setShowLogPrint(boolean)
     public void saveList(java.util.List,java.lang.String)
     public java.util.List readList(java.lang.String)
     public java.lang.String getMetaValue(java.lang.String)
@@ -491,7 +490,6 @@ cn.sft.baseactivity.util.l:
     public static boolean isMobileNO(java.lang.String)
     public final java.util.List isRunningService(int)
     public static boolean isShowLogPrint()
-    public static void setShowLogPrint(boolean)
     public final void saveList(java.util.List,java.lang.String)
     public final java.util.List readList(java.lang.String)
     public final java.lang.String getMetaValue(java.lang.String)
@@ -577,10 +575,8 @@ cn.sft.sqlhelper.DBHelper:
     public varargs int update(java.lang.Class,int,java.lang.String[])
     public varargs int update(java.lang.Class,cn.sft.sqlhelper.DBVO,java.lang.String[])
     public varargs int update(java.lang.Class,cn.sft.sqlhelper.DBVO,boolean,java.lang.String[])
-com.daimajia.swipe.SimpleSwipeListener
 com.daimajia.swipe.SwipeLayout:
     55:56:public SwipeLayout(android.content.Context)
-    92:93:public void addSwipeListener(com.daimajia.swipe.SwipeLayout$SwipeListener)
     96:97:public void removeSwipeListener(com.daimajia.swipe.SwipeLayout$SwipeListener)
     111:112:public void addSwipeDenier(com.daimajia.swipe.SwipeLayout$SwipeDenier)
     115:116:public void removeSwipeDenier(com.daimajia.swipe.SwipeLayout$SwipeDenier)
@@ -589,7 +585,6 @@ com.daimajia.swipe.SwipeLayout:
     163:165:public void addRevealListener(int[],com.daimajia.swipe.SwipeLayout$OnRevealListener)
     168:176:public void removeRevealListener(int,com.daimajia.swipe.SwipeLayout$OnRevealListener)
     179:184:public void removeAllRevealListeners(int)
-    656:659:public void addOnLayoutListener(com.daimajia.swipe.SwipeLayout$OnLayout)
     662:664:public void removeOnLayoutListener(com.daimajia.swipe.SwipeLayout$OnLayout)
     961:962:public void setSwipeEnabled(boolean)
     969:969:protected boolean insideAdapterView()
@@ -603,35 +598,68 @@ com.daimajia.swipe.SwipeLayout:
     1327:1331:public void toggle(boolean)
     1411:1412:public void setOnDoubleClickListener(com.daimajia.swipe.SwipeLayout$DoubleClickListener)
     1419:1420:private int dp2px(float)
-com.daimajia.swipe.adapters.ArraySwipeAdapter
-com.daimajia.swipe.adapters.BaseSwipeAdapter
-com.daimajia.swipe.adapters.CursorSwipeAdapter
-com.daimajia.swipe.adapters.SimpleCursorSwipeAdapter
+com.daimajia.swipe.adapters.ArraySwipeAdapter:
+    18:24:public ArraySwipeAdapter(android.content.Context,int)
+    18:29:public ArraySwipeAdapter(android.content.Context,int,int)
+    18:33:public ArraySwipeAdapter(android.content.Context,int,java.lang.Object[])
+    18:38:public ArraySwipeAdapter(android.content.Context,int,int,java.lang.Object[])
+    18:42:public ArraySwipeAdapter(android.content.Context,int,java.util.List)
+    18:47:public ArraySwipeAdapter(android.content.Context,int,int,java.util.List)
+    63:64:public void openItem(int)
+    68:69:public void closeItem(int)
+    73:74:public void closeAllExcept(com.daimajia.swipe.SwipeLayout)
+    78:78:public java.util.List getOpenItems()
+    83:83:public java.util.List getOpenLayouts()
+    88:89:public void removeShownLayouts(com.daimajia.swipe.SwipeLayout)
+    93:93:public boolean isOpen(int)
+    98:98:public com.daimajia.swipe.implments.SwipeItemMangerImpl$Mode getMode()
+    103:104:public void setMode(com.daimajia.swipe.implments.SwipeItemMangerImpl$Mode)
+com.daimajia.swipe.adapters.BaseSwipeAdapter:
+    14:16:public BaseSwipeAdapter()
+    public abstract int getSwipeLayoutResourceId(int)
+    59:60:public void openItem(int)
+    64:65:public void closeItem(int)
+    69:70:public void closeAllExcept(com.daimajia.swipe.SwipeLayout)
+    74:74:public java.util.List getOpenItems()
+    79:79:public java.util.List getOpenLayouts()
+    84:85:public void removeShownLayouts(com.daimajia.swipe.SwipeLayout)
+    89:89:public boolean isOpen(int)
+    94:94:public com.daimajia.swipe.implments.SwipeItemMangerImpl$Mode getMode()
+    99:100:public void setMode(com.daimajia.swipe.implments.SwipeItemMangerImpl$Mode)
+com.daimajia.swipe.adapters.CursorSwipeAdapter:
+    18:22:protected CursorSwipeAdapter(android.content.Context,android.database.Cursor,boolean)
+    18:26:protected CursorSwipeAdapter(android.content.Context,android.database.Cursor,int)
+    42:43:public void openItem(int)
+    47:48:public void closeItem(int)
+    52:53:public void closeAllExcept(com.daimajia.swipe.SwipeLayout)
+    57:57:public java.util.List getOpenItems()
+    62:62:public java.util.List getOpenLayouts()
+    67:68:public void removeShownLayouts(com.daimajia.swipe.SwipeLayout)
+    72:72:public boolean isOpen(int)
+    77:77:public com.daimajia.swipe.implments.SwipeItemMangerImpl$Mode getMode()
+    82:83:public void setMode(com.daimajia.swipe.implments.SwipeItemMangerImpl$Mode)
+com.daimajia.swipe.adapters.SimpleCursorSwipeAdapter:
+    18:22:protected SimpleCursorSwipeAdapter(android.content.Context,int,android.database.Cursor,java.lang.String[],int[],int)
+    18:27:protected SimpleCursorSwipeAdapter(android.content.Context,int,android.database.Cursor,java.lang.String[],int[])
+    43:44:public void openItem(int)
+    48:49:public void closeItem(int)
+    53:54:public void closeAllExcept(com.daimajia.swipe.SwipeLayout)
+    58:58:public java.util.List getOpenItems()
+    63:63:public java.util.List getOpenLayouts()
+    68:69:public void removeShownLayouts(com.daimajia.swipe.SwipeLayout)
+    73:73:public boolean isOpen(int)
+    78:78:public com.daimajia.swipe.implments.SwipeItemMangerImpl$Mode getMode()
+    83:84:public void setMode(com.daimajia.swipe.implments.SwipeItemMangerImpl$Mode)
 com.daimajia.swipe.implments.SwipeItemMangerImpl:
-    private com.daimajia.swipe.implments.SwipeItemMangerImpl$Mode mode
     public final int INVALID_POSITION
-    protected int mOpenPosition
-    protected java.util.Set mOpenPositions
-    protected java.util.Set mShownLayouts
-    protected android.widget.BaseAdapter mAdapter
     22:40:public SwipeItemMangerImpl(android.widget.BaseAdapter)
     47:47:public com.daimajia.swipe.implments.SwipeItemMangerImpl$Mode getMode()
     51:55:public void setMode(com.daimajia.swipe.implments.SwipeItemMangerImpl$Mode)
-    58:71:public void initialize(android.view.View,int)
-    74:84:public void updateConvertView(android.view.View,int)
-    87:87:private int getSwipeLayoutId(int)
     92:99:public void openItem(int)
     103:110:public void closeItem(int)
-    114:118:public void closeAllExcept(com.daimajia.swipe.SwipeLayout)
     122:123:public void removeShownLayouts(com.daimajia.swipe.SwipeLayout)
     127:130:public java.util.List getOpenItems()
     136:136:public java.util.List getOpenLayouts()
-    141:144:public boolean isOpen(int)
-    22:22:static synthetic com.daimajia.swipe.implments.SwipeItemMangerImpl$Mode access$0(com.daimajia.swipe.implments.SwipeItemMangerImpl)
-com.daimajia.swipe.implments.SwipeItemMangerImpl$OnLayoutListener
-com.daimajia.swipe.implments.SwipeItemMangerImpl$SwipeMemory
-com.daimajia.swipe.implments.SwipeItemMangerImpl$ValueBox
-com.daimajia.swipe.interfaces.SwipeAdapterInterface
 com.daimajia.swipe.interfaces.SwipeItemMangerInterface
 com.edmodo.cropper.CropImageView:
     public static final int DEFAULT_GUIDELINES
@@ -715,6 +743,144 @@ com.example.swiperefreshloadlistview.R$string:
 com.example.swiperefreshloadlistview.R$style
 com.example.swiperefreshloadlistview.R$styleable:
     59:59:public R$styleable()
+com.jeremyfeinstein.slidingmenu.lib.CanvasTransformerBuilder
+com.jeremyfeinstein.slidingmenu.lib.CanvasTransformerBuilder$1
+com.jeremyfeinstein.slidingmenu.lib.CanvasTransformerBuilder$2
+com.jeremyfeinstein.slidingmenu.lib.CanvasTransformerBuilder$3
+com.jeremyfeinstein.slidingmenu.lib.CanvasTransformerBuilder$4
+com.jeremyfeinstein.slidingmenu.lib.CanvasTransformerBuilder$5
+com.jeremyfeinstein.slidingmenu.lib.CanvasTransformerBuilder$6
+com.jeremyfeinstein.slidingmenu.lib.CustomViewAbove:
+    private static final java.lang.String TAG
+    private static final boolean DEBUG
+    private static final boolean USE_CACHE
+    private static final int MAX_SETTLE_DURATION
+    private static final int MIN_DISTANCE_FOR_FLING
+    private static final int INVALID_POINTER
+    266:267:public void setOnOpenedListener(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu$OnOpenedListener)
+    270:271:public void setOnClosedListener(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu$OnClosedListener)
+    286:289:public void addIgnoredView(android.view.View)
+    292:293:public void removeIgnoredView(android.view.View)
+    296:297:public void clearIgnoredViews()
+    329:329:public int getContentLeft()
+    354:360:public int getChildWidth(int)
+    365:365:public boolean isSlidingEnabled()
+    369:370:public void setSlidingEnabled(boolean)
+    379:380:void smoothScrollTo(int,int)
+    485:487:public void setAboveOffset(int)
+    575:575:public int getTouchMode()
+    913:930:protected boolean canScroll(android.view.View,boolean,int,int,int)
+com.jeremyfeinstein.slidingmenu.lib.CustomViewAbove$SimpleOnPageChangeListener:
+    150:150:public void onPageScrollStateChanged(int)
+com.jeremyfeinstein.slidingmenu.lib.CustomViewBehind:
+    private static final java.lang.String TAG
+    private static final int MARGIN_THRESHOLD
+    58:59:public void setMarginThreshold(int)
+    62:62:public int getMarginThreshold()
+    85:89:public void setSecondaryContent(android.view.View)
+    168:168:public int getMode()
+    176:176:public float getScrollScale()
+    185:187:public void setSecondaryShadowDrawable(android.graphics.drawable.Drawable)
+    417:426:public void setSelectedView(android.view.View)
+com.jeremyfeinstein.slidingmenu.lib.MenuInterface
+com.jeremyfeinstein.slidingmenu.lib.R:
+    9:9:public R()
+com.jeremyfeinstein.slidingmenu.lib.R$attr
+com.jeremyfeinstein.slidingmenu.lib.R$id:
+    public static final int fullscreen
+    public static final int left
+    public static final int margin
+    public static final int none
+    public static final int right
+    public static final int slidingmenumain
+    26:26:public R$id()
+com.jeremyfeinstein.slidingmenu.lib.R$layout:
+    35:35:public R$layout()
+com.jeremyfeinstein.slidingmenu.lib.R$styleable:
+    38:38:public R$styleable()
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu:
+    public static final int SLIDING_WINDOW
+    public static final int SLIDING_CONTENT
+    public static final int TOUCHMODE_MARGIN
+    public static final int TOUCHMODE_FULLSCREEN
+    public static final int TOUCHMODE_NONE
+    public static final int LEFT
+    public static final int RIGHT
+    public static final int LEFT_RIGHT
+    418:419:public void setBackgroundImage(int)
+    469:470:public void setSecondaryMenu(int)
+    479:481:public void setSecondaryMenu(android.view.View)
+    499:500:public void setSlidingEnabled(boolean)
+    508:508:public boolean isSlidingEnabled()
+    531:531:public int getMode()
+    542:553:public void setStatic(boolean)
+    559:560:public void showMenu()
+    577:578:public void showSecondaryMenu()
+    655:655:public int getBehindOffset()
+    695:696:public void setAboveOffset(int)
+    705:707:public void setAboveOffsetRes(int)
+    741:743:public void setBehindWidthRes(int)
+    751:751:public float getBehindScrollScale()
+    760:760:public int getTouchmodeMarginThreshold()
+    769:770:public void setTouchmodeMarginThreshold(int)
+    813:813:public int getTouchModeAbove()
+    881:883:public void setSecondaryShadowDrawable(int)
+    892:893:public void setSecondaryShadowDrawable(android.graphics.drawable.Drawable)
+    902:903:public void setShadowWidthRes(int)
+    953:954:public void setSelectedView(android.view.View)
+    974:975:public void setSelectorBitmap(android.graphics.Bitmap)
+    984:985:public void addIgnoredView(android.view.View)
+    994:995:public void removeIgnoredView(android.view.View)
+    1002:1003:public void clearIgnoredViews()
+    1014:1015:public void setOnOpenListener(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu$OnOpenListener)
+    1027:1028:public void setSecondaryOnOpenListner(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu$OnOpenListener)
+    1040:1041:public void setOnCloseListener(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu$OnCloseListener)
+    1052:1053:public void setOnOpenedListener(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu$OnOpenedListener)
+    1064:1065:public void setOnClosedListener(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu$OnClosedListener)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu$1:
+    public static final int POSITION_OPEN
+    public static final int POSITION_CLOSE
+    public static final int POSITION_SECONDARY_OPEN
+com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity
+com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivityBase
+com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivityHelper:
+    96:99:public void setSlidingActionBarEnabled(boolean)
+    150:152:public void setContentView(android.view.View)
+    193:194:public void showMenu()
+    201:202:public void showSecondaryMenu()
+com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity:
+    118:119:public void showContent()
+    125:126:public void showMenu()
+    132:133:public void showSecondaryMenu()
+    139:140:public void setSlidingActionBarEnabled(boolean)
+com.jeremyfeinstein.slidingmenu.lib.app.SlidingListActivity
+com.jeremyfeinstein.slidingmenu.lib.app.SlidingPreferenceActivity
+com.joooonho.R:
+    9:9:public R()
+com.joooonho.R$attr
+com.joooonho.R$styleable:
+    19:19:public R$styleable()
+com.joooonho.SelectableRoundedImageView:
+    public static final java.lang.String TAG
+    private static final int DEFAULT_BORDER_COLOR
+    207:207:public float getCornerRadius()
+    220:229:public void setCornerRadiiDP(float,float,float,float)
+    232:232:public float getBorderWidth()
+    242:250:public void setBorderWidthDP(float)
+    253:253:public int getBorderColor()
+    257:258:public void setBorderColor(int)
+    261:261:public android.content.res.ColorStateList getBorderColors()
+    265:275:public void setBorderColor(android.content.res.ColorStateList)
+    278:278:public boolean isOval()
+com.joooonho.SelectableRoundedImageView$SelectableRoundedCornerDrawable:
+    private static final java.lang.String TAG
+    private static final int DEFAULT_BORDER_COLOR
+    598:598:public float getBorderWidth()
+    607:607:public int getBorderColor()
+    611:612:public void setBorderColor(int)
+    615:615:public android.content.res.ColorStateList getBorderColors()
+    639:639:public boolean isOval()
+    647:647:public android.widget.ImageView$ScaleType getScaleType()
 com.loopj.android.http.AssertUtils:
     26:27:private AssertUtils()
 com.loopj.android.http.AsyncHttpClient:
@@ -770,9 +936,7 @@ com.loopj.android.http.AsyncHttpClient:
     798:798:public com.loopj.android.http.RequestHandle head(android.content.Context,java.lang.String,com.loopj.android.http.RequestParams,com.loopj.android.http.ResponseHandlerInterface)
     813:815:public com.loopj.android.http.RequestHandle head(android.content.Context,java.lang.String,org.apache.http.Header[],com.loopj.android.http.RequestParams,com.loopj.android.http.ResponseHandlerInterface)
     830:830:public com.loopj.android.http.RequestHandle get(java.lang.String,com.loopj.android.http.ResponseHandlerInterface)
-    842:842:public com.loopj.android.http.RequestHandle get(java.lang.String,com.loopj.android.http.RequestParams,com.loopj.android.http.ResponseHandlerInterface)
     855:855:public com.loopj.android.http.RequestHandle get(android.content.Context,java.lang.String,com.loopj.android.http.ResponseHandlerInterface)
-    868:868:public com.loopj.android.http.RequestHandle get(android.content.Context,java.lang.String,com.loopj.android.http.RequestParams,com.loopj.android.http.ResponseHandlerInterface)
     883:885:public com.loopj.android.http.RequestHandle get(android.content.Context,java.lang.String,org.apache.http.Header[],com.loopj.android.http.RequestParams,com.loopj.android.http.ResponseHandlerInterface)
     900:900:public com.loopj.android.http.RequestHandle post(java.lang.String,com.loopj.android.http.ResponseHandlerInterface)
     960:963:public com.loopj.android.http.RequestHandle post(android.content.Context,java.lang.String,org.apache.http.Header[],com.loopj.android.http.RequestParams,java.lang.String,com.loopj.android.http.ResponseHandlerInterface)
@@ -800,9 +964,6 @@ com.loopj.android.http.AsyncHttpResponseHandler:
     107:107:public java.net.URI getRequestURI()
     112:112:public org.apache.http.Header[] getRequestHeaders()
     174:175:public void setCharset(java.lang.String)
-    178:178:public java.lang.String getCharset()
-    185:186:public AsyncHttpResponseHandler()
-    371:381:protected void postRunnable(java.lang.Runnable)
 com.loopj.android.http.Base64:
     public static final int DEFAULT
     public static final int NO_PADDING
@@ -823,30 +984,28 @@ com.loopj.android.http.Base64$Decoder:
     private static final int EQUALS
 com.loopj.android.http.Base64$Encoder:
     public static final int LINE_GROUPS
-com.loopj.android.http.BaseJsonHttpResponseHandler
-com.loopj.android.http.BaseJsonHttpResponseHandler$1
-com.loopj.android.http.BaseJsonHttpResponseHandler$1$1
-com.loopj.android.http.BaseJsonHttpResponseHandler$1$2
-com.loopj.android.http.BaseJsonHttpResponseHandler$2
-com.loopj.android.http.BaseJsonHttpResponseHandler$2$1
-com.loopj.android.http.BaseJsonHttpResponseHandler$2$2
-com.loopj.android.http.BinaryHttpResponseHandler
+com.loopj.android.http.BaseJsonHttpResponseHandler:
+    private static final java.lang.String LOG_TAG
+    42:43:public BaseJsonHttpResponseHandler()
+    51:52:public BaseJsonHttpResponseHandler(java.lang.String)
+com.loopj.android.http.BinaryHttpResponseHandler:
+    private static final java.lang.String LOG_TAG
+    56:78:public BinaryHttpResponseHandler()
+    56:93:public BinaryHttpResponseHandler(java.lang.String[])
+    public abstract void onSuccess(int,org.apache.http.Header[],byte[])
+    public abstract void onFailure(int,org.apache.http.Header[],byte[],java.lang.Throwable)
 com.loopj.android.http.BuildConfig
-com.loopj.android.http.DataAsyncHttpResponseHandler
+com.loopj.android.http.DataAsyncHttpResponseHandler:
+    private static final java.lang.String LOG_TAG
+    protected static final int PROGRESS_DATA_MESSAGE
+    39:40:public DataAsyncHttpResponseHandler()
 com.loopj.android.http.FileAsyncHttpResponseHandler:
-    protected final boolean append
     private static final java.lang.String LOG_TAG
     44:45:public FileAsyncHttpResponseHandler(java.io.File)
     54:58:public FileAsyncHttpResponseHandler(java.io.File,boolean)
     66:69:public FileAsyncHttpResponseHandler(android.content.Context)
     77:77:public boolean deleteTargetFile()
     87:95:protected java.io.File getTemporaryFile(android.content.Context)
-    104:105:protected java.io.File getTargetFile()
-    110:111:public final void onFailure(int,org.apache.http.Header[],byte[],java.lang.Throwable)
-    public abstract void onFailure(int,org.apache.http.Header[],java.lang.Throwable,java.io.File)
-    126:127:public final void onSuccess(int,org.apache.http.Header[],byte[])
-    public abstract void onSuccess(int,org.apache.http.Header[],java.io.File)
-    140:161:protected byte[] getResponseData(org.apache.http.HttpEntity)
 com.loopj.android.http.JsonHttpResponseHandler
 com.loopj.android.http.JsonHttpResponseHandler$1
 com.loopj.android.http.JsonHttpResponseHandler$1$1
@@ -868,8 +1027,6 @@ com.loopj.android.http.PreemtiveAuthorizationHttpRequestInterceptor
 com.loopj.android.http.RangeFileAsyncHttpResponseHandler:
     private static final java.lang.String LOG_TAG
     40:50:public RangeFileAsyncHttpResponseHandler(java.io.File)
-    54:76:public void sendResponseMessage(org.apache.http.HttpResponse)
-    80:100:protected byte[] getResponseData(org.apache.http.HttpEntity)
 com.loopj.android.http.ResponseHandlerInterface:
     public abstract void sendSuccessMessage(int,org.apache.http.Header[],byte[])
     public abstract java.net.URI getRequestURI()
@@ -878,7 +1035,10 @@ com.loopj.android.http.ResponseHandlerInterface:
 com.loopj.android.http.RetryHandler:
     107:108:static void addClassToWhitelist(java.lang.Class)
     111:112:static void addClassToBlacklist(java.lang.Class)
-com.loopj.android.http.SaxAsyncHttpResponseHandler
+com.loopj.android.http.SaxAsyncHttpResponseHandler:
+    private static final java.lang.String LOG_TAG
+    66:81:public SaxAsyncHttpResponseHandler(org.xml.sax.helpers.DefaultHandler)
+    public abstract void onFailure(int,org.apache.http.Header[],org.xml.sax.helpers.DefaultHandler)
 com.loopj.android.http.SimpleMultipartEntity:
     private static final java.lang.String LOG_TAG
     private static final java.lang.String STR_CR_LF
@@ -888,7 +1048,10 @@ com.loopj.android.http.SimpleMultipartEntity:
 com.loopj.android.http.SimpleMultipartEntity$FilePart:
     184:187:public SimpleMultipartEntity$FilePart(com.loopj.android.http.SimpleMultipartEntity,java.lang.String,java.io.File,java.lang.String)
 com.loopj.android.http.SyncHttpClient
-com.loopj.android.http.TextHttpResponseHandler
+com.loopj.android.http.TextHttpResponseHandler:
+    private static final java.lang.String LOG_TAG
+    66:67:public TextHttpResponseHandler()
+    75:77:public TextHttpResponseHandler(java.lang.String)
 com.novell.sasl.client.DigestChallenge:
     public static final int QOP_AUTH
     public static final int QOP_AUTH_INT
@@ -1035,17 +1198,58 @@ com.sft.adapter.AppointmentDetailStudentHoriListAdapter:
     35:35:public boolean isLoadMore()
 com.sft.adapter.ChatListAdapter
 com.sft.adapter.ChatListAdapter$ViewHolder
+com.sft.adapter.MenuAdapter
+com.sft.adapter.MenuAdapter$ViewHolder
+com.sft.adapter.MyAdapter
+com.sft.adapter.MyAdapter$ViewHolder
 com.sft.adapter.SchoolDetailCoachHoriListAdapter:
     39:39:public boolean isLoadMore()
+com.sft.adapter.SchoolListAdapter:
+    52:52:public int getIndex()
+com.sft.api.ApiHttpClient:
+    public static final java.lang.String DELETE
+    public static final java.lang.String GET
+    public static final java.lang.String POST
+    public static final java.lang.String PUT
+    private static java.lang.String appCookie
+    22:23:public ApiHttpClient()
+    26:26:public static com.loopj.android.http.AsyncHttpClient getHttpClient()
+    30:31:public static void cancelAll(android.content.Context)
+    35:35:public static void clearUserCookies(android.content.Context)
+    42:43:public static void get(java.lang.String,com.loopj.android.http.AsyncHttpResponseHandler)
+    47:49:public static void getWithFullPath(java.lang.String,com.loopj.android.http.AsyncHttpResponseHandler)
+    53:55:public static void postWithFullPath(java.lang.String,com.loopj.android.http.RequestParams,com.loopj.android.http.AsyncHttpResponseHandler)
+    69:69:public static java.lang.String getApiUrl()
+    73:74:public static void getDirect(java.lang.String,com.loopj.android.http.AsyncHttpResponseHandler)
+    77:78:public static void post(java.lang.String,com.loopj.android.http.AsyncHttpResponseHandler)
+    82:83:public static void post(java.lang.String,com.loopj.android.http.RequestParams,com.loopj.android.http.AsyncHttpResponseHandler)
+    87:88:public static void postDirect(java.lang.String,com.loopj.android.http.RequestParams,com.loopj.android.http.AsyncHttpResponseHandler)
+    91:92:public static void put(java.lang.String,com.loopj.android.http.AsyncHttpResponseHandler)
+    96:97:public static void put(java.lang.String,com.loopj.android.http.RequestParams,com.loopj.android.http.AsyncHttpResponseHandler)
+    100:101:public static void setApiUrl(java.lang.String)
+    115:116:public static void setUserAgent(java.lang.String)
+    119:120:public static void setCookie(java.lang.String)
+    125:126:public static void cleanCookie()
+    129:131:public static void setHeader(java.lang.String[])
 com.sft.api.MessageManager
 com.sft.api.UserLogin:
     20:21:public void userLogin(java.lang.String,java.lang.String)
 com.sft.api.UserRegister
 com.sft.api.UserRegister$1
+com.sft.blackcatapp.ApplyActivity:
+    private static final java.lang.String realName
+    private static final java.lang.String contact
+    private static final java.lang.String enroll
+    private static final java.lang.String carStyleString
+    private static final java.lang.String firstSchool
+    private static final java.lang.String ycode
+    java.lang.String[] tempStrings
+    private static final java.lang.String classInfo
 com.sft.blackcatapp.AppointmentCarActivity:
     private static final java.lang.String coachCourse
     private static final java.lang.String appointmentCourse
     private static final java.lang.String favouriteCoach
+    private static final java.lang.String sameTimeStudent
 com.sft.blackcatapp.AppointmentDetailActivity:
     private static final java.lang.String sameTimeStudent
 com.sft.blackcatapp.AppointmentMoreCoachActivity:
@@ -1057,7 +1261,22 @@ com.sft.blackcatapp.BaseActivity:
     public static final int SHOW_RIGHT_BTN
     public static final int SHOW_LEFT_TEXT
     public static final int SHOW_RIGHT_TEXT
-    229:231:protected android.text.SpannableString setHint(java.lang.String)
+    254:257:protected android.text.SpannableString setHint(java.lang.String)
+com.sft.blackcatapp.BaseMainActivity:
+    public static final int SHOW_LEFT_BTN
+    public static final int SHOW_RIGHT_BTN
+    public static final int SHOW_LEFT_TEXT
+    public static final int SHOW_RIGHT_TEXT
+    public static java.lang.String action
+    170:171:protected void setTitleBarVisible(int)
+    191:196:protected varargs void setText(java.lang.String[])
+    199:206:protected varargs void setText(int[])
+    209:214:protected void setRightText(java.lang.String)
+    244:245:protected void setTitleText(int)
+    248:249:protected void setTitleText(java.lang.String)
+    252:256:protected void addView(int)
+    259:262:protected android.text.SpannableString setHint(java.lang.String)
+    266:269:protected android.text.SpannableString setHint(int)
 com.sft.blackcatapp.BuildConfig
 com.sft.blackcatapp.CallBackActivity:
     private static final java.lang.String callback
@@ -1129,12 +1348,16 @@ com.sft.blackcatapp.CropImageActivity:
 com.sft.blackcatapp.EditPersonInfoActivity:
     private static final java.lang.String chageGender
 com.sft.blackcatapp.EnrollActivity:
-    private static final java.lang.String realName
-    private static final java.lang.String idcard
-    private static final java.lang.String contact
-    private static final java.lang.String address
     private static final java.lang.String enroll
+    private android.widget.ImageView headPicIm
+    private android.widget.EditText nameEt
+    private android.widget.EditText cardEt
+    private android.widget.EditText contactEt
+    private android.widget.EditText addressEt
     private com.sft.dialog.CustomDialog successDialog
+    236:248:private java.lang.String checkEnrollInfo()
+    33:33:static synthetic cn.sft.baseactivity.util.Util access$0()
+com.sft.blackcatapp.EnrollActivity$MyEditChangedListener
 com.sft.blackcatapp.EnrollCarStyleActivity:
     private static final java.lang.String carStyle
 com.sft.blackcatapp.EnrollClassActivity:
@@ -1142,8 +1365,20 @@ com.sft.blackcatapp.EnrollClassActivity:
 com.sft.blackcatapp.EnrollCoachActivity:
     private static final java.lang.String schoolCoach
     private static final java.lang.String nearbyCoach
+com.sft.blackcatapp.EnrollNextActivity:
+    private static final java.lang.String realName
+    private static final java.lang.String idcard
+    private static final java.lang.String contact
+    private static final java.lang.String address
+    private static final java.lang.String enroll
+    private com.sft.dialog.CustomDialog successDialog
+    192:201:private void resizeDrawalbeLeftSize()
 com.sft.blackcatapp.EnrollSchoolActivity:
     private static final java.lang.String nearBySchool
+    private static final java.lang.String headlineNews
+com.sft.blackcatapp.EnrollSuccessActivity:
+    private static final java.lang.String applySuccess
+    private static final java.lang.String checkEnrollState
 com.sft.blackcatapp.EnrollVerifyActivity:
     private static final java.lang.String vertify
 com.sft.blackcatapp.FavouriteCoachActivity:
@@ -1154,16 +1389,21 @@ com.sft.blackcatapp.FindPasswordActivity:
     private static final java.lang.String obtainCode
     private static final java.lang.String changepassword
     private static final int codeTime
+com.sft.blackcatapp.IntroduceDetailsActivity
+com.sft.blackcatapp.IntroduceDetailsActivity$1
 com.sft.blackcatapp.LoginActivity:
     private static final java.lang.String login
     private static final java.lang.String version
     private static final java.lang.String qiniutoken
 com.sft.blackcatapp.MainActivity:
     private static final java.lang.String subjectContent
-    private static final java.lang.String headlineNews
     private static final java.lang.String coach
     private static final java.lang.String school
     private static final java.lang.String questionaddress
+    public android.widget.ImageView shade_left
+    public android.widget.ImageView shade_right
+    public static final int CHANNELREQUEST
+    public static final int CHANNELRESULT
 com.sft.blackcatapp.MallActivity:
     private static final java.lang.String headlineNews
 com.sft.blackcatapp.Manifest
@@ -1175,8 +1415,18 @@ com.sft.blackcatapp.MyCoachActivity:
     private static final java.lang.String myCoach
 com.sft.blackcatapp.MyWalletActivity:
     private static final java.lang.String myWallet
+    private static final java.lang.String myCoinCertificate
+    private static final java.lang.String myAmountInCash
+com.sft.blackcatapp.OldMainActivity:
+    private static final java.lang.String subjectContent
+    private static final java.lang.String headlineNews
+    private static final java.lang.String coach
+    private static final java.lang.String school
+    private static final java.lang.String questionaddress
 com.sft.blackcatapp.ProductOrderActivity:
     private static final java.lang.String buy
+com.sft.blackcatapp.ProductOrderSuccessActivity:
+    private android.widget.Button returnBtn
 com.sft.blackcatapp.R:
     10:10:public R()
 com.sft.blackcatapp.R$anim
@@ -1187,6 +1437,7 @@ com.sft.blackcatapp.R$dimen
 com.sft.blackcatapp.R$drawable
 com.sft.blackcatapp.R$id
 com.sft.blackcatapp.R$layout
+com.sft.blackcatapp.R$menu
 com.sft.blackcatapp.R$string
 com.sft.blackcatapp.R$style
 com.sft.blackcatapp.R$styleable:
@@ -1222,9 +1473,31 @@ com.sft.blackcatapp.R$styleable:
     public static final int MultipleTextViewGroup_textPaddingTop
     public static final int MultipleTextViewGroup_textSize
     public static final int MultipleTextViewGroup_textWordMargin
+    public static final int SelectableRoundedImageView_android_scaleType
+    public static final int SelectableRoundedImageView_sriv_border_color
+    public static final int SelectableRoundedImageView_sriv_border_width
+    public static final int SelectableRoundedImageView_sriv_left_bottom_corner_radius
+    public static final int SelectableRoundedImageView_sriv_left_top_corner_radius
+    public static final int SelectableRoundedImageView_sriv_oval
+    public static final int SelectableRoundedImageView_sriv_right_bottom_corner_radius
+    public static final int SelectableRoundedImageView_sriv_right_top_corner_radius
+    public static final int SlidingMenu_behindOffset
+    public static final int SlidingMenu_behindScrollScale
+    public static final int SlidingMenu_behindWidth
+    public static final int SlidingMenu_fadeDegree
+    public static final int SlidingMenu_fadeEnabled
+    public static final int SlidingMenu_mode
+    public static final int SlidingMenu_selectorDrawable
+    public static final int SlidingMenu_selectorEnabled
+    public static final int SlidingMenu_shadowDrawable
+    public static final int SlidingMenu_shadowWidth
+    public static final int SlidingMenu_touchModeAbove
+    public static final int SlidingMenu_touchModeBehind
+    public static final int SlidingMenu_viewAbove
+    public static final int SlidingMenu_viewBehind
     public static final int SwipeLayout_drag_edge
     public static final int SwipeLayout_show_mode
-    2051:2051:public R$styleable()
+    2582:2582:public R$styleable()
 com.sft.blackcatapp.RegisterActivity:
     private static final int codeTime
     private static final java.lang.String obtainCode
@@ -1237,24 +1510,96 @@ com.sft.blackcatapp.SchoolDetailActivity:
     private static final java.lang.String headLineNews
 com.sft.blackcatapp.SettingActivity:
     private static final java.lang.String changeTip
+    private android.widget.TextView rateTv
 com.sft.blackcatapp.StudentInfoActivity:
     private static final java.lang.String myCoach
     private static final java.lang.String studentDetail
     private static final java.lang.String coachComment
 com.sft.blackcatapp.SubjectEnrollActivity:
     private static final java.lang.String checkEnrollState
+    private android.widget.LinearLayout twoLayout
+    private android.widget.LinearLayout threeLayout
+    private android.widget.RelativeLayout libraryBtn
+    private android.widget.RelativeLayout examBtn
+    private android.widget.RelativeLayout myFaultBtn
+    private android.widget.RelativeLayout walletBtn
+    private android.widget.RelativeLayout messageBtn
+    private android.widget.RelativeLayout myBtn
+    private android.widget.ImageView bottomProgress
+    private android.widget.ImageView car
+com.sft.blackcatapp.SubjectFourActivity:
+    private android.widget.LinearLayout twoLayout
+    private android.widget.LinearLayout threeLayout
+    private android.widget.RelativeLayout libraryBtn
+    private android.widget.RelativeLayout examBtn
+    private android.widget.RelativeLayout myFaultBtn
+    private android.widget.RelativeLayout walletBtn
+    private android.widget.RelativeLayout messageBtn
+    private android.widget.RelativeLayout myBtn
+    112:118:private void resizeLayout()
+    121:127:private void setListener()
+com.sft.blackcatapp.SubjectOneActivity:
+    private android.widget.LinearLayout twoLayout
+    private android.widget.LinearLayout threeLayout
+    private android.widget.RelativeLayout libraryBtn
+    private android.widget.RelativeLayout examBtn
+    private android.widget.RelativeLayout myFaultBtn
+    private android.widget.RelativeLayout walletBtn
+    private android.widget.RelativeLayout messageBtn
+    private android.widget.RelativeLayout myBtn
+    105:111:private void resizeLayout()
+    114:120:private void setListener()
 com.sft.blackcatapp.SubjectThreeActivity:
     private static final java.lang.String checkEnrollState_my
     private static final java.lang.String checkEnrollState_car
+    private android.widget.LinearLayout twoLayout
+    private android.widget.LinearLayout threeLayout
+    private android.widget.RelativeLayout approintmentBtn
+    private android.widget.RelativeLayout approintmentCarBtn
+    private android.widget.RelativeLayout courseBtn
+    private android.widget.RelativeLayout walletBtn
+    private android.widget.RelativeLayout messageBtn
+    private android.widget.RelativeLayout myBtn
+    private android.widget.TextView appointmentText
+    private android.widget.TextView appointmentCarText
+    private android.widget.TextView courseText
+    127:133:private void resizeLayout()
+    136:142:private void setListener()
 com.sft.blackcatapp.SubjectTwoActivity:
     private static final java.lang.String checkEnrollState_my
     private static final java.lang.String checkEnrollState_car
+    private android.widget.LinearLayout twoLayout
+    private android.widget.LinearLayout threeLayout
+    private android.widget.RelativeLayout approintmentBtn
+    private android.widget.RelativeLayout approintmentCarBtn
+    private android.widget.RelativeLayout courseBtn
+    private android.widget.RelativeLayout messageBtn
+    private android.widget.RelativeLayout myBtn
+    private android.widget.TextView appointmentText
+    private android.widget.TextView appointmentCarText
+    private android.widget.TextView courseText
+    127:133:private void resizeLayout()
+    136:142:private void setListener()
+com.sft.blackcatapp.TestingMsgActivity:
+    private static final java.lang.String enroll
+    private android.widget.EditText nameEt
+    private android.widget.EditText cardEt
+    private android.widget.EditText contactEt
+    private com.sft.dialog.CustomDialog successDialog
+    37:37:static synthetic cn.sft.baseactivity.util.Util access$0()
+com.sft.blackcatapp.TestingMsgActivity$MyEditChangedListener
+com.sft.blackcatapp.TestingPhoneActivity:
+    private static final int codeTime
+    private static final java.lang.String obtainCode
+    private static final java.lang.String register
 com.sft.blackcatapp.WelcomeActivity:
     private static final java.lang.String login
     private static final java.lang.String version
     private static final java.lang.String qiniutoken
+com.sft.blackcatapp.YiBuIntroduceActivity:
+    private static final java.lang.String checkEnrollState
 com.sft.common.BlackCatApplication:
-    84:100:protected java.lang.String getAppName(int)
+    95:110:protected java.lang.String getAppName(int)
 com.sft.common.Config:
     public static final java.lang.String UMENG_APPKEY
     public static final java.lang.String UMENG_CHANNELID
@@ -1266,6 +1611,7 @@ com.sft.common.Config:
     public static final java.lang.String LAST_LOGIN_PASSWORD
     public static final java.lang.String USER_AUTO_LOGIN
     public static final java.lang.String USER_CITY
+    public static final java.lang.String USER_ENROLL_INFO
     public static final java.lang.String CHAT_HEAD_RUL
     public static final java.lang.String CHAT_NICK_NAME
     public static final java.lang.String CHAT_USERID
@@ -1276,6 +1622,7 @@ com.sft.common.Config:
     public static final java.lang.String CHAT_USERID_NOANSWER
     public static final java.lang.String SYSTEM_PUSH
     7:7:public Config()
+com.sft.common.MenuInfo
 com.sft.db.DbOpenHelper:
     private static final int DATABASE_VERSION
     private static final java.lang.String USERNAME_TABLE_CREATE
@@ -1725,6 +2072,14 @@ com.sft.emchatlib.R$string:
     public static final int you_are_group
     14:14:public R$string()
 com.sft.emchatlib.R$style
+com.sft.fragment.MenuFragment:
+    private static final java.lang.String mymoney
+com.sft.fragment.SubjectThreeFragment:
+    private static final java.lang.String checkEnrollState_my
+    private static final java.lang.String checkEnrollState_car
+com.sft.fragment.SubjectTwoFragment:
+    private static final java.lang.String checkEnrollState_my
+    private static final java.lang.String checkEnrollState_car
 com.sft.library.DemoHXSDKHelper:
     private static final java.lang.String TAG
     private java.util.Map contactList
@@ -1775,6 +2130,10 @@ com.sft.model.HXSDKModel:
 com.sft.receiver.PushReceiver:
     private static final java.lang.String TAG
     private static final java.lang.String appointmentDetail
+com.sft.util.CommonUtil:
+    10:10:public CommonUtil()
+    14:16:public static final int getWindowsWidth(android.app.Activity)
+    31:32:public static int px2dip(android.content.Context,float)
 com.sft.util.DownFileThread:
     public static final int DOWNLOAD_COMPLETE
     public static final int DOWNLOAD_FAIL
@@ -1784,8 +2143,14 @@ com.sft.util.DownLoadService:
     private static final int DOWNLOAD_COMPLETE
     private static final int DOWNLOAD_FAIL
 com.sft.util.JSONUtil:
-    19:19:public JSONUtil()
-    41:41:public static java.lang.String toJsonString(java.lang.Object)
+    21:21:public JSONUtil()
+    43:43:public static java.lang.String toJsonString(java.lang.Object)
+com.sft.util.LogUtil:
+    5:5:public LogUtil()
+    9:12:public static void i(java.lang.String,java.lang.String)
+    15:18:public static void i(java.lang.Object,java.lang.String)
+    27:30:public static void e(java.lang.String,java.lang.String)
+    33:36:public static void e(java.lang.Object,java.lang.String)
 com.sft.util.MyNotification:
     public static final int DOWNLOAD_COMPLETE
     public static final int DOWNLOAD_FAIL
@@ -1795,6 +2160,11 @@ com.sft.util.MyNotification:
     161:162:public void removeNotification()
 com.sft.util.PathUtil:
     14:14:public PathUtil()
+com.sft.util.SharedPreferencesUtil:
+    private static final java.lang.String FILE_NAME
+    6:6:public SharedPreferencesUtil()
+    41:45:public static void putInt(android.content.Context,java.lang.String,int)
+    48:51:public static int getInt(android.content.Context,java.lang.String,int)
 com.sft.util.Util:
     22:22:public Util()
 com.sft.util.Util$EnrollInfoChangedListener:
@@ -1817,6 +2187,21 @@ com.sft.video.LightnessController:
     14:22:public static boolean isAutoBrightness(android.app.Activity)
     44:47:public static void stopAutoBrightness(android.app.Activity)
     51:54:public static void startAutoBrightness(android.app.Activity)
+com.sft.view.ApplyClassTypeLayout:
+    48:49:public void setSelectClass(com.sft.vo.ClassVO)
+    52:52:public com.sft.vo.ClassVO getSelectClass()
+com.sft.view.ApplyClassTypeRowLayout:
+    public static final int selected
+    public static final int noSelected
+    public static final int over
+com.sft.view.ColumnHorizontalScrollView:
+    22:28:public ColumnHorizontalScrollView(android.content.Context)
+    78:85:public void setParam(android.app.Activity,int,android.view.View,android.widget.ImageView,android.widget.ImageView,android.view.View,android.view.View)
+com.sft.view.NoScrollViewPager:
+    private boolean canScroll
+    23:35:public NoScrollViewPager(android.content.Context)
+    28:28:public boolean isCanScroll()
+    32:33:public void setCanScroll(boolean)
 com.sft.viewutil.AppointmentCarTimeLayout:
     public static final int selected
     public static final int noSelected
@@ -1834,8 +2219,8 @@ com.sft.viewutil.MultipleTextViewGroup:
 com.sft.viewutil.MyScrollView:
     android.view.View$OnTouchListener mGestureListener
 com.sft.viewutil.ScrollTimeLayout:
-    80:81:public void setSelectCourseList(java.util.List)
-    84:85:public void setColumn(int)
+    81:82:public void setSelectCourseList(java.util.List)
+    85:86:public void setColumn(int)
 com.sft.viewutil.ZProgressHUD:
     87:88:public void dismissWithSuccess()
     101:108:public void dismissWithSuccess(java.lang.String,int)
@@ -1943,10 +2328,10 @@ com.squareup.picasso.PicassoDrawable:
     private static final float FADE_DURATION
 com.squareup.picasso.PicassoExecutorService:
     private static final int DEFAULT_THREAD_COUNT
-com.squareup.picasso.RemoteViewsAction
+com.squareup.picasso.RemoteViewsAction:
+    35:39:RemoteViewsAction(com.squareup.picasso.Picasso,com.squareup.picasso.Request,android.widget.RemoteViews,int,int,boolean,java.lang.String,java.lang.Object)
 com.squareup.picasso.RemoteViewsAction$AppWidgetAction
 com.squareup.picasso.RemoteViewsAction$NotificationAction
-com.squareup.picasso.RemoteViewsAction$RemoteViewsTarget
 com.squareup.picasso.Request:
     185:185:public com.squareup.picasso.Request$Builder buildUpon()
 com.squareup.picasso.Request$Builder:
@@ -2052,6 +2437,21 @@ com.squareup.picasso.Utils$BitmapHoneycombMR1:
     413:413:private Utils$BitmapHoneycombMR1()
 com.squareup.picasso.Utils$OkHttpLoaderCreator:
     419:419:private Utils$OkHttpLoaderCreator()
+com.tandong.swichlayout.BaseAnimViewS
+com.tandong.swichlayout.BaseEffects
+com.tandong.swichlayout.FlipAnimation
+com.tandong.swichlayout.FlipAnimation$InterpolatedTimeListener
+com.tandong.swichlayout.R
+com.tandong.swichlayout.R$dimen
+com.tandong.swichlayout.R$drawable
+com.tandong.swichlayout.R$id
+com.tandong.swichlayout.R$menu
+com.tandong.swichlayout.R$string
+com.tandong.swichlayout.R$style
+com.tandong.swichlayout.SwichLayoutInterFace
+com.tandong.swichlayout.SwitchLayout
+com.tandong.swichlayout.SwitchLayout$1
+com.tandong.swichlayout.SwitchLayout$2
 com.umeng.analytics.AnalyticsConfig:
     9:9:public AnalyticsConfig()
     24:25:public static void enableEncrypt(boolean)
@@ -2069,7 +2469,6 @@ com.umeng.analytics.MobclickAgent:
     84:84:public static com.umeng.analytics.d getAgent()
     94:101:public static void setOpenGLContext(javax.microedition.khronos.opengles.GL10)
     109:110:public static void openActivityDurationTrack(boolean)
-    118:123:public static void onPageStart(java.lang.String)
     131:136:public static void onPageEnd(java.lang.String)
     145:147:public static void setDebugMode(boolean)
     182:196:public static void onResume(android.content.Context,java.lang.String,java.lang.String)
@@ -2134,7 +2533,6 @@ com.umeng.analytics.b:
     13:13:public b()
     80:84:public static byte[] b(byte[],byte[])
 com.umeng.analytics.d:
-    54:61:void a(java.lang.String)
     64:71:void b(java.lang.String)
     74:75:public void a(com.umeng.analytics.c)
     78:79:public void a(int)

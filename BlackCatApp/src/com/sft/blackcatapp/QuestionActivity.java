@@ -11,6 +11,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebSettings.PluginState;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import com.sft.blackcatapp.R;
 
 /**
  * 试题

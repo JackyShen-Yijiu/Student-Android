@@ -6,6 +6,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
+import com.sft.blackcatapp.R;
 
 public class IntroduceDetailsActivity extends BaseActivity {
 

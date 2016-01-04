@@ -15,6 +15,7 @@ import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.infinitescrollviewpager.BitMapURLExcepteionListner;
 
 import com.sft.adapter.MallProductAdapter;
+import com.sft.blackcatapp.R;
 import com.sft.common.Config;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;

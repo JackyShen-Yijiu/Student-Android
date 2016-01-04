@@ -23,6 +23,7 @@ import android.widget.TextView;
 import cn.jpush.android.api.JPushInterface;
 import cn.sft.listener.ICallBack;
 
+import com.sft.blackcatapp.R;
 import com.sft.common.BlackCatApplication;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.CarModelVO;

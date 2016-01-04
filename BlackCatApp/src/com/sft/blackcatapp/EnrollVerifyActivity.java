@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.sft.blackcatapp.R;
 import com.sft.common.Config;
 import com.sft.dialog.CustomDialog;
 import com.sft.viewutil.ZProgressHUD;

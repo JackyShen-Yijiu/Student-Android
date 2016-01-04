@@ -19,6 +19,7 @@ import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.infinitescrollviewpager.MyHandler;
 
 import com.sft.api.UserLogin;
+import com.sft.blackcatapp.R;
 import com.sft.common.Config;
 import com.sft.listener.EMLoginListener;
 import com.sft.util.DownLoadService;

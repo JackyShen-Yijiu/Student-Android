@@ -16,6 +16,7 @@ import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
 import com.sft.adapter.CoachListAdapter;
+import com.sft.blackcatapp.R;
 import com.sft.common.Config;
 import com.sft.listener.AdapterRefreshListener;
 import com.sft.listener.OnTabActivityResultListener;

@@ -32,6 +32,7 @@ import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.sft.adapter.AppointmentDetailStudentHoriListAdapter;
+import com.sft.blackcatapp.R;
 import com.sft.common.Config;
 import com.sft.common.Config.AppointmentResult;
 import com.sft.common.Config.UserType;

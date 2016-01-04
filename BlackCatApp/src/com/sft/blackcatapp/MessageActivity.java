@@ -12,6 +12,7 @@ import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMConversation;
 import com.easemob.chat.EMConversation.EMConversationType;
 import com.easemob.chat.EMMessage;
+import com.sft.blackcatapp.R;
 import com.sft.common.Config;
 import com.sft.emchat.ChatAllHistoryAdapter;
 import com.sft.vo.PushInnerVO;

@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
+import com.sft.blackcatapp.R;
 import com.sft.common.Config;
 import com.sft.viewutil.ZProgressHUD;
 

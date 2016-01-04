@@ -9,6 +9,7 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ProgressBar;
 
+import com.sft.blackcatapp.R;
 import com.sft.common.Config;
 
 /**

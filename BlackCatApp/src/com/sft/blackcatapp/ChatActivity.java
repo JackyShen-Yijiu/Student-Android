@@ -26,6 +26,7 @@ import com.easemob.util.PathUtil;
 import com.easemob.util.VoiceRecorder;
 import com.sft.Utils.CommonUtils;
 import com.sft.Utils.HXSDKHelper;
+import com.sft.blackcatapp.R;
 import com.sft.common.Config;
 import com.sft.common.Config.UserType;
 import com.sft.emchat.MessageAdapter;

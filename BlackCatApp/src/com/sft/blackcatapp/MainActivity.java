@@ -35,6 +35,7 @@ import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.MapView;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.sft.adapter.HomePageAdapter;
+import com.sft.blackcatapp.R;
 import com.sft.common.BlackCatApplication;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;

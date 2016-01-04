@@ -25,6 +25,7 @@ import cn.sft.baseactivity.util.Util;
 import cn.sft.listener.ICallBack;
 
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
+import com.sft.blackcatapp.R;
 import com.sft.common.BlackCatApplication;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.CarModelVO;

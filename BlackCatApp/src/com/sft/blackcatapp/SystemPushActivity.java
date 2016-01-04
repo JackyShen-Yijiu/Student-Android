@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.easemob.chat.EMConversation;
 import com.sft.adapter.SystemPushAdapter;
+import com.sft.blackcatapp.R;
 import com.sft.common.Config;
 import com.sft.vo.PushInnerVO;
 

@@ -33,6 +33,7 @@ import cn.sft.pull.LoadMoreView.LoadMoreListener;
 import cn.sft.pull.OnItemClickListener;
 
 import com.sft.adapter.SchoolDetailCoachHoriListAdapter;
+import com.sft.blackcatapp.R;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
 import com.sft.dialog.EnrollSelectConfilctDialog;

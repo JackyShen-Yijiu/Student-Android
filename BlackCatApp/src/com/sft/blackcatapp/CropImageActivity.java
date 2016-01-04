@@ -36,6 +36,7 @@ import cn.sft.infinitescrollviewpager.CropRoundView;
 
 import com.edmodo.cropper.CropImageView;
 import com.edmodo.cropper.PreviewListener;
+import com.sft.blackcatapp.R;
 import com.sft.common.Config;
 import com.sft.util.Util;
 import com.sft.viewutil.ZProgressHUD;
