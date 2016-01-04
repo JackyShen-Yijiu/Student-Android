@@ -1,7 +1,5 @@
 package com.sft.blackcatapp;
 
-import com.sft.util.DownLoadService;
-
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
 import android.app.AlertDialog;
@@ -10,7 +8,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
+
+import com.sft.blackcatapp.R;
+import com.sft.util.DownLoadService;
 
 /**
  * 关于我们
@@ -20,17 +24,19 @@ import android.widget.TextView;
  */
 public class AboutUsActivity extends BaseActivity {
 
-	// 版本
-	private TextView versionTv;
-	// 服务协议
-	private TextView protocalTv;
+	private String url = null;
+	private WebView webview;
+
+	private ProgressBar progress;
+
+	private WebSettings settings;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		addView(R.layout.activity_about_us);
 		initView();
-		setListener();
+		initData();
 		showDialog();
 	}
 
@@ -44,18 +50,25 @@ public class AboutUsActivity extends BaseActivity {
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setTitle("发现新版本");
 			builder.setMessage(getString(R.string.app_name) + "有新版本啦！");
-			builder.setPositiveButton("立即更新", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int whichButton) {
-					startService(new Intent(AboutUsActivity.this, DownLoadService.class).putExtra("url",
-							app.versionVO.getDownloadUrl()));
-					dialog.dismiss();
-				}
-			});
-			builder.setNegativeButton("以后再说", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int whichButton) {
-					dialog.dismiss();
-				}
-			});
+			builder.setPositiveButton("立即更新",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog,
+								int whichButton) {
+							startService(new Intent(AboutUsActivity.this,
+									DownLoadService.class).putExtra("url",
+									app.versionVO.getDownloadUrl()));
+							dialog.dismiss();
+						}
+					});
+			builder.setNegativeButton("以后再说",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog,
+								int whichButton) {
+							dialog.dismiss();
+						}
+					});
 
 			builder.create().show();
 		}
@@ -64,8 +77,10 @@ public class AboutUsActivity extends BaseActivity {
 	private boolean isMyServiceRunning() {
 		util.print(DownLoadService.class.getName());
 		ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-		for (RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-			if (DownLoadService.class.getName().equals(service.service.getClassName())) {
+		for (RunningServiceInfo service : manager
+				.getRunningServices(Integer.MAX_VALUE)) {
+			if (DownLoadService.class.getName().equals(
+					service.service.getClassName())) {
 				return true;
 			}
 		}
@@ -78,20 +93,26 @@ public class AboutUsActivity extends BaseActivity {
 		super.onResume();
 	}
 
-	private void initView() {
-		setTitleText(R.string.about_us);
+	private void initData() {
 
-		versionTv = (TextView) findViewById(R.id.aboutus_version_tv);
-		protocalTv = (TextView) findViewById(R.id.aboutus_protocal_tv);
+		webview.setWebViewClient(new WebViewClient() {
+			@Override
+			public void onPageFinished(WebView view, String url) {
+				// 页面加载完成时，回调
+				progress.setVisibility(View.GONE);
+				super.onPageFinished(view, url);
+			}
+		});
 
-		findViewById(R.id.aboutus_im).getLayoutParams().height = (int) (screenHeight * 0.23f);
+		settings = webview.getSettings();
+		settings.setUseWideViewPort(false);
+		settings.setJavaScriptEnabled(true);
 
-		versionTv.setText("V" + util.getAppVersion());
+		settings.setBuiltInZoomControls(false);
+		settings.setSupportZoom(false);
+		settings.setDisplayZoomControls(false);
 
-	}
-
-	private void setListener() {
-		protocalTv.setOnClickListener(this);
+		webview.loadUrl("http://www.yibuxueche.com/about.html?ver=1.1");
 	}
 
 	@Override
@@ -103,19 +124,15 @@ public class AboutUsActivity extends BaseActivity {
 		case R.id.base_left_btn:
 			finish();
 			break;
-		case R.id.aboutus_protocal_tv:
-			Intent intent = new Intent(this, TermsActivity.class);
-			startActivity(intent);
-			break;
 		}
 	}
 
-	@Override
-	public void forOperResult(Intent intent) {
-		if (intent.getBooleanExtra("newVersion", false)) {
-			Intent service = new Intent(this, DownLoadService.class);
-			service.putExtra("url", app.versionVO.getDownloadUrl());
-			startActivity(service);
-		}
+	private void initView() {
+		setTitleText(R.string.about_us);
+
+		webview = (WebView) findViewById(R.id.yibu_introduce_webview);
+		progress = (ProgressBar) findViewById(R.id.yibu_introduce_progress);
+
 	}
+
 }

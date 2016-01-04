@@ -3,22 +3,25 @@ package com.sft.blackcatapp;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.sft.api.UserLogin;
-import com.sft.common.Config;
-import com.sft.listener.EMLoginListener;
-import com.sft.util.JSONUtil;
-import com.sft.viewutil.ZProgressHUD;
-import com.sft.vo.UserVO;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.baseactivity.util.MyHandler;
+
+import com.sft.api.UserLogin;
+import com.sft.common.Config;
+import com.sft.listener.EMLoginListener;
+import com.sft.util.CommonUtil;
+import com.sft.util.JSONUtil;
+import com.sft.viewutil.ZProgressHUD;
+import com.sft.vo.UserVO;
 
 /**
  * 注册界面
@@ -45,6 +48,8 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 	private Button sendCodeBtn;
 	// 注册按钮
 	private Button registerBtn;
+	// 用户协议
+	private TextView protocol;
 
 	// 获取验证码
 	private final static String obtainCode = "obtainCode";
@@ -68,6 +73,8 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 	private void initView() {
 		setTitleText(R.string.register);
 
+		protocol = (TextView) findViewById(R.id.register_protocol_tv);
+
 		phoneEt = (EditText) findViewById(R.id.register_phone_et);
 		codeEt = (EditText) findViewById(R.id.register_authcode_et);
 		passwordEt = (EditText) findViewById(R.id.register_password_et);
@@ -86,6 +93,7 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 	private void setListener() {
 		sendCodeBtn.setOnClickListener(this);
 		registerBtn.setOnClickListener(this);
+		protocol.setOnClickListener(this);
 	}
 
 	@Override
@@ -105,6 +113,11 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 		case R.id.register_code_btn:
 			obtainCode();
 			break;
+		case R.id.register_protocol_tv:
+			Intent intent = new Intent(this, TermsActivity.class);
+			startActivity(intent);
+			break;
+
 		}
 	}
 
@@ -119,7 +132,8 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 			paramMap.put("usertype", "1");
 			paramMap.put("password", util.MD5(passwordEt.getText().toString()));
 			paramMap.put("referrerCode", invitationEt.getText().toString());
-			HttpSendUtils.httpPostSend("register", this, Config.IP + "api/v1/userinfo/signup", paramMap);
+			HttpSendUtils.httpPostSend("register", this, Config.IP
+					+ "api/v1/userinfo/signup", paramMap);
 		} else {
 			ZProgressHUD.getInstance(this).show();
 			ZProgressHUD.getInstance(this).dismissWithFailure(checkResult);
@@ -130,6 +144,10 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 		String phone = phoneEt.getText().toString();
 		if (TextUtils.isEmpty(phone)) {
 			return "手机号为空";
+		} else {
+			if (!CommonUtil.isMobile(phone)) {
+				return "手机号格式不正确";
+			}
 		}
 		if (phone.length() != 11) {
 			return "请输入正确的手机号";
@@ -153,7 +171,8 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 		String phone = phoneEt.getText().toString();
 		if (!TextUtils.isEmpty(phone)) {
 			if (phone.length() == 11) {
-				HttpSendUtils.httpGetSend("obtainCode", this, Config.IP + "api/v1/code/" + phone);
+				HttpSendUtils.httpGetSend("obtainCode", this, Config.IP
+						+ "api/v1/code/" + phone);
 			} else {
 				ZProgressHUD.getInstance(this).show();
 				ZProgressHUD.getInstance(this).dismissWithFailure("请输入正确的手机号");
@@ -185,6 +204,7 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 		if (super.doCallBack(type, jsonString)) {
 			if (type.equals(register)) {
 				registerBtn.setEnabled(true);
+
 			}
 			return true;
 		}
@@ -193,27 +213,34 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 			codeHandler = new MyHandler(true, 1000) {
 				private int time = codeTime;
 
+				@Override
 				public void run() {
 					if (time-- > 0) {
 						sendCodeBtn.setText("剩余(" + time + "s)");
-						sendCodeBtn.setBackgroundColor(Color.parseColor("#cccccc"));
+						sendCodeBtn.setBackgroundColor(Color
+								.parseColor("#cccccc"));
 						sendCodeBtn.setEnabled(false);
 					} else {
 						codeHandler.cancle();
 						sendCodeBtn.setEnabled(true);
 						sendCodeBtn.setText(R.string.more_send_auth_code);
-						sendCodeBtn.setBackgroundResource(R.drawable.btn_bkground);
+						sendCodeBtn
+								.setBackgroundResource(R.drawable.btn_bkground);
 					}
 				}
 			};
 		} else if (type.equals(register)) {
 			try {
-				app.userVO = (UserVO) JSONUtil.toJavaBean(UserVO.class, data);
-				util.saveParam(Config.LAST_LOGIN_PHONE, app.userVO.getTelephone());
-				util.saveParam(Config.LAST_LOGIN_ACCOUNT, phoneEt.getText().toString());
-				util.saveParam(Config.LAST_LOGIN_PASSWORD, passwordEt.getText().toString());
+				app.userVO = JSONUtil.toJavaBean(UserVO.class, data);
+				util.saveParam(Config.LAST_LOGIN_PHONE,
+						app.userVO.getTelephone());
+				util.saveParam(Config.LAST_LOGIN_ACCOUNT, phoneEt.getText()
+						.toString());
+				util.saveParam(Config.LAST_LOGIN_PASSWORD, passwordEt.getText()
+						.toString());
 
-				new UserLogin(this).userLogin(app.userVO.getUserid(), util.MD5(passwordEt.getText().toString()),
+				new UserLogin(this).userLogin(app.userVO.getUserid(),
+						util.MD5(passwordEt.getText().toString()),
 						app.userVO.getNickname());
 
 			} catch (Exception e) {
@@ -233,22 +260,53 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 		super.onDestroy();
 	}
 
-	@Override
-	public void loginResult(boolean result, int code, String message) {
-		if (result) {
-			app.isLogin = true;
-			Intent intent = new Intent(this, OldMainActivity.class);
+	private Handler myHandler = new Handler() {
+		@Override
+		public void handleMessage(android.os.Message msg) {
+			Intent intent = new Intent(RegisterActivity.this,
+					MainActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(intent);
 			finish();
+		};
+	};
+
+	@Override
+	public void loginResult(boolean result, int code, String message) {
+		if (result) {
+			runOnUiThread(new Runnable() {
+
+				@Override
+				public void run() {
+					app.isLogin = true;
+					ZProgressHUD.getInstance(RegisterActivity.this).show();
+					ZProgressHUD.getInstance(RegisterActivity.this)
+							.dismissWithFailure("注册成功");
+					new Thread(new Runnable() {
+
+						@Override
+						public void run() {
+							try {
+								Thread.sleep(1000);
+								myHandler.sendMessage(myHandler.obtainMessage());
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+						}
+					}).start();
+				}
+
+			});
+
 		} else {
 			runOnUiThread(new Runnable() {
 
 				@Override
 				public void run() {
 					ZProgressHUD.getInstance(RegisterActivity.this).show();
-					ZProgressHUD.getInstance(RegisterActivity.this).dismissWithFailure("初始化聊天失败");
+					ZProgressHUD.getInstance(RegisterActivity.this)
+							.dismissWithFailure("初始化聊天失败");
 				}
 			});
 		}

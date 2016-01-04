@@ -31,6 +31,7 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
+import com.sft.blackcatapp.R;
 import com.sft.video.DensityUtil;
 import com.sft.video.FullScreenVideoView;
 import com.sft.video.LightnessController;

@@ -48,6 +48,7 @@ public class ScrollTimeLayout extends LinearLayout implements
 		screenWidth = getResources().getDisplayMetrics().widthPixels;
 		setLayoutDirection(LinearLayout.VERTICAL);
 		courseComp = new Comparator<Object>() {
+			@Override
 			public int compare(Object o1, Object o2) {
 				CoachCourseVO s1 = (CoachCourseVO) o1;
 				CoachCourseVO s2 = (CoachCourseVO) o2;
@@ -181,11 +182,14 @@ public class ScrollTimeLayout extends LinearLayout implements
 		} else {
 			selectCourseList.remove(coachCourseVO);
 		}
+		onTimeLayoutSelectedListener.TimeLayoutSelectedListener();
 		isTimeBlockCon = checkTimeBlockCon();
 		if (!isTimeBlockCon) {
 			CustomDialog dialog = new CustomDialog(context,
 					CustomDialog.APPOINTMENT_TIME_ERROR);
 			dialog.show();
+			// 选择不连续，给出提示后，就取消该项选择
+			layout.setCheckBoxState(false);
 		}
 	}
 
@@ -200,5 +204,16 @@ public class ScrollTimeLayout extends LinearLayout implements
 			}
 		}
 		return true;
+	}
+
+	public interface OnTimeLayoutSelectedListener {
+		void TimeLayoutSelectedListener();
+	}
+
+	private OnTimeLayoutSelectedListener onTimeLayoutSelectedListener;
+
+	public void setOnTimeLayoutSelectedListener(
+			OnTimeLayoutSelectedListener onTimeLayoutSelectedListener) {
+		this.onTimeLayoutSelectedListener = onTimeLayoutSelectedListener;
 	}
 }

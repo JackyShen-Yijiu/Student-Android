@@ -7,6 +7,7 @@ import android.view.WindowManager.LayoutParams;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.sft.blackcatapp.R;
 import com.umeng.analytics.MobclickAgent;
 
 /**

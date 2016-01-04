@@ -9,12 +9,21 @@ public class HeadLineNewsVO extends DBVO {
 	private static final long serialVersionUID = 1L;
 
 	private String newtype;
+	private int __v;
 	private String _id;
 	private String is_using;
 	private String linkurl;
 	private String createtime;
 	private String newsname;
 	private HeadPortrait headportrait;
+
+	public int get__v() {
+		return __v;
+	}
+
+	public void set__v(int __v) {
+		this.__v = __v;
+	}
 
 	public String getNewtype() {
 		return newtype;

@@ -2,14 +2,6 @@ package com.sft.blackcatapp;
 
 import java.util.Set;
 
-import com.easemob.chat.EMChatManager;
-import com.sft.common.Config;
-import com.sft.common.Config.EnrollResult;
-import com.sft.util.Util;
-import com.sft.viewutil.ZProgressHUD;
-import com.sft.vo.CarModelVO;
-import com.sft.vo.SchoolVO;
-
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
@@ -26,6 +18,17 @@ import cn.jpush.android.api.TagAliasCallback;
 import cn.sft.infinitescrollviewpager.BitmapManager;
 import cn.sft.infinitescrollviewpager.MyHandler;
 
+import com.easemob.chat.EMChatManager;
+import com.sft.blackcatapp.R;
+import com.sft.common.Config;
+import com.sft.common.Config.EnrollResult;
+import com.sft.util.JSONUtil;
+import com.sft.util.SharedPreferencesUtil;
+import com.sft.viewutil.ZProgressHUD;
+import com.sft.vo.CarModelVO;
+import com.sft.vo.SchoolVO;
+import com.sft.vo.SuccessVO;
+
 /**
  * 个人中心
  * 
@@ -37,7 +40,8 @@ public class PersonCenterActivity extends BaseActivity {
 	private LinearLayout layout;
 	private ImageView headPicIm;
 	private TextView phoneTv, idTv;
-	private TextView schoolTv, carStyleTv, favouriteTv, coachTv, settingTv;
+	private TextView schoolTv, carStyleTv, favouriteTv, coachTv, settingTv,
+			enrollDetailTv;
 	private TextView schoolValueTv, carStyleValueTv;
 
 	private Button logoutBtn;
@@ -72,39 +76,56 @@ public class PersonCenterActivity extends BaseActivity {
 		favouriteTv = (TextView) findViewById(R.id.person_center_favourite_tv);
 		coachTv = (TextView) findViewById(R.id.person_center_coach_tv);
 		settingTv = (TextView) findViewById(R.id.person_center_setting_tv);
+		enrollDetailTv = (TextView) findViewById(R.id.person_center_enroll_detail_tv);
 		schoolValueTv = (TextView) findViewById(R.id.person_center_school_value_tv);
 		carStyleValueTv = (TextView) findViewById(R.id.person_center_carstyle_value_tv);
 
 		logoutBtn = (Button) findViewById(R.id.person_center_logout_btn);
 
-		if (app.userVO.getApplystate().equals(EnrollResult.SUBJECT_NONE.getValue())) {
-			// 用户没有报名，但可能填写过一些信息
-			SchoolVO school = Util.getEnrollUserSelectedSchool(this);
-			if (school != null) {
-				schoolValueTv.setText(school.getName());
-			}
-
-			CarModelVO carModel = Util.getEnrollUserSelectedCarStyle(this);
-			if (carModel != null) {
-				carStyleValueTv.setText(carModel.getName());
-			}
-		} else {
-			schoolValueTv.setText(app.userVO.getApplyschoolinfo().getName());
-			carStyleValueTv.setText(app.userVO.getCarmodel().getName());
-		}
+		// if (app.userVO.getApplystate().equals(
+		// EnrollResult.SUBJECT_NONE.getValue())) {
+		// // 用户没有报名，但可能填写过一些信息
+		// SchoolVO school = Util.getEnrollUserSelectedSchool(this);
+		// if (school != null) {
+		// schoolValueTv.setText(school.getName());
+		// }
+		//
+		// CarModelVO carModel = Util.getEnrollUserSelectedCarStyle(this);
+		// if (carModel != null) {
+		// carStyleValueTv.setText(carModel.getName());
+		// }
+		// } else {
+		// schoolValueTv.setText(app.userVO.getApplyschoolinfo().getName());
+		// carStyleValueTv.setText(app.userVO.getCarmodel().getName());
+		// }
 	}
 
 	private void initData() {
 		phoneTv.setText(app.userVO.getDisplaymobile());
 		idTv.setText(app.userVO.getDisplayuserid());
 
-		LinearLayout.LayoutParams headpicParam = (LayoutParams) headPicIm.getLayoutParams();
+		LinearLayout.LayoutParams headpicParam = (LayoutParams) headPicIm
+				.getLayoutParams();
 
 		String url = app.userVO.getHeadportrait().getOriginalpic();
 		if (TextUtils.isEmpty(url)) {
 			headPicIm.setBackgroundResource(R.drawable.default_small_pic);
 		} else {
-			BitmapManager.INSTANCE.loadBitmap2(url, headPicIm, headpicParam.width, headpicParam.height);
+			BitmapManager.INSTANCE.loadBitmap2(url, headPicIm,
+					headpicParam.width, headpicParam.height);
+		}
+		String enrollInfo = SharedPreferencesUtil.getString(this,
+				Config.USER_ENROLL_INFO, null);
+		if (!TextUtils.isEmpty(enrollInfo)) {
+			try {
+				SuccessVO successVO = JSONUtil.toJavaBean(SuccessVO.class,
+						enrollInfo);
+				schoolValueTv.setText(successVO.applyschoolinfo.name);
+				carStyleValueTv.setText(successVO.carmodel.code
+						+ successVO.carmodel.name);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -142,6 +163,11 @@ public class PersonCenterActivity extends BaseActivity {
 		Drawable setting = r.getDrawable(R.drawable.person_center_setting);
 		setting.setBounds(0, 0, size, size);
 		settingTv.setCompoundDrawables(setting, null, arrow, null);// 设置左图标
+		//
+		// Drawable enroll = r.getDrawable(R.drawable.person_center_setting);
+		// setting.setBounds(0, 0, size, size);
+		// enrollDetailTv.setCompoundDrawables(enroll, null, arrow, null);//
+		// 设置左图标
 	}
 
 	private void setListener() {
@@ -151,8 +177,10 @@ public class PersonCenterActivity extends BaseActivity {
 		favouriteTv.setOnClickListener(this);
 		coachTv.setOnClickListener(this);
 		settingTv.setOnClickListener(this);
+		enrollDetailTv.setOnClickListener(this);
 		logoutBtn.setOnClickListener(this);
-		if (app.userVO.getApplystate().equals(EnrollResult.SUBJECT_NONE.getValue())) {
+		if (app.userVO.getApplystate().equals(
+				EnrollResult.SUBJECT_NONE.getValue())) {
 			schoolValueTv.setOnClickListener(this);
 			carStyleValueTv.setOnClickListener(this);
 		}
@@ -178,22 +206,22 @@ public class PersonCenterActivity extends BaseActivity {
 			intent = new Intent(this, MyCoachActivity.class);
 			startActivity(intent);
 			break;
-		case R.id.person_center_school_value_tv:
-			intent = new Intent(this, EnrollSchoolActivity.class);
-			SchoolVO school = Util.getEnrollUserSelectedSchool(this);
-			if (school != null) {
-				intent.putExtra("school", school);
-			}
-			startActivityForResult(intent, R.id.person_center_school_value_tv);
-			break;
-		case R.id.person_center_carstyle_value_tv:
-			intent = new Intent(this, EnrollCarStyleActivity.class);
-			CarModelVO carModel = Util.getEnrollUserSelectedCarStyle(this);
-			if (carModel != null) {
-				intent.putExtra("carStyle", carModel);
-			}
-			startActivityForResult(intent, R.id.person_center_carstyle_value_tv);
-			break;
+		// case R.id.person_center_school_value_tv:
+		// intent = new Intent(this, EnrollSchoolActivity.class);
+		// SchoolVO school = Util.getEnrollUserSelectedSchool(this);
+		// if (school != null) {
+		// intent.putExtra("school", school);
+		// }
+		// startActivityForResult(intent, R.id.person_center_school_value_tv);
+		// break;
+		// case R.id.person_center_carstyle_value_tv:
+		// intent = new Intent(this, EnrollCarStyleActivity.class);
+		// CarModelVO carModel = Util.getEnrollUserSelectedCarStyle(this);
+		// if (carModel != null) {
+		// intent.putExtra("carStyle", carModel);
+		// }
+		// startActivityForResult(intent, R.id.person_center_carstyle_value_tv);
+		// break;
 		case R.id.person_center_favourite_tv:
 			intent = new Intent(this, MyFavouriteActiviy.class);
 			startActivityForResult(intent, R.id.person_center_favourite_tv);
@@ -210,21 +238,54 @@ public class PersonCenterActivity extends BaseActivity {
 			intent = new Intent(this, SettingActivity.class);
 			startActivity(intent);
 			break;
+		case R.id.person_center_enroll_detail_tv:
+			String applystate = app.userVO.getApplystate();
+			if (EnrollResult.SUBJECT_NONE.getValue().equals(applystate)) {
+				ZProgressHUD.getInstance(this).show();
+				ZProgressHUD.getInstance(this).dismissWithFailure("您还没有报名");
+
+				new MyHandler(1000) {
+					@Override
+					public void run() {
+						Intent intent = new Intent(PersonCenterActivity.this,
+								ApplyActivity.class);
+						startActivity(intent);
+						// finish();
+					}
+				};
+			} else if (EnrollResult.SUBJECT_ENROLLING.getValue().equals(
+					applystate)) {
+				Intent intent1 = new Intent(PersonCenterActivity.this,
+						EnrollSuccessActivity.class);
+				startActivity(intent1);
+			} else if (EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue().equals(
+					applystate)) {
+				// Intent intent1 = new Intent(PersonCenterActivity.this,
+				// EnrollSuccessActivity.class);
+				// startActivity(intent1);
+				ZProgressHUD.getInstance(this).show();
+				ZProgressHUD.getInstance(this).dismissWithSuccess("您已报名");
+			}
+			break;
 		}
 	}
 
 	@Override
-	protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
+	protected void onActivityResult(int requestCode, int resultCode,
+			final Intent data) {
 		if (data != null) {
 			if (requestCode == R.id.person_center_carstyle_value_tv) {
 				// 更新
-				CarModelVO carStyle = (CarModelVO) data.getSerializableExtra("carStyle");
+				CarModelVO carStyle = (CarModelVO) data
+						.getSerializableExtra("carStyle");
 				carStyleValueTv.setText(carStyle.getName());
 				return;
 			}
-			if (requestCode == R.id.person_center_school_value_tv && resultCode == R.id.base_right_tv) {
+			if (requestCode == R.id.person_center_school_value_tv
+					&& resultCode == R.id.base_right_tv) {
 				// 更新选择的驾校
-				SchoolVO school = (SchoolVO) data.getSerializableExtra("school");
+				SchoolVO school = (SchoolVO) data
+						.getSerializableExtra("school");
 				schoolValueTv.setText(school.getName());
 				return;
 			}
@@ -256,7 +317,8 @@ public class PersonCenterActivity extends BaseActivity {
 			} else {
 				ZProgressHUD.getInstance(PersonCenterActivity.this).dismiss();
 				util.saveParam(Config.LAST_LOGIN_PASSWORD, "");
-				Intent intent = new Intent(PersonCenterActivity.this, LoginActivity.class);
+				Intent intent = new Intent(PersonCenterActivity.this,
+						LoginActivity.class);
 				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				startActivity(intent);

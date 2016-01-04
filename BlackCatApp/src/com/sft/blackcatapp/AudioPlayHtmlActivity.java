@@ -10,6 +10,7 @@ import android.webkit.WebSettings.PluginState;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.sft.blackcatapp.R;
 import com.sft.vo.VideoVO;
 
 /**

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#ffffff"
+    android:background="#01000000"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -174,7 +174,17 @@
         style="@style/person_center_text_style"
         android:drawableLeft="@drawable/ic_launcher"
         android:text="@string/setting" />
-
+<ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#cccccc"
+        android:contentDescription="@string/app_name" />
+    
+    <TextView
+        android:id="@+id/person_center_enroll_detail_tv"
+        style="@style/person_center_text_style"
+        android:drawableLeft="@drawable/person_center_enroll_detail"
+        android:text="@string/enroll_detail" />
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="0.5dp"

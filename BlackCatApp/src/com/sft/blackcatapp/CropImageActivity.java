@@ -12,12 +12,6 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.edmodo.cropper.CropImageView;
-import com.edmodo.cropper.PreviewListener;
-import com.sft.common.Config;
-import com.sft.util.Util;
-import com.sft.viewutil.ZProgressHUD;
-
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -40,6 +34,13 @@ import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.baseactivity.util.MyHandler;
 import cn.sft.infinitescrollviewpager.CropRoundView;
 
+import com.edmodo.cropper.CropImageView;
+import com.edmodo.cropper.PreviewListener;
+import com.sft.blackcatapp.R;
+import com.sft.common.Config;
+import com.sft.util.Util;
+import com.sft.viewutil.ZProgressHUD;
+
 /**
  * 更换头像界面
  * 
@@ -47,7 +48,8 @@ import cn.sft.infinitescrollviewpager.CropRoundView;
  * 
  */
 @SuppressLint("SimpleDateFormat")
-public class CropImageActivity extends BaseActivity implements OnClickListener, PreviewListener {
+public class CropImageActivity extends BaseActivity implements OnClickListener,
+		PreviewListener {
 
 	private static final String changeHead = "changeHead";
 	private CropImageView cropImageView;
@@ -63,7 +65,8 @@ public class CropImageActivity extends BaseActivity implements OnClickListener, 
 
 	private Uri imageFilePath;
 	// 拍照的存储路径
-	private static final String cameraPath = Config.PICPATH + File.separator + "camera.jpg";
+	private static final String cameraPath = Config.PICPATH + File.separator
+			+ "camera.jpg";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +91,8 @@ public class CropImageActivity extends BaseActivity implements OnClickListener, 
 		picBtn = (Button) findViewById(R.id.cropimage_pic_btn);
 		cameraBtn = (Button) findViewById(R.id.cropimage_camera_btn);
 
-		RelativeLayout.LayoutParams imageParams = (RelativeLayout.LayoutParams) cropImage.getLayoutParams();
+		RelativeLayout.LayoutParams imageParams = (RelativeLayout.LayoutParams) cropImage
+				.getLayoutParams();
 		imageParams.width = (int) (screenWidth * 0.45);
 		imageParams.height = imageParams.width;
 
@@ -131,7 +135,8 @@ public class CropImageActivity extends BaseActivity implements OnClickListener, 
 		}
 		File file = new File(cameraPath); // 创建一个文件
 		this.imageFilePath = Uri.fromFile(file);
-		Intent getImageByCamera = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+		Intent getImageByCamera = new Intent(
+				android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
 		getImageByCamera.putExtra(MediaStore.EXTRA_OUTPUT, this.imageFilePath);
 		startActivityForResult(getImageByCamera, CAMERA);
 	}
@@ -142,8 +147,11 @@ public class CropImageActivity extends BaseActivity implements OnClickListener, 
 			intent = new Intent(Intent.ACTION_GET_CONTENT);
 			intent.setType("image/*");
 		} else {
-			intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-			intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+			intent = new Intent(
+					Intent.ACTION_PICK,
+					android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+			intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+					"image/*");
 			intent.setAction(Intent.ACTION_GET_CONTENT);
 		}
 		startActivityForResult(intent, PICTURE);
@@ -214,23 +222,27 @@ public class CropImageActivity extends BaseActivity implements OnClickListener, 
 			// 图像宽高比
 			float imageRadio = (float) img.getWidth() / img.getHeight();
 
-			RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) cropImageView.getLayoutParams();
+			RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) cropImageView
+					.getLayoutParams();
 
 			// 手机剩余的高度
-			int maxHeight = (int) (dh - statusbarHeight - dp2px(139 + 5 + 10 + 20 + 44) - dw * 0.45);
+			int maxHeight = (int) (dh - statusbarHeight
+					- dp2px(139 + 5 + 10 + 20 + 44) - dw * 0.45);
 			if (phoneRadio <= imageRadio) {
 				// 图像太宽
 				params.width = dw * 3 / 5;
 				params.height = params.width * img.getHeight() / img.getWidth();
 				if (params.height > maxHeight) {
 					params.height = maxHeight;
-					params.width = params.height * img.getWidth() / img.getHeight();
+					params.width = params.height * img.getWidth()
+							/ img.getHeight();
 				}
 			} else {
 				params.width = params.height;
 				if (params.width >= dw - px2dp(80f)) {
 					params.width = dw - px2dp(80f);
-					params.height = params.width * img.getHeight() / img.getWidth();
+					params.height = params.width * img.getHeight()
+							/ img.getWidth();
 				}
 			}
 
@@ -286,9 +298,11 @@ public class CropImageActivity extends BaseActivity implements OnClickListener, 
 			SimpleDateFormat format1 = new SimpleDateFormat("yyyyMMdd");
 			SimpleDateFormat format2 = new SimpleDateFormat("HHmmssSSS");
 			String path = format1.format(date);
-			String fileName = format2.format(date) + "-" + app.userVO.getUserid() + ".png";
+			String fileName = format2.format(date) + "-"
+					+ app.userVO.getUserid() + ".png";
 
-			File file = Util.savePic(cropImageView.getCroppedImage(), path, fileName);
+			File file = Util.savePic(cropImageView.getCroppedImage(), path,
+					fileName);
 			app.uploadPic(file, path + "/" + fileName);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -312,15 +326,18 @@ public class CropImageActivity extends BaseActivity implements OnClickListener, 
 	private void changeHeadPic(String key) {
 		try {
 			JSONObject jsonObject = new JSONObject(key);
-			app.userVO.getHeadportrait()
-					.setOriginalpic("http://7xnjg0.com1.z0.glb.clouddn.com/" + jsonObject.getString("key"));
+			app.userVO.getHeadportrait().setOriginalpic(
+					"http://7xnjg0.com1.z0.glb.clouddn.com/"
+							+ jsonObject.getString("key"));
 			Map<String, String> paramMap = new HashMap<String, String>();
 			paramMap.put("userid", app.userVO.getUserid());
-			paramMap.put("headportrait", app.userVO.getHeadportrait().toString());
+			paramMap.put("headportrait", app.userVO.getHeadportrait()
+					.toString());
 
 			Map<String, String> headerMap = new HashMap<String, String>();
 			headerMap.put("authorization", app.userVO.getToken());
-			HttpSendUtils.httpPostSend(changeHead, this, Config.IP + "api/v1/userinfo/updateuserinfo", paramMap, 10000,
+			HttpSendUtils.httpPostSend(changeHead, this, Config.IP
+					+ "api/v1/userinfo/updateuserinfo", paramMap, 10000,
 					headerMap);
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -336,7 +353,7 @@ public class CropImageActivity extends BaseActivity implements OnClickListener, 
 			if (dataString != null) {
 				ZProgressHUD.getInstance(this).show();
 				ZProgressHUD.getInstance(this).dismissWithSuccess("上传成功");
-				new MyHandler(1000) {
+				new MyHandler(500) {
 					@Override
 					public void run() {
 						finish();

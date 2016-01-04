@@ -6,17 +6,8 @@ import java.util.Set;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.sft.common.BlackCatApplication;
-import com.sft.viewutil.ZProgressHUD;
-import com.sft.vo.CarModelVO;
-import com.sft.vo.ClassVO;
-import com.sft.vo.CoachVO;
-import com.sft.vo.QuestionVO;
-import com.sft.vo.SchoolVO;
-import com.sft.vo.UserVO;
-import com.umeng.analytics.MobclickAgent;
-
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -29,9 +20,22 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
+import cn.jpush.android.api.JPushInterface;
 import cn.sft.listener.ICallBack;
 
-public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity implements OnClickListener, ICallBack {
+import com.sft.blackcatapp.R;
+import com.sft.common.BlackCatApplication;
+import com.sft.viewutil.ZProgressHUD;
+import com.sft.vo.CarModelVO;
+import com.sft.vo.ClassVO;
+import com.sft.vo.CoachVO;
+import com.sft.vo.QuestionVO;
+import com.sft.vo.SchoolVO;
+import com.sft.vo.UserVO;
+import com.umeng.analytics.MobclickAgent;
+
+public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity
+		implements OnClickListener, ICallBack {
 
 	public static final int SHOW_LEFT_BTN = 1;
 	public static final int SHOW_RIGHT_BTN = 2;
@@ -62,6 +66,7 @@ public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity implemen
 	protected JSONObject data = null;
 	protected JSONArray dataArray = null;
 	protected String dataString = null;
+	protected JSONObject jsonObject;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -72,17 +77,25 @@ public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity implemen
 				app = BlackCatApplication.getInstance();
 			}
 			app.userVO = (UserVO) savedInstanceState.getSerializable("userVO");
-			app.questionVO = (QuestionVO) savedInstanceState.getSerializable("questionVO");
-			app.subjectTwoContent = savedInstanceState.getStringArrayList("subjectTwoContent");
-			app.subjectThreeContent = savedInstanceState.getStringArrayList("subjectThreeContent");
-			app.selectEnrollSchool = (SchoolVO) savedInstanceState.getSerializable("selectEnrollSchool");
-			app.selectEnrollCoach = (CoachVO) savedInstanceState.getSerializable("selectEnrollCoach");
-			app.selectEnrollCarStyle = (CarModelVO) savedInstanceState.getSerializable("selectEnrollCarStyle");
-			app.selectEnrollClass = (ClassVO) savedInstanceState.getSerializable("selectEnrollClass");
+			app.questionVO = (QuestionVO) savedInstanceState
+					.getSerializable("questionVO");
+			app.subjectTwoContent = savedInstanceState
+					.getStringArrayList("subjectTwoContent");
+			app.subjectThreeContent = savedInstanceState
+					.getStringArrayList("subjectThreeContent");
+			app.selectEnrollSchool = (SchoolVO) savedInstanceState
+					.getSerializable("selectEnrollSchool");
+			app.selectEnrollCoach = (CoachVO) savedInstanceState
+					.getSerializable("selectEnrollCoach");
+			app.selectEnrollCarStyle = (CarModelVO) savedInstanceState
+					.getSerializable("selectEnrollCarStyle");
+			app.selectEnrollClass = (ClassVO) savedInstanceState
+					.getSerializable("selectEnrollClass");
 			app.userVO = (UserVO) savedInstanceState.getSerializable("userVO");
 			app.qiniuToken = savedInstanceState.getString("qiniuToken");
 
-			Bundle favouriteCoach = savedInstanceState.getBundle("favouriteCoach");
+			Bundle favouriteCoach = savedInstanceState
+					.getBundle("favouriteCoach");
 			if (favouriteCoach != null) {
 				Set<String> favouriteCoachKey = favouriteCoach.keySet();
 				if (app.favouriteCoach == null)
@@ -92,13 +105,15 @@ public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity implemen
 				}
 			}
 
-			Bundle favouriteSchool = savedInstanceState.getBundle("favouriteSchool");
+			Bundle favouriteSchool = savedInstanceState
+					.getBundle("favouriteSchool");
 			if (favouriteSchool != null) {
 				Set<String> favouriteSchoolKey = favouriteSchool.keySet();
 				if (app.favouriteSchool == null)
 					app.favouriteSchool = new ArrayList<SchoolVO>();
 				for (String key : favouriteSchoolKey) {
-					app.favouriteSchool.add((SchoolVO) favouriteSchool.get(key));
+					app.favouriteSchool
+							.add((SchoolVO) favouriteSchool.get(key));
 				}
 			}
 
@@ -127,6 +142,7 @@ public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity implemen
 
 		setListener();
 
+		util.setShowLogPrint(false);
 		if (app == null) {
 			app = BlackCatApplication.getInstance();
 		}
@@ -184,6 +200,14 @@ public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity implemen
 			rightTV.setText(ids[1]);
 	}
 
+	protected void setRightText(String name) {
+		Drawable cityIcon = getResources()
+				.getDrawable(R.drawable.location_city);
+		rightTV.setCompoundDrawablesWithIntrinsicBounds(cityIcon, null, null,
+				null);
+		rightTV.setText(name);
+	}
+
 	protected void showTitlebarBtn(int index) {
 		leftBtn.setVisibility(View.GONE);
 		rightBtn.setVisibility(View.GONE);
@@ -220,20 +244,23 @@ public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity implemen
 	}
 
 	protected void addView(int layoutId) {
-		LinearLayout.LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+		LinearLayout.LayoutParams params = new LayoutParams(
+				LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 		LayoutInflater inflater = getLayoutInflater();
 		contentLayout.addView(inflater.inflate(layoutId, null), params);
 	}
 
 	protected SpannableString setHint(String string) {
 		SpannableString name = new SpannableString(string);
-		name.setSpan(new AbsoluteSizeSpan(15, true), 0, name.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+		name.setSpan(new AbsoluteSizeSpan(15, true), 0, name.length(),
+				Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 		return name;
 	}
 
 	protected SpannableString setHint(int stringId) {
 		SpannableString name = new SpannableString(getString(stringId));
-		name.setSpan(new AbsoluteSizeSpan(15, true), 0, name.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+		name.setSpan(new AbsoluteSizeSpan(15, true), 0, name.length(),
+				Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 		return name;
 	}
 
@@ -247,7 +274,7 @@ public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity implemen
 		try {
 			util.print("json=" + jsonString + " type= " + type);
 
-			JSONObject jsonObject = new JSONObject(jsonString.toString());
+			jsonObject = new JSONObject(jsonString.toString());
 			result = jsonObject.getString("type");
 			msg = jsonObject.getString("msg");
 			try {
@@ -283,7 +310,8 @@ public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity implemen
 			ZProgressHUD.getInstance(this).dismissWithFailure("服务器异常", 2000);
 		} else {
 			ZProgressHUD.getInstance(this).show();
-			ZProgressHUD.getInstance(this).dismissWithFailure("type= " + type + " 异常  code=" + code, 2000);
+			ZProgressHUD.getInstance(this).dismissWithFailure(
+					"type= " + type + " 异常  code=" + code, 2000);
 		}
 		if (e != null)
 			e.printStackTrace();
@@ -293,19 +321,28 @@ public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity implemen
 	public void doTimeOut(String type) {
 		util.print("type=" + type + " 超时");
 		ZProgressHUD.getInstance(this).show();
-		ZProgressHUD.getInstance(this).dismissWithFailure("type=" + type + " 超时");
+		ZProgressHUD.getInstance(this).dismissWithFailure(
+				"type=" + type + " 超时");
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
+		// 友盟session统计
 		MobclickAgent.onResume(this);
+
+		// 极光统计
+		JPushInterface.onResume(this);
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
+		// 友盟session统计
 		MobclickAgent.onPause(this);
+		// 极光统计
+		JPushInterface.onPause(this);
+
 	}
 
 	@Override
@@ -317,22 +354,28 @@ public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity implemen
 			int length = app.favouriteCoach.size();
 			Bundle bundle = new Bundle();
 			for (int i = 0; i < length; i++) {
-				bundle.putSerializable("favouriteCoach" + i, app.favouriteCoach.get(i));
+				bundle.putSerializable("favouriteCoach" + i,
+						app.favouriteCoach.get(i));
 			}
 			outState.putBundle("favouriteCoach", bundle);
 
 			bundle = new Bundle();
 			length = app.favouriteSchool.size();
 			for (int i = 0; i < length; i++) {
-				bundle.putSerializable("favouriteSchool" + i, app.favouriteSchool.get(i));
+				bundle.putSerializable("favouriteSchool" + i,
+						app.favouriteSchool.get(i));
 			}
 			outState.putBundle("favouriteSchool", bundle);
 
-			outState.putStringArrayList("subjectTwoContent", (ArrayList<String>) app.subjectTwoContent);
-			outState.putStringArrayList("subjectThreeContent", (ArrayList<String>) app.subjectThreeContent);
-			outState.putSerializable("selectEnrollSchool", app.selectEnrollSchool);
+			outState.putStringArrayList("subjectTwoContent",
+					(ArrayList<String>) app.subjectTwoContent);
+			outState.putStringArrayList("subjectThreeContent",
+					(ArrayList<String>) app.subjectThreeContent);
+			outState.putSerializable("selectEnrollSchool",
+					app.selectEnrollSchool);
 			outState.putSerializable("selectEnrollCoach", app.selectEnrollCoach);
-			outState.putSerializable("selectEnrollCarStyle", app.selectEnrollCarStyle);
+			outState.putSerializable("selectEnrollCarStyle",
+					app.selectEnrollCarStyle);
 			outState.putSerializable("selectEnrollClass", app.selectEnrollClass);
 			outState.putString("qiniuToken", app.qiniuToken);
 		} catch (Exception e) {

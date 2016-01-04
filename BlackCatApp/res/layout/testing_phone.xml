@@ -1,0 +1,161 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:id="@+id/ll_title"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#ccc"
+        android:orientation="horizontal" >
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_title"
+        android:layout_marginTop="21dp" >
+
+        <TextView
+            android:id="@+id/textView_title_one"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="25dp"
+            android:background="@drawable/press_one"
+            android:gravity="center"
+            android:text="验证手机号"
+            android:textColor="#fff"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textView_title_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/unpress_two"
+            android:gravity="center"
+            android:text="验证信息"
+            android:textColor="#333"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textView_title_three"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="18dp"
+            android:layout_toRightOf="@+id/textView_title_two"
+            android:background="@drawable/unpress_three"
+            android:gravity="center"
+            android:text="提交验证"
+            android:textColor="#333"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_title_one"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_below="@+id/rl_title"
+        android:layout_marginTop="21dp"
+        android:background="#ccc"
+        android:orientation="horizontal" >
+    </LinearLayout>
+
+
+   <TextView
+       android:id="@+id/textView1"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignParentLeft="true"
+       android:layout_below="@+id/ll_title_one"
+       android:layout_marginLeft="16dp"
+       android:layout_marginTop="16dp"
+       android:textColor="#f00"
+       android:textSize="12sp"
+       android:text="温馨提示:" />
+
+   <TextView
+       android:id="@+id/textView2"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignLeft="@+id/textView1"
+       android:layout_marginTop="5dp"
+       android:layout_marginRight="15dp"
+       android:layout_below="@+id/textView1"
+       android:text="     请认真填写以上信息，如果系统没有自动载入请自行添加各项信息。"
+       android:textSize="10sp" />
+    <!-- 1 -->
+    <RelativeLayout
+        android:id="@+id/rl_msg_one"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp" >
+  <EditText
+        android:id="@+id/testing_phone_et"
+        style="@style/register_et_style"
+        android:hint="@string/contact" />
+
+</RelativeLayout>
+
+    <!-- 2 -->
+<RelativeLayout
+        android:id="@+id/rl_msg_two"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_msg_one"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp">
+   <EditText
+        android:id="@+id/testing_name_et"
+        style="@style/register_et_style"
+        android:hint="@string/real_name" />
+</RelativeLayout>
+
+<!-- 3 -->
+
+<RelativeLayout
+    android:id="@+id/rl_msg_three"
+    android:layout_width="230dp"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_below="@+id/rl_msg_two">
+
+  <EditText
+        android:id="@+id/testing_code_et"
+        style="@style/register_et_testing_style"
+        android:hint="@string/testcode" />
+
+</RelativeLayout>
+      
+      <Button
+       android:id="@+id/button_next"
+       android:layout_width="match_parent"
+       android:layout_height="50dp"
+       android:layout_alignParentBottom="true"
+       android:layout_centerHorizontal="true"
+       android:background="#ff6633"
+       android:textSize="16sp"
+       android:textColor="#ffffff"
+       android:text="下一步" />
+
+      <Button
+          android:id="@+id/button_send"
+          android:layout_width="wrap_content"
+          android:layout_height="45dp"
+          android:layout_alignBottom="@+id/rl_msg_three"
+          android:layout_toRightOf="@+id/rl_msg_three"
+          android:background="#ff9728"
+          android:padding="10dp"
+          android:text="发送验证码"
+          android:textColor="#fff"
+          android:textSize="12sp" />
+  
+</RelativeLayout>

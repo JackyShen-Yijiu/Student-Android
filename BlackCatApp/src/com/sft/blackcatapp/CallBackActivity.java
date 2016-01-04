@@ -15,6 +15,7 @@ import android.widget.EditText;
 import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.infinitescrollviewpager.MyHandler;
 
+import com.sft.blackcatapp.R;
 import com.sft.common.Config;
 import com.sft.viewutil.ZProgressHUD;
 
@@ -74,7 +75,7 @@ public class CallBackActivity extends BaseActivity {
 
 	private void callBack() {
 		String content = et.getText().toString();
-		if (!TextUtils.isEmpty(content)) {
+		if (!TextUtils.isEmpty(content.trim())) {
 			Map<String, String> paramMap = new HashMap<String, String>();
 			paramMap.put("userid", app.userVO.getUserid());
 			paramMap.put("feedbackmessage", content);

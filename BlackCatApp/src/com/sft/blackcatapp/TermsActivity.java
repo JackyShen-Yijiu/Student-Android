@@ -7,6 +7,7 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import com.sft.blackcatapp.R;
 
 public class TermsActivity extends BaseActivity {
 

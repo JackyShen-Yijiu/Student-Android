@@ -29,6 +29,46 @@ public class SchoolVO extends DBVO {
 	private String distance;
 	private String maxprice;
 	private String minprice;
+	private int coachcount;
+	private int commentcount;
+	private String id;
+	private String schoollevel;
+
+	public int getCoachcount() {
+		return coachcount;
+	}
+
+	public void setCoachcount(int coachcount) {
+		this.coachcount = coachcount;
+	}
+
+	public int getCommentcount() {
+		return commentcount;
+	}
+
+	public void setCommentcount(int commentcount) {
+		this.commentcount = commentcount;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getSchoollevel() {
+		return schoollevel;
+	}
+
+	public void setSchoollevel(String schoollevel) {
+		this.schoollevel = schoollevel;
+	}
+
+	public void setPictures(String[] pictures) {
+		this.pictures = pictures;
+	}
 
 	@Override
 	public boolean equals(Object o) {
@@ -63,6 +103,9 @@ public class SchoolVO extends DBVO {
 	}
 
 	public String getName() {
+		if (name == null) {
+			return "驾校不详";
+		}
 		return TextUtils.isEmpty(name) ? "null" : name;
 	}
 
@@ -111,6 +154,9 @@ public class SchoolVO extends DBVO {
 	}
 
 	public String getAddress() {
+		if (address == null) {
+			return "地址不详";
+		}
 		return TextUtils.isEmpty(address) ? "null" : address;
 	}
 
@@ -173,6 +219,9 @@ public class SchoolVO extends DBVO {
 	}
 
 	public String getPrice() {
+		if (minprice == null || maxprice == null) {
+			return "暂无价格";
+		}
 		return "¥" + minprice + "-¥" + maxprice;
 	}
 

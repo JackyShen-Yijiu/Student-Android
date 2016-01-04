@@ -12,6 +12,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
+import com.sft.blackcatapp.R;
 import com.sft.common.Config;
 
 /**
@@ -49,7 +50,6 @@ public class SettingActivity extends BaseActivity implements
 		messageCk = (CheckBox) findViewById(R.id.setting_newmessage_ck);
 
 		aboutUsTv = (TextView) findViewById(R.id.setting_aboutus_tv);
-		rateTv = (TextView) findViewById(R.id.setting_rate_tv);
 		callbackTv = (TextView) findViewById(R.id.setting_callback_tv);
 
 		if (app.userVO.getUsersetting().getNewmessagereminder().equals("true")) {
@@ -66,7 +66,7 @@ public class SettingActivity extends BaseActivity implements
 
 	private void setListener() {
 		aboutUsTv.setOnClickListener(this);
-		rateTv.setOnClickListener(this);
+		// rateTv.setOnClickListener(this);
 		callbackTv.setOnClickListener(this);
 
 		appointmentCk.setOnCheckedChangeListener(this);
@@ -108,8 +108,6 @@ public class SettingActivity extends BaseActivity implements
 			break;
 		case R.id.setting_callback_tv:
 			intent = new Intent(this, CallBackActivity.class);
-			break;
-		case R.id.setting_rate_tv:
 			break;
 		}
 		if (intent != null) {

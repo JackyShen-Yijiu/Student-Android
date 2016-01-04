@@ -7,24 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.baidu.location.BDLocation;
-import com.baidu.location.BDLocationListener;
-import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
-import com.baidu.mapapi.map.BaiduMap;
-import com.baidu.mapapi.map.MapView;
-import com.sft.common.Config;
-import com.sft.common.Config.EnrollResult;
-import com.sft.common.Config.SubjectStatu;
-import com.sft.listener.OnTabActivityResultListener;
-import com.sft.util.JSONUtil;
-import com.sft.util.Util;
-import com.sft.viewutil.ZProgressHUD;
-import com.sft.vo.CoachVO;
-import com.sft.vo.HeadLineNewsVO;
-import com.sft.vo.QuestionVO;
-import com.sft.vo.SchoolVO;
-
 import android.app.Activity;
 import android.app.LocalActivityManager;
 import android.content.Intent;
@@ -54,6 +36,24 @@ import cn.sft.infinitescrollviewpager.InfiniteViewPager;
 import cn.sft.infinitescrollviewpager.PageChangeListener;
 import cn.sft.infinitescrollviewpager.PageClickListener;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
+import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.MapView;
+import com.sft.common.Config;
+import com.sft.common.Config.EnrollResult;
+import com.sft.common.Config.SubjectStatu;
+import com.sft.listener.OnTabActivityResultListener;
+import com.sft.util.JSONUtil;
+import com.sft.util.Util;
+import com.sft.viewutil.ZProgressHUD;
+import com.sft.vo.CoachVO;
+import com.sft.vo.HeadLineNewsVO;
+import com.sft.vo.QuestionVO;
+import com.sft.vo.SchoolVO;
+
 /**
  * 首页
  * 
@@ -61,7 +61,8 @@ import cn.sft.infinitescrollviewpager.PageClickListener;
  * 
  */
 @SuppressWarnings("deprecation")
-public class OldMainActivity extends BaseActivity implements PageChangeListener, BitMapURLExcepteionListner {
+public class OldMainActivity extends BaseActivity implements
+		PageChangeListener, BitMapURLExcepteionListner {
 	//
 	private static final String subjectContent = "subjectContent";
 	private static final String headlineNews = "headlineNews";
@@ -106,8 +107,10 @@ public class OldMainActivity extends BaseActivity implements PageChangeListener,
 	//
 	private RadioGroup radioGroup;
 
-	private RadioButton leftBlank1Btn, leftBlank2Btn, rightBlank1Btn, rightBlank2Btn;
-	private RadioButton enrollBtn, course1Btn, course2Btn, course3Btn, course4Btn;
+	private RadioButton leftBlank1Btn, leftBlank2Btn, rightBlank1Btn,
+			rightBlank2Btn;
+	private RadioButton enrollBtn, course1Btn, course2Btn, course3Btn,
+			course4Btn;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -132,7 +135,8 @@ public class OldMainActivity extends BaseActivity implements PageChangeListener,
 
 	private void setTag() {
 		if (app.isLogin) {
-			JPushInterface.setAlias(this, app.userVO.getUserid(), new MyTagAliasCallback());
+			JPushInterface.setAlias(this, app.userVO.getUserid(),
+					new MyTagAliasCallback());
 		}
 	}
 
@@ -149,19 +153,21 @@ public class OldMainActivity extends BaseActivity implements PageChangeListener,
 	}
 
 	private void obtainSubjectContent() {
-		HttpSendUtils.httpGetSend(subjectContent, this, Config.IP + "api/v1/trainingcontent");
+		HttpSendUtils.httpGetSend(subjectContent, this, Config.IP
+				+ "api/v1/trainingcontent");
 	}
 
 	private void obtainQuestionAddress() {
-		HttpSendUtils.httpGetSend(questionaddress, this, Config.IP + "api/v1/info/examquestion");
+		HttpSendUtils.httpGetSend(questionaddress, this, Config.IP
+				+ "api/v1/info/examquestion");
 	}
 
 	private void obtainFavouriteSchool() {
 		if (app.isLogin) {
 			Map<String, String> headerMap = new HashMap<String, String>();
 			headerMap.put("authorization", app.userVO.getToken());
-			HttpSendUtils.httpGetSend(school, this, Config.IP + "api/v1/userinfo/favoriteschool", null, 10000,
-					headerMap);
+			HttpSendUtils.httpGetSend(school, this, Config.IP
+					+ "api/v1/userinfo/favoriteschool", null, 10000, headerMap);
 		}
 	}
 
@@ -169,14 +175,17 @@ public class OldMainActivity extends BaseActivity implements PageChangeListener,
 		if (app.isLogin) {
 			Map<String, String> headerMap = new HashMap<String, String>();
 			headerMap.put("authorization", app.userVO.getToken());
-			HttpSendUtils.httpGetSend(coach, this, Config.IP + "api/v1/userinfo/favoritecoach", null, 10000, headerMap);
+			HttpSendUtils.httpGetSend(coach, this, Config.IP
+					+ "api/v1/userinfo/favoritecoach", null, 10000, headerMap);
 		}
 	}
 
 	private void obtainHeadLineNews() {
-		HttpSendUtils.httpGetSend(headlineNews, this, Config.IP + "api/v1/info/headlinenews");
+		HttpSendUtils.httpGetSend(headlineNews, this, Config.IP
+				+ "api/v1/info/headlinenews");
 	}
 
+	@Override
 	protected void onResume() {
 		register(getClass().getName());
 		super.onResume();
@@ -210,10 +219,11 @@ public class OldMainActivity extends BaseActivity implements PageChangeListener,
 		rightBlank1Btn.setEnabled(false);
 		rightBlank2Btn.setEnabled(false);
 
-		RelativeLayout.LayoutParams headParams = (RelativeLayout.LayoutParams) adLayout.getLayoutParams();
+		RelativeLayout.LayoutParams headParams = (RelativeLayout.LayoutParams) adLayout
+				.getLayoutParams();
 		headParams.width = screenWidth;
-		int height = (int) ((screenWidth - 16 * screenDensity) / 3 + (screenWidth - 12 * screenDensity) * 2 / 3
-				+ statusbarHeight);
+		int height = (int) ((screenWidth - 16 * screenDensity) / 3
+				+ (screenWidth - 12 * screenDensity) * 2 / 3 + statusbarHeight);
 		height += (63 * screenDensity);
 
 		headParams.height = screenHeight - height;
@@ -227,17 +237,22 @@ public class OldMainActivity extends BaseActivity implements PageChangeListener,
 		viewPager.setOnPageChangeListener(new MyPageChangeListener());
 
 		if (app.isLogin) {
-			if (app.userVO.getApplystate().equals(EnrollResult.SUBJECT_NONE.getValue())) {
+			if (app.userVO.getApplystate().equals(
+					EnrollResult.SUBJECT_NONE.getValue())) {
 				radioGroup.check(R.id.main_enroll_btn);
 			} else {
 				String subjectId = app.userVO.getSubject().getSubjectid();
-				if (subjectId.equals(Config.SubjectStatu.SUBJECT_TWO.getValue())) {
+				if (subjectId
+						.equals(Config.SubjectStatu.SUBJECT_TWO.getValue())) {
 					radioGroup.check(R.id.main_course2_btn);
-				} else if (subjectId.equals(SubjectStatu.SUBJECT_ONE.getValue())) {
+				} else if (subjectId
+						.equals(SubjectStatu.SUBJECT_ONE.getValue())) {
 					radioGroup.check(R.id.main_course1_btn);
-				} else if (subjectId.equals(SubjectStatu.SUBJECT_THREE.getValue())) {
+				} else if (subjectId.equals(SubjectStatu.SUBJECT_THREE
+						.getValue())) {
 					radioGroup.check(R.id.main_course3_btn);
-				} else if (subjectId.equals(SubjectStatu.SUBJECT_FOUR.getValue())) {
+				} else if (subjectId.equals(SubjectStatu.SUBJECT_FOUR
+						.getValue())) {
 					radioGroup.check(R.id.main_course4_btn);
 				} else {
 					radioGroup.check(R.id.main_course1_btn);
@@ -251,7 +266,9 @@ public class OldMainActivity extends BaseActivity implements PageChangeListener,
 	private void initData(Bundle savedInstanceState) {
 
 		// 如果用户没有报名，读取用户报名填写过的信息
-		if (app.userVO != null && app.userVO.getApplystate().equals(EnrollResult.SUBJECT_NONE.getValue())) {
+		if (app.userVO != null
+				&& app.userVO.getApplystate().equals(
+						EnrollResult.SUBJECT_NONE.getValue())) {
 			app.selectEnrollSchool = Util.getEnrollUserSelectedSchool(this);
 			app.selectEnrollCoach = Util.getEnrollUserSelectedCoach(this);
 			app.selectEnrollCarStyle = Util.getEnrollUserSelectedCarStyle(this);
@@ -273,11 +290,16 @@ public class OldMainActivity extends BaseActivity implements PageChangeListener,
 		Intent i5 = new Intent(this, SubjectFourActivity.class);
 
 		List<View> listViews = new ArrayList<View>(); // 实例化listViews
-		listViews.add(activityManager.startActivity("SubjectEnrollActivity", i1).getDecorView());
-		listViews.add(activityManager.startActivity("SubjectOneActivity", i2).getDecorView());
-		listViews.add(activityManager.startActivity("SubjectTwoActivity", i3).getDecorView());
-		listViews.add(activityManager.startActivity("SubjectThreeActivity", i4).getDecorView());
-		listViews.add(activityManager.startActivity("SubjectFourActivity", i5).getDecorView());
+		listViews.add(activityManager
+				.startActivity("SubjectEnrollActivity", i1).getDecorView());
+		listViews.add(activityManager.startActivity("SubjectOneActivity", i2)
+				.getDecorView());
+		listViews.add(activityManager.startActivity("SubjectTwoActivity", i3)
+				.getDecorView());
+		listViews.add(activityManager.startActivity("SubjectThreeActivity", i4)
+				.getDecorView());
+		listViews.add(activityManager.startActivity("SubjectFourActivity", i5)
+				.getDecorView());
 
 		viewPager.setAdapter(new MyPageAdapter(listViews));
 
@@ -299,10 +321,12 @@ public class OldMainActivity extends BaseActivity implements PageChangeListener,
 						adImageUrl = new String[length];
 					}
 					for (int i = 0; i < length; i++) {
-						HeadLineNewsVO headLineNewsVO = (HeadLineNewsVO) JSONUtil.toJavaBean(HeadLineNewsVO.class,
+						HeadLineNewsVO headLineNewsVO = JSONUtil.toJavaBean(
+								HeadLineNewsVO.class,
 								dataArray.getJSONObject(i));
 						adList.add(headLineNewsVO);
-						adImageUrl[i] = headLineNewsVO.getHeadportrait().getOriginalpic();
+						adImageUrl[i] = headLineNewsVO.getHeadportrait()
+								.getOriginalpic();
 					}
 					if (length > 0) {
 						setViewPager();
@@ -313,7 +337,8 @@ public class OldMainActivity extends BaseActivity implements PageChangeListener,
 					List<CoachVO> list = new ArrayList<CoachVO>();
 					int length = dataArray.length();
 					for (int i = 0; i < length; i++) {
-						CoachVO coachVO = (CoachVO) JSONUtil.toJavaBean(CoachVO.class, dataArray.getJSONObject(i));
+						CoachVO coachVO = JSONUtil.toJavaBean(CoachVO.class,
+								dataArray.getJSONObject(i));
 						list.add(coachVO);
 					}
 					app.favouriteCoach = list;
@@ -323,7 +348,8 @@ public class OldMainActivity extends BaseActivity implements PageChangeListener,
 					List<SchoolVO> list = new ArrayList<SchoolVO>();
 					int length = dataArray.length();
 					for (int i = 0; i < length; i++) {
-						SchoolVO schoolVO = (SchoolVO) JSONUtil.toJavaBean(SchoolVO.class, dataArray.getJSONObject(i));
+						SchoolVO schoolVO = JSONUtil.toJavaBean(SchoolVO.class,
+								dataArray.getJSONObject(i));
 						list.add(schoolVO);
 					}
 					app.favouriteSchool = list;
@@ -331,24 +357,28 @@ public class OldMainActivity extends BaseActivity implements PageChangeListener,
 			} else if (type.equals(questionaddress)) {
 				try {
 					if (data != null) {
-						QuestionVO questionVO = (QuestionVO) JSONUtil.toJavaBean(QuestionVO.class, data);
+						QuestionVO questionVO = JSONUtil.toJavaBean(
+								QuestionVO.class, data);
 						app.questionVO = questionVO;
 					}
 				} catch (Exception e) {
 					ZProgressHUD.getInstance(this).show();
-					ZProgressHUD.getInstance(this).dismissWithFailure("题库地址数据错误");
+					ZProgressHUD.getInstance(this).dismissWithFailure(
+							"题库地址数据错误");
 					e.printStackTrace();
 				}
 			} else if (type.equals(subjectContent)) {
 				try {
 					if (data != null) {
 						String two = data.getString("subjecttwo");
-						two = two.replace("[", "").replace("]", "").replace("\"", "");
+						two = two.replace("[", "").replace("]", "")
+								.replace("\"", "");
 						app.subjectTwoContent = Arrays.asList(two.split(","));
 
 						String three = data.getString("subjectthree");
 						three = three.replace("[", "").replace("]", "");
-						app.subjectThreeContent = Arrays.asList(three.split(","));
+						app.subjectThreeContent = Arrays.asList(three
+								.split(","));
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -382,7 +412,8 @@ public class OldMainActivity extends BaseActivity implements PageChangeListener,
 				break;
 			}
 			setRadioButtonCenter(position);
-			radioGroup.setOnCheckedChangeListener(new MyOnCheckedChangeListener());
+			radioGroup
+					.setOnCheckedChangeListener(new MyOnCheckedChangeListener());
 		}
 
 		@Override
@@ -532,7 +563,8 @@ public class OldMainActivity extends BaseActivity implements PageChangeListener,
 		}
 		String activityName = data.getStringExtra("activityName");
 		if (activityName.contains(".")) {
-			activityName = activityName.substring(activityName.lastIndexOf(".") + 1);
+			activityName = activityName
+					.substring(activityName.lastIndexOf(".") + 1);
 		}
 		util.print("name=" + activityName);
 		// 获取当前活动的Activity实例
@@ -550,10 +582,12 @@ public class OldMainActivity extends BaseActivity implements PageChangeListener,
 	public void onPageChanged(int position) {
 		if (imageViews != null) {
 			for (int i = 0; i < imageViews.length; i++) {
-				imageViews[position].setBackgroundColor(Color.parseColor("#21b8c6"));
+				imageViews[position].setBackgroundColor(Color
+						.parseColor("#21b8c6"));
 				// 不是当前选中的page，其小圆点设置为未选中的状态
 				if (position != i) {
-					imageViews[i].setBackgroundColor(Color.parseColor("#eeeeee"));
+					imageViews[i].setBackgroundColor(Color
+							.parseColor("#eeeeee"));
 				}
 			}
 		}
@@ -563,10 +597,12 @@ public class OldMainActivity extends BaseActivity implements PageChangeListener,
 		InfinitePagerAdapter adapter = null;
 		int length = 0;
 		if (adImageUrl != null && adImageUrl.length > 0) {
-			adapter = new InfinitePagerAdapter(this, adImageUrl, screenWidth, viewPagerHeight);
+			adapter = new InfinitePagerAdapter(this, adImageUrl, screenWidth,
+					viewPagerHeight);
 			length = adImageUrl.length;
 		} else {
-			adapter = new InfinitePagerAdapter(this, new int[] { R.drawable.defaultimage });
+			adapter = new InfinitePagerAdapter(this,
+					new int[] { R.drawable.defaultimage });
 			length = 1;
 			defaultImage.setVisibility(View.GONE);
 		}
@@ -577,14 +613,15 @@ public class OldMainActivity extends BaseActivity implements PageChangeListener,
 		imageViews = new ImageView[length];
 		ImageView imageView = null;
 		dotLayout.removeAllViews();
-		LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams((int) (8 * screenDensity),
-				(int) (4 * screenDensity));
+		LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams(
+				(int) (8 * screenDensity), (int) (4 * screenDensity));
 		dotLayout.addView(new TextView(this), textParams);
 		// 添加小圆点的图片
 		for (int i = 0; i < length; i++) {
 			imageView = new ImageView(this);
 			// 设置小圆点imageview的参数
-			imageView.setLayoutParams(new LayoutParams((int) (16 * screenDensity), (int) (4 * screenDensity)));// 创建一个宽高均为20
+			imageView.setLayoutParams(new LayoutParams(
+					(int) (16 * screenDensity), (int) (4 * screenDensity)));// 创建一个宽高均为20
 			// 的布局
 			// 将小圆点layout添加到数组中
 			imageViews[i] = imageView;
@@ -691,7 +728,8 @@ public class OldMainActivity extends BaseActivity implements PageChangeListener,
 
 	@Override
 	public void forOperResult(Intent intent) {
-		boolean isRequestLogin = intent.getBooleanExtra("isRequestLogin", false);
+		boolean isRequestLogin = intent
+				.getBooleanExtra("isRequestLogin", false);
 		if (isRequestLogin) {
 			finish();
 		}
@@ -699,7 +737,8 @@ public class OldMainActivity extends BaseActivity implements PageChangeListener,
 		if (isVertify) {
 			radioGroup.check(R.id.main_course2_btn);
 		}
-		boolean isEnrollSuccess = intent.getBooleanExtra("isEnrollSuccess", false);
+		boolean isEnrollSuccess = intent.getBooleanExtra("isEnrollSuccess",
+				false);
 		if (isEnrollSuccess) {
 			app.userVO.setApplystate(EnrollResult.SUBJECT_ENROLLING.getValue());
 			radioGroup.check(R.id.main_course1_btn);

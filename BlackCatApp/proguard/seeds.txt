@@ -24071,6 +24071,22 @@ com.google.gson.stream.MalformedJsonException: long serialVersionUID
 com.google.gson.stream.MalformedJsonException: MalformedJsonException(java.lang.String)
 com.google.gson.stream.MalformedJsonException: MalformedJsonException(java.lang.String,java.lang.Throwable)
 com.google.gson.stream.MalformedJsonException: MalformedJsonException(java.lang.Throwable)
+com.jeremyfeinstein.slidingmenu.lib.CustomViewAbove
+com.jeremyfeinstein.slidingmenu.lib.CustomViewAbove: CustomViewAbove(android.content.Context,android.util.AttributeSet)
+com.jeremyfeinstein.slidingmenu.lib.CustomViewBehind
+com.jeremyfeinstein.slidingmenu.lib.CustomViewBehind: CustomViewBehind(android.content.Context,android.util.AttributeSet)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: SlidingMenu(android.content.Context)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: SlidingMenu(android.app.Activity,int)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: SlidingMenu(android.content.Context,android.util.AttributeSet)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: SlidingMenu(android.content.Context,android.util.AttributeSet,int)
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu$SavedState
+com.jeremyfeinstein.slidingmenu.lib.SlidingMenu$SavedState: android.os.Parcelable$Creator CREATOR
+com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity: SlidingFragmentActivity()
+com.joooonho.SelectableRoundedImageView
+com.joooonho.SelectableRoundedImageView: SelectableRoundedImageView(android.content.Context)
+com.joooonho.SelectableRoundedImageView: SelectableRoundedImageView(android.content.Context,android.util.AttributeSet)
+com.joooonho.SelectableRoundedImageView: SelectableRoundedImageView(android.content.Context,android.util.AttributeSet,int)
 com.loopj.android.http.AsyncHttpClient: com.loopj.android.http.RequestHandle delete(java.lang.String,com.loopj.android.http.ResponseHandlerInterface)
 com.loopj.android.http.AsyncHttpClient: com.loopj.android.http.RequestHandle delete(android.content.Context,java.lang.String,com.loopj.android.http.ResponseHandlerInterface)
 com.loopj.android.http.AsyncHttpClient: com.loopj.android.http.RequestHandle delete(android.content.Context,java.lang.String,org.apache.http.Header[],com.loopj.android.http.ResponseHandlerInterface)
@@ -24130,8 +24146,28 @@ com.loopj.android.http.SerializableCookie: SerializableCookie(org.apache.http.co
 com.loopj.android.http.SerializableCookie: org.apache.http.cookie.Cookie getCookie()
 com.loopj.android.http.SerializableCookie: void writeObject(java.io.ObjectOutputStream)
 com.loopj.android.http.SerializableCookie: void readObject(java.io.ObjectInputStream)
+com.sft.api.ApiHttpClient: void delete(java.lang.String,com.loopj.android.http.AsyncHttpResponseHandler)
+com.sft.bean.ChannelItem
+com.sft.bean.ChannelItem: long serialVersionUID
+com.sft.bean.ChannelItem: java.lang.Integer id
+com.sft.bean.ChannelItem: java.lang.String name
+com.sft.bean.ChannelItem: java.lang.Integer orderId
+com.sft.bean.ChannelItem: java.lang.Integer selected
+com.sft.bean.ChannelItem: ChannelItem()
+com.sft.bean.ChannelItem: ChannelItem(int,java.lang.String,int,int)
+com.sft.bean.ChannelItem: int getId()
+com.sft.bean.ChannelItem: java.lang.String getName()
+com.sft.bean.ChannelItem: int getOrderId()
+com.sft.bean.ChannelItem: java.lang.Integer getSelected()
+com.sft.bean.ChannelItem: void setId(int)
+com.sft.bean.ChannelItem: void setName(java.lang.String)
+com.sft.bean.ChannelItem: void setOrderId(int)
+com.sft.bean.ChannelItem: void setSelected(java.lang.Integer)
+com.sft.bean.ChannelItem: java.lang.String toString()
 com.sft.blackcatapp.AboutUsActivity
 com.sft.blackcatapp.AboutUsActivity: AboutUsActivity()
+com.sft.blackcatapp.ApplyActivity
+com.sft.blackcatapp.ApplyActivity: ApplyActivity()
 com.sft.blackcatapp.AppointmentCarActivity
 com.sft.blackcatapp.AppointmentCarActivity: AppointmentCarActivity()
 com.sft.blackcatapp.AppointmentDetailActivity
@@ -24144,6 +24180,7 @@ com.sft.blackcatapp.AudioPlayActivity: void forward(float)
 com.sft.blackcatapp.AudioPlayHtmlActivity
 com.sft.blackcatapp.AudioPlayHtmlActivity: AudioPlayHtmlActivity()
 com.sft.blackcatapp.BaseActivity: BaseActivity()
+com.sft.blackcatapp.BaseMainActivity: BaseMainActivity()
 com.sft.blackcatapp.CallBackActivity
 com.sft.blackcatapp.CallBackActivity: CallBackActivity()
 com.sft.blackcatapp.CancelAppointmentActivity
@@ -24180,6 +24217,8 @@ com.sft.blackcatapp.EnrollClassActivity
 com.sft.blackcatapp.EnrollClassActivity: EnrollClassActivity()
 com.sft.blackcatapp.EnrollCoachActivity
 com.sft.blackcatapp.EnrollCoachActivity: EnrollCoachActivity()
+com.sft.blackcatapp.EnrollNextActivity
+com.sft.blackcatapp.EnrollNextActivity: EnrollNextActivity()
 com.sft.blackcatapp.EnrollSchoolActivity
 com.sft.blackcatapp.EnrollSchoolActivity: EnrollSchoolActivity()
 com.sft.blackcatapp.EnrollSuccessActivity
@@ -24192,6 +24231,8 @@ com.sft.blackcatapp.FavouriteSchoolActivity
 com.sft.blackcatapp.FavouriteSchoolActivity: FavouriteSchoolActivity()
 com.sft.blackcatapp.FindPasswordActivity
 com.sft.blackcatapp.FindPasswordActivity: FindPasswordActivity()
+com.sft.blackcatapp.GuideActivity
+com.sft.blackcatapp.GuideActivity: GuideActivity()
 com.sft.blackcatapp.LoginActivity
 com.sft.blackcatapp.LoginActivity: LoginActivity()
 com.sft.blackcatapp.OldMainActivity
@@ -24212,6 +24253,8 @@ com.sft.blackcatapp.MyWalletActivity
 com.sft.blackcatapp.MyWalletActivity: MyWalletActivity()
 com.sft.blackcatapp.MyWalletInviteActivity
 com.sft.blackcatapp.MyWalletInviteActivity: MyWalletInviteActivity()
+com.sft.blackcatapp.OldMainActivity
+com.sft.blackcatapp.OldMainActivity: OldMainActivity()
 com.sft.blackcatapp.PersonCenterActivity
 com.sft.blackcatapp.PersonCenterActivity: PersonCenterActivity()
 com.sft.blackcatapp.ProductDetailActivity
@@ -24246,8 +24289,16 @@ com.sft.blackcatapp.SystemPushActivity
 com.sft.blackcatapp.SystemPushActivity: SystemPushActivity()
 com.sft.blackcatapp.TermsActivity
 com.sft.blackcatapp.TermsActivity: TermsActivity()
+com.sft.blackcatapp.TestingCommit
+com.sft.blackcatapp.TestingCommit: TestingCommit()
+com.sft.blackcatapp.TestingMsgActivity
+com.sft.blackcatapp.TestingMsgActivity: TestingMsgActivity()
+com.sft.blackcatapp.TestingPhoneActivity
+com.sft.blackcatapp.TestingPhoneActivity: TestingPhoneActivity()
 com.sft.blackcatapp.WelcomeActivity
 com.sft.blackcatapp.WelcomeActivity: WelcomeActivity()
+com.sft.blackcatapp.YiBuIntroduceActivity
+com.sft.blackcatapp.YiBuIntroduceActivity: YiBuIntroduceActivity()
 com.sft.common.BlackCatApplication
 com.sft.common.BlackCatApplication: BlackCatApplication()
 com.sft.common.Config$AppointmentResult
@@ -24276,6 +24327,17 @@ com.sft.common.Config$EnrollResult: Config$EnrollResult(java.lang.String,int,jav
 com.sft.common.Config$EnrollResult: java.lang.String getValue()
 com.sft.common.Config$EnrollResult: com.sft.common.Config$EnrollResult[] values()
 com.sft.common.Config$EnrollResult: com.sft.common.Config$EnrollResult valueOf(java.lang.String)
+com.sft.common.Config$MoneyType
+com.sft.common.Config$MoneyType: com.sft.common.Config$MoneyType INTEGRAL_RETURN
+com.sft.common.Config$MoneyType: com.sft.common.Config$MoneyType COIN_CERTIFICATE
+com.sft.common.Config$MoneyType: com.sft.common.Config$MoneyType AMOUNT_IN_CASH
+com.sft.common.Config$MoneyType: java.lang.String index
+com.sft.common.Config$MoneyType: com.sft.common.Config$MoneyType[] ENUM$VALUES
+com.sft.common.Config$MoneyType: void <clinit>()
+com.sft.common.Config$MoneyType: Config$MoneyType(java.lang.String,int,java.lang.String)
+com.sft.common.Config$MoneyType: java.lang.String getValue()
+com.sft.common.Config$MoneyType: com.sft.common.Config$MoneyType[] values()
+com.sft.common.Config$MoneyType: com.sft.common.Config$MoneyType valueOf(java.lang.String)
 com.sft.common.Config$PushType
 com.sft.common.Config$PushType: com.sft.common.Config$PushType userapplysuccess
 com.sft.common.Config$PushType: com.sft.common.Config$PushType reservationsucess
@@ -24385,6 +24447,21 @@ com.sft.video.VolumnView
 com.sft.video.VolumnView: VolumnView(android.content.Context,android.util.AttributeSet,int)
 com.sft.video.VolumnView: VolumnView(android.content.Context,android.util.AttributeSet)
 com.sft.video.VolumnView: VolumnView(android.content.Context)
+com.sft.view.ApplyClassTypeLayout
+com.sft.view.ApplyClassTypeLayout: ApplyClassTypeLayout(android.content.Context)
+com.sft.view.ApplyClassTypeLayout: ApplyClassTypeLayout(android.content.Context,android.util.AttributeSet,int)
+com.sft.view.ApplyClassTypeLayout: ApplyClassTypeLayout(android.content.Context,android.util.AttributeSet)
+com.sft.view.ApplyClassTypeRowLayout
+com.sft.view.ApplyClassTypeRowLayout: ApplyClassTypeRowLayout(android.content.Context,android.util.AttributeSet,int)
+com.sft.view.ApplyClassTypeRowLayout: ApplyClassTypeRowLayout(android.content.Context,android.util.AttributeSet)
+com.sft.view.ColumnHorizontalScrollView
+com.sft.view.ColumnHorizontalScrollView: ColumnHorizontalScrollView(android.content.Context,android.util.AttributeSet)
+com.sft.view.ColumnHorizontalScrollView: ColumnHorizontalScrollView(android.content.Context,android.util.AttributeSet,int)
+com.sft.view.NoScrollViewPager
+com.sft.view.NoScrollViewPager: NoScrollViewPager(android.content.Context,android.util.AttributeSet)
+com.sft.view.RefreshLayout
+com.sft.view.RefreshLayout: RefreshLayout(android.content.Context)
+com.sft.view.RefreshLayout: RefreshLayout(android.content.Context,android.util.AttributeSet)
 com.sft.viewutil.AppointmentCarTimeLayout
 com.sft.viewutil.AppointmentCarTimeLayout: AppointmentCarTimeLayout(android.content.Context,android.util.AttributeSet)
 com.sft.viewutil.AppointmentCarTimeLayout: AppointmentCarTimeLayout(android.content.Context,android.util.AttributeSet,int)
@@ -24410,6 +24487,22 @@ com.sft.viewutil.StudyContentLayout
 com.sft.viewutil.StudyContentLayout: StudyContentLayout(android.content.Context)
 com.sft.viewutil.StudyContentLayout: StudyContentLayout(android.content.Context,android.util.AttributeSet)
 com.sft.viewutil.StudyContentLayout: StudyContentLayout(android.content.Context,android.util.AttributeSet,int)
+com.sft.vo.AmountInCashVO
+com.sft.vo.AmountInCashVO: long serialVersionUID
+com.sft.vo.AmountInCashVO: int money
+com.sft.vo.AmountInCashVO: java.lang.String userid
+com.sft.vo.AmountInCashVO: java.lang.String fcode
+com.sft.vo.AmountInCashVO: java.util.List moneylist
+com.sft.vo.AmountInCashVO: AmountInCashVO()
+com.sft.vo.AmountInCashVO: int getMoney()
+com.sft.vo.AmountInCashVO: void setMoney(int)
+com.sft.vo.AmountInCashVO: java.lang.String getUserid()
+com.sft.vo.AmountInCashVO: void setUserid(java.lang.String)
+com.sft.vo.AmountInCashVO: java.lang.String getFcode()
+com.sft.vo.AmountInCashVO: void setFcode(java.lang.String)
+com.sft.vo.AmountInCashVO: java.util.List getMoneylist()
+com.sft.vo.AmountInCashVO: void setMoneylist(java.util.List)
+com.sft.vo.AmountInCashVO: long getSerialversionuid()
 com.sft.vo.CarModelVO
 com.sft.vo.CarModelVO: java.lang.String ENROLL_USER_SELECTED
 com.sft.vo.CarModelVO: long serialVersionUID
@@ -24690,6 +24783,7 @@ com.sft.vo.EnrollVertifyVO: void setUserid(java.lang.String)
 com.sft.vo.HeadLineNewsVO
 com.sft.vo.HeadLineNewsVO: long serialVersionUID
 com.sft.vo.HeadLineNewsVO: java.lang.String newtype
+com.sft.vo.HeadLineNewsVO: int __v
 com.sft.vo.HeadLineNewsVO: java.lang.String _id
 com.sft.vo.HeadLineNewsVO: java.lang.String is_using
 com.sft.vo.HeadLineNewsVO: java.lang.String linkurl
@@ -24697,6 +24791,8 @@ com.sft.vo.HeadLineNewsVO: java.lang.String createtime
 com.sft.vo.HeadLineNewsVO: java.lang.String newsname
 com.sft.vo.HeadLineNewsVO: com.sft.vo.commonvo.HeadPortrait headportrait
 com.sft.vo.HeadLineNewsVO: HeadLineNewsVO()
+com.sft.vo.HeadLineNewsVO: int get__v()
+com.sft.vo.HeadLineNewsVO: void set__v(int)
 com.sft.vo.HeadLineNewsVO: java.lang.String getNewtype()
 com.sft.vo.HeadLineNewsVO: void setNewtype(java.lang.String)
 com.sft.vo.HeadLineNewsVO: java.lang.String get_id()
@@ -24735,6 +24831,17 @@ com.sft.vo.MallVO: java.util.List getMainlist()
 com.sft.vo.MallVO: void setMainlist(java.util.List)
 com.sft.vo.MallVO: java.util.List getToplist()
 com.sft.vo.MallVO: void setToplist(java.util.List)
+com.sft.vo.MoneyListVO
+com.sft.vo.MoneyListVO: int income
+com.sft.vo.MoneyListVO: java.lang.String createtime
+com.sft.vo.MoneyListVO: int type
+com.sft.vo.MoneyListVO: MoneyListVO()
+com.sft.vo.MoneyListVO: java.lang.String getIncome()
+com.sft.vo.MoneyListVO: void setIncome(int)
+com.sft.vo.MoneyListVO: java.lang.String getCreatetime()
+com.sft.vo.MoneyListVO: void setCreatetime(java.lang.String)
+com.sft.vo.MoneyListVO: java.lang.String getType()
+com.sft.vo.MoneyListVO: void setType(int)
 com.sft.vo.MyAppointmentVO
 com.sft.vo.MyAppointmentVO: long serialVersionUID
 com.sft.vo.MyAppointmentVO: java.lang.String coursehour
@@ -24789,6 +24896,45 @@ com.sft.vo.MyAppointmentVO: java.lang.String getClassdatetimedesc()
 com.sft.vo.MyAppointmentVO: void setClassdatetimedesc(java.lang.String)
 com.sft.vo.MyAppointmentVO: com.sft.vo.coachvo.TrainFieldlInfo getTrainfieldlinfo()
 com.sft.vo.MyAppointmentVO: void setTrainfieldlinfo(com.sft.vo.coachvo.TrainFieldlInfo)
+com.sft.vo.MyCuponVO
+com.sft.vo.MyCuponVO: long serialVersionUID
+com.sft.vo.MyCuponVO: java.lang.String _id
+com.sft.vo.MyCuponVO: java.lang.String userid
+com.sft.vo.MyCuponVO: java.lang.String state
+com.sft.vo.MyCuponVO: boolean is_forcash
+com.sft.vo.MyCuponVO: java.lang.String couponcomefrom
+com.sft.vo.MyCuponVO: java.lang.String createtime
+com.sft.vo.MyCuponVO: MyCuponVO()
+com.sft.vo.MyCuponVO: java.lang.String get_id()
+com.sft.vo.MyCuponVO: void set_id(java.lang.String)
+com.sft.vo.MyCuponVO: java.lang.String getUserid()
+com.sft.vo.MyCuponVO: void setUserid(java.lang.String)
+com.sft.vo.MyCuponVO: java.lang.String getState()
+com.sft.vo.MyCuponVO: void setState(java.lang.String)
+com.sft.vo.MyCuponVO: boolean isIs_forcash()
+com.sft.vo.MyCuponVO: void setIs_forcash(boolean)
+com.sft.vo.MyCuponVO: java.lang.String getCouponcomefrom()
+com.sft.vo.MyCuponVO: void setCouponcomefrom(java.lang.String)
+com.sft.vo.MyCuponVO: java.lang.String getCreatetime()
+com.sft.vo.MyCuponVO: void setCreatetime(java.lang.String)
+com.sft.vo.MyCuponVO: long getSerialversionuid()
+com.sft.vo.MyMoneyVO
+com.sft.vo.MyMoneyVO: java.lang.String userid
+com.sft.vo.MyMoneyVO: java.lang.String wallet
+com.sft.vo.MyMoneyVO: java.lang.String fcode
+com.sft.vo.MyMoneyVO: java.lang.String money
+com.sft.vo.MyMoneyVO: java.lang.String couponcount
+com.sft.vo.MyMoneyVO: MyMoneyVO()
+com.sft.vo.MyMoneyVO: java.lang.String getUserid()
+com.sft.vo.MyMoneyVO: void setUserid(java.lang.String)
+com.sft.vo.MyMoneyVO: java.lang.String getWallet()
+com.sft.vo.MyMoneyVO: void setWallet(java.lang.String)
+com.sft.vo.MyMoneyVO: java.lang.String getFcode()
+com.sft.vo.MyMoneyVO: void setFcode(java.lang.String)
+com.sft.vo.MyMoneyVO: java.lang.String getMoney()
+com.sft.vo.MyMoneyVO: void setMoney(java.lang.String)
+com.sft.vo.MyMoneyVO: java.lang.String getCouponcount()
+com.sft.vo.MyMoneyVO: void setCouponcount(java.lang.String)
 com.sft.vo.MyWalletVO
 com.sft.vo.MyWalletVO: long serialVersionUID
 com.sft.vo.MyWalletVO: java.lang.String wallet
@@ -24798,6 +24944,18 @@ com.sft.vo.MyWalletVO: java.lang.String getWallet()
 com.sft.vo.MyWalletVO: void setWallet(java.lang.String)
 com.sft.vo.MyWalletVO: java.util.List getList()
 com.sft.vo.MyWalletVO: void setList(java.util.List)
+com.sft.vo.ProductBuySuccessVO
+com.sft.vo.ProductBuySuccessVO: long serialVersionUID
+com.sft.vo.ProductBuySuccessVO: java.lang.String orderid
+com.sft.vo.ProductBuySuccessVO: java.lang.String orderscanaduiturl
+com.sft.vo.ProductBuySuccessVO: java.lang.String finishorderurl
+com.sft.vo.ProductBuySuccessVO: ProductBuySuccessVO()
+com.sft.vo.ProductBuySuccessVO: java.lang.String getOrderid()
+com.sft.vo.ProductBuySuccessVO: void setOrderid(java.lang.String)
+com.sft.vo.ProductBuySuccessVO: java.lang.String getOrderscanaduiturl()
+com.sft.vo.ProductBuySuccessVO: void setOrderscanaduiturl(java.lang.String)
+com.sft.vo.ProductBuySuccessVO: java.lang.String getFinishorderurl()
+com.sft.vo.ProductBuySuccessVO: void setFinishorderurl(java.lang.String)
 com.sft.vo.ProductVO
 com.sft.vo.ProductVO: long serialVersionUID
 com.sft.vo.ProductVO: java.lang.String productid
@@ -24805,12 +24963,22 @@ com.sft.vo.ProductVO: java.lang.String productname
 com.sft.vo.ProductVO: java.lang.String productprice
 com.sft.vo.ProductVO: java.lang.String productimg
 com.sft.vo.ProductVO: java.lang.String productdesc
+com.sft.vo.ProductVO: java.lang.String detailurl
 com.sft.vo.ProductVO: java.lang.String viewcount
 com.sft.vo.ProductVO: java.lang.String buycount
 com.sft.vo.ProductVO: java.lang.String detailsimg
+com.sft.vo.ProductVO: java.lang.String address
+com.sft.vo.ProductVO: java.lang.String cityname
+com.sft.vo.ProductVO: java.lang.String county
+com.sft.vo.ProductVO: int distinct
+com.sft.vo.ProductVO: java.lang.String is_scanconsumption
+com.sft.vo.ProductVO: java.lang.String merchantid
+com.sft.vo.ProductVO: java.lang.String productcount
 com.sft.vo.ProductVO: ProductVO()
 com.sft.vo.ProductVO: java.lang.String getProductid()
 com.sft.vo.ProductVO: void setProductid(java.lang.String)
+com.sft.vo.ProductVO: java.lang.String getDetailurl()
+com.sft.vo.ProductVO: void setDetailurl(java.lang.String)
 com.sft.vo.ProductVO: java.lang.String getProductname()
 com.sft.vo.ProductVO: void setProductname(java.lang.String)
 com.sft.vo.ProductVO: java.lang.String getProductprice()
@@ -24825,6 +24993,22 @@ com.sft.vo.ProductVO: java.lang.String getBuycount()
 com.sft.vo.ProductVO: void setBuycount(java.lang.String)
 com.sft.vo.ProductVO: java.lang.String getDetailsimg()
 com.sft.vo.ProductVO: void setDetailsimg(java.lang.String)
+com.sft.vo.ProductVO: java.lang.String getAddress()
+com.sft.vo.ProductVO: void setAddress(java.lang.String)
+com.sft.vo.ProductVO: java.lang.String getCityname()
+com.sft.vo.ProductVO: void setCityname(java.lang.String)
+com.sft.vo.ProductVO: java.lang.String getCounty()
+com.sft.vo.ProductVO: void setCounty(java.lang.String)
+com.sft.vo.ProductVO: java.lang.String getDistinct()
+com.sft.vo.ProductVO: void setDistinct(int)
+com.sft.vo.ProductVO: java.lang.String getIs_scanconsumption()
+com.sft.vo.ProductVO: void setIs_scanconsumption(java.lang.String)
+com.sft.vo.ProductVO: java.lang.String getMerchantid()
+com.sft.vo.ProductVO: void setMerchantid(java.lang.String)
+com.sft.vo.ProductVO: java.lang.String getProductcount()
+com.sft.vo.ProductVO: java.lang.String getCount()
+com.sft.vo.ProductVO: void setProductcount(java.lang.String)
+com.sft.vo.ProductVO: long getSerialversionuid()
 com.sft.vo.PushInnerVO
 com.sft.vo.PushInnerVO: long serialVersionUID
 com.sft.vo.PushInnerVO: java.lang.String userid
@@ -24901,7 +25085,20 @@ com.sft.vo.SchoolVO: java.lang.String passingrate
 com.sft.vo.SchoolVO: java.lang.String distance
 com.sft.vo.SchoolVO: java.lang.String maxprice
 com.sft.vo.SchoolVO: java.lang.String minprice
+com.sft.vo.SchoolVO: int coachcount
+com.sft.vo.SchoolVO: int commentcount
+com.sft.vo.SchoolVO: java.lang.String id
+com.sft.vo.SchoolVO: java.lang.String schoollevel
 com.sft.vo.SchoolVO: SchoolVO()
+com.sft.vo.SchoolVO: int getCoachcount()
+com.sft.vo.SchoolVO: void setCoachcount(int)
+com.sft.vo.SchoolVO: int getCommentcount()
+com.sft.vo.SchoolVO: void setCommentcount(int)
+com.sft.vo.SchoolVO: java.lang.String getId()
+com.sft.vo.SchoolVO: void setId(java.lang.String)
+com.sft.vo.SchoolVO: java.lang.String getSchoollevel()
+com.sft.vo.SchoolVO: void setSchoollevel(java.lang.String)
+com.sft.vo.SchoolVO: void setPictures(java.lang.String[])
 com.sft.vo.SchoolVO: boolean equals(java.lang.Object)
 com.sft.vo.SchoolVO: java.lang.String getDb_userid()
 com.sft.vo.SchoolVO: void setDb_userid(java.lang.String)
@@ -24942,6 +25139,42 @@ com.sft.vo.SchoolVO: java.lang.String getMinprice()
 com.sft.vo.SchoolVO: void setMinprice(java.lang.String)
 com.sft.vo.SchoolVO: java.lang.String getDistance()
 com.sft.vo.SchoolVO: void setDistance(java.lang.String)
+com.sft.vo.SuccessVO
+com.sft.vo.SuccessVO: java.lang.String scanauditurl
+com.sft.vo.SuccessVO: java.lang.String applynotes
+com.sft.vo.SuccessVO: java.lang.String name
+com.sft.vo.SuccessVO: java.lang.String mobile
+com.sft.vo.SuccessVO: java.lang.String endtime
+com.sft.vo.SuccessVO: java.lang.String userid
+com.sft.vo.SuccessVO: int applystate
+com.sft.vo.SuccessVO: java.lang.String applytime
+com.sft.vo.SuccessVO: com.sft.vo.SuccessVO$applyclasstypeinfo applyclasstypeinfo
+com.sft.vo.SuccessVO: com.sft.vo.SuccessVO$Applyschoolinfo applyschoolinfo
+com.sft.vo.SuccessVO: com.sft.vo.SuccessVO$Applycoachinfo applycoachinfo
+com.sft.vo.SuccessVO: com.sft.vo.SuccessVO$Carmodel carmodel
+com.sft.vo.SuccessVO: SuccessVO()
+com.sft.vo.SuccessVO$Applycoachinfo
+com.sft.vo.SuccessVO$Applycoachinfo: java.lang.String name
+com.sft.vo.SuccessVO$Applycoachinfo: java.lang.String id
+com.sft.vo.SuccessVO$Applycoachinfo: com.sft.vo.SuccessVO this$0
+com.sft.vo.SuccessVO$Applycoachinfo: SuccessVO$Applycoachinfo(com.sft.vo.SuccessVO)
+com.sft.vo.SuccessVO$Applyschoolinfo
+com.sft.vo.SuccessVO$Applyschoolinfo: java.lang.String name
+com.sft.vo.SuccessVO$Applyschoolinfo: java.lang.String id
+com.sft.vo.SuccessVO$Applyschoolinfo: com.sft.vo.SuccessVO this$0
+com.sft.vo.SuccessVO$Applyschoolinfo: SuccessVO$Applyschoolinfo(com.sft.vo.SuccessVO)
+com.sft.vo.SuccessVO$Carmodel
+com.sft.vo.SuccessVO$Carmodel: java.lang.String code
+com.sft.vo.SuccessVO$Carmodel: java.lang.String name
+com.sft.vo.SuccessVO$Carmodel: int modelsid
+com.sft.vo.SuccessVO$Carmodel: com.sft.vo.SuccessVO this$0
+com.sft.vo.SuccessVO$Carmodel: SuccessVO$Carmodel(com.sft.vo.SuccessVO)
+com.sft.vo.SuccessVO$applyclasstypeinfo
+com.sft.vo.SuccessVO$applyclasstypeinfo: java.lang.String id
+com.sft.vo.SuccessVO$applyclasstypeinfo: java.lang.String name
+com.sft.vo.SuccessVO$applyclasstypeinfo: java.lang.String price
+com.sft.vo.SuccessVO$applyclasstypeinfo: com.sft.vo.SuccessVO this$0
+com.sft.vo.SuccessVO$applyclasstypeinfo: SuccessVO$applyclasstypeinfo(com.sft.vo.SuccessVO)
 com.sft.vo.UserBaseStateVO
 com.sft.vo.UserBaseStateVO: long serialVersionUID
 com.sft.vo.UserBaseStateVO: java.lang.String _id

@@ -1,0 +1,178 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/enroll_rootlayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:id="@+id/ll_title"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#ccc"
+        android:orientation="horizontal" >
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_title"
+        android:layout_marginTop="21dp" >
+
+        <TextView
+            android:id="@+id/textView_title_one"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="25dp"
+            android:background="@drawable/unpress_one"
+            android:gravity="center"
+            android:text="选择驾校"
+            android:textColor="#333"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textView_title_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/press_two"
+            android:gravity="center"
+            android:text="填写信息"
+            android:textColor="#fff"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textView_title_three"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="18dp"
+            android:layout_toRightOf="@+id/textView_title_two"
+            android:background="@drawable/unpress_three"
+            android:gravity="center"
+            android:text="报名验证"
+            android:textColor="#333"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+                android:id="@+id/enroll_carema_layout"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:layout_marginTop="18dp"
+        		android:layout_below="@+id/rl_title"    
+                android:background="#cccccc" >
+
+                <ImageView
+                    android:layout_width="71dp"
+                    android:layout_height="71dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/enroll_photo_layout_bkground"
+                    android:contentDescription="@string/app_name" />
+
+                <ImageView
+                    android:layout_width="29dp"
+                    android:layout_height="29dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/enroll_photo_btn_bkground"
+                    android:contentDescription="@string/app_name" />
+
+                <ImageView
+                    android:id="@+id/enroll_headpic_im"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/app_name" />
+            </RelativeLayout>
+
+    <!-- 1 -->
+    <RelativeLayout
+        android:id="@+id/rl_msg_one"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/enroll_carema_layout"
+        android:background="@drawable/bg_item" >
+          <EditText
+         android:id="@+id/enroll_name_et"
+         style="@style/enroll_et_style"
+         android:inputType="text" />
+
+</RelativeLayout>
+
+    <!-- 2 -->
+<RelativeLayout
+        android:id="@+id/rl_msg_two"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_msg_one"
+        android:background="@drawable/bg_item" >
+   <EditText		
+       android:id="@+id/enroll_card_et"
+       style="@style/enroll_et_style"
+       android:inputType="number" />
+</RelativeLayout>
+
+<!-- 3 -->
+<RelativeLayout
+        android:id="@+id/rl_msg_three"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_msg_two"
+        android:background="@drawable/bg_item" >
+    <EditText
+            android:id="@+id/enroll_contact_et"
+            style="@style/enroll_et_style"
+            android:inputType="phone" />
+
+</RelativeLayout>
+
+<!-- 4 -->
+   <RelativeLayout
+        android:id="@+id/rl_msg_four"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_msg_three"
+        android:background="@drawable/bg_item" >
+   <EditText		
+                    android:id="@+id/enroll_address_et"
+                    style="@style/enroll_et_style"
+                    android:inputType="text" />
+ 
+</RelativeLayout>
+
+   <TextView
+       android:id="@+id/textView1"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignParentLeft="true"
+       android:layout_below="@+id/rl_msg_four"
+       android:layout_marginLeft="16dp"
+       android:layout_marginTop="16dp"
+       android:textColor="#f00"
+       android:textSize="12sp"
+       android:text="温馨提示:" />
+
+   <TextView
+       android:id="@+id/textView2"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignLeft="@+id/textView1"
+       android:layout_marginTop="5dp"
+       android:layout_marginRight="15dp"
+       android:layout_below="@+id/textView1"
+       android:text="     请认真填写以上信息，您填写的信息将作为报名信息录入车考驾照系统内，如果信息错误，将影响你的报名流程。"
+       android:textSize="10sp" />
+
+   <Button
+       android:id="@+id/enroll_commit_btn"
+       android:layout_width="match_parent"
+       android:layout_height="50dp"
+       android:layout_alignParentBottom="true"
+       android:layout_centerHorizontal="true"
+       android:background="#ff6633"
+       android:textSize="16sp"
+       android:textColor="#ffffff"
+       android:text="下一步" />
+  
+</RelativeLayout>

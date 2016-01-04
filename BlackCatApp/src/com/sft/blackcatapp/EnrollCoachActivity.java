@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.sft.adapter.CoachListAdapter;
+import com.sft.blackcatapp.R;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
 import com.sft.dialog.EnrollSelectConfilctDialog;

@@ -27,6 +27,8 @@ public class Config {
 	public static final String USER_AUTO_LOGIN = "userautologin";
 	// 用户当前所在城市
 	public static final String USER_CITY = "usercity";
+	// 用户报名信息
+	public static final String USER_ENROLL_INFO = "userenrollinfo";
 
 	// 聊天对方的头像url字段
 	public static final String CHAT_HEAD_RUL = "headUrl";
@@ -47,7 +49,8 @@ public class Config {
 
 	public static final String SYSTEM_PUSH = "systempush";
 
-	public static String path = getSDPath() + File.separator + "BlackCat" + File.separator;
+	public static String path = getSDPath() + File.separator + "BlackCat"
+			+ File.separator;
 	/**
 	 * 用户头像保存的位置
 	 */
@@ -98,8 +101,24 @@ public class Config {
 		}
 	}
 
+	public enum MoneyType {
+		// 报考状态 0 积分收益；1 兑换券 ；2现金额
+		// coin certificate("1"), amount_in_cash("2")
+		INTEGRAL_RETURN("0"), COIN_CERTIFICATE("1"), AMOUNT_IN_CASH("2");
+		private String index;
+
+		private MoneyType(String index) {
+			this.index = index;
+		}
+
+		public String getValue() {
+			return index;
+		}
+	}
+
 	public enum SubjectStatu {
-		SUBJECT_NONE("0"), SUBJECT_ONE("1"), SUBJECT_THREE("3"), SUBJECT_TWO("2"), SUBJECT_FOUR("4");
+		SUBJECT_NONE("0"), SUBJECT_ONE("1"), SUBJECT_THREE("3"), SUBJECT_TWO(
+				"2"), SUBJECT_FOUR("4");
 		private String index;
 
 		private SubjectStatu(String index) {
@@ -138,10 +157,10 @@ public class Config {
 	}
 
 	public enum PushType {
-		userapplysuccess("userapplysuccess"), reservationsucess("reservationsucess"), walletupdate(
-				"walletupdate"), newversion("newversion"), reservationcancel(
-						"reservationcancel"), reservationcoachcomment("reservationcoachcomment"), systemmsg(
-								"systemmsg");
+		userapplysuccess("userapplysuccess"), reservationsucess(
+				"reservationsucess"), walletupdate("walletupdate"), newversion(
+				"newversion"), reservationcancel("reservationcancel"), reservationcoachcomment(
+				"reservationcoachcomment"), systemmsg("systemmsg");
 		private String index;
 
 		private PushType(String index) {
@@ -155,7 +174,8 @@ public class Config {
 
 	public static String getSDPath() {
 		File sdDir = null;
-		boolean sdCardExist = Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED); // 判断sd卡是否存在
+		boolean sdCardExist = Environment.getExternalStorageState().equals(
+				android.os.Environment.MEDIA_MOUNTED); // 判断sd卡是否存在
 		if (sdCardExist) {
 			sdDir = Environment.getExternalStorageDirectory();// 获取根目录
 			return sdDir.toString();

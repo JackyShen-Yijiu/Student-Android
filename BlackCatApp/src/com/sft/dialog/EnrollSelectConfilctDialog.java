@@ -1,7 +1,5 @@
 package com.sft.dialog;
 
-import com.sft.blackcatapp.R;
-
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
@@ -14,8 +12,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.sft.blackcatapp.R;
+
 @SuppressLint("InflateParams")
-public class EnrollSelectConfilctDialog extends Dialog implements android.view.View.OnClickListener {
+public class EnrollSelectConfilctDialog extends Dialog implements
+		android.view.View.OnClickListener {
 
 	private Context context;
 	private ImageView image;
@@ -40,7 +41,8 @@ public class EnrollSelectConfilctDialog extends Dialog implements android.view.V
 		View view = inflater.inflate(R.layout.dialog_no_login, null);
 		image = (ImageView) view.findViewById(R.id.dialog_no_login_im);
 		content = (TextView) view.findViewById(R.id.dialog_no_login_content);
-		confirmBtn = (Button) view.findViewById(R.id.dialog_no_login_confirm_btn);
+		confirmBtn = (Button) view
+				.findViewById(R.id.dialog_no_login_confirm_btn);
 		cancelBtn = (Button) view.findViewById(R.id.dialog_no_login_cancel_btn);
 		setTextAndImage();
 		setContentView(view);
@@ -66,6 +68,12 @@ public class EnrollSelectConfilctDialog extends Dialog implements android.view.V
 		content.setText(tip);
 		confirmBtn.setText("确定");
 		cancelBtn.setText("取消");
+	}
+
+	public void setBtnText(String confirmString, String cancelString) {
+
+		confirmBtn.setText(confirmString);
+		cancelBtn.setText(cancelString);
 	}
 
 	@Override

@@ -89,6 +89,7 @@
     <orderEntry type="library" exported="" name="umeng-analytics-v5.6.1" level="project" />
     <orderEntry type="library" exported="" name="gson-2.2.4" level="project" />
     <orderEntry type="library" exported="" name="BaiduLBS_Android" level="project" />
+    <orderEntry type="module" module-name="SlidingMenu" exported="" />
     <orderEntry type="module" module-name="QiniuTool" exported="" />
     <orderEntry type="module" module-name="InfiniteScrollViewPager" exported="" />
     <orderEntry type="module" module-name="SwipeRefreshLoadListview" exported="" />

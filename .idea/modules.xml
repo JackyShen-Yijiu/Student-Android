@@ -7,6 +7,7 @@
       <module fileurl="file://$PROJECT_DIR$/EMChatLib/EMChatLib.iml" filepath="$PROJECT_DIR$/EMChatLib/EMChatLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/InfiniteScrollViewPager/InfiniteScrollViewPager.iml" filepath="$PROJECT_DIR$/InfiniteScrollViewPager/InfiniteScrollViewPager.iml" />
       <module fileurl="file://$PROJECT_DIR$/QiniuTool/QiniuTool.iml" filepath="$PROJECT_DIR$/QiniuTool/QiniuTool.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SlidingMenu/SlidingMenu.iml" filepath="$PROJECT_DIR$/SlidingMenu/SlidingMenu.iml" />
       <module fileurl="file://$PROJECT_DIR$/SwipeRefreshLoadListview/SwipeRefreshLoadListview.iml" filepath="$PROJECT_DIR$/SwipeRefreshLoadListview/SwipeRefreshLoadListview.iml" />
       <module fileurl="file://$PROJECT_DIR$/pullrefreshloadmorelib/pullrefreshloadmorelib.iml" filepath="$PROJECT_DIR$/pullrefreshloadmorelib/pullrefreshloadmorelib.iml" />
       <module fileurl="file://$PROJECT_DIR$/student.iml" filepath="$PROJECT_DIR$/student.iml" />

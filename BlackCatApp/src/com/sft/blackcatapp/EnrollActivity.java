@@ -1,9 +1,19 @@
 package com.sft.blackcatapp;
 
-import java.util.HashMap;
-import java.util.Map;
+import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-import com.sft.common.Config;
+import com.sft.blackcatapp.R;
 import com.sft.common.Config.EnrollResult;
 import com.sft.dialog.CustomDialog;
 import com.sft.util.Util;
@@ -12,21 +22,6 @@ import com.sft.vo.CarModelVO;
 import com.sft.vo.ClassVO;
 import com.sft.vo.CoachVO;
 import com.sft.vo.SchoolVO;
-
-import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
-import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextUtils;
-import android.text.TextWatcher;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import cn.sft.baseactivity.util.HttpSendUtils;
 
 /**
  * 报名界面
@@ -37,10 +32,6 @@ import cn.sft.baseactivity.util.HttpSendUtils;
 @SuppressWarnings("unused")
 public class EnrollActivity extends BaseActivity {
 
-	private static final String realName = "realName";
-	private static final String idcard = "idcard";
-	private static final String contact = "contact";
-	private static final String address = "address";
 	private static final String enroll = "enroll";
 	private RelativeLayout rootLayout;
 	// 头像图片
@@ -75,11 +66,15 @@ public class EnrollActivity extends BaseActivity {
 	private CustomDialog successDialog;
 	// 报名状态
 	private String enrollState;
+	// 布局按钮
+	private RelativeLayout schoolRL;
+	private RelativeLayout carStyleRL;
+	private RelativeLayout coachRL;
+	private RelativeLayout classRL;
 
-	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		addView(R.layout.activity_enroll);
+		addView(R.layout.apply_driving);
 		initView();
 		initData();
 		setListener();
@@ -93,21 +88,17 @@ public class EnrollActivity extends BaseActivity {
 		rootLayout.setFocusableInTouchMode(true);
 		rootLayout.requestFocus();
 
-		headPicIm = (ImageView) findViewById(R.id.enroll_headpic_im);
 		schoolTv = (TextView) findViewById(R.id.enroll_school_tv);
 		carStyleTv = (TextView) findViewById(R.id.enroll_carstyle_tv);
 		coachTv = (TextView) findViewById(R.id.enroll_coach_tv);
 		classTv = (TextView) findViewById(R.id.enroll_class_tv);
-		commitBtn = (Button) findViewById(R.id.enroll_commit_btn);
-		nameEt = (EditText) findViewById(R.id.enroll_name_et);
-		cardEt = (EditText) findViewById(R.id.enroll_card_et);
-		contactEt = (EditText) findViewById(R.id.enroll_contact_et);
-		addressEt = (EditText) findViewById(R.id.enroll_address_et);
 
-		nameEt.setHint(setHint(R.string.real_name));
-		cardEt.setHint(setHint(R.string.idcard));
-		contactEt.setHint(setHint(R.string.contact));
-		addressEt.setHint(setHint(R.string.address));
+		schoolRL = (RelativeLayout) findViewById(R.id.enroll_school_rl);
+		carStyleRL = (RelativeLayout) findViewById(R.id.enroll_carstyle_rl);
+		coachRL = (RelativeLayout) findViewById(R.id.enroll_coach_rl);
+		classRL = (RelativeLayout) findViewById(R.id.enroll_class_rl);
+
+		commitBtn = (Button) findViewById(R.id.enroll_commit_btn);
 
 		resizeDrawalbeLeftSize();
 	}
@@ -116,45 +107,21 @@ public class EnrollActivity extends BaseActivity {
 
 		enrollState = app.userVO.getApplystate();
 
-		String name = util.readParam(realName + app.userVO.getUserid());
-		if (!TextUtils.isEmpty(name)) {
-			nameEt.setText(name);
-		} else {
-			nameEt.setText(app.userVO.getName());
-		}
-		String contac = util.readParam(contact + app.userVO.getUserid());
-		if (!TextUtils.isEmpty(contac)) {
-			contactEt.setText(contac);
-		} else {
-			contactEt.setText(app.userVO.getMobile());
-		}
-		String card = util.readParam(idcard + app.userVO.getUserid());
-		if (!TextUtils.isEmpty(card)) {
-			cardEt.setText(card);
-		} else {
-			cardEt.setText(app.userVO.getIdcardnumber());
-		}
-		String add = util.readParam(address + app.userVO.getUserid());
-		if (!TextUtils.isEmpty(add)) {
-			addressEt.setText(add);
-		} else {
-			addressEt.setText(app.userVO.getAddress());
-		}
-
 		Intent intent = getIntent();
 		if (intent.getBooleanExtra("userselect", false)) {
-			onActivityResult(intent.getIntExtra("requestCode", 0), intent.getIntExtra("resultCode", 0), intent);
+			onActivityResult(intent.getIntExtra("requestCode", 0),
+					intent.getIntExtra("resultCode", 0), intent);
 		} else {
 			if (EnrollResult.SUBJECT_NONE.getValue().equals(enrollState)) {
 				// 没有报过名，读取数据库中保存的用户选择信息填充
-				school = Util.getEnrollUserSelectedSchool(this);
-				if (school != null) {
-					schoolTv.setText(school.getName());
-				}
-
 				carStyle = Util.getEnrollUserSelectedCarStyle(this);
 				if (carStyle != null) {
 					carStyleTv.setText(carStyle.getCode());
+				}
+
+				school = Util.getEnrollUserSelectedSchool(this);
+				if (school != null) {
+					schoolTv.setText(school.getName());
 				}
 
 				classId = Util.getEnrollUserSelectedClass(this);
@@ -167,22 +134,11 @@ public class EnrollActivity extends BaseActivity {
 					coachTv.setText(coach.getName());
 				}
 			} else {
-				// 用户已经报过名
-				if (EnrollResult.SUBJECT_ENROLLING.getValue().equals(enrollState)) {
-					commitBtn.setText("报名审核中...");
-				} else {
-					commitBtn.setText("已成功报名");
-				}
-				schoolTv.setText(app.userVO.getApplyschoolinfo().getName());
-				coachTv.setText(app.userVO.getApplycoachinfo().getName());
 				carStyleTv.setText(app.userVO.getCarmodel().getCode());
+				schoolTv.setText(app.userVO.getApplyschoolinfo().getName());
 				classTv.setText(app.userVO.getApplyclasstypeinfo().getName());
+				coachTv.setText(app.userVO.getApplycoachinfo().getName());
 
-				nameEt.setEnabled(false);
-				contactEt.setEnabled(false);
-				cardEt.setEnabled(false);
-				addressEt.setEnabled(false);
-				commitBtn.setEnabled(false);
 			}
 		}
 	}
@@ -194,22 +150,24 @@ public class EnrollActivity extends BaseActivity {
 		Drawable arrow = r.getDrawable(R.drawable.person_center_arrow);
 		arrow.setBounds(0, 0, size, size);
 
-		schoolTv.setCompoundDrawables(null, null, arrow, null);
 		carStyleTv.setCompoundDrawables(null, null, arrow, null);
-		coachTv.setCompoundDrawables(null, null, arrow, null);
+		schoolTv.setCompoundDrawables(null, null, arrow, null);
 		classTv.setCompoundDrawables(null, null, arrow, null);
+		coachTv.setCompoundDrawables(null, null, arrow, null);
 	}
 
 	private void setListener() {
 		commitBtn.setOnClickListener(this);
+
 		schoolTv.setOnClickListener(this);
 		carStyleTv.setOnClickListener(this);
 		coachTv.setOnClickListener(this);
 		classTv.setOnClickListener(this);
-		nameEt.addTextChangedListener(new MyEditChangedListener(realName));
-		cardEt.addTextChangedListener(new MyEditChangedListener(idcard));
-		contactEt.addTextChangedListener(new MyEditChangedListener(contact));
-		addressEt.addTextChangedListener(new MyEditChangedListener(address));
+
+		// nameEt.addTextChangedListener(new MyEditChangedListener(realName));
+		// cardEt.addTextChangedListener(new MyEditChangedListener(idcard));
+		// contactEt.addTextChangedListener(new MyEditChangedListener(contact));
+		// addressEt.addTextChangedListener(new MyEditChangedListener(address));
 	}
 
 	@Override
@@ -224,11 +182,6 @@ public class EnrollActivity extends BaseActivity {
 		if (EnrollResult.SUBJECT_NONE.getValue().equals(enrollState)) {
 			Intent intent = null;
 			switch (v.getId()) {
-			case R.id.enroll_school_tv:
-				intent = new Intent(this, EnrollSchoolActivity.class);
-				if (school != null)
-					intent.putExtra("school", school);
-				break;
 			case R.id.enroll_carstyle_tv:
 				if (school == null) {
 					ZProgressHUD.getInstance(this).show();
@@ -237,6 +190,22 @@ public class EnrollActivity extends BaseActivity {
 					intent = new Intent(this, EnrollCarStyleActivity.class);
 					if (carStyle != null)
 						intent.putExtra("carStyle", carStyle);
+				}
+				break;
+			case R.id.enroll_school_tv:
+				intent = new Intent(this, EnrollSchoolActivity.class);
+				if (school != null)
+					intent.putExtra("school", school);
+				break;
+			case R.id.enroll_class_tv:
+				if (school == null) {
+					ZProgressHUD.getInstance(this).show();
+					ZProgressHUD.getInstance(this).dismissWithFailure("先选择驾校");
+				} else {
+					intent = new Intent(this, EnrollClassActivity.class);
+					intent.putExtra("schoolId", school.getSchoolid());
+					if (classId != null)
+						intent.putExtra("class", classId);
 				}
 				break;
 			case R.id.enroll_coach_tv:
@@ -250,19 +219,11 @@ public class EnrollActivity extends BaseActivity {
 						intent.putExtra("coach", coach);
 				}
 				break;
-			case R.id.enroll_class_tv:
-				if (school == null) {
-					ZProgressHUD.getInstance(this).show();
-					ZProgressHUD.getInstance(this).dismissWithFailure("先选择驾校");
-				} else {
-					intent = new Intent(this, EnrollClassActivity.class);
-					intent.putExtra("schoolId", school.getSchoolid());
-					if (classId != null)
-						intent.putExtra("class", classId);
-				}
-				break;
 			case R.id.enroll_commit_btn:
-				enroll();
+				// enroll();
+				Intent intentt = new Intent(this, EnrollNextActivity.class);
+				startActivity(intentt);
+				// finish();
 				break;
 			}
 			if (intent != null) {
@@ -271,60 +232,18 @@ public class EnrollActivity extends BaseActivity {
 		}
 	}
 
-	private void enroll() {
-		String checkResult = checkEnrollInfo();
-		if (checkResult == null) {
-			Map<String, String> paramMap = new HashMap<String, String>();
-			paramMap.put("name", nameEt.getText().toString());
-			paramMap.put("idcardnumber", cardEt.getText().toString());
-			paramMap.put("telephone", contactEt.getText().toString());
-			paramMap.put("address", addressEt.getText().toString());
-			paramMap.put("userid", app.userVO.getUserid());
-
-			paramMap.put("schoolid", school.getSchoolid());
-			paramMap.put("coachid", coach.getCoachid());
-			paramMap.put("classtypeid", classId.getCalssid());
-			paramMap.put("carmodel", carStyle.toString());
-
-			Map<String, String> headerMap = new HashMap<String, String>();
-			headerMap.put("authorization", app.userVO.getToken());
-			HttpSendUtils.httpPostSend(enroll, this, Config.IP + "api/v1/userinfo/userapplyschool", paramMap, 10000,
-					headerMap);
-		} else {
-			ZProgressHUD.getInstance(this).show();
-			ZProgressHUD.getInstance(this).dismissWithFailure(checkResult);
-		}
-	}
-
 	private String checkEnrollInfo() {
-		String name = nameEt.getText().toString();
-		if (TextUtils.isEmpty(name)) {
-			return "姓名为空";
-		}
-		String idcard = cardEt.getText().toString();
-		if (TextUtils.isEmpty(idcard)) {
-			return "身份证号为空";
-		}
-
-		String phone = contactEt.getText().toString();
-		if (TextUtils.isEmpty(phone)) {
-			return "联系方式为空";
-		}
-		String address = addressEt.getText().toString();
-		if (TextUtils.isEmpty(address)) {
-			return "常用地址为空";
+		if (carStyle == null) {
+			return "车型为空";
 		}
 		if (school == null) {
 			return "驾校为空";
 		}
-		if (coach == null) {
-			return "教练为空";
-		}
 		if (classId == null) {
 			return "班型为空";
 		}
-		if (carStyle == null) {
-			return "车型为空";
+		if (coach == null) {
+			return "教练为空";
 		}
 		return null;
 	}
@@ -334,11 +253,11 @@ public class EnrollActivity extends BaseActivity {
 		if (super.doCallBack(type, jsonString)) {
 			return true;
 		}
-		if (type.equals(enroll)) {
-			Intent intent = new Intent(this, EnrollSuccessActivity.class);
-			startActivity(intent);
-			finish();
-		}
+		// if (type.equals(enroll)) {
+		// Intent intent = new Intent(this, EnrollNextActivity.class);
+		// startActivity(intent);
+		// finish();
+		// }
 		return true;
 	}
 
@@ -353,7 +272,8 @@ public class EnrollActivity extends BaseActivity {
 			// 报名页面选择学校
 		case R.id.main_appointment_course_layout:
 			// 点击首页驾校卡
-			SchoolVO tempSchool = (SchoolVO) data.getSerializableExtra("school");
+			SchoolVO tempSchool = (SchoolVO) data
+					.getSerializableExtra("school");
 			if (school == null || !school.equals(tempSchool)) {
 				// 更换驾校，并删除了相应的冲突信息
 				school = tempSchool;
@@ -436,11 +356,13 @@ public class EnrollActivity extends BaseActivity {
 		}
 
 		@Override
-		public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+		public void beforeTextChanged(CharSequence s, int start, int count,
+				int after) {
 		}
 
 		@Override
-		public void onTextChanged(CharSequence s, int start, int before, int count) {
+		public void onTextChanged(CharSequence s, int start, int before,
+				int count) {
 			util.saveParam(style + app.userVO.getUserid(), s.toString());
 		}
 

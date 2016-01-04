@@ -8,6 +8,7 @@
         android:id="@+id/base_titlebar_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/base_titlebar_height"
+        android:background="#3F3D60"
         android:orientation="vertical" >
 
         <RelativeLayout
@@ -23,7 +24,7 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                android:textColor="@color/app_main_color"
+                android:textColor="@color/app_main_title_color"
                 android:textSize="14dp" />
 
             <ImageButton
@@ -39,8 +40,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="@string/app_name"
-                android:textColor="#333333"
+                android:text="一步学车"
+                android:textColor="#fefefe"
                 android:textSize="18dp"
                 android:textStyle="bold" />
 
@@ -62,16 +63,16 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:textColor="@color/app_main_color"
+                android:textColor="@color/app_main_title_color"
                 android:textSize="14dp" />
         </RelativeLayout>
 
-        <ImageView
+        <!-- <ImageView
             android:id="@+id/base_deviderline"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#cccccc"
-            android:contentDescription="@string/app_name" />
+            android:contentDescription="@string/app_name" /> -->
     </LinearLayout>
 
     <LinearLayout

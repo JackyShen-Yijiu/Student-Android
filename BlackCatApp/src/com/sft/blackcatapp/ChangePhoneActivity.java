@@ -13,6 +13,7 @@ import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.baseactivity.util.MyHandler;
 
+import com.sft.blackcatapp.R;
 import com.sft.common.Config;
 import com.sft.viewutil.ZProgressHUD;
 
@@ -132,6 +133,7 @@ public class ChangePhoneActivity extends BaseActivity {
 			codeHandler = new MyHandler(true, 1000) {
 				private int time = codeTime;
 
+				@Override
 				public void run() {
 					if (time-- > 0) {
 						sendCodeBtn.setText("剩余(" + time + "s)");
@@ -152,6 +154,8 @@ public class ChangePhoneActivity extends BaseActivity {
 				ZProgressHUD.getInstance(this).show();
 				ZProgressHUD.getInstance(this).dismissWithSuccess("修改成功");
 				app.userVO.setTelephone(phoneEt.getText().toString());
+				util.saveParam(Config.LAST_LOGIN_ACCOUNT, phoneEt.getText()
+						.toString());
 				new MyHandler(1000) {
 					@Override
 					public void run() {

@@ -1,6 +1,8 @@
 package com.sft.util;
 
+import java.lang.reflect.Type;
 import java.text.ParseException;
+import java.util.List;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,5 +41,19 @@ public class JSONUtil {
 
 	public static String toJsonString(Object object) {
 		return new Gson().toJson(object);
+	}
+
+	/**
+	 * 把json字符串变成集合 params: new TypeToken<List<yourbean>>(){}.getType(),
+	 * 
+	 * @param json
+	 * @param type
+	 *            new TypeToken<List<yourbean>>(){}.getType()
+	 * @return
+	 */
+	public static List<?> parseJsonToList(String json, Type type) {
+		Gson gson = new Gson();
+		List<?> list = gson.fromJson(json, type);
+		return list;
 	}
 }

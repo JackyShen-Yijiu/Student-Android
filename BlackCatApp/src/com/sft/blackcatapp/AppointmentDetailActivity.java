@@ -3,26 +3,6 @@ package com.sft.blackcatapp;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.baidu.mapapi.map.BaiduMap;
-import com.baidu.mapapi.map.BaiduMap.OnMapDoubleClickListener;
-import com.baidu.mapapi.map.BitmapDescriptor;
-import com.baidu.mapapi.map.BitmapDescriptorFactory;
-import com.baidu.mapapi.map.MapStatus;
-import com.baidu.mapapi.map.MapStatusUpdate;
-import com.baidu.mapapi.map.MapStatusUpdateFactory;
-import com.baidu.mapapi.map.MapView;
-import com.baidu.mapapi.map.MarkerOptions;
-import com.baidu.mapapi.map.OverlayOptions;
-import com.baidu.mapapi.model.LatLng;
-import com.sft.adapter.AppointmentDetailStudentHoriListAdapter;
-import com.sft.common.Config;
-import com.sft.common.Config.AppointmentResult;
-import com.sft.common.Config.UserType;
-import com.sft.util.JSONUtil;
-import com.sft.viewutil.ZProgressHUD;
-import com.sft.vo.MyAppointmentVO;
-import com.sft.vo.commentvo.CommentUser;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -38,9 +18,28 @@ import android.widget.ZoomControls;
 import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.infinitescrollviewpager.BitmapManager;
 import cn.sft.infinitescrollviewpager.MyHandler;
-import cn.sft.pull.LoadMoreView;
-import cn.sft.pull.LoadMoreView.LoadMoreListener;
 import cn.sft.pull.OnItemClickListener;
+
+import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.BaiduMap.OnMapDoubleClickListener;
+import com.baidu.mapapi.map.BitmapDescriptor;
+import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.MapStatus;
+import com.baidu.mapapi.map.MapStatusUpdate;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
+import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.MarkerOptions;
+import com.baidu.mapapi.map.OverlayOptions;
+import com.baidu.mapapi.model.LatLng;
+import com.sft.adapter.AppointmentDetailStudentHoriListAdapter;
+import com.sft.blackcatapp.R;
+import com.sft.common.Config;
+import com.sft.common.Config.AppointmentResult;
+import com.sft.common.Config.UserType;
+import com.sft.util.JSONUtil;
+import com.sft.viewutil.ZProgressHUD;
+import com.sft.vo.MyAppointmentVO;
+import com.sft.vo.commentvo.CommentUser;
 
 /**
  * 预约详情
@@ -49,8 +48,8 @@ import cn.sft.pull.OnItemClickListener;
  * 
  */
 @SuppressLint("ClickableViewAccessibility")
-public class AppointmentDetailActivity extends BaseActivity
-		implements OnClickListener, OnMapDoubleClickListener, OnItemClickListener, LoadMoreListener {
+public class AppointmentDetailActivity extends BaseActivity implements
+		OnClickListener, OnMapDoubleClickListener, OnItemClickListener {
 
 	private static final String sameTimeStudent = "sameTimeStudent";
 	//
@@ -65,8 +64,8 @@ public class AppointmentDetailActivity extends BaseActivity
 	private TextView coachNameTv, schoolTv;
 	//
 	private TextView studyProcessTv, trainPlaceTv;
-	//
-	private LoadMoreView studentListView;
+	// 同时段学员
+	// private LoadMoreView studentListView;
 	// 投诉评论布局
 	private LinearLayout commentLayout;
 	// 投诉，评论按钮
@@ -103,6 +102,7 @@ public class AppointmentDetailActivity extends BaseActivity
 		obtainSameTimeStudent(studentPage);
 	}
 
+	@Override
 	protected void onResume() {
 		register(getClass().getName());
 		super.onResume();
@@ -131,26 +131,32 @@ public class AppointmentDetailActivity extends BaseActivity
 		cancelBtn = (Button) findViewById(R.id.appointment_detail_cancel_btn);
 
 		mapView = (MapView) findViewById(R.id.appointment_detail_bmapView);
-		studentListView = (LoadMoreView) findViewById(R.id.appointment_detail_horizon_listview);
-		studentListView.setPullLoadMoreEnable(true);
-		studentListView.setHorizontal();
+		// studentListView = (LoadMoreView)
+		// findViewById(R.id.appointment_detail_horizon_listview);
+		// studentListView.setPullLoadMoreEnable(true);
+		// studentListView.setHorizontal();
 
 		titleTv.setText(R.string.appointment_detail);
 	}
 
 	private void initData() {
-		appointmentVO = (MyAppointmentVO) getIntent().getSerializableExtra("appointment");
+		appointmentVO = (MyAppointmentVO) getIntent().getSerializableExtra(
+				"appointment");
 
-		LinearLayout.LayoutParams headpicParams = (LinearLayout.LayoutParams) headPicIm.getLayoutParams();
+		LinearLayout.LayoutParams headpicParams = (LinearLayout.LayoutParams) headPicIm
+				.getLayoutParams();
 
-		String url = appointmentVO.getCoachid().getHeadportrait().getOriginalpic();
+		String url = appointmentVO.getCoachid().getHeadportrait()
+				.getOriginalpic();
 		if (TextUtils.isEmpty(url)) {
 			headPicIm.setBackgroundResource(R.drawable.default_small_pic);
 		} else {
-			BitmapManager.INSTANCE.loadBitmap2(url, headPicIm, headpicParams.width, headpicParams.height);
+			BitmapManager.INSTANCE.loadBitmap2(url, headPicIm,
+					headpicParams.width, headpicParams.height);
 		}
 		coachNameTv.setText(appointmentVO.getCoachid().getName());
-		schoolTv.setText(appointmentVO.getCoachid().getDriveschoolinfo().getName());
+		schoolTv.setText(appointmentVO.getCoachid().getDriveschoolinfo()
+				.getName());
 
 		timeTv.setText(appointmentVO.getClassdatetimedesc());
 		shuttleTv.setText("接送地点:" + appointmentVO.getShuttleaddress());
@@ -158,7 +164,8 @@ public class AppointmentDetailActivity extends BaseActivity
 
 		String trainPlace = appointmentVO.getTrainfieldlinfo().getName();
 		if (TextUtils.isEmpty(trainPlace)) {
-			trainPlace = appointmentVO.getCoachid().getDriveschoolinfo().getName();
+			trainPlace = appointmentVO.getCoachid().getDriveschoolinfo()
+					.getName();
 			if (TextUtils.isEmpty(trainPlace)) {
 				trainPlace = "暂无";
 			}
@@ -185,7 +192,8 @@ public class AppointmentDetailActivity extends BaseActivity
 		mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);// 地图类型：普通地图
 		// 定义地图状态
 		MapStatus mMapStatus = new MapStatus.Builder().zoom(18f).build();
-		MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
+		MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory
+				.newMapStatus(mMapStatus);
 		mBaiduMap.setMapStatus(mMapStatusUpdate);
 
 		int count = mapView.getChildCount();
@@ -197,12 +205,16 @@ public class AppointmentDetailActivity extends BaseActivity
 		}
 
 		try {
-			double latitude = Double.parseDouble(appointmentVO.getCoachid().getLatitude());
-			double longtitude = Double.parseDouble(appointmentVO.getCoachid().getLongitude());
+			double latitude = Double.parseDouble(appointmentVO.getCoachid()
+					.getLatitude());
+			double longtitude = Double.parseDouble(appointmentVO.getCoachid()
+					.getLongitude());
 			LatLng point = new LatLng(latitude, longtitude);
-			BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.ic_launcher);
+			BitmapDescriptor bitmap = BitmapDescriptorFactory
+					.fromResource(R.drawable.ic_launcher);
 			// 构建MarkerOption，用于在地图上添加Marker
-			OverlayOptions option = new MarkerOptions().position(point).anchor(0.5f, 0).icon(bitmap).perspective(true);
+			OverlayOptions option = new MarkerOptions().position(point)
+					.anchor(0.5f, 0).icon(bitmap).perspective(true);
 			// 在地图上添加Marker，并显示
 			mBaiduMap.addOverlay(option);
 			MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(point);
@@ -213,7 +225,8 @@ public class AppointmentDetailActivity extends BaseActivity
 	}
 
 	private void obtainSameTimeStudent(int page) {
-		HttpSendUtils.httpGetSend(sameTimeStudent, this, Config.IP + "api/v1/courseinfo/sametimestudents/reservationid/"
+		HttpSendUtils.httpGetSend(sameTimeStudent, this, Config.IP
+				+ "api/v1/courseinfo/sametimestudents/reservationid/"
 				+ appointmentVO.get_id() + "/index/" + page);
 	}
 
@@ -221,7 +234,7 @@ public class AppointmentDetailActivity extends BaseActivity
 		returnBtn.setOnClickListener(this);
 		calenderBtn.setOnClickListener(this);
 		chatBtn.setOnClickListener(this);
-		studentListView.setLoadMoreListener(this);
+		// studentListView.setLoadMoreListener(this);
 		complainBtn.setOnClickListener(this);
 		commentBtn.setOnClickListener(this);
 		confirmStudyBtn.setOnClickListener(this);
@@ -245,8 +258,10 @@ public class AppointmentDetailActivity extends BaseActivity
 			if (!TextUtils.isEmpty(chatId)) {
 				intent = new Intent(this, ChatActivity.class);
 				intent.putExtra("chatId", chatId);
-				intent.putExtra("chatName", appointmentVO.getCoachid().getName());
-				intent.putExtra("chatUrl", appointmentVO.getCoachid().getHeadportrait().getOriginalpic());
+				intent.putExtra("chatName", appointmentVO.getCoachid()
+						.getName());
+				intent.putExtra("chatUrl", appointmentVO.getCoachid()
+						.getHeadportrait().getOriginalpic());
 				intent.putExtra("userTypeNoAnswer", UserType.COACH.getValue());
 				startActivity(intent);
 			} else {
@@ -293,19 +308,22 @@ public class AppointmentDetailActivity extends BaseActivity
 					if (length > 0)
 						studentPage++;
 					for (int i = 0; i < length; i++) {
-						CommentUser commentUser = (CommentUser) JSONUtil.toJavaBean(CommentUser.class,
-								dataArray.getJSONObject(i).getJSONObject("userid"));
-						if (!commentUser.get_id().equals(app.userVO.getUserid()))
+						CommentUser commentUser = JSONUtil.toJavaBean(
+								CommentUser.class, dataArray.getJSONObject(i)
+										.getJSONObject("userid"));
+						if (!commentUser.get_id()
+								.equals(app.userVO.getUserid()))
 							userList.add(commentUser);
 					}
 				}
 				if (adapter == null) {
-					adapter = new AppointmentDetailStudentHoriListAdapter(this, userList);
+					adapter = new AppointmentDetailStudentHoriListAdapter(this,
+							userList);
 				} else {
 					adapter.setData(userList);
 				}
-				studentListView.setAdapter(adapter);
-				studentListView.setLoadMoreCompleted();
+				// studentListView.setAdapter(adapter);
+				// studentListView.setLoadMoreCompleted();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -316,15 +334,15 @@ public class AppointmentDetailActivity extends BaseActivity
 	@Override
 	public void doException(String type, Exception e, int code) {
 		if (sameTimeStudent.equals(type))
-			studentListView.setLoadMoreCompleted();
-		super.doException(type, e, code);
+			// studentListView.setLoadMoreCompleted();
+			super.doException(type, e, code);
 	}
 
 	@Override
 	public void doTimeOut(String type) {
 		if (sameTimeStudent.equals(type))
-			studentListView.setLoadMoreCompleted();
-		super.doTimeOut(type);
+			// studentListView.setLoadMoreCompleted();
+			super.doTimeOut(type);
 	}
 
 	@Override
@@ -383,8 +401,8 @@ public class AppointmentDetailActivity extends BaseActivity
 		startActivity(intent);
 	}
 
-	@Override
-	public void onLoadMore() {
-		obtainSameTimeStudent(studentPage);
-	}
+	// @Override
+	// public void onLoadMore() {
+	// obtainSameTimeStudent(studentPage);
+	// }
 }

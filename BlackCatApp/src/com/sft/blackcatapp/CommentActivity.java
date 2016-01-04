@@ -3,6 +3,7 @@ package com.sft.blackcatapp;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.sft.blackcatapp.R;
 import com.sft.common.Config;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.MyAppointmentVO;

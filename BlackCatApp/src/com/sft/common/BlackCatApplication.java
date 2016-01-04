@@ -14,12 +14,14 @@ import android.content.Intent;
 import cn.jpush.android.api.JPushInterface;
 
 import com.baidu.mapapi.SDKInitializer;
+import com.loopj.android.http.AsyncHttpClient;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.UpCancellationSignal;
 import com.qiniu.android.storage.UpCompletionHandler;
 import com.qiniu.android.storage.UpProgressHandler;
 import com.qiniu.android.storage.UploadManager;
 import com.qiniu.android.storage.UploadOptions;
+import com.sft.api.ApiHttpClient;
 import com.sft.blackcatapp.CropImageActivity;
 import com.sft.library.DemoHXSDKHelper;
 import com.sft.vo.CarModelVO;
@@ -50,6 +52,7 @@ public class BlackCatApplication extends Application {
 	// 我喜欢的驾校
 	public List<SchoolVO> favouriteSchool;
 	public boolean isLogin = false;
+	public boolean isEnrollAgain = false;
 	// 科目二内容
 	public List<String> subjectTwoContent;
 	// 科目三内容
@@ -62,7 +65,7 @@ public class BlackCatApplication extends Application {
 	public CarModelVO selectEnrollCarStyle;
 	// 用户报名选择的班级
 	public ClassVO selectEnrollClass;
-	//我的豆币
+	// 我的豆币
 	public String currency;
 
 	public static BlackCatApplication getInstance() {
@@ -77,7 +80,15 @@ public class BlackCatApplication extends Application {
 		uploadManager = new UploadManager();
 		app = this;
 
+		initHttpClient();
 		DemoHXSDKHelper.getInstance().onInit(this);
+	}
+
+	private void initHttpClient() {
+		// 初始化网络请求
+		AsyncHttpClient client = new AsyncHttpClient();
+		ApiHttpClient.setHttpClient(client);
+
 	}
 
 	protected String getAppName(int pID) {
@@ -87,8 +98,7 @@ public class BlackCatApplication extends Application {
 		List<RunningAppProcessInfo> l = am.getRunningAppProcesses();
 		Iterator<RunningAppProcessInfo> i = l.iterator();
 		while (i.hasNext()) {
-			ActivityManager.RunningAppProcessInfo info = (ActivityManager.RunningAppProcessInfo) (i
-					.next());
+			ActivityManager.RunningAppProcessInfo info = (i.next());
 			try {
 				if (info.pid == pID) {
 					processName = info.processName;
@@ -110,9 +120,11 @@ public class BlackCatApplication extends Application {
 								res == null ? "" : res.toString()));
 			}
 		}, new UploadOptions(null, null, false, new UpProgressHandler() {
+			@Override
 			public void progress(String key, double percent) {
 			}
 		}, new UpCancellationSignal() {
+			@Override
 			public boolean isCancelled() {
 				// return true 停止上传
 				return false;

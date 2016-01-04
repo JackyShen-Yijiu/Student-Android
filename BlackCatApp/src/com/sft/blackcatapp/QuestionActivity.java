@@ -11,6 +11,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebSettings.PluginState;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import com.sft.blackcatapp.R;
 
 /**
  * 试题
@@ -27,7 +28,9 @@ public class QuestionActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		addView(R.layout.activity_question);
 		webView = (WebView) findViewById(R.id.question_webview);
-		setTitleBarVisible(View.GONE);
+		// setTitleBarVisible(View.GONE);
+		showTitlebarBtn(1);
+		setTitleText("");
 		initData();
 	}
 
@@ -47,7 +50,8 @@ public class QuestionActivity extends BaseActivity {
 			}
 
 			@Override
-			public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+			public void onReceivedSslError(WebView view,
+					SslErrorHandler handler, SslError error) {
 				handler.proceed();
 			}
 		});
@@ -73,6 +77,13 @@ public class QuestionActivity extends BaseActivity {
 		super.onPause();
 	}
 
+	@Override
+	public void onClick(View v) {
+		if (v.getId() == R.id.base_left_btn)
+			finish();
+	}
+
+	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()) {
 			webView.goBack();

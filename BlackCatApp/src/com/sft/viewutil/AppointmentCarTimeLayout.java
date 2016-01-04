@@ -192,4 +192,9 @@ public class AppointmentCarTimeLayout extends LinearLayout implements
 		selectedListener.onTimeLayoutSelectedChange(this, coachCourseVO,
 				isChecked);
 	}
+
+	public void setCheckBoxState(boolean isChecked) {
+		ck.setChecked(isChecked);
+		setTextColor(noSelected, other);
+	}
 }

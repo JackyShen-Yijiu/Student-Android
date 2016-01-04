@@ -12,9 +12,8 @@ dependencies {
     compile project(':QiniuTool')
     compile project(':EMChatLib')
 
-    //configurations {
-    //    all*.exclude group: 'com.android.support', module: 'support-v4'
-    //}
+    compile project(':SlidingMenu')
+
 }
 
 android {

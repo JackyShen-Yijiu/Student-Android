@@ -5,24 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.sft.adapter.SchoolDetailCoachHoriListAdapter;
-import com.sft.common.Config;
-import com.sft.common.Config.EnrollResult;
-import com.sft.dialog.EnrollSelectConfilctDialog;
-import com.sft.dialog.EnrollSelectConfilctDialog.OnSelectConfirmListener;
-import com.sft.util.JSONUtil;
-import com.sft.util.Util;
-import com.sft.viewutil.ZProgressHUD;
-import com.sft.vo.CoachVO;
-import com.sft.vo.HeadLineNewsVO;
-import com.sft.vo.SchoolVO;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -45,6 +32,19 @@ import cn.sft.pull.LoadMoreView;
 import cn.sft.pull.LoadMoreView.LoadMoreListener;
 import cn.sft.pull.OnItemClickListener;
 
+import com.sft.adapter.SchoolDetailCoachHoriListAdapter;
+import com.sft.blackcatapp.R;
+import com.sft.common.Config;
+import com.sft.common.Config.EnrollResult;
+import com.sft.dialog.EnrollSelectConfilctDialog;
+import com.sft.dialog.EnrollSelectConfilctDialog.OnSelectConfirmListener;
+import com.sft.util.JSONUtil;
+import com.sft.util.Util;
+import com.sft.viewutil.ZProgressHUD;
+import com.sft.vo.CoachVO;
+import com.sft.vo.HeadLineNewsVO;
+import com.sft.vo.SchoolVO;
+
 /**
  * 驾校详情界面
  * 
@@ -52,8 +52,10 @@ import cn.sft.pull.OnItemClickListener;
  * 
  */
 @SuppressLint("ClickableViewAccessibility")
-public class SchoolDetailActivity extends BaseActivity implements BitMapURLExcepteionListner, PageChangeListener,
-		OnCheckedChangeListener, OnSelectConfirmListener, OnItemClickListener, LoadMoreListener {
+public class SchoolDetailActivity extends BaseActivity implements
+		BitMapURLExcepteionListner, PageChangeListener,
+		OnCheckedChangeListener, OnSelectConfirmListener, OnItemClickListener,
+		LoadMoreListener {
 
 	private static final String schoolType = "school";
 	private static final String coach = "coach";
@@ -125,19 +127,25 @@ public class SchoolDetailActivity extends BaseActivity implements BitMapURLExcep
 	}
 
 	private void obtainSchoolCoach(int coachPage) {
-		HttpSendUtils.httpGetSend(coach, this,
-				Config.IP + "api/v1/getschoolcoach/" + school.getSchoolid() + "/" + coachPage);
+		HttpSendUtils.httpGetSend(coach, this, Config.IP
+				+ "api/v1/getschoolcoach/" + school.getSchoolid() + "/"
+				+ coachPage);
 	}
 
 	private void obtainHeadLineNews() {
-		HttpSendUtils.httpGetSend(headLineNews, this, Config.IP + "api/v1/info/headlinenews");
+		HttpSendUtils.httpGetSend(headLineNews, this, Config.IP
+				+ "api/v1/info/headlinenews");
 	}
 
+	@Override
 	protected void onResume() {
 		register(getClass().getName());
-		if (app.userVO == null || app.userVO.getApplystate().equals(EnrollResult.SUBJECT_NONE.getValue())) {
+		if (app.userVO == null
+				|| app.userVO.getApplystate().equals(
+						EnrollResult.SUBJECT_NONE.getValue())) {
 			enrollBtn.setText(R.string.enroll);
-		} else if (app.userVO.getApplystate().equals(EnrollResult.SUBJECT_ENROLLING.getValue())) {
+		} else if (app.userVO.getApplystate().equals(
+				EnrollResult.SUBJECT_ENROLLING.getValue())) {
 			enrollBtn.setText(R.string.verifying);
 		} else {
 			enrollBtn.setText(R.string.appointment);
@@ -146,7 +154,8 @@ public class SchoolDetailActivity extends BaseActivity implements BitMapURLExcep
 	};
 
 	private void initView() {
-		showTitlebarBtn(BaseActivity.SHOW_LEFT_BTN | BaseActivity.SHOW_RIGHT_BTN);
+		showTitlebarBtn(BaseActivity.SHOW_LEFT_BTN
+				| BaseActivity.SHOW_RIGHT_BTN);
 		setBtnBkground(R.drawable.base_left_btn_bkground, R.drawable.phone);
 		setTitleText(R.string.school_detail);
 
@@ -181,12 +190,7 @@ public class SchoolDetailActivity extends BaseActivity implements BitMapURLExcep
 			enrollBtn.setVisibility(View.GONE);
 			addDeleteSchoolCk.setEnabled(false);
 		} else {
-			String applySchoolId = app.userVO.getApplyschoolinfo().getId();
-			if (TextUtils.isEmpty(applySchoolId) || applySchoolId.equals(school.getSchoolid())) {
-				enrollBtn.setVisibility(View.VISIBLE);
-			} else {
-				enrollBtn.setVisibility(View.GONE);
-			}
+			enrollBtn.setVisibility(View.VISIBLE);
 		}
 
 		if (app.favouriteSchool != null) {
@@ -197,7 +201,8 @@ public class SchoolDetailActivity extends BaseActivity implements BitMapURLExcep
 			}
 		}
 
-		RelativeLayout.LayoutParams headParams = (RelativeLayout.LayoutParams) adLayout.getLayoutParams();
+		RelativeLayout.LayoutParams headParams = (RelativeLayout.LayoutParams) adLayout
+				.getLayoutParams();
 		headParams.width = screenWidth;
 		headParams.height = (int) (screenWidth * 2 / 3f);
 		viewPagerHeight = headParams.height;
@@ -225,18 +230,20 @@ public class SchoolDetailActivity extends BaseActivity implements BitMapURLExcep
 	}
 
 	private void obtainEnrollSchoolDetail() {
-		HttpSendUtils.httpGetSend(schoolType, this,
-				Config.IP + "api/v1/driveschool/getschoolinfo/" + school.getSchoolid());
+		HttpSendUtils.httpGetSend(schoolType, this, Config.IP
+				+ "api/v1/driveschool/getschoolinfo/" + school.getSchoolid());
 	}
 
 	private void setViewPager() {
 		InfinitePagerAdapter adapter = null;
 		int length = 0;
 		if (adImageUrl != null && adImageUrl.length > 0) {
-			adapter = new InfinitePagerAdapter(this, adImageUrl, screenWidth, viewPagerHeight);
+			adapter = new InfinitePagerAdapter(this, adImageUrl, screenWidth,
+					viewPagerHeight);
 			length = adImageUrl.length;
 		} else {
-			adapter = new InfinitePagerAdapter(this, new int[] { R.drawable.defaultimage });
+			adapter = new InfinitePagerAdapter(this,
+					new int[] { R.drawable.defaultimage });
 			length = 1;
 		}
 		adapter.setPageClickListener(new MyPageClickListener());
@@ -246,14 +253,15 @@ public class SchoolDetailActivity extends BaseActivity implements BitMapURLExcep
 		imageViews = new ImageView[length];
 		ImageView imageView = null;
 		dotLayout.removeAllViews();
-		LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams((int) (8 * screenDensity),
-				(int) (4 * screenDensity));
+		LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams(
+				(int) (8 * screenDensity), (int) (4 * screenDensity));
 		dotLayout.addView(new TextView(this), textParams);
 		// 添加小圆点的图片
 		for (int i = 0; i < length; i++) {
 			imageView = new ImageView(this);
 			// 设置小圆点imageview的参数
-			imageView.setLayoutParams(new LayoutParams((int) (16 * screenDensity), (int) (4 * screenDensity)));// 创建一个宽高均为20
+			imageView.setLayoutParams(new LayoutParams(
+					(int) (16 * screenDensity), (int) (4 * screenDensity)));// 创建一个宽高均为20
 			// 的布局
 			// 将小圆点layout添加到数组中
 			imageViews[i] = imageView;
@@ -274,19 +282,20 @@ public class SchoolDetailActivity extends BaseActivity implements BitMapURLExcep
 
 		@Override
 		public void onPageClick(int position) {
-			try {
-				if (adList != null && adList.size() > position) {
-					String url = adList.get(position).getHeadportrait().getOriginalpic();
-					if (!TextUtils.isEmpty(url)) {
-						Intent intent = new Intent();
-						intent.setAction("android.intent.action.VIEW");
-						Uri content_url = Uri.parse(url);
-						intent.setData(content_url);
-						startActivity(intent);
-					}
-				}
-			} catch (Exception e) {
-			}
+			// try {
+			// if (adList != null && adList.size() > position) {
+			// String url = adList.get(position).getHeadportrait()
+			// .getOriginalpic();
+			// if (!TextUtils.isEmpty(url)) {
+			// Intent intent = new Intent();
+			// intent.setAction("android.intent.action.VIEW");
+			// Uri content_url = Uri.parse(url);
+			// intent.setData(content_url);
+			// startActivity(intent);
+			// }
+			// }
+			// } catch (Exception e) {
+			// }
 		}
 	}
 
@@ -312,7 +321,7 @@ public class SchoolDetailActivity extends BaseActivity implements BitMapURLExcep
 		try {
 			if (type.equals(schoolType)) {
 				if (data != null) {
-					school = (SchoolVO) JSONUtil.toJavaBean(SchoolVO.class, data);
+					school = JSONUtil.toJavaBean(SchoolVO.class, data);
 					obtainHeadLineNews();
 					setData();
 				}
@@ -327,11 +336,13 @@ public class SchoolDetailActivity extends BaseActivity implements BitMapURLExcep
 					if (coachList == null)
 						coachList = new ArrayList<CoachVO>();
 					for (int i = 0; i < length; i++) {
-						CoachVO coachVO = (CoachVO) JSONUtil.toJavaBean(CoachVO.class, dataArray.getJSONObject(i));
+						CoachVO coachVO = JSONUtil.toJavaBean(CoachVO.class,
+								dataArray.getJSONObject(i));
 						coachList.add(coachVO);
 					}
 					if (adapter == null) {
-						adapter = new SchoolDetailCoachHoriListAdapter(this, coachList);
+						adapter = new SchoolDetailCoachHoriListAdapter(this,
+								coachList);
 					} else {
 						adapter.setData(coachList);
 					}
@@ -346,10 +357,12 @@ public class SchoolDetailActivity extends BaseActivity implements BitMapURLExcep
 						adImageUrl = new String[length];
 					}
 					for (int i = 0; i < length; i++) {
-						HeadLineNewsVO headLineNewsVO = (HeadLineNewsVO) JSONUtil.toJavaBean(HeadLineNewsVO.class,
+						HeadLineNewsVO headLineNewsVO = JSONUtil.toJavaBean(
+								HeadLineNewsVO.class,
 								dataArray.getJSONObject(i));
 						adList.add(headLineNewsVO);
-						adImageUrl[i] = headLineNewsVO.getHeadportrait().getOriginalpic();
+						adImageUrl[i] = headLineNewsVO.getHeadportrait()
+								.getOriginalpic();
 					}
 					if (length > 0) {
 						setViewPager();
@@ -359,14 +372,18 @@ public class SchoolDetailActivity extends BaseActivity implements BitMapURLExcep
 			} else if (type.equals(addSchool)) {
 				if (!app.favouriteSchool.contains(school)) {
 					app.favouriteSchool.add(school);
-					sendBroadcast(new Intent(MyFavouriteActiviy.class.getName()).putExtra("isRefresh", true)
-							.putExtra("activityName", FavouriteSchoolActivity.class.getName()));
+					sendBroadcast(new Intent(MyFavouriteActiviy.class.getName())
+							.putExtra("isRefresh", true).putExtra(
+									"activityName",
+									FavouriteSchoolActivity.class.getName()));
 				}
 			} else if (type.equals(deleteSchool)) {
 				if (app.favouriteSchool.contains(school)) {
 					app.favouriteSchool.remove(school);
-					sendBroadcast(new Intent(MyFavouriteActiviy.class.getName()).putExtra("isRefresh", true)
-							.putExtra("activityName", FavouriteSchoolActivity.class.getName()));
+					sendBroadcast(new Intent(MyFavouriteActiviy.class.getName())
+							.putExtra("isRefresh", true).putExtra(
+									"activityName",
+									FavouriteSchoolActivity.class.getName()));
 				}
 			}
 		} catch (Exception e) {
@@ -388,19 +405,22 @@ public class SchoolDetailActivity extends BaseActivity implements BitMapURLExcep
 			break;
 		case R.id.base_right_btn:
 			try {
-				Intent phoneIntent = new Intent("android.intent.action.CALL", Uri.parse("tel:" + school.getPhone()));
+				Intent phoneIntent = new Intent("android.intent.action.CALL",
+						Uri.parse("tel:" + school.getPhone()));
 				startActivity(phoneIntent);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			break;
 		case R.id.coach_detail_enroll_btn:
-			if (app.userVO.getApplystate().equals(EnrollResult.SUBJECT_NONE.getValue())) {
+			if (app.userVO.getApplystate().equals(
+					EnrollResult.SUBJECT_NONE.getValue())) {
 				String checkResult = Util.isConfilctEnroll(school);
 				if (checkResult == null) {
 					intent = new Intent();
 					intent.putExtra("school", school);
-					intent.putExtra("activityName", SubjectEnrollActivity.class.getName());
+					intent.putExtra("activityName",
+							SubjectEnrollActivity.class.getName());
 					setResult(RESULT_OK, intent);
 					finish();
 				} else if (checkResult.length() == 0) {
@@ -408,20 +428,25 @@ public class SchoolDetailActivity extends BaseActivity implements BitMapURLExcep
 					Util.updateEnrollSchool(this, school, false);
 					intent = new Intent();
 					intent.putExtra("school", school);
-					intent.putExtra("activityName", SubjectEnrollActivity.class.getName());
+					intent.putExtra("activityName",
+							SubjectEnrollActivity.class.getName());
 					setResult(RESULT_OK, intent);
 					finish();
 				} else {
 					// 提示
-					EnrollSelectConfilctDialog dialog = new EnrollSelectConfilctDialog(this, checkResult);
+					EnrollSelectConfilctDialog dialog = new EnrollSelectConfilctDialog(
+							this, checkResult);
 					dialog.show();
 				}
-			} else if (app.userVO.getApplystate().equals(EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue())) {
+			} else if (app.userVO.getApplystate().equals(
+					EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue())) {
 				intent = new Intent(this, AppointmentCarActivity.class);
 				startActivity(intent);
-			} else if (app.userVO.getApplystate().equals(EnrollResult.SUBJECT_ENROLLING.getValue())) {
+			} else if (app.userVO.getApplystate().equals(
+					EnrollResult.SUBJECT_ENROLLING.getValue())) {
 				ZProgressHUD.getInstance(this).show();
-				ZProgressHUD.getInstance(this).dismissWithFailure("正在报名中，请等待审核");
+				ZProgressHUD.getInstance(this)
+						.dismissWithFailure("正在报名中，请等待审核");
 			}
 			break;
 		case R.id.school_detail_place_tv:
@@ -438,10 +463,12 @@ public class SchoolDetailActivity extends BaseActivity implements BitMapURLExcep
 	public void onPageChanged(int position) {
 		if (imageViews != null) {
 			for (int i = 0; i < imageViews.length; i++) {
-				imageViews[position].setBackgroundColor(Color.parseColor("#21b8c6"));
+				imageViews[position].setBackgroundColor(Color
+						.parseColor("#21b8c6"));
 				// 不是当前选中的page，其小圆点设置为未选中的状态
 				if (position != i) {
-					imageViews[i].setBackgroundColor(Color.parseColor("#eeeeee"));
+					imageViews[i].setBackgroundColor(Color
+							.parseColor("#eeeeee"));
 				}
 			}
 		}
@@ -453,7 +480,8 @@ public class SchoolDetailActivity extends BaseActivity implements BitMapURLExcep
 	}
 
 	@Override
-	protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
+	protected void onActivityResult(int requestCode, int resultCode,
+			final Intent data) {
 		if (data != null) {
 			if (resultCode == R.id.base_left_btn) {
 				return;
@@ -474,11 +502,14 @@ public class SchoolDetailActivity extends BaseActivity implements BitMapURLExcep
 		Map<String, String> headerMap = new HashMap<String, String>();
 		headerMap.put("authorization", app.userVO.getToken());
 
-		String url = Config.IP + "api/v1/userinfo/favoriteschool/" + school.getSchoolid();
+		String url = Config.IP + "api/v1/userinfo/favoriteschool/"
+				+ school.getSchoolid();
 		if (isChecked) {
-			HttpSendUtils.httpPutSend(addSchool, this, url, null, 10000, headerMap);
+			HttpSendUtils.httpPutSend(addSchool, this, url, null, 10000,
+					headerMap);
 		} else {
-			HttpSendUtils.httpDeleteSend(deleteSchool, this, url, null, 10000, headerMap);
+			HttpSendUtils.httpDeleteSend(deleteSchool, this, url, null, 10000,
+					headerMap);
 		}
 	}
 
@@ -498,12 +529,14 @@ public class SchoolDetailActivity extends BaseActivity implements BitMapURLExcep
 			Util.updateEnrollSchool(this, school, isFreshAll);
 			if (isFreshAll) {
 				app.selectEnrollCoach = Util.getEnrollUserSelectedCoach(this);
-				app.selectEnrollCarStyle = Util.getEnrollUserSelectedCarStyle(this);
+				app.selectEnrollCarStyle = Util
+						.getEnrollUserSelectedCarStyle(this);
 				app.selectEnrollClass = Util.getEnrollUserSelectedClass(this);
 			}
 			Intent intent = new Intent();
 			intent.putExtra("school", school);
-			intent.putExtra("activityName", SubjectEnrollActivity.class.getName());
+			intent.putExtra("activityName",
+					SubjectEnrollActivity.class.getName());
 			setResult(RESULT_OK, intent);
 			finish();
 		}
