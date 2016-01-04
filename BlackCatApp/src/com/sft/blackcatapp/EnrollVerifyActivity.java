@@ -4,12 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.sft.blackcatapp.R;
-import com.sft.common.Config;
-import com.sft.dialog.CustomDialog;
-import com.sft.viewutil.ZProgressHUD;
-import com.sft.vo.EnrollVertifyVO;
-
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
@@ -22,6 +16,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.sqlhelper.DBHelper;
+
+import com.sft.common.Config;
+import com.sft.dialog.CustomDialog;
+import com.sft.viewutil.ZProgressHUD;
+import com.sft.vo.EnrollVertifyVO;
 
 /**
  * 报名验证
@@ -97,8 +96,8 @@ public class EnrollVerifyActivity extends BaseActivity {
 		if (!TextUtils.isEmpty(app.userVO.getMobile()))
 			contactEt.setText(app.userVO.getMobile());
 
-		List<EnrollVertifyVO> vertifyList = DBHelper.getInstance(this).query(EnrollVertifyVO.class, "userid",
-				app.userVO.getUserid());
+		List<EnrollVertifyVO> vertifyList = DBHelper.getInstance(this).query(
+				EnrollVertifyVO.class, "userid", app.userVO.getUserid());
 		if (vertifyList != null && vertifyList.size() > 0) {
 			vertifyVO = vertifyList.get(0);
 			if (!TextUtils.isEmpty(vertifyVO.getName()))
@@ -121,12 +120,18 @@ public class EnrollVerifyActivity extends BaseActivity {
 	private void setListener() {
 		commitBtn.setOnClickListener(this);
 		nameEt.addTextChangedListener(new MyEditChangedListener(nameEt.getId()));
-		schoolEt.addTextChangedListener(new MyEditChangedListener(schoolEt.getId()));
-		contactEt.addTextChangedListener(new MyEditChangedListener(contactEt.getId()));
-		idCardEt.addTextChangedListener(new MyEditChangedListener(idCardEt.getId()));
-		addressEt.addTextChangedListener(new MyEditChangedListener(addressEt.getId()));
-		studentNumberEt.addTextChangedListener(new MyEditChangedListener(studentNumberEt.getId()));
-		examNumberEt.addTextChangedListener(new MyEditChangedListener(examNumberEt.getId()));
+		schoolEt.addTextChangedListener(new MyEditChangedListener(schoolEt
+				.getId()));
+		contactEt.addTextChangedListener(new MyEditChangedListener(contactEt
+				.getId()));
+		idCardEt.addTextChangedListener(new MyEditChangedListener(idCardEt
+				.getId()));
+		addressEt.addTextChangedListener(new MyEditChangedListener(addressEt
+				.getId()));
+		studentNumberEt.addTextChangedListener(new MyEditChangedListener(
+				studentNumberEt.getId()));
+		examNumberEt.addTextChangedListener(new MyEditChangedListener(
+				examNumberEt.getId()));
 	}
 
 	@Override
@@ -162,8 +167,9 @@ public class EnrollVerifyActivity extends BaseActivity {
 			paramsMap.put("studentid", studentNumberEt.getText().toString());
 			Map<String, String> headerMap = new HashMap<String, String>();
 			headerMap.put("authorization", app.userVO.getToken());
-			HttpSendUtils.httpPostSend(vertify, this, Config.IP + "api/v1/userinfo/enrollverification", paramsMap,
-					10000, headerMap);
+			HttpSendUtils.httpPostSend(vertify, this, Config.IP
+					+ "api/v1/userinfo/enrollverification", paramsMap, 10000,
+					headerMap);
 		} else {
 			ZProgressHUD.getInstance(this).show();
 			ZProgressHUD.getInstance(this).dismissWithFailure(checkResult);
@@ -209,13 +215,15 @@ public class EnrollVerifyActivity extends BaseActivity {
 		}
 		if (type.equals(vertify)) {
 			if (dataString != null) {
-				CustomDialog dialog = new CustomDialog(this, CustomDialog.VERTIFY_ENROLL);
+				CustomDialog dialog = new CustomDialog(this,
+						CustomDialog.VERTIFY_ENROLL);
 				dialog.show();
 				dialog.setOnDismissListener(new OnDismissListener() {
 
 					@Override
 					public void onDismiss(DialogInterface dialog) {
-						sendBroadcast(new Intent(OldMainActivity.class.getName()).putExtra("isVertify", true));
+						sendBroadcast(new Intent(MainActivity.class.getName())
+								.putExtra("isVertify", true));
 						finish();
 					}
 				});
@@ -232,11 +240,13 @@ public class EnrollVerifyActivity extends BaseActivity {
 		}
 
 		@Override
-		public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+		public void beforeTextChanged(CharSequence s, int start, int count,
+				int after) {
 		}
 
 		@Override
-		public void onTextChanged(CharSequence s, int start, int before, int count) {
+		public void onTextChanged(CharSequence s, int start, int before,
+				int count) {
 
 			switch (viewId) {
 			case R.id.vertify_name_et:
@@ -267,7 +277,7 @@ public class EnrollVerifyActivity extends BaseActivity {
 		public void afterTextChanged(Editable s) {
 		}
 	};
-	
+
 	@Override
 	protected void onPause() {
 		DBHelper.getInstance(this).insert(vertifyVO);

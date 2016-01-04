@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
-import com.sft.blackcatapp.R;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
 import com.sft.util.JSONUtil;
@@ -122,7 +121,7 @@ public class EnrollSuccessActivity extends BaseActivity {
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			sendBroadcast(new Intent(OldMainActivity.class.getName()).putExtra(
+			sendBroadcast(new Intent(MainActivity.class.getName()).putExtra(
 					"isEnrollSuccess", true));
 		}
 		return super.onKeyDown(keyCode, event);
