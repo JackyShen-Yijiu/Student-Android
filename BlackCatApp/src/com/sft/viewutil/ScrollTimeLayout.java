@@ -189,7 +189,7 @@ public class ScrollTimeLayout extends LinearLayout implements
 					CustomDialog.APPOINTMENT_TIME_ERROR);
 			dialog.show();
 			// 选择不连续，给出提示后，就取消该项选择
-			layout.setCheckBoxState(false);
+			layout.setCheckBoxState(true);
 		}
 	}
 

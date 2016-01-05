@@ -284,6 +284,15 @@ public class AppointmentCarActivity extends BaseActivity implements
 				+ "api/v1/userinfo/favoritecoach", null, 10000, headerMap);
 	}
 
+	private void obtainSameTimeStudent(int page) {
+		Map<String, String> headerMap = new HashMap<String, String>();
+		headerMap.put("coachid", selectCoach.getCoachid());
+		headerMap.put("begintime", beginTimeStemp + "");
+		headerMap.put("endtime", endTimeStemp + "");
+		HttpSendUtils.httpGetSend(sameTimeStudent, this, Config.IP
+				+ "api/v1/courseinfo/sametimestudentsv2", headerMap);
+	}
+
 	// private void obtainOppointment() {
 	// Map<String, String> paramMap = new HashMap<String, String>();
 	// paramMap.put("userid", app.userVO.getUserid());
@@ -295,19 +304,11 @@ public class AppointmentCarActivity extends BaseActivity implements
 	// headerMap);
 	// }
 
-	private void obtainSameTimeStudent(int page) {
-		Map<String, String> headerMap = new HashMap<String, String>();
-		headerMap.put("coachid", selectCoach.getCoachid());
-		headerMap.put("begintime", beginTimeStemp + "");
-		headerMap.put("endtime", endTimeStemp + "");
-		HttpSendUtils.httpGetSend(sameTimeStudent, this, Config.IP
-				+ "api/v1/courseinfo/sametimestudentsv2", headerMap);
-	}
-
 	private void obtainCaochCourse(String coachId) {
 		if (!TextUtils.isEmpty(selectDate)) {
 			// 先清空上个教练的课程
 			courseList.clear();
+
 			Map<String, String> paramMap = new HashMap<String, String>();
 			paramMap.put("coachid", coachId);
 			paramMap.put("date", selectDate);
