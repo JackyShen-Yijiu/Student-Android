@@ -40,6 +40,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
     <!--     极光推送权限 --> 
     	<permission android:name="com.sft.blackcatapp.permission.JPUSH_MESSAGE" 
          android:protectionLevel="signature" /> 
@@ -422,8 +423,9 @@
         <!-- 百度地图定位 ======================================================================== -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="UUXsBU2Tq3LETedPZVpxuxQG" />
-
+            android:value="nCxRAoooo6Pe3yeMG6iDK5aW" />
+        
+<!--之前版本： UUXsBU2Tq3LETedPZVpxuxQG -->
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
