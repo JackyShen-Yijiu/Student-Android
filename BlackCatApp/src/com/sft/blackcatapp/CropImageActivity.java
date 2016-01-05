@@ -36,7 +36,6 @@ import cn.sft.infinitescrollviewpager.CropRoundView;
 
 import com.edmodo.cropper.CropImageView;
 import com.edmodo.cropper.PreviewListener;
-import com.sft.blackcatapp.R;
 import com.sft.common.Config;
 import com.sft.util.Util;
 import com.sft.viewutil.ZProgressHUD;
@@ -189,7 +188,7 @@ public class CropImageActivity extends BaseActivity implements OnClickListener,
 		Bitmap bitmap = null;
 		final int width = src.getWidth(); // 获取图像宽
 		final int height = src.getHeight(); // 获取图像高
-		final float sx = w / (float) width; // 计算X轴伸缩因子
+		final float sx = w / width; // 计算X轴伸缩因子
 		Matrix m = new Matrix();
 		m.setScale(sx, sx);
 		bitmap = Bitmap.createBitmap(src, 0, 0, width, height, m, false); // 返回目的图像
@@ -318,6 +317,8 @@ public class CropImageActivity extends BaseActivity implements OnClickListener,
 				String key = intent.getStringExtra("res");
 				if (!TextUtils.isEmpty(key)) {
 					changeHeadPic(key);
+				} else {
+					toast.setText("上传失败！");
 				}
 			}
 		}

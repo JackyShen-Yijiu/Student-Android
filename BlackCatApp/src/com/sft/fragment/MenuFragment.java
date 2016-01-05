@@ -27,6 +27,7 @@ import cn.sft.infinitescrollviewpager.BitmapManager;
 import cn.sft.listener.ICallBack;
 
 import com.joooonho.SelectableRoundedImageView;
+import com.sft.blackcatapp.EditPersonInfoActivity;
 import com.sft.blackcatapp.EnrollSchoolActivity;
 import com.sft.blackcatapp.MainActivity;
 import com.sft.blackcatapp.MessageActivity;
@@ -109,7 +110,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 	public void onResume() {
 		super.onResume();
 		if (app.isLogin) {
-
+			obtainMyMoney();
 			setPersonInfo();
 		}
 	}
@@ -245,7 +246,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 		switch (v.getId()) {
 		case R.id.fragment_menu_headpic_im:
 			if (app.isLogin) {
-				intent = new Intent(getActivity(), PersonCenterActivity.class);
+				intent = new Intent(getActivity(), EditPersonInfoActivity.class);
 				startActivity(intent);
 
 			} else {

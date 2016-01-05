@@ -416,16 +416,17 @@
         <!-- 设置环信应用的appkey black-cat#yibuxuecheprod black-cat#yibuxuechetest -->
         <meta-data
             android:name="EASEMOB_APPKEY"
-            android:value="black-cat#yibuxuecheprod" />
+            android:value="black-cat#yibuxuechetest" />
         <!-- 声明sdk所需的service -->
         <service android:name="com.easemob.chat.EMChatService" />
 
         <!-- 百度地图定位 ======================================================================== -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="nCxRAoooo6Pe3yeMG6iDK5aW" />
+            android:value="UUXsBU2Tq3LETedPZVpxuxQG" />
         
 <!--之前版本： UUXsBU2Tq3LETedPZVpxuxQG -->
+<!--现在版本： nCxRAoooo6Pe3yeMG6iDK5aW -->
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"

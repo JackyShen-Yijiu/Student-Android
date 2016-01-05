@@ -25,7 +25,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
-import com.sft.blackcatapp.R;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
 import com.sft.dialog.EnrollSelectConfilctDialog;
@@ -522,11 +521,12 @@ public class ApplyActivity extends BaseActivity implements
 		String name = nameEt.getText().toString();
 		if (TextUtils.isEmpty(name)) {
 			return "姓名为空";
-		} else {
-			if (!CommonUtil.isRightName(name)) {
-				return "姓名不能包含特殊字符";
-			}
 		}
+		// else {
+		// if (!CommonUtil.isRightName(name)) {
+		// return "姓名不能包含特殊字符";
+		// }
+		// }
 
 		String phone = contactEt.getText().toString();
 		if (TextUtils.isEmpty(phone)) {
