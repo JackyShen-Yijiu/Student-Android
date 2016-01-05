@@ -2,9 +2,6 @@ package com.sft.adapter;
 
 import java.util.List;
 
-import com.sft.blackcatapp.R;
-import com.sft.vo.CoachVO;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.TextUtils;
@@ -17,6 +14,9 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import cn.sft.infinitescrollviewpager.BitmapManager;
+
+import com.sft.blackcatapp.R;
+import com.sft.vo.CoachVO;
 
 @SuppressLint("InflateParams")
 public class CoachListAdapter extends BaseAdapter {
@@ -78,18 +78,29 @@ public class CoachListAdapter extends BaseAdapter {
 
 		ViewHolder holder = null;
 		if (convertView == null) {
-			convertView = mInflater.inflate(R.layout.select_coach_list_item, null);
+			convertView = mInflater.inflate(R.layout.select_coach_list_item,
+					null);
 			holder = new ViewHolder();
-			holder.coachName = (TextView) convertView.findViewById(R.id.select_coach_coachname_tv);
-			holder.schoolName = (TextView) convertView.findViewById(R.id.select_coach_schoolname_tv);
-			holder.headPic = (ImageView) convertView.findViewById(R.id.select_coach_headpin_im);
-			holder.rateBar = (RatingBar) convertView.findViewById(R.id.select_coach_ratingBar);
-			holder.shuttle = (TextView) convertView.findViewById(R.id.select_coach_shuttle);
-			holder.general = (TextView) convertView.findViewById(R.id.select_coach_general);
-			holder.rate = (TextView) convertView.findViewById(R.id.select_coach_rate_tv);
-			holder.age = (TextView) convertView.findViewById(R.id.select_coach_age_tv);
-			holder.distance = (TextView) convertView.findViewById(R.id.select_coach_distance_tv);
-			holder.selectIm = (ImageView) convertView.findViewById(R.id.select_coach_im);
+			holder.coachName = (TextView) convertView
+					.findViewById(R.id.select_coach_coachname_tv);
+			holder.schoolName = (TextView) convertView
+					.findViewById(R.id.select_coach_schoolname_tv);
+			holder.headPic = (ImageView) convertView
+					.findViewById(R.id.select_coach_headpin_im);
+			holder.rateBar = (RatingBar) convertView
+					.findViewById(R.id.select_coach_ratingBar);
+			holder.shuttle = (TextView) convertView
+					.findViewById(R.id.select_coach_shuttle);
+			holder.general = (TextView) convertView
+					.findViewById(R.id.select_coach_general);
+			holder.rate = (TextView) convertView
+					.findViewById(R.id.select_coach_rate_tv);
+			holder.age = (TextView) convertView
+					.findViewById(R.id.select_coach_age_tv);
+			holder.distance = (TextView) convertView
+					.findViewById(R.id.select_coach_distance_tv);
+			holder.selectIm = (ImageView) convertView
+					.findViewById(R.id.select_coach_im);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -99,7 +110,8 @@ public class CoachListAdapter extends BaseAdapter {
 			return convertView;
 		}
 		if (isSelected[position]) {
-			holder.selectIm.setBackgroundResource(R.drawable.select_class_ck_selected);
+			holder.selectIm
+					.setBackgroundResource(R.drawable.select_class_ck_selected);
 		} else {
 			holder.selectIm.setBackgroundResource(android.R.color.transparent);
 		}
@@ -126,17 +138,19 @@ public class CoachListAdapter extends BaseAdapter {
 		String rate = mData.get(position).getPassrate();
 		holder.rate.setText("通过率: " + rate);
 		String age = mData.get(position).getSeniority();
-		holder.age.setText("通过率:" + age);
+		holder.age.setText("工作年限:" + age);
 		String distance = mData.get(position).getDistance();
 		holder.distance.setText(distance + "KM");
 
-		LinearLayout.LayoutParams headParam = (LinearLayout.LayoutParams) holder.headPic.getLayoutParams();
+		LinearLayout.LayoutParams headParam = (LinearLayout.LayoutParams) holder.headPic
+				.getLayoutParams();
 
 		String url = mData.get(position).getHeadportrait().getOriginalpic();
 		if (TextUtils.isEmpty(url)) {
 			holder.headPic.setBackgroundResource(R.drawable.default_small_pic);
 		} else {
-			BitmapManager.INSTANCE.loadBitmap2(url, holder.headPic, headParam.width, headParam.height);
+			BitmapManager.INSTANCE.loadBitmap2(url, holder.headPic,
+					headParam.width, headParam.height);
 		}
 
 		return convertView;

@@ -317,9 +317,9 @@ public class CropImageActivity extends BaseActivity implements OnClickListener,
 				String key = intent.getStringExtra("res");
 				if (!TextUtils.isEmpty(key)) {
 					changeHeadPic(key);
-				} else {
-					toast.setText("上传失败！");
 				}
+			} else {
+				toast.setText("请检查您的网络");
 			}
 		}
 	}
@@ -354,7 +354,7 @@ public class CropImageActivity extends BaseActivity implements OnClickListener,
 			if (dataString != null) {
 				ZProgressHUD.getInstance(this).show();
 				ZProgressHUD.getInstance(this).dismissWithSuccess("上传成功");
-				new MyHandler(500) {
+				new MyHandler(1500) {
 					@Override
 					public void run() {
 						finish();

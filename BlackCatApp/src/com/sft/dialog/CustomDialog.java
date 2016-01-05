@@ -22,6 +22,7 @@ public class CustomDialog extends Dialog {
 	public static final int VERTIFY_ENROLL = 4;
 	public static final int APPLY_EXAM = 5;
 	public static final int APPOINTMENT_COMPLAIN = 6;
+	public static final int ERROR_COACH = 7;
 
 	private Context context;
 	private ImageView image;
@@ -80,6 +81,11 @@ public class CustomDialog extends Dialog {
 			image.setBackgroundResource(R.drawable.appointment_success);
 			title.setText(R.string.complain_success);
 			content.setVisibility(View.GONE);
+			break;
+		case ERROR_COACH:
+			image.setBackgroundResource(R.drawable.appointment_time_error);
+			title.setText(R.string.driveing_school_error);
+			content.setText(R.string.select_right_driveing_school);
 			break;
 		}
 	}

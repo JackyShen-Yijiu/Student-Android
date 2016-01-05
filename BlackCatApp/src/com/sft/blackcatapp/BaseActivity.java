@@ -23,7 +23,6 @@ import android.widget.TextView;
 import cn.jpush.android.api.JPushInterface;
 import cn.sft.listener.ICallBack;
 
-import com.sft.blackcatapp.R;
 import com.sft.common.BlackCatApplication;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.CarModelVO;
@@ -142,7 +141,7 @@ public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity
 
 		setListener();
 
-		util.setShowLogPrint(false);
+		// util.setShowLogPrint(false);
 		if (app == null) {
 			app = BlackCatApplication.getInstance();
 		}

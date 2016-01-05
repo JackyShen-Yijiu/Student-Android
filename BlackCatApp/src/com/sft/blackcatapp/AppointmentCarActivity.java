@@ -34,7 +34,6 @@ import cn.sft.pull.OnItemClickListener;
 
 import com.sft.adapter.AppointmentCarCoachHoriListAdapter;
 import com.sft.adapter.AppointmentDetailStudentHoriListAdapter;
-import com.sft.blackcatapp.R;
 import com.sft.common.Config;
 import com.sft.common.Config.SubjectStatu;
 import com.sft.dialog.CustomDialog;
@@ -65,6 +64,9 @@ public class AppointmentCarActivity extends BaseActivity implements
 	private static final String appointmentCourse = "appointmentCourse";
 	private static final String favouriteCoach = "favouriteCoach";
 	private static final String sameTimeStudent = "sameTimeStudent";
+	private static final String myCoach = "myCoach";
+
+	// private static final String reservation = "reservation";
 	// 日期列表
 	private RadioGroup dateGroup;
 	// radiobtn;
@@ -215,6 +217,8 @@ public class AppointmentCarActivity extends BaseActivity implements
 				"appointment");
 		coachListView.setVisibility(View.GONE);
 		obtainFavouriteCoach();
+		// obtainOppointment();
+
 	}
 
 	private void initDate() {
@@ -280,6 +284,17 @@ public class AppointmentCarActivity extends BaseActivity implements
 				+ "api/v1/userinfo/favoritecoach", null, 10000, headerMap);
 	}
 
+	// private void obtainOppointment() {
+	// Map<String, String> paramMap = new HashMap<String, String>();
+	// paramMap.put("userid", app.userVO.getUserid());
+	// paramMap.put("subjectid", getIntent().getStringExtra("subject"));
+	// Map<String, String> headerMap = new HashMap<String, String>();
+	// headerMap.put("authorization", app.userVO.getToken());
+	// HttpSendUtils.httpGetSend(reservation, this, Config.IP
+	// + "api/v1/courseinfo/getmyreservation", paramMap, 10000,
+	// headerMap);
+	// }
+
 	private void obtainSameTimeStudent(int page) {
 		Map<String, String> headerMap = new HashMap<String, String>();
 		headerMap.put("coachid", selectCoach.getCoachid());
@@ -299,6 +314,12 @@ public class AppointmentCarActivity extends BaseActivity implements
 			HttpSendUtils.httpGetSend(coachCourse, this, Config.IP
 					+ "api/v1/courseinfo/getcoursebycoach", paramMap);
 		}
+	}
+
+	private void obtainMyCoach(String coachId) {
+		System.out.println(coachId);
+		HttpSendUtils.httpGetSend(myCoach, this, Config.IP
+				+ "api/v1/userinfo/getuserinfo" + "/2/userid/" + coachId);
 	}
 
 	@Override
@@ -322,7 +343,14 @@ public class AppointmentCarActivity extends BaseActivity implements
 				ZProgressHUD.getInstance(this).show();
 				ZProgressHUD.getInstance(this).dismissWithFailure("选择课程");
 			} else if (timeLayout.isTimeBlockCon()) {
-				appointmentCar();
+				if (selectCoach.getDriveschoolinfo().getId()
+						.equals(app.userVO.getApplyschoolinfo().getId())) {
+					appointmentCar();
+				} else {
+					CustomDialog dialog = new CustomDialog(this,
+							CustomDialog.ERROR_COACH);
+					dialog.show();
+				}
 			} else {
 				CustomDialog dialog = new CustomDialog(this,
 						CustomDialog.APPOINTMENT_TIME_ERROR);
@@ -449,7 +477,20 @@ public class AppointmentCarActivity extends BaseActivity implements
 			return true;
 		}
 		try {
-			if (type.equals(favouriteCoach)) {
+			if (type.equals(myCoach)) {
+				if (data != null) {
+					CoachVO coachVO = JSONUtil.toJavaBean(CoachVO.class, data);
+					if (!coachList.contains(coachVO)) {
+						coachList.add(coachVO);
+					}
+				}
+				initCoachListData();
+				if (coachList.size() > 0) {
+					coachListView.setVisibility(View.VISIBLE);
+					noCoachTv.setVisibility(View.GONE);
+					obtainCaochCourse(selectCoach.getCoachid());
+				}
+			} else if (type.equals(favouriteCoach)) {
 				CoachVO tempCoachVO = (CoachVO) getIntent()
 						.getSerializableExtra("coach");
 				if (tempCoachVO != null)
@@ -474,15 +515,26 @@ public class AppointmentCarActivity extends BaseActivity implements
 						if (coachList.contains(coachVO)) {
 							continue;
 						}
-						coachList.add(coachVO);
+						if (app.userVO.getApplyschoolinfo().getId()
+								.equals(coachVO.getDriveschoolinfo().getId())) {
+							coachList.add(coachVO);
+						}
 					}
 				}
-				initCoachListData();
-				if (coachList.size() > 0) {
-					coachListView.setVisibility(View.VISIBLE);
-					noCoachTv.setVisibility(View.GONE);
-					obtainCaochCourse(selectCoach.getCoachid());
+				// 获取报名时填写的教练
+				String coachId = app.userVO.getApplycoachinfo().getId();
+				if (!TextUtils.isEmpty(coachId)) {
+					obtainMyCoach(coachId);
+
+				} else {
+					initCoachListData();
+					if (coachList.size() > 0) {
+						coachListView.setVisibility(View.VISIBLE);
+						noCoachTv.setVisibility(View.GONE);
+						obtainCaochCourse(selectCoach.getCoachid());
+					}
 				}
+
 			} else if (type.equals(coachCourse)) {
 				courseList.clear();
 				if (dataArray != null) {
