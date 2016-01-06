@@ -18,11 +18,11 @@ import cn.sft.pull.RefreshLoadMoreView.RefreshLoadMoreListener;
 
 import com.sft.adapter.MyAppointmentListAdapter;
 import com.sft.common.Config;
-import com.sft.common.Config.AppointmentResult;
 import com.sft.dialog.ApplyExamDialog;
 import com.sft.dialog.CustomDialog;
 import com.sft.util.JSONUtil;
 import com.sft.vo.MyAppointmentVO;
+import com.sft.vo.UserVO;
 import com.sft.vo.uservo.StudentSubject;
 
 /**
@@ -36,6 +36,7 @@ public class MyAppointmentActivity extends BaseActivity implements
 
 	private static final String reservation = "reservation";
 	private static final String applyExam = "applyExam";
+	private static final String MYPROGRESS = "getmyprogress";
 	//
 	private RefreshLoadMoreView appointmentList;
 	//
@@ -135,6 +136,19 @@ public class MyAppointmentActivity extends BaseActivity implements
 		HttpSendUtils.httpGetSend(reservation, this, Config.IP
 				+ "api/v1/courseinfo/getmyreservation", paramMap, 10000,
 				headerMap);
+		requestStatus();
+	}
+
+	/**
+	 * 学员预约--查询学生的学习进度
+	 */
+	private void requestStatus() {
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("userid", app.userVO.getUserid());
+		Map<String, String> headerMap = new HashMap<String, String>();
+		headerMap.put("authorization", app.userVO.getToken());
+		HttpSendUtils.httpGetSend(MYPROGRESS, this, Config.IP
+				+ "api/v1/userinfo/getmyprogress", paramMap, 10000, headerMap);
 	}
 
 	private boolean checkStudyTime() {
@@ -220,11 +234,12 @@ public class MyAppointmentActivity extends BaseActivity implements
 					Log.d("tag", length + "isRefresh---doCallBack>"
 							+ jsonString);
 					int tempDays = 0;
+					Log.d("tag", length + "isRefresh---doCallBack>"
+							+ jsonString);
 					for (int i = 0; i < length; i++) {
 						MyAppointmentVO appointmentVO = JSONUtil.toJavaBean(
 								MyAppointmentVO.class,
 								dataArray.getJSONObject(i));
-						tempDays += getSize(appointmentVO);
 						list.add(appointmentVO);
 					}
 					Log.d("tag", "total--days-->" + tempDays);
@@ -246,6 +261,33 @@ public class MyAppointmentActivity extends BaseActivity implements
 							CustomDialog.APPLY_EXAM);
 					dialog.show();
 				}
+			} else if (type.equals(MYPROGRESS)) {
+				if (null != data) {
+					UserVO userVo = JSONUtil.toJavaBean(UserVO.class, data);
+					Log.d("tag", "userVo--2f->" + data);
+					String subjectId = userVo.getSubject().getSubjectid();
+					StudentSubject tempSubject = null;
+					// 获取当前学习的 课，科目2 或者科目3
+					if (subjectId.equals(Config.SubjectStatu.SUBJECT_TWO
+							.getValue())) {
+						tempSubject = userVo.getSubjecttwo();
+					} else if (subjectId
+							.equals(Config.SubjectStatu.SUBJECT_THREE
+									.getValue())) {
+						tempSubject = userVo.getSubjectthree();
+					}
+
+					if (tempSubject.getReservation()
+							+ tempSubject.getFinishcourse() >= tempSubject
+								.getTotalcourse()) {
+						appointmentBtn.setText(userVo.getSubject().getName()
+								+ "学时已约满");
+						appointmentBtn.setOnClickListener(null);
+					} else {
+						appointmentBtn.setText("预约学车");
+						appointmentBtn.setOnClickListener(this);
+					}
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -263,6 +305,7 @@ public class MyAppointmentActivity extends BaseActivity implements
 
 	@Override
 	public void forOperResult(Intent intent) {
+		Log.d("tag", "MyAppoint-->" + intent);
 		if (!onClickSingleView()) {
 			return;
 		}
@@ -290,8 +333,12 @@ public class MyAppointmentActivity extends BaseActivity implements
 				return;
 			}
 			String state = intent.getStringExtra("state");
-			if (!curState.equals(state))
+			if (!curState.equals(state)) {
 				adapter.changeState(position, state);
+				// 状态已经改变了， 请求最新的数据
+				obtainOppointment();
+			}
+
 			return;
 		}
 		boolean isJump = intent.getBooleanExtra("isJump", false);
@@ -311,60 +358,6 @@ public class MyAppointmentActivity extends BaseActivity implements
 
 	@Override
 	public void onLoadMore() {
-
-	}
-
-	/**
-	 * 计算 该项 包含的时间
-	 * 
-	 * @param appointmentVO
-	 * @return
-	 */
-	private int getSize(MyAppointmentVO appointmentVO) {
-		String state = appointmentVO.getReservationstate();
-
-		int result = 0;
-		if (state.equals(AppointmentResult.applyconfirm.getValue())) {
-			// 已接受
-		} else if (state.equals(AppointmentResult.unconfirmfinish.getValue())) {
-			// 待确认学完
-		} else if (state.equals(AppointmentResult.ucomments.getValue())) {
-			// 待评价
-		} else {
-			// holder.circle.setBackgroundResource(R.drawable.appointment_circle);
-			if (state.equals(AppointmentResult.applying.getValue())) {
-				// 待接受
-			} else if (state.equals(AppointmentResult.applycancel.getValue())) {
-				// 已取消
-				return 0;
-			} else if (state.equals(AppointmentResult.applyrefuse.getValue())) {
-				// 教练取消
-				return 0;
-			} else if (state.equals(AppointmentResult.finish.getValue())) {
-				// 完成的订单
-			}
-		}
-		String name = appointmentVO.getCourseprocessdesc();
-		if (name == null) {
-			return 0;
-		}
-		if (name.length() <= 8) {// 单个课时
-		// Log.d("tag","More---11>1");
-			result = 1;
-		} else if (name.contains(",")) {// 2个课时
-		// Log.d("tag","More---11>2");
-			result = 2;
-		} else if (name.contains("--")) {// 多个课时
-			String[] temp = name.split("--");
-			result = 1
-					+ Integer.parseInt(temp[1].substring(0,
-							temp[1].length() - 2))
-					- Integer.parseInt(temp[0].substring(4));
-			// Log.d("tag","More---11>"+temp[0].substring(4));
-			// Log.d("tag","More----22>"+temp[1].substring(0,
-			// temp[1].length()-2));
-		}
-		return result;
 
 	}
 }
