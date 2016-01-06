@@ -113,6 +113,27 @@ public class PersonCenterActivity extends BaseActivity {
 
 		schoolValueTv.setText(app.userVO.getApplyschoolinfo().getName());
 		carStyleValueTv.setText(app.userVO.getCarmodel().getName());
+
+		// 使用欢迎页面 请求到的数据
+		// String enrollInfo = SharedPreferencesUtil.getString(this,
+		// Config.USER_ENROLL_INFO, null);
+		// if (!TextUtils.isEmpty(enrollInfo)) {
+		// try {
+		// SuccessVO successVO = JSONUtil.toJavaBean(SuccessVO.class,
+		// enrollInfo);
+		// schoolValueTv.setText(successVO.applyschoolinfo.name);
+		// carStyleValueTv.setText(successVO.carmodel.code
+		// + successVO.carmodel.name);
+		// } catch (Exception e) {
+		// e.printStackTrace();
+		// }
+		// }
+
+		// 显示 welcome 更新的数据
+		schoolValueTv.setText(app.userVO.getApplyschoolinfo().getName());
+		carStyleValueTv.setText(app.userVO.getCarmodel().getCode()
+				+ app.userVO.getCarmodel().getName());
+
 	}
 
 	private void resizeDrawalbeLeftSize() {
