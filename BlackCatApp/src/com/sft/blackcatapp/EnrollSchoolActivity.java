@@ -41,7 +41,6 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.sft.adapter.SchoolListAdapter;
 import com.sft.api.ApiHttpClient;
-import com.sft.blackcatapp.R;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
 import com.sft.dialog.EnrollSelectConfilctDialog.OnSelectConfirmListener;

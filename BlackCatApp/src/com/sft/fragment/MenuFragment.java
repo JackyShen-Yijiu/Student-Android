@@ -42,6 +42,7 @@ import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.MyMoneyVO;
+import com.sft.vo.UserVO;
 
 public class MenuFragment extends Fragment implements OnItemClickListener,
 		OnClickListener, ICallBack {
@@ -51,6 +52,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 	private SelectableRoundedImageView personIcon;
 
 	private static final String mymoney = "mymoney";
+	private static final String userinfo = "userinfo";
 	BlackCatApplication app;
 	private TextView username;
 	private TextView drivingSchool;
@@ -90,6 +92,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 
 	private void initData() {
 		obtainMyMoney();
+
 	}
 
 	private void obtainMyMoney() {
@@ -111,7 +114,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 		super.onResume();
 		if (app.isLogin) {
 			obtainMyMoney();
-			setPersonInfo();
+			obtainPersionInfo();
 		}
 	}
 
@@ -261,7 +264,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 		case R.id.fragment_menu_driving_school_btn:
 			intent = new Intent(mContext, EnrollSchoolActivity.class);
 			intent.putExtra("isFromMenu", true);
-			mContext.startActivity(intent);
+			startActivityForResult(intent, 1);
 			break;
 		case R.id.fragment_menu_message_btn:
 			if (app.isLogin) {
@@ -359,19 +362,35 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 			JSONObject jsonObject = new JSONObject(jsonString.toString());
 			String msg = jsonObject.getString("msg");
 			JSONObject data = jsonObject.getJSONObject("data");
-			if (data != null) {
-				MyMoneyVO myMoneyVO = JSONUtil
-						.toJavaBean(MyMoneyVO.class, data);
-				if (myMoneyVO != null) {
-					setData(myMoneyVO);
+			if (type.equals(mymoney)) {
+				if (data != null) {
+					MyMoneyVO myMoneyVO = JSONUtil.toJavaBean(MyMoneyVO.class,
+							data);
+					if (myMoneyVO != null) {
+						setData(myMoneyVO);
+					}
 				}
-			}
 
-			if (!TextUtils.isEmpty(msg)) {
-				ZProgressHUD.getInstance(mContext).show();
-				ZProgressHUD.getInstance(mContext)
-						.dismissWithFailure(msg, 2000);
-				return true;
+				if (!TextUtils.isEmpty(msg)) {
+					ZProgressHUD.getInstance(mContext).show();
+					ZProgressHUD.getInstance(mContext).dismissWithFailure(msg,
+							2000);
+					return true;
+				}
+			} else if (type.equals(userinfo)) {
+				if (data != null) {
+					UserVO userVO = JSONUtil.toJavaBean(UserVO.class, data);
+					if (userVO != null) {
+						app.userVO
+								.setApplycoachinfo(userVO.getApplycoachinfo());
+						app.userVO.setApplyclasstypeinfo(userVO
+								.getApplyclasstypeinfo());
+						app.userVO.setApplyschoolinfo(userVO
+								.getApplyschoolinfo());
+						// app.userVO.setApplystate(userVO.getApplystate());
+						setPersonInfo();
+					}
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -420,4 +439,17 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 		money.setText(myMoneyVO.getMoney());
 
 	}
+
+	private void obtainPersionInfo() {
+		// Map<String, String> paramsMap = new HashMap<String, String>();
+		// paramsMap.put("userid", app.userVO.getUserid());
+		// paramsMap.put("type", "1");
+		LogUtil.print(app.userVO.getUserid());
+		HttpSendUtils.httpGetSend(userinfo, this,
+				Config.IP + "api/v1/userinfo/getuserinfo" + "/1/userid/"
+						+ app.userVO.getUserid());
+		// HttpSendUtils.httpGetSend(userinfo, this, Config.IP
+		// + "api/v1/userinfo/getuserinfo", paramsMap);
+	}
+
 }

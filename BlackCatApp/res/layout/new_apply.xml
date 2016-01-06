@@ -414,7 +414,7 @@
 	        android:layout_height="50dp"
 	        android:layout_alignParentBottom="true"
 	        android:background="#ff6633"
-	        android:text="下一步"
+	        android:text="报名"
 	        android:textColor="#ffffff"
 	        android:textSize="16sp" />
 	        </RelativeLayout>

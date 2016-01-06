@@ -14,9 +14,9 @@ import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
 import com.sft.adapter.CoachListAdapter;
-import com.sft.blackcatapp.R;
 import com.sft.common.Config;
 import com.sft.util.JSONUtil;
+import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.CoachVO;
 
 /**
@@ -47,6 +47,7 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 		obtainSchoolCoach(moreCoachPage);
 	}
 
+	@Override
 	protected void onResume() {
 		register(getClass().getName());
 		super.onResume();
@@ -58,7 +59,9 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 		coachListView = (XListView) findViewById(R.id.more_caoch_listview);
 		layout = (RelativeLayout) findViewById(R.id.more_caoch_no_layout);
 
-		layout.setVisibility(View.VISIBLE);
+		// layout.setVisibility(View.VISIBLE);
+		ZProgressHUD.getInstance(this).setMessage("拼命加载中...");
+		ZProgressHUD.getInstance(this).show();
 		coachListView.setVisibility(View.GONE);
 
 		findViewById(R.id.more_caoch_devider_im).getLayoutParams().height = (int) (screenHeight * 0.2f);
@@ -111,14 +114,16 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 					int length = dataArray.length();
 					if (length > 0) {
 						moreCoachPage++;
-						layout.setVisibility(View.GONE);
+						// layout.setVisibility(View.GONE);
+						ZProgressHUD.getInstance(
+								AppointmentMoreCoachActivity.this).dismiss();
 						coachListView.setVisibility(View.VISIBLE);
 					}
 					int curLength = coachList.size();
 					for (int i = 0; i < length; i++) {
-						CoachVO coachVO = (CoachVO) JSONUtil.toJavaBean(
-								CoachVO.class, dataArray.getJSONObject(i));
-						if(app.favouriteCoach.contains(coachVO))
+						CoachVO coachVO = JSONUtil.toJavaBean(CoachVO.class,
+								dataArray.getJSONObject(i));
+						if (app.favouriteCoach.contains(coachVO))
 							continue;
 						coachList.add(coachVO);
 					}
