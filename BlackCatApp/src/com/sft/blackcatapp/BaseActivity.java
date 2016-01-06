@@ -7,6 +7,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -205,6 +207,16 @@ public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity
 		rightTV.setCompoundDrawablesWithIntrinsicBounds(cityIcon, null, null,
 				null);
 		rightTV.setText(name);
+	}
+
+	// 解决系统改变字体大小的时候导致的界面布局混乱的问题
+
+	public Resources getResources() {
+		Resources res = super.getResources();
+		Configuration config = new Configuration();
+		config.setToDefaults();
+		res.updateConfiguration(config, res.getDisplayMetrics());
+		return res;
 	}
 
 	protected void showTitlebarBtn(int index) {
