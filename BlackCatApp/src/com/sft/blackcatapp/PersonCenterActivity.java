@@ -19,15 +19,11 @@ import cn.sft.infinitescrollviewpager.BitmapManager;
 import cn.sft.infinitescrollviewpager.MyHandler;
 
 import com.easemob.chat.EMChatManager;
-import com.sft.blackcatapp.R;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
-import com.sft.util.JSONUtil;
-import com.sft.util.SharedPreferencesUtil;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.CarModelVO;
 import com.sft.vo.SchoolVO;
-import com.sft.vo.SuccessVO;
 
 /**
  * 个人中心
@@ -114,19 +110,9 @@ public class PersonCenterActivity extends BaseActivity {
 			BitmapManager.INSTANCE.loadBitmap2(url, headPicIm,
 					headpicParam.width, headpicParam.height);
 		}
-		String enrollInfo = SharedPreferencesUtil.getString(this,
-				Config.USER_ENROLL_INFO, null);
-		if (!TextUtils.isEmpty(enrollInfo)) {
-			try {
-				SuccessVO successVO = JSONUtil.toJavaBean(SuccessVO.class,
-						enrollInfo);
-				schoolValueTv.setText(successVO.applyschoolinfo.name);
-				carStyleValueTv.setText(successVO.carmodel.code
-						+ successVO.carmodel.name);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+
+		schoolValueTv.setText(app.userVO.getApplyschoolinfo().getName());
+		carStyleValueTv.setText(app.userVO.getCarmodel().getName());
 	}
 
 	private void resizeDrawalbeLeftSize() {
