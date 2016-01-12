@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import com.sft.blackcatapp.QuestionActivity;
 import com.sft.blackcatapp.R;
 import com.sft.dialog.NoLoginDialog;
+import com.sft.util.CommonUtil;
 import com.sft.viewutil.ZProgressHUD;
 
 public class SubjectFourFragment extends BaseFragment implements
@@ -58,6 +59,11 @@ public class SubjectFourFragment extends BaseFragment implements
 	@Override
 	public void onClick(View v) {
 
+		if (!CommonUtil.isNetworkConnected(mContext)) {
+			ZProgressHUD.getInstance(mContext).show();
+			ZProgressHUD.getInstance(mContext).dismissWithFailure("网络异常");
+			return;
+		}
 		if (!app.isLogin) {
 			NoLoginDialog dialog = new NoLoginDialog(mContext);
 			dialog.show();

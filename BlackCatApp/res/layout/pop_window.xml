@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="145dp"
-    android:layout_height="80dp"
-    android:layout_gravity="center_vertical"
-    android:background="@drawable/pop_window"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:orientation="vertical" >
 
     <TextView
@@ -12,6 +10,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="center"
+         android:background="@drawable/pop_window_bg"
         android:clickable="true"
         android:textColor="#333"
         android:textSize="14sp" />
@@ -21,6 +20,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="center"
+         android:background="@drawable/pop_window_bg"
         android:clickable="true"
         android:textColor="#333"
         android:textSize="14sp" />

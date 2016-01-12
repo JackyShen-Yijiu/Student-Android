@@ -39,6 +39,7 @@ import cn.sft.infinitescrollviewpager.PageClickListener;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.sft.adapter.OpenCityAdapter;
 import com.sft.adapter.SchoolListAdapter;
 import com.sft.api.ApiHttpClient;
 import com.sft.common.Config;
@@ -50,6 +51,7 @@ import com.sft.util.Util;
 import com.sft.view.RefreshLayout;
 import com.sft.view.RefreshLayout.OnLoadListener;
 import com.sft.vo.HeadLineNewsVO;
+import com.sft.vo.OpenCityVO;
 import com.sft.vo.SchoolVO;
 
 /**
@@ -72,6 +74,7 @@ public class EnrollSchoolActivity extends BaseActivity implements
 
 	private final static String nearBySchool = "nearBySchool";
 	private static final String headlineNews = "headlineNews";
+	private final static String openCity = "openCity";
 	// 学校列表
 	private ListView schoolListView;
 
@@ -119,6 +122,9 @@ public class EnrollSchoolActivity extends BaseActivity implements
 	private int index = 1; // 分页
 	private boolean isRefreshing = false;
 	private boolean isLoadingMore = false;
+
+	private List<OpenCityVO> openCityList;
+	private PopupWindow openCityPopupWindow;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -524,14 +530,6 @@ public class EnrollSchoolActivity extends BaseActivity implements
 	}
 
 	private void obtainNearBySchool() {
-		// Map<String, String> paramMap = new HashMap<String, String>();
-		// paramMap.put("latitude", app.latitude);
-		// paramMap.put("longitude", app.longtitude);
-		// paramMap.put("radius", "10000");
-		// paramMap.put("index", index + "");
-		// paramMap.put("count", "10");
-		// HttpSendUtils.httpGetSend(nearBySchool, this, Config.IP
-		// + "api/v1/searchschool", paramMap);
 		RequestParams paramMap = new RequestParams();
 		paramMap.put("latitude", app.latitude);
 		paramMap.put("longitude", app.longtitude);
@@ -571,29 +569,7 @@ public class EnrollSchoolActivity extends BaseActivity implements
 			finish();
 			break;
 		case R.id.base_right_tv:
-			// if (adapter == null || adapter.getIndex() < 0) {
-			// finish();
-			// break;
-			// }
-			//
-			// school = adapter.getItem(adapter.getIndex());
-			// String checkResult = Util.isConfilctEnroll(school);
-			// if (checkResult == null) {
-			// setResult(v.getId(), new Intent().putExtra("school", school));
-			// finish();
-			// } else if (checkResult.length() == 0) {
-			// app.selectEnrollSchool = school;
-			// Util.updateEnrollSchool(this, school, false);
-			// setResult(v.getId(), new Intent().putExtra("school", school));
-			// finish();
-			// } else {
-			// // 提示
-			// EnrollSelectConfilctDialog dialog = new
-			// EnrollSelectConfilctDialog(
-			// this, checkResult);
-			// dialog.show();
-			// }
-
+			obtainOpenCity();
 			break;
 
 		case R.id.enroll_school_class_select_tv:
@@ -653,6 +629,11 @@ public class EnrollSchoolActivity extends BaseActivity implements
 			}
 			break;
 		}
+	}
+
+	private void obtainOpenCity() {
+		HttpSendUtils.httpGetSend(openCity, this, Config.IP
+				+ "api/v1/getopencity");
 	}
 
 	private void setSelectState(int position) {
@@ -738,6 +719,52 @@ public class EnrollSchoolActivity extends BaseActivity implements
 
 		popupWindow.showAsDropDown(parent);
 
+	}
+
+	private void showOpenCityPopupWindow(View parent) {
+		if (openCityPopupWindow == null) {
+			LinearLayout popWindowLayout = (LinearLayout) View.inflate(
+					mContext, R.layout.pop_window, null);
+			popWindowLayout.removeAllViews();
+			// LinearLayout popWindowLayout = new LinearLayout(mContext);
+			popWindowLayout.setOrientation(LinearLayout.VERTICAL);
+			ListView OpenCityListView = new ListView(mContext);
+			OpenCityListView.setDividerHeight(0);
+			OpenCityListView.setCacheColorHint(android.R.color.transparent);
+			OpenCityListView.setOnItemClickListener(new OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view,
+						int position, long id) {
+					OpenCityVO selectCity = openCityList.get(position);
+					System.out.println(selectCity.getName());
+					cityname = selectCity.getName();
+					licensetype = "";
+					schoolname = "";
+					ordertype = "";
+					index = 1;
+					obtainNearBySchool();
+					openCityPopupWindow.dismiss();
+					openCityPopupWindow = null;
+				}
+			});
+			LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
+					LinearLayout.LayoutParams.WRAP_CONTENT,
+					LinearLayout.LayoutParams.WRAP_CONTENT);
+			popWindowLayout.addView(OpenCityListView, param);
+			OpenCityAdapter openCityAdapter = new OpenCityAdapter(mContext,
+					openCityList);
+			OpenCityListView.setAdapter(openCityAdapter);
+
+			openCityPopupWindow = new PopupWindow(popWindowLayout, 130,
+					LayoutParams.WRAP_CONTENT);
+		}
+		openCityPopupWindow.setFocusable(true);
+		openCityPopupWindow.setOutsideTouchable(true);
+		// 这个是为了点击“返回Back”也能使其消失，并且并不会影响你的背景
+		openCityPopupWindow.setBackgroundDrawable(new BitmapDrawable());
+
+		openCityPopupWindow.showAsDropDown(parent);
 	}
 
 	@Override
@@ -830,6 +857,26 @@ public class EnrollSchoolActivity extends BaseActivity implements
 					}
 					if (length > 0) {
 						setViewPager();
+					}
+				}
+			} else if (type.equals(openCity)) {
+				if (dataArray != null) {
+					int length = dataArray.length();
+					openCityList = new ArrayList<OpenCityVO>();
+					for (int i = 0; i < length; i++) {
+						OpenCityVO openCityVO = null;
+						try {
+							openCityVO = JSONUtil.toJavaBean(OpenCityVO.class,
+									dataArray.getJSONObject(i));
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+						if (openCityVO != null) {
+							openCityList.add(openCityVO);
+						}
+					}
+					if (length > 0) {
+						showOpenCityPopupWindow(rightTV);
 					}
 				}
 			}

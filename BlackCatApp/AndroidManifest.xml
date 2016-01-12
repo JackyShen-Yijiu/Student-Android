@@ -313,8 +313,15 @@
             android:name="com.sft.blackcatapp.YiBuIntroduceActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name="com.sft.blackcatapp.SearchCoachActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="com.sft.blackcatapp.ApplyActivity"
             android:windowSoftInputMode="stateHidden|adjustResize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.sft.blackcatapp.ActivitiesActivity"
+            android:theme="@style/Theme.FloatActivity"
             android:screenOrientation="portrait" />
 
         <service android:name="com.sft.util.DownLoadService" />

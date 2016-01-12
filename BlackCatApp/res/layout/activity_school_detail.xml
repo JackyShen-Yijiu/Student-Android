@@ -86,7 +86,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:drawableLeft="@drawable/location"
-                    android:drawableRight="@drawable/location"
                     android:textColor="#333333"
                     android:textSize="14dp" />
             </LinearLayout>

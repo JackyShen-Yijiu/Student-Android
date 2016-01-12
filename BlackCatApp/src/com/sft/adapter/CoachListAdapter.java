@@ -136,11 +136,16 @@ public class CoachListAdapter extends BaseAdapter {
 			holder.rateBar.setRating(0f);
 		}
 		String rate = mData.get(position).getPassrate();
-		holder.rate.setText("通过率: " + rate);
+		holder.rate.setText("通过率: " + rate + "%");
 		String age = mData.get(position).getSeniority();
 		holder.age.setText("工作年限:" + age);
 		String distance = mData.get(position).getDistance();
-		holder.distance.setText(distance + "KM");
+		int distanceInt = 0;
+		try {
+			distanceInt = Integer.parseInt(distance);
+		} catch (NumberFormatException e) {
+		}
+		holder.distance.setText(distanceInt / 1000 + "KM");
 
 		LinearLayout.LayoutParams headParam = (LinearLayout.LayoutParams) holder.headPic
 				.getLayoutParams();
