@@ -26,7 +26,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import cn.sft.baseactivity.util.HttpSendUtils;
@@ -89,7 +88,6 @@ public class SearchCoachActivity extends BaseActivity implements
 
 		WindowManager wm = this.getWindowManager();
 
-		width = wm.getDefaultDisplay().getWidth();
 		mContext = this;
 		setRightText("定位中");
 		currCity = app.curCity;
@@ -106,7 +104,6 @@ public class SearchCoachActivity extends BaseActivity implements
 	private void initView() {
 		setTitleText(R.string.search_coach);
 
-		baseRightRl = (RelativeLayout) findViewById(R.id.base_title_rl);
 		swipeLayout = (RefreshLayout) findViewById(R.id.enroll_school_swipe_container);
 		swipeLayout.setOnRefreshListener(this);
 		swipeLayout.setColorScheme(android.R.color.holo_blue_bright,
@@ -209,8 +206,6 @@ public class SearchCoachActivity extends BaseActivity implements
 
 		}
 	};
-	private RelativeLayout baseRightRl;
-	private int width;
 
 	private String parseJson(byte[] responseBody) {
 		String value = null;
@@ -265,7 +260,7 @@ public class SearchCoachActivity extends BaseActivity implements
 						}
 					}
 				}
-
+				LogUtil.print("coachList==" + coachList.size());
 				setData(coachList, selectIndex);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -273,49 +268,63 @@ public class SearchCoachActivity extends BaseActivity implements
 		}
 	}
 
-	private void setData(List<CoachVO> coach, int selectIndex) {
+	private void setData(final List<CoachVO> coach, final int selectIndex) {
 
-		if (isSearchCoach) {
-			if (index == 1 && coach.size() == 0) {
-				toast.setText("没有搜索到您要找的驾校");
-				return;
-			}
-		}
-		if (index == 1) {
-			coachList.clear();
-			if (!isRefreshing) {
-				coachList.addAll(coach);
-				adapter = new CoachListAdapter(this, coachList);
-				coachListView.setAdapter(adapter);
-			}
-			if (coach.size() == 0) {
-				toast.setText("该选项下没有数据");
-			}
-		}
+		runOnUiThread(new Runnable() {
 
-		if (coach.size() == 0 && index != 1) {
-			toast.setText("没有更多数据了");
-		} else {
-			coachList.addAll(coach);
-			if (selectIndex >= 0) {
-				// 将已选择的教练放在第一位
-				coachList.add(0, coachList.get(selectIndex));
-				coachList.remove(selectIndex + 1);
-			}
-			adapter.notifyDataSetChanged();
-			if (selectIndex >= 0) {
-				adapter.setSelected(0);
-			}
-		}
+			@Override
+			public void run() {
+				if (isSearchCoach) {
+					if (index == 1 && coach.size() == 0) {
+						toast.setText("没有搜索到您要找的驾校");
+						return;
+					}
+				}
+				if (index == 1) {
+					coachList.clear();
+					if (!isRefreshing) {
+						coachList.addAll(coach);
+						adapter = new CoachListAdapter(mContext, coachList);
+						coachListView.setAdapter(adapter);
+					} else {
+						coachList.addAll(coach);
+						adapter.notifyDataSetChanged();
+					}
+					if (coach.size() == 0) {
+						toast.setText("该选项下没有数据");
+					}
+				} else {
+					if (coach.size() == 0) {
+						toast.setText("没有更多数据了");
+					} else {
+						coachList.addAll(coach);
+						LogUtil.print("onItemClick===" + coachList.size());
+						// if (selectIndex >= 0) {
+						// // 将已选择的教练放在第一位
+						// coachList.add(0, coachList.get(selectIndex));
+						// coachList.remove(selectIndex + 1);
+						// }
+						//
+						if (selectIndex >= 0) {
+							adapter.setSelected(0);
+						}
+						adapter.notifyDataSetChanged();
 
-		if (isRefreshing) {
-			swipeLayout.setRefreshing(false);
-			isRefreshing = false;
-		}
-		if (isLoadingMore) {
-			swipeLayout.setLoading(false);
-			isLoadingMore = false;
-		}
+					}
+
+				}
+
+				if (isRefreshing) {
+					swipeLayout.setRefreshing(false);
+					isRefreshing = false;
+				}
+				if (isLoadingMore) {
+					swipeLayout.setLoading(false);
+					isLoadingMore = false;
+				}
+			}
+		});
+
 	}
 
 	private void searchcoach(boolean isSearch) {
@@ -522,6 +531,9 @@ public class SearchCoachActivity extends BaseActivity implements
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
+		LogUtil.print("position===" + position);
+		LogUtil.print("index===" + index);
+
 		Intent intent = new Intent(this, CoachDetailActivity.class);
 		CoachVO coachVO = adapter.getItem(position - 1);
 		intent.putExtra("coach", coachVO);

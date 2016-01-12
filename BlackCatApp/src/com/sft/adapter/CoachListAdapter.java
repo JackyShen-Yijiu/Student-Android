@@ -1,5 +1,6 @@
 package com.sft.adapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.annotation.SuppressLint;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import cn.sft.infinitescrollviewpager.BitmapManager;
 
 import com.sft.blackcatapp.R;
+import com.sft.util.LogUtil;
 import com.sft.vo.CoachVO;
 
 @SuppressLint("InflateParams")
@@ -23,25 +25,30 @@ public class CoachListAdapter extends BaseAdapter {
 
 	private LayoutInflater mInflater;
 	private List<CoachVO> mData;
-	private boolean[] isSelected;
+	// private boolean[] isSelected;
+	private List<Boolean> isSelected = new ArrayList<Boolean>();
 
 	private int index = -1;
 
 	public CoachListAdapter(Context context, List<CoachVO> mData) {
 		this.mInflater = LayoutInflater.from(context);
 		this.mData = mData;
-		isSelected = new boolean[mData.size()];
+		// isSelected = ;
 		for (int i = 0; i < mData.size(); i++) {
-			isSelected[i] = false;
+			isSelected.add(false);
 		}
 	}
 
 	public void setSelected(int index) {
 		if (index >= 0) {
 			for (int i = 0; i < mData.size(); i++) {
-				isSelected[i] = false;
+				if (isSelected.size() - 1 > i) {
+					isSelected.set(i, false);
+				} else {
+					isSelected.add(false);
+				}
 			}
-			isSelected[index] = true;
+			isSelected.set(index, true);
 			this.index = index;
 		}
 	}
@@ -106,10 +113,13 @@ public class CoachListAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		if (position >= isSelected.length) {
-			return convertView;
-		}
-		if (isSelected[position]) {
+		// if (position >= isSelected.length) {
+		// return convertView;
+		// }
+		// if (isSelected.size() - 1 < position) {
+		//
+		// }
+		if (isSelected.size() > position && isSelected.get(position)) {
 			holder.selectIm
 					.setBackgroundResource(R.drawable.select_class_ck_selected);
 		} else {
@@ -157,7 +167,10 @@ public class CoachListAdapter extends BaseAdapter {
 			BitmapManager.INSTANCE.loadBitmap2(url, holder.headPic,
 					headParam.width, headParam.height);
 		}
-
+		// if (position == mData.size() - 1) {
+		LogUtil.print(mData.size() + "ssssssd===="
+				+ mData.get(position).getName() + position);
+		// }
 		return convertView;
 	}
 

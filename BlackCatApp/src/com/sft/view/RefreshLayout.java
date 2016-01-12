@@ -5,7 +5,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.widget.AbsListView;
@@ -103,33 +102,33 @@ public class RefreshLayout extends SwipeRefreshLayout implements
 	 * 
 	 * @see android.view.ViewGroup#dispatchTouchEvent(android.view.MotionEvent)
 	 */
-	@Override
-	public boolean dispatchTouchEvent(MotionEvent event) {
-		final int action = event.getAction();
-
-		switch (action) {
-		case MotionEvent.ACTION_DOWN:
-			// 按下
-			mYDown = (int) event.getRawY();
-			break;
-
-		case MotionEvent.ACTION_MOVE:
-			// 移动
-			mLastY = (int) event.getRawY();
-			break;
-
-		case MotionEvent.ACTION_UP:
-			// 抬起
-			if (canLoad()) {
-				loadData();
-			}
-			break;
-		default:
-			break;
-		}
-
-		return super.dispatchTouchEvent(event);
-	}
+	// @Override
+	// public boolean dispatchTouchEvent(MotionEvent event) {
+	// final int action = event.getAction();
+	//
+	// switch (action) {
+	// case MotionEvent.ACTION_DOWN:
+	// // 按下
+	// mYDown = (int) event.getRawY();
+	// break;
+	//
+	// case MotionEvent.ACTION_MOVE:
+	// // 移动
+	// mLastY = (int) event.getRawY();
+	// break;
+	//
+	// case MotionEvent.ACTION_UP:
+	// // 抬起
+	// if (canLoad()) {
+	// loadData();
+	// }
+	// break;
+	// default:
+	// break;
+	// }
+	//
+	// return super.dispatchTouchEvent(event);
+	// }
 
 	/**
 	 * 是否可以加载更多, 条件是到了最底部, listview不在加载中, 且为上拉操作.
@@ -137,7 +136,8 @@ public class RefreshLayout extends SwipeRefreshLayout implements
 	 * @return
 	 */
 	private boolean canLoad() {
-		return isBottom() && !isLoading && isPullUp();
+		return isBottom() && !isLoading;
+		// return isBottom() && !isLoading && isPullUp();
 	}
 
 	/**
@@ -172,7 +172,6 @@ public class RefreshLayout extends SwipeRefreshLayout implements
 			// 设置状态
 			setLoading(true);
 			//
-			System.out.println(mYDown + "加载更多" + mLastY);
 			mOnLoadListener.onLoad();
 		}
 	}
@@ -201,15 +200,24 @@ public class RefreshLayout extends SwipeRefreshLayout implements
 	@Override
 	public void onScrollStateChanged(AbsListView view, int scrollState) {
 
+		if (OnScrollListener.SCROLL_STATE_IDLE == scrollState
+				|| OnScrollListener.SCROLL_STATE_FLING == scrollState) {
+			// if (canLoad()) {
+			// loadData();
+			// }
+			if (mListView.getLastVisiblePosition() == mListView.getAdapter()
+					.getCount() - 1 && !isLoading) {
+				mListView.setSelection(mListView.getAdapter().getCount());
+				loadData();
+			}
+		}
 	}
 
 	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem,
 			int visibleItemCount, int totalItemCount) {
 		// 滚动时到了最底部也可以加载更多
-		if (canLoad()) {
-			loadData();
-		}
+
 	}
 
 	/**

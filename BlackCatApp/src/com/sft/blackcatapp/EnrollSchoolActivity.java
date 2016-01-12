@@ -141,7 +141,7 @@ public class EnrollSchoolActivity extends BaseActivity implements
 		initData();
 		setListener();
 		obtainHeadLineNews();
-		cityname = currCity;
+		cityname = "";
 		licensetype = "";
 		schoolname = "";
 		ordertype = "";
@@ -495,30 +495,31 @@ public class EnrollSchoolActivity extends BaseActivity implements
 	private void setData(List<SchoolVO> school, int selectIndex) {
 
 		if (index == 1) {
+			schoolList.clear();
 			if (!isRefreshing) {
 				schoolList.addAll(school);
 				adapter = new SchoolListAdapter(this, schoolList);
 				schoolListView.setAdapter(adapter);
 			}
-			schoolList.clear();
-		}
-
-		if (school.size() == 0 && index != 1) {
-			toast.setText("没有更多数据了");
 		} else {
+			if (school.size() == 0) {
+				toast.setText("没有更多数据了");
+			} else {
 
-			schoolList.addAll(school);
-			if (selectIndex >= 0) {
-				// 将已选择的驾校放在第一位
-				schoolList.add(0, schoolList.get(selectIndex));
-				schoolList.remove(selectIndex + 1);
-			}
-			adapter.notifyDataSetChanged();
-			LogUtil.print("aaaaaaaaa" + schoolList.size());
-			if (selectIndex >= 0) {
-				adapter.setSelected(0);
+				schoolList.addAll(school);
+
+				LogUtil.print("aaaaaaaaa" + schoolList.size());
+				adapter.notifyDataSetChanged();
+				if (selectIndex >= 0) {
+					adapter.setSelected(0);
+				}
 			}
 		}
+		// if (selectIndex >= 0) {
+		// // 将已选择的驾校放在第一位
+		// schoolList.add(0, schoolList.get(selectIndex));
+		// schoolList.remove(selectIndex + 1);
+		// }
 		if (isRefreshing) {
 			swipeLayout.setRefreshing(false);
 			isRefreshing = false;
@@ -889,15 +890,13 @@ public class EnrollSchoolActivity extends BaseActivity implements
 
 	private void setSearchData(List<SchoolVO> school, int selectIndex) {
 		if (searchIndex == 1) {
+			schoolList.clear();
 			if (school.size() == 0) {
 				toast.setText("没有搜索到您要找的驾校");
 				return;
-			} else {
-				schoolList.clear();
 			}
 		}
 		if (searchIndex != 1 && school.size() == 0) {
-			System.out.println(searchIndex + "-------" + school.size());
 			toast.setText("没有更多数据了");
 		}
 		if (selectIndex >= 0) {

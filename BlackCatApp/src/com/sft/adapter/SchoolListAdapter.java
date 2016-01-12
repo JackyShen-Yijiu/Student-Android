@@ -1,6 +1,7 @@
 package com.sft.adapter;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.annotation.SuppressLint;
@@ -24,26 +25,28 @@ public class SchoolListAdapter extends BaseAdapter {
 
 	private LayoutInflater mInflater;
 	private List<SchoolVO> mData;
-	private boolean[] isSelected;
+	private List<Boolean> isSelected = new ArrayList<Boolean>();
 
 	private int index = -1;
 
 	public SchoolListAdapter(Context context, List<SchoolVO> mData) {
 		this.mInflater = LayoutInflater.from(context);
 		this.mData = mData;
-		isSelected = new boolean[mData.size()];
 		for (int i = 0; i < mData.size(); i++) {
-			isSelected[i] = false;
+			isSelected.add(false);
 		}
 	}
 
 	public void setSelected(int index) {
-		isSelected = new boolean[mData.size()];
 		if (index >= 0) {
 			for (int i = 0; i < mData.size(); i++) {
-				isSelected[i] = false;
+				if (isSelected.size() - 1 > i) {
+					isSelected.set(i, false);
+				} else {
+					isSelected.add(false);
+				}
 			}
-			isSelected[index] = true;
+			isSelected.set(index, true);
 			this.index = index;
 		}
 	}
@@ -104,10 +107,10 @@ public class SchoolListAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		if (position >= isSelected.length) {
-			return convertView;
-		}
-		if (isSelected[position]) {
+		// if (position >= isSelected.length) {
+		// return convertView;
+		// }
+		if (isSelected.size() > position && isSelected.get(position)) {
 			holder.selectIm
 					.setBackgroundResource(R.drawable.select_class_ck_selected);
 		} else {
