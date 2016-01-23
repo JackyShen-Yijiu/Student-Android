@@ -231,18 +231,13 @@ public class MyAppointmentActivity extends BaseActivity implements
 					List<MyAppointmentVO> list = new ArrayList<MyAppointmentVO>();
 
 					int length = dataArray.length();
-					Log.d("tag", length + "isRefresh---doCallBack>"
-							+ jsonString);
 					int tempDays = 0;
-					Log.d("tag", length + "isRefresh---doCallBack>"
-							+ jsonString);
 					for (int i = 0; i < length; i++) {
 						MyAppointmentVO appointmentVO = JSONUtil.toJavaBean(
 								MyAppointmentVO.class,
 								dataArray.getJSONObject(i));
 						list.add(appointmentVO);
 					}
-					Log.d("tag", "total--days-->" + tempDays);
 					// 判断是否可以 再次预约 sun(当前进度？)
 					if (tempDays >= subject.getTotalcourse()) {
 						appointmentBtn.setText(app.userVO.getSubject()
@@ -264,7 +259,6 @@ public class MyAppointmentActivity extends BaseActivity implements
 			} else if (type.equals(MYPROGRESS)) {
 				if (null != data) {
 					UserVO userVo = JSONUtil.toJavaBean(UserVO.class, data);
-					Log.d("tag", "userVo--2f->" + data);
 					String subjectId = userVo.getSubject().getSubjectid();
 					StudentSubject tempSubject = null;
 					// 获取当前学习的 课，科目2 或者科目3

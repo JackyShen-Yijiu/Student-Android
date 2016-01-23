@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#01000000"
+    android:background="@null"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -120,11 +120,7 @@
         android:background="#cccccc"
         android:contentDescription="@string/app_name" />
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="#f7f9fb"
-        android:contentDescription="@string/app_name" />
+    
 
     <ImageView
         android:layout_width="match_parent"
@@ -157,11 +153,7 @@
         android:background="#cccccc"
         android:contentDescription="@string/app_name" />
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="#f7f9fb"
-        android:contentDescription="@string/app_name" />
+    
 
     <ImageView
         android:layout_width="match_parent"
@@ -191,11 +183,7 @@
         android:background="#cccccc"
         android:contentDescription="@string/app_name" />
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="#f7f9fb"
-        android:contentDescription="@string/app_name" />
+    
 
     <ImageView
         android:layout_width="match_parent"
@@ -209,7 +197,7 @@
         android:layout_height="45dp"
         android:background="@null"
         android:text="@string/logout"
-        android:textColor="#333333"
+        android:textColor="#ffffff"
         android:textSize="14dp" />
 
     <ImageView
@@ -221,7 +209,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#f7f9fb"
+        android:background="@null"
         android:contentDescription="@string/app_name" />
 
 </LinearLayout>

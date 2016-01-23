@@ -44,6 +44,7 @@ import com.sft.blackcatapp.MyWalletActivity;
 import com.sft.blackcatapp.PersonCenterActivity;
 import com.sft.blackcatapp.R;
 import com.sft.blackcatapp.SearchCoachActivity;
+import com.sft.blackcatapp.TodaysAppointmentActivity;
 import com.sft.common.BlackCatApplication;
 import com.sft.common.Config;
 import com.sft.dialog.NoLoginDialog;
@@ -313,8 +314,13 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 			obtainActivities();
 			break;
 		case R.id.fragment_menu_signin_btn:
-			ZProgressHUD.getInstance(mContext).show();
-			ZProgressHUD.getInstance(mContext).dismissWithFailure("敬请期待！");
+			if (app.isLogin) {
+				intent = new Intent(mContext, TodaysAppointmentActivity.class);
+				mContext.startActivity(intent);
+			} else {
+				NoLoginDialog dialog = new NoLoginDialog(mContext);
+				dialog.show();
+			}
 			break;
 		case R.id.fragment_menu_search_coach_btn:
 			if (app.isLogin) {

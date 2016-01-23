@@ -12,8 +12,8 @@
         android:layout_marginTop="@dimen/login_logo_margintop"
         android:background="@drawable/app_logo"
         android:clipToPadding="true"
-   		 android:fitsSystemWindows="true"
-        android:contentDescription="@string/app_name" />
+        android:contentDescription="@string/app_name"
+        android:fitsSystemWindows="true" />
 
     <RelativeLayout
         android:id="@+id/login_login_layout"
@@ -27,8 +27,7 @@
         <RelativeLayout
             android:id="@+id/login_et_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-             >
+            android:layout_height="wrap_content" >
 
             <EditText
                 android:id="@+id/login_phone_et"
@@ -37,31 +36,32 @@
                 android:drawableLeft="@drawable/acc_drawable_left"
                 android:hint="@string/phonenumber"
                 android:inputType="phone"
-                android:textColor="#999"
-                android:maxLength="11" />
+                android:maxLength="11"
+                android:textColor="#999" />
 
             <ImageView
                 android:id="@+id/login_deivder_im"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:layout_below="@+id/login_phone_et"
-                android:background="#99e6e6e6"
+                android:background="#88e6e6e6"
                 android:contentDescription="@string/app_name" />
 
             <EditText
                 android:id="@+id/login_passwd_et"
                 style="@style/login_password_et_style"
-                android:background="@null"
                 android:layout_below="@+id/login_deivder_im"
+                android:background="@null"
                 android:drawableLeft="@drawable/pass_drawable_left"
-                android:textColor="#999"
-                android:hint="@string/password" />
+                android:hint="@string/password"
+                android:textColor="#999" />
+
             <ImageView
                 android:id="@+id/login_deivder2_im"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:layout_below="@+id/login_passwd_et"
-                android:background="#99e6e6e6"
+                android:background="#88e6e6e6"
                 android:contentDescription="@string/app_name" />
         </RelativeLayout>
 
@@ -100,17 +100,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/login_lookaround_btn"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal" >
 
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="1dp"
+                android:layout_height="0.5dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="15dp"
                 android:layout_weight="1"
-                android:background="#e6e6e6" />
+                android:background="#88e6e6e6" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -122,29 +121,38 @@
 
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="1dp"
+                android:layout_height="0.5dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="15dp"
                 android:layout_weight="1"
-                android:background="#e6e6e6" />
+                android:background="#88e6e6e6" />
         </LinearLayout>
 
-        <Button
+        <LinearLayout
             android:id="@+id/login_lookaround_btn"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/login_lookaround_btn_height"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="@dimen/login_lookaround_btn_marginbottom"
-            android:background="@null"
-            android:drawablePadding="3dp"
-            android:drawableRight="@drawable/look_around"
             android:gravity="center"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:text="@string/look_around"
-            android:textColor="#666666"
-            android:textSize="14dp" />
+            android:orientation="horizontal"
+             >
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/login_lookaround_btn_height"
+                android:background="@null"
+                android:text="@string/look_around"
+                android:textColor="#666666"
+                android:textSize="14dp" />
+            <ImageView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/look_around"
+                android:alpha="0.3"
+                />
+        </LinearLayout>
     </RelativeLayout>
 
 </RelativeLayout>

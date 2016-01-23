@@ -72,6 +72,8 @@
     <string name="school_instruction">驾校简介</string>
     <string name="select_coach">选择教练</string>
     <string name="my_appointment">我的预约</string>
+    <string name="today_appointment">今日预约</string>
+    <string name="sign_in">签到</string>
     <string name="appointment_car">预约学车</string>
     <string name="appointment_course">课件</string>
     <string name="wallet">钱包</string>

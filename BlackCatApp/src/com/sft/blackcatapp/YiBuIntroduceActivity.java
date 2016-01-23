@@ -66,12 +66,12 @@ public class YiBuIntroduceActivity extends BaseActivity {
 			url = "http://123.57.63.15:8181/youshi.html";
 			setTitleText(R.string.yibu_superiority);
 			break;
-		case R.id.introduce_favourable_class:
+		case R.id.introduce_procedure:
 			url = "http://123.57.63.15:8181/3.html";
 			setTitleText(R.string.yibu_favourable_class);
 
 			break;
-		case R.id.introduce_procedure:
+		case R.id.introduce_favourable_class:
 			// url = "http://123.57.63.15:8181/liuchengt.html";
 			setTitleText(R.string.yibu_procedure);
 			Intent intent = new Intent(this, EnrollSchoolActivity.class);

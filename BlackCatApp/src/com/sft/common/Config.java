@@ -11,8 +11,14 @@ public class Config {
 	// 友盟appkey
 	public static final String UMENG_CHANNELID = "ceshi";
 	//
+<<<<<<< HEAD
+	// public static final String IP = "http://101.200.204.240:8181/";
+	// public static final String IP = "http://123.57.63.15:8181/";
+	public static final String IP = "http://api.yibuxueche.com/";
+=======
 	public static final String IP = "http://101.200.204.240:8181/";//测试
 	// public static final String IP = "http://123.57.63.15:8181/";//正式
+>>>>>>> c846b294bf935d11bd75df3716c6dc7ac1d4ecc0
 	// 默认头像下载地址
 	public static final String HEAD_URL = "http://7xnjg0.com1.z0.glb.clouddn.com/";
 	// 上次登录用户的手机号
