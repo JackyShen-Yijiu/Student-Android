@@ -6,6 +6,7 @@ import java.util.Map;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.Button;
@@ -151,6 +152,7 @@ public class ConfirmStudyActivity extends BaseActivity implements
 		paramsMap.put("reservationid", appointmentVO.get_id());
 
 		String content = "";
+		Log.d("tag","confirm--studyact-->"+studyContent.size());
 		for (int i = 0; i < studyContent.size(); i++) {
 			String value = studyContent.get(studyContent.keyAt(i));
 			content += (value + "、");
