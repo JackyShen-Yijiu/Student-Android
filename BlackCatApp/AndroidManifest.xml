@@ -324,6 +324,12 @@
             android:theme="@style/Theme.FloatActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name="com.sft.blackcatapp.TodaysAppointmentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.sft.blackcatapp.QRCodeCreateActivity"
+            android:screenOrientation="portrait" />
         <service android:name="com.sft.util.DownLoadService" />
 
         <!-- 极光推送 ======================================================================== -->
@@ -423,7 +429,7 @@
         <!-- 设置环信应用的appkey black-cat#yibuxuecheprod black-cat#yibuxuechetest -->
         <meta-data
             android:name="EASEMOB_APPKEY"
-            android:value="black-cat#yibuxuechetest" />
+            android:value="black-cat#yibuxuecheprod" />
         <!-- 声明sdk所需的service -->
         <service android:name="com.easemob.chat.EMChatService" />
 

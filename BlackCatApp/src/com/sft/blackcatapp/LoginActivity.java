@@ -18,11 +18,11 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
 import com.sft.api.UserLogin;
-import com.sft.blackcatapp.R;
 import com.sft.common.Config;
 import com.sft.listener.EMLoginListener;
 import com.sft.util.DownLoadService;
@@ -43,7 +43,7 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 	// 登录按钮
 	private Button loginBtn;
 	// 随便看看按钮
-	private Button lookAroundBtn;
+	private LinearLayout lookAroundBtn;
 	// 手机号输入框
 	private EditText phontEt;
 	// 密码输入框
@@ -107,7 +107,7 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 		setTitleBarVisible(View.GONE);
 
 		loginBtn = (Button) findViewById(R.id.login_login_btn);
-		lookAroundBtn = (Button) findViewById(R.id.login_lookaround_btn);
+		lookAroundBtn = (LinearLayout) findViewById(R.id.login_lookaround_btn);
 		phontEt = (EditText) findViewById(R.id.login_phone_et);
 		passwordEt = (EditText) findViewById(R.id.login_passwd_et);
 		forgetPassTv = (TextView) findViewById(R.id.login_forget_tv);

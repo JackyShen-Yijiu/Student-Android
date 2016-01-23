@@ -46,4 +46,8 @@
     <color name="bottom_text_unselector">#828282</color>
     <color name="bottom_text_selector">#68e6ff</color>
     <color name="default_text_color">#333</color>
+    <color name="red_color">#f00</color>
+
+    <color name="listview_selected_color">#99999999</color>
+    
 </resources>
