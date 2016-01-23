@@ -182,7 +182,7 @@ public class ScrollTimeLayout extends LinearLayout implements
 		} else {
 			selectCourseList.remove(coachCourseVO);
 		}
-		onTimeLayoutSelectedListener.TimeLayoutSelectedListener();
+		onTimeLayoutSelectedListener.TimeLayoutSelectedListener(selected);
 		isTimeBlockCon = checkTimeBlockCon();
 		if (!isTimeBlockCon) {
 			CustomDialog dialog = new CustomDialog(context,
@@ -207,7 +207,7 @@ public class ScrollTimeLayout extends LinearLayout implements
 	}
 
 	public interface OnTimeLayoutSelectedListener {
-		void TimeLayoutSelectedListener();
+		void TimeLayoutSelectedListener(boolean selected);
 	}
 
 	private OnTimeLayoutSelectedListener onTimeLayoutSelectedListener;

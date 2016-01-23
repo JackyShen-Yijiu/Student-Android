@@ -36,4 +36,8 @@ public class CommentUser extends DBVO {
 		this.name = name;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		return this._id.equals(((CommentUser) obj)._id);
+	}
 }

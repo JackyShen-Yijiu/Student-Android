@@ -6,15 +6,17 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.http.SslError;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
-import com.sft.blackcatapp.R;
 import com.sft.util.DownLoadService;
+import com.sft.viewutil.ZProgressHUD;
 
 /**
  * 关于我们
@@ -102,6 +104,15 @@ public class AboutUsActivity extends BaseActivity {
 				progress.setVisibility(View.GONE);
 				super.onPageFinished(view, url);
 			}
+
+			@Override
+			public void onReceivedSslError(WebView view,
+					SslErrorHandler handler, SslError error) {
+				super.onReceivedSslError(view, handler, error);
+				ZProgressHUD.getInstance(getBaseContext()).show();
+				ZProgressHUD.getInstance(getBaseContext()).dismissWithFailure(
+						"网络异常");
+			}
 		});
 
 		settings = webview.getSettings();
@@ -112,7 +123,7 @@ public class AboutUsActivity extends BaseActivity {
 		settings.setSupportZoom(false);
 		settings.setDisplayZoomControls(false);
 
-		webview.loadUrl("http://www.yibuxueche.com/about.html?ver=1.1");
+		webview.loadUrl("http://www.yibuxueche.com/about.html?ver=1.2.0");
 	}
 
 	@Override

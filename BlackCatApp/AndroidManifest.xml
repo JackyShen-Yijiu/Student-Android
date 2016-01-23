@@ -313,8 +313,15 @@
             android:name="com.sft.blackcatapp.YiBuIntroduceActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name="com.sft.blackcatapp.SearchCoachActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="com.sft.blackcatapp.ApplyActivity"
             android:windowSoftInputMode="stateHidden|adjustResize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.sft.blackcatapp.ActivitiesActivity"
+            android:theme="@style/Theme.FloatActivity"
             android:screenOrientation="portrait" />
 
         <service android:name="com.sft.util.DownLoadService" />
@@ -423,7 +430,7 @@
         <!-- 百度地图定位 ======================================================================== -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="UUXsBU2Tq3LETedPZVpxuxQG" />
+            android:value="nCxRAoooo6Pe3yeMG6iDK5aW" />
         
 <!--之前版本： UUXsBU2Tq3LETedPZVpxuxQG -->
 <!--现在版本： nCxRAoooo6Pe3yeMG6iDK5aW -->

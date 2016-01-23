@@ -14,12 +14,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.infinitescrollviewpager.MyHandler;
 
 import com.sft.api.UserLogin;
-import com.sft.blackcatapp.R;
 import com.sft.common.Config;
 import com.sft.listener.EMLoginListener;
 import com.sft.util.DownLoadService;
@@ -157,8 +157,21 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 			handler.cancle();
 		}
 		if (type.equals(login)) {
+			if (!TextUtils.isEmpty(msg)) {
+				new MyHandler(1000) {
+					@Override
+					public void run() {
+						Intent intent = new Intent(WelcomeActivity.this,
+								LoginActivity.class);
+						startActivity(intent);
+						finish();
+					}
+				};
+				return true;
+			}
 			try {
 				if (data != null) {
+					Log.d("tag","sun--welcome-->"+data);
 					app.userVO = JSONUtil.toJavaBean(UserVO.class, data);
 					util.saveParam(Config.LAST_LOGIN_PHONE,
 							app.userVO.getTelephone());

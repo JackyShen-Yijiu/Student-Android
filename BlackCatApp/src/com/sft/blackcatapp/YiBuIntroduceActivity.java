@@ -75,7 +75,8 @@ public class YiBuIntroduceActivity extends BaseActivity {
 			// url = "http://123.57.63.15:8181/liuchengt.html";
 			setTitleText(R.string.yibu_procedure);
 			Intent intent = new Intent(this, EnrollSchoolActivity.class);
-			startActivity(intent);
+			intent.putExtra("isFromMenu", true);
+			startActivityForResult(intent, 1);
 			finish();
 			break;
 

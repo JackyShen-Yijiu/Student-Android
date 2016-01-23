@@ -28,15 +28,16 @@
             android:id="@+id/login_et_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/login_et_bkground" >
+             >
 
             <EditText
                 android:id="@+id/login_phone_et"
                 style="@style/login_et_style"
-                android:background="#fff"
+                android:background="@null"
                 android:drawableLeft="@drawable/acc_drawable_left"
                 android:hint="@string/phonenumber"
                 android:inputType="phone"
+                android:textColor="#999"
                 android:maxLength="11" />
 
             <ImageView
@@ -44,16 +45,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:layout_below="@+id/login_phone_et"
-                android:background="#e6e6e6"
+                android:background="#99e6e6e6"
                 android:contentDescription="@string/app_name" />
 
             <EditText
                 android:id="@+id/login_passwd_et"
                 style="@style/login_password_et_style"
-                android:background="#fff"
+                android:background="@null"
                 android:layout_below="@+id/login_deivder_im"
                 android:drawableLeft="@drawable/pass_drawable_left"
+                android:textColor="#999"
                 android:hint="@string/password" />
+            <ImageView
+                android:id="@+id/login_deivder2_im"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@+id/login_passwd_et"
+                android:background="#99e6e6e6"
+                android:contentDescription="@string/app_name" />
         </RelativeLayout>
 
         <Button

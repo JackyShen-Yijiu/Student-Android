@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -37,6 +38,7 @@ import com.sft.adapter.AppointmentDetailStudentHoriListAdapter;
 import com.sft.common.Config;
 import com.sft.common.Config.SubjectStatu;
 import com.sft.dialog.CustomDialog;
+import com.sft.listener.SameTimeStudentOnItemClickListener;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
 import com.sft.util.Util;
@@ -58,7 +60,7 @@ import com.sft.vo.uservo.StudentSubject;
 @SuppressLint("SimpleDateFormat")
 public class AppointmentCarActivity extends BaseActivity implements
 		OnCheckedChangeListener, OnItemClickListener, AutoScrollListener,
-		LoadMoreListener {
+		LoadMoreListener, SameTimeStudentOnItemClickListener {
 
 	private static final String coachCourse = "coachCourse";
 	private static final String appointmentCourse = "appointmentCourse";
@@ -495,7 +497,10 @@ public class AppointmentCarActivity extends BaseActivity implements
 				CoachVO tempCoachVO = (CoachVO) getIntent()
 						.getSerializableExtra("coach");
 				if (tempCoachVO != null)
-					coachList.add(tempCoachVO);
+					if (app.userVO.getApplyschoolinfo().getId()
+							.equals(tempCoachVO.getDriveschoolinfo().getId())) {
+						coachList.add(tempCoachVO);
+					}
 				try {
 					List<CoachVO> tempList = Util.getAppointmentCoach(this);
 					if (tempList != null && tempList.size() > 0) {
@@ -547,6 +552,12 @@ public class AppointmentCarActivity extends BaseActivity implements
 						courseList.add(coachCourseVO);
 					}
 				}
+				
+				Log.d("tag","coure--list>>>"+courseList.size());
+				for(int i=0;i<courseList.size();i++){
+//					Log.d("tag","coure--list>>>"+courseList.get(i).get);
+					
+				}
 				timeLayout.setData(courseList, aspect);
 			} else if (type.equals(appointmentCourse)) {
 				if (dataString != null) {
@@ -573,6 +584,9 @@ public class AppointmentCarActivity extends BaseActivity implements
 			} else if (sameTimeStudent.equals(type)) {
 				if (dataArray != null) {
 					int length = dataArray.length();
+					if (length == 0) {
+						userList.clear();
+					}
 					if (length > 0)
 						studentPage++;
 					for (int i = 0; i < length; i++) {
@@ -580,13 +594,17 @@ public class AppointmentCarActivity extends BaseActivity implements
 								CommentUser.class, dataArray.getJSONObject(i)
 										.getJSONObject("userid"));
 						if (!commentUser.get_id()
-								.equals(app.userVO.getUserid()))
-							userList.add(commentUser);
+								.equals(app.userVO.getUserid())) {
+							if (!userList.contains(commentUser)) {
+								userList.add(commentUser);
+								System.out.println(userList.size());
+							}
+						}
 					}
 				}
 				if (sameTimeStudentAdapter == null) {
 					sameTimeStudentAdapter = new AppointmentDetailStudentHoriListAdapter(
-							getBaseContext(), userList);
+							this, userList);
 				} else {
 					sameTimeStudentAdapter.setData(userList);
 				}
@@ -665,8 +683,8 @@ public class AppointmentCarActivity extends BaseActivity implements
 		obtainSameTimeStudent(studentPage);
 	}
 
-	String selectBeginTime = "24:00:00";
-	String selectEndTime = "24:00:00";
+	int selectBeginTime = 24;
+	int selectEndTime = 0;
 
 	private long beginTimeStemp;
 	private long endTimeStemp;
@@ -675,32 +693,29 @@ public class AppointmentCarActivity extends BaseActivity implements
 			OnTimeLayoutSelectedListener {
 
 		@Override
-		public void TimeLayoutSelectedListener() {
-			if (timeLayout.getSelectCourseList() == null
-					|| timeLayout.getSelectCourseList().size() == 0) {
+		public void TimeLayoutSelectedListener(boolean selected) {
+			if (timeLayout.getSelectCourseList() == null) {
 				return;
 			}
-			selectEndTime = "24:00:00";
-			selectBeginTime = "24:00:00";
+			if (timeLayout.getSelectCourseList().size() == 0) {
+
+			}
+			// if (!selected) {
+			// return;
+			// }
+			selectEndTime = 0;
+			selectBeginTime = 24;
 			for (CoachCourseVO coachCourseVO : timeLayout.getSelectCourseList()) {
 				String begintime = coachCourseVO.getCoursetime().getBegintime();
 				String endtime = coachCourseVO.getCoursetime().getEndtime();
-				if (begintime.length() < selectBeginTime.length()) {
-					selectBeginTime = begintime;
-				} else if (begintime.length() == selectBeginTime.length()) {
-
-					if (begintime.compareTo(selectBeginTime) < 0) {
-						selectBeginTime = begintime;
-					}
+				LogUtil.print(begintime);
+				LogUtil.print(endtime);
+				if (selectBeginTime > Integer.parseInt(begintime.split(":")[0])) {
+					selectBeginTime = Integer.parseInt(begintime.split(":")[0]);
 				}
 
-				if (endtime.length() < selectEndTime.length()) {
-					selectBeginTime = begintime;
-				} else if (endtime.length() == selectEndTime.length()) {
-
-					if (endtime.compareTo(selectEndTime) > 0) {
-						selectEndTime = endtime;
-					}
+				if (selectEndTime < Integer.parseInt(endtime.split(":")[0])) {
+					selectEndTime = Integer.parseInt(endtime.split(":")[0]);
 				}
 
 				// 转换成时间戳
@@ -711,9 +726,9 @@ public class AppointmentCarActivity extends BaseActivity implements
 				if (selectDate != null) {
 					try {
 						begindate = simpleDateFormat.parse(selectDate + " "
-								+ selectBeginTime);
+								+ selectBeginTime + ":00:00");
 						enddate = simpleDateFormat.parse(selectDate + " "
-								+ selectEndTime);
+								+ selectEndTime + ":00:00");
 					} catch (ParseException e) {
 						e.printStackTrace();
 					}
@@ -723,7 +738,17 @@ public class AppointmentCarActivity extends BaseActivity implements
 			}
 			LogUtil.print("时间戳" + beginTimeStemp);
 			LogUtil.print(selectDate + " " + selectBeginTime);
+			LogUtil.print(selectDate + " " + selectEndTime);
 			obtainSameTimeStudent(studentPage);
 		}
+	}
+
+	@Override
+	public void onSameTimeStudentItemClick(int position) {
+
+		Intent intent = new Intent(this, StudentInfoActivity.class);
+		intent.putExtra("studentId", sameTimeStudentAdapter.getItem(position)
+				.get_id());
+		startActivity(intent);
 	}
 }

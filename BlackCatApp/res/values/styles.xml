@@ -346,4 +346,8 @@
         <item name="android:maxHeight">23dp</item>
     </style>
     
+    <style name="Theme.FloatActivity" parent="android:style/Theme.Dialog">  
+        <!-- float_box为我们定义的窗口背景-->  
+        <item name="android:windowBackground">@drawable/activities_bg</item>  
+    </style>  
 </resources>
