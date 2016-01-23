@@ -1,11 +1,17 @@
 package com.sft.blackcatapp;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import org.apache.http.Header;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.app.LocalActivityManager;
@@ -16,6 +22,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,9 +40,12 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.MapView;
+import com.google.gson.reflect.TypeToken;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.sft.adapter.HomePageAdapter;
-import com.sft.blackcatapp.R;
+import com.sft.api.ApiHttpClient;
 import com.sft.common.BlackCatApplication;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
@@ -49,8 +59,11 @@ import com.sft.fragment.SubjectThreeFragment;
 import com.sft.fragment.SubjectTwoFragment;
 import com.sft.util.CommonUtil;
 import com.sft.util.JSONUtil;
+import com.sft.util.LogUtil;
+import com.sft.util.SharedPreferencesUtil;
 import com.sft.util.Util;
 import com.sft.viewutil.ZProgressHUD;
+import com.sft.vo.ActivitiesVO;
 import com.sft.vo.CoachVO;
 import com.sft.vo.QuestionVO;
 import com.sft.vo.SchoolVO;
@@ -63,6 +76,7 @@ public class MainActivity extends BaseMainActivity implements
 	private static final String coach = "coach";
 	private static final String school = "school";
 	private static final String questionaddress = "questionaddress";
+	private static final String TODAY_IS_OPEN_ACTIVITIES = "today_is_open_activities";
 	//
 	private MapView mapView;
 	//
@@ -83,6 +97,8 @@ public class MainActivity extends BaseMainActivity implements
 	public final static int CHANNELRESULT = 10;
 	private HomePageAdapter mHomePageAdapter;
 	private ViewPager viewPager;
+
+	SimpleDateFormat df;
 
 	@SuppressLint("NewApi")
 	@Override
@@ -107,6 +123,13 @@ public class MainActivity extends BaseMainActivity implements
 		obtainFavouriteCoach();
 		obtainQuestionAddress();
 		obtainSubjectContent();
+		// 获取活动
+		df = new SimpleDateFormat("yyyy-MM-dd");
+		String todayIsOpen = SharedPreferencesUtil.getString(this,
+				TODAY_IS_OPEN_ACTIVITIES, "");
+		if (!df.format(new Date()).toString().equals(todayIsOpen)) {
+			obtainActivities();
+		}
 		setTag();
 		if (app != null && app.isLogin) {
 			util.print("userid=" + app.userVO.getUserid());
@@ -643,5 +666,102 @@ public class MainActivity extends BaseMainActivity implements
 	// }
 	// return super.onKeyUp(keyCode, event);
 	// }
+
+	private void obtainActivities() {
+
+		// System.out.println(app.curCity);
+		RequestParams params = new RequestParams();
+		params.put("cityname", app.curCity);
+		ApiHttpClient.get("getactivity", params,
+				new AsyncHttpResponseHandler() {
+
+					@Override
+					public void onSuccess(int paramInt,
+							Header[] paramArrayOfHeader, byte[] paramArrayOfByte) {
+						String value = parseJson(paramArrayOfByte);
+						if (!TextUtils.isEmpty(msg)) {
+							// 加载失败，弹出失败对话框
+							Toast.makeText(getBaseContext(), msg, 0).show();
+						} else {
+							processSuccess(value);
+
+						}
+					}
+
+					@Override
+					public void onFailure(int paramInt,
+							Header[] paramArrayOfHeader,
+							byte[] paramArrayOfByte, Throwable paramThrowable) {
+
+					}
+				});
+
+	}
+
+	protected void processSuccess(String value) {
+		if (value != null) {
+			LogUtil.print(value);
+			try {
+				List<ActivitiesVO> activitiesList = (List<ActivitiesVO>) JSONUtil
+						.parseJsonToList(value,
+								new TypeToken<List<ActivitiesVO>>() {
+								}.getType());
+
+				if (activitiesList != null && activitiesList.size() > 0) {
+
+					String contenturl = activitiesList.get(0).getContenturl();
+
+					// 打开活动界面
+					if (!TextUtils.isEmpty(contenturl)) {
+						Intent intent = new Intent(this,
+								ActivitiesActivity.class);
+						intent.putExtra("url", contenturl);
+						startActivity(intent);
+						SharedPreferencesUtil.putString(this,
+								TODAY_IS_OPEN_ACTIVITIES, df.format(new Date())
+										.toString());
+
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	private String parseJson(byte[] responseBody) {
+		String value = null;
+		JSONObject dataObject = null;
+		JSONArray dataArray = null;
+		String dataString = null;
+		try {
+
+			JSONObject jsonObject = new JSONObject(new String(responseBody));
+			result = jsonObject.getString("type");
+			msg = jsonObject.getString("msg");
+			try {
+				dataObject = jsonObject.getJSONObject("data");
+
+			} catch (Exception e2) {
+				try {
+					dataArray = jsonObject.getJSONArray("data");
+				} catch (Exception e3) {
+					dataString = jsonObject.getString("data");
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		if (dataObject != null) {
+			value = dataObject.toString();
+		} else if (dataArray != null) {
+			value = dataArray.toString();
+
+		} else if (dataString != null) {
+			value = dataString;
+		}
+		return value;
+	}
 
 }

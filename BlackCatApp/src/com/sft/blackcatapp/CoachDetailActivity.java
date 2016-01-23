@@ -31,7 +31,6 @@ import cn.sft.infinitescrollviewpager.BitmapManager;
 import cn.sft.infinitescrollviewpager.MyHandler;
 
 import com.sft.adapter.CoachCommentListAdapter;
-import com.sft.blackcatapp.R;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
 import com.sft.dialog.EnrollSelectConfilctDialog;
@@ -240,8 +239,7 @@ public class CoachDetailActivity extends BaseActivity implements
 			headParams.height = (int) (screenWidth * 2 / 3f);
 			scrollView.scrollTo(0, 0);
 			if (TextUtils.isEmpty(headRul)) {
-				coachHeadPicIm
-						.setBackgroundResource(R.drawable.default_big_pic);
+				coachHeadPicIm.setImageResource(R.drawable.default_big_pic);
 			} else {
 				BitmapManager.INSTANCE.loadBitmap2(headRul, coachHeadPicIm,
 						screenWidth, headParams.height);
@@ -283,6 +281,8 @@ public class CoachDetailActivity extends BaseActivity implements
 		if (!onClickSingleView()) {
 			return;
 		}
+		boolean isFromSearchCoach = getIntent().getBooleanExtra(
+				SearchCoachActivity.from_searchCoach_enroll, false);
 		Intent intent = null;
 		switch (v.getId()) {
 		case R.id.base_left_btn:
@@ -315,6 +315,9 @@ public class CoachDetailActivity extends BaseActivity implements
 					intent.putExtra("activityName",
 							SubjectEnrollActivity.class.getName());
 					intent.putExtra("coach", coachVO);
+					intent.putExtra(
+							SearchCoachActivity.from_searchCoach_enroll,
+							isFromSearchCoach);
 					setResult(RESULT_OK, intent);
 					finish();
 				} else if (checkResult.length() == 0) {
@@ -324,6 +327,9 @@ public class CoachDetailActivity extends BaseActivity implements
 					intent.putExtra("activityName",
 							SubjectEnrollActivity.class.getName());
 					intent.putExtra("coach", coachVO);
+					intent.putExtra(
+							SearchCoachActivity.from_searchCoach_enroll,
+							isFromSearchCoach);
 					setResult(RESULT_OK, intent);
 					finish();
 				} else if (checkResult.equals("refresh")) {
@@ -333,6 +339,9 @@ public class CoachDetailActivity extends BaseActivity implements
 					intent.putExtra("activityName",
 							SubjectEnrollActivity.class.getName());
 					intent.putExtra("coach", coachVO);
+					intent.putExtra(
+							SearchCoachActivity.from_searchCoach_enroll,
+							isFromSearchCoach);
 					setResult(RESULT_OK, intent);
 					finish();
 				} else {

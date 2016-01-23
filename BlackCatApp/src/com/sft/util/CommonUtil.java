@@ -5,6 +5,8 @@ import java.util.regex.Pattern;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.DisplayMetrics;
 
 public class CommonUtil {
@@ -56,7 +58,8 @@ public class CommonUtil {
 		Pattern p = null;
 		Matcher m = null;
 		boolean b = false;
-		p = Pattern.compile("^[1][3,4,5,8][0-9]{9}$"); // 验证手机号
+		p = Pattern
+				.compile("^((13[0-9])|(14[5,7])|(15[0-9])|(17[0,6-8])|(18[0-9]))\\d{8}$"); // 验证手机号
 		m = p.matcher(str);
 		b = m.matches();
 		return b;
@@ -76,5 +79,24 @@ public class CommonUtil {
 		m = p.matcher(str);
 		b = m.matches();
 		return b;
+	}
+
+	/**
+	 * 判断是否有网络
+	 * 
+	 * @param context
+	 * @return
+	 */
+	public static boolean isNetworkConnected(Context context) {
+		if (context != null) {
+			ConnectivityManager mConnectivityManager = (ConnectivityManager) context
+					.getSystemService(Context.CONNECTIVITY_SERVICE);
+			NetworkInfo mNetworkInfo = mConnectivityManager
+					.getActiveNetworkInfo();
+			if (mNetworkInfo != null) {
+				return mNetworkInfo.isAvailable();
+			}
+		}
+		return false;
 	}
 }

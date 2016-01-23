@@ -13,12 +13,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
-import com.sft.blackcatapp.R;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
-import com.sft.util.SharedPreferencesUtil;
 import com.sft.vo.SuccessVO;
 import com.sft.vo.UserBaseStateVO;
 import com.squareup.picasso.Picasso;
@@ -103,8 +101,6 @@ public class EnrollSuccessActivity extends BaseActivity {
 
 				app.isEnrollAgain = true;
 				app.userVO.setApplystate(EnrollResult.SUBJECT_NONE.getValue());
-				SharedPreferencesUtil.putString(getBaseContext(),
-						Config.USER_ENROLL_INFO, "");
 				Intent intent = new Intent(this, ApplyActivity.class);
 				startActivity(intent);
 				finish();
@@ -161,13 +157,11 @@ public class EnrollSuccessActivity extends BaseActivity {
 					}
 					if (successVO != null) {
 						// 保存报名信息
-						SharedPreferencesUtil.putString(getBaseContext(),
-								Config.USER_ENROLL_INFO, data.toString());
 						setQrCode(successVO.scanauditurl);
 						tv_qrcode.setText(successVO.userid);
 						// app.userVO.setApplystate(EnrollResult.SUBJECT_ENROLLING
 						// .getValue());
-						checkUserEnrollState();
+						 checkUserEnrollState();
 						if (successVO.applynotes != null) {
 							carryData.setText(successVO.applynotes);
 						}

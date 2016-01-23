@@ -157,6 +157,18 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 			handler.cancle();
 		}
 		if (type.equals(login)) {
+			if (!TextUtils.isEmpty(msg)) {
+				new MyHandler(1000) {
+					@Override
+					public void run() {
+						Intent intent = new Intent(WelcomeActivity.this,
+								LoginActivity.class);
+						startActivity(intent);
+						finish();
+					}
+				};
+				return true;
+			}
 			try {
 				if (data != null) {
 					Log.d("tag","sun--welcome-->"+data);

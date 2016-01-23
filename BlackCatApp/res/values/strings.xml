@@ -29,6 +29,7 @@
     <string name="coach_list">教练列表</string>
     <string name="coach_detail">教练详情</string>
     <string name="select_school">附近驾校</string>
+    <string name="search_coach">搜索教练</string>
     <string name="school_detail">驾校详情</string>
     <string name="enroll">报名</string>
     <string name="go_and_see">再去看看</string>

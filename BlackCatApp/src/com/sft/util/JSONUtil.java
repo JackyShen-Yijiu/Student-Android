@@ -56,4 +56,21 @@ public class JSONUtil {
 		List<?> list = gson.fromJson(json, type);
 		return list;
 	}
+
+	/**
+	 * 把一个json字符串变成对象
+	 * 
+	 * @param json
+	 * @param cls
+	 * @return
+	 */
+	public static <T> T parseJsonToBean(String json, Class<T> cls) {
+		Gson gson = new Gson();
+		T t = null;
+		try {
+			t = gson.fromJson(json, cls);
+		} catch (Exception e) {
+		}
+		return t;
+	}
 }

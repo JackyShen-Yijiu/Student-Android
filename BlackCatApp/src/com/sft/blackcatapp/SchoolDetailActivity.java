@@ -33,7 +33,6 @@ import cn.sft.pull.LoadMoreView.LoadMoreListener;
 import cn.sft.pull.OnItemClickListener;
 
 import com.sft.adapter.SchoolDetailCoachHoriListAdapter;
-import com.sft.blackcatapp.R;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
 import com.sft.dialog.EnrollSelectConfilctDialog;
@@ -332,21 +331,22 @@ public class SchoolDetailActivity extends BaseActivity implements
 						coachPage++;
 						noCoahTv.setVisibility(View.GONE);
 						horizontalListView.setVisibility(View.VISIBLE);
+
+						if (coachList == null)
+							coachList = new ArrayList<CoachVO>();
+						for (int i = 0; i < length; i++) {
+							CoachVO coachVO = JSONUtil.toJavaBean(
+									CoachVO.class, dataArray.getJSONObject(i));
+							coachList.add(coachVO);
+						}
+						if (adapter == null) {
+							adapter = new SchoolDetailCoachHoriListAdapter(
+									this, coachList);
+						} else {
+							adapter.setData(coachList);
+						}
+						horizontalListView.setAdapter(adapter);
 					}
-					if (coachList == null)
-						coachList = new ArrayList<CoachVO>();
-					for (int i = 0; i < length; i++) {
-						CoachVO coachVO = JSONUtil.toJavaBean(CoachVO.class,
-								dataArray.getJSONObject(i));
-						coachList.add(coachVO);
-					}
-					if (adapter == null) {
-						adapter = new SchoolDetailCoachHoriListAdapter(this,
-								coachList);
-					} else {
-						adapter.setData(coachList);
-					}
-					horizontalListView.setAdapter(adapter);
 					horizontalListView.setLoadMoreCompleted();
 				}
 			} else if (type.equals(headLineNews)) {

@@ -15,7 +15,7 @@
             android:id="@+id/fragment_menu_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="未登陆"
+            android:text="未登录"
             android:textColor="#f2f2f2"
             android:textSize="18sp" />
 
@@ -229,17 +229,24 @@
             android:background="@drawable/fragment_menu_driving_school" />
 
         <Button
-            android:id="@+id/fragment_menu_message_btn"
+            android:id="@+id/fragment_menu_search_coach_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"
+            android:background="@drawable/fragment_menu_search_coach" />
+        <Button
+            android:id="@+id/fragment_menu_message_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="3dp"
             android:background="@drawable/fragment_menu_message" />
 
         <Button
             android:id="@+id/fragment_menu_mall_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="3dp"
             android:layout_marginTop="3dp"
             android:background="@drawable/fragment_menu_mall" />
 
@@ -255,7 +262,7 @@
             android:id="@+id/fragment_menu_signin_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="3dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="3dp"
             android:background="@drawable/fragment_menu_signin" />
 
@@ -263,7 +270,7 @@
             android:id="@+id/fragment_menu_setting_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="3dp"
             android:layout_marginTop="3dp"
             android:background="@drawable/fragment_menu_setting" />
     </GridLayout>

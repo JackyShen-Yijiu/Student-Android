@@ -4,18 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.SimpleFormatter;
-
-import com.sft.adapter.MyAppointmentListAdapter;
-import com.sft.blackcatapp.R;
-import com.sft.common.Config;
-import com.sft.common.Config.AppointmentResult;
-import com.sft.dialog.ApplyExamDialog;
-import com.sft.dialog.CustomDialog;
-import com.sft.util.JSONUtil;
-import com.sft.vo.MyAppointmentVO;
-import com.sft.vo.UserVO;
-import com.sft.vo.uservo.StudentSubject;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -28,13 +16,23 @@ import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.pull.RefreshLoadMoreView;
 import cn.sft.pull.RefreshLoadMoreView.RefreshLoadMoreListener;
 
+import com.sft.adapter.MyAppointmentListAdapter;
+import com.sft.common.Config;
+import com.sft.dialog.ApplyExamDialog;
+import com.sft.dialog.CustomDialog;
+import com.sft.util.JSONUtil;
+import com.sft.vo.MyAppointmentVO;
+import com.sft.vo.UserVO;
+import com.sft.vo.uservo.StudentSubject;
+
 /**
  * 我的预约
  * 
  * @author Administrator
  * 
  */
-public class MyAppointmentActivity extends BaseActivity implements RefreshLoadMoreListener {
+public class MyAppointmentActivity extends BaseActivity implements
+		RefreshLoadMoreListener {
 
 	private static final String reservation = "reservation";
 	private static final String applyExam = "applyExam";
@@ -61,14 +59,21 @@ public class MyAppointmentActivity extends BaseActivity implements RefreshLoadMo
 	@Override
 	protected void onResume() {
 		register(getClass().getName());
-		//更新数据显示
+		// 更新数据显示
 		if (subject != null) {
 			String curProgress = subject.getProgress();
-			subjectTextTv.setText(getString(R.string.cur_progress) + curProgress);
+			subjectTextTv.setText(getString(R.string.cur_progress)
+					+ curProgress);
 			subjectTextTv.setOnClickListener(this);
-			Log.d("tag","我的预约-->>"+(subject.getReservation() + subject.getFinishcourse())+"total-->"+subject.getTotalcourse());
-			if (subject.getReservation() + subject.getFinishcourse() >= subject.getTotalcourse()) {
-				appointmentBtn.setText(app.userVO.getSubject().getName() + "学时已约满");
+			Log.d("tag",
+					"我的预约-->>"
+							+ (subject.getReservation() + subject
+									.getFinishcourse()) + "total-->"
+							+ subject.getTotalcourse());
+			if (subject.getReservation() + subject.getFinishcourse() >= subject
+					.getTotalcourse()) {
+				appointmentBtn.setText(app.userVO.getSubject().getName()
+						+ "学时已约满");
 			} else {
 				appointmentBtn.setOnClickListener(this);
 			}
@@ -95,32 +100,32 @@ public class MyAppointmentActivity extends BaseActivity implements RefreshLoadMo
 
 		if (subjectId.equals(Config.SubjectStatu.SUBJECT_TWO.getValue())) {
 			subject = app.userVO.getSubjecttwo();
-		} else if (subjectId.equals(Config.SubjectStatu.SUBJECT_THREE.getValue())) {
+		} else if (subjectId.equals(Config.SubjectStatu.SUBJECT_THREE
+				.getValue())) {
 			subject = app.userVO.getSubjectthree();
 		}
-		
-		
-		
-		//只会在初始化时 进行数据的更新，， 放到onresume中 
-//		if (subject != null) {
-//			String curProgress = subject.getProgress();
-//			subjectTextTv.setText(getString(R.string.cur_progress) + curProgress);
-//			subjectTextTv.setOnClickListener(this);
-//			Log.d("tag","我的预约-->>"+(subject.getReservation() + subject.getFinishcourse())+"total-->"+subject.getTotalcourse());
-//			if (subject.getReservation() + subject.getFinishcourse() >= subject.getTotalcourse()) {
-//				appointmentBtn.setText(app.userVO.getSubject().getName() + "学时已约满");
-//			} else {
-//				appointmentBtn.setOnClickListener(this);
-//			}
-//		} else {
-//			appointmentBtn.setVisibility(View.GONE);
-//			subjectTextTv.setText(getString(R.string.cur_progress));
-//		}
+
+		// 只会在初始化时 进行数据的更新，， 放到onresume中
+		// if (subject != null) {
+		// String curProgress = subject.getProgress();
+		// subjectTextTv.setText(getString(R.string.cur_progress) +
+		// curProgress);
+		// subjectTextTv.setOnClickListener(this);
+		// Log.d("tag","我的预约-->>"+(subject.getReservation() +
+		// subject.getFinishcourse())+"total-->"+subject.getTotalcourse());
+		// if (subject.getReservation() + subject.getFinishcourse() >=
+		// subject.getTotalcourse()) {
+		// appointmentBtn.setText(app.userVO.getSubject().getName() + "学时已约满");
+		// } else {
+		// appointmentBtn.setOnClickListener(this);
+		// }
+		// } else {
+		// appointmentBtn.setVisibility(View.GONE);
+		// subjectTextTv.setText(getString(R.string.cur_progress));
+		// }
 
 		appointmentList.setRefreshLoadMoreListener(this);
 	}
-	
-	
 
 	private void obtainOppointment() {
 		Map<String, String> paramMap = new HashMap<String, String>();
@@ -128,21 +133,22 @@ public class MyAppointmentActivity extends BaseActivity implements RefreshLoadMo
 		paramMap.put("subjectid", getIntent().getStringExtra("subject"));
 		Map<String, String> headerMap = new HashMap<String, String>();
 		headerMap.put("authorization", app.userVO.getToken());
-		HttpSendUtils.httpGetSend(reservation, this, Config.IP + "api/v1/courseinfo/getmyreservation", paramMap, 10000,
+		HttpSendUtils.httpGetSend(reservation, this, Config.IP
+				+ "api/v1/courseinfo/getmyreservation", paramMap, 10000,
 				headerMap);
 		requestStatus();
 	}
-	
+
 	/**
 	 * 学员预约--查询学生的学习进度
 	 */
-	private void requestStatus(){
+	private void requestStatus() {
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("userid", app.userVO.getUserid());
 		Map<String, String> headerMap = new HashMap<String, String>();
 		headerMap.put("authorization", app.userVO.getToken());
-		HttpSendUtils.httpGetSend(MYPROGRESS, this, Config.IP + "api/v1/userinfo/getmyprogress", paramMap, 10000,
-				headerMap);
+		HttpSendUtils.httpGetSend(MYPROGRESS, this, Config.IP
+				+ "api/v1/userinfo/getmyprogress", paramMap, 10000, headerMap);
 	}
 
 	private boolean checkStudyTime() {
@@ -180,7 +186,8 @@ public class MyAppointmentActivity extends BaseActivity implements RefreshLoadMo
 				List<MyAppointmentVO> list = adapter.getData();
 				int index = 0;
 				for (; index < list.size(); index++) {
-					if (list.get(index).get_id().equals(subject.getReservationid())) {
+					if (list.get(index).get_id()
+							.equals(subject.getReservationid())) {
 						break;
 					}
 				}
@@ -222,45 +229,62 @@ public class MyAppointmentActivity extends BaseActivity implements RefreshLoadMo
 			if (type.equals(reservation)) {
 				if (dataArray != null) {
 					List<MyAppointmentVO> list = new ArrayList<MyAppointmentVO>();
-					
-					
+
 					int length = dataArray.length();
-					Log.d("tag",length+"isRefresh---doCallBack>"+jsonString);
+					Log.d("tag", length + "isRefresh---doCallBack>"
+							+ jsonString);
+					int tempDays = 0;
+					Log.d("tag", length + "isRefresh---doCallBack>"
+							+ jsonString);
 					for (int i = 0; i < length; i++) {
-						MyAppointmentVO appointmentVO = (MyAppointmentVO) JSONUtil.toJavaBean(MyAppointmentVO.class,
+						MyAppointmentVO appointmentVO = JSONUtil.toJavaBean(
+								MyAppointmentVO.class,
 								dataArray.getJSONObject(i));
 						list.add(appointmentVO);
 					}
-					
-					
+					Log.d("tag", "total--days-->" + tempDays);
+					// 判断是否可以 再次预约 sun(当前进度？)
+					if (tempDays >= subject.getTotalcourse()) {
+						appointmentBtn.setText(app.userVO.getSubject()
+								.getName() + "学时已约满");
+					} else {
+						appointmentBtn.setOnClickListener(this);
+					}
+
 					adapter = new MyAppointmentListAdapter(this, list);
 					appointmentList.setAdapter(adapter);
 					appointmentList.stopRefresh();
 				}
 			} else if (type.equals(applyExam)) {
 				if (dataString != null) {
-					CustomDialog dialog = new CustomDialog(this, CustomDialog.APPLY_EXAM);
+					CustomDialog dialog = new CustomDialog(this,
+							CustomDialog.APPLY_EXAM);
 					dialog.show();
 				}
-			}else if(type.equals(MYPROGRESS)){
-				if(null!=data){
-					UserVO userVo = (UserVO) JSONUtil.toJavaBean(UserVO.class,
-							data);
-					Log.d("tag","userVo--2f->"+data);
+			} else if (type.equals(MYPROGRESS)) {
+				if (null != data) {
+					UserVO userVo = JSONUtil.toJavaBean(UserVO.class, data);
+					Log.d("tag", "userVo--2f->" + data);
 					String subjectId = userVo.getSubject().getSubjectid();
 					StudentSubject tempSubject = null;
-					//获取当前学习的 课，科目2 或者科目3
-					if (subjectId.equals(Config.SubjectStatu.SUBJECT_TWO.getValue())) {
+					// 获取当前学习的 课，科目2 或者科目3
+					if (subjectId.equals(Config.SubjectStatu.SUBJECT_TWO
+							.getValue())) {
 						tempSubject = userVo.getSubjecttwo();
-					} else if (subjectId.equals(Config.SubjectStatu.SUBJECT_THREE.getValue())) {
+					} else if (subjectId
+							.equals(Config.SubjectStatu.SUBJECT_THREE
+									.getValue())) {
 						tempSubject = userVo.getSubjectthree();
 					}
-					
-					if (tempSubject.getReservation() + tempSubject.getFinishcourse() >= tempSubject.getTotalcourse()) {
-						appointmentBtn.setText(userVo.getSubject().getName() + "学时已约满");
+
+					if (tempSubject.getReservation()
+							+ tempSubject.getFinishcourse() >= tempSubject
+								.getTotalcourse()) {
+						appointmentBtn.setText(userVo.getSubject().getName()
+								+ "学时已约满");
 						appointmentBtn.setOnClickListener(null);
 					} else {
-						appointmentBtn.setText( "预约学车");
+						appointmentBtn.setText("预约学车");
 						appointmentBtn.setOnClickListener(this);
 					}
 				}
@@ -275,13 +299,13 @@ public class MyAppointmentActivity extends BaseActivity implements RefreshLoadMo
 		util.print("applyExam");
 		Map<String, String> headerMap = new HashMap<String, String>();
 		headerMap.put("authorization", app.userVO.getToken());
-		HttpSendUtils.httpPostSend(applyExam, this, Config.IP + "api/v1/userinfo/applyexamination", null, 10000,
-				headerMap);
+		HttpSendUtils.httpPostSend(applyExam, this, Config.IP
+				+ "api/v1/userinfo/applyexamination", null, 10000, headerMap);
 	}
 
 	@Override
 	public void forOperResult(Intent intent) {
-		Log.d("tag","MyAppoint-->"+intent);
+		Log.d("tag", "MyAppoint-->" + intent);
 		if (!onClickSingleView()) {
 			return;
 		}
@@ -300,18 +324,21 @@ public class MyAppointmentActivity extends BaseActivity implements RefreshLoadMo
 		if (isRefreshState) {
 			int position = intent.getIntExtra("position", 0);
 			String curState = adapter.getItem(position).getReservationstate();
-			if (curState.equals(Config.AppointmentResult.applyrefuse.getValue())
-					|| curState.equals(Config.AppointmentResult.applycancel.getValue())
-					|| curState.equals(Config.AppointmentResult.finish.getValue())) {
+			if (curState
+					.equals(Config.AppointmentResult.applyrefuse.getValue())
+					|| curState.equals(Config.AppointmentResult.applycancel
+							.getValue())
+					|| curState.equals(Config.AppointmentResult.finish
+							.getValue())) {
 				return;
 			}
 			String state = intent.getStringExtra("state");
-			if (!curState.equals(state)){
+			if (!curState.equals(state)) {
 				adapter.changeState(position, state);
-				//状态已经改变了， 请求最新的数据
+				// 状态已经改变了， 请求最新的数据
 				obtainOppointment();
 			}
-				
+
 			return;
 		}
 		boolean isJump = intent.getBooleanExtra("isJump", false);
@@ -333,6 +360,4 @@ public class MyAppointmentActivity extends BaseActivity implements RefreshLoadMo
 	public void onLoadMore() {
 
 	}
-	
-	
 }

@@ -54,6 +54,7 @@ public class ApplyActivity extends BaseActivity implements
 	private final static String carStyleString = "carStyle";
 	private final static String firstSchool = "firstSchool";
 	private final static String ycode = "ycode";
+	private final static String schoolDetail = "schoolDetail";
 
 	String[] tempStrings;
 	// 姓名输入框
@@ -102,11 +103,19 @@ public class ApplyActivity extends BaseActivity implements
 
 		addView(R.layout.new_apply);
 
-		boolean isFromMenu = getIntent().getBooleanExtra("isFromMenu", false);
 		initView();
 		initData();
 		setListener();
 		obtainEnrollCarStyle();
+		initApplyData();
+
+	}
+
+	private void initApplyData() {
+		boolean isFromMenu = getIntent().getBooleanExtra("isFromMenu", false);
+		boolean isFromEnroll = getIntent().getBooleanExtra(
+				SearchCoachActivity.from_searchCoach_enroll, false);
+		// 从查找驾校处报名
 		if (isFromMenu) {
 			SchoolVO schoolVO = (SchoolVO) getIntent().getSerializableExtra(
 					"school");
@@ -118,11 +127,24 @@ public class ApplyActivity extends BaseActivity implements
 			if (coachVO != null) {
 				coachTv.setText(coachVO.getName());
 			}
+			// 从查找教练处报名
+		} else if (isFromEnroll) {
+			CoachVO coachVO = (CoachVO) getIntent().getSerializableExtra(
+					"coach");
+			if (coachVO != null) {
+				schoolRl.setClickable(false);
+				coachTv.setText(coachVO.getName());
+				obtainSchoolById(coachVO.getDriveschoolinfo().getId());
+			}
 		} else {
 
 			obtainNearBySchool();
 		}
+	}
 
+	private void obtainSchoolById(String schoolId) {
+		HttpSendUtils.httpGetSend(schoolDetail, this, Config.IP
+				+ "api/v1/driveschool/getschoolinfo/" + schoolId);
 	}
 
 	private void obtainEnrollCarStyle() {
@@ -683,6 +705,17 @@ public class ApplyActivity extends BaseActivity implements
 						SchoolVO schoolVO;
 						schoolVO = JSONUtil.toJavaBean(SchoolVO.class,
 								dataArray.getJSONObject(0));
+
+						setDefaultData(schoolVO);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			} else if (type.equals(schoolDetail)) {
+				if (data != null) {
+					try {
+						SchoolVO schoolVO;
+						schoolVO = JSONUtil.toJavaBean(SchoolVO.class, data);
 
 						setDefaultData(schoolVO);
 					} catch (Exception e) {
