@@ -4,33 +4,33 @@
      >
 
     <ImageView
+        android:id="@+id/introduce_superiority"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="270dp"
+        android:layout_marginLeft="33dp"
+        android:src="@drawable/sb_goodness" />
+
+    <ImageView
         android:id="@+id/introduce_favourable_class"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="160dp"
-        android:layout_marginRight="81dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="150dp"
+        android:layout_marginLeft="133dp"
         android:src="@drawable/sb_preference_class" />
 
     <ImageView
         android:id="@+id/introduce_procedure"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="36dp"
-        android:layout_marginTop="140dp"
-        android:src="@drawable/sb_teem" />
-
-    <ImageView
-        android:id="@+id/introduce_superiority"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="35dp"
-        android:layout_marginTop="200dp"
-        android:src="@drawable/sb_goodness" />
+        android:layout_marginLeft="212dp"
+        android:layout_marginTop="120dp"
+        android:src="@drawable/sb_teem" />
 
 </RelativeLayout>

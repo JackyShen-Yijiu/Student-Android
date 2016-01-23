@@ -2,19 +2,22 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#ffffff" >
+     android:clipToPadding="true"
+   		 android:fitsSystemWindows="true"
+    android:background="@drawable/bg"
+     >
 
     <LinearLayout
         android:id="@+id/base_titlebar_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/base_titlebar_height"
-        android:background="#3F3D60"
         android:orientation="vertical" >
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1" >
+            android:layout_weight="1" 
+            >
 
             <TextView
                 android:id="@+id/base_left_tv"

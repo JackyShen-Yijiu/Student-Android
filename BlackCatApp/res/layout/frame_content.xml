@@ -3,7 +3,7 @@
     android:layout_height="fill_parent"
     android:clipToPadding="true"  
 	android:fitsSystemWindows="true"  
-    android:background="@drawable/star_one" >
+    android:background="@drawable/bg" >
 
     <com.baidu.mapapi.map.MapView
         android:id="@+id/main_bmapView"
