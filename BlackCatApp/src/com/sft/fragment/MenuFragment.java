@@ -111,6 +111,8 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 		obtainMyMoney();
 
 	}
+	
+	
 
 	private void obtainMyMoney() {
 		if (app.isLogin) {

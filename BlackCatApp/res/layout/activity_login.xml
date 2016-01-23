@@ -44,7 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:layout_below="@+id/login_phone_et"
-                android:background="#99e6e6e6"
+                android:background="#88e6e6e6"
                 android:contentDescription="@string/app_name" />
 
             <EditText
@@ -61,7 +61,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:layout_below="@+id/login_passwd_et"
-                android:background="#99e6e6e6"
+                android:background="#88e6e6e6"
                 android:contentDescription="@string/app_name" />
         </RelativeLayout>
 
@@ -137,7 +137,7 @@
             android:layout_marginBottom="@dimen/login_lookaround_btn_marginbottom"
             android:gravity="center"
             android:orientation="horizontal"
-            android:paddingLeft="15dp" >
+             >
 
             <Button
                 android:layout_width="wrap_content"

@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -550,6 +551,12 @@ public class AppointmentCarActivity extends BaseActivity implements
 										dataArray.getJSONObject(i));
 						courseList.add(coachCourseVO);
 					}
+				}
+				
+				Log.d("tag","coure--list>>>"+courseList.size());
+				for(int i=0;i<courseList.size();i++){
+//					Log.d("tag","coure--list>>>"+courseList.get(i).get);
+					
 				}
 				timeLayout.setData(courseList, aspect);
 			} else if (type.equals(appointmentCourse)) {

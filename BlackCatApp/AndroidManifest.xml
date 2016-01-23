@@ -436,7 +436,7 @@
         <!-- 百度地图定位 ======================================================================== -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="UUXsBU2Tq3LETedPZVpxuxQG" />
+            android:value="nCxRAoooo6Pe3yeMG6iDK5aW" />
         
 <!--之前版本： UUXsBU2Tq3LETedPZVpxuxQG -->
 <!--现在版本： nCxRAoooo6Pe3yeMG6iDK5aW -->
