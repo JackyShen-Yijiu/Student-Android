@@ -325,6 +325,10 @@
             android:screenOrientation="portrait" />
 
         <service android:name="com.sft.util.DownLoadService" />
+        <!-- 支付測試 -->
+        <activity 
+            android:name="com.sft.alipay.PayDemoActivity"
+            ></activity>
 
         <!-- 极光推送 ======================================================================== -->
         <!-- Required SDK核心功能 -->
@@ -431,6 +435,7 @@
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="nCxRAoooo6Pe3yeMG6iDK5aW" />
+        
         
 <!--之前版本： UUXsBU2Tq3LETedPZVpxuxQG -->
 <!--现在版本： nCxRAoooo6Pe3yeMG6iDK5aW -->
