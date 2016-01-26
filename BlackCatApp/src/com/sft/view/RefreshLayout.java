@@ -4,7 +4,10 @@ import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.GestureDetector.OnGestureListener;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.widget.AbsListView;
@@ -12,6 +15,8 @@ import android.widget.AbsListView.OnScrollListener;
 import android.widget.ListView;
 
 import com.sft.blackcatapp.R;
+import com.sft.listener.MOnScrollListener;
+import com.sft.util.LogUtil;
 
 /**
  * 继承自SwipeRefreshLayout,从而实现滑动到底部时上拉加载更多的功能.
@@ -19,7 +24,8 @@ import com.sft.blackcatapp.R;
  * @author mrsimple
  */
 public class RefreshLayout extends SwipeRefreshLayout implements
-		OnScrollListener {
+		OnScrollListener, OnGestureListener  {
+
 
 	/**
 	 * 滑动到最下面时的上拉操作
@@ -53,6 +59,8 @@ public class RefreshLayout extends SwipeRefreshLayout implements
 	 * 是否在加载中 ( 上拉加载更多 )
 	 */
 	private boolean isLoading = false;
+	
+	private GestureDetector gestureDetector;
 
 	/**
 	 * @param context
@@ -68,6 +76,8 @@ public class RefreshLayout extends SwipeRefreshLayout implements
 
 		mListViewFooter = LayoutInflater.from(context).inflate(
 				R.layout.listview_footer, null, false);
+		
+		gestureDetector = new GestureDetector(this);
 	}
 
 	@Override
@@ -96,39 +106,14 @@ public class RefreshLayout extends SwipeRefreshLayout implements
 			}
 		}
 	}
+	
+	
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see android.view.ViewGroup#dispatchTouchEvent(android.view.MotionEvent)
-	 */
-	// @Override
-	// public boolean dispatchTouchEvent(MotionEvent event) {
-	// final int action = event.getAction();
-	//
-	// switch (action) {
-	// case MotionEvent.ACTION_DOWN:
-	// // 按下
-	// mYDown = (int) event.getRawY();
-	// break;
-	//
-	// case MotionEvent.ACTION_MOVE:
-	// // 移动
-	// mLastY = (int) event.getRawY();
-	// break;
-	//
-	// case MotionEvent.ACTION_UP:
-	// // 抬起
-	// if (canLoad()) {
-	// loadData();
-	// }
-	// break;
-	// default:
-	// break;
-	// }
-	//
-	// return super.dispatchTouchEvent(event);
-	// }
+	@Override
+	public boolean onTouchEvent(MotionEvent arg0) {
+		gestureDetector.onTouchEvent(arg0);
+		return super.onTouchEvent(arg0);
+	}
 
 	/**
 	 * 是否可以加载更多, 条件是到了最底部, listview不在加载中, 且为上拉操作.
@@ -211,13 +196,16 @@ public class RefreshLayout extends SwipeRefreshLayout implements
 				loadData();
 			}
 		}
+		if(listener !=null)
+			listener.onScrollStateChanged(view, scrollState);
 	}
 
 	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem,
 			int visibleItemCount, int totalItemCount) {
 		// 滚动时到了最底部也可以加载更多
-
+		if(listener !=null)
+			listener.onScroll(view, firstVisibleItem, visibleItemCount, totalItemCount);
 	}
 
 	/**
@@ -227,5 +215,70 @@ public class RefreshLayout extends SwipeRefreshLayout implements
 	 */
 	public static interface OnLoadListener {
 		public void onLoad();
+	}
+	
+	MOnScrollListener listener = null;
+	
+	public void setChildScroll(MOnScrollListener listener){
+		this.listener = listener;
+	}
+	
+	
+	private float mDownY;
+	
+	private final int mSlop= 20;//slop晃荡的意思  
+	
+
+	@Override
+	public boolean onDown(MotionEvent e) {
+		// TODO Auto-generated method stub
+		mDownY = e.getY();  
+		return false;
+	}
+
+	@Override
+	public boolean onFling(MotionEvent arg0, MotionEvent arg1, float arg2,
+			float arg3) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void onLongPress(MotionEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
+			float distanceY) {
+		// TODO Auto-generated method stub
+		   if(distanceY==0){  
+	            mDownY = e2.getY();  
+	        }  
+	          
+	        float distance = mDownY - e2.getY();  
+	          
+	        if(distance < - mSlop){  
+	        	LogUtil.print("downll");
+	        	if(listener!=null)
+	        		listener.downPull();
+//	            onScrollDown();  
+	        }else if(distance > mSlop){  
+//	            onScrollUp();  
+	        }  
+		return false;
+	}
+
+	@Override
+	public void onShowPress(MotionEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean onSingleTapUp(MotionEvent arg0) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
