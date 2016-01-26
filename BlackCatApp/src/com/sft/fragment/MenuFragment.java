@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -38,12 +39,10 @@ import com.sft.api.ApiHttpClient;
 import com.sft.blackcatapp.ActivitiesActivity;
 import com.sft.blackcatapp.EditPersonInfoActivity;
 import com.sft.blackcatapp.EnrollSchoolActivity;
-import com.sft.blackcatapp.MainActivity;
 import com.sft.blackcatapp.MessageActivity;
 import com.sft.blackcatapp.MyWalletActivity;
 import com.sft.blackcatapp.PersonCenterActivity;
 import com.sft.blackcatapp.R;
-import com.sft.blackcatapp.SearchCoachActivity;
 import com.sft.blackcatapp.TodaysAppointmentActivity;
 import com.sft.common.BlackCatApplication;
 import com.sft.common.Config;
@@ -63,7 +62,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 	private ArrayList<HashMap<String, String>> mMenuTitles;
 	private SLMenuListOnItemClickListener mCallback;
 	private SelectableRoundedImageView personIcon;
-
+	private final static String openCity = "openCity";
 	private static final String mymoney = "mymoney";
 	private static final String userinfo = "userinfo";
 	BlackCatApplication app;
@@ -81,6 +80,9 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 
 	private int showType;// 展示类型： 0驾校 1 教练;
 
+	private TextView left_tv_map;
+	private String currCity;
+
 	@Override
 	public void onAttach(Activity activity) {
 		try {
@@ -95,12 +97,17 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+
 		if (app == null) {
 			app = BlackCatApplication.getInstance();
 		}
+
+		currCity = app.curCity;
+
 		mContext = getActivity();
 		View rootView = inflater.inflate(R.layout.fragment_menu_new, null);
 		initView(rootView);
+		setRightText();
 		// setData();
 		initData();
 		setListener();
@@ -111,8 +118,6 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 		obtainMyMoney();
 
 	}
-	
-	
 
 	private void obtainMyMoney() {
 		if (app.isLogin) {
@@ -138,6 +143,8 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 	}
 
 	private void initView(View rootView) {
+
+		left_tv_map = (TextView) rootView.findViewById(R.id.left_tv_map);
 		username = (TextView) rootView
 				.findViewById(R.id.fragment_menu_username);
 		phone = (TextView) rootView.findViewById(R.id.fragment_menu_phone);
@@ -171,10 +178,12 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 				.setOnClickListener(this);
 		rootView.findViewById(R.id.fragment_menu_content_third)
 				.setOnClickListener(this);
+		// 定位地图点击
+		rootView.findViewById(R.id.left_tv_map).setOnClickListener(this);
 
 		// 底部图片点击
-		rootView.findViewById(R.id.fragment_menu_home_btn).setOnClickListener(
-				this);
+		// rootView.findViewById(R.id.fragment_menu_home_btn).setOnClickListener(
+		// this);
 		rootView.findViewById(R.id.fragment_menu_driving_school_btn)
 				.setOnClickListener(this);
 		rootView.findViewById(R.id.fragment_menu_message_btn)
@@ -187,8 +196,8 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 				.setOnClickListener(this);
 		rootView.findViewById(R.id.fragment_menu_setting_btn)
 				.setOnClickListener(this);
-		rootView.findViewById(R.id.fragment_menu_search_coach_btn)
-				.setOnClickListener(this);
+		// rootView.findViewById(R.id.fragment_menu_search_coach_btn)
+		// .setOnClickListener(this);
 
 	}
 
@@ -278,10 +287,13 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 				dialog.show();
 			}
 			break;
-
-		case R.id.fragment_menu_home_btn:
-			((MainActivity) mContext).changeMenu();
+		case R.id.left_tv_map:
+			obtainOpenCity();
 			break;
+
+		// case R.id.fragment_menu_home_btn:
+		// ((MainActivity) mContext).changeMenu();
+		// break;
 		case R.id.fragment_menu_driving_school_btn:
 			obtainlocationShowType();
 
@@ -322,15 +334,15 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 				dialog.show();
 			}
 			break;
-		case R.id.fragment_menu_search_coach_btn:
-			if (app.isLogin) {
-				intent = new Intent(mContext, SearchCoachActivity.class);
-				mContext.startActivity(intent);
-			} else {
-				NoLoginDialog dialog = new NoLoginDialog(mContext);
-				dialog.show();
-			}
-			break;
+		// case R.id.fragment_menu_search_coach_btn:
+		// if (app.isLogin) {
+		// intent = new Intent(mContext, SearchCoachActivity.class);
+		// mContext.startActivity(intent);
+		// } else {
+		// NoLoginDialog dialog = new NoLoginDialog(mContext);
+		// dialog.show();
+		// }
+		// break;
 		case R.id.fragment_menu_setting_btn:
 
 			if (app.isLogin) {
@@ -390,6 +402,20 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 		default:
 			break;
 		}
+	}
+
+	protected void setRightText() {
+		Drawable cityIcon = getResources().getDrawable(
+				R.drawable.location_left_city);
+		left_tv_map.setCompoundDrawablesWithIntrinsicBounds(cityIcon, null,
+				null, null);
+		left_tv_map.setText(currCity);
+	}
+
+	private void obtainOpenCity() {
+		HttpSendUtils.httpGetSend(openCity, this, Config.IP
+				+ "api/v1/getopencity");
+
 	}
 
 	@Override

@@ -9,7 +9,7 @@
         android:layout_alignTop="@id/fragment_menu_headpic_im"
         android:layout_marginLeft="15dp"
         android:layout_toRightOf="@id/fragment_menu_headpic_im"
-        android:orientation="vertical" >
+        android:orientation="vertical" android:id="@+id/linearLayout1">
 
         <TextView
             android:id="@+id/fragment_menu_username"
@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:text="未登录"
             android:textColor="#f2f2f2"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/fragment_menu_driving_school"
@@ -42,27 +42,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/fragment_menu_headpic_im"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="40dp"
-        android:textColor="#ff3c00"
-        android:textSize="24sp" />
-
-    <TextView
-        android:id="@+id/fragment_menu_doubi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/fragment_menu_number"
-        android:layout_alignBottom="@+id/fragment_menu_number"
-        android:layout_toRightOf="@+id/fragment_menu_number"
-        android:layout_marginLeft="2dp"
+        android:layout_alignLeft="@+id/fragment_menu_content_first"
+        android:layout_marginTop="20dp"
         android:textColor="#f2f2f2"
-        android:textSize="16sp" />
+        android:text="报名兑换劵1张，(未兑换)"
+        android:textSize="14sp" />
+
+    
 
     <RelativeLayout
         android:id="@+id/fragment_menu_content_first"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/fragment_menu_number"
+        android:layout_marginTop="20dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="21dp"
          >
@@ -93,7 +86,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="13dp"
-            android:text="YB"
+            android:text="豆币"
             android:textColor="#f2f2f2"
             android:textSize="14sp" />
 
@@ -214,33 +207,48 @@
         android:orientation="horizontal"
         android:rowCount="3" >
 
-        <Button
+   <!--      <Button
             android:id="@+id/fragment_menu_home_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:background="@drawable/fragment_menu_home" />
+            android:background="@drawable/fragment_menu_home" /> -->
 
         <Button
             android:id="@+id/fragment_menu_driving_school_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="3dp"
-            android:background="@drawable/fragment_menu_driving_school" />
+            android:layout_marginLeft="15dp"
+              android:layout_marginTop="3dp"
+            android:background="@drawable/fragment_menu_order_school" />
 
-        <Button
+        <!-- <Button
             android:id="@+id/fragment_menu_search_coach_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"
-            android:background="@drawable/fragment_menu_search_coach" />
+            android:background="@drawable/fragment_menu_search_coach" /> -->
         <Button
             android:id="@+id/fragment_menu_message_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="3dp"
             android:layout_marginTop="3dp"
             android:background="@drawable/fragment_menu_message" />
+        <Button
+            android:id="@+id/fragment_menu_signin_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="3dp"
+            android:background="@drawable/fragment_menu_signin" />
+                <Button
+            android:id="@+id/fragment_menu_classcar_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="3dp"
+            android:background="@drawable/fragment_menu_classcar" />
 
         <Button
             android:id="@+id/fragment_menu_mall_btn"
@@ -258,19 +266,13 @@
             android:layout_marginTop="3dp"
             android:background="@drawable/fragment_menu_activity" />
 
-        <Button
-            android:id="@+id/fragment_menu_signin_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="3dp"
-            android:background="@drawable/fragment_menu_signin" />
+        
 
         <Button
             android:id="@+id/fragment_menu_setting_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="3dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="3dp"
             android:background="@drawable/fragment_menu_setting" />
     </GridLayout>
@@ -305,5 +307,13 @@
         android:layout_marginTop="31dp"
         app:sriv_border_color="#00000000"
         app:sriv_border_width="1dip" />
+   
+    <TextView android:id="@+id/left_tv_map" 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" 
+        android:text="定位中" 
+        android:textColor="#f2f2f2"
+        android:layout_alignRight="@+id/fragment_menu_content_first" 
+        android:layout_alignTop="@+id/linearLayout1"/>
 
 </RelativeLayout>

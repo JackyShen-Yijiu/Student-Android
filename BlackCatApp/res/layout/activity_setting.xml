@@ -93,6 +93,7 @@
     <TextView
         android:id="@+id/setting_aboutus_tv"
         style="@style/person_center_text_style"
+        android:textColor="#333333"
         android:text="@string/about_us" />
 
     <ImageView
@@ -113,6 +114,7 @@
     <TextView
         android:id="@+id/setting_callback_tv"
         style="@style/person_center_text_style"
+        android:textColor="#333333"
         android:text="@string/callback" />
 
     <ImageView

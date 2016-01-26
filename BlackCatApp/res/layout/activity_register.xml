@@ -12,10 +12,20 @@
     <EditText
         android:id="@+id/register_phone_et"
         style="@style/register_et_style"
+        android:background="@null"
+        android:drawableLeft="@drawable/ac_drawable_left"
+        android:drawablePadding="15dp"
         android:layout_marginTop="15dp"
         android:hint="@string/phonenumber"
         android:inputType="phone"
         android:maxLength="11" />
+        <ImageView
+                android:id="@+id/login_deivder_im"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@+id/register_phone_et"
+                android:background="#88e6e6e6"
+                android:contentDescription="@string/app_name" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,41 +33,83 @@
         android:layout_marginTop="@dimen/register_et_margintop"
         android:orientation="horizontal" >
 
+        
         <EditText
             android:id="@+id/register_authcode_et"
             style="@style/register_et_style"
             android:layout_width="0dp"
+            android:drawablePadding="15dp"
+            android:background="@null"
             android:layout_marginTop="0dp"
             android:layout_weight="1"
             android:hint="@string/auth_code"
+             android:drawableLeft="@drawable/verification_code"
             android:inputType="text"
             android:maxLength="6" />
+        
+        
 
         <Button
             android:id="@+id/register_code_btn"
             style="@style/btn_style"
             android:textSize="15dp"
+            android:textColor="#ff6633"
+            android:background="@null"
             android:layout_width="@dimen/register_code_btn_width"
             android:layout_marginLeft="@dimen/register_code_btn_marginleft"
             android:text="@string/send_auth_code" />
     </LinearLayout>
+      <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@+id/register_password_et"
+                android:background="#88e6e6e6"
+                android:contentDescription="@string/app_name" />
+    
 
     <EditText
         android:id="@+id/register_password_et"
         style="@style/register_password_et_style"
+        android:background="@null"
+        android:drawablePadding="15dp"
+        android:drawableLeft="@drawable/ac_pass_drawable_left"
         android:hint="@string/password" />
+      <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@+id/register_password_et"
+                android:background="#88e6e6e6"
+                android:contentDescription="@string/app_name" />
+    
 
     <EditText
         android:id="@+id/register_conpass_et"
         style="@style/register_password_et_style"
+        android:drawableLeft="@drawable/ac_pass_drawable_left"
+        android:background="@null"
+        android:drawablePadding="15dp"
         android:hint="@string/confirm_password" />
+      <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@+id/register_conpass_et"
+                android:background="#88e6e6e6"
+                android:contentDescription="@string/app_name" />
 
     <EditText
         android:id="@+id/register_invitationcode_et"
         style="@style/register_et_style"
         android:hint="@string/invitation_code"
+        android:drawablePadding="15dp"
+        android:background="@null"
+        android:drawableLeft="@drawable/invitation_code"
         android:inputType="text" />
-
+ <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@+id/register_invitationcode_et"
+                android:background="#88e6e6e6"
+                android:contentDescription="@string/app_name" />
     <Button
         android:id="@+id/register_register_btn"
         style="@style/btn_style"
@@ -69,7 +121,7 @@
         android:id="@+id/register_protocol_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#5e99ea"
+        android:textColor="#999"
         android:textSize="13dp"
         android:text="@string/protocol" />
 
