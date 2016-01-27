@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff" >
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:orientation="vertical" >
+
+        <RadioGroup
+            android:id="@+id/rgroup_apply"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/rb_apply_coach"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@null"
+                android:checked="true"
+                android:gravity="center"
+                android:padding="15dp"
+                android:text="投诉教练"
+                android:textColor="@drawable/select_coach_radiobtn_textcolor" />
+
+            <LinearLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#f7f9fb" >
+            </LinearLayout>
+
+            <RadioButton
+                android:id="@+id/rb_apply_school"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@null"
+                android:gravity="center"
+                android:padding="15dp"
+                android:text="投诉驾校"
+                android:textColor="@drawable/select_coach_radiobtn_textcolor" />
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#f7f9fb" >
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="#f7f9fb" >
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:gravity="center" >
+
+            <RadioGroup
+                android:id="@+id/rg_sex_choice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/tv_apply"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/rb_male"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:button="@drawable/radio_button_bg"
+                    android:paddingLeft="10dp"
+                    android:text="匿名投诉"
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
+
+                <RadioButton
+                    android:id="@+id/rb_female"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:button="@drawable/radio_button_bg"
+                    android:paddingLeft="10dp"
+                    android:text="实名投诉"
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/tv_apply"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/rg_sex_choice"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="12dp"
+                android:text="投诉人：" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="#f7f9fb" >
+        </LinearLayout>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="姓名"
+            android:maxLength="6"
+            android:padding="12dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="#f7f9fb" >
+        </LinearLayout>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="投诉教练名"
+            android:maxLength="6"
+            android:padding="12dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="#f7f9fb" >
+        </LinearLayout>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="联系电话"
+            android:inputType="phone"
+            android:maxLength="11"
+            android:padding="12dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="#f7f9fb" >
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="#f7f9fb" >
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="#f7f9fb" >
+        </LinearLayout>
+
+        <com.sft.view.BulleinEditText
+            android:id="@+id/et_publish_bulletin_content"
+            android:layout_width="fill_parent"
+            android:layout_height="80dp"
+            android:layout_marginBottom="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:background="@null"
+            android:clickable="true"
+            android:cursorVisible="true"
+            android:gravity="left|top"
+            android:hint="投诉内容，还可以输入200个字"
+            android:maxLength="200"
+            android:maxLines="7"
+            android:scrollbars="vertical"
+            android:textColor="#bfbfbf"
+            android:textCursorDrawable="@null" >
+        </com.sft.view.BulleinEditText>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="#f7f9fb" >
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button_commit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:background="@color/app_main_color"
+        android:padding="15dp"
+        android:text="提交"
+        android:textColor="#ffffff" />
+    
+    <ImageView
+        android:id="@+id/iv_applystate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button_commit"
+        android:layout_below="@+id/linearLayout1"
+        android:layout_marginTop="35dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/applydefault" />
+
+    <ImageView
+        android:id="@+id/iv_applystates"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/iv_applystate"
+        android:layout_marginLeft="28dp"
+        android:scaleType="centerCrop"
+        android:layout_toRightOf="@+id/iv_applystate"
+        android:src="@drawable/applydefault" />
+
+    
+
+</RelativeLayout>

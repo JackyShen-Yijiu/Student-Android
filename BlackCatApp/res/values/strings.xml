@@ -38,6 +38,8 @@
     <string name="yibu_procedure">合作驾校</string>
     <string name="yibu_superiority">平台优势</string>
     <string name="enroll_info_table">报名信息表</string>
+    <string name="apply_left">投诉</string>
+    <string name="in_uploading">正在上传</string>
     <string name="commit">提交</string>
     <string name="real_name">真实姓名</string>
     <string name="idcard">身份证号</string>
