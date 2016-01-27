@@ -39,4 +39,22 @@ public class UTC2LOC {
 		}
 		return "";
 	}
+
+	public Date getDates(String date, String format) {
+		try {
+			if (TextUtils.isEmpty(date)) {
+				return null;
+			}
+			date = date.replace("Z", "");
+			Date dt = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")
+					.parse(date);
+			// 转换为北京时间,相差8个小时
+			dt.setTime(dt.getTime() + 28800000);
+			SimpleDateFormat sf = new SimpleDateFormat(format);
+			return sf.parse(sf.format(dt));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.json.JSONObject;
 
-import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningAppProcessInfo;
 import android.app.Application;
@@ -31,8 +30,9 @@ import com.sft.vo.QuestionVO;
 import com.sft.vo.SchoolVO;
 import com.sft.vo.UserVO;
 import com.sft.vo.VersionVO;
+import com.umeng.socialize.PlatformConfig;
 
-@SuppressLint("SimpleDateFormat")
+//@SuppressLint("SimpleDateFormat")
 public class BlackCatApplication extends Application {
 
 	public static BlackCatApplication app;
@@ -130,6 +130,18 @@ public class BlackCatApplication extends Application {
 				return false;
 			}
 		}));
+	}
+
+	{
+		// 微信 appid appsecret
+		PlatformConfig.setWeixin("wxf1c209725d178604",
+				"4a17fd7d8cc0d0e1eacd0ce1d2e23e0e");
+		// 新浪微博 appkey appsecret
+		PlatformConfig.setSinaWeibo("16181237",
+				"215d345663ccb8cd2366c3b07d32b738");
+		// QQ和Qzone appid appkey
+		PlatformConfig.setQQZone("1105134894", "701hksN2KY0uPIky");
+
 	}
 
 }

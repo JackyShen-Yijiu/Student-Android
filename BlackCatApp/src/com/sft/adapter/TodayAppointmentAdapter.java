@@ -1,6 +1,5 @@
 package com.sft.adapter;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -78,22 +77,30 @@ public class TodayAppointmentAdapter extends BaseAdapter {
 			String endTime = UTC2LOC.instance.getDate(
 					myAppointmentVO.getEndtime(), "HH:mm");
 
-			LogUtil.print("beginTime" + beginTime + "---endTime" + endTime);
 			SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+			SimpleDateFormat format1 = new SimpleDateFormat(
+					"yyyy-MM-dd HH:mm:ss");
 			try {
-				long diffBeginTime = format.parse(beginTime).getTime()
+				long diffBeginTime = UTC2LOC.instance.getDates(
+						myAppointmentVO.getBegintime(), "yyyy-MM-dd HH:mm:ss")
+						.getTime()
 						- new Date().getTime();
-				long diffEndTime = format.parse(endTime).getTime()
+				long diffEndTime = UTC2LOC.instance.getDates(
+						myAppointmentVO.getEndtime(), "yyyy-MM-dd HH:mm:ss")
+						.getTime()
 						- new Date().getTime();
+				LogUtil.print("diffBeginTime" + diffBeginTime / 1000 / 60
+						+ "---diffEndTime" + diffEndTime / 1000 / 60);
 				if (diffBeginTime / 1000 / 60 > 15) {
+					LogUtil.print("sss");
 					holder.isSign.setText("不可签到");
-				} else if (diffEndTime / 1000 / 60 > 0) {
+				} else if (diffEndTime / 1000 / 60 < 0) {
 					holder.isSign.setText("不可签到");
 				} else {
 					holder.isSign.setText("可签到");
 				}
 
-			} catch (ParseException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			holder.time.setText(beginTime + "-" + endTime);

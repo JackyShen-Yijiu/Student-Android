@@ -121,6 +121,8 @@ public class ApplyActivity extends BaseActivity implements
 		boolean isFromMenu = getIntent().getBooleanExtra("isFromMenu", false);
 		boolean isFromEnroll = getIntent().getBooleanExtra(
 				SearchCoachActivity.from_searchCoach_enroll, false);
+		//活动页面
+		boolean isFromPlay = getIntent().getBooleanExtra("isFromPlay", false);
 		// 从查找驾校处报名
 		if (isFromMenu) {
 			SchoolVO schoolVO = (SchoolVO) getIntent().getSerializableExtra(
@@ -355,19 +357,19 @@ public class ApplyActivity extends BaseActivity implements
 		// if (EnrollResult.SUBJECT_NONE.getValue().equals(enrollState)) {
 		Intent intent = null;
 		switch (v.getId()) {
-		case R.id.apply_license_type_c1:
-			carStyle = listCarModelVOs.get(0);
-			changeLicenseTextColor(1);
-			break;
-		case R.id.apply_license_type_c2:
-			carStyle = listCarModelVOs.get(1);
-			changeLicenseTextColor(2);
-			break;
-		case R.id.enroll_school_rl:
-			intent = new Intent(this, EnrollSchoolActivity.class);
-			if (school != null)
-				intent.putExtra("school", school);
-			break;
+//		case R.id.apply_license_type_c1:
+//			carStyle = listCarModelVOs.get(0);
+//			changeLicenseTextColor(1);
+//			break;
+//		case R.id.apply_license_type_c2:
+//			carStyle = listCarModelVOs.get(1);
+//			changeLicenseTextColor(2);
+//			break;
+//		case R.id.enroll_school_rl:
+//			intent = new Intent(this, EnrollSchoolActivity.class);
+//			if (school != null)
+//				intent.putExtra("school", school);
+//			break;
 		case R.id.enroll_carstyle_tv:
 			if (school == null) {
 				ZProgressHUD.getInstance(this).show();
@@ -379,16 +381,16 @@ public class ApplyActivity extends BaseActivity implements
 			}
 			break;
 		case R.id.enroll_coach_rl:
-			if (school == null) {
-				ZProgressHUD.getInstance(this).show();
-				ZProgressHUD.getInstance(this).dismissWithFailure("先选择驾校");
-			} else {
-				// intent = new Intent(this, EnrollCoachActivity.class);
-				// intent.putExtra("schoolId", school.getSchoolid());
-				// if (coach != null)
-				// intent.putExtra("coach", coach);
-				showPopupWindow(coachTv);
-			}
+//			if (school == null) {
+//				ZProgressHUD.getInstance(this).show();
+//				ZProgressHUD.getInstance(this).dismissWithFailure("先选择驾校");
+//			} else {
+//				// intent = new Intent(this, EnrollCoachActivity.class);
+//				// intent.putExtra("schoolId", school.getSchoolid());
+//				// if (coach != null)
+//				// intent.putExtra("coach", coach);
+//				showPopupWindow(coachTv);
+//			}
 			break;
 		// case R.id.enroll_class_tv:
 		// if (school == null) {

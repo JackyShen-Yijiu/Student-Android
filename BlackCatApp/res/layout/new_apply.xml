@@ -345,6 +345,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/rl_height"
                 android:layout_below="@+id/imageView_devide"
+                android:paddingRight="15dp"
                 android:background="@color/white" >
 
                 <TextView
@@ -362,8 +363,6 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="24dp"
-                    android:drawablePadding="10dp"
                     android:text="智能分配"
                     android:textColor="#999"
                     android:textSize="14sp" />
