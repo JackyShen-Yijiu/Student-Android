@@ -72,6 +72,7 @@
     <string name="success_rate">通  过  率:</string>
     <string name="work_time">营业时间:</string>
     <string name="school_instruction">驾校简介</string>
+    <string name="training_ground">训练场</string>
     <string name="select_coach">选择教练</string>
     <string name="my_appointment">我的预约</string>
     <string name="today_appointment">今日预约</string>
@@ -255,5 +256,6 @@
     <string name="apply_system_distribute">系统分配</string>
     <string name="apply_add_byself">自行添加</string>
     <string name="yibu_phone">4006269255</string>
+    <string name="course_fee">课程费用</string>
 
 </resources>
