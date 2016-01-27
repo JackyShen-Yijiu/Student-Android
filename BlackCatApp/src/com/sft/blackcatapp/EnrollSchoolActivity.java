@@ -87,6 +87,8 @@ public class EnrollSchoolActivity extends BaseActivity implements
 	private List<SchoolVO> schoolList = new ArrayList<SchoolVO>();
 	//
 	private SchoolListAdapter adapter;
+	
+//	private 
 	// 当前选择的学校
 	private SchoolVO school;
 
