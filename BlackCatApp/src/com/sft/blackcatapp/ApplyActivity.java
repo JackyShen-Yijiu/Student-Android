@@ -96,13 +96,19 @@ public class ApplyActivity extends BaseActivity implements
 	private TextView introductionTv;
 	private int multipleTextViewGroupWidth;
 	private MultipleTextViewGroup multipleTextViewGroup;
+	/**身份证号*/
+	private EditText etIdCard;
+	private String price;
+	private String classType;
+//	private String 
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		addView(R.layout.new_apply);
-
+		
 		initView();
 		initData();
 		setListener();
@@ -155,7 +161,7 @@ public class ApplyActivity extends BaseActivity implements
 	private void obtainYCode() {
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("userid", app.userVO.getUserid());
-		paramMap.put("fcode", yCodeEt.getText().toString());
+//		paramMap.put("fcode", yCodeEt.getText().toString());
 		Map<String, String> headerMap = new HashMap<String, String>();
 		headerMap.put("authorization", app.userVO.getToken());
 		HttpSendUtils.httpGetSend(ycode, this, Config.IP
@@ -175,7 +181,7 @@ public class ApplyActivity extends BaseActivity implements
 
 	private void initView() {
 		setTitleText(R.string.enroll_info_table);
-		setBg(getResources().getColor(R.color.white));
+		setBg(getResources().getColor(R.color.main_bg));
 		
 		enroll_rootlayout = (RelativeLayout) findViewById(R.id.enroll_rootlayout);
 		enroll_rootlayout.setFocusable(true);
@@ -191,7 +197,9 @@ public class ApplyActivity extends BaseActivity implements
 		// carStyleTv = (TextView) findViewById(R.id.enroll_carstyle_tv);
 		nameEt = (EditText) findViewById(R.id.enroll_name_et);
 		contactEt = (EditText) findViewById(R.id.enroll_contact_et);
-		yCodeEt = (EditText) findViewById(R.id.enroll_ycode_et);
+		
+		etIdCard = (EditText) findViewById(R.id.enroll_idcard_et);
+//		yCodeEt = (EditText) findViewById(R.id.enroll_ycode_et);
 
 		commitBtn = (Button) findViewById(R.id.enroll_commit_btn);
 
@@ -252,6 +260,12 @@ public class ApplyActivity extends BaseActivity implements
 		} else {
 			contactEt.setText(app.userVO.getMobile());
 		}
+		//1.2版 获取新的数据
+//		
+		
+		
+		
+		
 		//
 		// Intent intent = getIntent();
 		// if (intent.getBooleanExtra("userselect", false)) {
@@ -389,17 +403,11 @@ public class ApplyActivity extends BaseActivity implements
 		// break;
 		case R.id.enroll_commit_btn:
 			String checkResult = checkEnrollInfo();
-			if (checkResult == null) {
-				String yCode = yCodeEt.getText().toString();
-
-				if (!TextUtils.isEmpty(yCode)) {
-					obtainYCode();
-				} else {
-					enroll(checkResult);
-				}
-			} else {
+//			if (checkResult == null) {
+//				enroll(checkResult);
+//			} else {
 				enroll(checkResult);
-			}
+//			}
 			// 保存数据
 			SharedPreferencesUtil.putString(this,
 					realName + app.userVO.getUserid(), nameEt.getText()
@@ -436,6 +444,14 @@ public class ApplyActivity extends BaseActivity implements
 		}
 		// }
 	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+//	private boolean check(){
+//		
+//	}
 
 	private boolean isSystemAdd = true;
 	private PopupWindow popupWindow;
@@ -490,6 +506,8 @@ public class ApplyActivity extends BaseActivity implements
 		}
 	}
 
+	
+	
 	private void enroll(String checkResult) {
 
 		if (checkResult == null) {
@@ -508,13 +526,11 @@ public class ApplyActivity extends BaseActivity implements
 			paramMap.put("carmodel", carStyle.toString());
 			paramMap.put("idcardnumber", "");
 			paramMap.put("address", "");
-			if (TextUtils.isEmpty(yCodeEt.getText().toString())) {
-
+//			if (TextUtils.isEmpty(yCodeEt.getText().toString())) {
 				paramMap.put("fcode", "");
-			} else {
-				paramMap.put("fcode", yCodeEt.getText().toString());
-
-			}
+//			} else {
+//				paramMap.put("fcode", yCodeEt.getText().toString());
+//			}
 			if (app.isEnrollAgain) {
 				paramMap.put("applyagain", "1");
 			}
@@ -553,16 +569,57 @@ public class ApplyActivity extends BaseActivity implements
 
 		String phone = contactEt.getText().toString();
 		if (TextUtils.isEmpty(phone)) {
-			return "联系方式为空";
+			return "手机号为空";
 		} else {
 			if (!CommonUtil.isMobile(phone)) {
 				return "手机号格式不正确";
 			}
 		}
+		if(TextUtils.isEmpty(etIdCard.getText().toString())){
+			return "身份证号为空";
+		}else if(!CommonUtil.isIdCardOk(etIdCard.getText().toString())){
+			return "身份证号不正确";
+		}
 
 		return null;
 	}
 
+	private boolean check() {
+		
+
+		String name = nameEt.getText().toString();
+		if (TextUtils.isEmpty(name)) {
+			Toast("真实姓名不能为空");
+			return false;
+		}
+		// else {
+		// if (!CommonUtil.isRightName(name)) {
+		// return "姓名不能包含特殊字符";
+		// }
+		// }
+
+		String phone = contactEt.getText().toString();
+		if (TextUtils.isEmpty(phone)) {
+			Toast("手机号不能为空");
+			return false;
+		} else {
+			if (!CommonUtil.isMobile(phone)) {
+				Toast("手机号格式不正确");
+				return false;
+			}
+		}
+		if(TextUtils.isEmpty(etIdCard.getText().toString())){
+			Toast("身份证号不能为空");
+			return false;
+		}else if(!CommonUtil.isIdCardOk(etIdCard.getText().toString())){
+			Toast("身份证号不正确");
+			return false;
+		}
+
+		return true;
+	}
+
+	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -698,7 +755,7 @@ public class ApplyActivity extends BaseActivity implements
 								CarModelVO.class, dataArray.getJSONObject(i));
 						listCarModelVOs.add(carStyleVO);
 					}
-					setLienseType(listCarModelVOs);
+//					setLienseType(listCarModelVOs);
 				}
 			} else if (type.equals(firstSchool)) {
 				if (dataArray != null) {
@@ -749,10 +806,10 @@ public class ApplyActivity extends BaseActivity implements
 		}
 	}
 
-	private void setLienseType(List<CarModelVO> listCarModelVOs) {
-		licenseTypeC1.setText(listCarModelVOs.get(0).getCode() + "手动档");
-		licenseTypeC2.setText(listCarModelVOs.get(1).getCode() + "自动档");
-	}
+//	private void setLienseType(List<CarModelVO> listCarModelVOs) {
+//		licenseTypeC1.setText(listCarModelVOs.get(0).getCode() + "手动档");
+//		licenseTypeC2.setText(listCarModelVOs.get(1).getCode() + "自动档");
+//	}
 
 	private RelativeLayout classDetailLayout;
 	private int targetHeight;
@@ -809,7 +866,7 @@ public class ApplyActivity extends BaseActivity implements
 	private ValueAnimator animator;
 	private RelativeLayout classTypeLayout;
 	private RelativeLayout coachRl;
-	private EditText yCodeEt;
+//	private EditText yCodeEt;
 
 	private void setClassDetailAnimator() {
 		animator = ValueAnimator.ofInt(0, targetHeight);

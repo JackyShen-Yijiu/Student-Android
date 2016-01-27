@@ -38,6 +38,7 @@ import com.sft.common.Config.EnrollResult;
 import com.sft.dialog.EnrollSelectConfilctDialog;
 import com.sft.dialog.EnrollSelectConfilctDialog.OnSelectConfirmListener;
 import com.sft.util.JSONUtil;
+import com.sft.util.LogUtil;
 import com.sft.util.Util;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.CoachVO;
@@ -416,6 +417,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 			if (app.userVO.getApplystate().equals(
 					EnrollResult.SUBJECT_NONE.getValue())) {
 				String checkResult = Util.isConfilctEnroll(school);
+				LogUtil.print("toApply"+checkResult);
 				if (checkResult == null) {
 					intent = new Intent();
 					intent.putExtra("school", school);
@@ -537,6 +539,8 @@ public class SchoolDetailActivity extends BaseActivity implements
 			intent.putExtra("school", school);
 			intent.putExtra("activityName",
 					SubjectEnrollActivity.class.getName());
+			
+			LogUtil.print("change--scholll-->"+school.getName());
 			setResult(RESULT_OK, intent);
 			finish();
 		}

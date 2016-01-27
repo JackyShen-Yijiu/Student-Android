@@ -1,425 +1,580 @@
-	<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	    android:id="@+id/enroll_rootlayout"
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent" >
-	
-	    <ScrollView
-	        android:layout_width="match_parent"
-	        android:layout_height="match_parent"
-	        android:fillViewport="true" >
-	
-	        <RelativeLayout
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content" >
-	
-	            <LinearLayout
-	                android:id="@+id/ll_title"
-	                android:layout_width="match_parent"
-	                android:layout_height="10dp"
-	                android:background="#ccc"
-	                android:orientation="horizontal" >
-	            </LinearLayout>
-	            <!-- 1 -->
-	
-	            <RelativeLayout
-	                android:id="@+id/enroll_carstyle_rl"
-	                android:layout_width="match_parent"
-	                android:layout_height="wrap_content"
-	                android:layout_below="@+id/ll_title"
-	                android:background="@drawable/bg_item" >
-	
-	                <TextView
-	                    android:id="@+id/textView3"
-	                    android:layout_width="wrap_content"
-	                    android:layout_height="wrap_content"
-	                    android:layout_alignParentLeft="true"
-	                    android:layout_centerVertical="true"
-	                    android:layout_marginLeft="17dp"
-	                    android:text="驾照类型:"
-	                    android:textColor="#333" />
-	
-	                <TextView
-	                    android:id="@+id/apply_license_type_c1"
-	                    android:layout_width="wrap_content"
-	                    android:layout_height="wrap_content"
-	                    android:layout_centerVertical="true"
-	                    android:layout_marginLeft="10dp"
-	                    android:layout_toRightOf="@+id/textView3"
-	                    android:textColor="#333" />
-	
-	                <TextView
-	                    android:id="@+id/apply_license_type_c2"
-	                    android:layout_width="wrap_content"
-	                    android:layout_height="wrap_content"
-	                    android:layout_centerVertical="true"
-	                    android:layout_marginLeft="25dp"
-	                    android:layout_toRightOf="@+id/apply_license_type_c1"
-	                    android:textColor="#333" />
-	            </RelativeLayout>
-	
-	            <!-- 2 -->
-	
-	            <RelativeLayout
-	                android:id="@+id/enroll_school_rl"
-	                android:layout_width="match_parent"
-	                android:layout_height="wrap_content"
-	                android:layout_below="@+id/enroll_carstyle_rl"
-	                android:background="@drawable/bg_item" >
-	
-	                <TextView
-	                    android:id="@+id/apply_textview"
-	                    android:layout_width="wrap_content"
-	                    android:layout_height="wrap_content"
-	                    android:layout_alignParentLeft="true"
-	                    android:layout_centerVertical="true"
-	                    android:layout_marginLeft="17dp"
-	                    android:text="报考驾校:"
-	                    android:textColor="#333" />
-	
-	                <TextView
-	                    android:id="@+id/enroll_school_tv"
-	                    android:layout_width="wrap_content"
-	                    android:layout_height="wrap_content"
-	                    android:layout_centerVertical="true"
-	                    android:layout_marginLeft="10dp"
-	                    android:layout_toRightOf="@id/apply_textview"
-	                    android:textColor="#333"
-	                    android:textSize="14sp" />
-	            </RelativeLayout>
-	
-	            <!-- 3 -->
-	
-	            <RelativeLayout
-	                android:id="@+id/enroll_class_rl"
-	                android:layout_width="match_parent"
-	                android:layout_height="wrap_content"
-	                android:layout_below="@+id/enroll_school_rl"
-	                android:background="@drawable/bg_item" >
-	
-	                <TextView
-	                    android:id="@+id/apply_apply_class_type_tv"
-	                    android:layout_width="wrap_content"
-	                    android:layout_height="wrap_content"
-	                    android:layout_alignParentLeft="true"
-	                    android:layout_marginLeft="17dp"
-	                    android:layout_marginTop="10dp"
-	                    android:text="报考班型:"
-	                    android:textColor="#333" />
-	
-	                <com.sft.view.ApplyClassTypeLayout
-	                    android:id="@+id/apply_class_type_ll"
-	                    android:layout_width="wrap_content"
-	                    android:layout_height="wrap_content"
-	                    android:layout_alignTop="@+id/apply_apply_class_type_tv"
-	                    android:layout_marginLeft="10dp"
-	                    android:layout_toRightOf="@+id/apply_apply_class_type_tv"
-	                    android:orientation="vertical" >
-	                </com.sft.view.ApplyClassTypeLayout>
-	            </RelativeLayout>
-	
-	            <!-- 4 -->
-	
-	            <LinearLayout
-	                android:id="@+id/ll_divide_one"
-	                android:layout_width="match_parent"
-	                android:layout_height="10dp"
-	                android:layout_below="@+id/enroll_class_rl"
-	                android:background="#ccc"
-	                android:orientation="horizontal" >
-	            </LinearLayout>
-	
-	            <RelativeLayout
-	                android:id="@+id/apply_class_detail"
-	                android:layout_width="match_parent"
-	                android:layout_height="wrap_content"
-	                android:layout_below="@+id/ll_divide_one" >
-	
-	                <LinearLayout
-	                    android:layout_width="match_parent"
-	                    android:layout_height="wrap_content"
-	                    android:background="#f7f9fb"
-	                    android:orientation="vertical"
-	                    android:paddingLeft="15dp" >
-	
-	                    <TextView
-	                        android:layout_width="wrap_content"
-	                        android:layout_height="wrap_content"
-	                        android:layout_gravity="center_horizontal"
-	                        android:layout_marginBottom="10dp"
-	                        android:layout_marginTop="10dp"
-	                        android:text="一步特惠班详情"
-	                        android:textColor="#000000" />
-	
-	                    <ImageView
-	                        android:layout_width="match_parent"
-	                        android:layout_height="1dp"
-	                        android:background="#e6e6e6"
-	                        android:contentDescription="@string/app_name" />
-	
-	                    <TextView
-	                        android:id="@+id/class_detail_class_title_tv"
-	                        android:layout_width="wrap_content"
-	                        android:layout_height="wrap_content"
-	                        android:layout_marginTop="18dp"
-	                        android:text="@string/class_info"
-	                        android:textColor="#ff6633"
-	                        android:textSize="16dp"
-	                        android:textStyle="bold" />
-	
-	                    <TextView
-	                        android:id="@+id/class_detail_style_tv"
-	                        android:layout_width="wrap_content"
-	                        android:layout_height="wrap_content"
-	                        android:layout_marginTop="12dp"
-	                        android:text="@string/license"
-	                        android:textColor="#333333"
-	                        android:textSize="14dp" />
-	
-	                    <TextView
-	                        android:id="@+id/class_detail_date_tv"
-	                        android:layout_width="wrap_content"
-	                        android:layout_height="wrap_content"
-	                        android:layout_marginTop="12dp"
-	                        android:text="@string/active_date"
-	                        android:textColor="#333333"
-	                        android:textSize="14dp" />
-	
-	                    <TextView
-	                        android:id="@+id/class_detail_week_tv"
-	                        android:layout_width="wrap_content"
-	                        android:layout_height="wrap_content"
-	                        android:layout_marginTop="12dp"
-	                        android:text="@string/course_date"
-	                        android:textColor="#333333"
-	                        android:textSize="14dp" />
-	
-	                    <LinearLayout
-	                        android:layout_width="match_parent"
-	                        android:layout_height="wrap_content"
-	                        android:layout_marginTop="12dp"
-	                        android:orientation="horizontal" >
-	
-	                        <TextView
-	                            android:id="@+id/class_detail_feature_tv"
-	                            android:layout_width="wrap_content"
-	                            android:layout_height="wrap_content"
-	                            android:text="@string/feature"
-	                            android:textColor="#333333"
-	                            android:textSize="14dp" />
-	
-	                        <com.sft.viewutil.MultipleTextViewGroup
-	                            xmlns:app="http://schemas.android.com/apk/res-auto"
-	                            android:id="@+id/class_detail_multiple_tv"
-	                            android:layout_width="match_parent"
-	                            android:layout_height="wrap_content"
-	                            app:overspread="false"
-	                            app:textLineMargin="10dp"
-	                            app:textPaddingBottom="2dp"
-	                            app:textPaddingLeft="2dp"
-	                            app:textPaddingRight="2dp"
-	                            app:textPaddingTop="2dp"
-	                            app:textSize="12sp"
-	                            app:textWordMargin="10dp" />
-	                    </LinearLayout>
-	
-	                    <TextView
-	                        android:id="@+id/class_detail_brand_tv"
-	                        android:layout_width="wrap_content"
-	                        android:layout_height="wrap_content"
-	                        android:layout_marginTop="12dp"
-	                        android:text="@string/car_brand"
-	                        android:textColor="#333333"
-	                        android:textSize="14dp" />
-	
-	                    <LinearLayout
-	                        android:layout_width="wrap_content"
-	                        android:layout_height="wrap_content"
-	                        android:orientation="horizontal" >
-	
-	                        <TextView
-	                            android:layout_width="wrap_content"
-	                            android:layout_height="wrap_content"
-	                            android:layout_marginTop="12dp"
-	                            android:text="@string/price"
-	                            android:textColor="#333333"
-	                            android:textSize="14dp" />
-	
-	                        <TextView
-	                            android:id="@+id/class_detail_price_tv"
-	                            android:layout_width="wrap_content"
-	                            android:layout_height="wrap_content"
-	                            android:layout_marginTop="12dp"
-	                            android:textColor="@color/app_main_color"
-	                            android:textSize="14dp" />
-	                    </LinearLayout>
-	
-	                    <TextView
-	                        android:id="@+id/class_detail_count_tv"
-	                        android:layout_width="wrap_content"
-	                        android:layout_height="wrap_content"
-	                        android:layout_marginTop="12dp"
-	                        android:text="@string/enroll_count"
-	                        android:textColor="#333333"
-	                        android:textSize="14dp" />
-	
-	                    <ImageView
-	                        android:layout_width="match_parent"
-	                        android:layout_height="1dp"
-	                        android:layout_marginBottom="18dp"
-	                        android:layout_marginTop="19dp"
-	                        android:background="#e6e6e6"
-	                        android:contentDescription="@string/app_name" />
-	
-	                    <TextView
-	                        android:id="@+id/class_detail_introduction_title_tv"
-	                        android:layout_width="wrap_content"
-	                        android:layout_height="wrap_content"
-	                        android:text="@string/class_introduction"
-	                        android:textColor="#ff6633"
-	                        android:textSize="16dp"
-	                        android:textStyle="bold" />
-	
-	                    <TextView
-	                        android:id="@+id/class_detail_introduction_content_tv"
-	                        android:layout_width="wrap_content"
-	                        android:layout_height="wrap_content"
-	                        android:layout_marginBottom="24dp"
-	                        android:layout_marginRight="15dp"
-	                        android:layout_marginTop="12dp"
-	                        android:textColor="#333333"
-	                        android:textSize="14dp" />
-	                </LinearLayout>
-	            </RelativeLayout>
-	
-	            <ImageView
-	                android:id="@+id/imageView_devide"
-	                android:layout_width="match_parent"
-	                android:layout_height="1dp"
-	                android:layout_below="@+id/apply_class_detail"
-	                android:background="#e6e6e6"
-	                android:contentDescription="@string/app_name" />
-	
-	            <RelativeLayout
-	                android:id="@+id/enroll_coach_rl"
-	                android:layout_width="match_parent"
-	                android:layout_height="wrap_content"
-	                android:layout_below="@+id/imageView_devide"
-	                android:background="@drawable/bg_item" >
-	
-	                <TextView
-	                    android:layout_width="wrap_content"
-	                    android:layout_height="wrap_content"
-	                    android:layout_alignParentLeft="true"
-	                    android:layout_centerVertical="true"
-	                    android:layout_marginLeft="17dp"
-	                    android:text="报考教练"
-	                    android:textColor="#333" />
-	
-	                <TextView
-	                    android:id="@+id/enroll_coach_tv"
-	                    android:layout_width="wrap_content"
-	                    android:layout_height="wrap_content"
-	                    android:layout_alignParentRight="true"
-	                    android:layout_centerVertical="true"
-	                    android:layout_marginRight="24dp"
-	                    android:drawablePadding="10dp"
-	                    android:drawableRight="@drawable/arrow_right"
-	                    android:text="系统分配"
-	                    android:textColor="#999"
-	                    android:textSize="14sp" />
-	            </RelativeLayout>
-	
-	            <LinearLayout
-	                android:id="@+id/ll_title_one"
-	                android:layout_width="match_parent"
-	                android:layout_height="10dp"
-	                android:layout_below="@+id/enroll_coach_rl"
-	                android:background="#ccc"
-	                android:orientation="horizontal" >
-	            </LinearLayout>
-	
-	            <RelativeLayout
-	                android:id="@+id/rl_msg_one"
-	                android:layout_width="match_parent"
-	                android:layout_height="wrap_content"
-	                android:layout_below="@+id/ll_title_one"
-	                android:background="@drawable/bg_item" >
-	
-	                <EditText
-	                    android:id="@+id/enroll_name_et"
-	                    style="@style/enroll_et_style"
-	                    android:hint="真实姓名"
-	                    android:maxLength="6"
-	                     />
-	            </RelativeLayout>
-	
-	            <RelativeLayout
-	                android:id="@+id/rl_msg_two"
-	                android:layout_width="match_parent"
-	                android:layout_height="wrap_content"
-	                android:layout_below="@+id/rl_msg_one"
-	                android:background="@drawable/bg_item" >
-	
-	                <EditText
-	                    android:id="@+id/enroll_contact_et"
-	                    style="@style/enroll_et_style"
-	                    android:hint="联系电话"
-	                    android:inputType="number" />
-	            </RelativeLayout>
-	            <RelativeLayout
-	                android:id="@+id/rl_msg_three"
-	                android:layout_width="match_parent"
-	                android:layout_height="wrap_content"
-	                android:layout_below="@+id/rl_msg_two"
-	                android:background="@drawable/bg_item" >
-	
-	                <EditText
-	                    android:id="@+id/enroll_ycode_et"
-	                    style="@style/enroll_et_style"
-	                    android:hint="邀请Y码(填写将获取高额收益)"
-	                     />
-	            </RelativeLayout>
-	
-	            <RelativeLayout
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:layout_alignParentLeft="true"
-	                android:layout_below="@+id/rl_msg_three"
-	                android:layout_marginBottom="70dp"
-	                android:layout_marginLeft="16dp"
-	                android:layout_marginTop="16dp" >
-	
-	                <TextView
-	                    android:id="@+id/textView1"
-	                    android:layout_width="wrap_content"
-	                    android:layout_height="wrap_content"
-	                    android:text="温馨提示:"
-	                    android:textColor="#f00"
-	                    android:textSize="12sp" />
-	
-	                <TextView
-	                    android:id="@+id/textView2"
-	                    android:layout_width="wrap_content"
-	                    android:layout_height="wrap_content"
-	                    android:layout_alignLeft="@+id/textView1"
-	                    android:layout_below="@+id/textView1"
-	                    android:layout_marginRight="15dp"
-	                    android:layout_marginTop="5dp"
-	                    android:text="     请认真填写以上信息，您填写的信息将作为报名信息录入车考驾照系统内，如果信息错误，将影响你的报名流程。"
-	                    android:textSize="12sp" />
-	            </RelativeLayout>
-	             <Button
-	        android:id="@+id/enroll_commit_btn"
-	        android:layout_width="match_parent"
-	        android:layout_height="50dp"
-	        android:layout_alignParentBottom="true"
-	        android:background="#ff6633"
-	        android:text="报名"
-	        android:textColor="#ffffff"
-	        android:textSize="16sp" />
-	        </RelativeLayout>
-	    </ScrollView>
-	
-	   
-	
-	</RelativeLayout>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/enroll_rootlayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:id="@+id/ll_title"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/main_bg"
+                android:orientation="horizontal" >
+            </LinearLayout>
+
+            <include
+                android:id="@+id/line1"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_below="@+id/ll_title"
+                layout="@layout/line" />
+            <!-- 1 -->
+
+            <RelativeLayout
+                android:id="@+id/enroll_carstyle_rl"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/rl_height"
+                android:layout_below="@+id/line1"
+                android:paddingRight="15dp"
+                android:background="@color/white" >
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="17dp"
+                    android:text="班级类型:"
+                    android:textSize="@dimen/txt_size_middle"
+                    android:textColor="@color/txt_9" />
+
+                <TextView
+                    android:id="@+id/apply_license_type_c1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/textView3"
+                    android:textColor="#333" />
+
+                <TextView
+                    android:id="@+id/apply_license_type_c2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="25dp"
+                    android:layout_toRightOf="@+id/apply_license_type_c1"
+                    android:textColor="#333" />
+                <TextView
+                    android:id="@+id/apply_license_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="25dp"
+                    android:layout_alignParentRight="true"
+                    android:text=""
+                    android:textSize="@dimen/txt_size_middle"
+                    android:textColor="@color/txt_9" />
+            </RelativeLayout>
+
+            <include
+                android:id="@+id/line2"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_below="@+id/enroll_carstyle_rl"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                layout="@layout/line" />
+
+            <!-- 2 -->
+
+            <RelativeLayout
+                android:id="@+id/enroll_school_rl"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/rl_height"
+                android:layout_below="@+id/line2"
+                android:paddingRight="15dp"
+                android:background="@color/white" >
+
+                <TextView
+                    android:id="@+id/apply_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="17dp"
+                    android:text="报考驾校:"
+                    android:textColor="@color/txt_9" />
+
+                <TextView
+                    android:id="@+id/enroll_school_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/txt_9"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+            <include
+                android:id="@+id/line3"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_below="@+id/enroll_school_rl"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                layout="@layout/line" />
+
+            <!-- 3 -->
+
+            <RelativeLayout
+                android:id="@+id/enroll_class_rl"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/rl_height"
+                android:layout_below="@+id/line3"
+                android:background="@color/white"
+                android:visibility="gone" >
+
+                <TextView
+                    android:id="@+id/apply_apply_class_type_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="17dp"
+                    android:layout_marginTop="10dp"
+                    android:text="报考班型:"
+                    android:textColor="#333" />
+
+                <com.sft.view.ApplyClassTypeLayout
+                    android:id="@+id/apply_class_type_ll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/apply_apply_class_type_tv"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/apply_apply_class_type_tv"
+                    android:orientation="vertical" >
+                </com.sft.view.ApplyClassTypeLayout>
+            </RelativeLayout>
+
+            <!-- 4 -->
+
+            <LinearLayout
+                android:id="@+id/ll_divide_one"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_below="@+id/line3"
+                android:background="#ccc"
+                android:orientation="horizontal"
+                android:visibility="gone" >
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/apply_class_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/line3"
+                android:visibility="gone" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#f7f9fb"
+                    android:orientation="vertical"
+                    android:paddingLeft="15dp" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="一步特惠班详情"
+                        android:textColor="#000000" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#e6e6e6"
+                        android:contentDescription="@string/app_name" />
+
+                    <TextView
+                        android:id="@+id/class_detail_class_title_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="18dp"
+                        android:text="@string/class_info"
+                        android:textColor="#ff6633"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/class_detail_style_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="@string/license"
+                        android:textColor="#333333"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:id="@+id/class_detail_date_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="@string/active_date"
+                        android:textColor="#333333"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:id="@+id/class_detail_week_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="@string/course_date"
+                        android:textColor="#333333"
+                        android:textSize="14dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:id="@+id/class_detail_feature_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/feature"
+                            android:textColor="#333333"
+                            android:textSize="14dp" />
+
+                        <com.sft.viewutil.MultipleTextViewGroup
+                            xmlns:app="http://schemas.android.com/apk/res-auto"
+                            android:id="@+id/class_detail_multiple_tv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:overspread="false"
+                            app:textLineMargin="10dp"
+                            app:textPaddingBottom="2dp"
+                            app:textPaddingLeft="2dp"
+                            app:textPaddingRight="2dp"
+                            app:textPaddingTop="2dp"
+                            app:textSize="12sp"
+                            app:textWordMargin="10dp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/class_detail_brand_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="@string/car_brand"
+                        android:textColor="#333333"
+                        android:textSize="14dp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:text="@string/price"
+                            android:textColor="#333333"
+                            android:textSize="14dp" />
+
+                        <TextView
+                            android:id="@+id/class_detail_price_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:textColor="@color/app_main_color"
+                            android:textSize="14dp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/class_detail_count_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="@string/enroll_count"
+                        android:textColor="#333333"
+                        android:textSize="14dp" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginBottom="18dp"
+                        android:layout_marginTop="19dp"
+                        android:background="#e6e6e6"
+                        android:contentDescription="@string/app_name" />
+
+                    <TextView
+                        android:id="@+id/class_detail_introduction_title_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/class_introduction"
+                        android:textColor="#ff6633"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/class_detail_introduction_content_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="24dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="12dp"
+                        android:textColor="#333333"
+                        android:textSize="14dp" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/imageView_devide"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/apply_class_detail"
+                android:background="#e6e6e6"
+                android:contentDescription="@string/app_name"
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:id="@+id/enroll_coach_rl"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/rl_height"
+                android:layout_below="@+id/imageView_devide"
+                android:background="@color/white" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="17dp"
+                    android:text="报考教练"
+                    android:textColor="@color/txt_9" />
+
+                <TextView
+                    android:id="@+id/enroll_coach_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="24dp"
+                    android:drawablePadding="10dp"
+                    android:text="智能分配"
+                    android:textColor="#999"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+            <include
+                android:id="@+id/line31"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_below="@+id/enroll_coach_rl"
+                layout="@layout/line" />
+
+            <LinearLayout
+                android:id="@+id/ll_title_one"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_below="@+id/line31"
+                android:background="@color/main_bg"
+                android:orientation="horizontal" >
+            </LinearLayout>
+
+            <include
+                android:id="@+id/line4"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_below="@+id/ll_title_one"
+                layout="@layout/line" />
+
+            <RelativeLayout
+                android:id="@+id/rl_msg_one"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/rl_height"
+                android:layout_below="@+id/line4"
+                android:background="@color/white" >
+
+                <EditText
+                    android:id="@+id/enroll_name_et"
+                    style="@style/enroll_et_style"
+                    android:hint="真实姓名"
+                    android:maxLength="6" />
+            </RelativeLayout>
+
+            <include
+                android:id="@+id/line5"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_below="@+id/rl_msg_one"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                layout="@layout/line" />
+
+            <RelativeLayout
+                android:id="@+id/rl_msg_two"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/rl_height"
+                android:layout_below="@+id/line5"
+                android:background="@color/white" >
+
+                <EditText
+                    android:id="@+id/enroll_contact_et"
+                    style="@style/enroll_et_style"
+                    android:hint="联系电话"
+                    android:inputType="number" />
+            </RelativeLayout>
+
+            <include
+                android:id="@+id/line6"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_below="@+id/rl_msg_two"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                layout="@layout/line" />
+
+            <RelativeLayout
+                android:id="@+id/rl_msg_three"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/rl_height"
+                android:layout_below="@+id/line6"
+                android:background="@color/white" >
+
+                <EditText
+                    android:id="@+id/enroll_idcard_et"
+                    style="@style/enroll_et_style"
+                    android:digits="1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQISTUVWXYZ"
+                    android:hint="身份证号"
+                    android:maxLength="18" />
+            </RelativeLayout>
+
+            <include
+                android:id="@+id/line7"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_below="@+id/rl_msg_three"
+                layout="@layout/line" />
+
+            <include
+                android:id="@+id/line8"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_below="@+id/line7"
+                android:layout_marginTop="10dp"
+                layout="@layout/line" />
+
+            <RadioGroup
+                android:id="@+id/pay_type_gp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/line8"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/radio1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="线上支付"
+                    android:textColor="@color/txt_333" />
+
+                <RadioButton
+                    android:id="@+id/radio2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="线下支付"
+                    android:textColor="@color/txt_333" />
+            </RadioGroup>
+
+            <include
+                android:id="@+id/line9"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_below="@+id/pay_type_gp"
+                layout="@layout/line" />
+
+            <include
+                android:id="@+id/line10"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_below="@+id/line9"
+                android:layout_marginTop="10dp"
+                layout="@layout/line" />
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/line10"
+                android:padding="15dp" >
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="温馨提示:"
+                    android:textColor="#f00"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/textView1"
+                    android:layout_below="@+id/textView1"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="5dp"
+                    android:text="     请认真填写以上信息，您填写的信息将作为报名信息录入车考驾照系统内，如果信息错误，将影响你的报名流程。"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+            
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/relativeLayout1"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp" >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="实际支付"
+                    android:textColor="@color/txt_333"
+                    android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/tv_pay_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="3288元"
+                    android:textColor="@color/txt_333"
+                    android:textSize="16sp" />
+                
+                
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/enroll_commit_btn"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_alignParentBottom="true"
+                android:background="#ff6633"
+                android:text="报名"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

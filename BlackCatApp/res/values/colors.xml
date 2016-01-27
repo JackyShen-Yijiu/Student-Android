@@ -2,6 +2,12 @@
 
     
     <color name="white">#ffffff</color>
+    <color name="txt_999">#999999</color>
+    <color name="txt_333">#333333</color>
+    <color name="txt_3">#333</color>
+    <color name="txt_9">#999</color>
+    <!-- 主体 背景色 -->
+    <color name="main_bg">#f7f9fb</color>
     <!-- app的主色调 -->
     <color name="app_main_title_color">#fefefe</color>
     <color name="app_main_color">#ff6633</color> 
