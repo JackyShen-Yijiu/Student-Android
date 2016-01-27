@@ -132,7 +132,7 @@
                 android:orientation="vertical" >
 
                 <ImageButton
-                    android:id="@+id/send_invite_message_btn"
+                    android:id="@+id/send_invite_weixin_circle_btn"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:background="@drawable/send_invite_message_btn_bkground"

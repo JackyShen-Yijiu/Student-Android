@@ -3,6 +3,7 @@
     <!-- app的主色调 -->
     <color name="app_main_title_color">#fefefe</color>
     <color name="app_main_color">#ff6633</color> 
+    <color name="white">#ffffff</color> 
     <!-- 按钮按下颜色 -->
     <color name="btn_press_color">#ff5a2b</color>
     <!-- 全科颜色 -->

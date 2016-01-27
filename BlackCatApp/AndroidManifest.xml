@@ -7,7 +7,7 @@
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="21" />
-    
+
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -25,6 +25,8 @@
     <uses-permission android:name="android.permission.FLASHLIGHT" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.SET_DEBUG_APP" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
@@ -39,45 +41,44 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
-    <!--     极光推送权限 --> 
-    	<permission android:name="com.sft.blackcatapp.permission.JPUSH_MESSAGE" 
-         android:protectionLevel="signature" /> 
-    <uses-permission android:name="com.sft.blackcatapp.permission.JPUSH_MESSAGE" /> 
-     <!--   官方定义的权限，允许应用接收JPUSH内部代码发送的广播消息。 --> 
-	<uses-permission android:name="RECEIVE_USER_PRESENT" /> 
- 	  <!-- 允许应用可以接收点亮屏幕或解锁广播。 --> 
- 	<uses-permission android:name="INTERNET"/> 
-	<!-- 允许应用可以访问网络。 --> 
- 	<uses-permission android:name="WAKE_LOCK"/>	 
- 	<!-- 允许应用在手机屏幕关闭后后台进程仍然运行 --> 
- 	<uses-permission android:name="READ_PHONE_STATE"/>	 
- 	<!-- 允许应用访问手机状态。 --> 
- 	<uses-permission android:name="WRITE_EXTERNAL_STORAGE"/> 
- 	<!-- 允许应用写入外部存储。 -->	 
- 	<uses-permission android:name="READ_EXTERNAL_STORAGE"/>	 
- 	<!-- 允许应用读取外部存储。 --> 
- 	<uses-permission android:name="WRITE_SETTINGS"/> 
- 	<!-- 允许应用读写系统设置项。 -->	 
- 	<uses-permission android:name="VIBRATE"/> 
- 	<!-- 允许应用震动。 -->	 
- 	<uses-permission android:name="MOUNT_UNMOUNT_FILESYSTEMS"/>	 
- 	<!-- 允许应用挂载/卸载 外部文件系统。 --> 
- 	<uses-permission android:name="ACCESS_NETWORK_STATE"/>	 
- 	<!-- 允许应用获取网络信息状态，如当前的网络连接是否有效。 --> 
- 	<uses-permission android:name="SYSTEM_ALERT_WINDOW"/> 	
- 	<!-- 允许应用显示系统窗口，位于显示的顶层。 -->	 
-    
+    <!-- 极光推送权限 -->
+    <permission
+        android:name="com.sft.blackcatapp.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" />
 
+    <uses-permission android:name="com.sft.blackcatapp.permission.JPUSH_MESSAGE" />
+    <!-- 官方定义的权限，允许应用接收JPUSH内部代码发送的广播消息。 -->
+    <uses-permission android:name="RECEIVE_USER_PRESENT" />
+    <!-- 允许应用可以接收点亮屏幕或解锁广播。 -->
+    <uses-permission android:name="INTERNET" />
+    <!-- 允许应用可以访问网络。 -->
+    <uses-permission android:name="WAKE_LOCK" />
+    <!-- 允许应用在手机屏幕关闭后后台进程仍然运行 -->
+    <uses-permission android:name="READ_PHONE_STATE" />
+    <!-- 允许应用访问手机状态。 -->
+    <uses-permission android:name="WRITE_EXTERNAL_STORAGE" />
+    <!-- 允许应用写入外部存储。 -->
+    <uses-permission android:name="READ_EXTERNAL_STORAGE" />
+    <!-- 允许应用读取外部存储。 -->
+    <uses-permission android:name="WRITE_SETTINGS" />
+    <!-- 允许应用读写系统设置项。 -->
+    <uses-permission android:name="VIBRATE" />
+    <!-- 允许应用震动。 -->
+    <uses-permission android:name="MOUNT_UNMOUNT_FILESYSTEMS" />
+    <!-- 允许应用挂载/卸载 外部文件系统。 -->
+    <uses-permission android:name="ACCESS_NETWORK_STATE" />
+    <!-- 允许应用获取网络信息状态，如当前的网络连接是否有效。 -->
+    <uses-permission android:name="SYSTEM_ALERT_WINDOW" />
+    <!-- 允许应用显示系统窗口，位于显示的顶层。 -->
 
     <application
-        tools:replace="android:icon, android:theme"
         android:name="com.sft.common.BlackCatApplication"
         android:allowBackup="true"
         android:icon="@drawable/app_logo"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.Black.NoTitleBar" >
+        android:theme="@android:style/Theme.Black.NoTitleBar"
+        tools:replace="android:icon, android:theme" >
         <activity
             android:name="com.sft.blackcatapp.WelcomeActivity"
             android:label="@string/app_name"
@@ -88,8 +89,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
-           <activity
+        <activity
             android:name="com.sft.blackcatapp.GuideActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -126,16 +126,16 @@
         <activity
             android:name="com.sft.blackcatapp.EnrollNextActivity"
             android:screenOrientation="portrait" />
-            <activity
+        <activity
             android:name="com.sft.blackcatapp.TestingPhoneActivity"
             android:screenOrientation="portrait" />
-            <activity
+        <activity
             android:name="com.sft.blackcatapp.TestingMsgActivity"
             android:screenOrientation="portrait" />
-            <activity
+        <activity
             android:name="com.sft.blackcatapp.TestingCommit"
             android:screenOrientation="portrait" />
-         <!-- 新增(end) -->
+        <!-- 新增(end) -->
         <activity
             android:name="com.sft.blackcatapp.EnrollClassActivity"
             android:screenOrientation="portrait" />
@@ -238,8 +238,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.sft.blackcatapp.SubjectEnrollActivity"
-            android:theme="@android:style/Theme.Translucent"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent" />
         <activity
             android:name="com.sft.blackcatapp.MyCoachActivity"
             android:screenOrientation="portrait" />
@@ -317,24 +317,27 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.sft.blackcatapp.ApplyActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name="com.sft.blackcatapp.ActivitiesActivity"
-            android:theme="@style/Theme.FloatActivity"
-            android:screenOrientation="portrait" />
-
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.FloatActivity" />
         <activity
             android:name="com.sft.blackcatapp.TodaysAppointmentActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.sft.blackcatapp.QRCodeCreateActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="com.sft.dialog.BonusDialog"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.BonueDialog" />
+
         <service android:name="com.sft.util.DownLoadService" />
         <!-- 支付測試 -->
-        <activity 
-            android:name="com.sft.alipay.PayDemoActivity"
-            ></activity>
+        <activity android:name="com.sft.alipay.PayDemoActivity" >
+        </activity>
 
         <!-- 极光推送 ======================================================================== -->
         <!-- Required SDK核心功能 -->
@@ -441,15 +444,74 @@
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="nCxRAoooo6Pe3yeMG6iDK5aW" />
-        
-        
-<!--之前版本： UUXsBU2Tq3LETedPZVpxuxQG -->
-<!--现在版本： nCxRAoooo6Pe3yeMG6iDK5aW -->
+
+        <!-- 之前版本： UUXsBU2Tq3LETedPZVpxuxQG -->
+        <!-- 现在版本： nCxRAoooo6Pe3yeMG6iDK5aW -->
+
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:exported="false"
             android:process=":remote" >
+        </service>
+
+        <!-- 友盟分享=============================================================== -->
+        <activity
+            android:name="com.umeng.socialize.editorpage.ShareActivity"
+            android:excludeFromRecents="true"
+            android:theme="@style/Theme.UMDefault" />
+
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="56a60db667e58e2df700043f" >
+        </meta-data>
+        <!-- 微信 -->
+     
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name=".WBShareActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <!-- 新浪微博 -->
+        <activity
+            android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="tencent100424468" />
+            </intent-filter>
+        </activity>
+        <!-- QQ、Qzone -->
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <service
+            android:name="com.sina.weibo.sdk.net.DownloadService"
+            android:exported="false" >
         </service>
 
         <!-- bug日志上传 ======================================================================== -->

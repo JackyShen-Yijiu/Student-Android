@@ -350,4 +350,10 @@
         <!-- float_box为我们定义的窗口背景-->  
         <item name="android:windowBackground">@drawable/activities_bg</item>  
     </style>  
+    <style name="Theme.BonueDialog" parent="android:style/Theme.Dialog">  
+        <!-- float_box为我们定义的窗口背景-->  
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>  
 </resources>

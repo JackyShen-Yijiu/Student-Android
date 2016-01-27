@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -16,6 +17,7 @@ import android.text.style.AbsoluteSizeSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
@@ -25,7 +27,6 @@ import cn.sft.baseactivity.util.Util;
 import cn.sft.listener.ICallBack;
 
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
-import com.sft.blackcatapp.R;
 import com.sft.common.BlackCatApplication;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.CarModelVO;
@@ -75,6 +76,14 @@ public class BaseMainActivity extends SlidingFragmentActivity implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+			// 透明状态栏
+			getWindow().addFlags(
+					WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+			// 透明导航栏
+			getWindow().addFlags(
+					WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+		}
 		if (util == null) {
 			util = new Util(this);
 		}
