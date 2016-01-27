@@ -175,7 +175,8 @@ public class ApplyActivity extends BaseActivity implements
 
 	private void initView() {
 		setTitleText(R.string.enroll_info_table);
-
+		setBg(getResources().getColor(R.color.white));
+		
 		enroll_rootlayout = (RelativeLayout) findViewById(R.id.enroll_rootlayout);
 		enroll_rootlayout.setFocusable(true);
 		enroll_rootlayout.setFocusableInTouchMode(true);

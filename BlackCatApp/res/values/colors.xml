@@ -1,5 +1,7 @@
 <resources>
 
+    
+    <color name="white">#ffffff</color>
     <!-- app的主色调 -->
     <color name="app_main_title_color">#fefefe</color>
     <color name="app_main_color">#ff6633</color> 

@@ -2,6 +2,7 @@ package com.sft.blackcatapp;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
@@ -81,8 +82,9 @@ public class EnrollActivity extends BaseActivity {
 	}
 
 	private void initView() {
+		
 		setTitleText(R.string.enroll_info_table);
-
+		
 		rootLayout = (RelativeLayout) findViewById(R.id.enroll_rootlayout);
 		rootLayout.setFocusable(true);
 		rootLayout.setFocusableInTouchMode(true);
