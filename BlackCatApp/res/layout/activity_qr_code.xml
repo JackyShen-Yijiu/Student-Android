@@ -1,6 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@color/white"
     android:paddingLeft="10dp" 
     android:paddingRight="10dp">
 
@@ -51,7 +52,7 @@
        android:layout_height="150dp"
        android:layout_below="@+id/qr_code_sign_notice"
        android:layout_marginTop="53dp"
-       android:layout_toRightOf="@+id/qr_code_sign_notice_title"
+       android:layout_centerInParent="true"
        android:scaleType="centerCrop" />
   
 </RelativeLayout>

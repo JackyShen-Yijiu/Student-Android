@@ -1,6 +1,5 @@
 package com.sft.blackcatapp;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,6 +9,8 @@ import java.util.Map;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -26,11 +27,14 @@ import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.MyAppointmentVO;
 
 public class TodaysAppointmentActivity extends BaseActivity implements
-		OnItemClickListener {
+		OnItemClickListener, OnRefreshListener {
 
 	private static final String reservation = "reservation";
+	private SwipeRefreshLayout swipeLayout;
 	private ListView mListView;
 	private TodayAppointmentAdapter adapter;
+	private boolean isRefreshing = false;
+	private List<MyAppointmentVO> mList = new ArrayList<MyAppointmentVO>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,12 @@ public class TodaysAppointmentActivity extends BaseActivity implements
 
 	private void initView() {
 		setTitleText(R.string.today_appointment);
+		swipeLayout = (SwipeRefreshLayout) findViewById(R.id.today_appointment_swipe_container);
+		swipeLayout.setOnRefreshListener(this);
+		swipeLayout.setColorScheme(android.R.color.holo_blue_bright,
+				android.R.color.holo_green_light,
+				android.R.color.holo_orange_light,
+				android.R.color.holo_red_light);
 		mListView = (ListView) findViewById(R.id.today_appointment_listview);
 		mListView.setOnItemClickListener(this);
 	}
@@ -110,10 +120,20 @@ public class TodaysAppointmentActivity extends BaseActivity implements
 								"您今天没有预约");
 						ZProgressHUD.getInstance(this).show();
 					} else {
-						adapter = new TodayAppointmentAdapter(list, this);
-						mListView.setAdapter(adapter);
+						if (adapter == null) {
+							mList.addAll(list);
+							adapter = new TodayAppointmentAdapter(mList, this);
+							mListView.setAdapter(adapter);
+						}
+						mList.clear();
 
+						mList.addAll(list);
 					}
+
+				}
+				if (isRefreshing) {
+					swipeLayout.setRefreshing(false);
+					isRefreshing = false;
 				}
 			}
 		} catch (Exception e) {
@@ -146,15 +166,20 @@ public class TodaysAppointmentActivity extends BaseActivity implements
 
 		SimpleDateFormat format = new SimpleDateFormat("hh:mm");
 		try {
-			long diffBeginTime = format.parse(beginTime).getTime()
+			long diffBeginTime = UTC2LOC.instance.getDates(
+					myAppointmentVO.getBegintime(), "yyyy-MM-dd HH:mm:ss")
+					.getTime()
 					- new Date().getTime();
-			long diffEndTime = format.parse(endTime).getTime()
+			long diffEndTime = UTC2LOC.instance.getDates(
+					myAppointmentVO.getEndtime(), "yyyy-MM-dd HH:mm:ss")
+					.getTime()
 					- new Date().getTime();
+			LogUtil.print("diffEndTime--" + diffEndTime);
 			if (diffBeginTime / 1000 / 60 > 15) {
 				ZProgressHUD.getInstance(this).dismissWithSuccess(
 						"请在开课前15分钟内签到");
 				ZProgressHUD.getInstance(this).show();
-			} else if (diffEndTime / 1000 / 60 > 0) {
+			} else if (diffEndTime / 1000 / 60 < 0) {
 				ZProgressHUD.getInstance(this).dismissWithSuccess(
 						"您的课程已结束，不能再签到");
 				ZProgressHUD.getInstance(this).show();
@@ -165,8 +190,14 @@ public class TodaysAppointmentActivity extends BaseActivity implements
 				startActivity(intent);
 			}
 
-		} catch (ParseException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void onRefresh() {
+		isRefreshing = true;
+		obtainOppointment();
 	}
 }

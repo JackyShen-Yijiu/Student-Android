@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import com.sft.qrcode.EncodingHandler;
 import com.sft.util.JSONUtil;
+import com.sft.util.LogUtil;
 import com.sft.vo.MyAppointmentVO;
 import com.sft.vo.QRCodeCreateVO;
 
@@ -57,10 +58,11 @@ public class QRCodeCreateActivity extends BaseActivity {
 		// 生成二维码
 		try {
 			String contentString = JSONUtil.toJsonString(codeCreateVO);
+			LogUtil.print("contentString---" + contentString);
 			if (contentString != null && contentString.trim().length() > 0) {
 				// 根据字符串生成二维码图片并显示在界面上，第二个参数为图片的大小（350*350）
 				Bitmap qrCodeBitmap = EncodingHandler.createQRCode(
-						contentString, 350);
+						contentString, 500);
 				qRCodeIv.setImageBitmap(qrCodeBitmap);
 			} else {
 				toast.setText("生成二维码失败");
