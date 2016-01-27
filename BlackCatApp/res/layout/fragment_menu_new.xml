@@ -265,6 +265,13 @@
             android:layout_marginLeft="3dp"
             android:layout_marginTop="3dp"
             android:background="@drawable/fragment_menu_activity" />
+        <Button
+            android:id="@+id/fragment_menu_complaint_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="3dp"
+            android:background="@drawable/fragment_complaint_activity" />
 
         
 
@@ -272,7 +279,7 @@
             android:id="@+id/fragment_menu_setting_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="3dp"
             android:layout_marginTop="3dp"
             android:background="@drawable/fragment_menu_setting" />
     </GridLayout>

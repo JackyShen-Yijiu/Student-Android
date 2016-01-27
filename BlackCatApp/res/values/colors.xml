@@ -46,10 +46,15 @@
     <color name="drawer_selector">#33ffffff</color>
     <color name="drawer_unselector">#00000000</color>
     
+    <color name="transparent">#00000000</color>
+    
     <color name="bottom_text_unselector">#828282</color>
     <color name="bottom_text_selector">#68e6ff</color>
     <color name="default_text_color">#333</color>
     <color name="red_color">#f00</color>
+    
+    <color name="white_pure">#ffffff</color>
+    <color name="white_p">#ECECEC</color>
 
     <color name="listview_selected_color">#99999999</color>
     

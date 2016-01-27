@@ -41,6 +41,7 @@ import com.sft.blackcatapp.EditPersonInfoActivity;
 import com.sft.blackcatapp.EnrollSchoolActivity;
 import com.sft.blackcatapp.MessageActivity;
 import com.sft.blackcatapp.MyWalletActivity;
+import com.sft.blackcatapp.NewApplystateActivity;
 import com.sft.blackcatapp.PersonCenterActivity;
 import com.sft.blackcatapp.R;
 import com.sft.blackcatapp.TodaysAppointmentActivity;
@@ -195,6 +196,9 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 		rootView.findViewById(R.id.fragment_menu_signin_btn)
 				.setOnClickListener(this);
 		rootView.findViewById(R.id.fragment_menu_setting_btn)
+				.setOnClickListener(this);
+
+		rootView.findViewById(R.id.fragment_menu_complaint_btn)
 				.setOnClickListener(this);
 		// rootView.findViewById(R.id.fragment_menu_search_coach_btn)
 		// .setOnClickListener(this);
@@ -355,6 +359,19 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 			}
 
 			break;
+		// 投诉
+		case R.id.fragment_menu_complaint_btn:
+			if (app.userVO.getApplystate().equals("2")
+					^ app.userVO.getApplystate().equals("3")) {
+
+				intent = new Intent(getActivity(), NewApplystateActivity.class);
+				startActivity(intent);
+			} else {
+				ZProgressHUD.getInstance(mContext).show();
+				ZProgressHUD.getInstance(mContext).dismissWithFailure("请等待审核");
+			}
+			break;
+
 		case R.id.fragment_menu_phone:
 			String number = CommonUtil.getString(mContext, R.string.yibu_phone);
 			// 用intent启动拨打电话

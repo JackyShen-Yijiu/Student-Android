@@ -327,6 +327,10 @@
             android:name="com.sft.blackcatapp.TodaysAppointmentActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name="com.sft.blackcatapp.NewApplystateActivity"
+            android:windowSoftInputMode="adjustPan|stateVisible"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="com.sft.blackcatapp.QRCodeCreateActivity"
             android:screenOrientation="portrait" />
         <activity
