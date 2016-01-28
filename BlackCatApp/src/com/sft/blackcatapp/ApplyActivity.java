@@ -144,8 +144,10 @@ public class ApplyActivity extends BaseActivity implements
 				coachTv.setText(coachVO.getName());
 				obtainSchoolById(coachVO.getDriveschoolinfo().getId());
 			}
-		} else {
-
+		} else if(isFromPlay){
+			
+			
+		}else{
 			obtainNearBySchool();
 		}
 	}

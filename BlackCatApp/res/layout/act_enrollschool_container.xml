@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent"
+    android:paddingTop="35dp"
+    android:orientation="vertical" >
+
+    <include layout="@+layout/title" >
+    </include>
+
+    <LinearLayout
+        android:id="@+id/enroll_school_select_ll"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp" >
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1" >
+
+            <TextView
+                android:id="@+id/enroll_school_class_select_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:clickable="true"
+                android:onClick="onClick"
+                android:text="车型选择"
+                android:textColor="#333"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/enroll_school_arrow1_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="7dp"
+                android:layout_toRightOf="@+id/enroll_school_class_select_tv"
+                android:src="@drawable/arrow_below" />
+
+            <ImageView
+                android:layout_width="1dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="#88dddddd" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="1" >
+
+            <TextView
+                android:id="@+id/enroll_school_distance_select_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:clickable="true"
+                android:onClick="onClick"
+                android:text="距离最近"
+                android:textColor="#333"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/enroll_school_arrow2_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="7dp"
+                android:layout_toRightOf="@+id/enroll_school_distance_select_tv"
+                android:src="@drawable/arrow_below" />
+
+            <ImageView
+                android:layout_width="0.5dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="#88dddddd" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="1" >
+
+            <TextView
+                android:id="@+id/enroll_school_comment_select_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:clickable="true"
+                android:onClick="onClick"
+                android:text="评分最高"
+                android:textColor="#333"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/enroll_school_arrow3_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="7dp"
+                android:layout_toRightOf="@+id/enroll_school_comment_select_tv"
+                android:src="@drawable/arrow_below" />
+
+            <ImageView
+                android:layout_width="0.5dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="#88dddddd" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="1" >
+
+            <TextView
+                android:id="@+id/enroll_school_price_select_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:clickable="true"
+                android:onClick="onClick"
+                android:text="价格最低"
+                android:textColor="#333"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/enroll_school_arrow4_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="7dp"
+                android:layout_toRightOf="@+id/enroll_school_price_select_tv"
+                android:src="@drawable/arrow_below" />
+        </RelativeLayout>
+    </LinearLayout>
+    
+     <EditText 
+       android:id="@+id/enroll_school_search_et"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="5dp"
+        android:hint="@string/search_school"
+        android:imeOptions="actionSearch"
+        android:drawableLeft="@drawable/shuttle_address_find"
+        android:drawablePadding="8dp"
+        android:singleLine="true"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="8dp"
+       android:background="@drawable/change_shuttle_addess_bkground"
+        />
+
+    <FrameLayout
+        android:id="@+id/fl_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+    </FrameLayout>
+
+</LinearLayout>

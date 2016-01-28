@@ -38,7 +38,7 @@ import com.loopj.android.http.RequestParams;
 import com.sft.api.ApiHttpClient;
 import com.sft.blackcatapp.ActivitiesActivity;
 import com.sft.blackcatapp.EditPersonInfoActivity;
-import com.sft.blackcatapp.EnrollSchoolActivity;
+import com.sft.blackcatapp.EnrollSchoolActivity1;
 import com.sft.blackcatapp.MessageActivity;
 import com.sft.blackcatapp.MyWalletActivity;
 import com.sft.blackcatapp.NewApplystateActivity;
@@ -298,7 +298,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 		// case R.id.fragment_menu_home_btn:
 		// ((MainActivity) mContext).changeMenu();
 		// break;
-		case R.id.fragment_menu_driving_school_btn:
+		case R.id.fragment_menu_driving_school_btn://报名
 			obtainlocationShowType();
 
 			break;
@@ -639,7 +639,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 
 	private void openSearchSchool() {
 		if (showType == 0) {
-			Intent intent = new Intent(mContext, EnrollSchoolActivity.class);
+			Intent intent = new Intent(mContext, EnrollSchoolActivity1.class);
 			intent.putExtra("isFromMenu", true);
 			startActivityForResult(intent, 1);
 		} else {
