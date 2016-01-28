@@ -342,6 +342,13 @@
         <activity
             android:name="com.sft.blackcatapp.QRCodeCreateActivity"
             android:screenOrientation="portrait" />
+          <activity
+            android:name="com.sft.blackcatapp.PhotographActivity"
+            android:screenOrientation="portrait" />
+          
+           <activity
+            android:name="com.sft.blackcatapp.NewCropImageActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.sft.dialog.BonusDialog"
             android:screenOrientation="portrait"

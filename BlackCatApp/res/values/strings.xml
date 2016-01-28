@@ -39,6 +39,8 @@
     <string name="yibu_superiority">平台优势</string>
     <string name="enroll_info_table">报名</string>
     <string name="apply_left">投诉</string>
+    <string name="apply_left_coach">投诉教练名</string>
+    <string name="apply_left_school">投诉驾校名</string>
     <string name="in_uploading">正在上传</string>
     <string name="commit">提交</string>
     <string name="real_name">真实姓名</string>
@@ -184,10 +186,11 @@
     <string name="five_coach_shuttle">5KM内可接送</string>
     <string name="no_comment">暂无评论</string>
     <string name="simple_sign">一句话签名</string>
-    <string name="change_headpic">更换头像</string>
  <string name="change_name">修改姓名</string>
     <string name="change_nickname">修改昵称</string>
     <string name="change_personalized">修改个性签名</string>
+    
+    <string name="change_headpic">更换头像</string>
     <string name="appointment">预约</string>
     <string name="input_shuttle_address">输入接送地址</string>
     <string name="no_coach">没有教练</string>
@@ -210,6 +213,7 @@
     <string name="attitude">态度</string>
     <string name="capacity">能力</string>
     <string name="take_picture">拍照</string>
+    <string name="take_cancle">取消</string>
     <string name="photo_album">相册</string>
     <string name="my_invit_code">我的Y码:</string>
     <string name="change_commodity">积分兑换</string>

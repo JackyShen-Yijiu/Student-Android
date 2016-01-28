@@ -37,6 +37,7 @@ import cn.sft.infinitescrollviewpager.CropRoundView;
 import com.edmodo.cropper.CropImageView;
 import com.edmodo.cropper.PreviewListener;
 import com.sft.common.Config;
+import com.sft.util.LogUtil;
 import com.sft.util.Util;
 import com.sft.viewutil.ZProgressHUD;
 
@@ -198,7 +199,7 @@ public class CropImageActivity extends BaseActivity implements OnClickListener,
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-
+		LogUtil.print("333333onAct--->");
 		Bitmap img = null;
 		if (resultCode == RESULT_OK) {
 			if (requestCode == CAMERA) {
@@ -310,6 +311,7 @@ public class CropImageActivity extends BaseActivity implements OnClickListener,
 
 	@Override
 	public void forOperResult(Intent intent) {
+		LogUtil.print("333333onAct--success->");
 		String info = intent.getStringExtra("info");
 		if (!TextUtils.isEmpty(info)) {
 			if (info.contains("error:null")) {
@@ -350,6 +352,7 @@ public class CropImageActivity extends BaseActivity implements OnClickListener,
 		if (super.doCallBack(type, jsonString)) {
 			return true;
 		}
+		LogUtil.print("333333success--->" + jsonString);
 		if (type.equals(changeHead)) {
 			if (dataString != null) {
 				ZProgressHUD.getInstance(this).show();
