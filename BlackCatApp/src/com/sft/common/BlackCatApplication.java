@@ -22,6 +22,7 @@ import com.qiniu.android.storage.UploadManager;
 import com.qiniu.android.storage.UploadOptions;
 import com.sft.api.ApiHttpClient;
 import com.sft.blackcatapp.CropImageActivity;
+import com.sft.blackcatapp.NewCropImageActivity;
 import com.sft.library.DemoHXSDKHelper;
 import com.sft.vo.CarModelVO;
 import com.sft.vo.ClassVO;
@@ -116,6 +117,28 @@ public class BlackCatApplication extends Application {
 			@Override
 			public void complete(String key, ResponseInfo info, JSONObject res) {
 				sendBroadcast(new Intent(CropImageActivity.class.getName())
+						.putExtra("info", info.toString()).putExtra("res",
+								res == null ? "" : res.toString()));
+			}
+		}, new UploadOptions(null, null, false, new UpProgressHandler() {
+			@Override
+			public void progress(String key, double percent) {
+			}
+		}, new UpCancellationSignal() {
+			@Override
+			public boolean isCancelled() {
+				// return true 停止上传
+				return false;
+			}
+		}));
+	}
+
+	public void uploadPicTou(File file, String s) {
+
+		uploadManager.put(file, s, qiniuToken, new UpCompletionHandler() {
+			@Override
+			public void complete(String key, ResponseInfo info, JSONObject res) {
+				sendBroadcast(new Intent(NewCropImageActivity.class.getName())
 						.putExtra("info", info.toString()).putExtra("res",
 								res == null ? "" : res.toString()));
 			}
