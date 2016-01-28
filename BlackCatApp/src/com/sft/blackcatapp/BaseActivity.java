@@ -171,9 +171,9 @@ public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity
 	 * @param color
 	 */
 	public void setBg(int color){
-		Toast("白色"+rl_base_content);
-		if(rl_base_content!=null){
-			rl_base_content.setBackgroundColor(color);
+//		Toast("白色"+contentLayout);
+		if(contentLayout!=null){
+			contentLayout.setBackgroundColor(color);
 			
 		}
 			
