@@ -481,6 +481,8 @@
                     android:layout_weight="1"
                     android:checked="true"
                     android:text="线上支付"
+                    android:background="@android:color/transparent"
+                    android:button="@drawable/radio_button_bg"
                     android:textColor="@color/txt_333" />
 
                 <RadioButton
@@ -488,6 +490,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:button="@drawable/radio_button_bg"
                     android:text="线下支付"
                     android:textColor="@color/txt_333" />
             </RadioGroup>

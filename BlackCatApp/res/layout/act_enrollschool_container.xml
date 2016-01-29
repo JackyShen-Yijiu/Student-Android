@@ -1,50 +1,22 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="match_parent"
+    android:background="@color/transparent"
+    android:paddingTop="35dp"
+    android:orientation="vertical" >
 
-    <RelativeLayout
-        android:id="@+id/enroll_school_top_headpic_im"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:visibility="gone"
-        android:layout_marginBottom="4dp" >
+    <include layout="@+layout/title" >
+    </include>
 
-        <cn.sft.infinitescrollviewpager.InfiniteViewPager
-            android:id="@+id/enroll_school_top_viewpager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <LinearLayout
-            android:id="@+id/enroll_school_top_dotlayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="10dp"
-            android:layout_marginRight="10dp"
-            android:orientation="horizontal" >
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/enroll_school_top_defaultimage"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/defaultimage"
-            android:contentDescription="@string/app_name" />
-    </RelativeLayout>
-    
-    <!-- 
-    
     <LinearLayout
         android:id="@+id/enroll_school_select_ll"
         android:layout_width="match_parent"
         android:layout_height="35dp"
-        android:layout_below="@+id/enroll_school_top_headpic_im"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:visibility="gone"
-        android:orientation="horizontal" >
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp" >
 
         <RelativeLayout
             android:layout_width="0dp"
@@ -57,8 +29,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:text="车型选择"
                 android:clickable="true"
+                android:onClick="onClick"
+                android:text="车型选择"
                 android:textColor="#333"
                 android:textSize="14sp" />
 
@@ -93,6 +66,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:clickable="true"
+                android:onClick="onClick"
                 android:text="距离最近"
                 android:textColor="#333"
                 android:textSize="14sp" />
@@ -127,8 +101,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:text="评分最高"
                 android:clickable="true"
+                android:onClick="onClick"
+                android:text="评分最高"
                 android:textColor="#333"
                 android:textSize="14sp" />
 
@@ -163,6 +138,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:clickable="true"
+                android:onClick="onClick"
                 android:text="价格最低"
                 android:textColor="#333"
                 android:textSize="14sp" />
@@ -178,27 +154,15 @@
                 android:src="@drawable/arrow_below" />
         </RelativeLayout>
     </LinearLayout>
-     -->
-
     
-
-    <ImageView
-        android:id="@+id/enroll_school_divide_line"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#dddddd"
-        android:layout_marginTop="6dp"
-        android:visibility="gone"
-        android:contentDescription="@string/app_name" />
-    
-    <EditText 
+     <EditText 
        android:id="@+id/enroll_school_search_et"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="5dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:layout_below="@+id/enroll_school_divide_line"
+        android:layout_marginBottom="5dp"
         android:hint="@string/search_school"
         android:imeOptions="actionSearch"
         android:drawableLeft="@drawable/shuttle_address_find"
@@ -210,11 +174,11 @@
         android:visibility="gone"
        android:background="@drawable/change_shuttle_addess_bkground"
         />
-     <ImageView
+
+    <FrameLayout
+        android:id="@+id/fl_container"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#dddddd"
-        android:layout_below="@+id/enroll_school_search_et"
-        android:layout_marginTop="6dp"
-        android:contentDescription="@string/app_name" />
-</RelativeLayout>
+        android:layout_height="match_parent" >
+    </FrameLayout>
+
+</LinearLayout>

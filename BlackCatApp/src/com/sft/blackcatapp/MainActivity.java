@@ -47,6 +47,7 @@ import com.sft.api.ApiHttpClient;
 import com.sft.common.BlackCatApplication;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
+import com.sft.dialog.CheckApplyDialog;
 import com.sft.dialog.NoLoginDialog;
 import com.sft.fragment.IntroducesFragment;
 import com.sft.fragment.MenuFragment;
@@ -124,7 +125,33 @@ public class MainActivity extends BaseMainActivity implements
 		if (app != null && app.isLogin) {
 			util.print("userid=" + app.userVO.getUserid());
 		}
+		checkStateDialog();
+		
 
+	}
+	
+	/**
+	 * 检查学时状态 对话框，
+	 */
+	private void checkStateDialog(){
+//		没报名
+		LogUtil.print("state---->"+app.userVO.getApplystate());
+		if (app.userVO.getApplystate().equals("0")) {
+			CheckApplyDialog dialog = new CheckApplyDialog(this);
+			dialog.setTextAndImage("猜对了，你真聪明",
+					"闲着也是闲着，小步与您玩个游戏吧!\n 小步猜您已经在学车了，亲对吗?",
+					"笨死了,答错了",R.drawable.ic_question);
+			dialog.setListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View arg0) {
+					
+					
+				}
+			});
+			dialog.show();
+			
+		} 
 	}
 
 	private int sum = 0;

@@ -136,6 +136,7 @@ public class CoachListAdapter extends BaseAdapter {
 			holder.general.setVisibility(View.GONE);
 		}
 		String coachName = mData.get(position).getName();
+		LogUtil.print("adapter--->"+coachName);
 		holder.coachName.setText(coachName);
 		String schoolName = mData.get(position).getDriveschoolinfo().getName();
 		holder.schoolName.setText(schoolName);
@@ -146,6 +147,7 @@ public class CoachListAdapter extends BaseAdapter {
 			holder.rateBar.setRating(0f);
 		}
 		String rate = mData.get(position).getPassrate();
+		
 		holder.rate.setText("通过率: " + rate + "%");
 		String age = mData.get(position).getSeniority();
 		holder.age.setText("工作年限:" + age);

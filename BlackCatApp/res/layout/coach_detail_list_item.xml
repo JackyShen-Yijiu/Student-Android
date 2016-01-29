@@ -3,54 +3,66 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#00000000"
-    android:orientation="horizontal" >
-
-    <ImageView
-        android:id="@+id/coach_detail_comment_headpic_im"
-        android:layout_width="@dimen/coachdetail_comment_headpic_widthheight"
-        android:layout_height="@dimen/coachdetail_comment_headpic_widthheight"
-        android:contentDescription="@string/app_name" />
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingTop="10dp" >
 
     <RelativeLayout
-        android:layout_marginLeft="9dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
-        <LinearLayout
-            android:id="@+id/coach_detail_comment_info_layout"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/coachdetail_comment_headpic_widthheight"
-            android:gravity="center_vertical"
-            android:orientation="horizontal" >
+        <ImageView
+            android:id="@+id/coach_detail_comment_headpic_im"
+            android:layout_width="@dimen/coachdetail_comment_headpic_widthheight"
+            android:layout_height="@dimen/coachdetail_comment_headpic_widthheight" >
+        </ImageView>
 
-            <TextView
-                android:id="@+id/coach_detail_comment_name_tv"
-                style="@style/coachdetail_title_style"
-                android:layout_width="0dp"
-                android:layout_weight="1" />
+        <TextView
+            android:id="@+id/coach_detail_comment_name_tv"
+            style="@style/coachdetail_title_style"
+            android:layout_alignTop="@+id/coach_detail_comment_headpic_im"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@+id/coach_detail_comment_headpic_im"
+            />
 
-            <TextView
-                android:id="@+id/coach_detail_comment_time_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#999999"
-                android:textSize="12dp" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/coach_detail_comment_classtype_tv"
+            style="@style/coachdetail_title_style"
+            android:layout_alignBottom="@+id/coach_detail_comment_headpic_im"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@+id/coach_detail_comment_headpic_im"
+            android:textColor="#999" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+         >
+
 
         <TextView
             android:id="@+id/coach_detail_comment_content_tv"
             style="@style/coachdetail_content_style"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/coach_detail_comment_info_layout" />
-
-        <ImageView
-            style="@style/coachdetail_devider_style"
-            android:layout_below="@+id/coach_detail_comment_content_tv"
-            android:layout_marginTop="13dp"
-            android:layout_marginLeft="0dp"
-            android:layout_marginBottom="13dp"
-            android:contentDescription="@string/app_name" />
+             />
+        <TextView
+            android:id="@+id/coach_detail_comment_time_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:textColor="#999999"
+            android:textSize="12dp" />
     </RelativeLayout>
+
+    <ImageView
+        style="@style/coachdetail_devider_style"
+        android:layout_marginBottom="13dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="13dp"
+        android:contentDescription="@string/app_name" />
 
 </LinearLayout>

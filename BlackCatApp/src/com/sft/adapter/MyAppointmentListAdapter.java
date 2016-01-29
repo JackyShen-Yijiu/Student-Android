@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -42,10 +41,10 @@ public class MyAppointmentListAdapter extends
 		notifyDataSetChanged();
 	}
 
-	public List<MyAppointmentVO> getData(){
+	public List<MyAppointmentVO> getData() {
 		return mData;
 	}
-	
+
 	public MyAppointmentVO getItem(int arg0) {
 		return mData.get(arg0);
 	}
@@ -161,14 +160,14 @@ public class MyAppointmentListAdapter extends
 					headParams.width, headParams.height);
 		}
 
-		
 		holder.name.setText(mData.get(position).getCourseprocessdesc());
 		holder.time.setText(mData.get(position).getClassdatetimedesc());
 
 		String coachName = mData.get(position).getCoachid().getName();
 		String schoolName = mData.get(position).getCoachid()
 				.getDriveschoolinfo().getName();
-		String trainPlace = mData.get(position).getTrainfieldlinfo().getName();
+		String trainPlace = mData.get(position).getTrainfieldlinfo()
+				.getFieldname();
 
 		holder.coachinfo.setText(coachName + ", "
 				+ (TextUtils.isEmpty(trainPlace) ? schoolName : trainPlace));

@@ -13,7 +13,6 @@ import android.widget.Toast;
 import cn.sft.baseactivity.util.Util;
 import cn.sft.listener.ICallBack;
 
-import com.google.gson.JsonObject;
 import com.sft.common.BlackCatApplication;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.CarModelVO;

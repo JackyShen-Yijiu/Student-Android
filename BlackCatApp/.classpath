@@ -5,5 +5,7 @@
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry kind="src" path="/Cropper"/>
+	<classpathentry kind="src" path="/InfiniteScrollViewPager"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

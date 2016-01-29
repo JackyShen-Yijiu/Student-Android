@@ -112,7 +112,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:textColor="#ff7f05"
-                        android:textSize="15dp" />
+                        android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/select_school_comment_coach_tv"

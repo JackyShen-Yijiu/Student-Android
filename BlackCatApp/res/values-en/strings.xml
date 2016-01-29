@@ -29,6 +29,7 @@
     <string name="coach_list">教练列表</string>
     <string name="coach_detail">教练详情</string>
     <string name="select_school">附近驾校</string>
+    <string name="search_coach">搜索教练</string>
     <string name="school_detail">驾校详情</string>
     <string name="enroll">报名</string>
     <string name="go_and_see">再去看看</string>
@@ -37,6 +38,8 @@
     <string name="yibu_procedure">合作驾校</string>
     <string name="yibu_superiority">平台优势</string>
     <string name="enroll_info_table">报名信息表</string>
+    <string name="apply_left">投诉</string>
+    <string name="in_uploading">正在上传</string>
     <string name="commit">提交</string>
     <string name="real_name">真实姓名</string>
     <string name="idcard">身份证号</string>
@@ -58,6 +61,7 @@
     <string name="shuttle">接送</string>
     <string name="general">全科</string>
     <string name="coach_info">教练信息</string>
+    <string name="coach_course_info">授课信息</string>
     <string name="ex_place">训练场地:</string>
     <string name="coach_shuttle">接        送:</string>
     <string name="coach_seniority">教        龄:</string>
@@ -69,8 +73,12 @@
     <string name="success_rate">通  过  率:</string>
     <string name="work_time">营业时间:</string>
     <string name="school_instruction">驾校简介</string>
+    <string name="bus_route">班车路线</string>
+    <string name="training_ground">训练场</string>
     <string name="select_coach">选择教练</string>
     <string name="my_appointment">我的预约</string>
+    <string name="today_appointment">今日预约</string>
+    <string name="sign_in">签到</string>
     <string name="appointment_car">预约学车</string>
     <string name="appointment_course">课件</string>
     <string name="wallet">钱包</string>
@@ -102,7 +110,7 @@
     <string name="my_coach">我的教练</string>
     <string name="setting">设置</string>
     <string name="enroll_detail">报名详情</string>
-    <string name="logout">退出登陆</string>
+    <string name="logout">退出登录</string>
     <string name="person_center">个人中心</string>
     <string name="eidt_info">编辑信息</string>
     <string name="headpic">头像</string>
@@ -150,7 +158,7 @@
     <string name="caoch_comment">教练评论</string>
     <string name="student_detail">学员详情</string>
     <string name="appointment_time_incontinuity">预约时间不连续</string>
-     <string name="select_right_driveing_school">请选择您报名的驾校下的教练</string>
+    <string name="select_right_driveing_school">请选择您报名的驾校下的教练</string>
     <string name="driveing_school_error">教练不正确</string>
     <string name="appointment_time_separate">请分两次预约</string>
     <string name="appointment_time_success">预约提交成功</string>
@@ -250,5 +258,6 @@
     <string name="apply_system_distribute">系统分配</string>
     <string name="apply_add_byself">自行添加</string>
     <string name="yibu_phone">4006269255</string>
+    <string name="course_fee">课程费用</string>
 
 </resources>

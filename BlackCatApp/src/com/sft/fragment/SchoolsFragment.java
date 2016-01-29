@@ -24,6 +24,7 @@ import com.sft.api.ApiHttpClient;
 import com.sft.blackcatapp.ApplyActivity;
 import com.sft.blackcatapp.BaseActivity;
 import com.sft.blackcatapp.EnrollSchoolActivity;
+import com.sft.blackcatapp.EnrollSchoolActivity1;
 import com.sft.blackcatapp.R;
 import com.sft.blackcatapp.SchoolDetailActivity;
 import com.sft.common.Config;
@@ -83,7 +84,7 @@ public class SchoolsFragment extends BaseFragment implements
 
 	private String cityname;
 	private String licensetype;
-	private String schoolname;
+	public String schoolname;
 	private String ordertype;
 
 	private final static String nearBySchool = "nearBySchool";
@@ -130,7 +131,7 @@ public class SchoolsFragment extends BaseFragment implements
 	private RelativeLayout adLayout;
 	private EditText searchSchool;
 	private RefreshLayout swipeLayout;
-	private LinearLayout llSearch;
+//	private LinearLayout llSearch;
 
 	//
 
@@ -144,6 +145,14 @@ public class SchoolsFragment extends BaseFragment implements
 	private boolean scrollFlag;
 	/** 上次所在的位置 */
 	private int lastId = 0;
+	
+	static SchoolsFragment fragment = null;
+	
+	public static SchoolsFragment getInstance(){
+		if(fragment == null)
+			fragment = new SchoolsFragment();
+		return fragment;
+	}
 	
 	public void setCurrent(SchoolVO selectSchool){
 		selectSchool = this.selectSchool;
@@ -187,9 +196,7 @@ public class SchoolsFragment extends BaseFragment implements
 				// 加载失败，弹出失败对话框
 				Toast(msg);
 			} else {
-
 				processSuccess(value);
-
 			}
 		}
 
@@ -237,8 +244,11 @@ public class SchoolsFragment extends BaseFragment implements
 
 	// 搜索成功
 	protected void processSuccess(String value) {
-		LogUtil.print("aaaaaaaaa111" );
-		searchSchool.setVisibility(View.GONE);
+//		LogUtil.print("aaaaaaaaa111" );
+		if(!isSearchSchool)
+			searchSchool.setVisibility(View.GONE);
+//		((EnrollSchoolActivity1)getActivity()).etSearch.setVisibility(View.GONE);
+//		searchSchool.setVisibility(View.GONE);
 		if (value != null) {
 			LogUtil.print(value);
 			try {
@@ -277,7 +287,7 @@ public class SchoolsFragment extends BaseFragment implements
 	private TextView priceSelect;
 	private ImageView arrow1, arrow2, arrow3, arrow4;
 
-	private void searchSchool(boolean isSearch) {
+	public void searchSchool(boolean isSearch) {
 		if (isSearch) {
 			searchIndex = 1;
 		}
@@ -365,16 +375,21 @@ public class SchoolsFragment extends BaseFragment implements
 			@Override
 			public void downPull() {
 				if (lastId == 0) {
+					searchSchool.setVisibility(View.VISIBLE);
+//					((EnrollSchoolActivity1)getActivity()).etSearch.setVisibility(View.VISIBLE);
 					LogUtil.print("scrolling---2222>"
 							+ schoolListView.getPivotX());
-					searchSchool.setVisibility(View.VISIBLE);
-					schoolListView.scrollListBy(0);
+//					searchSchool.setVisibility(View.VISIBLE);
+//					schoolListView.scrollListBy(0);
 					LogUtil.print("scrolling---4444>"
 							+ schoolListView.getPivotX());
 				}
 
 			}
 		});
+		
+//		searchSchool.
+		
 		// schoolListView.setPullRefreshEnable(false);
 		// schoolListView.setPullLoadEnable(false);
 
@@ -394,10 +409,10 @@ public class SchoolsFragment extends BaseFragment implements
 //		}
 		// }
 
-//		View headerView = View.inflate(mContext, R.layout.enroll_school_header,
-//				null);
+		View headerView = View.inflate(getActivity(), R.layout.enroll_school_header,
+				null);
 //
-//		schoolListView.addHeaderView(headerView);
+		schoolListView.addHeaderView(headerView);
 //
 //		// 查找搜索框
 //		llSearch = (LinearLayout) headerView
@@ -411,8 +426,8 @@ public class SchoolsFragment extends BaseFragment implements
 //				.findViewById(R.id.enroll_school_top_dotlayout);
 //		defaultImage = (ImageView) headerView
 //				.findViewById(R.id.enroll_school_top_defaultimage);
-//		searchSchool = (EditText) headerView
-//				.findViewById(R.id.enroll_school_search_et);
+		searchSchool = (EditText) headerView
+				.findViewById(R.id.enroll_school_search_et);
 //
 //		classSelect = (TextView) findViewById(R.id.enroll_school_class_select_tv);
 //		distanceSelect = (TextView) findViewById(R.id.enroll_school_distance_select_tv);
@@ -564,15 +579,15 @@ public class SchoolsFragment extends BaseFragment implements
 
 	private void setListener() {
 		schoolListView.setOnItemClickListener(this);
-		topViewPager.setPageChangeListener(this);
+//		topViewPager.setPageChangeListener(this);
 		// searchSchool.seton
 		swipeLayout.setOnRefreshListener(this);
 		swipeLayout.setOnLoadListener(this);
 
-		classSelect.setOnClickListener(this);
-		distanceSelect.setOnClickListener(this);
-		commentSelect.setOnClickListener(this);
-		priceSelect.setOnClickListener(this);
+//		classSelect.setOnClickListener(this);
+//		distanceSelect.setOnClickListener(this);
+//		commentSelect.setOnClickListener(this);
+//		priceSelect.setOnClickListener(this);
 	}
 
 	private boolean isClassSelected = false;
@@ -600,7 +615,7 @@ public class SchoolsFragment extends BaseFragment implements
 			cityname = currCity;
 			schoolname = "";
 			ordertype = "1";
-			setSelectState(2);
+//			setSelectState(2);
 			obtainNearBySchool();
 			break;
 		case R.id.enroll_school_comment_select_tv:
@@ -608,7 +623,7 @@ public class SchoolsFragment extends BaseFragment implements
 			cityname = currCity;
 			schoolname = "";
 			ordertype = "2";
-			setSelectState(3);
+//			setSelectState(3);
 			obtainNearBySchool();
 			break;
 		case R.id.enroll_school_price_select_tv:
@@ -616,12 +631,12 @@ public class SchoolsFragment extends BaseFragment implements
 			cityname = currCity;
 			schoolname = "";
 			ordertype = "3";
-			setSelectState(4);
+//			setSelectState(4);
 			obtainNearBySchool();
 			break;
 
 		case R.id.pop_window_one:
-			setSelectState(1);
+//			setSelectState(1);
 			isClassSelected = true;
 			cityname = currCity;
 			licensetype = "1";
@@ -634,7 +649,7 @@ public class SchoolsFragment extends BaseFragment implements
 			}
 			break;
 		case R.id.pop_window_two:
-			setSelectState(1);
+//			setSelectState(1);
 			isClassSelected = true;
 			cityname = currCity;
 			licensetype = "2";
@@ -647,6 +662,66 @@ public class SchoolsFragment extends BaseFragment implements
 			}
 			break;
 		}
+	}
+	
+	/**
+	 * 排序
+	 */
+	public void order(int flag){
+		switch(flag){
+		case R.id.enroll_school_distance_select_tv://距离
+			index = 1;
+			cityname = currCity;
+			schoolname = "";
+			ordertype = "1";
+//			setSelectState(2);
+			obtainNearBySchool();
+			break;
+		case R.id.enroll_school_comment_select_tv://评价
+			index = 1;
+			cityname = currCity;
+			schoolname = "";
+			ordertype = "2";
+//			setSelectState(3);
+			obtainNearBySchool();
+			break;
+		case R.id.enroll_school_price_select_tv://价格
+			index = 1;
+			cityname = currCity;
+			schoolname = "";
+			ordertype = "3";
+//			setSelectState(4);
+			obtainNearBySchool();
+			break;
+
+		case R.id.pop_window_one:
+//			setSelectState(1);
+			isClassSelected = true;
+			cityname = currCity;
+			licensetype = "1";
+			schoolname = "";
+			ordertype = "";
+			LogUtil.print("====" + licensetype);
+			obtainNearBySchool();
+			if (popupWindow != null) {
+				popupWindow.dismiss();
+			}
+			break;
+		case R.id.pop_window_two:
+//			setSelectState(1);
+			isClassSelected = true;
+			cityname = currCity;
+			licensetype = "2";
+			schoolname = "";
+			LogUtil.print("====" + licensetype);
+			ordertype = "";
+			obtainNearBySchool();
+			if (popupWindow != null) {
+				popupWindow.dismiss();
+			}
+			break;
+		}
+		
 	}
 
 	private void obtainOpenCity() {
@@ -1003,18 +1078,21 @@ public class SchoolsFragment extends BaseFragment implements
 	@Override
 	public View onCreateView(LayoutInflater inflater,
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-		return super.onCreateView(inflater, container, savedInstanceState);
+		View v = inflater.inflate(R.layout.fragment_coach_or_school, null);
+		initView(v);
+		return v;
 	}
 
-	private void initView() {
+	private void initView(View v) {
+		
 //		addView(R.layout.activity_enroll_school);
 
 //		isFromMenu = getIntent().getBooleanExtra("isFromMenu", false);
 
 		currCity = app.curCity;
 		isSearchSchool = false;
-		initView();
+//		initView();
+		initViewA(v);
 		initData();
 		setListener();
 		obtainHeadLineNews();
