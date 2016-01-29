@@ -2,7 +2,9 @@ package com.sft.vo.commentvo;
 
 import cn.sft.sqlhelper.DBVO;
 
+import com.sft.vo.commonvo.CarModel;
 import com.sft.vo.commonvo.HeadPortrait;
+import com.sft.vo.uservo.ApplyClassTypeInfo;
 
 public class CommentUser extends DBVO {
 
@@ -11,6 +13,8 @@ public class CommentUser extends DBVO {
 	private String _id;
 	private HeadPortrait headportrait;
 	private String name;
+	private ApplyClassTypeInfo applyclasstypeinfo;
+	private CarModel carmodel;
 
 	public String get_id() {
 		return _id;
@@ -34,6 +38,22 @@ public class CommentUser extends DBVO {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public ApplyClassTypeInfo getApplyclasstypeinfo() {
+		return applyclasstypeinfo;
+	}
+
+	public void setApplyclasstypeinfo(ApplyClassTypeInfo applyclasstypeinfo) {
+		this.applyclasstypeinfo = applyclasstypeinfo;
+	}
+
+	public CarModel getCarmodel() {
+		return carmodel;
+	}
+
+	public void setCarmodel(CarModel carmodel) {
+		this.carmodel = carmodel;
 	}
 
 	@Override

@@ -16,7 +16,6 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -33,8 +32,8 @@ import cn.sft.baseactivity.util.HttpSendUtils;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.sft.adapter.CoachListAdapter;
 import com.sft.adapter.OpenCityAdapter;
+import com.sft.adapter.SearchCoachListAdapter;
 import com.sft.api.ApiHttpClient;
 import com.sft.common.Config;
 import com.sft.util.JSONUtil;
@@ -79,14 +78,12 @@ public class SearchCoachActivity extends BaseActivity implements
 
 	private CoachVO selectCoach;
 	private List<CoachVO> coachList = new ArrayList<CoachVO>();
-	private CoachListAdapter adapter;
+	private SearchCoachListAdapter adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		addView(R.layout.activity_enroll_school);
-
-		WindowManager wm = this.getWindowManager();
 
 		mContext = this;
 		setRightText("定位中");
@@ -276,7 +273,7 @@ public class SearchCoachActivity extends BaseActivity implements
 			public void run() {
 				if (isSearchCoach) {
 					if (index == 1 && coach.size() == 0) {
-						toast.setText("没有搜索到您要找的驾校");
+						toast.setText("没有搜索到您要找的教练");
 						return;
 					}
 				}
@@ -284,7 +281,8 @@ public class SearchCoachActivity extends BaseActivity implements
 					coachList.clear();
 					if (!isRefreshing) {
 						coachList.addAll(coach);
-						adapter = new CoachListAdapter(mContext, coachList);
+						adapter = new SearchCoachListAdapter(mContext,
+								coachList);
 						coachListView.setAdapter(adapter);
 					} else {
 						coachList.addAll(coach);

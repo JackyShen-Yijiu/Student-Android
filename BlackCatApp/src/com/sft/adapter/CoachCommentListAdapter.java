@@ -2,11 +2,6 @@ package com.sft.adapter;
 
 import java.util.List;
 
-import com.sft.blackcatapp.CoachDetailActivity;
-import com.sft.blackcatapp.R;
-import com.sft.util.UTC2LOC;
-import com.sft.vo.CoachCommentVO;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -17,10 +12,14 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.sft.infinitescrollviewpager.BitmapManager;
+
+import com.sft.blackcatapp.CoachDetailActivity;
+import com.sft.blackcatapp.R;
+import com.sft.util.UTC2LOC;
+import com.sft.vo.CoachCommentVO;
 
 @SuppressLint("InflateParams")
 public class CoachCommentListAdapter extends BaseAdapter {
@@ -59,12 +58,19 @@ public class CoachCommentListAdapter extends BaseAdapter {
 
 		ViewHolder holder = null;
 		if (convertView == null) {
-			convertView = mInflater.inflate(R.layout.coach_detail_list_item, null);
+			convertView = mInflater.inflate(R.layout.coach_detail_list_item,
+					null);
 			holder = new ViewHolder();
-			holder.name = (TextView) convertView.findViewById(R.id.coach_detail_comment_name_tv);
-			holder.headPic = (ImageView) convertView.findViewById(R.id.coach_detail_comment_headpic_im);
-			holder.time = (TextView) convertView.findViewById(R.id.coach_detail_comment_time_tv);
-			holder.content = (TextView) convertView.findViewById(R.id.coach_detail_comment_content_tv);
+			holder.name = (TextView) convertView
+					.findViewById(R.id.coach_detail_comment_name_tv);
+			holder.headPic = (ImageView) convertView
+					.findViewById(R.id.coach_detail_comment_headpic_im);
+			holder.time = (TextView) convertView
+					.findViewById(R.id.coach_detail_comment_time_tv);
+			holder.content = (TextView) convertView
+					.findViewById(R.id.coach_detail_comment_content_tv);
+			holder.classType = (TextView) convertView
+					.findViewById(R.id.coach_detail_comment_classtype_tv);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -72,17 +78,26 @@ public class CoachCommentListAdapter extends BaseAdapter {
 
 		String name = mData.get(position).getUserid().getName();
 		holder.name.setText(name);
-		String time = UTC2LOC.instance.getDate(mData.get(position).getFinishtime(), "yyyy-MM-dd HH:mm:ss");
+		String time = UTC2LOC.instance.getDate(mData.get(position)
+				.getFinishtime(), "yyyy-MM-dd");
 		holder.time.setText(time);
 		String content = mData.get(position).getComment().getCommentcontent();
 		holder.content.setText(content);
 
-		LinearLayout.LayoutParams headParam = (LayoutParams) holder.headPic.getLayoutParams();
+		if (mData.get(position).getUserid() != null
+				&& mData.get(position).getUserid().getApplyclasstypeinfo() != null) {
+			holder.classType.setText(mData.get(position).getUserid()
+					.getApplyclasstypeinfo().getName());
+		}
+		RelativeLayout.LayoutParams headParam = (android.widget.RelativeLayout.LayoutParams) holder.headPic
+				.getLayoutParams();
 
-		String url = mData.get(position).getUserid().getHeadportrait().getOriginalpic();
+		String url = mData.get(position).getUserid().getHeadportrait()
+				.getOriginalpic();
 
 		if (!TextUtils.isEmpty(url)) {
-			BitmapManager.INSTANCE.loadBitmap2(url, holder.headPic, headParam.width, headParam.height);
+			BitmapManager.INSTANCE.loadBitmap2(url, holder.headPic,
+					headParam.width, headParam.height);
 		} else {
 			holder.headPic.setBackgroundResource(R.drawable.default_small_pic);
 		}
@@ -91,8 +106,9 @@ public class CoachCommentListAdapter extends BaseAdapter {
 
 			@Override
 			public void onClick(View v) {
-				context.sendBroadcast(new Intent(CoachDetailActivity.class.getName()).putExtra("position", position)
-						.putExtra("showStudentInfo", true));
+				context.sendBroadcast(new Intent(CoachDetailActivity.class
+						.getName()).putExtra("position", position).putExtra(
+						"showStudentInfo", true));
 			}
 		});
 		return convertView;
@@ -103,5 +119,7 @@ public class CoachCommentListAdapter extends BaseAdapter {
 		public ImageView headPic;
 		public TextView time;
 		public TextView content;
+		public TextView classType;
+
 	}
 }

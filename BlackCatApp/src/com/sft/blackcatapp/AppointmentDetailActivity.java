@@ -32,7 +32,6 @@ import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.sft.adapter.AppointmentDetailStudentHoriListAdapter;
-import com.sft.blackcatapp.R;
 import com.sft.common.Config;
 import com.sft.common.Config.AppointmentResult;
 import com.sft.common.Config.UserType;
@@ -162,7 +161,7 @@ public class AppointmentDetailActivity extends BaseActivity implements
 		shuttleTv.setText("接送地点:" + appointmentVO.getShuttleaddress());
 		studyProcessTv.setText(appointmentVO.getCourseprocessdesc());
 
-		String trainPlace = appointmentVO.getTrainfieldlinfo().getName();
+		String trainPlace = appointmentVO.getTrainfieldlinfo().getFieldname();
 		if (TextUtils.isEmpty(trainPlace)) {
 			trainPlace = appointmentVO.getCoachid().getDriveschoolinfo()
 					.getName();

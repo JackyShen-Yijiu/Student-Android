@@ -6,23 +6,41 @@ public class TrainFieldlInfo extends DBVO {
 
 	private static final long serialVersionUID = 1L;
 
-	private String name;
-	private String id;
+	private String fieldname;
+	private String _id;
+	private String phone;
+	private String[] pictures;
 
-	public String getName() {
-		return name;
+	public String getFieldname() {
+		return fieldname;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFieldname(String fieldname) {
+		this.fieldname = fieldname;
 	}
 
-	public String getId() {
-		return id;
+	public String get_id() {
+		return _id;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void set_id(String _id) {
+		this._id = _id;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String[] getPictures() {
+		return pictures;
+	}
+
+	public void setPictures(String[] pictures) {
+		this.pictures = pictures;
 	}
 
 }
