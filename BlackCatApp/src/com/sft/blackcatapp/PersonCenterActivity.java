@@ -288,7 +288,7 @@ public class PersonCenterActivity extends BaseActivity {
 				ZProgressHUD.getInstance(this).dismissWithSuccess("您已报名");
 			} else {
 				Intent intent1 = new Intent(PersonCenterActivity.this,
-						TestingApplyActivity.class);
+						TestingPhoneActivity.class);
 				startActivity(intent1);
 			}
 
