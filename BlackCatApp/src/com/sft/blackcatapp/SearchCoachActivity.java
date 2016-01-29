@@ -127,19 +127,19 @@ public class SearchCoachActivity extends BaseActivity implements
 		searchCoach = (EditText) headerView
 				.findViewById(R.id.search_coach_search_et);
 
-		carSelect = (TextView) headerView
-				.findViewById(R.id.search_coach_car_select_tv);
-		distanceSelect = (TextView) headerView
-				.findViewById(R.id.search_coach_distance_select_tv);
-		commentSelect = (TextView) headerView
-				.findViewById(R.id.search_coach_comment_select_tv);
-
-		arrow1 = (ImageView) headerView
-				.findViewById(R.id.search_coach_arrow1_iv);
-		arrow2 = (ImageView) headerView
-				.findViewById(R.id.search_coach_arrow2_iv);
-		arrow3 = (ImageView) headerView
-				.findViewById(R.id.search_coach_arrow3_iv);
+//		carSelect = (TextView) headerView
+//				.findViewById(R.id.search_coach_car_select_tv);
+//		distanceSelect = (TextView) headerView
+//				.findViewById(R.id.search_coach_distance_select_tv);
+//		commentSelect = (TextView) headerView
+//				.findViewById(R.id.search_coach_comment_select_tv);
+//
+//		arrow1 = (ImageView) headerView
+//				.findViewById(R.id.search_coach_arrow1_iv);
+//		arrow2 = (ImageView) headerView
+//				.findViewById(R.id.search_coach_arrow2_iv);
+//		arrow3 = (ImageView) headerView
+//				.findViewById(R.id.search_coach_arrow3_iv);
 
 	}
 
@@ -360,24 +360,24 @@ public class SearchCoachActivity extends BaseActivity implements
 			obtainOpenCity();
 			break;
 
-		case R.id.search_coach_car_select_tv:
-
-			showPopupWindow(carSelect);
-			break;
-		case R.id.search_coach_distance_select_tv:
-			index = 1;
-			ordertype = "1";
-			coachname = "";
-			obtainCaoch();
-			setSelectState(2);
-			break;
-		case R.id.search_coach_comment_select_tv:
-			setSelectState(3);
-			index = 1;
-			ordertype = "2";
-			coachname = "";
-			obtainCaoch();
-			break;
+//		case R.id.search_coach_car_select_tv:
+//
+//			showPopupWindow(carSelect);
+//			break;
+//		case R.id.search_coach_distance_select_tv:
+//			index = 1;
+//			ordertype = "1";
+//			coachname = "";
+//			obtainCaoch();
+//			setSelectState(2);
+//			break;
+//		case R.id.search_coach_comment_select_tv:
+//			setSelectState(3);
+//			index = 1;
+//			ordertype = "2";
+//			coachname = "";
+//			obtainCaoch();
+//			break;
 
 		case R.id.pop_window_one:
 			setSelectState(1);

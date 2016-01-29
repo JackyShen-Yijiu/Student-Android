@@ -7,6 +7,7 @@ import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,7 +21,9 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AbsListView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -36,8 +39,10 @@ import com.sft.adapter.CoachListAdapter;
 import com.sft.api.ApiHttpClient;
 import com.sft.blackcatapp.ApplyActivity;
 import com.sft.blackcatapp.CoachDetailActivity;
+import com.sft.blackcatapp.EnrollSchoolActivity1;
 import com.sft.blackcatapp.R;
 import com.sft.common.Config;
+import com.sft.listener.MOnScrollListener;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
 import com.sft.view.RefreshLayout;
@@ -69,7 +74,7 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener, 
 
 	private String cityname;
 	private String licensetype;
-	private String coachname;
+	public String coachname;
 	private String ordertype;
 
 	private int index = 1; // 分页
@@ -82,6 +87,8 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener, 
 	private CoachListAdapter adapter;
 	
 	static CoachsFragment1 frag;
+	
+	private int lastId;
 	
 	public static CoachsFragment1 getInstance(){
 		if(frag==null)
@@ -149,7 +156,7 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener, 
 //		setRightText("定位中"000);
 		currCity = app.curCity;
 		initView(v);
-//		initData();
+		initData();
 		setListener();
 		cityname = "";
 		licensetype = "";
@@ -192,6 +199,35 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener, 
 		swipeLayout.setBackgroundColor(getResources().getColor(R.color.white));
 		coachListView = (ListView) rootView.findViewById(R.id.enroll_select_school_listview);
 
+		swipeLayout.setChildScroll(new MOnScrollListener() {
+
+			@Override
+			public void onScrollStateChanged(AbsListView view, int scrollState) {
+				// TODO Auto-generated method stub
+			}
+
+			/**
+			 * firstVisibleItem：当前能看见的第一个列表项ID（从0开始）
+			 * visibleItemCount：当前能看见的列表项个数（小半个也算） totalItemCount：列表项共数
+			 */
+			@Override
+			public void onScroll(AbsListView view, int firstVisibleItem,
+					int visibleItemCount, int totalItemCount) {
+
+				lastId = firstVisibleItem;
+			}
+
+			@SuppressLint("NewApi")
+			@Override
+			public void downPull() {
+				if (lastId == 0) {
+					searchCoach.setVisibility(View.VISIBLE);
+//					((EnrollSchoolActivity1)getActivity()).etSearch.setVisibility(View.VISIBLE);
+				}
+
+			}
+		});
+		
 //		showTitlebarText(BaseActivity.SHOW_RIGHT_TEXT);
 //		if (currCity != null) {
 //			currCity = currCity.replace("市", "");
@@ -199,12 +235,12 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener, 
 //
 //		}
 
-//		View headerView = View.inflate(mContext, R.layout.search_coach_header,
-//				null);
+		View headerView = View.inflate(getActivity(), R.layout.search_coach_header,
+				null);
 //
-//		coachListView.addHeaderView(headerView);
-//		searchCoach = (EditText) headerView
-//				.findViewById(R.id.search_coach_search_et);
+		coachListView.addHeaderView(headerView);
+		searchCoach = (EditText) headerView
+				.findViewById(R.id.search_coach_search_et);
 //
 //		carSelect = (TextView) headerView
 //				.findViewById(R.id.search_coach_car_select_tv);
@@ -323,9 +359,14 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener, 
 
 	// 搜索成功
 	protected void processSuccess(String value) {
+		if(!isSearchCoach)
+			searchCoach.setVisibility(View.GONE);
+//		((EnrollSchoolActivity1)getActivity()).etSearch.setVisibility(View.GONE);
+		
 		if (value != null) {
 			LogUtil.print(value);
 			try {
+				@SuppressWarnings("unchecked")
 				List<CoachVO> coachList = (List<CoachVO>) JSONUtil
 						.parseJsonToList(value, new TypeToken<List<CoachVO>>() {
 						}.getType());
@@ -409,7 +450,7 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener, 
 
 	}
 
-	private void searchcoach(boolean isSearch) {
+	public void searchcoach(boolean isSearch) {
 
 		if (isSearch) {
 			index = 1;
@@ -442,24 +483,24 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener, 
 			obtainOpenCity();
 			break;
 
-		case R.id.search_coach_car_select_tv:
-
-//			showPopupWindow(carSelect);
-			break;
-		case R.id.search_coach_distance_select_tv:
-			index = 1;
-			ordertype = "1";
-			coachname = "";
-			obtainCaoch();
-			setSelectState(2);
-			break;
-		case R.id.search_coach_comment_select_tv:
-			setSelectState(3);
-			index = 1;
-			ordertype = "2";
-			coachname = "";
-			obtainCaoch();
-			break;
+//		case R.id.search_coach_car_select_tv:
+//
+////			showPopupWindow(carSelect);
+//			break;
+//		case R.id.search_coach_distance_select_tv:
+//			index = 1;
+//			ordertype = "1";
+//			coachname = "";
+//			obtainCaoch();
+//			setSelectState(2);
+//			break;
+//		case R.id.search_coach_comment_select_tv:
+//			setSelectState(3);
+//			index = 1;
+//			ordertype = "2";
+//			coachname = "";
+//			obtainCaoch();
+//			break;
 
 		case R.id.pop_window_one:
 			setSelectState(1);

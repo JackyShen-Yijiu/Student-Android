@@ -43,7 +43,11 @@ import com.sft.vo.CarModelVO;
 import com.sft.vo.ClassVO;
 import com.sft.vo.CoachVO;
 import com.sft.vo.SchoolVO;
-
+/**
+ * 报名
+ * @author sun  2016-1-29 下午1:36:14
+ *
+ */
 public class ApplyActivity extends BaseActivity implements
 		OnClassTypeSelectedListener, OnSelectConfirmListener {
 
@@ -953,4 +957,9 @@ public class ApplyActivity extends BaseActivity implements
 
 		}
 	}
+	
+	private void YCodeDialog(){
+		
+	}
+	
 }

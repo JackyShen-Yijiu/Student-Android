@@ -1,25 +1,32 @@
 package com.sft.blackcatapp;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.TextView.OnEditorActionListener;
 
 import com.sft.fragment.CoachsFragment;
 import com.sft.fragment.CoachsFragment1;
 import com.sft.fragment.SchoolsFragment;
+import com.sft.util.LogUtil;
 
 /**
  * 选择驾校界面
@@ -35,11 +42,11 @@ public class EnrollSchoolActivity1 extends FragmentActivity implements OnClickLi
 	
 	CoachsFragment1 coachFragment = null;
 	/**查找驾校*/
-	private int type = 1;
+	private int type = 0;
 	
-	private EditText etSearch;
+	public EditText etSearch;
 	
-	
+	private TextView tvTitle;
 	private TextView tvRight;
 	
 	private boolean isClassSelected = false;
@@ -66,11 +73,14 @@ public class EnrollSchoolActivity1 extends FragmentActivity implements OnClickLi
 		isFromMenu = getIntent().getBooleanExtra("isFromMenu", false);
 		setContentView(R.layout.act_enrollschool_container);
 		initView(type);
+		initData();
 		
 	}
 	
 	private void initView(int flag) {
-		((TextView) findViewById(R.id.base_title_tv)).setText(R.string.select_school);
+		
+		tvTitle = ((TextView) findViewById(R.id.base_title_tv));
+		
 		etSearch = (EditText) findViewById(R.id.enroll_school_search_et);
 		tvRight = ((TextView) findViewById(R.id.base_right_tv));
 		tvRight.setClickable(true);
@@ -84,6 +94,9 @@ public class EnrollSchoolActivity1 extends FragmentActivity implements OnClickLi
 		arrow3 = (ImageView) findViewById(R.id.enroll_school_arrow3_iv);
 		arrow4 = (ImageView) findViewById(R.id.enroll_school_arrow4_iv);
 		
+		ImageButton imgLeft = (ImageButton) findViewById(R.id.base_left_btn);
+		imgLeft.setBackgroundResource(R.drawable.base_left_btn_bkground);
+		imgLeft.setOnClickListener(this);
 		
 //		setTitleText(R.string.select_school);
 //		setRightText("定位中");
@@ -94,14 +107,43 @@ public class EnrollSchoolActivity1 extends FragmentActivity implements OnClickLi
 				schoolFragment = SchoolsFragment.getInstance();
 			tran.add(R.id.fl_container, schoolFragment);
 			tvRight.setText("找教练");
+			tvTitle.setText(R.string.select_school);
 		}else{//教练
 			if(coachFragment == null)
 				coachFragment = CoachsFragment1.getInstance();
 			tran.add(R.id.fl_container, coachFragment);
 			tvRight.setText("找驾校");
+			tvTitle.setText(R.string.search_coach);
 		}
 		
 		tran.commitAllowingStateLoss();
+	}
+	
+	private void initData() {
+		etSearch.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
+		etSearch.setOnEditorActionListener(new OnEditorActionListener() {
+
+			@Override
+			public boolean onEditorAction(TextView v, int actionId,
+					KeyEvent event) {
+				if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+					// 先隐藏键盘
+					((InputMethodManager) etSearch.getContext()
+							.getSystemService(Context.INPUT_METHOD_SERVICE))
+							.hideSoftInputFromWindow(EnrollSchoolActivity1.this
+									.getCurrentFocus().getWindowToken(),
+									InputMethodManager.HIDE_NOT_ALWAYS);
+
+					// 实现搜索
+					LogUtil.print("搜索");
+					String coachname = etSearch.getText().toString().trim();
+					searchcoach(coachname);
+					return true;
+				}
+				return false;
+			}
+
+		});
 	}
 	
 	/**
@@ -118,16 +160,27 @@ public class EnrollSchoolActivity1 extends FragmentActivity implements OnClickLi
 //				tran.show(coachFragment);
 			tran.replace(R.id.fl_container, coachFragment);
 			tvRight.setText("找驾校");
+			tvTitle.setText(R.string.search_coach);
 		}else{//切换到驾校
 			if(schoolFragment == null)
 				schoolFragment = SchoolsFragment.getInstance();
 			type = 0;
 			tran.replace(R.id.fl_container, schoolFragment);
 			tvRight.setText("找教练");
+			tvTitle.setText(R.string.select_school);
 		}
 		tran.commitAllowingStateLoss();
 	}
 	
+	private void searchcoach(String name){
+		if(type == 0){
+			schoolFragment.schoolname = name;
+			schoolFragment.searchSchool(true);
+		}else if(type==1){
+			coachFragment.coachname = name;
+			coachFragment.searchcoach(true);
+		}
+	}
 	
 	
 	@Override
@@ -283,9 +336,12 @@ public class EnrollSchoolActivity1 extends FragmentActivity implements OnClickLi
 	@Override
 	protected void onActivityResult(int requestCode, final int resultCode,
 			final Intent data) {
-		if (data != null) {
-			
+		if(type==0){
+			schoolFragment.onActivityResult(requestCode, resultCode, data);
+		}else{
+			coachFragment.onActivityResult(requestCode, resultCode, data);
 		}
+			
 	}
 
 	

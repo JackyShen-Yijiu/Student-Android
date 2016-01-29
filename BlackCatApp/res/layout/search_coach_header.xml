@@ -2,7 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content" >
-
+    
+    <!-- 
+    
     <LinearLayout
         android:id="@+id/search_coach_select_ll"
         android:layout_width="match_parent"
@@ -110,15 +112,19 @@
         </RelativeLayout>
 
     </LinearLayout>
-
+    
     <ImageView
         android:id="@+id/search_coach_divide_line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#dddddd"
-        android:layout_below="@+id/search_coach_select_ll"
         android:layout_marginTop="6dp"
         android:contentDescription="@string/app_name" />
+    
+     -->
+
+
+    
     
     <EditText 
        android:id="@+id/search_coach_search_et"
@@ -127,7 +133,6 @@
         android:layout_marginTop="8dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:layout_below="@+id/search_coach_divide_line"
         android:hint="@string/search_school"
         android:imeOptions="actionSearch"
         android:drawableLeft="@drawable/shuttle_address_find"
@@ -135,6 +140,7 @@
         android:singleLine="true"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
+        android:paddingLeft="8dp"
        android:background="@drawable/change_shuttle_addess_bkground"
         />
      <ImageView
