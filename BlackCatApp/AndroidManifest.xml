@@ -334,6 +334,9 @@
             android:name="com.sft.blackcatapp.QRCodeCreateActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name="com.sft.blackcatapp.SchoolAllCoachActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="com.sft.dialog.BonusDialog"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.BonueDialog" />

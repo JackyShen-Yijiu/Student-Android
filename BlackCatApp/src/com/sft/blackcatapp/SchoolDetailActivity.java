@@ -13,13 +13,18 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+import android.view.ViewTreeObserver.OnGlobalLayoutListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.infinitescrollviewpager.BitMapURLExcepteionListner;
@@ -28,16 +33,18 @@ import cn.sft.infinitescrollviewpager.InfiniteViewPager;
 import cn.sft.infinitescrollviewpager.MyHandler;
 import cn.sft.infinitescrollviewpager.PageChangeListener;
 import cn.sft.infinitescrollviewpager.PageClickListener;
-import cn.sft.pull.LoadMoreView;
-import cn.sft.pull.LoadMoreView.LoadMoreListener;
-import cn.sft.pull.OnItemClickListener;
 
+import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.Animator.AnimatorListener;
+import com.nineoldandroids.animation.ValueAnimator;
+import com.nineoldandroids.animation.ValueAnimator.AnimatorUpdateListener;
 import com.sft.adapter.SchoolDetailCoachHoriListAdapter;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
 import com.sft.dialog.EnrollSelectConfilctDialog;
 import com.sft.dialog.EnrollSelectConfilctDialog.OnSelectConfirmListener;
 import com.sft.util.JSONUtil;
+import com.sft.util.LogUtil;
 import com.sft.util.Util;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.CoachVO;
@@ -53,8 +60,7 @@ import com.sft.vo.SchoolVO;
 @SuppressLint("ClickableViewAccessibility")
 public class SchoolDetailActivity extends BaseActivity implements
 		BitMapURLExcepteionListner, PageChangeListener,
-		OnCheckedChangeListener, OnSelectConfirmListener, OnItemClickListener,
-		LoadMoreListener {
+		OnCheckedChangeListener, OnSelectConfirmListener, OnItemClickListener {
 
 	private static final String schoolType = "school";
 	private static final String coach = "coach";
@@ -88,8 +94,8 @@ public class SchoolDetailActivity extends BaseActivity implements
 	private TextView schoolInfoTv;
 	// 驾校简介
 	private TextView schoolInstructionTv;
-	// 驾校教练列表
-	private LoadMoreView horizontalListView;
+	// // 驾校教练列表
+	// private LoadMoreView horizontalListView;
 	//
 	private SchoolDetailCoachHoriListAdapter adapter;
 	// 报名按钮
@@ -98,6 +104,8 @@ public class SchoolDetailActivity extends BaseActivity implements
 	private SchoolVO school;
 	// 驾校名称
 	private TextView schoolNameTv;
+	// 驾校价格
+	private TextView schoolPriceTv;
 	// 驾校地址
 	private TextView schoolAddressTv;
 	// 通过率
@@ -106,6 +114,8 @@ public class SchoolDetailActivity extends BaseActivity implements
 	private TextView workTimeTv;
 	// 驾校简介
 	private TextView schoolInTv;
+	// 驾校简介更多
+	private TextView schoolInMoreTv;
 	// 添加删除教练
 	private CheckBox addDeleteSchoolCk;
 	//
@@ -158,27 +168,36 @@ public class SchoolDetailActivity extends BaseActivity implements
 		setBtnBkground(R.drawable.base_left_btn_bkground, R.drawable.phone);
 		setTitleText(R.string.school_detail);
 
+		sv_container = (ScrollView) findViewById(R.id.school_detail_scrollview);
 		adLayout = (RelativeLayout) findViewById(R.id.school_detail_headpic_im);
 		viewPager = (InfiniteViewPager) findViewById(R.id.school_detail_viewpager);
 		dotLayout = (LinearLayout) findViewById(R.id.school_detail_dotlayout);
 
-		horizontalListView = (LoadMoreView) findViewById(R.id.select_coach_horizon_listview);
-		horizontalListView.setPullLoadMoreEnable(true);
-		horizontalListView.setHorizontal();
+		listView = (ListView) findViewById(R.id.school_coach_listview);
+		// horizontalListView = (LoadMoreView)
+		// findViewById(R.id.select_coach_horizon_listview);
+		// horizontalListView.setPullLoadMoreEnable(true);
+		// horizontalListView.setVertical();
 
+		// listview添加底部控件
+		View view = View.inflate(this, R.layout.look_school_all_coach, null);
+		listView.addFooterView(view);
 		schoolInfoTv = (TextView) findViewById(R.id.school_detail_schoolinfo_tv);
 		schoolInstructionTv = (TextView) findViewById(R.id.school_detail_schoolinstruction_tv);
 		enrollBtn = (Button) findViewById(R.id.coach_detail_enroll_btn);
 		schoolNameTv = (TextView) findViewById(R.id.school_detail_name_tv);
+		schoolPriceTv = (TextView) findViewById(R.id.school_detail_price_tv);
 		schoolAddressTv = (TextView) findViewById(R.id.school_detail_place_tv);
 		schoolRateTv = (TextView) findViewById(R.id.coach_detail_rate_tv);
 		workTimeTv = (TextView) findViewById(R.id.school_detail_weektime_tv);
 		schoolInTv = (TextView) findViewById(R.id.coach_detail_introduction_tv);
+		schoolInMoreTv = (TextView) findViewById(R.id.school_detail_more_tv);
+
 		addDeleteSchoolCk = (CheckBox) findViewById(R.id.school_detail_collection_ck);
 		noCoahTv = (TextView) findViewById(R.id.select_coach_horizon_no_tv);
 
 		noCoahTv.setVisibility(View.VISIBLE);
-		horizontalListView.setVisibility(View.GONE);
+		listView.setVisibility(View.GONE);
 
 		schoolInfoTv.getPaint().setFakeBoldText(true);
 		schoolInstructionTv.getPaint().setFakeBoldText(true);
@@ -212,8 +231,10 @@ public class SchoolDetailActivity extends BaseActivity implements
 		schoolAddressTv.setOnClickListener(this);
 		enrollBtn.setOnClickListener(this);
 		viewPager.setPageChangeListener(this);
-		horizontalListView.setLoadMoreListener(this);
+		// horizontalListView.setLoadMoreListener(this);
 		addDeleteSchoolCk.setOnCheckedChangeListener(this);
+		schoolInMoreTv.setOnClickListener(this);
+		listView.setOnItemClickListener(this);
 	}
 
 	private void setData() {
@@ -221,11 +242,58 @@ public class SchoolDetailActivity extends BaseActivity implements
 			adImageUrl = school.getPictures();
 			setViewPager();
 			schoolNameTv.setText(school.getName());
+			schoolPriceTv.setText(school.getPrice());
 			schoolAddressTv.setText(school.getAddress());
 			schoolRateTv.setText(school.getPassingrate() + "%");
 			workTimeTv.setText(school.getHours());
 			schoolInTv.setText(school.getIntroduction());
+			showSchoolIntro();
 		}
+	}
+
+	int minHeight;// 2行时候的高度
+	int maxHeight;// schoolInTv总的高度
+	private boolean isExtend = false;// 是否展开
+	private boolean isRunAnim = false;
+	private ScrollView sv_container;
+	private ListView listView;
+
+	private void showSchoolIntro() {
+		schoolInTv.setMaxLines(2);
+		schoolInTv.getViewTreeObserver().addOnGlobalLayoutListener(
+				new OnGlobalLayoutListener() {
+
+					@Override
+					public void onGlobalLayout() {
+						schoolInTv.getViewTreeObserver()
+								.removeGlobalOnLayoutListener(this);
+						minHeight = schoolInTv.getMeasuredHeight();// 得到5行时候的高度
+
+						// 2.让tv_des先显示全部的文本，再获取总高度
+						schoolInTv.setMaxLines(Integer.MAX_VALUE);// 显示全部文本
+						schoolInTv.getViewTreeObserver()
+								.addOnGlobalLayoutListener(
+										new OnGlobalLayoutListener() {
+											@Override
+											public void onGlobalLayout() {
+												schoolInTv
+														.getViewTreeObserver()
+														.removeGlobalOnLayoutListener(
+																this);
+												// 获取总高度
+												maxHeight = schoolInTv
+														.getHeight();
+
+												LogUtil.print("minHeight-"
+														+ minHeight
+														+ "+maxHeight"
+														+ maxHeight);
+												schoolInTv.getLayoutParams().height = minHeight;
+												schoolInTv.requestLayout();
+											}
+										});
+					}
+				});
 	}
 
 	private void obtainEnrollSchoolDetail() {
@@ -301,15 +369,15 @@ public class SchoolDetailActivity extends BaseActivity implements
 	@Override
 	public void doException(String type, Exception e, int code) {
 		if (coach.equals(type))
-			horizontalListView.setLoadMoreCompleted();
-		super.doException(type, e, code);
+			// horizontalListView.setLoadMoreCompleted();
+			super.doException(type, e, code);
 	}
 
 	@Override
 	public void doTimeOut(String type) {
 		if (coach.equals(type))
-			horizontalListView.setLoadMoreCompleted();
-		super.doTimeOut(type);
+			// horizontalListView.setLoadMoreCompleted();
+			super.doTimeOut(type);
 	}
 
 	@Override
@@ -330,24 +398,30 @@ public class SchoolDetailActivity extends BaseActivity implements
 					if (length > 0) {
 						coachPage++;
 						noCoahTv.setVisibility(View.GONE);
-						horizontalListView.setVisibility(View.VISIBLE);
+						listView.setVisibility(View.VISIBLE);
 
 						if (coachList == null)
 							coachList = new ArrayList<CoachVO>();
+						// 本页值显示两条数据
+						List<CoachVO> twoCoach = new ArrayList<CoachVO>();
 						for (int i = 0; i < length; i++) {
 							CoachVO coachVO = JSONUtil.toJavaBean(
 									CoachVO.class, dataArray.getJSONObject(i));
 							coachList.add(coachVO);
+							if (i < 2) {
+								twoCoach.add(coachVO);
+							}
 						}
+
 						if (adapter == null) {
 							adapter = new SchoolDetailCoachHoriListAdapter(
-									this, coachList);
+									this, twoCoach);
 						} else {
-							adapter.setData(coachList);
+							adapter.setData(twoCoach);
 						}
-						horizontalListView.setAdapter(adapter);
+						listView.setAdapter(adapter);
 					}
-					horizontalListView.setLoadMoreCompleted();
+					// horizontalListView.setLoadMoreCompleted();
 				}
 			} else if (type.equals(headLineNews)) {
 				if (dataArray != null) {
@@ -456,7 +530,62 @@ public class SchoolDetailActivity extends BaseActivity implements
 			intent.putExtra("title", school.getName());
 			startActivity(intent);
 			break;
+
+		case R.id.school_detail_more_tv:
+
+			if (isRunAnim) {
+				return;
+			}
+
+			ValueAnimator animator;
+			if (isExtend) {
+				// 执行收缩动画
+				animator = ValueAnimator.ofInt(maxHeight, minHeight);
+			} else {
+				// 执行扩展动画
+				animator = ValueAnimator.ofInt(minHeight, maxHeight);
+			}
+
+			animator.addUpdateListener(new AnimatorUpdateListener() {
+				@Override
+				public void onAnimationUpdate(ValueAnimator animator) {
+					int animatedValue = (Integer) animator.getAnimatedValue();
+					schoolInTv.getLayoutParams().height = animatedValue;
+					schoolInTv.requestLayout();
+
+					sv_container.scrollBy(0, maxHeight - minHeight);
+				}
+			});
+			animator.addListener(new AppDesAnimListener());
+			animator.setDuration(350);
+			animator.start();
+
+			// 标记值取反
+			isExtend = !isExtend;
+			schoolInMoreTv.setText(isExtend ? "收起" : "更多");
+			break;
 		}
+	}
+
+	class AppDesAnimListener implements AnimatorListener {
+		@Override
+		public void onAnimationCancel(Animator arg0) {
+		}
+
+		@Override
+		public void onAnimationEnd(Animator arg0) {
+			isRunAnim = false;
+		}
+
+		@Override
+		public void onAnimationRepeat(Animator arg0) {
+		}
+
+		@Override
+		public void onAnimationStart(Animator arg0) {
+			isRunAnim = true;
+		}
+
 	}
 
 	@Override
@@ -543,15 +672,22 @@ public class SchoolDetailActivity extends BaseActivity implements
 	}
 
 	@Override
-	public void onItemClick(int position) {
-		Intent intent = new Intent(this, CoachDetailActivity.class);
-		CoachVO coachVO = adapter.getItem(position);
-		intent.putExtra("coach", coachVO);
-		startActivityForResult(intent, horizontalListView.getId());
-	}
+	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+		if (arg2 == adapter.getCount()) {
+			// 查看该校全部教练
+			Intent intent = new Intent(this, SchoolAllCoachActivity.class);
+			startActivity(intent);
 
-	@Override
-	public void onLoadMore() {
-		obtainSchoolCoach(coachPage);
+		} else {
+
+			Intent intent = new Intent(this, CoachDetailActivity.class);
+			CoachVO coachVO = adapter.getItem(arg2);
+			intent.putExtra("coach", coachVO);
+			startActivityForResult(intent, listView.getId());
+		}
 	}
+	// @Override
+	// public void onLoadMore() {
+	// obtainSchoolCoach(coachPage);
+	// }
 }

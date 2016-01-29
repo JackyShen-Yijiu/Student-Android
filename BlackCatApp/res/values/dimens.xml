@@ -58,7 +58,7 @@
     <dimen name="coachdetail_collection_margintop">-24dp</dimen>
     <dimen name="coachdetail_collection_marginright">15dp</dimen>
     <dimen name="coachdetail_layout_paddingtopbottom">18dp</dimen>
-    <dimen name="coachdetail_comment_headpic_widthheight">25dp</dimen>
+    <dimen name="coachdetail_comment_headpic_widthheight">40dp</dimen>
 
     <!-- 选择学校界面 -->
     <dimen name="selectschool_headpic_width">90dp</dimen>
