@@ -340,6 +340,10 @@
            <activity
             android:name="com.sft.blackcatapp.NewCropImageActivity"
             android:screenOrientation="portrait" />
+              <activity
+            android:name="com.sft.blackcatapp.TestingApplyActivity"
+            android:screenOrientation="portrait" />
+           
         <activity
             android:name="com.sft.dialog.BonusDialog"
             android:screenOrientation="portrait"
