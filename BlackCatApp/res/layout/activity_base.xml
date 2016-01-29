@@ -7,11 +7,13 @@
     android:background="@drawable/bg"
     android:id="@+id/base_all"
      >
-
-    <LinearLayout
+     <include layout="@layout/title"></include>
+     
+     <!-- 
+      <LinearLayout
         android:id="@+id/base_titlebar_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/base_titlebar_height"
+        android:layout_height="@dimen/base_titlebar_height"        
         android:orientation="vertical" >
 
         <RelativeLayout
@@ -40,6 +42,7 @@
                 android:background="@null"
                 android:contentDescription="@string/app_name" />
 
+            
             <TextView
                 android:id="@+id/base_title_tv"
                 android:layout_width="wrap_content"
@@ -72,13 +75,17 @@
                 android:textSize="14dp" />
         </RelativeLayout>
 
-        <!-- <ImageView
+         <ImageView
             android:id="@+id/base_deviderline"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#cccccc"
-            android:contentDescription="@string/app_name" /> -->
+            android:contentDescription="@string/app_name" /> 
     </LinearLayout>
+     
+      -->"
+
+   
 
     <LinearLayout
         android:id="@+id/base_content_layout"

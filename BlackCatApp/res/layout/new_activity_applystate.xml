@@ -135,10 +135,11 @@
         </LinearLayout>
 
         <EditText
+            android:id="@+id/ed_apply_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:hint="投诉教练名"
+            android:hint="@string/apply_left_coach"
             android:maxLength="6"
             android:padding="12dp" />
 
@@ -225,21 +226,19 @@
     
     <ImageView
         android:id="@+id/iv_applystate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
         android:layout_alignLeft="@+id/button_commit"
         android:layout_below="@+id/linearLayout1"
         android:layout_marginTop="35dp"
-        android:scaleType="centerCrop"
         android:src="@drawable/applydefault" />
 
     <ImageView
         android:id="@+id/iv_applystates"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
         android:layout_alignTop="@+id/iv_applystate"
         android:layout_marginLeft="28dp"
-        android:scaleType="centerCrop"
         android:layout_toRightOf="@+id/iv_applystate"
         android:src="@drawable/applydefault" />
 

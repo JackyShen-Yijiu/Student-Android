@@ -87,5 +87,11 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="image_thumbnail_size">100dp</dimen>
     <dimen name="image_thumbnail_spacing">1dp</dimen>
-
+    <!-- 报名 -->
+	<dimen name="rl_height">45dp</dimen>	
+	
+	<dimen name="txt_size_middle">14sp</dimen>
+	<dimen name="txt_size_small">12sp</dimen>
+	<dimen name="txt_size_large">16sp</dimen>
+							
 </resources>

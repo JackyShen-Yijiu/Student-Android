@@ -1,5 +1,6 @@
 package com.sft.view;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.AttributeSet;
@@ -109,7 +110,7 @@ public class RefreshLayout extends SwipeRefreshLayout implements
 	
 	
 
-	@Override
+	@SuppressLint("ClickableViewAccessibility") @Override
 	public boolean onTouchEvent(MotionEvent arg0) {
 		gestureDetector.onTouchEvent(arg0);
 		return super.onTouchEvent(arg0);

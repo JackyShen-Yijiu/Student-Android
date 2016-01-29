@@ -128,7 +128,7 @@ public class SchoolsFragment extends BaseFragment implements
 
 	private int viewPagerHeight;
 	private RelativeLayout adLayout;
-	private EditText searchSchool;
+//	private EditText searchSchool;
 	private RefreshLayout swipeLayout;
 	private LinearLayout llSearch;
 
@@ -145,35 +145,43 @@ public class SchoolsFragment extends BaseFragment implements
 	/** 上次所在的位置 */
 	private int lastId = 0;
 	
+	static SchoolsFragment fragment = null;
+	
+	public static SchoolsFragment getInstance(){
+		if(fragment == null)
+			fragment = new SchoolsFragment();
+		return fragment;
+	}
+	
 	public void setCurrent(SchoolVO selectSchool){
 		selectSchool = this.selectSchool;
 	}
 
 	private void initData() {
-		searchSchool.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
-		searchSchool.setOnEditorActionListener(new OnEditorActionListener() {
-
-			@Override
-			public boolean onEditorAction(TextView v, int actionId,
-					KeyEvent event) {
-				if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-					// 先隐藏键盘
-					((InputMethodManager) searchSchool.getContext()
-							.getSystemService(Context.INPUT_METHOD_SERVICE))
-							.hideSoftInputFromWindow(getActivity()
-									.getCurrentFocus().getWindowToken(),
-									InputMethodManager.HIDE_NOT_ALWAYS);
-
-					// 实现搜索
-					LogUtil.print("搜索");
-					schoolname = searchSchool.getText().toString().trim();
-					searchSchool(true);
-					return true;
-				}
-				return false;
-			}
-
-		});
+//		searchSchool.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
+//		searchSchool.setOnEditorActionListener(new OnEditorActionListener() {
+//
+//			@Override
+//			public boolean onEditorAction(TextView v, int actionId,
+//					KeyEvent event) {
+//				if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+//					// 先隐藏键盘
+//					((InputMethodManager) searchSchool.getContext()
+//							.getSystemService(Context.INPUT_METHOD_SERVICE))
+//							.hideSoftInputFromWindow(getActivity()
+//									.getCurrentFocus().getWindowToken(),
+//									InputMethodManager.HIDE_NOT_ALWAYS);
+//
+//					// 实现搜索
+//					LogUtil.print("搜索");
+//					schoolname = searchSchool.getText().toString().trim();
+//					searchSchool(true);
+//					return true;
+//				}
+//				return false;
+//			}
+//
+//		});
 	}
 
 	AsyncHttpResponseHandler handler = new AsyncHttpResponseHandler() {
@@ -238,7 +246,7 @@ public class SchoolsFragment extends BaseFragment implements
 	// 搜索成功
 	protected void processSuccess(String value) {
 		LogUtil.print("aaaaaaaaa111" );
-		searchSchool.setVisibility(View.GONE);
+//		searchSchool.setVisibility(View.GONE);
 		if (value != null) {
 			LogUtil.print(value);
 			try {
@@ -367,7 +375,7 @@ public class SchoolsFragment extends BaseFragment implements
 				if (lastId == 0) {
 					LogUtil.print("scrolling---2222>"
 							+ schoolListView.getPivotX());
-					searchSchool.setVisibility(View.VISIBLE);
+//					searchSchool.setVisibility(View.VISIBLE);
 					schoolListView.scrollListBy(0);
 					LogUtil.print("scrolling---4444>"
 							+ schoolListView.getPivotX());
@@ -375,6 +383,9 @@ public class SchoolsFragment extends BaseFragment implements
 
 			}
 		});
+		
+//		searchSchool.
+		
 		// schoolListView.setPullRefreshEnable(false);
 		// schoolListView.setPullLoadEnable(false);
 
@@ -564,15 +575,15 @@ public class SchoolsFragment extends BaseFragment implements
 
 	private void setListener() {
 		schoolListView.setOnItemClickListener(this);
-		topViewPager.setPageChangeListener(this);
+//		topViewPager.setPageChangeListener(this);
 		// searchSchool.seton
 		swipeLayout.setOnRefreshListener(this);
 		swipeLayout.setOnLoadListener(this);
 
-		classSelect.setOnClickListener(this);
-		distanceSelect.setOnClickListener(this);
-		commentSelect.setOnClickListener(this);
-		priceSelect.setOnClickListener(this);
+//		classSelect.setOnClickListener(this);
+//		distanceSelect.setOnClickListener(this);
+//		commentSelect.setOnClickListener(this);
+//		priceSelect.setOnClickListener(this);
 	}
 
 	private boolean isClassSelected = false;
@@ -600,7 +611,7 @@ public class SchoolsFragment extends BaseFragment implements
 			cityname = currCity;
 			schoolname = "";
 			ordertype = "1";
-			setSelectState(2);
+//			setSelectState(2);
 			obtainNearBySchool();
 			break;
 		case R.id.enroll_school_comment_select_tv:
@@ -608,7 +619,7 @@ public class SchoolsFragment extends BaseFragment implements
 			cityname = currCity;
 			schoolname = "";
 			ordertype = "2";
-			setSelectState(3);
+//			setSelectState(3);
 			obtainNearBySchool();
 			break;
 		case R.id.enroll_school_price_select_tv:
@@ -616,12 +627,12 @@ public class SchoolsFragment extends BaseFragment implements
 			cityname = currCity;
 			schoolname = "";
 			ordertype = "3";
-			setSelectState(4);
+//			setSelectState(4);
 			obtainNearBySchool();
 			break;
 
 		case R.id.pop_window_one:
-			setSelectState(1);
+//			setSelectState(1);
 			isClassSelected = true;
 			cityname = currCity;
 			licensetype = "1";
@@ -634,7 +645,7 @@ public class SchoolsFragment extends BaseFragment implements
 			}
 			break;
 		case R.id.pop_window_two:
-			setSelectState(1);
+//			setSelectState(1);
 			isClassSelected = true;
 			cityname = currCity;
 			licensetype = "2";
@@ -647,6 +658,66 @@ public class SchoolsFragment extends BaseFragment implements
 			}
 			break;
 		}
+	}
+	
+	/**
+	 * 排序
+	 */
+	public void order(int flag){
+		switch(flag){
+		case R.id.enroll_school_distance_select_tv://距离
+			index = 1;
+			cityname = currCity;
+			schoolname = "";
+			ordertype = "1";
+//			setSelectState(2);
+			obtainNearBySchool();
+			break;
+		case R.id.enroll_school_comment_select_tv://评价
+			index = 1;
+			cityname = currCity;
+			schoolname = "";
+			ordertype = "2";
+//			setSelectState(3);
+			obtainNearBySchool();
+			break;
+		case R.id.enroll_school_price_select_tv://价格
+			index = 1;
+			cityname = currCity;
+			schoolname = "";
+			ordertype = "3";
+//			setSelectState(4);
+			obtainNearBySchool();
+			break;
+
+		case R.id.pop_window_one:
+//			setSelectState(1);
+			isClassSelected = true;
+			cityname = currCity;
+			licensetype = "1";
+			schoolname = "";
+			ordertype = "";
+			LogUtil.print("====" + licensetype);
+			obtainNearBySchool();
+			if (popupWindow != null) {
+				popupWindow.dismiss();
+			}
+			break;
+		case R.id.pop_window_two:
+//			setSelectState(1);
+			isClassSelected = true;
+			cityname = currCity;
+			licensetype = "2";
+			schoolname = "";
+			LogUtil.print("====" + licensetype);
+			ordertype = "";
+			obtainNearBySchool();
+			if (popupWindow != null) {
+				popupWindow.dismiss();
+			}
+			break;
+		}
+		
 	}
 
 	private void obtainOpenCity() {
@@ -1003,19 +1074,22 @@ public class SchoolsFragment extends BaseFragment implements
 	@Override
 	public View onCreateView(LayoutInflater inflater,
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-		return super.onCreateView(inflater, container, savedInstanceState);
+		View v = inflater.inflate(R.layout.fragment_coach_or_school, null);
+		initView(v);
+		return v;
 	}
 
-	private void initView() {
+	private void initView(View v) {
+		
 //		addView(R.layout.activity_enroll_school);
 
 //		isFromMenu = getIntent().getBooleanExtra("isFromMenu", false);
 
 		currCity = app.curCity;
 		isSearchSchool = false;
-		initView();
-		initData();
+//		initView();
+		initViewA(v);
+//		initData();
 		setListener();
 		obtainHeadLineNews();
 		cityname = "";

@@ -116,12 +116,21 @@
         <activity
             android:name="com.sft.blackcatapp.SchoolDetailActivity"
             android:screenOrientation="portrait" />
+        
+        
         <activity
             android:name="com.sft.blackcatapp.EnrollSchoolActivity"
             android:screenOrientation="portrait" />
+        <!--  搜索驾校 -->
+        <activity
+            android:name="com.sft.blackcatapp.EnrollSchoolActivity1"
+            android:screenOrientation="portrait" />
+        
         <activity
             android:name="com.sft.blackcatapp.EnrollActivity"
             android:screenOrientation="portrait" />
+        
+        
         <!-- 新增 -->
         <activity
             android:name="com.sft.blackcatapp.EnrollNextActivity"
@@ -332,6 +341,13 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.sft.blackcatapp.QRCodeCreateActivity"
+            android:screenOrientation="portrait" />
+          <activity
+            android:name="com.sft.blackcatapp.PhotographActivity"
+            android:screenOrientation="portrait" />
+          
+           <activity
+            android:name="com.sft.blackcatapp.NewCropImageActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.sft.blackcatapp.SchoolAllCoachActivity"
