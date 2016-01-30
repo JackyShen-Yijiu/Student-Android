@@ -12,22 +12,27 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup.LayoutParams;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
+import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.infinitescrollviewpager.BitMapURLExcepteionListner;
+import cn.sft.infinitescrollviewpager.BitmapManager;
 import cn.sft.infinitescrollviewpager.InfinitePagerAdapter;
 import cn.sft.infinitescrollviewpager.InfiniteViewPager;
 import cn.sft.infinitescrollviewpager.MyHandler;
@@ -39,6 +44,8 @@ import com.nineoldandroids.animation.Animator.AnimatorListener;
 import com.nineoldandroids.animation.ValueAnimator;
 import com.nineoldandroids.animation.ValueAnimator.AnimatorUpdateListener;
 import com.sft.adapter.SchoolDetailCoachHoriListAdapter;
+import com.sft.adapter.SchoolDetailCourseFeeAdapter;
+import com.sft.adapter.SchoolDetailCourseFeeAdapter.MyClickListener;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
 import com.sft.dialog.EnrollSelectConfilctDialog;
@@ -46,10 +53,14 @@ import com.sft.dialog.EnrollSelectConfilctDialog.OnSelectConfirmListener;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
 import com.sft.util.Util;
+import com.sft.view.WordWrapView;
 import com.sft.viewutil.ZProgressHUD;
+import com.sft.vo.ClassVO;
 import com.sft.vo.CoachVO;
 import com.sft.vo.HeadLineNewsVO;
+import com.sft.vo.SchoolBusRoute;
 import com.sft.vo.SchoolVO;
+import com.sft.vo.TagsList;
 
 /**
  * 驾校详情界面
@@ -60,9 +71,12 @@ import com.sft.vo.SchoolVO;
 @SuppressLint("ClickableViewAccessibility")
 public class SchoolDetailActivity extends BaseActivity implements
 		BitMapURLExcepteionListner, PageChangeListener,
-		OnCheckedChangeListener, OnSelectConfirmListener, OnItemClickListener {
+		OnCheckedChangeListener, OnSelectConfirmListener, OnItemClickListener,
+		android.widget.RadioGroup.OnCheckedChangeListener {
 
+	private static final String school_route = "school_route";
 	private static final String schoolType = "school";
+	private static final String classInfo = "classInfo";
 	private static final String coach = "coach";
 	private static final String addSchool = "addSchool";
 	private static final String deleteSchool = "deleteSchool";
@@ -98,8 +112,9 @@ public class SchoolDetailActivity extends BaseActivity implements
 	// private LoadMoreView horizontalListView;
 	//
 	private SchoolDetailCoachHoriListAdapter adapter;
+	private SchoolDetailCourseFeeAdapter courseFeeAdapter;
 	// 报名按钮
-	private Button enrollBtn;
+	// private Button enrollBtn;
 	// 用户查看的驾校
 	private SchoolVO school;
 	// 驾校名称
@@ -133,6 +148,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 		initView();
 		setListener();
 		obtainEnrollSchoolDetail();
+
 	}
 
 	private void obtainSchoolCoach(int coachPage) {
@@ -146,18 +162,20 @@ public class SchoolDetailActivity extends BaseActivity implements
 				+ "api/v1/info/headlinenews");
 	}
 
+	private String enrollBtnName;
+
 	@Override
 	protected void onResume() {
 		register(getClass().getName());
 		if (app.userVO == null
 				|| app.userVO.getApplystate().equals(
 						EnrollResult.SUBJECT_NONE.getValue())) {
-			enrollBtn.setText(R.string.enroll);
+			enrollBtnName = getResources().getString(R.string.enroll);
 		} else if (app.userVO.getApplystate().equals(
 				EnrollResult.SUBJECT_ENROLLING.getValue())) {
-			enrollBtn.setText(R.string.verifying);
+			enrollBtnName = getResources().getString(R.string.verifying);
 		} else {
-			enrollBtn.setText(R.string.appointment);
+			enrollBtnName = getResources().getString(R.string.appointment);
 		}
 		super.onResume();
 	};
@@ -173,7 +191,8 @@ public class SchoolDetailActivity extends BaseActivity implements
 		viewPager = (InfiniteViewPager) findViewById(R.id.school_detail_viewpager);
 		dotLayout = (LinearLayout) findViewById(R.id.school_detail_dotlayout);
 
-		listView = (ListView) findViewById(R.id.school_coach_listview);
+		coachlistView = (ListView) findViewById(R.id.school_coach_listview);
+		courselistView = (ListView) findViewById(R.id.course_fee_listview);
 		// horizontalListView = (LoadMoreView)
 		// findViewById(R.id.select_coach_horizon_listview);
 		// horizontalListView.setPullLoadMoreEnable(true);
@@ -181,10 +200,10 @@ public class SchoolDetailActivity extends BaseActivity implements
 
 		// listview添加底部控件
 		View view = View.inflate(this, R.layout.look_school_all_coach, null);
-		listView.addFooterView(view);
+		coachlistView.addFooterView(view);
 		schoolInfoTv = (TextView) findViewById(R.id.school_detail_schoolinfo_tv);
 		schoolInstructionTv = (TextView) findViewById(R.id.school_detail_schoolinstruction_tv);
-		enrollBtn = (Button) findViewById(R.id.coach_detail_enroll_btn);
+		// enrollBtn = (Button) findViewById(R.id.coach_detail_enroll_btn);
 		schoolNameTv = (TextView) findViewById(R.id.school_detail_name_tv);
 		schoolPriceTv = (TextView) findViewById(R.id.school_detail_price_tv);
 		schoolAddressTv = (TextView) findViewById(R.id.school_detail_place_tv);
@@ -195,21 +214,29 @@ public class SchoolDetailActivity extends BaseActivity implements
 
 		addDeleteSchoolCk = (CheckBox) findViewById(R.id.school_detail_collection_ck);
 		noCoahTv = (TextView) findViewById(R.id.select_coach_horizon_no_tv);
+		trainGroundLayout = (LinearLayout) findViewById(R.id.school_detail_train_pic_ll);
+		busRoute = (WordWrapView) findViewById(R.id.coach_detail_busroute_intro);
+		busRoute.showColor(false);
 
-		noCoahTv.setVisibility(View.VISIBLE);
-		listView.setVisibility(View.GONE);
+		radioGroup = (RadioGroup) findViewById(R.id.school_detail_radiogroup);
+		coachInfoRb = (RadioButton) findViewById(R.id.school_detail_coach_info_rb);
+		courseFeeRb = (RadioButton) findViewById(R.id.school_detail_course_fee_rb);
+		busMore = (TextView) findViewById(R.id.school_detail_bus_more_tv);
 
+		noCoahTv.setVisibility(View.GONE);
+		coachlistView.setVisibility(View.GONE);
+		courselistView.setVisibility(View.VISIBLE);
 		schoolInfoTv.getPaint().setFakeBoldText(true);
 		schoolInstructionTv.getPaint().setFakeBoldText(true);
 
 		school = (SchoolVO) getIntent().getSerializableExtra("school");
 
-		if (app.userVO == null) {
-			enrollBtn.setVisibility(View.GONE);
-			addDeleteSchoolCk.setEnabled(false);
-		} else {
-			enrollBtn.setVisibility(View.VISIBLE);
-		}
+		// if (app.userVO == null) {
+		// enrollBtn.setVisibility(View.GONE);
+		// addDeleteSchoolCk.setEnabled(false);
+		// } else {
+		// enrollBtn.setVisibility(View.VISIBLE);
+		// }
 
 		if (app.favouriteSchool != null) {
 			if (app.favouriteSchool.contains(school)) {
@@ -229,12 +256,14 @@ public class SchoolDetailActivity extends BaseActivity implements
 
 	private void setListener() {
 		schoolAddressTv.setOnClickListener(this);
-		enrollBtn.setOnClickListener(this);
+		// enrollBtn.setOnClickListener(this);
 		viewPager.setPageChangeListener(this);
 		// horizontalListView.setLoadMoreListener(this);
 		addDeleteSchoolCk.setOnCheckedChangeListener(this);
 		schoolInMoreTv.setOnClickListener(this);
-		listView.setOnItemClickListener(this);
+		coachlistView.setOnItemClickListener(this);
+		radioGroup.setOnCheckedChangeListener(this);
+		busMore.setOnClickListener(this);
 	}
 
 	private void setData() {
@@ -248,7 +277,46 @@ public class SchoolDetailActivity extends BaseActivity implements
 			workTimeTv.setText(school.getHours());
 			schoolInTv.setText(school.getIntroduction());
 			showSchoolIntro();
+
+			// 动态添加训练场地的图片
+			String[] trainPicStrings = school.getPictures();
+			for (int i = 0; i < trainPicStrings.length; i++) {
+				ImageView imageView = new ImageView(this);
+				LayoutParams params = new LayoutParams(dp2px(90), dp2px(60));
+				imageView.setScaleType(ScaleType.CENTER_CROP);
+				params.leftMargin = dp2px(15);
+				BitmapManager.INSTANCE.loadBitmap2(trainPicStrings[i],
+						imageView, dp2px(90), dp2px(60));
+				trainGroundLayout.addView(imageView, params);
+			}
+
+			// 班车路线
+			addBusRoutes();
 		}
+	}
+
+	private void addBusRoutes() {
+		if (busRoute.getChildCount() > 0) {
+			return;
+		}
+		List<TagsList> list = new ArrayList<TagsList>();
+		for (SchoolBusRoute route : school.getSchoolbusroute()) {
+			TagsList label = new TagsList();
+			label.setTagname(route.getRoutename());
+			list.add(label);
+		}
+		busRoute.setData(list);
+		busRoute.removeAllViews();
+		for (int i = 0; i < list.size(); i++) {
+			TextView textview = new TextView(this);
+			textview.setTextColor(Color.parseColor("#333333"));
+			textview.setText(list.get(i).getTagname());
+			busRoute.addView(textview);
+		}
+	}
+
+	private int dp2px(int dp) {
+		return (int) (this.getResources().getDisplayMetrics().density * dp + 0.5);
 	}
 
 	int minHeight;// 2行时候的高度
@@ -256,8 +324,18 @@ public class SchoolDetailActivity extends BaseActivity implements
 	private boolean isExtend = false;// 是否展开
 	private boolean isRunAnim = false;
 	private ScrollView sv_container;
-	private ListView listView;
+	private ListView coachlistView;
+	private ListView courselistView;
+	private LinearLayout trainGroundLayout;
+	private WordWrapView busRoute;
+	private RadioGroup radioGroup;
+	private RadioButton courseFeeRb;
+	private RadioButton coachInfoRb;
+	private TextView busMore;
+	private List<CoachVO> twoCoach;
+	private List<ClassVO> courseList;
 
+	// 设置驾校简介
 	private void showSchoolIntro() {
 		schoolInTv.setMaxLines(2);
 		schoolInTv.getViewTreeObserver().addOnGlobalLayoutListener(
@@ -294,6 +372,11 @@ public class SchoolDetailActivity extends BaseActivity implements
 										});
 					}
 				});
+	}
+
+	private void obtainEnrollClass() {
+		HttpSendUtils.httpGetSend(classInfo, this, Config.IP
+				+ "api/v1/driveschool/schoolclasstype/" + school.getSchoolid());
 	}
 
 	private void obtainEnrollSchoolDetail() {
@@ -391,19 +474,16 @@ public class SchoolDetailActivity extends BaseActivity implements
 					school = JSONUtil.toJavaBean(SchoolVO.class, data);
 					obtainHeadLineNews();
 					setData();
+					obtainEnrollClass();
 				}
 			} else if (type.equals(coach)) {
 				if (dataArray != null) {
 					int length = dataArray.length();
 					if (length > 0) {
 						coachPage++;
-						noCoahTv.setVisibility(View.GONE);
-						listView.setVisibility(View.VISIBLE);
-
 						if (coachList == null)
 							coachList = new ArrayList<CoachVO>();
-						// 本页值显示两条数据
-						List<CoachVO> twoCoach = new ArrayList<CoachVO>();
+						twoCoach = new ArrayList<CoachVO>();
 						for (int i = 0; i < length; i++) {
 							CoachVO coachVO = JSONUtil.toJavaBean(
 									CoachVO.class, dataArray.getJSONObject(i));
@@ -412,14 +492,12 @@ public class SchoolDetailActivity extends BaseActivity implements
 								twoCoach.add(coachVO);
 							}
 						}
+						adapter = null;
+						adapter = new SchoolDetailCoachHoriListAdapter(this,
+								twoCoach);
+						adapter.setData(twoCoach);
+						coachlistView.setAdapter(adapter);
 
-						if (adapter == null) {
-							adapter = new SchoolDetailCoachHoriListAdapter(
-									this, twoCoach);
-						} else {
-							adapter.setData(twoCoach);
-						}
-						listView.setAdapter(adapter);
 					}
 					// horizontalListView.setLoadMoreCompleted();
 				}
@@ -443,6 +521,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 					}
 				}
 				obtainSchoolCoach(coachPage);
+
 			} else if (type.equals(addSchool)) {
 				if (!app.favouriteSchool.contains(school)) {
 					app.favouriteSchool.add(school);
@@ -459,6 +538,26 @@ public class SchoolDetailActivity extends BaseActivity implements
 									"activityName",
 									FavouriteSchoolActivity.class.getName()));
 				}
+			} else if (type.equals(classInfo)) {
+				if (dataArray != null) {
+					int length = dataArray.length();
+					courseList = new ArrayList<ClassVO>();
+					for (int i = 0; i < length; i++) {
+						ClassVO classVO = JSONUtil.toJavaBean(ClassVO.class,
+								dataArray.getJSONObject(i));
+						courseList.add(classVO);
+					}
+					LogUtil.print("----0" + courseList.size());
+					courseFeeAdapter = null;
+					courseFeeAdapter = new SchoolDetailCourseFeeAdapter(
+							courseList, SchoolDetailActivity.this, mListener,
+							enrollBtnName);
+					// courseFeeAdapter.setData(twoCoach);
+					courselistView.setAdapter(courseFeeAdapter);
+					setListViewHeightBasedOnChildren(coachlistView);
+					sv_container.smoothScrollTo(0, 0);
+				}
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -486,44 +585,44 @@ public class SchoolDetailActivity extends BaseActivity implements
 				e.printStackTrace();
 			}
 			break;
-		case R.id.coach_detail_enroll_btn:
-			if (app.userVO.getApplystate().equals(
-					EnrollResult.SUBJECT_NONE.getValue())) {
-				String checkResult = Util.isConfilctEnroll(school);
-				LogUtil.print("toApply"+checkResult);
-				if (checkResult == null) {
-					intent = new Intent();
-					intent.putExtra("school", school);
-					intent.putExtra("activityName",
-							SubjectEnrollActivity.class.getName());
-					setResult(RESULT_OK, intent);
-					finish();
-				} else if (checkResult.length() == 0) {
-					app.selectEnrollSchool = school;
-					Util.updateEnrollSchool(this, school, false);
-					intent = new Intent();
-					intent.putExtra("school", school);
-					intent.putExtra("activityName",
-							SubjectEnrollActivity.class.getName());
-					setResult(RESULT_OK, intent);
-					finish();
-				} else {
-					// 提示
-					EnrollSelectConfilctDialog dialog = new EnrollSelectConfilctDialog(
-							this, checkResult);
-					dialog.show();
-				}
-			} else if (app.userVO.getApplystate().equals(
-					EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue())) {
-				intent = new Intent(this, AppointmentCarActivity.class);
-				startActivity(intent);
-			} else if (app.userVO.getApplystate().equals(
-					EnrollResult.SUBJECT_ENROLLING.getValue())) {
-				ZProgressHUD.getInstance(this).show();
-				ZProgressHUD.getInstance(this)
-						.dismissWithFailure("正在报名中，请等待审核");
-			}
-			break;
+		// case R.id.coach_detail_enroll_btn:
+		// if (app.userVO.getApplystate().equals(
+		// EnrollResult.SUBJECT_NONE.getValue())) {
+		// String checkResult = Util.isConfilctEnroll(school);
+		// LogUtil.print("toApply" + checkResult);
+		// if (checkResult == null) {
+		// intent = new Intent();
+		// intent.putExtra("school", school);
+		// intent.putExtra("activityName",
+		// SubjectEnrollActivity.class.getName());
+		// setResult(RESULT_OK, intent);
+		// finish();
+		// } else if (checkResult.length() == 0) {
+		// app.selectEnrollSchool = school;
+		// Util.updateEnrollSchool(this, school, false);
+		// intent = new Intent();
+		// intent.putExtra("school", school);
+		// intent.putExtra("activityName",
+		// SubjectEnrollActivity.class.getName());
+		// setResult(RESULT_OK, intent);
+		// finish();
+		// } else {
+		// // 提示
+		// EnrollSelectConfilctDialog dialog = new EnrollSelectConfilctDialog(
+		// this, checkResult);
+		// dialog.show();
+		// }
+		// } else if (app.userVO.getApplystate().equals(
+		// EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue())) {
+		// intent = new Intent(this, AppointmentCarActivity.class);
+		// startActivity(intent);
+		// } else if (app.userVO.getApplystate().equals(
+		// EnrollResult.SUBJECT_ENROLLING.getValue())) {
+		// ZProgressHUD.getInstance(this).show();
+		// ZProgressHUD.getInstance(this)
+		// .dismissWithFailure("正在报名中，请等待审核");
+		// }
+		// break;
 		case R.id.school_detail_place_tv:
 			intent = new Intent(this, MapActivity.class);
 			intent.putExtra("longtitude", school.getLongitude());
@@ -564,6 +663,12 @@ public class SchoolDetailActivity extends BaseActivity implements
 			// 标记值取反
 			isExtend = !isExtend;
 			schoolInMoreTv.setText(isExtend ? "收起" : "更多");
+			break;
+
+		case R.id.school_detail_bus_more_tv:
+			intent = new Intent(this, SchoolBusRouteActivity.class);
+			intent.putExtra(school_route, school);
+			startActivity(intent);
 			break;
 		}
 	}
@@ -667,8 +772,8 @@ public class SchoolDetailActivity extends BaseActivity implements
 			intent.putExtra("school", school);
 			intent.putExtra("activityName",
 					SubjectEnrollActivity.class.getName());
-			
-			LogUtil.print("change--scholll-->"+school.getName());
+
+			LogUtil.print("change--scholll-->" + school.getName());
 			setResult(RESULT_OK, intent);
 			finish();
 		}
@@ -686,11 +791,107 @@ public class SchoolDetailActivity extends BaseActivity implements
 			Intent intent = new Intent(this, CoachDetailActivity.class);
 			CoachVO coachVO = adapter.getItem(arg2);
 			intent.putExtra("coach", coachVO);
-			startActivityForResult(intent, listView.getId());
+			startActivityForResult(intent, coachlistView.getId());
 		}
 	}
+
 	// @Override
 	// public void onLoadMore() {
 	// obtainSchoolCoach(coachPage);
 	// }
+
+	@Override
+	public void onCheckedChanged(RadioGroup group, int checkedId) {
+		if (checkedId == coachInfoRb.getId()) {
+			// 教练详情
+			if (coachList != null && coachList.size() > 0) {
+				noCoahTv.setVisibility(View.GONE);
+				coachlistView.setVisibility(View.VISIBLE);
+			} else {
+				noCoahTv.setVisibility(View.VISIBLE);
+				coachlistView.setVisibility(View.GONE);
+			}
+			courselistView.setVisibility(View.GONE);
+		} else if (checkedId == courseFeeRb.getId()) {
+			// 课程费用
+			courselistView.setVisibility(View.VISIBLE);
+			noCoahTv.setVisibility(View.GONE);
+			coachlistView.setVisibility(View.GONE);
+		}
+	}
+
+	/**
+	 * 实现类，响应按钮点击事件
+	 */
+	private MyClickListener mListener = new MyClickListener() {
+		@Override
+		public void myOnClick(int position, View v) {
+			boolean isFromSearchCoach = getIntent().getBooleanExtra(
+					SearchCoachActivity.from_searchCoach_enroll, false);
+			Intent intent = null;
+			if (app.userVO.getApplystate().equals(
+					EnrollResult.SUBJECT_NONE.getValue())) {
+				String checkResult = Util.isConfilctEnroll(school);
+				LogUtil.print("toApply" + checkResult);
+				if (checkResult == null) {
+					intent = new Intent();
+					intent.putExtra("school", school);
+					intent.putExtra("activityName",
+							SubjectEnrollActivity.class.getName());
+					setResult(RESULT_OK, intent);
+					finish();
+				} else if (checkResult.length() == 0) {
+					app.selectEnrollSchool = school;
+					Util.updateEnrollSchool(SchoolDetailActivity.this, school,
+							false);
+					intent = new Intent();
+					intent.putExtra("school", school);
+					intent.putExtra("activityName",
+							SubjectEnrollActivity.class.getName());
+					setResult(RESULT_OK, intent);
+					finish();
+				} else {
+					// 提示
+					EnrollSelectConfilctDialog dialog = new EnrollSelectConfilctDialog(
+							SchoolDetailActivity.this, checkResult);
+					dialog.show();
+				}
+			} else if (app.userVO.getApplystate().equals(
+					EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue())) {
+				intent = new Intent(SchoolDetailActivity.this,
+						AppointmentCarActivity.class);
+				startActivity(intent);
+			} else if (app.userVO.getApplystate().equals(
+					EnrollResult.SUBJECT_ENROLLING.getValue())) {
+				ZProgressHUD.getInstance(SchoolDetailActivity.this).show();
+				ZProgressHUD.getInstance(SchoolDetailActivity.this)
+						.dismissWithFailure("正在报名中，请等待审核");
+			}
+		}
+	};
+
+	/**
+	 * 动态设置ListView的高度
+	 * 
+	 * @param listView
+	 */
+	public void setListViewHeightBasedOnChildren(ListView listView) {
+		if (listView == null)
+			return;
+		ListAdapter listAdapter = listView.getAdapter();
+		if (listAdapter == null) {
+			// pre-condition
+			return;
+		}
+		int totalHeight = 0;
+		for (int i = 0; i < listAdapter.getCount(); i++) {
+			View listItem = listAdapter.getView(i, null, listView);
+			listItem.measure(0, 0);
+			totalHeight += listItem.getMeasuredHeight();
+		}
+		ViewGroup.LayoutParams params = listView.getLayoutParams();
+		params.height = totalHeight
+				+ (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+		listView.setLayoutParams(params);
+	}
 }

@@ -1,5 +1,7 @@
 package com.sft.vo;
 
+import java.util.List;
+
 import android.text.TextUtils;
 import cn.sft.sqlhelper.DBVO;
 
@@ -33,6 +35,15 @@ public class SchoolVO extends DBVO {
 	private int commentcount;
 	private String id;
 	private String schoollevel;
+	private List<SchoolBusRoute> schoolbusroute;
+
+	public List<SchoolBusRoute> getSchoolbusroute() {
+		return schoolbusroute;
+	}
+
+	public void setSchoolbusroute(List<SchoolBusRoute> schoolbusroute) {
+		this.schoolbusroute = schoolbusroute;
+	}
 
 	public int getCoachcount() {
 		return coachcount;

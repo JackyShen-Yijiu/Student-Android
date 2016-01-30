@@ -16,20 +16,22 @@ import android.widget.TextView;
 
 import com.sft.blackcatapp.R;
 import com.sft.common.BlackCatApplication;
-import com.sft.vo.ServerClassList;
+import com.sft.util.LogUtil;
+import com.sft.vo.ClassVO;
 
 public class SchoolDetailCourseFeeAdapter extends BaseAdapter {
 
 	private Context mContext;
-	private List<ServerClassList> mList;
+	private List<ClassVO> mList;
 	private MyClickListener mListener;
 	private String enrollBtnName;
 
-	public SchoolDetailCourseFeeAdapter(List<ServerClassList> list,
-			Context context, MyClickListener listener, String enrollBtnName) {
+	public SchoolDetailCourseFeeAdapter(List<ClassVO> list, Context context,
+			MyClickListener listener, String enrollBtnName) {
 		this.mContext = context;
 		this.mList = list;
 		mListener = listener;
+		LogUtil.print("enrollBtnName====" + enrollBtnName);
 		this.enrollBtnName = enrollBtnName;
 	}
 
@@ -39,7 +41,7 @@ public class SchoolDetailCourseFeeAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public ServerClassList getItem(int position) {
+	public ClassVO getItem(int position) {
 		return mList.get(position);
 	}
 
@@ -60,7 +62,7 @@ public class SchoolDetailCourseFeeAdapter extends BaseAdapter {
 		Button entrollBut = (Button) convertView
 				.findViewById(R.id.course_fee_enroll_btn);
 
-		if (TextUtils.isEmpty(enrollBtnName)) {
+		if (!TextUtils.isEmpty(enrollBtnName)) {
 			entrollBut.setText(enrollBtnName);
 		}
 		if (BlackCatApplication.app.userVO == null) {
@@ -72,7 +74,7 @@ public class SchoolDetailCourseFeeAdapter extends BaseAdapter {
 		entrollBut.setTag(position);
 		entrollBut.setOnClickListener(mListener);
 
-		ServerClassList serverClassList = mList.get(position);
+		ClassVO serverClassList = mList.get(position);
 		title.setText(serverClassList.getClassname());
 
 		intro.setText(serverClassList.getClassdesc() + "¥"
