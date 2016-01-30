@@ -68,7 +68,9 @@ public class WordWrapView extends ViewGroup {
 		int rows = 1;
 		for (int i = 0; i < childCount; i++) {
 			View view = getChildAt(i);
-
+			if (!showColor) {
+				view.setBackgroundColor(Color.WHITE);
+			}
 			if (i == 0 && firstWhite)
 				view.setBackgroundColor(Color.WHITE);
 			else if (showColor) {// 显示所有的颜色

@@ -67,7 +67,6 @@
         >
 
         <TextView
-            android:layout_marginTop="18dp"
             android:id="@+id/coach_detail_personality_label_tv"
             style="@style/coachdetail_content_style"
             android:text="@string/personality_label" />

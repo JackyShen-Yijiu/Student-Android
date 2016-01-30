@@ -22,19 +22,23 @@ public class CheckDiscodeAct extends BaseActivity{
 	private EditText et;
 	
 	private final String CODE = "code";
+	
+	private String phone = "";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.act_check_discode);
-		
+//		setContentView(R.layout.act_check_discode);
+		addView(R.layout.act_check_discode);
+		setTitleText("活动兑换码");
 		et = (EditText) findViewById(R.id.act_check_discode_et);
+		phone = getIntent().getStringExtra("phone");
 	}
 
 	public void onClick(View v){
 		switch(v.getId()){
 		case R.id.act_check_discode_et:
 			if(check()){
-				request();
+				request(phone,et.getText().toString());
 			}
 			break;
 		}
@@ -42,20 +46,19 @@ public class CheckDiscodeAct extends BaseActivity{
 	
 	private boolean check(){
 		if(TextUtils.isEmpty(et.getText().toString())){
-			
 			return false;
 		}
 		return true;
 	}
 	
-	private void request(){
+	private void request(String mobile,String code){
 		Map<String, String> paramMap = new HashMap<String, String>();
-		
-		
+		paramMap.put("mobile", mobile);
+		paramMap.put("couponcode", code);
 		Map<String, String> headerMap = new HashMap<String, String>();
 		headerMap.put("authorization", app.userVO.getToken());
-		HttpSendUtils.httpPostSend(CODE, this, Config.IP
-				+ "api/v1/userinfo/userapplyschool", paramMap, 10000,
+		HttpSendUtils.httpGetSend(CODE, this, Config.IP
+				+ "api/v1/system/verifyactivitycoupon ", paramMap, 10000,
 				headerMap);
 	}
 

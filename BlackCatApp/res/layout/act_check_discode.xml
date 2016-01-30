@@ -8,6 +8,8 @@
         android:id="@+id/act_check_discode_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        style="@style/enroll_et_style"
         android:ems="10" >
 
         <requestFocus />
@@ -15,9 +17,13 @@
 
     <Button
         android:id="@+id/act_check_discode_btn"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onClick"
+        style="@style/btn_style"
+        android:padding="10dp"
+        android:layout_marginTop="40dp"
+        android:textColor="@color/white"
         android:text="验证" />
 
 </LinearLayout>

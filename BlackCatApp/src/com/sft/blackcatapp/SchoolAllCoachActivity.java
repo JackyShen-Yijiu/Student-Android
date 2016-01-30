@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.maxwin.view.XListView;
+import me.maxwin.view.XListView.IXListViewListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -20,13 +21,13 @@ import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.CoachVO;
 
 /**
- * 更多教练页面
+ * 驾校下的所有教练页面
  * 
  * @author Administrator
  * 
  */
 public class SchoolAllCoachActivity extends BaseActivity implements
-		OnItemClickListener {
+		OnItemClickListener, IXListViewListener {
 
 	private static final String schoolCoach = "schoolCoach";
 	private XListView coachListView;
@@ -71,7 +72,8 @@ public class SchoolAllCoachActivity extends BaseActivity implements
 
 	private void setListener() {
 		coachListView.setPullRefreshEnable(false);
-		coachListView.setPullLoadEnable(false);
+		coachListView.setPullLoadEnable(true);
+		coachListView.setXListViewListener(this);
 		coachListView.setOnItemClickListener(this);
 	}
 
@@ -129,12 +131,23 @@ public class SchoolAllCoachActivity extends BaseActivity implements
 						adapter.setData(coachList);
 					}
 					coachListView.setAdapter(adapter);
+					coachListView.stopLoadMore();
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return true;
+	}
+
+	@Override
+	public void onRefresh() {
+
+	}
+
+	@Override
+	public void onLoadMore() {
+		obtainSchoolCoach(moreCoachPage);
 	}
 
 }

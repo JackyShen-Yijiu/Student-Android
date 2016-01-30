@@ -87,10 +87,10 @@
 
                     <CheckBox
                         android:id="@+id/coach_detail_collection_ck"
-                        android:layout_width="21dp"
-                        android:layout_height="21dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_centerInParent="true"
-                        android:background="@drawable/collect_heart_bkground"
+                        android:background="@drawable/coach_collect_heart_bkground"
                         android:button="@null"
                         android:contentDescription="@string/app_name" />
                 </RelativeLayout>

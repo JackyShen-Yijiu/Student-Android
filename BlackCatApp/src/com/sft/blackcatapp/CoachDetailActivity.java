@@ -350,9 +350,8 @@ public class CoachDetailActivity extends BaseActivity implements
 						imageView, dp2px(90), dp2px(60));
 				trainPicLayout.addView(imageView, params);
 			}
-
 			// 设置课程费用
-			if (coachVO.getSeniority() != null) {
+			if (coachVO.getServerclasslist() != null) {
 
 				courseFeeAdapter = new SchoolDetailCourseFeeAdapter(
 						coachVO.getServerclasslist(), this, mListener,
@@ -557,9 +556,6 @@ public class CoachDetailActivity extends BaseActivity implements
 		// intent.putExtra("school", schoolVO);
 		// startActivityForResult(intent, R.id.coach_detail_place_tv);
 		// break;
-		case R.id.coach_detail_enroll_btn:
-
-			break;
 
 		// 个人信息说明
 		case R.id.coach_detail_evaluation_more_tv:

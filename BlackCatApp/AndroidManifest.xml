@@ -349,6 +349,13 @@
            <activity
             android:name="com.sft.blackcatapp.NewCropImageActivity"
             android:screenOrientation="portrait" />
+              <activity
+            android:name="com.sft.blackcatapp.TestingApplyActivity"
+            android:screenOrientation="portrait" />
+              <activity
+            android:name="com.sft.blackcatapp.SchoolBusRouteActivity"
+            android:screenOrientation="portrait" />
+           
            
            <!-- 确认订单 -->
            <activity

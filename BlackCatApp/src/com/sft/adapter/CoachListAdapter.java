@@ -5,9 +5,11 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -16,8 +18,10 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import cn.sft.infinitescrollviewpager.BitmapManager;
 
+import com.sft.blackcatapp.CoachDetailActivity;
 import com.sft.blackcatapp.R;
 import com.sft.util.LogUtil;
+import com.sft.vo.ClassVO;
 import com.sft.vo.CoachVO;
 
 @SuppressLint("InflateParams")
@@ -29,10 +33,12 @@ public class CoachListAdapter extends BaseAdapter {
 	private List<Boolean> isSelected = new ArrayList<Boolean>();
 
 	private int index = -1;
+	private Context mContext;
 
 	public CoachListAdapter(Context context, List<CoachVO> mData) {
 		this.mInflater = LayoutInflater.from(context);
 		this.mData = mData;
+		mContext = context;
 		// isSelected = ;
 		for (int i = 0; i < mData.size(); i++) {
 			isSelected.add(false);
@@ -90,7 +96,7 @@ public class CoachListAdapter extends BaseAdapter {
 			holder = new ViewHolder();
 			holder.coachName = (TextView) convertView
 					.findViewById(R.id.select_coach_coachname_tv);
-			holder.schoolName = (TextView) convertView
+			holder.className = (TextView) convertView
 					.findViewById(R.id.select_coach_schoolname_tv);
 			holder.headPic = (ImageView) convertView
 					.findViewById(R.id.select_coach_headpin_im);
@@ -136,10 +142,10 @@ public class CoachListAdapter extends BaseAdapter {
 			holder.general.setVisibility(View.GONE);
 		}
 		String coachName = mData.get(position).getName();
-		LogUtil.print("adapter--->"+coachName);
+		LogUtil.print("adapter--->" + coachName);
 		holder.coachName.setText(coachName);
 		String schoolName = mData.get(position).getDriveschoolinfo().getName();
-		holder.schoolName.setText(schoolName);
+		holder.className.setText(schoolName);
 		String rateBar = mData.get(position).getStarlevel();
 		try {
 			holder.rateBar.setRating(Float.parseFloat(rateBar));
@@ -147,7 +153,7 @@ public class CoachListAdapter extends BaseAdapter {
 			holder.rateBar.setRating(0f);
 		}
 		String rate = mData.get(position).getPassrate();
-		
+
 		holder.rate.setText("通过率: " + rate + "%");
 		String age = mData.get(position).getSeniority();
 		holder.age.setText("工作年限:" + age);
@@ -173,13 +179,42 @@ public class CoachListAdapter extends BaseAdapter {
 		LogUtil.print(mData.size() + "ssssssd===="
 				+ mData.get(position).getName() + position);
 		// }
+
+		List<ClassVO> serverclasslist = mData.get(position)
+				.getServerclasslist();
+		if (serverclasslist == null && serverclasslist.size() == 0) {
+
+			holder.className.setText("暂无班型");
+		} else {
+			String classNameString = "班型：";
+			for (int i = 0; i < serverclasslist.size(); i++) {
+				if (i == serverclasslist.size() - 1) {
+					classNameString += serverclasslist.get(i).getClassname();
+				} else {
+					classNameString += serverclasslist.get(i).getClassname()
+							+ "，";
+				}
+			}
+			holder.className.setText(classNameString);
+		}
+
+		holder.headPic.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(mContext, CoachDetailActivity.class);
+				intent.putExtra("coach", mData.get(position));
+				mContext.startActivity(intent);
+				LogUtil.print("教练详情--CoachDetailActivity");
+			}
+		});
 		return convertView;
 	}
 
 	private class ViewHolder {
 		public ImageView selectIm;
 		public TextView coachName;
-		public TextView schoolName;
+		public TextView className;
 		public ImageView headPic;
 		public RatingBar rateBar;
 		public TextView shuttle, general;

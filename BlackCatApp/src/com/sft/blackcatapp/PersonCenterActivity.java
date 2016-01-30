@@ -41,6 +41,7 @@ public class PersonCenterActivity extends BaseActivity {
 	private TextView schoolValueTv, carStyleValueTv;
 
 	private Button logoutBtn;
+	private TextView testingDetailTV;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +76,7 @@ public class PersonCenterActivity extends BaseActivity {
 		enrollDetailTv = (TextView) findViewById(R.id.person_center_enroll_detail_tv);
 		schoolValueTv = (TextView) findViewById(R.id.person_center_school_value_tv);
 		carStyleValueTv = (TextView) findViewById(R.id.person_center_carstyle_value_tv);
+		testingDetailTV = (TextView) findViewById(R.id.person_center_testing_detail_tv);
 
 		logoutBtn = (Button) findViewById(R.id.person_center_logout_btn);
 
@@ -185,6 +187,8 @@ public class PersonCenterActivity extends BaseActivity {
 		coachTv.setOnClickListener(this);
 		settingTv.setOnClickListener(this);
 		enrollDetailTv.setOnClickListener(this);
+		testingDetailTV.setOnClickListener(this);
+
 		logoutBtn.setOnClickListener(this);
 		if (app.userVO.getApplystate().equals(
 				EnrollResult.SUBJECT_NONE.getValue())) {
@@ -245,6 +249,7 @@ public class PersonCenterActivity extends BaseActivity {
 			intent = new Intent(this, SettingActivity.class);
 			startActivity(intent);
 			break;
+		// 报名详情
 		case R.id.person_center_enroll_detail_tv:
 			String applystate = app.userVO.getApplystate();
 			if (EnrollResult.SUBJECT_NONE.getValue().equals(applystate)) {
@@ -273,6 +278,20 @@ public class PersonCenterActivity extends BaseActivity {
 				ZProgressHUD.getInstance(this).show();
 				ZProgressHUD.getInstance(this).dismissWithSuccess("您已报名");
 			}
+			break;
+		// 验证报名信息
+		case R.id.person_center_testing_detail_tv:
+			String applystates = app.userVO.getApplystate();
+			if (EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue().equals(
+					applystates)) {
+				ZProgressHUD.getInstance(this).show();
+				ZProgressHUD.getInstance(this).dismissWithSuccess("您已报名");
+			} else {
+				Intent intent1 = new Intent(PersonCenterActivity.this,
+						TestingPhoneActivity.class);
+				startActivity(intent1);
+			}
+
 			break;
 		}
 	}

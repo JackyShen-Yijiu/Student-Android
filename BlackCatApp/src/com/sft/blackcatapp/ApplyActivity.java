@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.PopupWindow;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
@@ -112,6 +113,10 @@ public class ApplyActivity extends BaseActivity implements
 	private String classID;
 	/**实际价格*/
 	private TextView tvOnSale;
+	
+	private RadioButton radioOnLine,radioOffLine;
+	
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -254,6 +259,9 @@ public class ApplyActivity extends BaseActivity implements
 		multipleTextViewGroup = (MultipleTextViewGroup) findViewById(R.id.class_detail_multiple_tv);
 
 		tvOnSale = (TextView) findViewById(R.id.tv_pay_money);
+		
+		radioOnLine = (RadioButton) findViewById(R.id.radio1);
+		radioOffLine = (RadioButton) findViewById(R.id.radio2);
 		
 		final ViewTreeObserver vto = multipleTextViewGroup
 				.getViewTreeObserver();
@@ -567,6 +575,8 @@ public class ApplyActivity extends BaseActivity implements
 			paramMap.put("carmodel", classe.getCarmodel().toString());//carStyle.toString()
 			paramMap.put("idcardnumber", "");
 			paramMap.put("address", "");
+			paramMap.put("paytype", radioOnLine.isChecked()?"2":"1");//1 线下支付 2.线上支付
+			
 //			if (TextUtils.isEmpty(yCodeEt.getText().toString())) {
 				paramMap.put("fcode", "");
 //			} else {
@@ -777,6 +787,7 @@ public class ApplyActivity extends BaseActivity implements
 							ConfirmOrderActivity.class);
 					intent.putExtra("class", classe);
 					intent.putExtra("schoolName", school.getName());
+					intent.putExtra("phone", contactEt.getText().toString());
 					// 报名成功
 //					Intent intent = new Intent(this,
 //							EnrollSuccessActivity.class);

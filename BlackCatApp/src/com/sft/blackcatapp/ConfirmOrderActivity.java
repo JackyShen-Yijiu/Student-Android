@@ -8,21 +8,28 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
+import com.sft.fragment.BaseFragment;
 import com.sft.vo.ServerClassList;
 
-public class ConfirmOrderActivity extends Activity implements OnClickListener {
+public class ConfirmOrderActivity extends BaseActivity implements OnClickListener {
 
 	private TextView tv_coupon_show,tvGoodName,tvGoodPrice,tvYcode;
 	
 	private TextView tvShoudPay,tvReallyPay;
 	
 	private ServerClassList classe;
+	
+	/**
+	 * 填写的 phone 号码
+	 */
+	private String phone;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_confirm_order);
-
+		
+		addView(R.layout.activity_confirm_order);
+		setBg(getResources().getColor(R.color.white));
 		initView();
 		Listenner();
 	}
@@ -30,6 +37,7 @@ public class ConfirmOrderActivity extends Activity implements OnClickListener {
 	private void initView() {
 		classe = (ServerClassList) getIntent().getSerializableExtra("class");
 		String schoolName = getIntent().getStringExtra("schoolName");
+		phone = getIntent().getStringExtra("phone");
 		
 		tv_coupon_show = (TextView) findViewById(R.id.tv_coupon_show);
 		tvGoodName = (TextView) findViewById(R.id.tv_goods_show);
@@ -54,6 +62,7 @@ public class ConfirmOrderActivity extends Activity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.tv_coupon_show:
 			Intent intent = new Intent(ConfirmOrderActivity.this,CheckDiscodeAct.class);
+			intent.putExtra("phone", phone);
 			startActivityForResult(intent, 3);	
 			break;
 
