@@ -619,6 +619,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 			new MyHandler(200) {
 				@Override
 				public void run() {
+					LogUtil.print("ScholllDetail----result>");
 					data.putExtra("school", school);
 					setResult(RESULT_OK, data);
 					finish();
@@ -686,6 +687,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 			Intent intent = new Intent(this, CoachDetailActivity.class);
 			CoachVO coachVO = adapter.getItem(arg2);
 			intent.putExtra("coach", coachVO);
+			intent.putExtra("schoolId", school.getId());
 			startActivityForResult(intent, listView.getId());
 		}
 	}

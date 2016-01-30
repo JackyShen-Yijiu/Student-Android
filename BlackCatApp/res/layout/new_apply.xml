@@ -448,7 +448,7 @@
                     android:id="@+id/enroll_idcard_et"
                     style="@style/enroll_et_style"
                     android:digits="1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQISTUVWXYZ"
-                    android:hint="身份证号"
+                    android:hint="Y码"
                     android:maxLength="18" />
             </RelativeLayout>
 
@@ -472,6 +472,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/line8"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 android:orientation="horizontal" >
 
                 <RadioButton
@@ -483,6 +487,7 @@
                     android:text="线上支付"
                     android:background="@android:color/transparent"
                     android:button="@drawable/radio_button_bg"
+                    android:paddingLeft="3dp"
                     android:textColor="@color/txt_333" />
 
                 <RadioButton
@@ -492,6 +497,7 @@
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:button="@drawable/radio_button_bg"
+                    android:paddingLeft="3dp"
                     android:text="线下支付"
                     android:textColor="@color/txt_333" />
             </RadioGroup>

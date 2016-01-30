@@ -354,6 +354,11 @@
            <activity
                android:name=".ConfirmOrderActivity"
                android:screenOrientation="portrait"></activity>
+           <!-- 折扣券 验证 -->
+           <activity
+               android:name=".CheckDiscodeAct"
+               android:screenOrientation="portrait"></activity>
+           
            
            
            
