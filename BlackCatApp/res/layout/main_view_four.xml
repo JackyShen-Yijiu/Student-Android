@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="150dp"
+        android:layout_marginBottom="350dp"
         android:layout_marginRight="51dp"
         android:src="@drawable/sb_order_three_list" />
 
@@ -29,8 +29,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="360dp"
-        android:layout_marginRight="86dp"
+        android:layout_marginBottom="160dp"
+        android:layout_marginRight="46dp"
         android:src="@drawable/sb_courseware" />
 
 </RelativeLayout>
