@@ -146,7 +146,7 @@ public class CoachDetailActivity extends BaseActivity implements
 		obtainEnrollCoachDetail();
 	}
 
-	private String enrollBtnName = "报名";
+	private String enrollState;
 
 	@Override
 	protected void onResume() {
@@ -154,14 +154,12 @@ public class CoachDetailActivity extends BaseActivity implements
 		if (app.userVO == null
 				|| app.userVO.getApplystate().equals(
 						EnrollResult.SUBJECT_NONE.getValue())) {
-			enrollBtnName = getResources().getString(R.string.enroll);
+			enrollState = EnrollResult.SUBJECT_NONE.getValue();
+		} else if (app.userVO.getApplystate().equals(
+				EnrollResult.SUBJECT_ENROLLING.getValue())) {
+			enrollState = EnrollResult.SUBJECT_ENROLLING.getValue();
 		} else {
-			if (app.userVO.getApplystate().equals(
-					EnrollResult.SUBJECT_ENROLLING.getValue())) {
-				enrollBtnName = getResources().getString(R.string.verifying);
-			} else {
-				enrollBtnName = getResources().getString(R.string.appointment);
-			}
+			enrollState = EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue();
 		}
 		super.onResume();
 	}
@@ -364,7 +362,7 @@ public class CoachDetailActivity extends BaseActivity implements
 
 				courseFeeAdapter = new SchoolDetailCourseFeeAdapter(
 						coachVO.getServerclasslist(), this, mListener,
-						enrollBtnName);
+						enrollState);
 				courseFeeListView.setAdapter(courseFeeAdapter);
 			}
 
@@ -453,7 +451,7 @@ public class CoachDetailActivity extends BaseActivity implements
 	/**
 	 * 跳转到 支付页面
 	 */
-	private void toPay(int po){
+	private void toPay(int po) {
 		ClassVO classe = courseFeeAdapter.getItem(po);
 		Intent i = new Intent(CoachDetailActivity.this, ApplyActivity.class);
 		i.putExtra("coach", coachVO);

@@ -35,7 +35,6 @@ import com.google.gson.reflect.TypeToken;
 import com.joooonho.SelectableRoundedImageView;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.sft.alipay.PayDemoActivity;
 import com.sft.api.ApiHttpClient;
 import com.sft.blackcatapp.ActivitiesActivity;
 import com.sft.blackcatapp.EditPersonInfoActivity;
@@ -48,6 +47,7 @@ import com.sft.blackcatapp.R;
 import com.sft.blackcatapp.TodaysAppointmentActivity;
 import com.sft.common.BlackCatApplication;
 import com.sft.common.Config;
+import com.sft.common.Config.EnrollResult;
 import com.sft.dialog.NoLoginDialog;
 import com.sft.util.CommonUtil;
 import com.sft.util.JSONUtil;
@@ -299,7 +299,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 		// case R.id.fragment_menu_home_btn:
 		// ((MainActivity) mContext).changeMenu();
 		// break;
-		case R.id.fragment_menu_driving_school_btn://报名
+		case R.id.fragment_menu_driving_school_btn:// 报名
 			obtainlocationShowType();
 
 			break;
@@ -314,9 +314,10 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 			break;
 		case R.id.fragment_menu_mall_btn:
 			// if (app.isLogin) {
-//			Toast.makeText(getActivity(), "mall---->", Toast.LENGTH_SHORT).show();
-//			 intent = new Intent(getActivity(), PayDemoActivity.class);
-//			 startActivity(intent);
+			// Toast.makeText(getActivity(), "mall---->",
+			// Toast.LENGTH_SHORT).show();
+			// intent = new Intent(getActivity(), PayDemoActivity.class);
+			// startActivity(intent);
 			// } else {
 			// NoLoginDialog dialog = new NoLoginDialog(mContext);
 			// dialog.show();
@@ -363,8 +364,8 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 			break;
 		// 投诉
 		case R.id.fragment_menu_complaint_btn:
-			if (app.userVO.getApplystate().equals("2")
-					^ app.userVO.getApplystate().equals("3")) {
+			if (app.userVO.getApplystate().equals(
+					EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue())) {
 
 				intent = new Intent(getActivity(), NewApplystateActivity.class);
 				startActivity(intent);
