@@ -366,14 +366,22 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 			break;
 		// 投诉
 		case R.id.fragment_menu_complaint_btn:
-			if (app.userVO.getApplystate().equals(
-					EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue())) {
+			if (app.isLogin) {
 
-				intent = new Intent(getActivity(), NewApplystateActivity.class);
-				startActivity(intent);
+				if (app.userVO.getApplystate().equals(
+						EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue())) {
+
+					intent = new Intent(getActivity(),
+							NewApplystateActivity.class);
+					startActivity(intent);
+				} else {
+					ZProgressHUD.getInstance(mContext).show();
+					ZProgressHUD.getInstance(mContext).dismissWithFailure(
+							"请等待审核");
+				}
 			} else {
-				ZProgressHUD.getInstance(mContext).show();
-				ZProgressHUD.getInstance(mContext).dismissWithFailure("请等待审核");
+				NoLoginDialog dialog = new NoLoginDialog(getActivity());
+				dialog.show();
 			}
 			break;
 
