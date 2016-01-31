@@ -17,6 +17,7 @@
         android:drawablePadding="15dp"
         android:layout_marginTop="15dp"
         android:hint="@string/phonenumber"
+        android:textColor="#fff"
         android:inputType="phone"
         android:maxLength="11" />
         <ImageView
@@ -42,6 +43,7 @@
             android:background="@null"
             android:layout_marginTop="0dp"
             android:layout_weight="1"
+            android:textColor="#fff"
             android:hint="@string/auth_code"
              android:drawableLeft="@drawable/verification_code"
             android:inputType="text"
@@ -73,6 +75,7 @@
         android:background="@null"
         android:drawablePadding="15dp"
         android:drawableLeft="@drawable/ac_pass_drawable_left"
+        android:textColor="#fff"
         android:hint="@string/password" />
       <ImageView
                 android:layout_width="match_parent"
@@ -88,6 +91,7 @@
         android:drawableLeft="@drawable/ac_pass_drawable_left"
         android:background="@null"
         android:drawablePadding="15dp"
+        android:textColor="#fff"
         android:hint="@string/confirm_password" />
       <ImageView
                 android:layout_width="match_parent"
@@ -103,6 +107,7 @@
         android:drawablePadding="15dp"
         android:background="@null"
         android:drawableLeft="@drawable/invitation_code"
+        android:textColor="#fff"
         android:inputType="text" />
  <ImageView
                 android:layout_width="match_parent"

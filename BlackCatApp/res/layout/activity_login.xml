@@ -99,7 +99,7 @@
             android:id="@+id/login_or_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/login_lookaround_btn"
+            android:layout_above="@+id/login_lookaround_ll"
             android:layout_marginTop="5dp"
             android:orientation="horizontal" >
 
@@ -129,17 +129,19 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/login_lookaround_btn"
+            android:id="@+id/login_lookaround_ll"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/login_lookaround_btn_height"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
+            android:clickable="true"
             android:layout_marginBottom="@dimen/login_lookaround_btn_marginbottom"
             android:gravity="center"
             android:orientation="horizontal"
              >
 
             <Button
+                android:id="@+id/login_lookaround_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/login_lookaround_btn_height"
                 android:background="@null"
