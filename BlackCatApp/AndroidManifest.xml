@@ -353,11 +353,17 @@
             android:name="com.sft.blackcatapp.TestingApplyActivity"
             android:screenOrientation="portrait" />
            
-           
+              <activity
+            android:name="com.sft.blackcatapp.NewActivitysActivity"
+            android:screenOrientation="portrait" />
            <!-- 确认订单 -->
            <activity
                android:name=".ConfirmOrderActivity"
                android:screenOrientation="portrait"></activity>
+            <activity
+               android:name=".WebViewActivitys"
+               android:screenOrientation="portrait"></activity>
+           
            
            
            
