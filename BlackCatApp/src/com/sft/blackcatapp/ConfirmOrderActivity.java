@@ -18,8 +18,6 @@ public class ConfirmOrderActivity extends BaseActivity implements
 
 	private ClassVO classe;
 
-	
-	
 	/**
 	 * 填写的 phone 号码
 	 */
@@ -31,6 +29,7 @@ public class ConfirmOrderActivity extends BaseActivity implements
 
 		addView(R.layout.activity_confirm_order);
 		setBg(getResources().getColor(R.color.white));
+		
 		initView();
 		Listenner();
 	}
@@ -66,7 +65,9 @@ public class ConfirmOrderActivity extends BaseActivity implements
 			intent.putExtra("phone", phone);
 			startActivityForResult(intent, 3);
 			break;
-
+		case R.id.base_left_btn:
+			finish();
+			break;
 		default:
 			break;
 		}

@@ -1,5 +1,6 @@
 package com.sft.blackcatapp;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -109,6 +110,7 @@ public class ApplyActivity extends BaseActivity implements
 	private String price;
 	private String classType;
 	private String schoolId;
+	private SchoolVO schoolName;
 
 	private ClassVO classe;
 	private String classID;
@@ -128,7 +130,8 @@ public class ApplyActivity extends BaseActivity implements
 		setListener();
 		obtainEnrollCarStyle();
 		initApplyData();
-
+//		View v;
+//		v.setBackgroundColor(Color.)
 	}
 
 	private void initApplyData() {
@@ -139,7 +142,7 @@ public class ApplyActivity extends BaseActivity implements
 		boolean isFromPlay = getIntent().getBooleanExtra("isFromPlay", false);
 		schoolId = getIntent().getStringExtra("schoolId");
 		classe = (ClassVO) getIntent().getSerializableExtra("class");
-		
+		school = (SchoolVO) getIntent().getSerializableExtra("school");
 		
 		coach = (CoachVO) getIntent().getSerializableExtra(
 				"coach");
@@ -149,6 +152,10 @@ public class ApplyActivity extends BaseActivity implements
 			licenseType.setText(classe.getClassname()+"￥"+classe.getOnsaleprice());
 			tvOnSale.setText(classe.getOnsaleprice()+"元");
 			classID = classe.get_id();
+		}
+		
+		if (school != null) {//从驾校跳转过来 
+			setDefaultData(school);
 		}
 		
 		coachTv.setText(null==coach?"智能匹配":coach.getName());
@@ -461,7 +468,14 @@ public class ApplyActivity extends BaseActivity implements
 		// break;
 		case R.id.enroll_commit_btn:
 			// 验证Y码
-			obtainYCode();
+//			obtainYCode();//正式
+			
+			Intent intent1 = new Intent(this, ConfirmOrderActivity.class);
+			intent1.putExtra("class", classe);
+			intent1.putExtra("schoolName", school.getName());
+			intent1.putExtra("phone", contactEt.getText().toString());
+			startActivity(intent1);
+			finish();
 
 			// String checkResult = checkEnrollInfo();
 			// // if (checkResult == null) {
@@ -470,12 +484,7 @@ public class ApplyActivity extends BaseActivity implements
 			// enroll(checkResult);
 			// // }
 			// // 保存数据
-			// SharedPreferencesUtil.putString(this,
-			// realName + app.userVO.getUserid(), nameEt.getText()
-			// .toString());
-			// SharedPreferencesUtil.putString(this,
-			// contact + app.userVO.getUserid(), contactEt.getText()
-			// .toString());
+			
 			break;
 
 		case R.id.pop_window_one:
@@ -591,11 +600,11 @@ public class ApplyActivity extends BaseActivity implements
 																			// 线下支付
 																			// 2.线上支付
 
-			// if (TextUtils.isEmpty(yCodeEt.getText().toString())) {
-			paramMap.put("fcode", "");
-			// } else {
-			// paramMap.put("fcode", yCodeEt.getText().toString());
-			// }
+			 if (TextUtils.isEmpty(etYCodeCard.getText().toString())) {
+				 paramMap.put("fcode", "");
+			 } else {
+				 paramMap.put("fcode", etYCodeCard.getText().toString());
+			 }
 			if (app.isEnrollAgain) {
 				paramMap.put("applyagain", "1");
 			}
@@ -796,6 +805,15 @@ public class ApplyActivity extends BaseActivity implements
 				}
 			} else if (type.equals(enroll)) {
 				if ("success".equals(dataString)) {
+					//更新本地数据
+					 SharedPreferencesUtil.putString(this,
+					 realName + app.userVO.getUserid(), nameEt.getText()
+					 .toString());
+					 SharedPreferencesUtil.putString(this,
+					 contact + app.userVO.getUserid(), contactEt.getText()
+					 .toString());
+					
+					
 					Intent intent = new Intent(this, ConfirmOrderActivity.class);
 					intent.putExtra("class", classe);
 					intent.putExtra("schoolName", school.getName());

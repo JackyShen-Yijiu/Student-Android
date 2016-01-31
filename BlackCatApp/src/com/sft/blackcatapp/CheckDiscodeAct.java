@@ -43,6 +43,9 @@ public class CheckDiscodeAct extends BaseActivity{
 				request(phone,et.getText().toString());
 			}
 			break;
+		case R.id.base_left_btn:
+			finish();
+			break;
 		}
 	}
 	

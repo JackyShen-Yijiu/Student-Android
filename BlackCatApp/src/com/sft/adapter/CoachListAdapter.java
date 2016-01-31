@@ -192,7 +192,7 @@ public class CoachListAdapter extends BaseAdapter {
 
 		List<ClassVO> serverclasslist = mData.get(position)
 				.getServerclasslist();
-		if (serverclasslist == null && serverclasslist.size() == 0) {
+		if (null == serverclasslist  || serverclasslist.size() == 0) {
 
 			holder.className.setText("暂无班型");
 		} else {

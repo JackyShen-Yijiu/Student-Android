@@ -884,7 +884,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 	private void toPay(int po) {
 		ClassVO classe = courseFeeAdapter.getItem(po);
 		Intent i = new Intent(SchoolDetailActivity.this,ApplyActivity.class);
-//		i.putExtra("coach", coachVO);
+		i.putExtra("school", school);
 		i.putExtra("schoolId", school.getId());
 		i.putExtra("class", classe);
 		i.putExtra(SearchCoachActivity.from_searchCoach_enroll, true);
