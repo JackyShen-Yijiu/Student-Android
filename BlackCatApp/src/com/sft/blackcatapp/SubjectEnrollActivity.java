@@ -17,6 +17,7 @@ import com.sft.common.Config.EnrollResult;
 import com.sft.dialog.NoLoginDialog;
 import com.sft.listener.OnTabActivityResultListener;
 import com.sft.util.JSONUtil;
+import com.sft.util.LogUtil;
 import com.sft.util.Util;
 import com.sft.vo.CoachVO;
 import com.sft.vo.SchoolVO;
@@ -51,6 +52,7 @@ public class SubjectEnrollActivity extends BaseActivity implements
 		initView();
 		// resizeLayout();
 		// setListener();
+		LogUtil.print("课程报名");
 	}
 
 	@Override

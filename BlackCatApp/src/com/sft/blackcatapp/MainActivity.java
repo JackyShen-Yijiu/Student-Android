@@ -145,6 +145,9 @@ public class MainActivity extends BaseMainActivity implements
 				@Override
 				public void onClick(View arg0) {
 
+					startActivity(new Intent(MainActivity.this,
+							TestingPhoneActivity.class));
+
 				}
 			});
 			dialog.show();

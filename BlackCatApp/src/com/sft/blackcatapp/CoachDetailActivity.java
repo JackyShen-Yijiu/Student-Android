@@ -52,6 +52,7 @@ import com.sft.util.LogUtil;
 import com.sft.util.Util;
 import com.sft.view.WordWrapView;
 import com.sft.viewutil.ZProgressHUD;
+import com.sft.vo.ClassVO;
 import com.sft.vo.CoachCommentVO;
 import com.sft.vo.CoachVO;
 import com.sft.vo.TagsList;
@@ -134,6 +135,8 @@ public class CoachDetailActivity extends BaseActivity implements
 	private ListView courseFeeListView;
 	private SchoolDetailCourseFeeAdapter courseFeeAdapter;
 
+	private String schoolId = "";
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -164,6 +167,8 @@ public class CoachDetailActivity extends BaseActivity implements
 	}
 
 	private void initView() {
+		schoolId = getIntent().getStringExtra("schoolId");
+
 		showTitlebarBtn(BaseActivity.SHOW_LEFT_BTN
 				| BaseActivity.SHOW_RIGHT_BTN);
 		setBtnBkground(R.drawable.base_left_btn_bkground, R.drawable.phone);
@@ -385,16 +390,19 @@ public class CoachDetailActivity extends BaseActivity implements
 					EnrollResult.SUBJECT_NONE.getValue())) {
 
 				String checkResult = Util.isConfilctEnroll(coachVO);
+				LogUtil.print("check--->" + checkResult);
 				if (checkResult == null) {
-					intent = new Intent();
-					intent.putExtra("activityName",
-							SubjectEnrollActivity.class.getName());
-					intent.putExtra("coach", coachVO);
-					intent.putExtra(
-							SearchCoachActivity.from_searchCoach_enroll,
-							isFromSearchCoach);
-					setResult(RESULT_OK, intent);
-					finish();
+
+					toPay(position);
+					// intent = new Intent();
+					// intent.putExtra("activityName",
+					// SubjectEnrollActivity.class.getName());
+					// intent.putExtra("coach", coachVO);
+					// intent.putExtra(
+					// SearchCoachActivity.from_searchCoach_enroll,
+					// isFromSearchCoach);
+					// setResult(RESULT_OK, intent);
+					// finish();
 				} else if (checkResult.length() == 0) {
 					app.selectEnrollCoach = coachVO;
 					Util.updateEnrollCoach(CoachDetailActivity.this, coachVO,
@@ -441,6 +449,23 @@ public class CoachDetailActivity extends BaseActivity implements
 			}
 		}
 	};
+
+	/**
+	 * 跳转到 支付页面
+	 */
+	private void toPay(int po) {
+		ClassVO classe = courseFeeAdapter.getItem(po);
+		Intent i = new Intent(CoachDetailActivity.this, ApplyActivity.class);
+		i.putExtra("coach", coachVO);
+		i.putExtra("schoolId", schoolId);
+		i.putExtra("class", classe);
+		i.putExtra(SearchCoachActivity.from_searchCoach_enroll, true);
+		startActivity(i);
+		// coachVO.getDriveschoolinfo().
+		// i.putExtra("school", "");
+		// qw
+
+	}
 
 	/**
 	 * 设置标签
