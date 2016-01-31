@@ -3,7 +3,11 @@ package com.sft.blackcatapp;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build.VERSION;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -13,6 +17,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.infinitescrollviewpager.BitmapManager;
 import cn.sft.infinitescrollviewpager.MyHandler;
@@ -20,87 +26,105 @@ import cn.sft.infinitescrollviewpager.MyHandler;
 import com.sft.common.Config;
 import com.sft.util.LogUtil;
 import com.sft.viewutil.ZProgressHUD;
+import com.sft.vo.CoachVO;
 
 public class NewApplystateActivity extends BaseActivity implements
-		OnClickListener {
+		OnClickListener, OnCheckedChangeListener {
 
-	private RadioButton rb_apply_coach;
-	private RadioButton rb_apply_school;
-	private RadioGroup rgroup_apply;
-	private ImageView iv_applystate;
-	private ImageView iv_applystates;
-	private Intent intent;
-	private EditText ed_apply_name;
-	private EditText et;
-	private Button button_commit;
-	private String feedbacktype;
-	private String piclist;
-	private String becomplainedname;
-	private EditText ed_name;
 	private static final String complaint = "complaint";
+
+	private EditText contentEt;
+
+	private RadioGroup feedbackusertypeRg;
+
+	private ImageView commitPic2Iv;
+
+	private Button commitBtn;
+
+	private ImageView commitPicIv1;
+	private String url1 = null;
+
+	private String url2 = null;
+
+	private RadioGroup feedbacktypeRg;
+
+	private RadioButton feedbacktypeSchoolRb;
+
+	private RadioButton feedbacktypeCoachRb;
+
+	private RadioButton feedbackusertypeAnonymous;
+
+	private RadioButton feedbackusertypeRealName;
+
+	private String feedbackusertype = "0";// //投诉类型 0 匿名投诉 1 实名投诉
+
+	private String feedbacktype = "1"; // // 反馈类型 0 平台反馈 1 投诉教练 2 投诉驾校
+
+	private TextView coachNameTv;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		addView(R.layout.new_activity_applystate);
 		initView();
+		initData();
 		Listener();
 
 	}
 
+	// 初始化数据
+	private void initData() {
+		if (app != null && app.userVO != null
+				&& app.userVO.getApplycoachinfo() != null) {
+			coachNameTv.setText(app.userVO.getApplycoachinfo().getName());
+		}
+	}
+
 	@Override
 	protected void onResume() {
-		// initData();
 		super.onResume();
 	}
 
 	private void initView() {
 		setTitleText(R.string.apply_left);
-		ed_apply_name = (EditText) findViewById(R.id.ed_apply_name);
+		feedbacktypeRg = (RadioGroup) findViewById(R.id.complaint_feedbacktype_rg);
+		feedbacktypeCoachRb = (RadioButton) findViewById(R.id.complaint_feedbacktype_coach);
+		feedbacktypeSchoolRb = (RadioButton) findViewById(R.id.complaint_feedbacktype_school);
 
-		et = (EditText) findViewById(R.id.et_publish_bulletin_content);
-		ed_name = (EditText) findViewById(R.id.ed_apply_name);
-		rb_apply_coach = (RadioButton) findViewById(R.id.rb_apply_coach);
-		rb_apply_school = (RadioButton) findViewById(R.id.rb_apply_school);
-		rgroup_apply = (RadioGroup) findViewById(R.id.rgroup_apply);
-		iv_applystate = (ImageView) findViewById(R.id.iv_applystate);
-		iv_applystates = (ImageView) findViewById(R.id.iv_applystates);
-		button_commit = (Button) findViewById(R.id.button_commit);
+		feedbackusertypeRg = (RadioGroup) findViewById(R.id.complaint_feedbackusertype);
+		feedbackusertypeAnonymous = (RadioButton) findViewById(R.id.complaint_feedbackusertype_anonymous);
+		feedbackusertypeRealName = (RadioButton) findViewById(R.id.complaint_feedbackusertype_realname);
+
+		coachNameTv = (TextView) findViewById(R.id.complaint_coach_name_tv);
+		contentEt = (EditText) findViewById(R.id.complaint_content);
+
+		commitPicIv1 = (ImageView) findViewById(R.id.complaint_commit_pic1);
+		commitPic2Iv = (ImageView) findViewById(R.id.complaint_commit_pic2);
+		commitBtn = (Button) findViewById(R.id.button_commit);
 
 	}
 
 	private void Listener() {
-		iv_applystate.setOnClickListener(this);
-		iv_applystates.setOnClickListener(this);
+		feedbacktypeRg.setOnCheckedChangeListener(this);
+		feedbackusertypeRg.setOnCheckedChangeListener(this);
+		commitPicIv1.setOnClickListener(this);
+		commitPic2Iv.setOnClickListener(this);
+		commitBtn.setOnClickListener(this);
+		coachNameTv.setOnClickListener(this);
 
-		rgroup_apply.setOnClickListener(this);
-		button_commit.setOnClickListener(this);
-		rb_apply_coach.setOnClickListener(this);
-		rb_apply_school.setOnClickListener(this);
 	}
 
 	@Override
 	public void onClick(View v) {
+		Intent intent = null;
 		switch (v.getId()) {
-		// 投诉教练
-		case R.id.rb_apply_coach:
-			ed_apply_name.setHint("投诉教练名");
-			feedbacktype = "1";
-
-			break;
-		// 投诉驾校
-		case R.id.rb_apply_school:
-			ed_apply_name.setHint("投诉驾校名");
-			feedbacktype = "2";
-			break;
-		// 添加投诉图片
-		case R.id.iv_applystate:
+		case R.id.complaint_commit_pic1:
 			intent = new Intent(this, NewCropImageActivity.class);
-			startActivityForResult(intent, 1);
+			startActivityForResult(intent, v.getId());
 			break;
-		case R.id.iv_applystates:
+		case R.id.complaint_commit_pic2:
 			intent = new Intent(this, NewCropImageActivity.class);
-			startActivityForResult(intent, 2);
+			startActivityForResult(intent, v.getId());
 			break;
 
 		// 返回
@@ -111,31 +135,50 @@ public class NewApplystateActivity extends BaseActivity implements
 		case R.id.button_commit:
 			complaint();
 			break;
+		case R.id.complaint_coach_name_tv:
+			// 弹出教练列表
+			intent = new Intent(this, AppointmentMoreCoachActivity.class);
+			startActivityForResult(intent, v.getId());
+			break;
 		}
 	}
 
 	private void complaint() {
-		String content = et.getText().toString();
-		String becomplainedname = ed_name.getText().toString();
+		String content = contentEt.getText().toString();
+		String becomplainedname = coachNameTv.getText().toString();
 		if (!TextUtils.isEmpty(content.trim())) {
 			Map<String, String> paramMap = new HashMap<String, String>();
 			paramMap.put("userid", app.userVO.getUserid());
 
 			paramMap.put("feedbackmessage", content);
-			paramMap.put("mobile", app.userVO.getMobile());
+
+			ConnectivityManager connectionManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+			// 获取网络的状态信息，有下面三种方式
+			NetworkInfo networkInfo = connectionManager.getActiveNetworkInfo();
+			String networkName = networkInfo.getTypeName();
+			if (networkName.equalsIgnoreCase("MOBILE")) {
+				networkName += networkInfo.getExtraInfo();
+			}
+			paramMap.put("mobileversion", VERSION.RELEASE);
+			paramMap.put("network", networkName);
+			paramMap.put("resolution", screenWidth + "*" + screenHeight);
+			paramMap.put("appversion", util.getAppVersion());
+
+			paramMap.put("feedbacktype", feedbacktype);
 			paramMap.put("name", app.userVO.getName());
+			paramMap.put("feedbackusertype", feedbackusertype);
+			paramMap.put("mobile", app.userVO.getMobile());
 			// 投诉 教练，驾校名
 
 			paramMap.put("becomplainedname", becomplainedname);
 			// 类型
-			paramMap.put("feedbacktype", feedbacktype);
 			// 没图 一张 两张的
-			paramMap.put("url", getPicUrl());
+			paramMap.put("piclist", getPicUrl());
 
+			LogUtil.print("111" + paramMap);
 			HttpSendUtils.httpPostSend(complaint, this, Config.IP
 					+ "api/v1/userfeedback", paramMap);
 
-			LogUtil.print("111" + content + getPicUrl() + becomplainedname);
 		} else {
 			ZProgressHUD.getInstance(this).show();
 			ZProgressHUD.getInstance(this).dismissWithFailure("评论内容不能为空");
@@ -143,16 +186,18 @@ public class NewApplystateActivity extends BaseActivity implements
 	}
 
 	private String getPicUrl() {
-		String url = null;
-		if (null == url1 && null == url2) {
-
-		}
-		if (null == url1 || null == url2) {
-			url = url1 == null ? url2 : url1;
-		}
+		String url = "";
 		if (null != url1 && null != url2) {
 			url = url1 + "," + url2;
+		} else {
+			if (null != url1) {
+				url = url1;
+			}
+			if (null != url2) {
+				url = url2;
+			}
 		}
+
 		return url;
 	}
 
@@ -181,19 +226,57 @@ public class NewApplystateActivity extends BaseActivity implements
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		if (requestCode == 2 && null != data) {// 第二章
-			url2 = data.getStringExtra("url");
-			// BitmapManager.INSTANCE.loadBitmap2(url, iv_applystate, 90, 90);
-			BitmapManager.INSTANCE.loadBitmap2(url2, iv_applystates, 90, 90);
-		} else if (requestCode == 1 && null != data) {// 第1章
-			url1 = data.getStringExtra("url");
-			BitmapManager.INSTANCE.loadBitmap2(url1, iv_applystate, 90, 90);
-			// BitmapManager.INSTANCE.loadBitmap2(url2, iv_applystates, 90, 90);
+		if (null != data) {
+
+			if (requestCode == R.id.complaint_commit_pic2) {// 第二章
+				url2 = data.getStringExtra("url");
+				// BitmapManager.INSTANCE.loadBitmap2(url, iv_applystate, 90,
+				// 90);
+				BitmapManager.INSTANCE.loadBitmap2(url2, commitPic2Iv, 90, 90);
+			} else if (requestCode == R.id.complaint_commit_pic1) {// 第1章
+				url1 = data.getStringExtra("url");
+				BitmapManager.INSTANCE.loadBitmap2(url1, commitPicIv1, 90, 90);
+				// BitmapManager.INSTANCE.loadBitmap2(url2, iv_applystates, 90,
+				// 90);
+			} else if (requestCode == R.id.complaint_coach_name_tv) {
+				CoachVO coach = (CoachVO) data.getSerializableExtra("coach");
+				if (coach != null) {
+					coachNameTv.setText(coach.getName());
+				}
+			}
 		}
 	}
 
-	private String url1 = null;
+	@Override
+	public void onCheckedChanged(RadioGroup group, int checkId) {
 
-	private String url2 = null;
+		switch (checkId) {
+		// 投诉教练
+		case R.id.complaint_feedbacktype_coach:
+			coachNameTv.setText(app.userVO.getApplycoachinfo().getName());
+			coachNameTv.setCompoundDrawables(null, null, null, getResources()
+					.getDrawable(R.drawable.person_center_arrow));
+			coachNameTv.setEnabled(true);
+			feedbacktype = "1";
+			break;
+		// 投诉驾校
+		case R.id.complaint_feedbacktype_school:
+			coachNameTv.setText(app.userVO.getApplyschoolinfo().getName());
+			coachNameTv.setCompoundDrawables(null, null, null, null);
+			coachNameTv.setEnabled(false);
+			feedbacktype = "2";
+			break;
+		// 匿名投诉
+		case R.id.complaint_feedbackusertype_anonymous:
+			feedbackusertype = "0";
+			break;
+		// 实名投诉
+		case R.id.complaint_feedbackusertype_realname:
+			feedbackusertype = "1";
+			break;
 
+		default:
+			break;
+		}
+	}
 }
