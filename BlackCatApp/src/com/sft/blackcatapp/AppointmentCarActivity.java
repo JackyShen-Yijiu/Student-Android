@@ -27,7 +27,6 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
-import cn.sft.infinitescrollviewpager.MyHandler;
 import cn.sft.pull.AutoScrollListener;
 import cn.sft.pull.LoadMoreView;
 import cn.sft.pull.LoadMoreView.LoadMoreListener;
@@ -552,11 +551,11 @@ public class AppointmentCarActivity extends BaseActivity implements
 						courseList.add(coachCourseVO);
 					}
 				}
-				
-				Log.d("tag","coure--list>>>"+courseList.size());
-				for(int i=0;i<courseList.size();i++){
-//					Log.d("tag","coure--list>>>"+courseList.get(i).get);
-					
+
+				Log.d("tag", "coure--list>>>" + courseList.size());
+				for (int i = 0; i < courseList.size(); i++) {
+					// Log.d("tag","coure--list>>>"+courseList.get(i).get);
+
 				}
 				timeLayout.setData(courseList, aspect);
 			} else if (type.equals(appointmentCourse)) {
@@ -573,13 +572,13 @@ public class AppointmentCarActivity extends BaseActivity implements
 					Util.saveAppointmentCoach(this, selectCoach);
 					Intent intent = new Intent();
 					setResult(RESULT_OK, intent);
-					new MyHandler(1500) {
-						@Override
-						public void run() {
-							dialog.dismiss();
-							finish();
-						};
-					};
+					// new MyHandler(1500) {
+					// @Override
+					// public void run() {
+					// dialog.dismiss();
+					// finish();
+					// };
+					// };
 				}
 			} else if (sameTimeStudent.equals(type)) {
 				if (dataArray != null) {

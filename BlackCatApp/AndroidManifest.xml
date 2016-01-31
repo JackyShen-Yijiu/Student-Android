@@ -89,6 +89,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <!-- 支付測試 -->
+        <activity android:name="com.sft.alipay.PayDemoActivity" >
+            
+            
+            
+        </activity>
+        
+        
         <activity
             android:name="com.sft.blackcatapp.GuideActivity"
             android:screenOrientation="portrait" />
@@ -352,6 +361,9 @@
               <activity
             android:name="com.sft.blackcatapp.TestingApplyActivity"
             android:screenOrientation="portrait" />
+              <activity
+            android:name="com.sft.blackcatapp.SchoolBusRouteActivity"
+            android:screenOrientation="portrait" />
            
               <activity
             android:name="com.sft.blackcatapp.NewActivitysActivity"
@@ -362,6 +374,10 @@
                android:screenOrientation="portrait"></activity>
             <activity
                android:name=".WebViewActivitys"
+               android:screenOrientation="portrait"></activity>
+           <!-- 折扣券 验证 -->
+           <activity
+               android:name=".CheckDiscodeAct"
                android:screenOrientation="portrait"></activity>
            
            
@@ -376,9 +392,7 @@
             android:theme="@style/Theme.BonueDialog" />
 
         <service android:name="com.sft.util.DownLoadService" />
-        <!-- 支付測試 -->
-        <activity android:name="com.sft.alipay.PayDemoActivity" >
-        </activity>
+        
 
         <!-- 极光推送 ======================================================================== -->
         <!-- Required SDK核心功能 -->

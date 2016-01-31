@@ -51,13 +51,13 @@
     <dimen name="selectcoach_headpic_widthheight">70dp</dimen>
     <dimen name="selectcoach_radiogroup_devider_height">25dp</dimen>
     <dimen name="selectcoach_radiobtn_height">2dp</dimen>
-    <dimen name="selectcoach_radiobtn_width">60dp</dimen>
+    <dimen name="selectcoach_radiobtn_width">70dp</dimen>
 
     <!-- 教练详情界面 -->
     <dimen name="coachdetail_collection_widthheight">48dp</dimen>
     <dimen name="coachdetail_collection_margintop">-24dp</dimen>
     <dimen name="coachdetail_collection_marginright">15dp</dimen>
-    <dimen name="coachdetail_layout_paddingtopbottom">18dp</dimen>
+    <dimen name="coachdetail_layout_paddingtopbottom">10dp</dimen>
     <dimen name="coachdetail_comment_headpic_widthheight">40dp</dimen>
 
     <!-- 选择学校界面 -->

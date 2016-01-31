@@ -179,12 +179,11 @@
                     android:drawableRight="@drawable/arrow_right"
                     android:text="更多" />
 
-                <TextView
-                    android:id="@+id/coach_detail_busroute_intro_tv"
+                <com.sft.view.WordWrapView
+                    android:id="@+id/coach_detail_busroute_intro"
                     style="@style/coachdetail_content_style"
-                    android:layout_below="@+id/school_detail_busroute_tv"
-                    android:text="sndgnfvjfdknbsldinbdlfnbd东方时空就不会山东vnsjdbvjsdjvnsjdnbvl;nbldjfnbljj"
-                    android:layout_marginTop="12dp" />
+                    android:layout_below="@+id/school_detail_busroute_tv" >
+                </com.sft.view.WordWrapView>
             </RelativeLayout>
 
             <ImageView
@@ -217,8 +216,7 @@
                     android:id="@+id/coach_detail_introduction_tv"
                     style="@style/coachdetail_content_style"
                     android:layout_below="@+id/school_detail_schoolinstruction_tv"
-                    android:layout_marginTop="12dp"
-                     />
+                    android:layout_marginTop="12dp" />
             </RelativeLayout>
 
             <LinearLayout
@@ -243,29 +241,10 @@
                     android:layout_marginTop="8dp" >
 
                     <LinearLayout
+                        android:id="@+id/school_detail_train_pic_ll"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" >
-
-                        <ImageView
-                            android:layout_width="90dp"
-                            android:layout_height="60dp"
-                            android:layout_marginLeft="15dp"
-                            android:background="@drawable/app_logo"
-                            android:scaleType="centerCrop" />
-
-                        <ImageView
-                            android:layout_width="90dp"
-                            android:layout_height="60dp"
-                            android:layout_marginLeft="15dp"
-                            android:background="@drawable/app_logo"
-                            android:scaleType="centerCrop" />
-
-                        <ImageView
-                            android:layout_width="90dp"
-                            android:layout_height="60dp"
-                            android:layout_marginLeft="15dp"
-                            android:background="@drawable/app_logo"
-                            android:scaleType="centerCrop" />
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" >
                     </LinearLayout>
                 </HorizontalScrollView>
             </LinearLayout>
@@ -279,48 +258,36 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingBottom="@dimen/coachdetail_layout_paddingtopbottom"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:paddingTop="@dimen/coachdetail_layout_paddingtopbottom" >
-
+                >
+ <!-- android:paddingTop="@dimen/coachdetail_layout_paddingtopbottom" -->
                 <RadioGroup
+                    android:id="@+id/school_detail_radiogroup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:orientation="horizontal" >
 
                     <RadioButton
-                        style="@style/coachdetail_title_style"
-                        android:layout_weight="1"
-                        android:background="@android:color/transparent"
-                        android:button="@null"
+                        android:id="@+id/school_detail_course_fee_rb"
+                        style="@style/select_coach_radiobutton"
                         android:checked="true"
-                        android:gravity="center"
-                        android:text="@string/course_fee"
-                        android:textColor="@drawable/select_coach_radiobtn_textcolor"
-                        android:textStyle="bold" />
+                        android:text="@string/course_fee" />
 
                     <ImageView
                         android:layout_width="1dp"
-                        android:layout_height="20dp"
-                        android:background="#ccc"
+                        android:layout_height="@dimen/selectcoach_radiogroup_devider_height"
+                        android:layout_gravity="center_vertical"
+                        android:background="#dddddd"
                         android:contentDescription="@string/app_name" />
 
                     <RadioButton
-                        style="@style/coachdetail_title_style"
-                        android:layout_weight="1"
-                        android:background="@android:color/transparent"
-                        android:button="@null"
-                        android:gravity="center"
-                        android:text="@string/coach_info"
-                        android:textColor="@drawable/select_coach_radiobtn_textcolor"
-                        android:textStyle="bold" />
+                        android:id="@+id/school_detail_coach_info_rb"
+                        style="@style/select_coach_radiobutton"
+                        android:text="@string/coach_info" />
                 </RadioGroup>
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginTop="10dp"
                     android:background="#ccc"
                     android:contentDescription="@string/app_name" />
 
@@ -329,6 +296,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
                     android:text="@string/no_coach"
                     android:textColor="#333333"
                     android:textSize="14dp" />
@@ -336,28 +304,35 @@
                 <com.sft.view.NoScrollListView
                     android:id="@+id/school_coach_listview"
                     android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:layout_marginLeft="15dp"
-                    android:cacheColorHint="@android:color/transparent"
-                    android:divider="@android:color/transparent"
-                    android:dividerHeight="0dp"
-                    android:layout_marginTop="15dp" />
+                    android:layout_height="wrap_content"
+                    android:cacheColorHint="@null"
+                    android:divider="@null"
+                    android:listSelector="@android:color/transparent"
+                    android:dividerHeight="0dp" />
+                <com.sft.view.NoScrollListView
+                    android:id="@+id/course_fee_listview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:cacheColorHint="@null"
+                    android:divider="@null"
+                    android:visibility="gone"
+                    android:listSelector="@android:color/transparent"
+                    android:dividerHeight="0dp" />
             </LinearLayout>
 
-            <ImageView
+           <!--  <ImageView
                 style="@style/coachdetail_devider_style"
                 android:layout_marginLeft="0dp"
-                android:layout_marginTop="20dp"
-                android:contentDescription="@string/app_name" />
+                android:contentDescription="@string/app_name" /> -->
         </LinearLayout>
     </com.sft.viewutil.MyScrollView>
 
-    <Button
+    <!-- <Button
         android:id="@+id/coach_detail_enroll_btn"
         style="@style/btn_style"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_alignParentBottom="true"
-        android:text="@string/enroll" />
+        android:text="@string/enroll" /> -->
 
 </RelativeLayout>

@@ -57,14 +57,14 @@ public class CoachVO extends DBVO {
 	private String[] workweek;
 	private WorkTimeSpace worktimespace;
 	private List<TagsList> tagslist;
-	private List<ServerClassList> serverclasslist;
+	private List<ClassVO> serverclasslist;
 	private String cartype;
 
-	public List<ServerClassList> getServerclasslist() {
+	public List<ClassVO> getServerclasslist() {
 		return serverclasslist;
 	}
 
-	public void setServerclasslist(List<ServerClassList> serverclasslist) {
+	public void setServerclasslist(List<ClassVO> serverclasslist) {
 		this.serverclasslist = serverclasslist;
 	}
 

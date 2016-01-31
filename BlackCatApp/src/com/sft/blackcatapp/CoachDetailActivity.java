@@ -52,6 +52,7 @@ import com.sft.util.LogUtil;
 import com.sft.util.Util;
 import com.sft.view.WordWrapView;
 import com.sft.viewutil.ZProgressHUD;
+import com.sft.vo.ClassVO;
 import com.sft.vo.CoachCommentVO;
 import com.sft.vo.CoachVO;
 import com.sft.vo.TagsList;
@@ -134,6 +135,8 @@ public class CoachDetailActivity extends BaseActivity implements
 	private ListView courseFeeListView;
 	private SchoolDetailCourseFeeAdapter courseFeeAdapter;
 
+	private String schoolId = "";
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -164,6 +167,8 @@ public class CoachDetailActivity extends BaseActivity implements
 	}
 
 	private void initView() {
+		schoolId = getIntent().getStringExtra("schoolId");
+
 		showTitlebarBtn(BaseActivity.SHOW_LEFT_BTN
 				| BaseActivity.SHOW_RIGHT_BTN);
 		setBtnBkground(R.drawable.base_left_btn_bkground, R.drawable.phone);
@@ -203,6 +208,16 @@ public class CoachDetailActivity extends BaseActivity implements
 		personLabel = (WordWrapView) findViewById(R.id.coach_detail_personality_labels);
 		personLabel.showColor(true);
 		courseFeeListView = (ListView) findViewById(R.id.coash_detail_course_fee_listview);
+
+		// 如果是预约时更多教练放入教练详情，此处不显示
+		courseFeeIm = (ImageView) findViewById(R.id.caoch_detail_course_fee_im);
+		courseFeeRl = (RelativeLayout) findViewById(R.id.caoch_detail_course_fee_rl);
+		String where = getIntent().getStringExtra("where");
+		if (!TextUtils.isEmpty(where)
+				&& AppointmentMoreCoachActivity.class.getName().equals(where)) {
+			courseFeeIm.setVisibility(View.GONE);
+			courseFeeRl.setVisibility(View.GONE);
+		}
 
 		commentList.setVisibility(View.GONE);
 		noCommentTv.setVisibility(View.VISIBLE);
@@ -344,9 +359,8 @@ public class CoachDetailActivity extends BaseActivity implements
 						imageView, dp2px(90), dp2px(60));
 				trainPicLayout.addView(imageView, params);
 			}
-
 			// 设置课程费用
-			if (coachVO.getSeniority() != null) {
+			if (coachVO.getServerclasslist() != null) {
 
 				courseFeeAdapter = new SchoolDetailCourseFeeAdapter(
 						coachVO.getServerclasslist(), this, mListener,
@@ -376,16 +390,19 @@ public class CoachDetailActivity extends BaseActivity implements
 					EnrollResult.SUBJECT_NONE.getValue())) {
 
 				String checkResult = Util.isConfilctEnroll(coachVO);
+				LogUtil.print("check--->" + checkResult);
 				if (checkResult == null) {
-					intent = new Intent();
-					intent.putExtra("activityName",
-							SubjectEnrollActivity.class.getName());
-					intent.putExtra("coach", coachVO);
-					intent.putExtra(
-							SearchCoachActivity.from_searchCoach_enroll,
-							isFromSearchCoach);
-					setResult(RESULT_OK, intent);
-					finish();
+
+					toPay(position);
+					// intent = new Intent();
+					// intent.putExtra("activityName",
+					// SubjectEnrollActivity.class.getName());
+					// intent.putExtra("coach", coachVO);
+					// intent.putExtra(
+					// SearchCoachActivity.from_searchCoach_enroll,
+					// isFromSearchCoach);
+					// setResult(RESULT_OK, intent);
+					// finish();
 				} else if (checkResult.length() == 0) {
 					app.selectEnrollCoach = coachVO;
 					Util.updateEnrollCoach(CoachDetailActivity.this, coachVO,
@@ -434,6 +451,23 @@ public class CoachDetailActivity extends BaseActivity implements
 	};
 
 	/**
+	 * 跳转到 支付页面
+	 */
+	private void toPay(int po){
+		ClassVO classe = courseFeeAdapter.getItem(po);
+		Intent i = new Intent(CoachDetailActivity.this, ApplyActivity.class);
+		i.putExtra("coach", coachVO);
+		i.putExtra("schoolId", schoolId);
+		i.putExtra("class", classe);
+		i.putExtra(SearchCoachActivity.from_searchCoach_enroll, true);
+		startActivity(i);
+		// coachVO.getDriveschoolinfo().
+		// i.putExtra("school", "");
+		// qw
+
+	}
+
+	/**
 	 * 设置标签
 	 */
 	private void addTags() {
@@ -459,6 +493,8 @@ public class CoachDetailActivity extends BaseActivity implements
 	int maxHeight;// schoolInTv总的高度
 	private boolean isExtend = false;// 是否展开
 	private boolean isRunAnim = false;
+	private ImageView courseFeeIm;
+	private RelativeLayout courseFeeRl;
 
 	private void showCoachIntro() {
 		selfEvaluationTv.setMaxLines(2);
@@ -532,9 +568,6 @@ public class CoachDetailActivity extends BaseActivity implements
 		// intent.putExtra("school", schoolVO);
 		// startActivityForResult(intent, R.id.coach_detail_place_tv);
 		// break;
-		case R.id.coach_detail_enroll_btn:
-
-			break;
 
 		// 个人信息说明
 		case R.id.coach_detail_evaluation_more_tv:

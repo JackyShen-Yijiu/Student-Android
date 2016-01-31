@@ -18,6 +18,7 @@ import cn.sft.infinitescrollviewpager.BitmapManager;
 
 import com.sft.blackcatapp.R;
 import com.sft.util.LogUtil;
+import com.sft.vo.ClassVO;
 import com.sft.vo.CoachVO;
 
 @SuppressLint("InflateParams")
@@ -90,7 +91,7 @@ public class SchoolDetailCoachHoriListAdapter extends BaseAdapter {
 			holder = new ViewHolder();
 			holder.coachName = (TextView) convertView
 					.findViewById(R.id.search_coach_coachname_tv);
-			holder.schoolName = (TextView) convertView
+			holder.className = (TextView) convertView
 					.findViewById(R.id.search_coach_schoolname_tv);
 			holder.headPic = (ImageView) convertView
 					.findViewById(R.id.search_coach_headpin_im);
@@ -137,8 +138,23 @@ public class SchoolDetailCoachHoriListAdapter extends BaseAdapter {
 		}
 		String coachName = mData.get(position).getName();
 		holder.coachName.setText(coachName);
-		String schoolName = mData.get(position).getDriveschoolinfo().getName();
-		holder.schoolName.setText(schoolName);
+		List<ClassVO> serverclasslist = mData.get(position)
+				.getServerclasslist();
+		if (serverclasslist == null && serverclasslist.size() == 0) {
+
+			holder.className.setText("暂无班型");
+		} else {
+			String classNameString = "班型：";
+			for (int i = 0; i < serverclasslist.size(); i++) {
+				if (i == serverclasslist.size() - 1) {
+					classNameString += serverclasslist.get(i).getClassname();
+				} else {
+					classNameString += serverclasslist.get(i).getClassname()
+							+ "，";
+				}
+			}
+			holder.className.setText(classNameString);
+		}
 		String rateBar = mData.get(position).getStarlevel();
 		try {
 			holder.rateBar.setRating(Float.parseFloat(rateBar));
@@ -178,7 +194,7 @@ public class SchoolDetailCoachHoriListAdapter extends BaseAdapter {
 	private class ViewHolder {
 		public ImageView selectIm;
 		public TextView coachName;
-		public TextView schoolName;
+		public TextView className;
 		public ImageView headPic;
 		public RatingBar rateBar;
 		public TextView shuttle, general;

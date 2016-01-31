@@ -87,10 +87,10 @@
 
                     <CheckBox
                         android:id="@+id/coach_detail_collection_ck"
-                        android:layout_width="21dp"
-                        android:layout_height="21dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_centerInParent="true"
-                        android:background="@drawable/collect_heart_bkground"
+                        android:background="@drawable/coach_collect_heart_bkground"
                         android:button="@null"
                         android:contentDescription="@string/app_name" />
                 </RelativeLayout>
@@ -168,12 +168,14 @@
             <include layout="@layout/coach_detail_course_info" />
 
             <ImageView
+                android:id="@+id/caoch_detail_course_fee_im"
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
                 android:background="#33cccccc"
                 android:contentDescription="@string/app_name" />
 
             <RelativeLayout
+                android:id="@+id/caoch_detail_course_fee_rl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"

@@ -9,6 +9,7 @@ import java.util.Random;
 
 import com.alipay.sdk.app.PayTask;
 import com.sft.blackcatapp.R;
+import com.sft.util.LogUtil;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -24,13 +25,13 @@ import android.widget.Toast;
 public class PayDemoActivity extends FragmentActivity {
 
 	// 商户PID
-	public static final String PARTNER = "";
+	public static final String PARTNER = "2088121519930520";
 	// 商户收款账号
-	public static final String SELLER = "";
+	public static final String SELLER = "ybpay@ybxch.com";
 	// 商户私钥，pkcs8格式
-	public static final String RSA_PRIVATE = "";
+	public static final String RSA_PRIVATE = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAM1vo5i8yDX9XxbVh7jBBT5a68B3IDSv9Sn7BB/eUmMn/saqrnSlZnJTdnUor9YUuIwZWNaHbVFfIzoqFP9Nz+SxnvKrZx01+KwGkJkWgwD19ZMDZ7W+Pl2p/dpSmOsXa5aVQ84/joapjzCU265wjoZeNgF+3Tlu85qucUqNtRBAgMBAAECgYAjSjw2LqfN7np5N7Ea4b1+2quI4m3b3yYkUgSBXPWWJvazNfrF+uvAU+oTcivSgLi7CFekcpsq0UcB5Ny6hqlhdsAQDYGUGu3HdO4+I7HT8kZVrNpH2Z10RUFeR1lCPg48zIrtBidQs+rbUffHz7WlW3LROGk9L1Zc2FZLpd/+6QJBAPhBZGzclHkRyz/RsHrRQIGa4ib1i4jWGb+K29Gf1J3VBqvvXdhji7gbQGK4CgOHkpwdwokf+MgEWWfHtJHq/a8CQQDT2EjafwluaHvXwvovklqJgiDHLm9bS6AerVThH/6Kc9oN0WV+hYObWx0wvSTHwDN+cX1g9+sSOIWMxApn6jkPAkBvoBejy1sHRTT6sTKFRumWXSorEmV3Va2mLq3Ah/l2Ln8deDfeQIRmd/pvaQk3pRILGGaMec/HQA1jWKycn+kJAkEAvTLGZjXdE3lHWbyuOvxn1bWdVqbXF19kYuGFFAbCC59KWNrx3Vya3I40dMoIZkn282+ifY8Np9lJFR4k+QfL6wJAGQWQcBrNPMHLbwkuwrmlHGw6bsA0GiZn/y4pfw82nQo2Q+xjb+w1EfUDB47eoQzRJHBSoRDYxlLbwQRjr3EOng==";
 	// 支付宝公钥
-	public static final String RSA_PUBLIC = "";
+	public static final String RSA_PUBLIC = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDDI6d306Q8fIfCOaTXyiUeJHkrIvYISRcc73s3vF1ZT7XN8RNPwJxo8pWaJMmvyTn9N4HQ632qJBVHf8sxHi/fEsraprwCtzvzQETrNRwVxLO5jVmRGi60j8Ue1efIlzPXV9je9mkjzOmdssymZkh2QhUrCmZYI/FCEa3/cNMW0QIDAQAB";
 	private static final int SDK_PAY_FLAG = 1;
 	private static final int SDK_CHECK_FLAG = 2;
 
@@ -96,11 +97,13 @@ public class PayDemoActivity extends FragmentActivity {
 			return;
 		}
 		String orderInfo = getOrderInfo("测试的商品", "该测试商品的详细描述", "0.01");
-
+		
+		LogUtil.print("sign--0000---->"+orderInfo);
 		/**
 		 * 特别注意，这里的签名逻辑需要放在服务端，切勿将私钥泄露在代码中！
 		 */
 		String sign = sign(orderInfo);
+		LogUtil.print("sign------>"+sign);
 		try {
 			/**
 			 * 仅需对sign 做URL编码

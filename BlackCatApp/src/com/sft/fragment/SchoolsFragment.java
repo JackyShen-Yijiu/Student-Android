@@ -887,6 +887,7 @@ public class SchoolsFragment extends BaseFragment implements
 				}
 				return;
 			}
+			LogUtil.print("schoolsss-->");
 			if (isFromMenu) {
 				data.setClass(getActivity(), ApplyActivity.class);
 				data.putExtra("isFromMenu", isFromMenu);
