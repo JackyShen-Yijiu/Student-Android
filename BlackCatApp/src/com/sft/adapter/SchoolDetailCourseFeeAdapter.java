@@ -5,7 +5,6 @@ import java.util.List;
 import android.content.Context;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
-import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,8 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.sft.blackcatapp.R;
-import com.sft.common.BlackCatApplication;
-import com.sft.util.LogUtil;
+import com.sft.common.Config.EnrollResult;
 import com.sft.vo.ClassVO;
 
 public class SchoolDetailCourseFeeAdapter extends BaseAdapter {
@@ -24,15 +22,14 @@ public class SchoolDetailCourseFeeAdapter extends BaseAdapter {
 	private Context mContext;
 	private List<ClassVO> mList;
 	private MyClickListener mListener;
-	private String enrollBtnName;
+	private String enrollstate;
 
 	public SchoolDetailCourseFeeAdapter(List<ClassVO> list, Context context,
-			MyClickListener listener, String enrollBtnName) {
+			MyClickListener listener, String enrollstate) {
 		this.mContext = context;
 		this.mList = list;
 		mListener = listener;
-		LogUtil.print("enrollBtnName====" + enrollBtnName);
-		this.enrollBtnName = enrollBtnName;
+		this.enrollstate = enrollstate;
 	}
 
 	@Override
@@ -62,15 +59,22 @@ public class SchoolDetailCourseFeeAdapter extends BaseAdapter {
 		Button entrollBut = (Button) convertView
 				.findViewById(R.id.course_fee_enroll_btn);
 
-		if (!TextUtils.isEmpty(enrollBtnName)) {
-			entrollBut.setText(enrollBtnName);
-		}
-		if (BlackCatApplication.app.userVO == null) {
-			// collectCk.setEnabled(false);
-			entrollBut.setVisibility(View.GONE);
+		if (EnrollResult.SUBJECT_NONE.getValue().equals(enrollstate)) {
+			entrollBut.setText("报名");
+		} else if (EnrollResult.SUBJECT_ENROLLING.getValue()
+				.equals(enrollstate)) {
+			entrollBut.setText("报名审核中");
+			entrollBut.setEnabled(false);
+			entrollBut.setBackgroundColor(mContext.getResources().getColor(
+					R.color.txt_9));
+
 		} else {
-			entrollBut.setVisibility(View.VISIBLE);
+			entrollBut.setText("已报名");
+			entrollBut.setEnabled(false);
+			entrollBut.setBackgroundColor(mContext.getResources().getColor(
+					R.color.txt_9));
 		}
+
 		entrollBut.setTag(position);
 		entrollBut.setOnClickListener(mListener);
 

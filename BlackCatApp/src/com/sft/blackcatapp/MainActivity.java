@@ -126,32 +126,33 @@ public class MainActivity extends BaseMainActivity implements
 			util.print("userid=" + app.userVO.getUserid());
 		}
 		checkStateDialog();
-		
 
 	}
-	
+
 	/**
 	 * 检查学时状态 对话框，
 	 */
-	private void checkStateDialog(){
-//		没报名
-		LogUtil.print("state---->"+app.userVO.getApplystate());
+	private void checkStateDialog() {
+		// 没报名
+		LogUtil.print("state---->" + app.userVO.getApplystate());
 		if (app.userVO.getApplystate().equals("0")) {
 			CheckApplyDialog dialog = new CheckApplyDialog(this);
 			dialog.setTextAndImage("猜对了，你真聪明",
-					"闲着也是闲着，小步与您玩个游戏吧!\n 小步猜您已经在学车了，亲对吗?",
-					"笨死了,答错了",R.drawable.ic_question);
+					"闲着也是闲着，小步与您玩个游戏吧!\n 小步猜您已经在学车了，亲对吗?", "笨死了,答错了",
+					R.drawable.ic_question);
 			dialog.setListener(new OnClickListener() {
-				
+
 				@Override
 				public void onClick(View arg0) {
-					startActivity(new Intent(MainActivity.this,TestingPhoneActivity.class));
-					
+
+					startActivity(new Intent(MainActivity.this,
+							TestingPhoneActivity.class));
+
 				}
 			});
 			dialog.show();
-			
-		} 
+
+		}
 	}
 
 	private int sum = 0;

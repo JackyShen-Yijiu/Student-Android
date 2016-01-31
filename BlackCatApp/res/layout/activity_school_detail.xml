@@ -296,6 +296,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
                     android:text="@string/no_coach"
                     android:textColor="#333333"
                     android:textSize="14dp" />
@@ -303,17 +304,19 @@
                 <com.sft.view.NoScrollListView
                     android:id="@+id/school_coach_listview"
                     android:layout_width="match_parent"
-                    android:layout_height="80dp"
+                    android:layout_height="wrap_content"
                     android:cacheColorHint="@null"
-                    android:divider="@android:color/transparent"
+                    android:divider="@null"
+                    android:listSelector="@android:color/transparent"
                     android:dividerHeight="0dp" />
                 <com.sft.view.NoScrollListView
                     android:id="@+id/course_fee_listview"
                     android:layout_width="match_parent"
-                    android:layout_height="80dp"
+                    android:layout_height="wrap_content"
                     android:cacheColorHint="@null"
-                    android:divider="@android:color/transparent"
+                    android:divider="@null"
                     android:visibility="gone"
+                    android:listSelector="@android:color/transparent"
                     android:dividerHeight="0dp" />
             </LinearLayout>
 

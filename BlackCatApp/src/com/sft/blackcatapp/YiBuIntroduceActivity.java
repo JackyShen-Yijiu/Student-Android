@@ -14,7 +14,6 @@ import cn.sft.baseactivity.util.HttpSendUtils;
 
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
-import com.sft.dialog.NoLoginDialog;
 import com.sft.util.JSONUtil;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.UserBaseStateVO;
@@ -45,8 +44,6 @@ public class YiBuIntroduceActivity extends BaseActivity {
 
 	private void initView() {
 		showTitlebarBtn(1);
-		showTitlebarText(BaseActivity.SHOW_RIGHT_TEXT);
-		setText(0, R.string.enroll);
 
 		// button_sus = (Button) findViewById(R.id.button_sus);
 
@@ -125,17 +122,17 @@ public class YiBuIntroduceActivity extends BaseActivity {
 		case R.id.base_left_btn:
 			finish();
 			break;
-		case R.id.base_right_tv:
-			// 报名
-			if (!app.isLogin) {
-				NoLoginDialog dialog = new NoLoginDialog(this);
-				dialog.show();
-			} else {
-
-				checkUserEnrollState();
-
-			}
-			break;
+		// case R.id.base_right_tv:
+		// // 报名
+		// if (!app.isLogin) {
+		// NoLoginDialog dialog = new NoLoginDialog(this);
+		// dialog.show();
+		// } else {
+		//
+		// checkUserEnrollState();
+		//
+		// }
+		// break;
 		}
 	}
 
