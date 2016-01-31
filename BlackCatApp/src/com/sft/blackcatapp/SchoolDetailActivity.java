@@ -48,7 +48,6 @@ import com.sft.adapter.SchoolDetailCourseFeeAdapter;
 import com.sft.adapter.SchoolDetailCourseFeeAdapter.MyClickListener;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
-import com.sft.dialog.EnrollSelectConfilctDialog;
 import com.sft.dialog.EnrollSelectConfilctDialog.OnSelectConfirmListener;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
@@ -362,10 +361,6 @@ public class SchoolDetailActivity extends BaseActivity implements
 												maxHeight = schoolInTv
 														.getHeight();
 
-												LogUtil.print("minHeight-"
-														+ minHeight
-														+ "+maxHeight"
-														+ maxHeight);
 												schoolInTv.getLayoutParams().height = minHeight;
 												schoolInTv.requestLayout();
 											}
@@ -653,7 +648,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 					schoolInTv.getLayoutParams().height = animatedValue;
 					schoolInTv.requestLayout();
 
-					sv_container.scrollBy(0, maxHeight - minHeight);
+					// sv_container.scrollBy(0, maxHeight - minHeight);
 				}
 			});
 			animator.addListener(new AppDesAnimListener());
@@ -792,8 +787,8 @@ public class SchoolDetailActivity extends BaseActivity implements
 			Intent intent = new Intent(this, CoachDetailActivity.class);
 			CoachVO coachVO = adapter.getItem(arg2);
 			intent.putExtra("coach", coachVO);
-//			intent.putExtra("schoolId", school.getId());
-//			startActivityForResult(intent, listView.getId());
+			// intent.putExtra("schoolId", school.getId());
+			// startActivityForResult(intent, listView.getId());
 			intent.putExtra("schoolId", school.getId());
 			startActivityForResult(intent, coachlistView.getId());
 		}
@@ -835,36 +830,36 @@ public class SchoolDetailActivity extends BaseActivity implements
 			Intent intent = null;
 			if (app.userVO.getApplystate().equals(
 					EnrollResult.SUBJECT_NONE.getValue())) {
-				
-				
+
 				toPay(position);
-//				String checkResult = Util.isConfilctEnroll(school);
-//				LogUtil.print("toApply" + checkResult);
-//				if (checkResult == null) {
-//					
-//					
-//					intent = new Intent();
-//					intent.putExtra("school", school);
-//					intent.putExtra("activityName",
-//							SubjectEnrollActivity.class.getName());
-//					setResult(RESULT_OK, intent);
-//					finish();
-//				} else if (checkResult.length() == 0) {
-//					app.selectEnrollSchool = school;
-//					Util.updateEnrollSchool(SchoolDetailActivity.this, school,
-//							false);
-//					intent = new Intent();
-//					intent.putExtra("school", school);
-//					intent.putExtra("activityName",
-//							SubjectEnrollActivity.class.getName());
-//					setResult(RESULT_OK, intent);
-//					finish();
-//				} else {
-//					// 提示
-//					EnrollSelectConfilctDialog dialog = new EnrollSelectConfilctDialog(
-//							SchoolDetailActivity.this, checkResult);
-//					dialog.show();
-//				}
+				// String checkResult = Util.isConfilctEnroll(school);
+				// LogUtil.print("toApply" + checkResult);
+				// if (checkResult == null) {
+				//
+				//
+				// intent = new Intent();
+				// intent.putExtra("school", school);
+				// intent.putExtra("activityName",
+				// SubjectEnrollActivity.class.getName());
+				// setResult(RESULT_OK, intent);
+				// finish();
+				// } else if (checkResult.length() == 0) {
+				// app.selectEnrollSchool = school;
+				// Util.updateEnrollSchool(SchoolDetailActivity.this, school,
+				// false);
+				// intent = new Intent();
+				// intent.putExtra("school", school);
+				// intent.putExtra("activityName",
+				// SubjectEnrollActivity.class.getName());
+				// setResult(RESULT_OK, intent);
+				// finish();
+				// } else {
+				// // 提示
+				// EnrollSelectConfilctDialog dialog = new
+				// EnrollSelectConfilctDialog(
+				// SchoolDetailActivity.this, checkResult);
+				// dialog.show();
+				// }
 			} else if (app.userVO.getApplystate().equals(
 					EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue())) {
 				intent = new Intent(SchoolDetailActivity.this,
@@ -878,18 +873,17 @@ public class SchoolDetailActivity extends BaseActivity implements
 			}
 		}
 
-		
 	};
-	
+
 	private void toPay(int po) {
 		ClassVO classe = courseFeeAdapter.getItem(po);
-		Intent i = new Intent(SchoolDetailActivity.this,ApplyActivity.class);
-//		i.putExtra("coach", coachVO);
+		Intent i = new Intent(SchoolDetailActivity.this, ApplyActivity.class);
+		// i.putExtra("coach", coachVO);
 		i.putExtra("schoolId", school.getId());
 		i.putExtra("class", classe);
 		i.putExtra(SearchCoachActivity.from_searchCoach_enroll, true);
 		startActivity(i);
-		
+
 	}
 
 	/**
