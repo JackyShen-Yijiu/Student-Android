@@ -41,6 +41,7 @@ import com.sft.blackcatapp.EditPersonInfoActivity;
 import com.sft.blackcatapp.EnrollSchoolActivity1;
 import com.sft.blackcatapp.MessageActivity;
 import com.sft.blackcatapp.MyWalletActivity;
+import com.sft.blackcatapp.NewActivitysActivity;
 import com.sft.blackcatapp.NewApplystateActivity;
 import com.sft.blackcatapp.PersonCenterActivity;
 import com.sft.blackcatapp.R;
@@ -325,12 +326,13 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 			ZProgressHUD.getInstance(mContext).show();
 			ZProgressHUD.getInstance(mContext).dismissWithFailure("敬请期待！");
 			break;
+		// 活动
 		case R.id.fragment_menu_activity_btn:
 			// ZProgressHUD.getInstance(mContext).show();
 			// ZProgressHUD.getInstance(mContext).dismissWithFailure("敬请期待！");
-			// Intent inten = new Intent(mContext, ActivitiesActivity.class);
-			// startActivity(inten);
-			obtainActivities();
+			Intent inten = new Intent(mContext, NewActivitysActivity.class);
+			startActivity(inten);
+			// obtainActivities();
 			break;
 		case R.id.fragment_menu_signin_btn:
 			if (app.isLogin) {

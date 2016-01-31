@@ -143,6 +143,7 @@ public class SchoolListAdapter extends BaseAdapter {
 
 		holder.coachAndComment.setText(mData.get(position).getCommentcount()
 				+ "条评论 | " + mData.get(position).getCoachcount() + "名认证教练");
+
 		String headUrl = mData.get(position).getLogoimg().getOriginalpic();
 
 		LinearLayout.LayoutParams headParams = (LinearLayout.LayoutParams) holder.headPic

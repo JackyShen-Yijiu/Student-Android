@@ -14,6 +14,7 @@ public class ActivitiesVO extends DBVO {
 	private String contenturl;
 	private String begindate;
 	private String address;
+	private String activitystate;
 
 	public String getId() {
 		return id;
@@ -21,6 +22,14 @@ public class ActivitiesVO extends DBVO {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getActivitystate() {
+		return activitystate;
+	}
+
+	public void setActivitystate(String activitystate) {
+		this.activitystate = activitystate;
 	}
 
 	public String getName() {
