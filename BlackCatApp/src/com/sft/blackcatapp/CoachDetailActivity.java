@@ -204,6 +204,16 @@ public class CoachDetailActivity extends BaseActivity implements
 		personLabel.showColor(true);
 		courseFeeListView = (ListView) findViewById(R.id.coash_detail_course_fee_listview);
 
+		// 如果是预约时更多教练放入教练详情，此处不显示
+		courseFeeIm = (ImageView) findViewById(R.id.caoch_detail_course_fee_im);
+		courseFeeRl = (RelativeLayout) findViewById(R.id.caoch_detail_course_fee_rl);
+		String where = getIntent().getStringExtra("where");
+		if (!TextUtils.isEmpty(where)
+				&& AppointmentMoreCoachActivity.class.getName().equals(where)) {
+			courseFeeIm.setVisibility(View.GONE);
+			courseFeeRl.setVisibility(View.GONE);
+		}
+
 		commentList.setVisibility(View.GONE);
 		noCommentTv.setVisibility(View.VISIBLE);
 
@@ -458,6 +468,8 @@ public class CoachDetailActivity extends BaseActivity implements
 	int maxHeight;// schoolInTv总的高度
 	private boolean isExtend = false;// 是否展开
 	private boolean isRunAnim = false;
+	private ImageView courseFeeIm;
+	private RelativeLayout courseFeeRl;
 
 	private void showCoachIntro() {
 		selfEvaluationTv.setMaxLines(2);

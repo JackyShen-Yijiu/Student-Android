@@ -5,11 +5,9 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -18,7 +16,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import cn.sft.infinitescrollviewpager.BitmapManager;
 
-import com.sft.blackcatapp.CoachDetailActivity;
+import com.sft.adapter.SchoolDetailCourseFeeAdapter.MyClickListener;
 import com.sft.blackcatapp.R;
 import com.sft.util.LogUtil;
 import com.sft.vo.ClassVO;
@@ -34,6 +32,19 @@ public class CoachListAdapter extends BaseAdapter {
 
 	private int index = -1;
 	private Context mContext;
+	private MyClickListener mListener;
+
+	public CoachListAdapter(Context context, List<CoachVO> mData,
+			MyClickListener listener) {
+		this.mInflater = LayoutInflater.from(context);
+		this.mData = mData;
+		mContext = context;
+		mListener = listener;
+		// isSelected = ;
+		for (int i = 0; i < mData.size(); i++) {
+			isSelected.add(false);
+		}
+	}
 
 	public CoachListAdapter(Context context, List<CoachVO> mData) {
 		this.mInflater = LayoutInflater.from(context);
@@ -142,7 +153,6 @@ public class CoachListAdapter extends BaseAdapter {
 			holder.general.setVisibility(View.GONE);
 		}
 		String coachName = mData.get(position).getName();
-		LogUtil.print("adapter--->" + coachName);
 		holder.coachName.setText(coachName);
 		String schoolName = mData.get(position).getDriveschoolinfo().getName();
 		holder.className.setText(schoolName);
@@ -197,17 +207,8 @@ public class CoachListAdapter extends BaseAdapter {
 			}
 			holder.className.setText(classNameString);
 		}
-
-		holder.headPic.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(mContext, CoachDetailActivity.class);
-				intent.putExtra("coach", mData.get(position));
-				mContext.startActivity(intent);
-				LogUtil.print("教练详情--CoachDetailActivity");
-			}
-		});
+		holder.headPic.setTag(position);
+		holder.headPic.setOnClickListener(mListener);
 		return convertView;
 	}
 

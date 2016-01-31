@@ -144,20 +144,21 @@ public class BonusDialog extends Activity {
 	private UMShareListener umShareListener = new UMShareListener() {
 		@Override
 		public void onResult(SHARE_MEDIA platform) {
-			Toast.makeText(BonusDialog.this, platform + " 分享成功啦",
-					Toast.LENGTH_SHORT).show();
+			Toast.makeText(BonusDialog.this, " 分享成功啦", Toast.LENGTH_SHORT)
+					.show();
+			BonusDialog.this.finish();
 		}
 
 		@Override
 		public void onError(SHARE_MEDIA platform, Throwable t) {
-			Toast.makeText(BonusDialog.this, platform + " 分享失败啦",
-					Toast.LENGTH_SHORT).show();
+			Toast.makeText(BonusDialog.this, " 分享失败啦", Toast.LENGTH_SHORT)
+					.show();
 		}
 
 		@Override
 		public void onCancel(SHARE_MEDIA platform) {
-			Toast.makeText(BonusDialog.this, platform + " 分享取消了",
-					Toast.LENGTH_SHORT).show();
+			Toast.makeText(BonusDialog.this, " 分享取消了", Toast.LENGTH_SHORT)
+					.show();
 		}
 	};
 	private ShareBoardlistener shareBoardlistener = new ShareBoardlistener() {

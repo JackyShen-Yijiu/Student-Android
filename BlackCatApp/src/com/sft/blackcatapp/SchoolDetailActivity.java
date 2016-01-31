@@ -162,7 +162,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 				+ "api/v1/info/headlinenews");
 	}
 
-	private String enrollBtnName;
+	private String enrollState;
 
 	@Override
 	protected void onResume() {
@@ -170,12 +170,12 @@ public class SchoolDetailActivity extends BaseActivity implements
 		if (app.userVO == null
 				|| app.userVO.getApplystate().equals(
 						EnrollResult.SUBJECT_NONE.getValue())) {
-			enrollBtnName = getResources().getString(R.string.enroll);
+			enrollState = EnrollResult.SUBJECT_NONE.getValue();
 		} else if (app.userVO.getApplystate().equals(
 				EnrollResult.SUBJECT_ENROLLING.getValue())) {
-			enrollBtnName = getResources().getString(R.string.verifying);
+			enrollState = EnrollResult.SUBJECT_ENROLLING.getValue();
 		} else {
-			enrollBtnName = getResources().getString(R.string.appointment);
+			enrollState = EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue();
 		}
 		super.onResume();
 	};
@@ -551,7 +551,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 					courseFeeAdapter = null;
 					courseFeeAdapter = new SchoolDetailCourseFeeAdapter(
 							courseList, SchoolDetailActivity.this, mListener,
-							enrollBtnName);
+							enrollState);
 					// courseFeeAdapter.setData(twoCoach);
 					courselistView.setAdapter(courseFeeAdapter);
 					setListViewHeightBasedOnChildren(coachlistView);

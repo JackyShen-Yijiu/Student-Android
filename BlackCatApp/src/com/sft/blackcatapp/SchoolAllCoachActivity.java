@@ -15,8 +15,10 @@ import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
 import com.sft.adapter.CoachListAdapter;
+import com.sft.adapter.SchoolDetailCourseFeeAdapter.MyClickListener;
 import com.sft.common.Config;
 import com.sft.util.JSONUtil;
+import com.sft.util.LogUtil;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.CoachVO;
 
@@ -114,23 +116,33 @@ public class SchoolAllCoachActivity extends BaseActivity implements
 				if (dataArray != null) {
 					int length = dataArray.length();
 					if (length > 0) {
+
+						if (moreCoachPage == 1) {
+							ZProgressHUD.getInstance(
+									SchoolAllCoachActivity.this).dismiss();
+							coachListView.setVisibility(View.VISIBLE);
+						}
 						moreCoachPage++;
-						// layout.setVisibility(View.GONE);
-						ZProgressHUD.getInstance(SchoolAllCoachActivity.this)
-								.dismiss();
-						coachListView.setVisibility(View.VISIBLE);
+					} else if (length == 0) {
+						toast.setText("没有更多数据了");
+						coachListView.setPullLoadEnable(false);
 					}
+					int curLength = coachList.size();
 					for (int i = 0; i < length; i++) {
 						CoachVO coachVO = JSONUtil.toJavaBean(CoachVO.class,
 								dataArray.getJSONObject(i));
+						if (app.favouriteCoach.contains(coachVO))
+							continue;
 						coachList.add(coachVO);
 					}
 					if (adapter == null) {
-						adapter = new CoachListAdapter(this, coachList);
+						adapter = new CoachListAdapter(this, coachList,
+								mListener);
 					} else {
 						adapter.setData(coachList);
 					}
 					coachListView.setAdapter(adapter);
+					coachListView.setSelection(curLength);
 					coachListView.stopLoadMore();
 				}
 			}
@@ -147,7 +159,17 @@ public class SchoolAllCoachActivity extends BaseActivity implements
 
 	@Override
 	public void onLoadMore() {
+		LogUtil.print("moreCoachPage++;===" + moreCoachPage);
 		obtainSchoolCoach(moreCoachPage);
 	}
+
+	/**
+	 * 实现类，响应按钮点击事件
+	 */
+	private MyClickListener mListener = new MyClickListener() {
+		@Override
+		public void myOnClick(int position, View v) {
+		}
+	};
 
 }
