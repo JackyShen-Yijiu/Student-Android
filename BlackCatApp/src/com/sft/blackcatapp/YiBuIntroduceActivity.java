@@ -70,8 +70,10 @@ public class YiBuIntroduceActivity extends BaseActivity {
 			break;
 		case R.id.introduce_favourable_class:
 			// url = "http://123.57.63.15:8181/liuchengt.html";
+//			Toast("一步学车");
 			setTitleText(R.string.yibu_procedure);
-			Intent intent = new Intent(this, EnrollSchoolActivity.class);
+//			Intent intent = new Intent(this, EnrollSchoolActivity.class);
+			Intent intent = new Intent(this, EnrollSchoolActivity1.class);
 			intent.putExtra("isFromMenu", true);
 			startActivityForResult(intent, 1);
 			finish();

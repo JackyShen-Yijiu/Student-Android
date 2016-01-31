@@ -5,7 +5,17 @@
     tools:context="com.example.confirmorderactivity.ConfirmOrderActivity" >
     
 <!-- 1 -->
-    	<LinearLayout
+
+		<ScrollView 
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:layout_above="@+id/act_pay_now"
+		    >
+		    <RelativeLayout 
+		        android:layout_width="match_parent"
+		    	android:layout_height="wrap_content"
+		        >
+		        <LinearLayout
     	    android:id="@+id/line_one"
             android:layout_width="match_parent"
             android:layout_height="10dp"
@@ -27,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/tv_coupon"
             android:layout_alignRight="@+id/line_two"
-            android:layout_marginRight="15dp"
+            android:layout_marginRight="0dp"
             android:drawableRight="@drawable/arrow_right"
             android:drawablePadding="8dp"
             android:padding="12dp"
@@ -61,7 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/tv_goods"
             android:layout_alignRight="@+id/line_two"
-            android:layout_marginRight="15dp"
+            android:layout_marginRight="2dp"
             android:padding="12dp"
             android:text="12341251245" />
         
@@ -95,7 +105,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/tv_goods_money"
             android:layout_alignRight="@+id/line_two"
-            android:layout_marginRight="15dp"
+            android:layout_marginRight="2dp"
             android:padding="12dp"
             android:text="12341251245" />
         
@@ -127,7 +137,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/tv_discount"
             android:layout_alignRight="@+id/line_two"
-            android:layout_marginRight="15dp"
+            android:layout_marginRight="2dp"
             android:padding="12dp"
             android:text="12341251245" />
         
@@ -160,7 +170,8 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:background="@android:color/transparent"
                     android:button="@drawable/radio_button_bg"
                     android:paddingLeft="10dp"
@@ -174,11 +185,13 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:background="@android:color/transparent"
                     android:button="@drawable/radio_button_bg"
                     android:paddingLeft="10dp"
                     android:text="支付宝支付"
+                    android:checked="true"
                     android:textColor="#333333"
                     android:textSize="14sp" />
 
@@ -303,13 +316,21 @@
                   android:layout_toRightOf="@+id/textView8"
                   android:layout_alignTop="@+id/textView8"
                   android:text="3188元" />
+		        
+		    </RelativeLayout>
+		    
+		</ScrollView>
+
+    	
               
               <Button 
+                  android:id="@+id/act_pay_now"
                   android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
                   android:text="立即支付"
-                  android:textColor="#ffffff"
+                  android:layout_height="50dp"
                   android:background="#ff6633"
+                  android:textColor="@color/white"
+                  android:textSize="16sp"
                   android:layout_alignParentBottom="true"/>
         
 </RelativeLayout>

@@ -174,7 +174,6 @@ public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity
 //		Toast("白色"+contentLayout);
 		if(contentLayout!=null){
 			contentLayout.setBackgroundColor(color);
-			
 		}
 			
 	}

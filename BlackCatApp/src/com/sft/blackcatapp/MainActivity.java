@@ -134,7 +134,7 @@ public class MainActivity extends BaseMainActivity implements
 	 */
 	private void checkStateDialog() {
 		// 没报名
-		LogUtil.print("state---->" + app.userVO.getApplystate());
+//		LogUtil.print("state---->" + app.userVO.getApplystate());
 		if (app.userVO.getApplystate().equals("0")) {
 			CheckApplyDialog dialog = new CheckApplyDialog(this);
 			dialog.setTextAndImage("猜对了，你真聪明",

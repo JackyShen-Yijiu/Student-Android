@@ -11,6 +11,8 @@
         android:layout_height="match_parent" 
         android:background="#fff"
         android:divider="@null"
+        android:layout_marginLeft="15dp"
+    	 android:layout_marginRight="15dp"
         android:fadingEdge="none"
         android:overScrollMode="always"
         android:scrollbars="none"
