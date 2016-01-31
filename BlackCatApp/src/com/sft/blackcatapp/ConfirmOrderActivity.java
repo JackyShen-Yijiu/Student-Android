@@ -1,15 +1,13 @@
 package com.sft.blackcatapp;
 
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
-import com.sft.fragment.BaseFragment;
-import com.sft.vo.ServerClassList;
+import com.sft.vo.ClassVO;
 
 public class ConfirmOrderActivity extends BaseActivity implements OnClickListener {
 
@@ -17,7 +15,7 @@ public class ConfirmOrderActivity extends BaseActivity implements OnClickListene
 	
 	private TextView tvShoudPay,tvReallyPay;
 	
-	private ServerClassList classe;
+	private ClassVO classe;
 	
 	/**
 	 * 填写的 phone 号码
@@ -35,7 +33,7 @@ public class ConfirmOrderActivity extends BaseActivity implements OnClickListene
 	}
 
 	private void initView() {
-		classe = (ServerClassList) getIntent().getSerializableExtra("class");
+		classe = (ClassVO) getIntent().getSerializableExtra("class");
 		String schoolName = getIntent().getStringExtra("schoolName");
 		phone = getIntent().getStringExtra("phone");
 		

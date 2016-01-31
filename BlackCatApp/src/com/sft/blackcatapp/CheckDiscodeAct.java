@@ -29,6 +29,8 @@ public class CheckDiscodeAct extends BaseActivity{
 		super.onCreate(savedInstanceState);
 //		setContentView(R.layout.act_check_discode);
 		addView(R.layout.act_check_discode);
+		showTitlebarBtn(BaseActivity.SHOW_LEFT_BTN
+				);// BaseActivity.SHOW_RIGHT_BTN
 		setTitleText("活动兑换码");
 		et = (EditText) findViewById(R.id.act_check_discode_et);
 		phone = getIntent().getStringExtra("phone");

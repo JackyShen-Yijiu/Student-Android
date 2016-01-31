@@ -89,6 +89,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <!-- 支付測試 -->
+        <activity android:name="com.sft.alipay.PayDemoActivity" >
+            
+            
+            
+        </activity>
+        
+        
         <activity
             android:name="com.sft.blackcatapp.GuideActivity"
             android:screenOrientation="portrait" />
@@ -378,9 +387,7 @@
             android:theme="@style/Theme.BonueDialog" />
 
         <service android:name="com.sft.util.DownLoadService" />
-        <!-- 支付測試 -->
-        <activity android:name="com.sft.alipay.PayDemoActivity" >
-        </activity>
+        
 
         <!-- 极光推送 ======================================================================== -->
         <!-- Required SDK核心功能 -->

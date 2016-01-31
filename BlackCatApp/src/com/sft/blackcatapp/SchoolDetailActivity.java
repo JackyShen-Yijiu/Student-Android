@@ -792,12 +792,9 @@ public class SchoolDetailActivity extends BaseActivity implements
 			Intent intent = new Intent(this, CoachDetailActivity.class);
 			CoachVO coachVO = adapter.getItem(arg2);
 			intent.putExtra("coach", coachVO);
-<<<<<<< HEAD
-			intent.putExtra("schoolId", school.getId());
-			startActivityForResult(intent, listView.getId());
-=======
+//			intent.putExtra("schoolId", school.getId());
+//			startActivityForResult(intent, listView.getId());
 			startActivityForResult(intent, coachlistView.getId());
->>>>>>> c608d388823ca95f39dbc4b93c4c9ed8eca20816
 		}
 	}
 
@@ -837,31 +834,36 @@ public class SchoolDetailActivity extends BaseActivity implements
 			Intent intent = null;
 			if (app.userVO.getApplystate().equals(
 					EnrollResult.SUBJECT_NONE.getValue())) {
-				String checkResult = Util.isConfilctEnroll(school);
-				LogUtil.print("toApply" + checkResult);
-				if (checkResult == null) {
-					intent = new Intent();
-					intent.putExtra("school", school);
-					intent.putExtra("activityName",
-							SubjectEnrollActivity.class.getName());
-					setResult(RESULT_OK, intent);
-					finish();
-				} else if (checkResult.length() == 0) {
-					app.selectEnrollSchool = school;
-					Util.updateEnrollSchool(SchoolDetailActivity.this, school,
-							false);
-					intent = new Intent();
-					intent.putExtra("school", school);
-					intent.putExtra("activityName",
-							SubjectEnrollActivity.class.getName());
-					setResult(RESULT_OK, intent);
-					finish();
-				} else {
-					// 提示
-					EnrollSelectConfilctDialog dialog = new EnrollSelectConfilctDialog(
-							SchoolDetailActivity.this, checkResult);
-					dialog.show();
-				}
+				
+				
+				toPay(position);
+//				String checkResult = Util.isConfilctEnroll(school);
+//				LogUtil.print("toApply" + checkResult);
+//				if (checkResult == null) {
+//					
+//					
+//					intent = new Intent();
+//					intent.putExtra("school", school);
+//					intent.putExtra("activityName",
+//							SubjectEnrollActivity.class.getName());
+//					setResult(RESULT_OK, intent);
+//					finish();
+//				} else if (checkResult.length() == 0) {
+//					app.selectEnrollSchool = school;
+//					Util.updateEnrollSchool(SchoolDetailActivity.this, school,
+//							false);
+//					intent = new Intent();
+//					intent.putExtra("school", school);
+//					intent.putExtra("activityName",
+//							SubjectEnrollActivity.class.getName());
+//					setResult(RESULT_OK, intent);
+//					finish();
+//				} else {
+//					// 提示
+//					EnrollSelectConfilctDialog dialog = new EnrollSelectConfilctDialog(
+//							SchoolDetailActivity.this, checkResult);
+//					dialog.show();
+//				}
 			} else if (app.userVO.getApplystate().equals(
 					EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue())) {
 				intent = new Intent(SchoolDetailActivity.this,
@@ -874,7 +876,20 @@ public class SchoolDetailActivity extends BaseActivity implements
 						.dismissWithFailure("正在报名中，请等待审核");
 			}
 		}
+
+		
 	};
+	
+	private void toPay(int po) {
+		ClassVO classe = courseFeeAdapter.getItem(po);
+		Intent i = new Intent(SchoolDetailActivity.this,ApplyActivity.class);
+//		i.putExtra("coach", coachVO);
+		i.putExtra("schoolId", school.getId());
+		i.putExtra("class", classe);
+		i.putExtra(SearchCoachActivity.from_searchCoach_enroll, true);
+		startActivity(i);
+		
+	}
 
 	/**
 	 * 动态设置ListView的高度

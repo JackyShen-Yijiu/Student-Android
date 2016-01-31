@@ -35,6 +35,7 @@ import com.google.gson.reflect.TypeToken;
 import com.joooonho.SelectableRoundedImageView;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.sft.alipay.PayDemoActivity;
 import com.sft.api.ApiHttpClient;
 import com.sft.blackcatapp.ActivitiesActivity;
 import com.sft.blackcatapp.EditPersonInfoActivity;
@@ -313,8 +314,9 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 			break;
 		case R.id.fragment_menu_mall_btn:
 			// if (app.isLogin) {
-			// intent = new Intent(mContext, MyWalletActivity.class);
-			// mContext.startActivity(intent);
+//			Toast.makeText(getActivity(), "mall---->", Toast.LENGTH_SHORT).show();
+//			 intent = new Intent(getActivity(), PayDemoActivity.class);
+//			 startActivity(intent);
 			// } else {
 			// NoLoginDialog dialog = new NoLoginDialog(mContext);
 			// dialog.show();

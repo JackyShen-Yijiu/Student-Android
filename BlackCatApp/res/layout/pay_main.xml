@@ -14,7 +14,7 @@
 
     <fragment
         android:id="@+id/fragment"
-        android:name="com.alipay.sdk.pay.demo.ExternalFragment"
+        android:name="com.sft.alipay.ExternalFragment"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
 

@@ -4,6 +4,8 @@ import java.security.KeyFactory;
 import java.security.PrivateKey;
 import java.security.spec.PKCS8EncodedKeySpec;
 
+import com.sft.util.LogUtil;
+
 public class SignUtils {
 
 	private static final String ALGORITHM = "RSA";
@@ -24,7 +26,7 @@ public class SignUtils {
 
 			signature.initSign(priKey);
 			signature.update(content.getBytes(DEFAULT_CHARSET));
-
+			LogUtil.print("sign----》》》"+signature);
 			byte[] signed = signature.sign();
 
 			return Base64.encode(signed);

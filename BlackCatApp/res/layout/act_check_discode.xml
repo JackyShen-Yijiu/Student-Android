@@ -2,14 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical" >
 
     <EditText
         android:id="@+id/act_check_discode_et"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_margin="15dp"
-        style="@style/enroll_et_style"
+        android:hint="报名兑换码"
+        android:paddingLeft="15dp"
+        android:background="@drawable/shape_line_bg"
         android:ems="10" >
 
         <requestFocus />

@@ -44,7 +44,6 @@ import com.sft.vo.CarModelVO;
 import com.sft.vo.ClassVO;
 import com.sft.vo.CoachVO;
 import com.sft.vo.SchoolVO;
-import com.sft.vo.ServerClassList;
 /**
  * 报名
  * @author sun  2016-1-29 下午1:36:14
@@ -109,7 +108,7 @@ public class ApplyActivity extends BaseActivity implements
 	private String classType;
 	private String schoolId;
 	
-	private ServerClassList classe;
+	private ClassVO classe;
 	private String classID;
 	/**实际价格*/
 	private TextView tvOnSale;
@@ -139,7 +138,9 @@ public class ApplyActivity extends BaseActivity implements
 		//活动页面
 		boolean isFromPlay = getIntent().getBooleanExtra("isFromPlay", false);
 		schoolId = getIntent().getStringExtra("schoolId");
-		classe = (ServerClassList) getIntent().getSerializableExtra("class");
+		classe = (ClassVO) getIntent().getSerializableExtra("class");
+		
+		
 		coach = (CoachVO) getIntent().getSerializableExtra(
 				"coach");
 //		classe.getClassname()
@@ -149,6 +150,8 @@ public class ApplyActivity extends BaseActivity implements
 			tvOnSale.setText(classe.getOnsaleprice()+"元");
 			classID = classe.get_id();
 		}
+		
+		coachTv.setText(null==coach?"智能匹配":coach.getName());
 			
 		
 		// 从查找驾校处报名
@@ -301,6 +304,8 @@ public class ApplyActivity extends BaseActivity implements
 		} else {
 			contactEt.setText(app.userVO.getMobile());
 		}
+		
+		
 		//1.2版 获取新的数据
 //		
 		

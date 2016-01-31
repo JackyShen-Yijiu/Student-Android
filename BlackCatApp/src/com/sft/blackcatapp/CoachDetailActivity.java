@@ -52,9 +52,9 @@ import com.sft.util.LogUtil;
 import com.sft.util.Util;
 import com.sft.view.WordWrapView;
 import com.sft.viewutil.ZProgressHUD;
+import com.sft.vo.ClassVO;
 import com.sft.vo.CoachCommentVO;
 import com.sft.vo.CoachVO;
-import com.sft.vo.ServerClassList;
 import com.sft.vo.TagsList;
 import com.sft.vo.commonvo.Subject;
 
@@ -444,7 +444,7 @@ public class CoachDetailActivity extends BaseActivity implements
 	 * 跳转到 支付页面
 	 */
 	private void toPay(int po){
-		ServerClassList classe = courseFeeAdapter.getItem(po);
+		ClassVO classe = courseFeeAdapter.getItem(po);
 		Intent i = new Intent(CoachDetailActivity.this,ApplyActivity.class);
 		i.putExtra("coach", coachVO);
 		i.putExtra("schoolId", schoolId);
