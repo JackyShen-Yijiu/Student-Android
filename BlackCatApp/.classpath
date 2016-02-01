@@ -7,5 +7,6 @@
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="src" path="/Cropper"/>
 	<classpathentry kind="src" path="/InfiniteScrollViewPager"/>
+	<classpathentry kind="lib" path="libs/umeng_social_sdk.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
