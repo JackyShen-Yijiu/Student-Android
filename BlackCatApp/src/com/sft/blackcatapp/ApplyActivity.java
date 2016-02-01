@@ -33,6 +33,7 @@ import com.sft.dialog.EnrollSelectConfilctDialog;
 import com.sft.dialog.EnrollSelectConfilctDialog.OnSelectConfirmListener;
 import com.sft.util.CommonUtil;
 import com.sft.util.JSONUtil;
+import com.sft.util.LogUtil;
 import com.sft.util.SharedPreferencesUtil;
 import com.sft.util.UTC2LOC;
 import com.sft.util.Util;
@@ -113,11 +114,17 @@ public class ApplyActivity extends BaseActivity implements
 	private SchoolVO schoolName;
 
 	private ClassVO classe;
-	private String classID;
+//	private String classID;
 	/** 实际价格 */
 	private TextView tvOnSale;
 
 	private RadioButton radioOnLine, radioOffLine;
+	/**
+	 * 0：驾校详情
+	 * 1：教练详情
+	 * 2.活动详情 ，，待定
+	 */
+	private int from;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -133,69 +140,97 @@ public class ApplyActivity extends BaseActivity implements
 //		View v;
 //		v.setBackgroundColor(Color.)
 	}
+	
+	private String enCoachId;
+	private String enSchoolId;
+	private String enclassTypeId;
+	private String encarmodel;
 
 	private void initApplyData() {
-		boolean isFromMenu = getIntent().getBooleanExtra("isFromMenu", false);
-		boolean isFromEnroll = getIntent().getBooleanExtra(
-				SearchCoachActivity.from_searchCoach_enroll, false);
-		// 活动页面
-		boolean isFromPlay = getIntent().getBooleanExtra("isFromPlay", false);
-		schoolId = getIntent().getStringExtra("schoolId");
-		classe = (ClassVO) getIntent().getSerializableExtra("class");
-		school = (SchoolVO) getIntent().getSerializableExtra("school");
 		
-		coach = (CoachVO) getIntent().getSerializableExtra(
-				"coach");
-//		classe.getClassname()
-//		classe.getPrice()
-		if(classe!=null){
-			licenseType.setText(classe.getClassname()+"￥"+classe.getOnsaleprice());
-			tvOnSale.setText(classe.getOnsaleprice()+"元");
-			classID = classe.get_id();
-		}
+		from = getIntent().getIntExtra("from", 0);
 		
-		if (school != null) {//从驾校跳转过来 
-			setDefaultData(school);
-		}
+//		boolean isFromMenu = getIntent().getBooleanExtra("isFromMenu", false);
+//		boolean isFromEnroll = getIntent().getBooleanExtra(
+//				SearchCoachActivity.from_searchCoach_enroll, false);
+//		// 活动页面
+//		boolean isFromPlay = getIntent().getBooleanExtra("isFromPlay", false);
 		
-		coachTv.setText(null==coach?"智能匹配":coach.getName());
+//		if(classe!=null){
+//			classID = classe.get_id();
+//		}
+//		if (school != null) {//从驾校跳转过来 
+//			setDefaultData(school);
+//		}
+		
+//		coach = (CoachVO) getIntent().getSerializableExtra("coach");
+//		if (classe != null) {
+//			licenseType.setText(classe.getClassname() + "￥"
+//					+ classe.getOnsaleprice());
+//			tvOnSale.setText(classe.getOnsaleprice() + "元");
+//			classID = classe.get_id();
+//		}
+		
+		switch(from){
+		case 0://驾校详情
+			classe = (ClassVO) getIntent().getSerializableExtra("class");
+			school = (SchoolVO) getIntent().getSerializableExtra("school");
+			enSchoolId = classe.getSchoolinfo().getSchoolid();
 			
-		
-		coach = (CoachVO) getIntent().getSerializableExtra("coach");
-		// classe.getClassname()
-		// classe.getPrice()
-		if (classe != null) {
-			licenseType.setText(classe.getClassname() + "￥"
-					+ classe.getOnsaleprice());
-			tvOnSale.setText(classe.getOnsaleprice() + "元");
-			classID = classe.get_id();
-		}
-
-		// 从查找驾校处报名
-		if (isFromMenu) {
-			SchoolVO schoolVO = (SchoolVO) getIntent().getSerializableExtra(
-					"school");
-			CoachVO coachVO = (CoachVO) getIntent().getSerializableExtra(
+			LogUtil.print("school--id:"+enSchoolId+"id::"+school.getId());
+			enCoachId = "";//智能分配
+			enclassTypeId = classe.getCalssid();
+			encarmodel =  classe.getCarmodel().toString();
+			//coachId  智能分配
+			break;
+		case 1://教练详情
+			coach = (CoachVO) getIntent().getSerializableExtra(
 					"coach");
-			if (schoolVO != null) {
-				setDefaultData(schoolVO);
-			}
-			if (coachVO != null) {
-				coachTv.setText(coachVO.getName());
-			}
-			// 从查找教练处报名
-		} else if (isFromEnroll) {
-
-			if (coach != null) {
-				schoolRl.setClickable(false);
-				coachTv.setText(coach.getName());
-				obtainSchoolById(coach.getDriveschoolinfo().getId());
-			}
-		} else if (isFromPlay) {
-
-		} else {
-			obtainNearBySchool();
+			classe = (ClassVO) getIntent().getSerializableExtra("class");
+			
+			enSchoolId = classe.getSchoolinfo().getSchoolid();
+			enCoachId = coach.getCoachid();//智能分配
+			enclassTypeId = classe.getCalssid();
+			encarmodel =  classe.getCarmodel().toString();
+			break;
+		case 2://活动详情
+			break;
 		}
+		initDefaultData(classe.getSchoolinfo().getName(),coach,classe);
+		
+
+//		// 从查找驾校处报名
+//		if (isFromMenu) {
+//			SchoolVO schoolVO = (SchoolVO) getIntent().getSerializableExtra(
+//					"school");
+//			CoachVO coachVO = (CoachVO) getIntent().getSerializableExtra(
+//					"coach");
+//			if (schoolVO != null) {
+//				setDefaultData(schoolVO);
+//			}
+//			if (coachVO != null) {
+//				coachTv.setText(coachVO.getName());
+//			}
+//			// 从查找教练处报名
+//		} else if (isFromEnroll) {
+//
+//			if (coach != null) {
+//				schoolRl.setClickable(false);
+//				coachTv.setText(coach.getName());
+//				obtainSchoolById(coach.getDriveschoolinfo().getId());
+//			}
+//		} else if (isFromPlay) {
+//
+//		} else {
+			obtainNearBySchool();
+//		}
+	}
+	
+	private void initDefaultData(String schoolName,CoachVO coach,ClassVO classe){
+		coachTv.setText(null==coach?"智能匹配":coach.getName());
+		schoolTv.setText(schoolName);
+		licenseType.setText(classe.getClassname()+"￥"+classe.getOnsaleprice());
+		tvOnSale.setText(classe.getOnsaleprice()+"元");
 	}
 
 	private void obtainSchoolById(String schoolId) {
@@ -468,14 +503,19 @@ public class ApplyActivity extends BaseActivity implements
 		// break;
 		case R.id.enroll_commit_btn:
 			// 验证Y码
-//			obtainYCode();//正式
+			if(null == etYCodeCard.getText().toString() || TextUtils.isEmpty(etYCodeCard.getText().toString().trim())){
+				enroll(null,enCoachId,enSchoolId,enclassTypeId,encarmodel);
+			}else{
+				obtainYCode();//正式
+			}
 			
-			Intent intent1 = new Intent(this, ConfirmOrderActivity.class);
-			intent1.putExtra("class", classe);
-			intent1.putExtra("schoolName", school.getName());
-			intent1.putExtra("phone", contactEt.getText().toString());
-			startActivity(intent1);
-			finish();
+			
+//			Intent intent1 = new Intent(this, ConfirmOrderActivity.class);
+//			intent1.putExtra("class", classe);
+//			intent1.putExtra("schoolName", school.getName());
+//			intent1.putExtra("phone", contactEt.getText().toString());
+//			startActivity(intent1);
+//			finish();
 
 			// String checkResult = checkEnrollInfo();
 			// // if (checkResult == null) {
@@ -575,25 +615,23 @@ public class ApplyActivity extends BaseActivity implements
 			break;
 		}
 	}
+	
+	
 
-	private void enroll(String checkResult) {
+	private void enroll(String checkResult,String coachId,String SchoolId,String classTypeId,String carModel) {
 
 		if (checkResult == null) {
 			Map<String, String> paramMap = new HashMap<String, String>();
 			paramMap.put("name", nameEt.getText().toString());
 			paramMap.put("telephone", contactEt.getText().toString());
 			paramMap.put("userid", app.userVO.getUserid());
+			
+			LogUtil.print("enrollll--->"+coachId+"schoolId;:>"+SchoolId+"classType:>"+classTypeId+"CarModel-->"+carModel);
 
-			// if (isSystemAdd) {
-			// paramMap.put("coachid", "-1");
-			// } else {
-			// paramMap.put("coachid", coach.getCoachid());
-			// }
-
-			paramMap.put("coachid", coach.getCoachid());
-			paramMap.put("schoolid", coach.getDriveschoolinfo().getId());// school.getSchoolid()
-			paramMap.put("classtypeid", classe.get_id());// classId.getCalssid()
-			paramMap.put("carmodel", classe.getCarmodel().toString());// carStyle.toString()
+			paramMap.put("coachid", coachId);
+			paramMap.put("schoolid", SchoolId);// school.getSchoolid()
+			paramMap.put("classtypeid", classTypeId);// classId.getCalssid()
+			paramMap.put("carmodel", carModel);// carStyle.toString()
 			paramMap.put("idcardnumber", "");
 			paramMap.put("address", "");
 			paramMap.put("paytype", radioOnLine.isChecked() ? "2" : "1");// 1
@@ -871,7 +909,7 @@ public class ApplyActivity extends BaseActivity implements
 					dialog.show();
 				}
 				if (result != null && result.equals("1")) {
-					enroll(null);
+					enroll(null,enCoachId,enSchoolId,enclassTypeId,encarmodel);
 				}
 			}
 		} catch (Exception e) {
@@ -888,6 +926,8 @@ public class ApplyActivity extends BaseActivity implements
 			obtainEnrollClass();
 		}
 	}
+	
+	
 
 	// private void setLienseType(List<CarModelVO> listCarModelVOs) {
 	// licenseTypeC1.setText(listCarModelVOs.get(0).getCode() + "手动档");
@@ -1028,7 +1068,7 @@ public class ApplyActivity extends BaseActivity implements
 	public void selectConfirm(boolean isConfirm, boolean isFreshAll) {
 
 		if (isConfirm) {
-			enroll(null);
+			enroll(null,enCoachId,enSchoolId,enclassTypeId,encarmodel);
 		} else {
 
 		}

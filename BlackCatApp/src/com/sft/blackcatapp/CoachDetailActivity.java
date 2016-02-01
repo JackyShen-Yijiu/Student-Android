@@ -457,6 +457,7 @@ public class CoachDetailActivity extends BaseActivity implements
 		i.putExtra("coach", coachVO);
 		i.putExtra("schoolId", schoolId);
 		i.putExtra("class", classe);
+		i.putExtra("from", 1);
 		i.putExtra(SearchCoachActivity.from_searchCoach_enroll, true);
 		startActivity(i);
 		// coachVO.getDriveschoolinfo().

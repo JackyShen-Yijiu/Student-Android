@@ -1,7 +1,9 @@
 package com.sft.fragment;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
@@ -23,12 +25,15 @@ import com.sft.adapter.SchoolListAdapter;
 import com.sft.api.ApiHttpClient;
 import com.sft.blackcatapp.ApplyActivity;
 import com.sft.blackcatapp.BaseActivity;
+import com.sft.blackcatapp.CheckDiscodeAct;
+import com.sft.blackcatapp.ConfirmOrderActivity;
 import com.sft.blackcatapp.EnrollSchoolActivity;
 import com.sft.blackcatapp.EnrollSchoolActivity1;
 import com.sft.blackcatapp.R;
 import com.sft.blackcatapp.SchoolDetailActivity;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
+import com.sft.dialog.CheckApplyDialog;
 import com.sft.dialog.EnrollSelectConfilctDialog.OnSelectConfirmListener;
 import com.sft.listener.MOnScrollListener;
 import com.sft.util.JSONUtil;
@@ -38,6 +43,7 @@ import com.sft.view.RefreshLayout;
 import com.sft.view.RefreshLayout.OnLoadListener;
 import com.sft.vo.HeadLineNewsVO;
 import com.sft.vo.OpenCityVO;
+import com.sft.vo.PayOrderVO;
 import com.sft.vo.SchoolVO;
 
 import android.annotation.SuppressLint;
@@ -871,11 +877,12 @@ public class SchoolsFragment extends BaseFragment implements
 			Intent intent = new Intent(getActivity(), SchoolDetailActivity.class);
 			SchoolVO schoolVO = adapter.getItem(position - 1);
 			intent.putExtra("school", schoolVO);
-
+			LogUtil.print("list---schoolll--->"+ schoolVO.getId());
 			startActivityForResult(intent, 0);
 		}else{//选择驾校
 			Intent i = new Intent();
 			SchoolVO schoolVO = adapter.getItem(position - 1);
+			LogUtil.print("school-->");
 			i.putExtra("school", schoolVO);
 			getActivity().setResult(3, i);
 			getActivity().finish();
@@ -987,6 +994,27 @@ public class SchoolsFragment extends BaseFragment implements
 //						showOpenCityPopupWindow(rightTV);
 //					}
 //				}
+			}else if(type.equals("notPay")){//未支付的订单
+//				{"type":1,"msg":"","data":[{"_id":"56af11ce9ba0d4530524b6cb","userpaystate":0,"creattime":
+//				"2016-02-01T08:05:34.823Z","payendtime":"2016-02-04T08:05:34.823Z","paychannel":0,
+//				"applyschoolinfo":{"id":"562dcc3ccb90f25c3bde40da","name":"一步互联网驾校"},
+//				"applyclasstypeinfo":{"id":"56a9ba41fe60f807363001c9","name":"新春特惠班","price":
+//				4980,"onsaleprice":4680},"discountmoney":0,"paymoney":4680,"activitycoupon":"","couponcode":""}]} type= notPay
+				
+				int length = dataArray.length();
+				List<PayOrderVO> payList = new ArrayList<PayOrderVO>();
+				for (int i = 0; i < length; i++) {
+					PayOrderVO pay;
+					pay = JSONUtil.toJavaBean(PayOrderVO.class,
+							dataArray.getJSONObject(i));
+					if(pay.userpaystate.equals("0") ||pay.userpaystate.equals("3")){//订单刚生成，支付失败
+						HasOrder(pay);
+						break;
+					}
+					payList.add(pay);
+				}
+				
+				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1116,6 +1144,44 @@ public class SchoolsFragment extends BaseFragment implements
 		schoolname = "";
 		ordertype = "";
 		obtainNearBySchool();
+		requestNotFinshOrder();
+	}
+	
+	/**
+	 * 获取位完成的订单 详情
+	 */
+	private void requestNotFinshOrder(){
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("userid", app.userVO.getUserid());
+		paramMap.put("orderstate", "0");//订单的状态 // 0 订单生成 2 支付成功 3 支付失败 4 订单取消 -1 全部(未支付的订单)
+		
+		Map<String, String> headerMap = new HashMap<String, String>();
+		headerMap.put("authorization", app.userVO.getToken());
+		HttpSendUtils.httpGetSend("notPay", this, Config.IP
+				+ "api/v1/userinfo/getmypayorder", paramMap, 10000,
+				headerMap);
+
+	}
+	
+	/**
+	 * 是否包含未支付 订单
+	 */
+	private void HasOrder(final PayOrderVO pay){
+		CheckApplyDialog dialog = new CheckApplyDialog(getActivity());
+		dialog.setTextAndImage("立即支付", "您有未完成订单,是否需要立即支付", "重新报名", R.drawable.ic_question);
+		dialog.setListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				//立即支付
+				Intent i = new Intent(getActivity(),ConfirmOrderActivity.class);
+				i.putExtra("repay", true);//再次支付
+				i.putExtra("bean", pay);
+				startActivity(i);
+				
+			}
+		});
+		dialog.show();
 	}
 
 }

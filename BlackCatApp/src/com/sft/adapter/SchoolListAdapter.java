@@ -57,6 +57,9 @@ public class SchoolListAdapter extends BaseAdapter {
 
 	public void setData(List<SchoolVO> mData) {
 		this.mData = mData;
+		for (int i = 0; i < mData.size(); i++) {
+			isSelected.add(false);
+		}
 	}
 
 	public List<SchoolVO> getData() {

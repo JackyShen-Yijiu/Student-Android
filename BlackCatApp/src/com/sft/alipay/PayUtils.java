@@ -39,10 +39,10 @@ public class PayUtils {
 	
 	
 
-	public void pay(View v,final Activity c,final Handler mHandler,String payName,String payDetail,String money) {
+	public void pay(final Activity c,final Handler mHandler,String payName,String payDetail,String money) {
 		if (TextUtils.isEmpty(PARTNER) || TextUtils.isEmpty(RSA_PRIVATE)
 				|| TextUtils.isEmpty(SELLER)) {
-			new AlertDialog.Builder(v.getContext())
+			new AlertDialog.Builder(c)
 					.setTitle("警告")
 					.setMessage("需要配置PARTNER | RSA_PRIVATE| SELLER")
 					.setPositiveButton("确定",
