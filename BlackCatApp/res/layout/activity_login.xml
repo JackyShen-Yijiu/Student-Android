@@ -63,6 +63,9 @@
                 android:layout_below="@+id/login_passwd_et"
                 android:background="#88e6e6e6"
                 android:contentDescription="@string/app_name" />
+
+            
+
         </RelativeLayout>
 
         <Button

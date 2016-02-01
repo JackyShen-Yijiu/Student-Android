@@ -4,12 +4,13 @@
     android:layout_height="fill_parent" >
 
     <LinearLayout
+        android:id="@+id/linearLayout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/fragment_menu_headpic_im"
         android:layout_marginLeft="12dp"
         android:layout_toRightOf="@id/fragment_menu_headpic_im"
-        android:orientation="vertical" android:id="@+id/linearLayout1">
+        android:orientation="vertical" >
 
         <TextView
             android:id="@+id/fragment_menu_username"
@@ -41,24 +42,21 @@
         android:id="@+id/fragment_menu_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/fragment_menu_headpic_im"
         android:layout_alignLeft="@+id/fragment_menu_content_first"
+        android:layout_below="@id/fragment_menu_headpic_im"
         android:layout_marginTop="20dp"
-        android:textColor="#f2f2f2"
         android:text=""
+        android:textColor="#f2f2f2"
         android:textSize="14sp" />
-
-    
 
     <RelativeLayout
         android:id="@+id/fragment_menu_content_first"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/fragment_menu_number"
-        android:layout_marginTop="20dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="21dp"
-         >
+        android:layout_marginTop="20dp" >
 
         <TextView
             android:id="@+id/textView1"
@@ -189,6 +187,7 @@
             android:textSize="14sp" />
 
         <ImageView
+            android:id="@+id/Line"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/fragment_menu_yuan"
@@ -207,41 +206,48 @@
         android:orientation="horizontal"
         android:rowCount="3" >
 
-   <!--      <Button
+        <!--
+             <Button
             android:id="@+id/fragment_menu_home_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:background="@drawable/fragment_menu_home" /> -->
+            android:background="@drawable/fragment_menu_home" />
+        -->
 
         <Button
             android:id="@+id/fragment_menu_driving_school_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-              android:layout_marginTop="3dp"
+            android:layout_marginTop="3dp"
             android:background="@drawable/fragment_menu_order_school" />
 
-        <!-- <Button
+        <!--
+             <Button
             android:id="@+id/fragment_menu_search_coach_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"
-            android:background="@drawable/fragment_menu_search_coach" /> -->
-            <Button
+            android:background="@drawable/fragment_menu_search_coach" />
+        -->
+
+        <Button
             android:id="@+id/fragment_menu_signin_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"
             android:layout_marginTop="3dp"
             android:background="@drawable/fragment_menu_signin" />
-            <Button
+
+        <Button
             android:id="@+id/fragment_menu_complaint_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"
             android:layout_marginTop="3dp"
             android:background="@drawable/fragment_complaint_activity" />
+
         <Button
             android:id="@+id/fragment_menu_message_btn"
             android:layout_width="wrap_content"
@@ -249,6 +255,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginTop="3dp"
             android:background="@drawable/fragment_menu_message" />
+
         <Button
             android:id="@+id/fragment_menu_activity_btn"
             android:layout_width="wrap_content"
@@ -256,6 +263,7 @@
             android:layout_marginLeft="3dp"
             android:layout_marginTop="3dp"
             android:background="@drawable/fragment_menu_activity" />
+
         <Button
             android:id="@+id/fragment_menu_mall_btn"
             android:layout_width="wrap_content"
@@ -263,16 +271,14 @@
             android:layout_marginLeft="3dp"
             android:layout_marginTop="3dp"
             android:background="@drawable/fragment_menu_mall" />
-        
-                <Button
+
+        <Button
             android:id="@+id/fragment_menu_classcar_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="3dp"
             android:background="@drawable/fragment_menu_classcar" />
-
-        
 
         <Button
             android:id="@+id/fragment_menu_goddness_btn"
@@ -295,21 +301,23 @@
         android:id="@+id/fragment_menu_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-       android:text="联系电话:400-626-9255" 
-       android:layout_below="@id/GridLayout1"
-       android:layout_marginTop="24dp"
-       android:layout_marginLeft="15dp"
-       android:textSize="12sp"
-       android:textColor="#77ffffff"/>
+        android:layout_below="@id/GridLayout1"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="24dp"
+        android:text="联系电话:400-626-9255"
+        android:textColor="#77ffffff"
+        android:textSize="12sp" />
+
     <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-       android:text="北京一步科技有限公司荣誉出品" 
-       android:layout_below="@id/fragment_menu_phone"
-       android:layout_marginTop="9dp"
-       android:layout_marginLeft="15dp"
-       android:textSize="12sp"
-       android:textColor="#77ffffff"/>
+        android:layout_below="@id/fragment_menu_phone"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="9dp"
+        android:text="北京一步科技有限公司荣誉出品"
+        android:textColor="#77ffffff"
+        android:textSize="12sp" />
 
     <com.joooonho.SelectableRoundedImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -321,13 +329,15 @@
         android:layout_marginTop="31dp"
         app:sriv_border_color="#00000000"
         app:sriv_border_width="1dip" />
-   
-    <TextView android:id="@+id/left_tv_map" 
-        android:layout_width="wrap_content" 
-        android:layout_height="wrap_content" 
-        android:text="定位中" 
-        android:textColor="#f2f2f2"
-        android:layout_alignRight="@+id/fragment_menu_content_first" 
-        android:layout_alignTop="@+id/linearLayout1"/>
+
+    <TextView
+        android:id="@+id/left_tv_map"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/linearLayout1"
+        android:layout_toRightOf="@+id/linearLayout1"
+        android:layout_marginRight="5dp"
+        android:text="定位中"
+        android:textColor="#f2f2f2" />
 
 </RelativeLayout>
