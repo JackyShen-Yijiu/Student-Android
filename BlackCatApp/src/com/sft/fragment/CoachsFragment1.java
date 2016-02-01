@@ -20,10 +20,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
-import android.widget.AbsListView.OnScrollListener;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -35,11 +34,10 @@ import cn.sft.baseactivity.util.HttpSendUtils;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.sft.adapter.CoachListAdapter;
+import com.sft.adapter.SchoolDetailCoachHoriListAdapter;
 import com.sft.api.ApiHttpClient;
 import com.sft.blackcatapp.ApplyActivity;
 import com.sft.blackcatapp.CoachDetailActivity;
-import com.sft.blackcatapp.EnrollSchoolActivity1;
 import com.sft.blackcatapp.R;
 import com.sft.common.Config;
 import com.sft.listener.MOnScrollListener;
@@ -50,8 +48,9 @@ import com.sft.view.RefreshLayout.OnLoadListener;
 import com.sft.vo.CoachVO;
 import com.sft.vo.OpenCityVO;
 
-public class CoachsFragment1 extends BaseFragment implements OnRefreshListener, OnItemClickListener, OnLoadListener{
-	
+public class CoachsFragment1 extends BaseFragment implements OnRefreshListener,
+		OnItemClickListener, OnLoadListener {
+
 	public static final String from_searchCoach_enroll = "from_searchCoach_enroll";
 	private final static String openCity = "openCity";
 	private List<OpenCityVO> openCityList;
@@ -84,42 +83,42 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener, 
 
 	private CoachVO selectCoach;
 	private List<CoachVO> coachList = new ArrayList<CoachVO>();
-	private CoachListAdapter adapter;
-	
+	private SchoolDetailCoachHoriListAdapter adapter;
+
 	static CoachsFragment1 frag;
-	
+
 	private int lastId;
-	
-	public static CoachsFragment1 getInstance(){
-		if(frag==null)
-			frag = new  CoachsFragment1();
+
+	public static CoachsFragment1 getInstance() {
+		if (frag == null)
+			frag = new CoachsFragment1();
 		return frag;
 	}
-	
-	public void order(int flag){
-		switch(flag){
-		case R.id.enroll_school_distance_select_tv://距离
+
+	public void order(int flag) {
+		switch (flag) {
+		case R.id.enroll_school_distance_select_tv:// 距离
 			index = 1;
 			ordertype = "1";
 			coachname = "";
 			obtainCaoch();
-//			setSelectState(2);
+			// setSelectState(2);
 			break;
-		case R.id.enroll_school_comment_select_tv://评分最高
-//			setSelectState(3);
+		case R.id.enroll_school_comment_select_tv:// 评分最高
+			// setSelectState(3);
 			index = 1;
 			ordertype = "2";
 			coachname = "";
 			obtainCaoch();
 			break;
-		case R.id.enroll_school_price_select_tv://价格
+		case R.id.enroll_school_price_select_tv:// 价格
 			index = 1;
 			ordertype = "3";
 			coachname = "";
 			obtainCaoch();
 			break;
 		case R.id.pop_window_one:
-//			setSelectState(1);
+			// setSelectState(1);
 			isCarSelected = true;
 			index = 1;
 			licensetype = "1";
@@ -131,7 +130,7 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener, 
 			}
 			break;
 		case R.id.pop_window_two:
-//			setSelectState(1);
+			// setSelectState(1);
 			isCarSelected = true;
 			index = 1;
 			licensetype = "2";
@@ -143,17 +142,15 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener, 
 			}
 			break;
 		}
-		
-		
+
 	}
-	
 
 	@Override
 	public View onCreateView(LayoutInflater inflater,
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		
+
 		View v = inflater.inflate(R.layout.fragment_coach_or_school, null);
-//		setRightText("定位中"000);
+		// setRightText("定位中"000);
 		currCity = app.curCity;
 		initView(v);
 		initData();
@@ -166,38 +163,40 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener, 
 		return v;
 	}
 
-//	@Override
-//	protected void onCreate(Bundle savedInstanceState) {
-//		super.onCreate(savedInstanceState);
-//		addView(R.layout.activity_enroll_school);
-//
-//		WindowManager wm = this.getWindowManager();
-//
-//		mContext = this;
-//		setRightText("定位中");
-//		currCity = app.curCity;
-//		initView();
-//		initData();
-//		setListener();
-//		cityname = "";
-//		licensetype = "";
-//		coachname = "";
-//		ordertype = "0";
-//		obtainCaoch();
-//	}
+	// @Override
+	// protected void onCreate(Bundle savedInstanceState) {
+	// super.onCreate(savedInstanceState);
+	// addView(R.layout.activity_enroll_school);
+	//
+	// WindowManager wm = this.getWindowManager();
+	//
+	// mContext = this;
+	// setRightText("定位中");
+	// currCity = app.curCity;
+	// initView();
+	// initData();
+	// setListener();
+	// cityname = "";
+	// licensetype = "";
+	// coachname = "";
+	// ordertype = "0";
+	// obtainCaoch();
+	// }
 
 	@SuppressWarnings("deprecation")
 	private void initView(View rootView) {
-//		setTitleText(R.string.search_coach);
+		// setTitleText(R.string.search_coach);
 
-		swipeLayout = (RefreshLayout) rootView.findViewById(R.id.enroll_school_swipe_container);
+		swipeLayout = (RefreshLayout) rootView
+				.findViewById(R.id.enroll_school_swipe_container);
 		swipeLayout.setOnRefreshListener(this);
 		swipeLayout.setColorScheme(android.R.color.holo_blue_bright,
 				android.R.color.holo_green_light,
 				android.R.color.holo_orange_light,
 				android.R.color.holo_red_light);
 		swipeLayout.setBackgroundColor(getResources().getColor(R.color.white));
-		coachListView = (ListView) rootView.findViewById(R.id.enroll_select_school_listview);
+		coachListView = (ListView) rootView
+				.findViewById(R.id.enroll_select_school_listview);
 
 		swipeLayout.setChildScroll(new MOnScrollListener() {
 
@@ -222,39 +221,39 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener, 
 			public void downPull() {
 				if (lastId == 0) {
 					searchCoach.setVisibility(View.VISIBLE);
-//					((EnrollSchoolActivity1)getActivity()).etSearch.setVisibility(View.VISIBLE);
+					// ((EnrollSchoolActivity1)getActivity()).etSearch.setVisibility(View.VISIBLE);
 				}
 
 			}
 		});
-		
-//		showTitlebarText(BaseActivity.SHOW_RIGHT_TEXT);
-//		if (currCity != null) {
-//			currCity = currCity.replace("市", "");
-//			setRightText(currCity);
-//
-//		}
 
-		View headerView = View.inflate(getActivity(), R.layout.search_coach_header,
-				null);
-//
+		// showTitlebarText(BaseActivity.SHOW_RIGHT_TEXT);
+		// if (currCity != null) {
+		// currCity = currCity.replace("市", "");
+		// setRightText(currCity);
+		//
+		// }
+
+		View headerView = View.inflate(getActivity(),
+				R.layout.search_coach_header, null);
+		//
 		coachListView.addHeaderView(headerView);
 		searchCoach = (EditText) headerView
 				.findViewById(R.id.search_coach_search_et);
-//
-//		carSelect = (TextView) headerView
-//				.findViewById(R.id.search_coach_car_select_tv);
-//		distanceSelect = (TextView) headerView
-//				.findViewById(R.id.search_coach_distance_select_tv);
-//		commentSelect = (TextView) headerView
-//				.findViewById(R.id.search_coach_comment_select_tv);
-//
-//		arrow1 = (ImageView) headerView
-//				.findViewById(R.id.search_coach_arrow1_iv);
-//		arrow2 = (ImageView) headerView
-//				.findViewById(R.id.search_coach_arrow2_iv);
-//		arrow3 = (ImageView) headerView
-//				.findViewById(R.id.search_coach_arrow3_iv);
+		//
+		// carSelect = (TextView) headerView
+		// .findViewById(R.id.search_coach_car_select_tv);
+		// distanceSelect = (TextView) headerView
+		// .findViewById(R.id.search_coach_distance_select_tv);
+		// commentSelect = (TextView) headerView
+		// .findViewById(R.id.search_coach_comment_select_tv);
+		//
+		// arrow1 = (ImageView) headerView
+		// .findViewById(R.id.search_coach_arrow1_iv);
+		// arrow2 = (ImageView) headerView
+		// .findViewById(R.id.search_coach_arrow2_iv);
+		// arrow3 = (ImageView) headerView
+		// .findViewById(R.id.search_coach_arrow3_iv);
 
 	}
 
@@ -359,10 +358,10 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener, 
 
 	// 搜索成功
 	protected void processSuccess(String value) {
-		if(!isSearchCoach)
+		if (!isSearchCoach)
 			searchCoach.setVisibility(View.GONE);
-//		((EnrollSchoolActivity1)getActivity()).etSearch.setVisibility(View.GONE);
-		
+		// ((EnrollSchoolActivity1)getActivity()).etSearch.setVisibility(View.GONE);
+
 		if (value != null) {
 			LogUtil.print(value);
 			try {
@@ -391,7 +390,7 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener, 
 	private void setData(final List<CoachVO> coach, final int selectIndex) {
 
 		getActivity().runOnUiThread(new Runnable() {
-//
+			//
 			@Override
 			public void run() {
 				if (isSearchCoach) {
@@ -402,16 +401,18 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener, 
 				}
 				if (index == 1) {
 					coachList.clear();
-//					Toast(isRefreshing+"refresh-->"+adapter);
+					// Toast(isRefreshing+"refresh-->"+adapter);
 					if (!isRefreshing) {
 						coachList.addAll(coach);
-						adapter = new CoachListAdapter(getActivity(), coachList);
+						adapter = new SchoolDetailCoachHoriListAdapter(
+								getActivity(), coachList);
+						adapter.setShowSchoolName(true);
 						coachListView.setAdapter(adapter);
-//						coachListView.setBackgroundResource(R.drawable.bg);
+						// coachListView.setBackgroundResource(R.drawable.bg);
 					} else {
 						coachList.addAll(coach);
 						adapter.notifyDataSetChanged();
-//						Toast("refresh--222>"+adapter.getCount());
+						// Toast("refresh--222>"+adapter.getCount());
 					}
 					if (coach.size() == 0) {
 						Toast("该选项下没有数据");
@@ -464,43 +465,42 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener, 
 		swipeLayout.setOnRefreshListener(this);
 		swipeLayout.setOnLoadListener(this);
 
-//		carSelect.setOnClickListener(this);
-//		distanceSelect.setOnClickListener(this);
-//		commentSelect.setOnClickListener(this);
+		// carSelect.setOnClickListener(this);
+		// distanceSelect.setOnClickListener(this);
+		// commentSelect.setOnClickListener(this);
 	}
 
-	
 	public void onClick(View v) {
-//		if (!onClickSingleView()) {
-//			return;
-//		}
+		// if (!onClickSingleView()) {
+		// return;
+		// }
 		switch (v.getId()) {
 		case R.id.base_left_btn:
-//			setResult(v.getId(), getIntent());
-//			finish();
+			// setResult(v.getId(), getIntent());
+			// finish();
 			break;
 		case R.id.base_right_tv:
 			obtainOpenCity();
 			break;
 
-//		case R.id.search_coach_car_select_tv:
-//
-////			showPopupWindow(carSelect);
-//			break;
-//		case R.id.search_coach_distance_select_tv:
-//			index = 1;
-//			ordertype = "1";
-//			coachname = "";
-//			obtainCaoch();
-//			setSelectState(2);
-//			break;
-//		case R.id.search_coach_comment_select_tv:
-//			setSelectState(3);
-//			index = 1;
-//			ordertype = "2";
-//			coachname = "";
-//			obtainCaoch();
-//			break;
+		// case R.id.search_coach_car_select_tv:
+		//
+		// // showPopupWindow(carSelect);
+		// break;
+		// case R.id.search_coach_distance_select_tv:
+		// index = 1;
+		// ordertype = "1";
+		// coachname = "";
+		// obtainCaoch();
+		// setSelectState(2);
+		// break;
+		// case R.id.search_coach_comment_select_tv:
+		// setSelectState(3);
+		// index = 1;
+		// ordertype = "2";
+		// coachname = "";
+		// obtainCaoch();
+		// break;
 
 		case R.id.pop_window_one:
 			setSelectState(1);
@@ -576,73 +576,73 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener, 
 		}
 	}
 
-//	private void showPopupWindow(View parent) {
-//		if (popupWindow == null) {
-//			View view = View.inflate(mContext, R.layout.pop_window, null);
-//
-//			TextView c1Car = (TextView) view.findViewById(R.id.pop_window_one);
-//			c1Car.setText(R.string.c1_automatic_gear_car);
-//			TextView c2Car = (TextView) view.findViewById(R.id.pop_window_two);
-//			c2Car.setText(R.string.c2_manual_gear_car);
-//			c1Car.setOnClickListener(this);
-//			c2Car.setOnClickListener(this);
-//
-//			popupWindow = new PopupWindow(view, LayoutParams.WRAP_CONTENT,
-//					LayoutParams.WRAP_CONTENT);
-//		}
-//		popupWindow.setFocusable(true);
-//		popupWindow.setOutsideTouchable(true);
-//		// 这个是为了点击“返回Back”也能使其消失，并且并不会影响你的背景
-//		popupWindow.setBackgroundDrawable(new BitmapDrawable());
-//
-//		popupWindow.showAsDropDown(parent);
-//	}
+	// private void showPopupWindow(View parent) {
+	// if (popupWindow == null) {
+	// View view = View.inflate(mContext, R.layout.pop_window, null);
+	//
+	// TextView c1Car = (TextView) view.findViewById(R.id.pop_window_one);
+	// c1Car.setText(R.string.c1_automatic_gear_car);
+	// TextView c2Car = (TextView) view.findViewById(R.id.pop_window_two);
+	// c2Car.setText(R.string.c2_manual_gear_car);
+	// c1Car.setOnClickListener(this);
+	// c2Car.setOnClickListener(this);
+	//
+	// popupWindow = new PopupWindow(view, LayoutParams.WRAP_CONTENT,
+	// LayoutParams.WRAP_CONTENT);
+	// }
+	// popupWindow.setFocusable(true);
+	// popupWindow.setOutsideTouchable(true);
+	// // 这个是为了点击“返回Back”也能使其消失，并且并不会影响你的背景
+	// popupWindow.setBackgroundDrawable(new BitmapDrawable());
+	//
+	// popupWindow.showAsDropDown(parent);
+	// }
 
-//	private void showOpenCityPopupWindow(View parent) {
-//		if (openCityPopupWindow == null) {
-//			LinearLayout popWindowLayout = (LinearLayout) View.inflate(
-//					mContext, R.layout.pop_window, null);
-//			popWindowLayout.removeAllViews();
-//			// LinearLayout popWindowLayout = new LinearLayout(mContext);
-//			popWindowLayout.setOrientation(LinearLayout.VERTICAL);
-//			ListView OpenCityListView = new ListView(mContext);
-//			OpenCityListView.setDividerHeight(0);
-//			OpenCityListView.setCacheColorHint(android.R.color.transparent);
-//			OpenCityListView.setOnItemClickListener(new OnItemClickListener() {
-//
-//				@Override
-//				public void onItemClick(AdapterView<?> parent, View view,
-//						int position, long id) {
-//					OpenCityVO selectCity = openCityList.get(position);
-//					System.out.println(selectCity.getName());
-//					cityname = selectCity.getName().replace("市", "");
-//					licensetype = "";
-//					coachname = "";
-//					ordertype = "0";
-//					index = 1;
-//					obtainCaoch();
-//					openCityPopupWindow.dismiss();
-//					openCityPopupWindow = null;
-//				}
-//			});
-//			LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
-//					LinearLayout.LayoutParams.WRAP_CONTENT,
-//					LinearLayout.LayoutParams.WRAP_CONTENT);
-//			popWindowLayout.addView(OpenCityListView, param);
-//			OpenCityAdapter openCityAdapter = new OpenCityAdapter(mContext,
-//					openCityList);
-//			OpenCityListView.setAdapter(openCityAdapter);
-//
-//			openCityPopupWindow = new PopupWindow(popWindowLayout, 130,
-//					LayoutParams.WRAP_CONTENT);
-//		}
-//		openCityPopupWindow.setFocusable(true);
-//		openCityPopupWindow.setOutsideTouchable(true);
-//		// 这个是为了点击“返回Back”也能使其消失，并且并不会影响你的背景
-//		openCityPopupWindow.setBackgroundDrawable(new BitmapDrawable());
-//
-//		openCityPopupWindow.showAsDropDown(parent);
-//	}
+	// private void showOpenCityPopupWindow(View parent) {
+	// if (openCityPopupWindow == null) {
+	// LinearLayout popWindowLayout = (LinearLayout) View.inflate(
+	// mContext, R.layout.pop_window, null);
+	// popWindowLayout.removeAllViews();
+	// // LinearLayout popWindowLayout = new LinearLayout(mContext);
+	// popWindowLayout.setOrientation(LinearLayout.VERTICAL);
+	// ListView OpenCityListView = new ListView(mContext);
+	// OpenCityListView.setDividerHeight(0);
+	// OpenCityListView.setCacheColorHint(android.R.color.transparent);
+	// OpenCityListView.setOnItemClickListener(new OnItemClickListener() {
+	//
+	// @Override
+	// public void onItemClick(AdapterView<?> parent, View view,
+	// int position, long id) {
+	// OpenCityVO selectCity = openCityList.get(position);
+	// System.out.println(selectCity.getName());
+	// cityname = selectCity.getName().replace("市", "");
+	// licensetype = "";
+	// coachname = "";
+	// ordertype = "0";
+	// index = 1;
+	// obtainCaoch();
+	// openCityPopupWindow.dismiss();
+	// openCityPopupWindow = null;
+	// }
+	// });
+	// LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
+	// LinearLayout.LayoutParams.WRAP_CONTENT,
+	// LinearLayout.LayoutParams.WRAP_CONTENT);
+	// popWindowLayout.addView(OpenCityListView, param);
+	// OpenCityAdapter openCityAdapter = new OpenCityAdapter(mContext,
+	// openCityList);
+	// OpenCityListView.setAdapter(openCityAdapter);
+	//
+	// openCityPopupWindow = new PopupWindow(popWindowLayout, 130,
+	// LayoutParams.WRAP_CONTENT);
+	// }
+	// openCityPopupWindow.setFocusable(true);
+	// openCityPopupWindow.setOutsideTouchable(true);
+	// // 这个是为了点击“返回Back”也能使其消失，并且并不会影响你的背景
+	// openCityPopupWindow.setBackgroundDrawable(new BitmapDrawable());
+	//
+	// openCityPopupWindow.showAsDropDown(parent);
+	// }
 
 	@Override
 	public void onRefresh() {
@@ -694,14 +694,14 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener, 
 					}
 				}
 				if (length > 0) {
-//					showOpenCityPopupWindow(rightTV);
+					// showOpenCityPopupWindow(rightTV);
 				}
 			}
 		}
 		return true;
 	}
 
-	
+	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (data != null) {

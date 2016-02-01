@@ -9,8 +9,8 @@
         android:layout_height="wrap_content"
          android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="150dp"
-        android:layout_marginRight="34dp"
+        android:layout_marginBottom="130dp"
+        android:layout_marginRight="30dp"
         android:src="@drawable/sb_question_bank" />
 
     <ImageView
@@ -20,7 +20,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="350dp"
-        android:layout_marginRight="65dp"
+        android:layout_marginRight="85dp"
         android:src="@drawable/sb_error" />
 
     <ImageView

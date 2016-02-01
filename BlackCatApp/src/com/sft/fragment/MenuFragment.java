@@ -39,6 +39,7 @@ import com.sft.api.ApiHttpClient;
 import com.sft.blackcatapp.ActivitiesActivity;
 import com.sft.blackcatapp.EditPersonInfoActivity;
 import com.sft.blackcatapp.EnrollSchoolActivity1;
+import com.sft.blackcatapp.MallActivity;
 import com.sft.blackcatapp.MessageActivity;
 import com.sft.blackcatapp.MyWalletActivity;
 import com.sft.blackcatapp.NewActivitysActivity;
@@ -221,6 +222,10 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 
 			username.setText("未登陆");
 		} else {
+
+			if (app.userVO.getName() != null) {
+				username.setText(app.userVO.getName());
+			}
 			username.setText(app.userVO.getDisplaymobile());
 		}
 		if (TextUtils.isEmpty(app.userVO.getApplyschoolinfo().getName())) {
@@ -314,17 +319,13 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 			}
 			break;
 		case R.id.fragment_menu_mall_btn:
-			// if (app.isLogin) {
-			// Toast.makeText(getActivity(), "mall---->",
-			// Toast.LENGTH_SHORT).show();
-			// intent = new Intent(getActivity(), PayDemoActivity.class);
-			// startActivity(intent);
-			// } else {
-			// NoLoginDialog dialog = new NoLoginDialog(mContext);
-			// dialog.show();
-			// }
-			ZProgressHUD.getInstance(mContext).show();
-			ZProgressHUD.getInstance(mContext).dismissWithFailure("敬请期待！");
+			// ZProgressHUD.getInstance(mContext).show();
+			// ZProgressHUD.getInstance(mContext).dismissWithFailure("敬请期待！");
+			// 进入积分商城
+			intent = new Intent(mContext, MallActivity.class);
+			intent.putExtra("moneytype",
+					Config.MoneyType.INTEGRAL_RETURN.getValue());
+			startActivity(intent);
 			break;
 		// 活动
 		case R.id.fragment_menu_activity_btn:
@@ -653,7 +654,6 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 	private void openSearchSchool() {
 		if (showType == 0) {
 			Intent intent = new Intent(mContext, EnrollSchoolActivity1.class);
-			intent.putExtra("isFromMenu", true);
 			startActivityForResult(intent, 1);
 		} else {
 			ZProgressHUD.getInstance(mContext).show();

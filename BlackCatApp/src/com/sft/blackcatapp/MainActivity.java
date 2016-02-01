@@ -76,6 +76,7 @@ public class MainActivity extends BaseMainActivity implements
 	private static final String school = "school";
 	private static final String questionaddress = "questionaddress";
 	private static final String TODAY_IS_OPEN_ACTIVITIES = "today_is_open_activities";
+	public static final String ISCLICKCONFIRM = "isclickconfirm";
 	//
 	private MapView mapView;
 	//
@@ -114,18 +115,21 @@ public class MainActivity extends BaseMainActivity implements
 		obtainFavouriteCoach();
 		obtainQuestionAddress();
 		obtainSubjectContent();
-		// 获取活动
-		df = new SimpleDateFormat("yyyy-MM-dd");
-		String todayIsOpen = SharedPreferencesUtil.getString(this,
-				TODAY_IS_OPEN_ACTIVITIES, "");
-		if (!df.format(new Date()).toString().equals(todayIsOpen)) {
-			obtainActivities();
+		if (app.userVO.getApplystate().equals("0")) {
+			checkStateDialog();
+		} else {
+			// 获取活动
+			df = new SimpleDateFormat("yyyy-MM-dd");
+			String todayIsOpen = SharedPreferencesUtil.getString(this,
+					TODAY_IS_OPEN_ACTIVITIES, "");
+			if (!df.format(new Date()).toString().equals(todayIsOpen)) {
+				obtainActivities();
+			}
 		}
 		setTag();
 		if (app != null && app.isLogin) {
 			util.print("userid=" + app.userVO.getUserid());
 		}
-		checkStateDialog();
 
 	}
 
@@ -133,6 +137,8 @@ public class MainActivity extends BaseMainActivity implements
 	 * 检查学时状态 对话框，
 	 */
 	private void checkStateDialog() {
+		SharedPreferencesUtil.putBoolean(MainActivity.this, ISCLICKCONFIRM,
+				false);
 		// 没报名
 		// LogUtil.print("state---->" + app.userVO.getApplystate());
 		if (app.isLogin) {
@@ -146,6 +152,9 @@ public class MainActivity extends BaseMainActivity implements
 					@Override
 					public void onClick(View arg0) {
 
+						// 保存选择状态，默认是否,
+						SharedPreferencesUtil.putBoolean(MainActivity.this,
+								ISCLICKCONFIRM, true);
 						startActivity(new Intent(MainActivity.this,
 								TestingPhoneActivity.class));
 
@@ -571,7 +580,7 @@ public class MainActivity extends BaseMainActivity implements
 					if (EnrollResult.SUBJECT_NONE.getValue()
 							.equals(enrollState)) {
 						Intent intent = new Intent(getBaseContext(),
-								ApplyActivity.class);
+								EnrollSchoolActivity1.class);
 						startActivity(intent);
 						viewPager.setCurrentItem(position - 1);
 					}

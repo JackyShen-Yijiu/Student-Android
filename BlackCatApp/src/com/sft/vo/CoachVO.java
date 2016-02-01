@@ -267,7 +267,7 @@ public class CoachVO extends DBVO {
 	}
 
 	public String getGender() {
-		return Gender;
+		return Gender == null ? "未知" : Gender;
 	}
 
 	public void setGender(String gender) {

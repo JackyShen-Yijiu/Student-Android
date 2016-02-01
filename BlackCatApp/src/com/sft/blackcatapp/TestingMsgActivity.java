@@ -16,7 +16,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
-import com.sft.blackcatapp.R;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
 import com.sft.dialog.CustomDialog;
@@ -36,6 +35,8 @@ import com.sft.vo.SchoolVO;
 @SuppressWarnings("unused")
 public class TestingMsgActivity extends BaseActivity {
 
+	public static final String ISFROMTESTINGMSG = "isFromTestingMsg";
+
 	private static final String enroll = "enroll";
 	private RelativeLayout rootLayout;
 	// 姓名输入框
@@ -51,7 +52,7 @@ public class TestingMsgActivity extends BaseActivity {
 	// 报考教练文本
 	private TextView coachTv;
 	// 报考班级文本
-	private TextView classTv;
+	// private TextView classTv;
 	// 科目文本
 	private TextView subjectTV;
 	// 提交按钮
@@ -88,7 +89,7 @@ public class TestingMsgActivity extends BaseActivity {
 		schoolTv = (TextView) findViewById(R.id.enroll_school_tv);
 		carStyleTv = (TextView) findViewById(R.id.enroll_carstyle_tv);
 		coachTv = (TextView) findViewById(R.id.enroll_coach_tv);
-		classTv = (TextView) findViewById(R.id.enroll_class_tv);
+		// classTv = (TextView) findViewById(R.id.enroll_class_tv);
 		subjectTV = (TextView) findViewById(R.id.enroll_subject_tv);
 
 		commitBtn = (Button) findViewById(R.id.enroll_commit_btn);
@@ -99,49 +100,49 @@ public class TestingMsgActivity extends BaseActivity {
 	private void initData() {
 
 		enrollState = app.userVO.getApplystate();
-
-		Intent intent = getIntent();
-		if (intent.getBooleanExtra("userselect", false)) {
-			onActivityResult(intent.getIntExtra("requestCode", 0),
-					intent.getIntExtra("resultCode", 0), intent);
-		} else {
-			if (EnrollResult.SUBJECT_NONE.getValue().equals(enrollState)) {
-				// 没有报过名，读取数据库中保存的用户选择信息填充
-				school = Util.getEnrollUserSelectedSchool(this);
-				if (school != null) {
-					schoolTv.setText(school.getName());
-				}
-
-				carStyle = Util.getEnrollUserSelectedCarStyle(this);
-				if (carStyle != null) {
-					carStyleTv.setText(carStyle.getCode());
-				}
-
-				classId = Util.getEnrollUserSelectedClass(this);
-				if (classId != null) {
-					classTv.setText(classId.getClassname());
-				}
-
-				coach = Util.getEnrollUserSelectedCoach(this);
-				if (coach != null) {
-					coachTv.setText(coach.getName());
-				}
-
-			} else {
-				// 用户已经报过名
-				if (EnrollResult.SUBJECT_ENROLLING.getValue().equals(
-						enrollState)) {
-
-				}
-
-				schoolTv.setText(app.userVO.getApplyschoolinfo().getName());
-				coachTv.setText(app.userVO.getApplycoachinfo().getName());
-				carStyleTv.setText(app.userVO.getCarmodel().getCode());
-				classTv.setText(app.userVO.getApplyclasstypeinfo().getName());
-				subjectTV.setText(app.userVO.getSubject().getName());
-				commitBtn.setEnabled(false);
-			}
-		}
+		//
+		// Intent intent = getIntent();
+		// if (intent.getBooleanExtra("userselect", false)) {
+		// onActivityResult(intent.getIntExtra("requestCode", 0),
+		// intent.getIntExtra("resultCode", 0), intent);
+		// } else {
+		// if (EnrollResult.SUBJECT_NONE.getValue().equals(enrollState)) {
+		// // 没有报过名，读取数据库中保存的用户选择信息填充
+		// school = Util.getEnrollUserSelectedSchool(this);
+		// if (school != null) {
+		// schoolTv.setText(school.getName());
+		// }
+		//
+		// carStyle = Util.getEnrollUserSelectedCarStyle(this);
+		// if (carStyle != null) {
+		// carStyleTv.setText(carStyle.getCode());
+		// }
+		//
+		// classId = Util.getEnrollUserSelectedClass(this);
+		// if (classId != null) {
+		// classTv.setText(classId.getClassname());
+		// }
+		//
+		// coach = Util.getEnrollUserSelectedCoach(this);
+		// if (coach != null) {
+		// coachTv.setText(coach.getName());
+		// }
+		//
+		// } else {
+		// // 用户已经报过名
+		// if (EnrollResult.SUBJECT_ENROLLING.getValue().equals(
+		// enrollState)) {
+		//
+		// }
+		//
+		// schoolTv.setText(app.userVO.getApplyschoolinfo().getName());
+		// coachTv.setText(app.userVO.getApplycoachinfo().getName());
+		// carStyleTv.setText(app.userVO.getCarmodel().getCode());
+		// classTv.setText(app.userVO.getApplyclasstypeinfo().getName());
+		// subjectTV.setText(app.userVO.getSubject().getName());
+		// commitBtn.setEnabled(false);
+		// }
+		// }
 	}
 
 	private void resizeDrawalbeLeftSize() {
@@ -154,7 +155,7 @@ public class TestingMsgActivity extends BaseActivity {
 		schoolTv.setCompoundDrawables(null, null, arrow, null);
 		carStyleTv.setCompoundDrawables(null, null, arrow, null);
 		coachTv.setCompoundDrawables(null, null, arrow, null);
-		classTv.setCompoundDrawables(null, null, arrow, null);
+		// classTv.setCompoundDrawables(null, null, arrow, null);
 		subjectTV.setCompoundDrawables(null, null, arrow, null);
 	}
 
@@ -164,7 +165,7 @@ public class TestingMsgActivity extends BaseActivity {
 		schoolTv.setOnClickListener(this);
 		carStyleTv.setOnClickListener(this);
 		coachTv.setOnClickListener(this);
-		classTv.setOnClickListener(this);
+		// classTv.setOnClickListener(this);
 		subjectTV.setOnClickListener(this);
 	}
 
@@ -181,9 +182,10 @@ public class TestingMsgActivity extends BaseActivity {
 			Intent intent = null;
 			switch (v.getId()) {
 			case R.id.enroll_school_tv:
-				intent = new Intent(this, EnrollSchoolActivity.class);
+				intent = new Intent(this, EnrollSchoolActivity1.class);
 				if (school != null)
 					intent.putExtra("school", school);
+				intent.putExtra("select", 1);
 				break;
 			case R.id.enroll_carstyle_tv:
 				if (school == null) {
@@ -204,6 +206,7 @@ public class TestingMsgActivity extends BaseActivity {
 					intent.putExtra("schoolId", school.getSchoolid());
 					if (coach != null)
 						intent.putExtra("coach", coach);
+					intent.putExtra(ISFROMTESTINGMSG, true);
 				}
 				break;
 			case R.id.enroll_class_tv:
@@ -216,6 +219,9 @@ public class TestingMsgActivity extends BaseActivity {
 					if (classId != null)
 						intent.putExtra("class", classId);
 				}
+				break;
+			case R.id.enroll_subject_tv:
+
 				break;
 			case R.id.enroll_commit_btn:
 				enroll();
@@ -255,9 +261,9 @@ public class TestingMsgActivity extends BaseActivity {
 		if (coach == null) {
 			return "教练为空";
 		}
-		if (classId == null) {
-			return "班型为空";
-		}
+		// if (classId == null) {
+		// return "班型为空";
+		// }
 		if (carStyle == null) {
 			return "车型为空";
 		}
@@ -286,6 +292,12 @@ public class TestingMsgActivity extends BaseActivity {
 		switch (requestCode) {
 		case R.id.enroll_school_tv:
 			// 报名页面选择学校
+			school = (SchoolVO) data.getSerializableExtra("school");
+			if (school != null) {
+				schoolTv.setText(school.getName());
+			}
+
+			break;
 		case R.id.main_appointment_course_layout:
 			// 点击首页驾校卡
 			SchoolVO tempSchool = (SchoolVO) data
@@ -297,7 +309,7 @@ public class TestingMsgActivity extends BaseActivity {
 				coach = null;
 				coachTv.setText("");
 				classId = null;
-				classTv.setText("");
+				// classTv.setText("");
 				carStyle = null;
 				carStyleTv.setText("");
 			}
@@ -320,7 +332,7 @@ public class TestingMsgActivity extends BaseActivity {
 		case R.id.enroll_class_tv:
 			// 报名页面选择班级
 			classId = (ClassVO) data.getSerializableExtra("class");
-			classTv.setText(classId.getClassname());
+			// classTv.setText(classId.getClassname());
 			break;
 		case R.id.main_appointment_layout:
 			// 报名首页点击教练卡，选择教练点击报完成后
@@ -331,7 +343,7 @@ public class TestingMsgActivity extends BaseActivity {
 			coach = null;
 			coachTv.setText("");
 			classId = null;
-			classTv.setText("");
+			// classTv.setText("");
 			carStyle = null;
 			carStyleTv.setText("");
 
@@ -355,10 +367,10 @@ public class TestingMsgActivity extends BaseActivity {
 				carStyleTv.setText(carStyle.getCode());
 			}
 
-			classId = Util.getEnrollUserSelectedClass(this);
-			if (classId != null) {
-				classTv.setText(classId.getClassname());
-			}
+			// classId = Util.getEnrollUserSelectedClass(this);
+			// if (classId != null) {
+			// classTv.setText(classId.getClassname());
+			// }
 
 			break;
 		}
