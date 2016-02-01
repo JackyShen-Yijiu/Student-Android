@@ -38,7 +38,7 @@ public class ChangeSignActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		addView(R.layout.activity_callback);
+		addView(R.layout.activity_change_sign);
 		initView();
 		setListener();
 	}

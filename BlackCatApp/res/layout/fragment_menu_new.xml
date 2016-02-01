@@ -7,7 +7,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/fragment_menu_headpic_im"
-        android:layout_marginLeft="15dp"
+        android:layout_marginLeft="12dp"
         android:layout_toRightOf="@id/fragment_menu_headpic_im"
         android:orientation="vertical" android:id="@+id/linearLayout1">
 
@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:text="未登录"
             android:textColor="#f2f2f2"
-            android:textSize="16sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/fragment_menu_driving_school"
@@ -228,36 +228,27 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"
             android:background="@drawable/fragment_menu_search_coach" /> -->
-        <Button
-            android:id="@+id/fragment_menu_message_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="3dp"
-            android:layout_marginTop="3dp"
-            android:background="@drawable/fragment_menu_message" />
-        <Button
+            <Button
             android:id="@+id/fragment_menu_signin_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"
             android:layout_marginTop="3dp"
             android:background="@drawable/fragment_menu_signin" />
-                <Button
-            android:id="@+id/fragment_menu_classcar_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="3dp"
-            android:background="@drawable/fragment_menu_classcar" />
-
-        <Button
-            android:id="@+id/fragment_menu_mall_btn"
+            <Button
+            android:id="@+id/fragment_menu_complaint_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"
             android:layout_marginTop="3dp"
-            android:background="@drawable/fragment_menu_mall" />
-
+            android:background="@drawable/fragment_complaint_activity" />
+        <Button
+            android:id="@+id/fragment_menu_message_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="3dp"
+            android:background="@drawable/fragment_menu_message" />
         <Button
             android:id="@+id/fragment_menu_activity_btn"
             android:layout_width="wrap_content"
@@ -266,14 +257,30 @@
             android:layout_marginTop="3dp"
             android:background="@drawable/fragment_menu_activity" />
         <Button
-            android:id="@+id/fragment_menu_complaint_btn"
+            android:id="@+id/fragment_menu_mall_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="3dp"
+            android:background="@drawable/fragment_menu_mall" />
+        
+                <Button
+            android:id="@+id/fragment_menu_classcar_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="3dp"
-            android:background="@drawable/fragment_complaint_activity" />
+            android:background="@drawable/fragment_menu_classcar" />
 
         
+
+        <Button
+            android:id="@+id/fragment_menu_goddness_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="3dp"
+            android:background="@drawable/strengths" />
 
         <Button
             android:id="@+id/fragment_menu_setting_btn"

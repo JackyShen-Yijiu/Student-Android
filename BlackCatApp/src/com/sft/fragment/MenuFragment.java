@@ -221,10 +221,11 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 
 			username.setText("未登陆");
 		} else {
-			username.setText(app.userVO.getDisplaymobile());
+
 			if (app.userVO.getName() != null) {
 				username.setText(app.userVO.getName());
 			}
+			username.setText(app.userVO.getDisplaymobile());
 		}
 		if (TextUtils.isEmpty(app.userVO.getApplyschoolinfo().getName())) {
 
