@@ -45,7 +45,7 @@
         android:layout_alignLeft="@+id/fragment_menu_content_first"
         android:layout_marginTop="20dp"
         android:textColor="#f2f2f2"
-        android:text="报名兑换劵1张，(未兑换)"
+        android:text=""
         android:textSize="14sp" />
 
     

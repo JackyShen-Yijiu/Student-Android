@@ -7,22 +7,21 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
 
-import com.alipay.sdk.app.PayTask;
-import com.sft.blackcatapp.R;
-import com.sft.util.LogUtil;
-
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
-public class PayDemoActivity extends FragmentActivity {
+import com.alipay.sdk.app.PayTask;
+import com.sft.util.LogUtil;
+
+public class PayUtils {
 
 	// 商户PID
 	public static final String PARTNER = "2088121519930520";
@@ -37,76 +36,34 @@ public class PayDemoActivity extends FragmentActivity {
 
 	private static final int SDK_PAY_FLAG = 1;
 	private static final int SDK_CHECK_FLAG = 2;
+	
+	
 
-	private Handler mHandler = new Handler() {
-		public void handleMessage(Message msg) {
-			switch (msg.what) {
-			case SDK_PAY_FLAG: {
-				PayResult payResult = new PayResult((String) msg.obj);
-				/**
-				 * 同步返回的结果必须放置到服务端进行验证（验证的规则请看https://doc.open.alipay.com/doc2/
-				 * detail.htm?spm=0.0.0.0.xdvAU6&treeId=59&articleId=103665&
-				 * docType=1) 建议商户依赖异步通知
-				 */
-				String resultInfo = payResult.getResult();// 同步返回需要验证的信息
-
-				String resultStatus = payResult.getResultStatus();
-				// 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
-				if (TextUtils.equals(resultStatus, "9000")) {
-					Toast.makeText(PayDemoActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
-				} else {
-					// 判断resultStatus 为非"9000"则代表可能支付失败
-					// "8000"代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
-					if (TextUtils.equals(resultStatus, "8000")) {
-						Toast.makeText(PayDemoActivity.this, "支付结果确认中", Toast.LENGTH_SHORT).show();
-
-					} else {
-						// 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
-						Toast.makeText(PayDemoActivity.this, "支付失败", Toast.LENGTH_SHORT).show();
-
-					}
-				}
-				break;
-			}
-			case SDK_CHECK_FLAG: {
-				Toast.makeText(PayDemoActivity.this, "检查结果为：" + msg.obj, Toast.LENGTH_SHORT).show();
-				break;
-			}
-			default:
-				break;
-			}
-		};
-	};
-
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.pay_main);
-	}
-
-	/**
-	 * call alipay sdk pay. 调用SDK支付
-	 * 
-	 */
-	public void pay(View v) {
-		if (TextUtils.isEmpty(PARTNER) || TextUtils.isEmpty(RSA_PRIVATE) || TextUtils.isEmpty(SELLER)) {
-			new AlertDialog.Builder(this).setTitle("警告").setMessage("需要配置PARTNER | RSA_PRIVATE| SELLER")
-					.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialoginterface, int i) {
-							//
-							finish();
-						}
-					}).show();
+	public void pay(View v,final Activity c,final Handler mHandler,String payName,String payDetail,String money) {
+		if (TextUtils.isEmpty(PARTNER) || TextUtils.isEmpty(RSA_PRIVATE)
+				|| TextUtils.isEmpty(SELLER)) {
+			new AlertDialog.Builder(v.getContext())
+					.setTitle("警告")
+					.setMessage("需要配置PARTNER | RSA_PRIVATE| SELLER")
+					.setPositiveButton("确定",
+							new DialogInterface.OnClickListener() {
+								public void onClick(
+										DialogInterface dialoginterface, int i) {
+									//
+									c.finish();
+								}
+							}).show();
 			return;
 		}
-		String orderInfo = getOrderInfo("测试的商品", "该测试商品的详细描述", "0.01");
-		
-		LogUtil.print("sign--0000---->"+orderInfo);
+		//
+		String orderInfo = getOrderInfo(payName, payDetail, money);
+
+		LogUtil.print("sign--0000---->" + orderInfo);
 		/**
 		 * 特别注意，这里的签名逻辑需要放在服务端，切勿将私钥泄露在代码中！
 		 */
 		String sign = sign(orderInfo);
-		LogUtil.print("sign------>"+sign);
+		LogUtil.print("sign------>" + sign);
 		try {
 			/**
 			 * 仅需对sign 做URL编码
@@ -119,14 +76,15 @@ public class PayDemoActivity extends FragmentActivity {
 		/**
 		 * 完整的符合支付宝参数规范的订单信息
 		 */
-		final String payInfo = orderInfo + "&sign=\"" + sign + "\"&" + getSignType();
+		final String payInfo = orderInfo + "&sign=\"" + sign + "\"&"
+				+ getSignType();
 
 		Runnable payRunnable = new Runnable() {
 
 			@Override
 			public void run() {
 				// 构造PayTask 对象
-				PayTask alipay = new PayTask(PayDemoActivity.this);
+				PayTask alipay = new PayTask(c);
 				// 调用支付接口，获取支付结果
 				String result = alipay.pay(payInfo, true);
 
@@ -141,18 +99,18 @@ public class PayDemoActivity extends FragmentActivity {
 		Thread payThread = new Thread(payRunnable);
 		payThread.start();
 	}
-
+	
 	/**
 	 * check whether the device has authentication alipay account.
 	 * 查询终端设备是否存在支付宝认证账户
 	 * 
 	 */
-	public void check(View v) {
+	public void check(View v,final Activity context,final Handler mHandler) {
 		Runnable checkRunnable = new Runnable() {
 			@Override
 			public void run() {
 				// 构造PayTask 对象
-				PayTask payTask = new PayTask(PayDemoActivity.this);
+				PayTask payTask = new PayTask(context);
 				// 调用查询接口，获取查询结果
 				boolean isExist = payTask.checkAccountIfExist();
 
@@ -172,10 +130,10 @@ public class PayDemoActivity extends FragmentActivity {
 	 * get the sdk version. 获取SDK版本号
 	 * 
 	 */
-	public void getSDKVersion() {
-		PayTask payTask = new PayTask(this);
+	public void getSDKVersion(Activity a) {
+		PayTask payTask = new PayTask(a);
 		String version = payTask.getVersion();
-		Toast.makeText(this, version, Toast.LENGTH_SHORT).show();
+		Toast.makeText(a, version, Toast.LENGTH_SHORT).show();
 	}
 
 	/**
@@ -183,8 +141,8 @@ public class PayDemoActivity extends FragmentActivity {
 	 * 
 	 * @param v
 	 */
-	public void h5Pay(View v) {
-		Intent intent = new Intent(this, H5PayDemoActivity.class);
+	public void h5Pay(View v,Activity c) {
+		Intent intent = new Intent(c, H5PayDemoActivity.class);
 		Bundle extras = new Bundle();
 		/**
 		 * url是测试的网站，在app内部打开页面是基于webview打开的，demo中的webview是H5PayDemoActivity，
@@ -195,7 +153,7 @@ public class PayDemoActivity extends FragmentActivity {
 		// url可以是一号店或者美团等第三方的购物wap站点，在该网站的支付过程中，支付宝sdk完成拦截支付
 		extras.putString("url", url);
 		intent.putExtras(extras);
-		startActivity(intent);
+		c.startActivity(intent);
 
 	}
 
@@ -212,7 +170,7 @@ public class PayDemoActivity extends FragmentActivity {
 		orderInfo += "&seller_id=" + "\"" + SELLER + "\"";
 
 		// 商户网站唯一订单号
-		orderInfo += "&out_trade_no=" + "\"" + getOutTradeNo() + "\"";
+		orderInfo += "&out_trade_no=" + "\"" + TradeNo + "\"";//getOutTradeNo()
 
 		// 商品名称
 		orderInfo += "&subject=" + "\"" + subject + "\"";
@@ -268,6 +226,12 @@ public class PayDemoActivity extends FragmentActivity {
 		key = key.substring(0, 15);
 		return key;
 	}
+	
+	String TradeNo;
+	
+	public void setTradeNo(String no){
+		TradeNo = no;
+	}
 
 	/**
 	 * sign the order info. 对订单信息进行签名
@@ -286,5 +250,6 @@ public class PayDemoActivity extends FragmentActivity {
 	private String getSignType() {
 		return "sign_type=\"RSA\"";
 	}
+	
 
 }

@@ -63,7 +63,7 @@
         android:layout_height="10dp"
         android:layout_below="@+id/rl_title"
         android:layout_marginTop="21dp"
-        android:background="#ccc"
+        android:background="#f7f9fb"
         android:orientation="horizontal" >
     </LinearLayout>
 
@@ -152,6 +152,7 @@
           android:layout_width="wrap_content"
           android:layout_height="45dp"
           android:layout_alignBottom="@+id/rl_msg_three"
+          android:layout_alignRight="@+id/rl_msg_two"
           android:layout_toRightOf="@+id/rl_msg_three"
           android:background="#ff6633"
           android:padding="10dp"

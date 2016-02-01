@@ -139,28 +139,30 @@ public class MainActivity extends BaseMainActivity implements
 	private void checkStateDialog() {
 		// 没报名
 		// LogUtil.print("state---->" + app.userVO.getApplystate());
-		if (app.userVO.getApplystate().equals("0")) {
-			CheckApplyDialog dialog = new CheckApplyDialog(this);
-			dialog.setCanceledOnTouchOutside(false);
-			dialog.setTextAndImage("猜对了，你真聪明",
-					"闲着也是闲着，小步与您玩个游戏吧!\n 小步猜您已经在学车了，亲对吗?", "笨死了,答错了",
-					R.drawable.ic_question);
-			dialog.setListener(new OnClickListener() {
+		if (app.isLogin) {
+			if (app.userVO.getApplystate().equals("0")) {
+				CheckApplyDialog dialog = new CheckApplyDialog(this);
+				dialog.setTextAndImage("猜对了，你真聪明",
+						"闲着也是闲着，小步与您玩个游戏吧!\n 小步猜您已经在学车了，亲对吗?", "笨死了,答错了",
+						R.drawable.ic_question);
+				dialog.setListener(new OnClickListener() {
 
-				@Override
-				public void onClick(View arg0) {
+					@Override
+					public void onClick(View arg0) {
 
-					// 保存选择状态，默认是否,
-					SharedPreferencesUtil.putBoolean(MainActivity.this,
-							ISCLICKCONFIRM, true);
-					startActivity(new Intent(MainActivity.this,
-							TestingPhoneActivity.class));
+						// 保存选择状态，默认是否,
+						SharedPreferencesUtil.putBoolean(MainActivity.this,
+								ISCLICKCONFIRM, true);
+						startActivity(new Intent(MainActivity.this,
+								TestingPhoneActivity.class));
 
-				}
-			});
-			dialog.show();
+					}
+				});
+				dialog.show();
 
+			}
 		}
+
 	}
 
 	private int sum = 0;

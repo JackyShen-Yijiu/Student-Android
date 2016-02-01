@@ -3,6 +3,7 @@ package com.sft.blackcatapp;
 import java.util.List;
 
 import android.os.Bundle;
+import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -18,8 +19,8 @@ public class WebViewActivitys extends BaseActivity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.web_view);
-
+		addView(R.layout.web_view);
+		setTitleText(R.string.activitys);
 		webView = (WebView) findViewById(R.id.activitys_webview);
 		webView.setOnClickListener(this);
 		initListener();
@@ -37,5 +38,14 @@ public class WebViewActivitys extends BaseActivity implements OnClickListener {
 
 		webSettings.setJavaScriptEnabled(true);
 		webView.loadUrl(activityUrl);
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.base_left_btn:
+			finish();
+			break;
+		}
 	}
 }

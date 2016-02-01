@@ -64,15 +64,14 @@ public class YiBuIntroduceActivity extends BaseActivity {
 			setTitleText(R.string.yibu_superiority);
 			break;
 		case R.id.introduce_procedure:
-			url = "http://123.57.63.15:8181/3.html";
-			setTitleText(R.string.yibu_favourable_class);
 
+			setTitleText(R.string.activitys);
+			Intent intent1 = new Intent(this, NewActivitysActivity.class);
+			startActivity(intent1);
+			finish();
 			break;
 		case R.id.introduce_favourable_class:
-			// url = "http://123.57.63.15:8181/liuchengt.html";
-//			Toast("一步学车");
 			setTitleText(R.string.yibu_procedure);
-//			Intent intent = new Intent(this, EnrollSchoolActivity.class);
 			Intent intent = new Intent(this, EnrollSchoolActivity1.class);
 			intent.putExtra("isFromMenu", true);
 			startActivityForResult(intent, 1);

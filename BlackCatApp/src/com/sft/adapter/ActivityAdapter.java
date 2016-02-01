@@ -121,7 +121,7 @@ public class ActivityAdapter extends BaseAdapter {
 		} else if (activitiesVO.getActivitystate().equals("1")) {
 			if (po2 == -1) {// 显示
 				holder.stateTop.setVisibility(View.VISIBLE);
-				holder.stateTop.setText("准备中");
+				holder.stateTop.setText("敬请期待");
 				holder.textView1.setText("准备中");
 				holder.time.setText("开始时间"
 						+ DateUtil.parseTime(activitiesVO.getEnddate()));
