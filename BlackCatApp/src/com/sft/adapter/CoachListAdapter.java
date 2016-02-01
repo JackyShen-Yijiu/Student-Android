@@ -19,7 +19,6 @@ import cn.sft.infinitescrollviewpager.BitmapManager;
 import com.sft.adapter.SchoolDetailCourseFeeAdapter.MyClickListener;
 import com.sft.blackcatapp.R;
 import com.sft.util.LogUtil;
-import com.sft.vo.ClassVO;
 import com.sft.vo.CoachVO;
 
 @SuppressLint("InflateParams")
@@ -107,8 +106,8 @@ public class CoachListAdapter extends BaseAdapter {
 			holder = new ViewHolder();
 			holder.coachName = (TextView) convertView
 					.findViewById(R.id.select_coach_coachname_tv);
-			holder.className = (TextView) convertView
-					.findViewById(R.id.select_coach_schoolname_tv);
+			holder.sex = (TextView) convertView
+					.findViewById(R.id.select_coach_sex_tv);
 			holder.headPic = (ImageView) convertView
 					.findViewById(R.id.select_coach_headpin_im);
 			holder.rateBar = (RatingBar) convertView
@@ -117,12 +116,8 @@ public class CoachListAdapter extends BaseAdapter {
 					.findViewById(R.id.select_coach_shuttle);
 			holder.general = (TextView) convertView
 					.findViewById(R.id.select_coach_general);
-			holder.rate = (TextView) convertView
-					.findViewById(R.id.select_coach_rate_tv);
-			holder.age = (TextView) convertView
-					.findViewById(R.id.select_coach_age_tv);
-			holder.distance = (TextView) convertView
-					.findViewById(R.id.select_coach_distance_tv);
+			holder.teachAge = (TextView) convertView
+					.findViewById(R.id.select_coach_teachage_tv);
 			holder.selectIm = (ImageView) convertView
 					.findViewById(R.id.select_coach_im);
 			convertView.setTag(holder);
@@ -154,26 +149,16 @@ public class CoachListAdapter extends BaseAdapter {
 		}
 		String coachName = mData.get(position).getName();
 		holder.coachName.setText(coachName);
-		String schoolName = mData.get(position).getDriveschoolinfo().getName();
-		holder.className.setText(schoolName);
+		holder.sex.setText("性别：" + mData.get(position).getGender());
 		String rateBar = mData.get(position).getStarlevel();
 		try {
 			holder.rateBar.setRating(Float.parseFloat(rateBar));
 		} catch (Exception e) {
 			holder.rateBar.setRating(0f);
 		}
-		String rate = mData.get(position).getPassrate();
 
-		holder.rate.setText("通过率: " + rate + "%");
-		String age = mData.get(position).getSeniority();
-		holder.age.setText("工作年限:" + age);
-		String distance = mData.get(position).getDistance();
-		int distanceInt = 0;
-		try {
-			distanceInt = Integer.parseInt(distance);
-		} catch (NumberFormatException e) {
-		}
-		holder.distance.setText(distanceInt / 1000 + "KM");
+		holder.teachAge.setText("教龄：" + mData.get(position).getSeniority()
+				+ "年");
 
 		LinearLayout.LayoutParams headParam = (LinearLayout.LayoutParams) holder.headPic
 				.getLayoutParams();
@@ -190,23 +175,6 @@ public class CoachListAdapter extends BaseAdapter {
 				+ mData.get(position).getName() + position);
 		// }
 
-		List<ClassVO> serverclasslist = mData.get(position)
-				.getServerclasslist();
-		if (null == serverclasslist  || serverclasslist.size() == 0) {
-
-			holder.className.setText("暂无班型");
-		} else {
-			String classNameString = "班型：";
-			for (int i = 0; i < serverclasslist.size(); i++) {
-				if (i == serverclasslist.size() - 1) {
-					classNameString += serverclasslist.get(i).getClassname();
-				} else {
-					classNameString += serverclasslist.get(i).getClassname()
-							+ "，";
-				}
-			}
-			holder.className.setText(classNameString);
-		}
 		holder.headPic.setTag(position);
 		holder.headPic.setOnClickListener(mListener);
 		return convertView;
@@ -215,10 +183,10 @@ public class CoachListAdapter extends BaseAdapter {
 	private class ViewHolder {
 		public ImageView selectIm;
 		public TextView coachName;
-		public TextView className;
+		public TextView sex;
 		public ImageView headPic;
 		public RatingBar rateBar;
 		public TextView shuttle, general;
-		public TextView rate, age, distance;
+		public TextView teachAge;
 	}
 }

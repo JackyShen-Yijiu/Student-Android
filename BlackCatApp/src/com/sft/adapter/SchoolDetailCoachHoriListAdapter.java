@@ -30,6 +30,7 @@ public class SchoolDetailCoachHoriListAdapter extends BaseAdapter {
 	private List<Boolean> isSelected = new ArrayList<Boolean>();
 
 	private int index = -1;
+	private boolean isShowSchool = false;
 
 	public SchoolDetailCoachHoriListAdapter(Context context, List<CoachVO> mData) {
 		this.mInflater = LayoutInflater.from(context);
@@ -138,22 +139,30 @@ public class SchoolDetailCoachHoriListAdapter extends BaseAdapter {
 		}
 		String coachName = mData.get(position).getName();
 		holder.coachName.setText(coachName);
-		List<ClassVO> serverclasslist = mData.get(position)
-				.getServerclasslist();
-		if (serverclasslist == null && serverclasslist.size() == 0) {
-
-			holder.className.setText("暂无班型");
+		if (isShowSchool) {
+			holder.className.setText(mData.get(position).getDriveschoolinfo()
+					.getName());
 		} else {
-			String classNameString = "班型：";
-			for (int i = 0; i < serverclasslist.size(); i++) {
-				if (i == serverclasslist.size() - 1) {
-					classNameString += serverclasslist.get(i).getClassname();
-				} else {
-					classNameString += serverclasslist.get(i).getClassname()
-							+ "，";
+			List<ClassVO> serverclasslist = mData.get(position)
+					.getServerclasslist();
+			if (serverclasslist == null) {
+				holder.className.setText("暂无班型");
+			} else if (serverclasslist.size() == 0) {
+				holder.className.setText("暂无班型");
+			} else {
+				String classNameString = "班型：";
+				for (int i = 0; i < serverclasslist.size(); i++) {
+					if (i == serverclasslist.size() - 1) {
+						classNameString += serverclasslist.get(i)
+								.getClassname();
+					} else {
+						classNameString += serverclasslist.get(i)
+								.getClassname() + "，";
+					}
 				}
+				holder.className.setText(classNameString);
 			}
-			holder.className.setText(classNameString);
+
 		}
 		String rateBar = mData.get(position).getStarlevel();
 		try {
@@ -161,8 +170,6 @@ public class SchoolDetailCoachHoriListAdapter extends BaseAdapter {
 		} catch (Exception e) {
 			holder.rateBar.setRating(0f);
 		}
-		String rate = mData.get(position).getPassrate();
-		holder.teachAge.setText("通过率: " + rate + "%");
 		String age = mData.get(position).getSeniority();
 		holder.teachAge.setText("驾龄:" + age + "年");
 		String distance = mData.get(position).getDistance();
@@ -171,7 +178,7 @@ public class SchoolDetailCoachHoriListAdapter extends BaseAdapter {
 			distanceInt = Integer.parseInt(distance);
 		} catch (NumberFormatException e) {
 		}
-		holder.distance.setText(distanceInt / 1000 + "KM");
+		holder.distance.setText(distanceInt / 1000 + "km");
 
 		LinearLayout.LayoutParams headParam = (LinearLayout.LayoutParams) holder.headPic
 				.getLayoutParams();
@@ -199,5 +206,9 @@ public class SchoolDetailCoachHoriListAdapter extends BaseAdapter {
 		public RatingBar rateBar;
 		public TextView shuttle, general;
 		public TextView teachAge, distance, price;
+	}
+
+	public void setShowSchoolName(boolean isShowSchool) {
+		this.isShowSchool = isShowSchool;
 	}
 }

@@ -21,6 +21,7 @@ import cn.sft.infinitescrollviewpager.MyHandler;
 import com.easemob.chat.EMChatManager;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
+import com.sft.util.SharedPreferencesUtil;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.CarModelVO;
 import com.sft.vo.SchoolVO;
@@ -260,7 +261,7 @@ public class PersonCenterActivity extends BaseActivity {
 					@Override
 					public void run() {
 						Intent intent = new Intent(PersonCenterActivity.this,
-								ApplyActivity.class);
+								EnrollSchoolActivity1.class);
 						startActivity(intent);
 						// finish();
 					}
@@ -287,9 +288,18 @@ public class PersonCenterActivity extends BaseActivity {
 				ZProgressHUD.getInstance(this).show();
 				ZProgressHUD.getInstance(this).dismissWithSuccess("您已报名");
 			} else {
-				Intent intent1 = new Intent(PersonCenterActivity.this,
-						TestingPhoneActivity.class);
-				startActivity(intent1);
+				boolean isclickconfirm = SharedPreferencesUtil.getBoolean(this,
+						MainActivity.ISCLICKCONFIRM, false);
+				if (isclickconfirm) {
+					Intent intent1 = new Intent(PersonCenterActivity.this,
+							TestingPhoneActivity.class);
+					startActivity(intent1);
+
+				} else {
+					ZProgressHUD.getInstance(this).show();
+					ZProgressHUD.getInstance(this).dismissWithSuccess(
+							"您还未报名，请前去报名");
+				}
 			}
 
 			break;

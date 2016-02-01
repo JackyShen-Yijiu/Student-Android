@@ -10,9 +10,9 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -20,10 +20,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.TextView.OnEditorActionListener;
 
-import com.sft.fragment.CoachsFragment;
 import com.sft.fragment.CoachsFragment1;
 import com.sft.fragment.SchoolsFragment;
 import com.sft.util.LogUtil;
@@ -34,24 +32,23 @@ import com.sft.util.LogUtil;
  * @author Administrator
  * 
  */
-public class EnrollSchoolActivity1 extends FragmentActivity implements OnClickListener{
+public class EnrollSchoolActivity1 extends FragmentActivity implements
+		OnClickListener {
 
-	boolean isFromMenu;
-	/***选择驾校*/
+	/*** 选择驾校 */
 	int selected;
-	
-	
+
 	SchoolsFragment schoolFragment = null;
-	
+
 	CoachsFragment1 coachFragment = null;
-	/**查找驾校*/
+	/** 查找驾校 */
 	private int type = 0;
-	
+
 	public EditText etSearch;
-	
+
 	private TextView tvTitle;
 	private TextView tvRight;
-	
+
 	private boolean isClassSelected = false;
 	private boolean isSearchSchool = false;
 	private TextView classSelect;
@@ -62,7 +59,8 @@ public class EnrollSchoolActivity1 extends FragmentActivity implements OnClickLi
 
 	//
 
-	@SuppressLint("InlinedApi") @Override
+	@SuppressLint("InlinedApi")
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -73,24 +71,22 @@ public class EnrollSchoolActivity1 extends FragmentActivity implements OnClickLi
 			getWindow().addFlags(
 					WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 		}
-		isFromMenu = getIntent().getBooleanExtra("isFromMenu", false);
-		selected = getIntent().getIntExtra("select", 0);
-		
-		
 		setContentView(R.layout.act_enrollschool_container);
 		initView(type);
 		initData();
-		if(selected==1){//隐藏找教练
+
+		selected = getIntent().getIntExtra("select", 0);
+		if (selected == 1) {// 隐藏找教练
 			tvRight.setVisibility(View.GONE);
-		}else{
+		} else {
 			tvRight.setVisibility(View.VISIBLE);
 		}
 	}
-	
+
 	private void initView(int flag) {
-		
+
 		tvTitle = ((TextView) findViewById(R.id.base_title_tv));
-		
+
 		etSearch = (EditText) findViewById(R.id.enroll_school_search_et);
 		tvRight = ((TextView) findViewById(R.id.base_right_tv));
 		tvRight.setClickable(true);
@@ -103,32 +99,33 @@ public class EnrollSchoolActivity1 extends FragmentActivity implements OnClickLi
 		arrow2 = (ImageView) findViewById(R.id.enroll_school_arrow2_iv);
 		arrow3 = (ImageView) findViewById(R.id.enroll_school_arrow3_iv);
 		arrow4 = (ImageView) findViewById(R.id.enroll_school_arrow4_iv);
-		
+
 		ImageButton imgLeft = (ImageButton) findViewById(R.id.base_left_btn);
 		imgLeft.setBackgroundResource(R.drawable.base_left_btn_bkground);
 		imgLeft.setOnClickListener(this);
-		
-//		setTitleText(R.string.select_school);
-//		setRightText("定位中");
-		
-		FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
-		if(flag ==0){//驾校
-			if(schoolFragment == null)
+
+		// setTitleText(R.string.select_school);
+		// setRightText("定位中");
+
+		FragmentTransaction tran = getSupportFragmentManager()
+				.beginTransaction();
+		if (flag == 0) {// 驾校
+			if (schoolFragment == null)
 				schoolFragment = SchoolsFragment.getInstance(selected);
 			tran.add(R.id.fl_container, schoolFragment);
 			tvRight.setText("找教练");
 			tvTitle.setText(R.string.select_school);
-		}else{//教练
-			if(coachFragment == null)
+		} else {// 教练
+			if (coachFragment == null)
 				coachFragment = CoachsFragment1.getInstance();
 			tran.add(R.id.fl_container, coachFragment);
 			tvRight.setText("找驾校");
 			tvTitle.setText(R.string.search_coach);
 		}
-		
+
 		tran.commitAllowingStateLoss();
 	}
-	
+
 	private void initData() {
 		etSearch.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
 		etSearch.setOnEditorActionListener(new OnEditorActionListener() {
@@ -155,24 +152,25 @@ public class EnrollSchoolActivity1 extends FragmentActivity implements OnClickLi
 
 		});
 	}
-	
+
 	/**
 	 * 切换 教练/驾校
 	 */
-	private void change(){
-		FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
-		
-		if(type == 0){//切换到教练 
+	private void change() {
+		FragmentTransaction tran = getSupportFragmentManager()
+				.beginTransaction();
+
+		if (type == 0) {// 切换到教练
 			type = 1;
-			if(coachFragment == null)
+			if (coachFragment == null)
 				coachFragment = CoachsFragment1.getInstance();
-//			if(coachFragment.isAdded())
-//				tran.show(coachFragment);
+			// if(coachFragment.isAdded())
+			// tran.show(coachFragment);
 			tran.replace(R.id.fl_container, coachFragment);
 			tvRight.setText("找驾校");
 			tvTitle.setText(R.string.search_coach);
-		}else{//切换到驾校
-			if(schoolFragment == null)
+		} else {// 切换到驾校
+			if (schoolFragment == null)
 				schoolFragment = SchoolsFragment.getInstance(selected);
 			type = 0;
 			tran.replace(R.id.fl_container, schoolFragment);
@@ -181,32 +179,28 @@ public class EnrollSchoolActivity1 extends FragmentActivity implements OnClickLi
 		}
 		tran.commitAllowingStateLoss();
 	}
-	
-	private void searchcoach(String name){
-		if(type == 0){
+
+	private void searchcoach(String name) {
+		if (type == 0) {
 			schoolFragment.schoolname = name;
 			schoolFragment.searchSchool(true);
-		}else if(type==1){
+		} else if (type == 1) {
 			coachFragment.coachname = name;
 			coachFragment.searchcoach(true);
 		}
 	}
-	
-	
+
 	@Override
 	protected void onResume() {
-//		register(getClass().getName());
+		// register(getClass().getName());
 		super.onResume();
 	};
 
-	
-
-
 	@Override
 	public void onClick(View v) {
-//		if (!onClickSingleView()) {
-//			return;
-//		}
+		// if (!onClickSingleView()) {
+		// return;
+		// }
 		int id = v.getId();
 		switch (id) {
 		case R.id.base_left_btn:
@@ -215,18 +209,18 @@ public class EnrollSchoolActivity1 extends FragmentActivity implements OnClickLi
 		case R.id.base_right_tv:
 			change();
 			break;
-		case R.id.enroll_school_class_select_tv://班型选择
+		case R.id.enroll_school_class_select_tv:// 班型选择
 			showPopupWindow(v);
 			break;
-		case R.id.enroll_school_distance_select_tv://距离最近
+		case R.id.enroll_school_distance_select_tv:// 距离最近
 			setSelectState(2);
 			onClickFragment(id);
 			break;
-		case R.id.enroll_school_comment_select_tv://评分最高
+		case R.id.enroll_school_comment_select_tv:// 评分最高
 			setSelectState(3);
 			onClickFragment(id);
 			break;
-		case R.id.enroll_school_price_select_tv://价格最低
+		case R.id.enroll_school_price_select_tv:// 价格最低
 			setSelectState(4);
 			onClickFragment(id);
 			break;
@@ -246,20 +240,21 @@ public class EnrollSchoolActivity1 extends FragmentActivity implements OnClickLi
 			break;
 		}
 	}
-	
-	private void onClickFragment(int id){
-		if(type==0){//驾校
+
+	private void onClickFragment(int id) {
+		if (type == 0) {// 驾校
 			schoolFragment.order(id);
-		}else{
+		} else {
 			coachFragment.order(id);
 		}
-		
+
 	}
-	
+
 	private PopupWindow popupWindow;
-	
+
 	/**
 	 * 班型选择
+	 * 
 	 * @param parent
 	 */
 	private void showPopupWindow(View parent) {
@@ -287,7 +282,7 @@ public class EnrollSchoolActivity1 extends FragmentActivity implements OnClickLi
 
 		popupWindow.showAsDropDown(parent);
 	}
-	
+
 	private void setSelectState(int position) {
 
 		classSelect.setTextColor(getResources().getColor(
@@ -342,18 +337,15 @@ public class EnrollSchoolActivity1 extends FragmentActivity implements OnClickLi
 		}
 	}
 
-	
 	@Override
 	protected void onActivityResult(int requestCode, final int resultCode,
 			final Intent data) {
-		if(type==0){
+		if (type == 0) {
 			schoolFragment.onActivityResult(requestCode, resultCode, data);
-		}else{
+		} else {
 			coachFragment.onActivityResult(requestCode, resultCode, data);
 		}
-			
+
 	}
 
-	
-	
 }
