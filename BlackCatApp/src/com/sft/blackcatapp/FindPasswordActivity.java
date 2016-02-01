@@ -12,8 +12,8 @@ import android.widget.EditText;
 import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.baseactivity.util.MyHandler;
 
-import com.sft.blackcatapp.R;
 import com.sft.common.Config;
+import com.sft.util.CommonUtil;
 import com.sft.viewutil.ZProgressHUD;
 
 /**
@@ -111,6 +111,10 @@ public class FindPasswordActivity extends BaseActivity {
 		String phone = phoneEt.getText().toString();
 		if (TextUtils.isEmpty(phone)) {
 			return "手机号为空";
+		} else {
+			if (!CommonUtil.isMobile(phone)) {
+				return "手机号格式不正确";
+			}
 		}
 		if (phone.length() != 11) {
 			return "请输入正确的手机号";
@@ -178,7 +182,14 @@ public class FindPasswordActivity extends BaseActivity {
 		case R.id.base_right_btn:
 			break;
 		case R.id.findpass_code_btn:
-			obtainCode();
+			String result1 = checkInput();
+			if (result1 == null) {
+				obtainCode();
+			} else {
+				ZProgressHUD.getInstance(this).show();
+				ZProgressHUD.getInstance(this).dismissWithFailure(result1);
+			}
+
 			break;
 		case R.id.findpass_finish_btn:
 			String result = checkInput();

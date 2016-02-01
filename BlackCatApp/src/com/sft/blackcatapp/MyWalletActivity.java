@@ -120,6 +120,11 @@ public class MyWalletActivity extends BaseActivity {
 			obtainWallet();
 		} else if (Config.MoneyType.COIN_CERTIFICATE.getValue().equals(
 				moneytype)) {
+			myCuponList = new ArrayList<MyCuponVO>();
+			if (myCuponList.size() == 0) {
+				exchangeBtn.setEnabled(false);
+				exchangeBtn.setBackgroundColor(Color.parseColor("#999999"));
+			}
 			producttype = Config.MoneyType.COIN_CERTIFICATE.getValue();
 			setTitleText(R.string.my_cupon);
 			unitTv.setText("张");
@@ -241,6 +246,7 @@ public class MyWalletActivity extends BaseActivity {
 						LogUtil.print(myCuponVO.getCreatetime());
 					}
 					myChangeTv.setText(myCuponList.size() + "");
+
 					if (cupontAdapter == null) {
 						cupontAdapter = new CupontAdapter(this, myCuponList);
 					} else {
