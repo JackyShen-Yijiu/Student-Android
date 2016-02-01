@@ -37,6 +37,9 @@ import com.sft.util.LogUtil;
 public class EnrollSchoolActivity1 extends FragmentActivity implements OnClickListener{
 
 	boolean isFromMenu;
+	/***选择驾校*/
+	int selected;
+	
 	
 	SchoolsFragment schoolFragment = null;
 	
@@ -71,10 +74,17 @@ public class EnrollSchoolActivity1 extends FragmentActivity implements OnClickLi
 					WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 		}
 		isFromMenu = getIntent().getBooleanExtra("isFromMenu", false);
+		selected = getIntent().getIntExtra("select", 0);
+		
+		
 		setContentView(R.layout.act_enrollschool_container);
 		initView(type);
 		initData();
-		
+		if(selected==1){//隐藏找教练
+			tvRight.setVisibility(View.GONE);
+		}else{
+			tvRight.setVisibility(View.VISIBLE);
+		}
 	}
 	
 	private void initView(int flag) {
@@ -104,7 +114,7 @@ public class EnrollSchoolActivity1 extends FragmentActivity implements OnClickLi
 		FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
 		if(flag ==0){//驾校
 			if(schoolFragment == null)
-				schoolFragment = SchoolsFragment.getInstance();
+				schoolFragment = SchoolsFragment.getInstance(selected);
 			tran.add(R.id.fl_container, schoolFragment);
 			tvRight.setText("找教练");
 			tvTitle.setText(R.string.select_school);
@@ -163,7 +173,7 @@ public class EnrollSchoolActivity1 extends FragmentActivity implements OnClickLi
 			tvTitle.setText(R.string.search_coach);
 		}else{//切换到驾校
 			if(schoolFragment == null)
-				schoolFragment = SchoolsFragment.getInstance();
+				schoolFragment = SchoolsFragment.getInstance(selected);
 			type = 0;
 			tran.replace(R.id.fl_container, schoolFragment);
 			tvRight.setText("找教练");

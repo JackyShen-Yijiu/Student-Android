@@ -12,6 +12,7 @@
         android:layout_margin="15dp"
         android:hint="报名兑换码"
         android:paddingLeft="15dp"
+        android:onClick="onClick"
         android:background="@drawable/shape_line_bg"
         android:ems="10" >
 

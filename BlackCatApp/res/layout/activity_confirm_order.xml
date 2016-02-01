@@ -138,6 +138,7 @@
             android:layout_alignBottom="@+id/tv_discount"
             android:layout_alignRight="@+id/line_two"
             android:layout_marginRight="2dp"
+            android:textColor="@color/app_main_color"
             android:padding="12dp"
             android:text="12341251245" />
         
@@ -330,6 +331,7 @@
                   android:layout_height="50dp"
                   android:background="#ff6633"
                   android:textColor="@color/white"
+                  android:onClick="onClick"
                   android:textSize="16sp"
                   android:layout_alignParentBottom="true"/>
         

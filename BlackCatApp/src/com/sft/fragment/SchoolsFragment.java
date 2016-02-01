@@ -148,9 +148,12 @@ public class SchoolsFragment extends BaseFragment implements
 	
 	static SchoolsFragment fragment = null;
 	
-	public static SchoolsFragment getInstance(){
+	private static int type;
+	
+	public static SchoolsFragment getInstance(int t){
 		if(fragment == null)
 			fragment = new SchoolsFragment();
+		type = t;
 		return fragment;
 	}
 	
@@ -863,11 +866,22 @@ public class SchoolsFragment extends BaseFragment implements
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		Intent intent = new Intent(getActivity(), SchoolDetailActivity.class);
-		SchoolVO schoolVO = adapter.getItem(position - 1);
-		intent.putExtra("school", schoolVO);
+		
+		if(type==0){
+			Intent intent = new Intent(getActivity(), SchoolDetailActivity.class);
+			SchoolVO schoolVO = adapter.getItem(position - 1);
+			intent.putExtra("school", schoolVO);
 
-		startActivityForResult(intent, 0);
+			startActivityForResult(intent, 0);
+		}else{//选择驾校
+			Intent i = new Intent();
+			SchoolVO schoolVO = adapter.getItem(position - 1);
+			i.putExtra("school", schoolVO);
+			getActivity().setResult(3, i);
+			getActivity().finish();
+		}
+		
+		
 	}
 
 	
