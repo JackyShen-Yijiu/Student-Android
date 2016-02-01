@@ -15,7 +15,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:background="@drawable/bonus_dialog_toplayout_bkground"
             android:orientation="vertical"
             android:paddingTop="28dp" >
@@ -54,11 +54,10 @@
         android:id="@+id/send_invite_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:background="#ffffff"
         android:paddingBottom="10dp" >
 
-        <TextView
+        <!-- <TextView
             android:id="@+id/send_invite_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -66,20 +65,22 @@
             android:layout_marginTop="25dp"
             android:text="@string/send_invite"
             android:textColor="#333333"
-            android:textSize="14dp" />
+            android:textSize="14dp" /> -->
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/send_invite_title"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="15dp"
             android:orientation="horizontal" >
 
             <LinearLayout
-                android:layout_width="50dp"
+                android:id="@+id/send_invite_weixin_ll"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:orientation="vertical" >
 
                 <ImageButton
@@ -98,16 +99,19 @@
                     android:textColor="#333333"
                     android:textSize="12dp" />
             </LinearLayout>
-             <ImageView
+             <!-- <ImageView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
-                android:contentDescription="@string/app_name" />
+                android:contentDescription="@string/app_name" /> -->
 
             <LinearLayout
-                android:layout_width="50dp"
+                android:id="@+id/send_invite_message_ll"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:orientation="vertical" >
 
                 <ImageButton
@@ -127,16 +131,19 @@
                     android:textSize="12dp" />
             </LinearLayout>
 
-            <ImageView
+           <!--  <ImageView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
-                android:contentDescription="@string/app_name" />
+                android:contentDescription="@string/app_name" /> -->
 
             <LinearLayout
-                android:layout_width="50dp"
+                android:id="@+id/send_invite_weibo_ll"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:orientation="vertical" >
 
                 <ImageButton
@@ -156,16 +163,19 @@
                     android:textSize="12dp" />
             </LinearLayout>
 
-            <ImageView
+            <!-- <ImageView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
-                android:contentDescription="@string/app_name" />
+                android:contentDescription="@string/app_name" /> -->
 
             <LinearLayout
-                android:layout_width="50dp"
+                android:id="@+id/send_invite_qq_ll"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1"
                 android:orientation="vertical" >
 
                 <ImageButton

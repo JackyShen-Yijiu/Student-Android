@@ -71,11 +71,12 @@ public class EnrollSchoolActivity1 extends FragmentActivity implements
 			getWindow().addFlags(
 					WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 		}
+		selected = getIntent().getIntExtra("select", 0);
+		LogUtil.print("selected----" + selected);
 		setContentView(R.layout.act_enrollschool_container);
 		initView(type);
 		initData();
 
-		selected = getIntent().getIntExtra("select", 0);
 		if (selected == 1) {// 隐藏找教练
 			tvRight.setVisibility(View.GONE);
 		} else {

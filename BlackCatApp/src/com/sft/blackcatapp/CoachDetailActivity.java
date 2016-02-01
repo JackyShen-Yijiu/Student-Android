@@ -199,7 +199,7 @@ public class CoachDetailActivity extends BaseActivity implements
 		studentEvaluation = (TextView) findViewById(R.id.coach_detail_studentevaluation_tv);
 		noCommentTv = (TextView) findViewById(R.id.coach_detail_noevaluation_tv);
 		commentList = (XListView) findViewById(R.id.coach_detail_listview);
-
+		commentList.setFocusable(false);
 		carTypeTv = (TextView) findViewById(R.id.coach_detail_car_style_tv);
 		subjectTv = (TextView) findViewById(R.id.coach_detail_enable_subject_tv);
 		distanceTv = (TextView) findViewById(R.id.coach_detail_distance_tv);
@@ -207,7 +207,7 @@ public class CoachDetailActivity extends BaseActivity implements
 		personLabel = (WordWrapView) findViewById(R.id.coach_detail_personality_labels);
 		personLabel.showColor(true);
 		courseFeeListView = (ListView) findViewById(R.id.coash_detail_course_fee_listview);
-
+		courseFeeListView.setFocusable(false);
 		// 如果是预约时更多教练放入教练详情，此处不显示
 		courseFeeIm = (ImageView) findViewById(R.id.caoch_detail_course_fee_im);
 		courseFeeRl = (RelativeLayout) findViewById(R.id.caoch_detail_course_fee_rl);

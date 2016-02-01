@@ -7,7 +7,7 @@
         android:id="@+id/ll_title"
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:background="#ccc"
+        android:background="#f7f9fb"
         android:orientation="horizontal" >
     </LinearLayout>
 
@@ -101,6 +101,7 @@
   <EditText
         android:id="@+id/testing_phone_et"
         style="@style/register_et_style"
+        android:inputType="phone"
         android:hint="@string/contact" />
 
 </RelativeLayout>
@@ -132,6 +133,7 @@
   <EditText
         android:id="@+id/testing_code_et"
         style="@style/register_et_testing_style"
+        android:inputType="number"
         android:hint="@string/testcode" />
 
 </RelativeLayout>

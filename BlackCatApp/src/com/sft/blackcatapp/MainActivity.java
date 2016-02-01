@@ -137,6 +137,8 @@ public class MainActivity extends BaseMainActivity implements
 	 * 检查学时状态 对话框，
 	 */
 	private void checkStateDialog() {
+		SharedPreferencesUtil.putBoolean(MainActivity.this, ISCLICKCONFIRM,
+				false);
 		// 没报名
 		// LogUtil.print("state---->" + app.userVO.getApplystate());
 		if (app.isLogin) {

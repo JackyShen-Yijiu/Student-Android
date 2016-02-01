@@ -7,39 +7,6 @@ import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import cn.sft.baseactivity.util.HttpSendUtils;
-import cn.sft.infinitescrollviewpager.BitMapURLExcepteionListner;
-import cn.sft.infinitescrollviewpager.InfinitePagerAdapter;
-import cn.sft.infinitescrollviewpager.InfiniteViewPager;
-import cn.sft.infinitescrollviewpager.MyHandler;
-import cn.sft.infinitescrollviewpager.PageChangeListener;
-import cn.sft.infinitescrollviewpager.PageClickListener;
-
-import com.google.gson.reflect.TypeToken;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
-import com.sft.adapter.OpenCityAdapter;
-import com.sft.adapter.SchoolListAdapter;
-import com.sft.api.ApiHttpClient;
-import com.sft.blackcatapp.ApplyActivity;
-import com.sft.blackcatapp.BaseActivity;
-import com.sft.blackcatapp.EnrollSchoolActivity;
-import com.sft.blackcatapp.EnrollSchoolActivity1;
-import com.sft.blackcatapp.R;
-import com.sft.blackcatapp.SchoolDetailActivity;
-import com.sft.common.Config;
-import com.sft.common.Config.EnrollResult;
-import com.sft.dialog.EnrollSelectConfilctDialog.OnSelectConfirmListener;
-import com.sft.listener.MOnScrollListener;
-import com.sft.util.JSONUtil;
-import com.sft.util.LogUtil;
-import com.sft.util.Util;
-import com.sft.view.RefreshLayout;
-import com.sft.view.RefreshLayout.OnLoadListener;
-import com.sft.vo.HeadLineNewsVO;
-import com.sft.vo.OpenCityVO;
-import com.sft.vo.SchoolVO;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -57,7 +24,9 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -65,9 +34,35 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.AbsListView.OnScrollListener;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView.OnEditorActionListener;
+import cn.sft.baseactivity.util.HttpSendUtils;
+import cn.sft.infinitescrollviewpager.BitMapURLExcepteionListner;
+import cn.sft.infinitescrollviewpager.InfiniteViewPager;
+import cn.sft.infinitescrollviewpager.MyHandler;
+import cn.sft.infinitescrollviewpager.PageChangeListener;
+import cn.sft.infinitescrollviewpager.PageClickListener;
+
+import com.google.gson.reflect.TypeToken;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+import com.sft.adapter.OpenCityAdapter;
+import com.sft.adapter.SchoolListAdapter;
+import com.sft.api.ApiHttpClient;
+import com.sft.blackcatapp.ApplyActivity;
+import com.sft.blackcatapp.R;
+import com.sft.blackcatapp.SchoolDetailActivity;
+import com.sft.common.Config;
+import com.sft.common.Config.EnrollResult;
+import com.sft.dialog.EnrollSelectConfilctDialog.OnSelectConfirmListener;
+import com.sft.listener.MOnScrollListener;
+import com.sft.util.JSONUtil;
+import com.sft.util.LogUtil;
+import com.sft.util.Util;
+import com.sft.view.RefreshLayout;
+import com.sft.view.RefreshLayout.OnLoadListener;
+import com.sft.vo.HeadLineNewsVO;
+import com.sft.vo.OpenCityVO;
+import com.sft.vo.SchoolVO;
 
 /**
  * 学校、
@@ -131,7 +126,7 @@ public class SchoolsFragment extends BaseFragment implements
 	private RelativeLayout adLayout;
 	private EditText searchSchool;
 	private RefreshLayout swipeLayout;
-//	private LinearLayout llSearch;
+	// private LinearLayout llSearch;
 
 	//
 
@@ -145,19 +140,20 @@ public class SchoolsFragment extends BaseFragment implements
 	private boolean scrollFlag;
 	/** 上次所在的位置 */
 	private int lastId = 0;
-	
+
 	static SchoolsFragment fragment = null;
-	
+
 	private static int type;
-	
-	public static SchoolsFragment getInstance(int t){
-		if(fragment == null)
+
+	public static SchoolsFragment getInstance(int t) {
+		if (fragment == null)
 			fragment = new SchoolsFragment();
 		type = t;
+		LogUtil.print("type-onItemClick->" + type);
 		return fragment;
 	}
-	
-	public void setCurrent(SchoolVO selectSchool){
+
+	public void setCurrent(SchoolVO selectSchool) {
 		selectSchool = this.selectSchool;
 	}
 
@@ -247,11 +243,11 @@ public class SchoolsFragment extends BaseFragment implements
 
 	// 搜索成功
 	protected void processSuccess(String value) {
-//		LogUtil.print("aaaaaaaaa111" );
-		if(!isSearchSchool)
+		// LogUtil.print("aaaaaaaaa111" );
+		if (!isSearchSchool)
 			searchSchool.setVisibility(View.GONE);
-//		((EnrollSchoolActivity1)getActivity()).etSearch.setVisibility(View.GONE);
-//		searchSchool.setVisibility(View.GONE);
+		// ((EnrollSchoolActivity1)getActivity()).etSearch.setVisibility(View.GONE);
+		// searchSchool.setVisibility(View.GONE);
 		if (value != null) {
 			LogUtil.print(value);
 			try {
@@ -314,23 +310,25 @@ public class SchoolsFragment extends BaseFragment implements
 
 	}
 
-//	@Override
-//	protected void onResume() {
-//		register(getClass().getName());
-//		super.onResume();
-//	};
+	// @Override
+	// protected void onResume() {
+	// register(getClass().getName());
+	// super.onResume();
+	// };
 
 	private void initViewA(View rootView) {
-//		setTitleText(R.string.select_school);
+		// setTitleText(R.string.select_school);
 
-		swipeLayout = (RefreshLayout) rootView.findViewById(R.id.enroll_school_swipe_container);
+		swipeLayout = (RefreshLayout) rootView
+				.findViewById(R.id.enroll_school_swipe_container);
 		swipeLayout.setOnRefreshListener(this);
 		swipeLayout.setColorScheme(android.R.color.holo_blue_bright,
 				android.R.color.holo_green_light,
 				android.R.color.holo_orange_light,
 				android.R.color.holo_red_light);
 
-		schoolListView = (ListView) rootView.findViewById(R.id.enroll_select_school_listview);
+		schoolListView = (ListView) rootView
+				.findViewById(R.id.enroll_select_school_listview);
 		swipeLayout.setChildScroll(new MOnScrollListener() {
 
 			@Override
@@ -379,24 +377,22 @@ public class SchoolsFragment extends BaseFragment implements
 			public void downPull() {
 				if (lastId == 0) {
 					searchSchool.setVisibility(View.VISIBLE);
-//					((EnrollSchoolActivity1)getActivity()).etSearch.setVisibility(View.VISIBLE);
+					// ((EnrollSchoolActivity1)getActivity()).etSearch.setVisibility(View.VISIBLE);
 					LogUtil.print("scrolling---2222>"
 							+ schoolListView.getPivotX());
-//					searchSchool.setVisibility(View.VISIBLE);
-//					schoolListView.scrollListBy(0);
+					// searchSchool.setVisibility(View.VISIBLE);
+					// schoolListView.scrollListBy(0);
 					LogUtil.print("scrolling---4444>"
 							+ schoolListView.getPivotX());
 				}
 
 			}
 		});
-		
-//		searchSchool.
-		
+
+		// searchSchool.
+
 		// schoolListView.setPullRefreshEnable(false);
 		// schoolListView.setPullLoadEnable(false);
-
-		
 
 		// if (app.userVO != null
 		// && app.userVO.getApplystate().equals(
@@ -404,103 +400,108 @@ public class SchoolsFragment extends BaseFragment implements
 		// showTitlebarText(BaseActivity.SHOW_RIGHT_TEXT);
 		// setText(0, R.string.finish);
 		// } else {
-//		showTitlebarText(BaseActivity.SHOW_RIGHT_TEXT);
-//		if (currCity != null) {
-//			currCity = currCity.replace("市", "");
-//			setRightText(currCity);
-//
-//		}
+		// showTitlebarText(BaseActivity.SHOW_RIGHT_TEXT);
+		// if (currCity != null) {
+		// currCity = currCity.replace("市", "");
+		// setRightText(currCity);
+		//
+		// }
 		// }
 
-		View headerView = View.inflate(getActivity(), R.layout.enroll_school_header,
-				null);
-//
+		View headerView = View.inflate(getActivity(),
+				R.layout.enroll_school_header, null);
+		//
 		schoolListView.addHeaderView(headerView);
-//
-//		// 查找搜索框
-//		llSearch = (LinearLayout) headerView
-//				.findViewById(R.id.enroll_school_select_ll);
-//
-//		adLayout = (RelativeLayout) headerView
-//				.findViewById(R.id.enroll_school_top_headpic_im);
-//		topViewPager = (InfiniteViewPager) headerView
-//				.findViewById(R.id.enroll_school_top_viewpager);
-//		dotLayout = (LinearLayout) headerView
-//				.findViewById(R.id.enroll_school_top_dotlayout);
-//		defaultImage = (ImageView) headerView
-//				.findViewById(R.id.enroll_school_top_defaultimage);
+		//
+		// // 查找搜索框
+		// llSearch = (LinearLayout) headerView
+		// .findViewById(R.id.enroll_school_select_ll);
+		//
+		// adLayout = (RelativeLayout) headerView
+		// .findViewById(R.id.enroll_school_top_headpic_im);
+		// topViewPager = (InfiniteViewPager) headerView
+		// .findViewById(R.id.enroll_school_top_viewpager);
+		// dotLayout = (LinearLayout) headerView
+		// .findViewById(R.id.enroll_school_top_dotlayout);
+		// defaultImage = (ImageView) headerView
+		// .findViewById(R.id.enroll_school_top_defaultimage);
 		searchSchool = (EditText) headerView
 				.findViewById(R.id.enroll_school_search_et);
-//
-//		classSelect = (TextView) findViewById(R.id.enroll_school_class_select_tv);
-//		distanceSelect = (TextView) findViewById(R.id.enroll_school_distance_select_tv);
-//		commentSelect = (TextView) findViewById(R.id.enroll_school_comment_select_tv);
-//		priceSelect = (TextView) findViewById(R.id.enroll_school_price_select_tv);
-//		arrow1 = (ImageView) findViewById(R.id.enroll_school_arrow1_iv);
-//		arrow2 = (ImageView) findViewById(R.id.enroll_school_arrow2_iv);
-//		arrow3 = (ImageView) findViewById(R.id.enroll_school_arrow3_iv);
-//		arrow4 = (ImageView) findViewById(R.id.enroll_school_arrow4_iv);
-//
-//		searchSchool.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
-//		RelativeLayout.LayoutParams headParams = (RelativeLayout.LayoutParams) adLayout
-//				.getLayoutParams();
-//		headParams.width = screenWidth;
-//		int height = (int) ((screenWidth - 16 * screenDensity) / 3
-//				+ (screenWidth - 12 * screenDensity) * 2 / 3 + statusbarHeight);
-//		height += (63 * screenDensity);
-//
-//		headParams.height = screenHeight - height;
-//		viewPagerHeight = headParams.height;
-//		setViewPager();
+		//
+		// classSelect = (TextView)
+		// findViewById(R.id.enroll_school_class_select_tv);
+		// distanceSelect = (TextView)
+		// findViewById(R.id.enroll_school_distance_select_tv);
+		// commentSelect = (TextView)
+		// findViewById(R.id.enroll_school_comment_select_tv);
+		// priceSelect = (TextView)
+		// findViewById(R.id.enroll_school_price_select_tv);
+		// arrow1 = (ImageView) findViewById(R.id.enroll_school_arrow1_iv);
+		// arrow2 = (ImageView) findViewById(R.id.enroll_school_arrow2_iv);
+		// arrow3 = (ImageView) findViewById(R.id.enroll_school_arrow3_iv);
+		// arrow4 = (ImageView) findViewById(R.id.enroll_school_arrow4_iv);
+		//
+		// searchSchool.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
+		// RelativeLayout.LayoutParams headParams =
+		// (RelativeLayout.LayoutParams) adLayout
+		// .getLayoutParams();
+		// headParams.width = screenWidth;
+		// int height = (int) ((screenWidth - 16 * screenDensity) / 3
+		// + (screenWidth - 12 * screenDensity) * 2 / 3 + statusbarHeight);
+		// height += (63 * screenDensity);
+		//
+		// headParams.height = screenHeight - height;
+		// viewPagerHeight = headParams.height;
+		// setViewPager();
 
 	}
 
-//	private void setViewPager() {
-//		InfinitePagerAdapter adapter = null;
-//		int length = 0;
-//		if (adImageUrl != null && adImageUrl.length > 0) {
-//			adapter = new InfinitePagerAdapter(this, adImageUrl, screenWidth,
-//					viewPagerHeight);
-//			length = adImageUrl.length;
-//		} else {
-//			adapter = new InfinitePagerAdapter(getActivity(),
-//					new int[] { R.drawable.defaultimage });
-//			length = 1;
-//			defaultImage.setVisibility(View.GONE);
-//		}
-//		adapter.setPageClickListener(new MyPageClickListener());
-//		adapter.setURLErrorListener(this);
-//		topViewPager.setAdapter(adapter);
-//
-//		imageViews = new ImageView[length];
-//		ImageView imageView = null;
-//		dotLayout.removeAllViews();
-//		LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams(
-//				(int) (8 * screenDensity), (int) (4 * screenDensity));
-//		dotLayout.addView(new TextView(this), textParams);
-//		// 添加小圆点的图片
-//		for (int i = 0; i < length; i++) {
-//			imageView = new ImageView(this);
-//			// 设置小圆点imageview的参数
-//			imageView.setLayoutParams(new LayoutParams(
-//					(int) (6 * screenDensity), (int) (6 * screenDensity)));// 创建一个宽高均为20
-//			// 的布局
-//			// 将小圆点layout添加到数组中
-//			imageView
-//					.setBackgroundResource(R.drawable.enroll_school_dot_selector);
-//			imageViews[i] = imageView;
-//
-//			// 默认选中的是第一张图片，此时第一个小圆点是选中状态，其他不是
-//			if (i == 0) {
-//				imageView.setEnabled(true);
-//			} else {
-//				imageView.setEnabled(false);
-//			}
-//			// 将imageviews添加到小圆点视图组
-//			dotLayout.addView(imageViews[i]);
-//			dotLayout.addView(new TextView(this), textParams);
-//		}
-//	}
+	// private void setViewPager() {
+	// InfinitePagerAdapter adapter = null;
+	// int length = 0;
+	// if (adImageUrl != null && adImageUrl.length > 0) {
+	// adapter = new InfinitePagerAdapter(this, adImageUrl, screenWidth,
+	// viewPagerHeight);
+	// length = adImageUrl.length;
+	// } else {
+	// adapter = new InfinitePagerAdapter(getActivity(),
+	// new int[] { R.drawable.defaultimage });
+	// length = 1;
+	// defaultImage.setVisibility(View.GONE);
+	// }
+	// adapter.setPageClickListener(new MyPageClickListener());
+	// adapter.setURLErrorListener(this);
+	// topViewPager.setAdapter(adapter);
+	//
+	// imageViews = new ImageView[length];
+	// ImageView imageView = null;
+	// dotLayout.removeAllViews();
+	// LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams(
+	// (int) (8 * screenDensity), (int) (4 * screenDensity));
+	// dotLayout.addView(new TextView(this), textParams);
+	// // 添加小圆点的图片
+	// for (int i = 0; i < length; i++) {
+	// imageView = new ImageView(this);
+	// // 设置小圆点imageview的参数
+	// imageView.setLayoutParams(new LayoutParams(
+	// (int) (6 * screenDensity), (int) (6 * screenDensity)));// 创建一个宽高均为20
+	// // 的布局
+	// // 将小圆点layout添加到数组中
+	// imageView
+	// .setBackgroundResource(R.drawable.enroll_school_dot_selector);
+	// imageViews[i] = imageView;
+	//
+	// // 默认选中的是第一张图片，此时第一个小圆点是选中状态，其他不是
+	// if (i == 0) {
+	// imageView.setEnabled(true);
+	// } else {
+	// imageView.setEnabled(false);
+	// }
+	// // 将imageviews添加到小圆点视图组
+	// dotLayout.addView(imageViews[i]);
+	// dotLayout.addView(new TextView(this), textParams);
+	// }
+	// }
 
 	private class MyPageClickListener implements PageClickListener {
 
@@ -532,7 +533,7 @@ public class SchoolsFragment extends BaseFragment implements
 				adapter = new SchoolListAdapter(getActivity(), schoolList);
 				schoolListView.setAdapter(adapter);
 			} else {// ??? 正在刷新
-			// schoolList.addAll(school);
+				// schoolList.addAll(school);
 				schoolList = school;
 				adapter = new SchoolListAdapter(getActivity(), schoolList);
 				schoolListView.setAdapter(adapter);
@@ -582,27 +583,27 @@ public class SchoolsFragment extends BaseFragment implements
 
 	private void setListener() {
 		schoolListView.setOnItemClickListener(this);
-//		topViewPager.setPageChangeListener(this);
+		// topViewPager.setPageChangeListener(this);
 		// searchSchool.seton
 		swipeLayout.setOnRefreshListener(this);
 		swipeLayout.setOnLoadListener(this);
 
-//		classSelect.setOnClickListener(this);
-//		distanceSelect.setOnClickListener(this);
-//		commentSelect.setOnClickListener(this);
-//		priceSelect.setOnClickListener(this);
+		// classSelect.setOnClickListener(this);
+		// distanceSelect.setOnClickListener(this);
+		// commentSelect.setOnClickListener(this);
+		// priceSelect.setOnClickListener(this);
 	}
 
 	private boolean isClassSelected = false;
 
 	@Override
 	public void onClick(View v) {
-//		if (!onClickSingleView()) {
-//			return;
-//		}
+		// if (!onClickSingleView()) {
+		// return;
+		// }
 		switch (v.getId()) {
 		case R.id.base_left_btn:
-//			finish();
+			// finish();
 			break;
 		case R.id.base_right_tv:
 			obtainOpenCity();
@@ -618,7 +619,7 @@ public class SchoolsFragment extends BaseFragment implements
 			cityname = currCity;
 			schoolname = "";
 			ordertype = "1";
-//			setSelectState(2);
+			// setSelectState(2);
 			obtainNearBySchool();
 			break;
 		case R.id.enroll_school_comment_select_tv:
@@ -626,7 +627,7 @@ public class SchoolsFragment extends BaseFragment implements
 			cityname = currCity;
 			schoolname = "";
 			ordertype = "2";
-//			setSelectState(3);
+			// setSelectState(3);
 			obtainNearBySchool();
 			break;
 		case R.id.enroll_school_price_select_tv:
@@ -634,12 +635,12 @@ public class SchoolsFragment extends BaseFragment implements
 			cityname = currCity;
 			schoolname = "";
 			ordertype = "3";
-//			setSelectState(4);
+			// setSelectState(4);
 			obtainNearBySchool();
 			break;
 
 		case R.id.pop_window_one:
-//			setSelectState(1);
+			// setSelectState(1);
 			isClassSelected = true;
 			cityname = currCity;
 			licensetype = "1";
@@ -652,7 +653,7 @@ public class SchoolsFragment extends BaseFragment implements
 			}
 			break;
 		case R.id.pop_window_two:
-//			setSelectState(1);
+			// setSelectState(1);
 			isClassSelected = true;
 			cityname = currCity;
 			licensetype = "2";
@@ -666,39 +667,39 @@ public class SchoolsFragment extends BaseFragment implements
 			break;
 		}
 	}
-	
+
 	/**
 	 * 排序
 	 */
-	public void order(int flag){
-		switch(flag){
-		case R.id.enroll_school_distance_select_tv://距离
+	public void order(int flag) {
+		switch (flag) {
+		case R.id.enroll_school_distance_select_tv:// 距离
 			index = 1;
 			cityname = currCity;
 			schoolname = "";
 			ordertype = "1";
-//			setSelectState(2);
+			// setSelectState(2);
 			obtainNearBySchool();
 			break;
-		case R.id.enroll_school_comment_select_tv://评价
+		case R.id.enroll_school_comment_select_tv:// 评价
 			index = 1;
 			cityname = currCity;
 			schoolname = "";
 			ordertype = "2";
-//			setSelectState(3);
+			// setSelectState(3);
 			obtainNearBySchool();
 			break;
-		case R.id.enroll_school_price_select_tv://价格
+		case R.id.enroll_school_price_select_tv:// 价格
 			index = 1;
 			cityname = currCity;
 			schoolname = "";
 			ordertype = "3";
-//			setSelectState(4);
+			// setSelectState(4);
 			obtainNearBySchool();
 			break;
 
 		case R.id.pop_window_one:
-//			setSelectState(1);
+			// setSelectState(1);
 			isClassSelected = true;
 			cityname = currCity;
 			licensetype = "1";
@@ -711,7 +712,7 @@ public class SchoolsFragment extends BaseFragment implements
 			}
 			break;
 		case R.id.pop_window_two:
-//			setSelectState(1);
+			// setSelectState(1);
 			isClassSelected = true;
 			cityname = currCity;
 			licensetype = "2";
@@ -724,7 +725,7 @@ public class SchoolsFragment extends BaseFragment implements
 			}
 			break;
 		}
-		
+
 	}
 
 	private void obtainOpenCity() {
@@ -866,25 +867,26 @@ public class SchoolsFragment extends BaseFragment implements
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		
-		if(type==0){
-			Intent intent = new Intent(getActivity(), SchoolDetailActivity.class);
+
+		LogUtil.print("onItemClick---" + type);
+		if (type == 0) {
+			Intent intent = new Intent(getActivity(),
+					SchoolDetailActivity.class);
 			SchoolVO schoolVO = adapter.getItem(position - 1);
 			intent.putExtra("school", schoolVO);
 
 			startActivityForResult(intent, 0);
-		}else{//选择驾校
+		} else {// 选择驾校
 			Intent i = new Intent();
 			SchoolVO schoolVO = adapter.getItem(position - 1);
 			i.putExtra("school", schoolVO);
 			getActivity().setResult(3, i);
 			getActivity().finish();
 		}
-		
-		
+
 	}
 
-	
+	@Override
 	public void onActivityResult(int requestCode, final int resultCode,
 			final Intent data) {
 		if (data != null) {
@@ -963,30 +965,30 @@ public class SchoolsFragment extends BaseFragment implements
 						adImageUrl[i] = headLineNewsVO.getHeadportrait()
 								.getOriginalpic();
 					}
-//					if (length > 0) {
-//						setViewPager();
-//					}
+					// if (length > 0) {
+					// setViewPager();
+					// }
 				}
 			} else if (type.equals(openCity)) {
-//				if (dataArray != null) {
-//					int length = dataArray.length();
-//					openCityList = new ArrayList<OpenCityVO>();
-//					for (int i = 0; i < length; i++) {
-//						OpenCityVO openCityVO = null;
-//						try {
-//							openCityVO = JSONUtil.toJavaBean(OpenCityVO.class,
-//									dataArray.getJSONObject(i));
-//						} catch (Exception e) {
-//							e.printStackTrace();
-//						}
-//						if (openCityVO != null) {
-//							openCityList.add(openCityVO);
-//						}
-//					}
-//					if (length > 0) {
-//						showOpenCityPopupWindow(rightTV);
-//					}
-//				}
+				// if (dataArray != null) {
+				// int length = dataArray.length();
+				// openCityList = new ArrayList<OpenCityVO>();
+				// for (int i = 0; i < length; i++) {
+				// OpenCityVO openCityVO = null;
+				// try {
+				// openCityVO = JSONUtil.toJavaBean(OpenCityVO.class,
+				// dataArray.getJSONObject(i));
+				// } catch (Exception e) {
+				// e.printStackTrace();
+				// }
+				// if (openCityVO != null) {
+				// openCityList.add(openCityVO);
+				// }
+				// }
+				// if (length > 0) {
+				// showOpenCityPopupWindow(rightTV);
+				// }
+				// }
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1033,10 +1035,12 @@ public class SchoolsFragment extends BaseFragment implements
 			app.selectEnrollSchool = school;
 			Util.updateEnrollSchool(getActivity(), school, isFreshAll);
 			if (isFreshAll) {
-				app.selectEnrollCoach = Util.getEnrollUserSelectedCoach(getActivity());
+				app.selectEnrollCoach = Util
+						.getEnrollUserSelectedCoach(getActivity());
 				app.selectEnrollCarStyle = Util
 						.getEnrollUserSelectedCarStyle(getActivity());
-				app.selectEnrollClass = Util.getEnrollUserSelectedClass(getActivity());
+				app.selectEnrollClass = Util
+						.getEnrollUserSelectedClass(getActivity());
 			}
 			getActivity().setResult(R.id.base_right_tv,
 					new Intent().putExtra("school", school));
@@ -1099,14 +1103,14 @@ public class SchoolsFragment extends BaseFragment implements
 	}
 
 	private void initView(View v) {
-		
-//		addView(R.layout.activity_enroll_school);
 
-//		isFromMenu = getIntent().getBooleanExtra("isFromMenu", false);
+		// addView(R.layout.activity_enroll_school);
+
+		// isFromMenu = getIntent().getBooleanExtra("isFromMenu", false);
 
 		currCity = app.curCity;
 		isSearchSchool = false;
-//		initView();
+		// initView();
 		initViewA(v);
 		initData();
 		setListener();
