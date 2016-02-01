@@ -14,13 +14,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
-import com.sft.adapter.CoachListAdapter;
-import com.sft.adapter.SchoolDetailCourseFeeAdapter.MyClickListener;
+import com.sft.adapter.SchoolDetailCoachHoriListAdapter;
 import com.sft.common.Config;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.CoachVO;
+import com.sft.vo.SchoolVO;
 
 /**
  * 驾校下的所有教练页面
@@ -39,7 +39,7 @@ public class SchoolAllCoachActivity extends BaseActivity implements
 	//
 	private List<CoachVO> coachList = new ArrayList<CoachVO>();
 	//
-	private CoachListAdapter adapter;
+	private SchoolDetailCoachHoriListAdapter adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -93,9 +93,14 @@ public class SchoolAllCoachActivity extends BaseActivity implements
 	}
 
 	private void obtainSchoolCoach(int index) {
-		HttpSendUtils.httpGetSend(schoolCoach, this, Config.IP
-				+ "api/v1/getschoolcoach/"
-				+ app.userVO.getApplyschoolinfo().getId() + "/" + index);
+		SchoolVO schoolVO = (SchoolVO) getIntent().getSerializableExtra(
+				"school");
+		if (schoolVO != null) {
+
+			HttpSendUtils.httpGetSend(schoolCoach, this, Config.IP
+					+ "api/v1/getschoolcoach/" + schoolVO.getSchoolid() + "/"
+					+ index);
+		}
 	}
 
 	@Override
@@ -131,13 +136,11 @@ public class SchoolAllCoachActivity extends BaseActivity implements
 					for (int i = 0; i < length; i++) {
 						CoachVO coachVO = JSONUtil.toJavaBean(CoachVO.class,
 								dataArray.getJSONObject(i));
-						if (app.favouriteCoach.contains(coachVO))
-							continue;
 						coachList.add(coachVO);
 					}
 					if (adapter == null) {
-						adapter = new CoachListAdapter(this, coachList,
-								mListener);
+						adapter = new SchoolDetailCoachHoriListAdapter(this,
+								coachList);
 					} else {
 						adapter.setData(coachList);
 					}
@@ -162,14 +165,5 @@ public class SchoolAllCoachActivity extends BaseActivity implements
 		LogUtil.print("moreCoachPage++;===" + moreCoachPage);
 		obtainSchoolCoach(moreCoachPage);
 	}
-
-	/**
-	 * 实现类，响应按钮点击事件
-	 */
-	private MyClickListener mListener = new MyClickListener() {
-		@Override
-		public void myOnClick(int position, View v) {
-		}
-	};
 
 }

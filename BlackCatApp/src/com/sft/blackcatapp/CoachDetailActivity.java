@@ -120,8 +120,8 @@ public class CoachDetailActivity extends BaseActivity implements
 	private TextView carTypeTv;
 	// 教练对象
 	private CoachVO coachVO;
-	// 添加删除喜欢的教练
-	private CheckBox addDeleteCoachCk;
+	// // 添加删除喜欢的教练
+	// private CheckBox addDeleteCoachCk;
 	// 当前评论的页数
 	private int commentPage = 1;
 	//
@@ -173,7 +173,8 @@ public class CoachDetailActivity extends BaseActivity implements
 		setTitleText(R.string.coach_detail);
 
 		scrollView = (ScrollView) findViewById(R.id.coach_detail_scrollview);
-		addDeleteCoachCk = (CheckBox) findViewById(R.id.coach_detail_collection_ck);
+		// addDeleteCoachCk = (CheckBox)
+		// findViewById(R.id.coach_detail_collection_ck);
 		coachHeadPicIm = (ImageView) findViewById(R.id.coach_detail_headicon_im);
 		collectCk = (CheckBox) findViewById(R.id.coach_detail_collection_ck);
 		coachNameTv = (TextView) findViewById(R.id.coach_detail_coachname_tv);
@@ -253,7 +254,7 @@ public class CoachDetailActivity extends BaseActivity implements
 	}
 
 	private void setListener() {
-		addDeleteCoachCk.setOnCheckedChangeListener(this);
+		// addDeleteCoachCk.setOnCheckedChangeListener(this);
 		// placeTv.setOnClickListener(this);
 		collectCk.setOnCheckedChangeListener(this);
 		// enrollBtn.setOnClickListener(this);
@@ -415,18 +416,19 @@ public class CoachDetailActivity extends BaseActivity implements
 					setResult(RESULT_OK, intent);
 					finish();
 				} else if (checkResult.equals("refresh")) {
-					app.selectEnrollCoach = coachVO;
-					Util.updateEnrollCoach(CoachDetailActivity.this, coachVO,
-							true);
-					intent = new Intent();
-					intent.putExtra("activityName",
-							SubjectEnrollActivity.class.getName());
-					intent.putExtra("coach", coachVO);
-					intent.putExtra(
-							SearchCoachActivity.from_searchCoach_enroll,
-							isFromSearchCoach);
-					setResult(RESULT_OK, intent);
-					finish();
+					toPay(position);
+					// app.selectEnrollCoach = coachVO;
+					// Util.updateEnrollCoach(CoachDetailActivity.this, coachVO,
+					// true);
+					// intent = new Intent();
+					// intent.putExtra("activityName",
+					// SubjectEnrollActivity.class.getName());
+					// intent.putExtra("coach", coachVO);
+					// intent.putExtra(
+					// SearchCoachActivity.from_searchCoach_enroll,
+					// isFromSearchCoach);
+					// setResult(RESULT_OK, intent);
+					// finish();
 				} else {
 					EnrollSelectConfilctDialog dialog = new EnrollSelectConfilctDialog(
 							CoachDetailActivity.this, checkResult);
@@ -677,6 +679,9 @@ public class CoachDetailActivity extends BaseActivity implements
 						} catch (Exception e) {
 
 						}
+					} else if (length == 0) {
+						toast.setText("没有更多数据了");
+						commentList.setPullLoadEnable(false);
 					}
 					if (commentVoList == null)
 						commentVoList = new ArrayList<CoachCommentVO>();

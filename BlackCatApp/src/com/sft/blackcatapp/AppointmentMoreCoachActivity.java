@@ -133,8 +133,8 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 					for (int i = 0; i < length; i++) {
 						CoachVO coachVO = JSONUtil.toJavaBean(CoachVO.class,
 								dataArray.getJSONObject(i));
-						if (app.favouriteCoach.contains(coachVO))
-							continue;
+						// if (app.favouriteCoach.contains(coachVO))
+						// continue;
 						coachList.add(coachVO);
 					}
 					if (adapter == null) {

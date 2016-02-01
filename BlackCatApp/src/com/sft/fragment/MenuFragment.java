@@ -645,7 +645,6 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 	private void openSearchSchool() {
 		if (showType == 0) {
 			Intent intent = new Intent(mContext, EnrollSchoolActivity1.class);
-			intent.putExtra("isFromMenu", true);
 			startActivityForResult(intent, 1);
 		} else {
 			ZProgressHUD.getInstance(mContext).show();

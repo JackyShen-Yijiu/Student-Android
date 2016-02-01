@@ -257,9 +257,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingBottom="@dimen/coachdetail_layout_paddingtopbottom"
+                
                 >
- <!-- android:paddingTop="@dimen/coachdetail_layout_paddingtopbottom" -->
+ <!-- android:paddingBottom="@dimen/coachdetail_layout_paddingtopbottom"
+ android:paddingTop="@dimen/coachdetail_layout_paddingtopbottom" -->
                 <RadioGroup
                     android:id="@+id/school_detail_radiogroup"
                     android:layout_width="match_parent"

@@ -192,6 +192,8 @@ public class SchoolDetailActivity extends BaseActivity implements
 
 		coachlistView = (ListView) findViewById(R.id.school_coach_listview);
 		courselistView = (ListView) findViewById(R.id.course_fee_listview);
+		courselistView.setFocusable(false);
+		coachlistView.setFocusable(false);
 		// horizontalListView = (LoadMoreView)
 		// findViewById(R.id.select_coach_horizon_listview);
 		// horizontalListView.setPullLoadMoreEnable(true);
@@ -550,7 +552,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 					// courseFeeAdapter.setData(twoCoach);
 					courselistView.setAdapter(courseFeeAdapter);
 					setListViewHeightBasedOnChildren(coachlistView);
-					sv_container.smoothScrollTo(0, 0);
+					// sv_container.smoothScrollTo(0, 0);
 				}
 
 			}
@@ -780,6 +782,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 		if (arg2 == adapter.getCount()) {
 			// 查看该校全部教练
 			Intent intent = new Intent(this, SchoolAllCoachActivity.class);
+			intent.putExtra("school", school);
 			startActivity(intent);
 
 		} else {
