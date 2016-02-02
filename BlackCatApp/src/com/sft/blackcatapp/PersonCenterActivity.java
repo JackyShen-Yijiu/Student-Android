@@ -282,23 +282,28 @@ public class PersonCenterActivity extends BaseActivity {
 			break;
 		// 验证报名信息
 		case R.id.person_center_testing_detail_tv:
+			Intent intent1 = null;
 			String applystates = app.userVO.getApplystate();
 			if (EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue().equals(
 					applystates)) {
 				ZProgressHUD.getInstance(this).show();
-				ZProgressHUD.getInstance(this).dismissWithSuccess("您已报名");
+				ZProgressHUD.getInstance(this).dismissWithSuccess("您已报名成功");
+			} else if (EnrollResult.SUBJECT_ENROLLING.getValue().equals(
+					applystates)) {
+				ZProgressHUD.getInstance(this).show();
+				ZProgressHUD.getInstance(this).dismissWithSuccess("您已报名，请等待审核");
 			} else {
 				boolean isclickconfirm = SharedPreferencesUtil.getBoolean(this,
 						MainActivity.ISCLICKCONFIRM, false);
 				if (isclickconfirm) {
-					Intent intent1 = new Intent(PersonCenterActivity.this,
+					intent1 = new Intent(PersonCenterActivity.this,
 							TestingPhoneActivity.class);
 					startActivity(intent1);
 
 				} else {
-					ZProgressHUD.getInstance(this).show();
-					ZProgressHUD.getInstance(this).dismissWithSuccess(
-							"您还未报名，请前去报名");
+					intent1 = new Intent(PersonCenterActivity.this,
+							EnrollSchoolActivity1.class);
+					startActivity(intent1);
 				}
 			}
 

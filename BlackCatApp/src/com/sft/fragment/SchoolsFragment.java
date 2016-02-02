@@ -673,6 +673,15 @@ public class SchoolsFragment extends BaseFragment implements
 		}
 	}
 
+	public void order(String cityName) {
+		index = 1;
+		cityname = cityName;
+		schoolname = "";
+		ordertype = "0";
+		// setSelectState(2);
+		obtainNearBySchool();
+	}
+
 	/**
 	 * 排序
 	 */
@@ -721,6 +730,19 @@ public class SchoolsFragment extends BaseFragment implements
 			isClassSelected = true;
 			cityname = currCity;
 			licensetype = "2";
+			schoolname = "";
+			LogUtil.print("====" + licensetype);
+			ordertype = "";
+			obtainNearBySchool();
+			if (popupWindow != null) {
+				popupWindow.dismiss();
+			}
+			break;
+		case R.id.pop_window_three:
+			// setSelectState(1);
+			isClassSelected = true;
+			cityname = currCity;
+			licensetype = null;
 			schoolname = "";
 			LogUtil.print("====" + licensetype);
 			ordertype = "";
@@ -879,7 +901,7 @@ public class SchoolsFragment extends BaseFragment implements
 					SchoolDetailActivity.class);
 			SchoolVO schoolVO = adapter.getItem(position - 1);
 			intent.putExtra("school", schoolVO);
-			LogUtil.print("list---schoolll--->"+ schoolVO.getId());
+			LogUtil.print("list---schoolll--->" + schoolVO.getId());
 			startActivityForResult(intent, 0);
 		} else {// 选择驾校
 			Intent i = new Intent();
@@ -976,46 +998,47 @@ public class SchoolsFragment extends BaseFragment implements
 					// }
 				}
 			} else if (type.equals(openCity)) {
-//				if (dataArray != null) {
-//					int length = dataArray.length();
-//					openCityList = new ArrayList<OpenCityVO>();
-//					for (int i = 0; i < length; i++) {
-//						OpenCityVO openCityVO = null;
-//						try {
-//							openCityVO = JSONUtil.toJavaBean(OpenCityVO.class,
-//									dataArray.getJSONObject(i));
-//						} catch (Exception e) {
-//							e.printStackTrace();
-//						}
-//						if (openCityVO != null) {
-//							openCityList.add(openCityVO);
-//						}
-//					}
-//					if (length > 0) {
-//						showOpenCityPopupWindow(rightTV);
-//					}
-//				}
-			}else if(type.equals("notPay")){//未支付的订单
-//				{"type":1,"msg":"","data":[{"_id":"56af11ce9ba0d4530524b6cb","userpaystate":0,"creattime":
-//				"2016-02-01T08:05:34.823Z","payendtime":"2016-02-04T08:05:34.823Z","paychannel":0,
-//				"applyschoolinfo":{"id":"562dcc3ccb90f25c3bde40da","name":"一步互联网驾校"},
-//				"applyclasstypeinfo":{"id":"56a9ba41fe60f807363001c9","name":"新春特惠班","price":
-//				4980,"onsaleprice":4680},"discountmoney":0,"paymoney":4680,"activitycoupon":"","couponcode":""}]} type= notPay
-				
+				// if (dataArray != null) {
+				// int length = dataArray.length();
+				// openCityList = new ArrayList<OpenCityVO>();
+				// for (int i = 0; i < length; i++) {
+				// OpenCityVO openCityVO = null;
+				// try {
+				// openCityVO = JSONUtil.toJavaBean(OpenCityVO.class,
+				// dataArray.getJSONObject(i));
+				// } catch (Exception e) {
+				// e.printStackTrace();
+				// }
+				// if (openCityVO != null) {
+				// openCityList.add(openCityVO);
+				// }
+				// }
+				// if (length > 0) {
+				// showOpenCityPopupWindow(rightTV);
+				// }
+				// }
+			} else if (type.equals("notPay")) {// 未支付的订单
+				// {"type":1,"msg":"","data":[{"_id":"56af11ce9ba0d4530524b6cb","userpaystate":0,"creattime":
+				// "2016-02-01T08:05:34.823Z","payendtime":"2016-02-04T08:05:34.823Z","paychannel":0,
+				// "applyschoolinfo":{"id":"562dcc3ccb90f25c3bde40da","name":"一步互联网驾校"},
+				// "applyclasstypeinfo":{"id":"56a9ba41fe60f807363001c9","name":"新春特惠班","price":
+				// 4980,"onsaleprice":4680},"discountmoney":0,"paymoney":4680,"activitycoupon":"","couponcode":""}]}
+				// type= notPay
+
 				int length = dataArray.length();
 				List<PayOrderVO> payList = new ArrayList<PayOrderVO>();
 				for (int i = 0; i < length; i++) {
 					PayOrderVO pay;
 					pay = JSONUtil.toJavaBean(PayOrderVO.class,
 							dataArray.getJSONObject(i));
-					if(pay.userpaystate.equals("0") ||pay.userpaystate.equals("3")){//订单刚生成，支付失败
+					if (pay.userpaystate.equals("0")
+							|| pay.userpaystate.equals("3")) {// 订单刚生成，支付失败
 						HasOrder(pay);
 						break;
 					}
 					payList.add(pay);
 				}
-				
-				
+
 				// if (dataArray != null) {
 				// int length = dataArray.length();
 				// openCityList = new ArrayList<OpenCityVO>();
@@ -1168,39 +1191,40 @@ public class SchoolsFragment extends BaseFragment implements
 		obtainNearBySchool();
 		requestNotFinshOrder();
 	}
-	
+
 	/**
 	 * 获取位完成的订单 详情
 	 */
-	private void requestNotFinshOrder(){
+	private void requestNotFinshOrder() {
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("userid", app.userVO.getUserid());
-		paramMap.put("orderstate", "0");//订单的状态 // 0 订单生成 2 支付成功 3 支付失败 4 订单取消 -1 全部(未支付的订单)
-		
+		paramMap.put("orderstate", "0");// 订单的状态 // 0 订单生成 2 支付成功 3 支付失败 4 订单取消
+										// -1 全部(未支付的订单)
+
 		Map<String, String> headerMap = new HashMap<String, String>();
 		headerMap.put("authorization", app.userVO.getToken());
 		HttpSendUtils.httpGetSend("notPay", this, Config.IP
-				+ "api/v1/userinfo/getmypayorder", paramMap, 10000,
-				headerMap);
+				+ "api/v1/userinfo/getmypayorder", paramMap, 10000, headerMap);
 
 	}
-	
+
 	/**
 	 * 是否包含未支付 订单
 	 */
-	private void HasOrder(final PayOrderVO pay){
+	private void HasOrder(final PayOrderVO pay) {
 		CheckApplyDialog dialog = new CheckApplyDialog(getActivity());
-		dialog.setTextAndImage("立即支付", "您有未完成订单,是否需要立即支付", "重新报名", R.drawable.ic_question);
+		dialog.setTextAndImage("立即支付", "您有未完成订单,是否需要立即支付", "重新报名",
+				R.drawable.ic_question);
 		dialog.setListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View arg0) {
-				//立即支付
-				Intent i = new Intent(getActivity(),ConfirmOrderActivity.class);
-				i.putExtra("repay", true);//再次支付
+				// 立即支付
+				Intent i = new Intent(getActivity(), ConfirmOrderActivity.class);
+				i.putExtra("repay", true);// 再次支付
 				i.putExtra("bean", pay);
 				startActivity(i);
-				
+
 			}
 		});
 		dialog.show();

@@ -10,7 +10,6 @@ import android.widget.EditText;
 import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.baseactivity.util.MyHandler;
 
-import com.sft.blackcatapp.R;
 import com.sft.common.Config;
 import com.sft.viewutil.ZProgressHUD;
 
@@ -105,7 +104,7 @@ public class TestingPhoneActivity extends BaseActivity {
 			// HttpSendUtils.httpPostSend("register", this, Config.IP
 			// + "api/v1/userinfo/enrollverificationv2", paramMap);
 			Intent intentt = new Intent(this, TestingMsgActivity.class);
-			startActivity(intentt);
+			startActivityForResult(intentt, 1);
 		} else {
 			ZProgressHUD.getInstance(this).show();
 			ZProgressHUD.getInstance(this).dismissWithFailure(checkResult);
@@ -209,4 +208,9 @@ public class TestingPhoneActivity extends BaseActivity {
 		super.onDestroy();
 	}
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+		this.finish();
+	}
 }

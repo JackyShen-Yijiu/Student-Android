@@ -12,7 +12,6 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -84,7 +83,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 
 	private int showType;// 展示类型： 0驾校 1 教练;
 
-	private TextView left_tv_map;
+	// private TextView left_tv_map;
 	private String currCity;
 
 	@Override
@@ -148,7 +147,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 
 	private void initView(View rootView) {
 
-		left_tv_map = (TextView) rootView.findViewById(R.id.left_tv_map);
+		// left_tv_map = (TextView) rootView.findViewById(R.id.left_tv_map);
 		username = (TextView) rootView
 				.findViewById(R.id.fragment_menu_username);
 		phone = (TextView) rootView.findViewById(R.id.fragment_menu_phone);
@@ -183,7 +182,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 		rootView.findViewById(R.id.fragment_menu_content_third)
 				.setOnClickListener(this);
 		// 定位地图点击
-		rootView.findViewById(R.id.left_tv_map).setOnClickListener(this);
+		// rootView.findViewById(R.id.left_tv_map).setOnClickListener(this);
 
 		// 底部图片点击
 		// rootView.findViewById(R.id.fragment_menu_home_btn).setOnClickListener(
@@ -298,9 +297,9 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 				dialog.show();
 			}
 			break;
-		case R.id.left_tv_map:
-			obtainOpenCity();
-			break;
+		// case R.id.left_tv_map:
+		// obtainOpenCity();
+		// break;
 
 		// case R.id.fragment_menu_home_btn:
 		// ((MainActivity) mContext).changeMenu();
@@ -436,11 +435,11 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 	}
 
 	protected void setRightText() {
-		Drawable cityIcon = getResources().getDrawable(
-				R.drawable.location_left_city);
-		left_tv_map.setCompoundDrawablesWithIntrinsicBounds(cityIcon, null,
-				null, null);
-		left_tv_map.setText(currCity);
+		// Drawable cityIcon = getResources().getDrawable(
+		// R.drawable.location_left_city);
+		// left_tv_map.setCompoundDrawablesWithIntrinsicBounds(cityIcon, null,
+		// null, null);
+		// left_tv_map.setText(currCity);
 	}
 
 	private void obtainOpenCity() {

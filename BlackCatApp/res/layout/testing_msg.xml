@@ -156,7 +156,7 @@
 </RelativeLayout>
 
 <!-- 4 -->
-   <!-- <RelativeLayout
+    <RelativeLayout
         android:id="@+id/rl_msg_four"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -181,14 +181,14 @@
         android:drawablePadding="10dp"
         android:textSize="14sp"
         android:textColor="#999"
-        android:text="一步互联网驾校快班" />
-</RelativeLayout> -->
+        android:text="请选择班级" />
+</RelativeLayout>
 <!-- 5 -->
 <RelativeLayout
         android:id="@+id/rl_msg_five"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/rl_msg_three"
+        android:layout_below="@+id/rl_msg_four"
         android:background="@drawable/bg_item" >
     <TextView
         android:layout_width="wrap_content"

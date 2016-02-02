@@ -34,6 +34,18 @@
             android:text="快乐学车美一步"
             android:textColor="#fefefe"
             android:textSize="18sp" />
+        <TextView
+            android:id="@+id/cur_city_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/title_tv"
+            android:layout_marginRight="15dp"
+            android:text="定位中"
+            android:textColor="#fefefe"
+            android:textSize="14sp" />
+        
     </RelativeLayout>
     <ImageView 
         android:layout_width="wrap_content"
@@ -87,7 +99,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:textSize="18sp"
-            android:textColor="#68e6ff"
+            android:textColor="@color/app_main_color"
             android:text="欢迎您" />
 
         <TextView

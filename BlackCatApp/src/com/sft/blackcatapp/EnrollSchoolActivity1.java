@@ -1,5 +1,11 @@
 package com.sft.blackcatapp;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +14,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,16 +23,28 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
+import cn.sft.baseactivity.util.HttpSendUtils;
+import cn.sft.listener.ICallBack;
 
+import com.sft.adapter.OpenCityAdapter;
+import com.sft.common.BlackCatApplication;
+import com.sft.common.Config;
 import com.sft.fragment.CoachsFragment1;
 import com.sft.fragment.SchoolsFragment;
+import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
+import com.sft.viewutil.ZProgressHUD;
+import com.sft.vo.OpenCityVO;
 
 /**
  * 选择驾校界面
@@ -33,8 +53,11 @@ import com.sft.util.LogUtil;
  * 
  */
 public class EnrollSchoolActivity1 extends FragmentActivity implements
-		OnClickListener {
+		OnClickListener, ICallBack {
 
+	private final static String openCity = "openCity";
+	private List<OpenCityVO> openCityList;
+	private PopupWindow openCityPopupWindow;
 	/*** 选择驾校 */
 	int selected;
 
@@ -74,6 +97,7 @@ public class EnrollSchoolActivity1 extends FragmentActivity implements
 		selected = getIntent().getIntExtra("select", 0);
 		LogUtil.print("selected----" + selected);
 		setContentView(R.layout.act_enrollschool_container);
+
 		initView(type);
 		initData();
 
@@ -87,6 +111,13 @@ public class EnrollSchoolActivity1 extends FragmentActivity implements
 	private void initView(int flag) {
 
 		tvTitle = ((TextView) findViewById(R.id.base_title_tv));
+
+		tvTitle.setText("定位中");
+		// Drawable left = getResources().getDrawable(R.drawable.location_city);
+		// tvTitle.setCompoundDrawablePadding(5);
+		// tvTitle.setCompoundDrawablesWithIntrinsicBounds(left, null, null,
+		// null);
+		tvTitle.setOnClickListener(this);
 
 		etSearch = (EditText) findViewById(R.id.enroll_school_search_et);
 		tvRight = ((TextView) findViewById(R.id.base_right_tv));
@@ -115,19 +146,26 @@ public class EnrollSchoolActivity1 extends FragmentActivity implements
 				schoolFragment = SchoolsFragment.getInstance(selected);
 			tran.add(R.id.fl_container, schoolFragment);
 			tvRight.setText("找教练");
-			tvTitle.setText(R.string.select_school);
+			// tvTitle.setText(R.string.select_school);
 		} else {// 教练
 			if (coachFragment == null)
 				coachFragment = CoachsFragment1.getInstance();
 			tran.add(R.id.fl_container, coachFragment);
 			tvRight.setText("找驾校");
-			tvTitle.setText(R.string.search_coach);
+			// tvTitle.setText(R.string.search_coach);
 		}
 
 		tran.commitAllowingStateLoss();
 	}
 
 	private void initData() {
+		BlackCatApplication app = BlackCatApplication.getInstance();
+		if (app != null) {
+			curCity = app.curCity;
+		}
+		if (!TextUtils.isEmpty(curCity)) {
+			tvTitle.setText(curCity);
+		}
 		etSearch.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
 		etSearch.setOnEditorActionListener(new OnEditorActionListener() {
 
@@ -169,14 +207,14 @@ public class EnrollSchoolActivity1 extends FragmentActivity implements
 			// tran.show(coachFragment);
 			tran.replace(R.id.fl_container, coachFragment);
 			tvRight.setText("找驾校");
-			tvTitle.setText(R.string.search_coach);
+			// tvTitle.setText(R.string.search_coach);
 		} else {// 切换到驾校
 			if (schoolFragment == null)
 				schoolFragment = SchoolsFragment.getInstance(selected);
 			type = 0;
 			tran.replace(R.id.fl_container, schoolFragment);
 			tvRight.setText("找教练");
-			tvTitle.setText(R.string.select_school);
+			// tvTitle.setText(R.string.select_school);
 		}
 		tran.commitAllowingStateLoss();
 	}
@@ -210,6 +248,9 @@ public class EnrollSchoolActivity1 extends FragmentActivity implements
 		case R.id.base_right_tv:
 			change();
 			break;
+		case R.id.base_title_tv:
+			obtainOpenCity();
+			break;
 		case R.id.enroll_school_class_select_tv:// 班型选择
 			showPopupWindow(v);
 			break;
@@ -239,7 +280,19 @@ public class EnrollSchoolActivity1 extends FragmentActivity implements
 				popupWindow.dismiss();
 			}
 			break;
+		case R.id.pop_window_three:
+			setSelectState(1);
+			onClickFragment(id);
+			if (popupWindow != null) {
+				popupWindow.dismiss();
+			}
+			break;
 		}
+	}
+
+	private void obtainOpenCity() {
+		HttpSendUtils.httpGetSend(openCity, this, Config.IP
+				+ "api/v1/getopencity");
 	}
 
 	private void onClickFragment(int id) {
@@ -247,6 +300,15 @@ public class EnrollSchoolActivity1 extends FragmentActivity implements
 			schoolFragment.order(id);
 		} else {
 			coachFragment.order(id);
+		}
+
+	}
+
+	private void onClickFragment(String cityName) {
+		if (type == 0) {// 驾校
+			schoolFragment.order(cityName);
+		} else {
+			coachFragment.order(cityName);
 		}
 
 	}
@@ -266,8 +328,11 @@ public class EnrollSchoolActivity1 extends FragmentActivity implements
 			c1Car.setText(R.string.c1_automatic_gear_car);
 			TextView c2Car = (TextView) view.findViewById(R.id.pop_window_two);
 			c2Car.setText(R.string.c2_manual_gear_car);
+			TextView all = (TextView) view.findViewById(R.id.pop_window_three);
+			all.setText(R.string.all);
 			c1Car.setOnClickListener(this);
 			c2Car.setOnClickListener(this);
+			all.setOnClickListener(this);
 
 			popupWindow = new PopupWindow(view, LayoutParams.WRAP_CONTENT,
 					LayoutParams.WRAP_CONTENT);
@@ -346,6 +411,145 @@ public class EnrollSchoolActivity1 extends FragmentActivity implements
 		} else {
 			coachFragment.onActivityResult(requestCode, resultCode, data);
 		}
+
+	}
+
+	private String selectCity = "";
+
+	private void showOpenCityPopupWindow(View parent) {
+		if (openCityPopupWindow == null) {
+			LinearLayout popWindowLayout = (LinearLayout) View.inflate(this,
+					R.layout.pop_window, null);
+			popWindowLayout.removeAllViews();
+			// LinearLayout popWindowLayout = new LinearLayout(mContext);
+			popWindowLayout.setOrientation(LinearLayout.VERTICAL);
+			ListView OpenCityListView = new ListView(this);
+			OpenCityListView.setDividerHeight(0);
+			OpenCityListView.setSelector(android.R.color.transparent);
+			OpenCityListView.setCacheColorHint(android.R.color.transparent);
+			OpenCityListView.setOnItemClickListener(new OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view,
+						int position, long id) {
+					if (position == 0) {
+						selectCity = curCity;
+					} else {
+						OpenCityVO selectCityVO = openCityList.get(position);
+						selectCity = selectCityVO.getName();
+					}
+					onClickFragment(selectCity);
+					openCityPopupWindow.dismiss();
+					openCityPopupWindow = null;
+				}
+			});
+			LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
+					LinearLayout.LayoutParams.MATCH_PARENT,
+					LinearLayout.LayoutParams.WRAP_CONTENT);
+			param.gravity = Gravity.CENTER;
+			param.width = LinearLayout.LayoutParams.MATCH_PARENT;
+			popWindowLayout.addView(OpenCityListView, param);
+			OpenCityAdapter openCityAdapter = new OpenCityAdapter(this,
+					openCityList);
+			OpenCityListView.setAdapter(openCityAdapter);
+
+			openCityPopupWindow = new PopupWindow(popWindowLayout,
+					LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+		}
+		openCityPopupWindow.setFocusable(true);
+		openCityPopupWindow.setOutsideTouchable(true);
+		// 这个是为了点击“返回Back”也能使其消失，并且并不会影响你的背景
+		openCityPopupWindow.setBackgroundDrawable(new BitmapDrawable());
+
+		openCityPopupWindow.showAsDropDown(parent, 0, 20,
+				Gravity.CENTER_HORIZONTAL);
+	}
+
+	protected String result = "";
+	protected String msg = "";
+	protected JSONObject data = null;
+	protected JSONArray dataArray = null;
+	protected String dataString = null;
+	protected JSONObject jsonObject;
+	private String curCity;
+
+	@Override
+	public boolean doCallBack(String type, Object jsonString) {
+		try {
+
+			jsonObject = new JSONObject(jsonString.toString());
+			result = jsonObject.getString("type");
+			msg = jsonObject.getString("msg");
+			try {
+				data = jsonObject.getJSONObject("data");
+			} catch (Exception e2) {
+				try {
+					dataArray = jsonObject.getJSONArray("data");
+				} catch (Exception e3) {
+					dataString = jsonObject.getString("data");
+				}
+			}
+
+			if (type.equals(openCity)) {
+				if (dataArray != null) {
+					int length = dataArray.length();
+					openCityList = new ArrayList<OpenCityVO>();
+					for (int i = 0; i < length; i++) {
+						OpenCityVO openCityVO = null;
+						try {
+							openCityVO = JSONUtil.toJavaBean(OpenCityVO.class,
+									dataArray.getJSONObject(i));
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+						if (openCityVO != null) {
+							openCityList.add(openCityVO);
+						}
+					}
+					if (length > 0) {
+						// 添加当前城市到listview的头部
+						OpenCityVO curCityVO = new OpenCityVO();
+						curCityVO.setName("当前城市");
+						openCityList.add(0, curCityVO);
+						showOpenCityPopupWindow(tvTitle);
+					}
+				}
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		if (!TextUtils.isEmpty(msg)) {
+			ZProgressHUD.getInstance(this).show();
+			ZProgressHUD.getInstance(this).dismissWithFailure(msg, 2000);
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public void doException(String type, Exception e, int code) {
+		if (code == 0) {
+			ZProgressHUD.getInstance(this).show();
+			ZProgressHUD.getInstance(this).dismissWithFailure("网络异常", 2000);
+		} else if (code == 500) {
+			ZProgressHUD.getInstance(this).show();
+			ZProgressHUD.getInstance(this).dismissWithFailure("服务器异常", 2000);
+		} else {
+			ZProgressHUD.getInstance(this).show();
+			ZProgressHUD.getInstance(this).dismissWithFailure(
+					"type= " + type + " 异常  code=" + code, 2000);
+		}
+		if (e != null)
+			e.printStackTrace();
+	}
+
+	@Override
+	public void doTimeOut(String type) {
+		ZProgressHUD.getInstance(this).show();
+		ZProgressHUD.getInstance(this).dismissWithFailure(
+				"type=" + type + " 超时");
 
 	}
 

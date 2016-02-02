@@ -25,6 +25,7 @@ import com.sft.vo.CarModelVO;
 import com.sft.vo.ClassVO;
 import com.sft.vo.CoachVO;
 import com.sft.vo.SchoolVO;
+import com.sft.vo.SubjectVO;
 
 /**
  * 报名界面
@@ -52,7 +53,7 @@ public class TestingMsgActivity extends BaseActivity {
 	// 报考教练文本
 	private TextView coachTv;
 	// 报考班级文本
-	// private TextView classTv;
+	private TextView classTv;
 	// 科目文本
 	private TextView subjectTV;
 	// 提交按钮
@@ -65,6 +66,8 @@ public class TestingMsgActivity extends BaseActivity {
 	private ClassVO classId;
 	// 车型
 	private CarModelVO carStyle;
+	// 科目
+	private SubjectVO subject;
 	// 报名成功对话框
 	private CustomDialog successDialog;
 	// 报名状态
@@ -89,7 +92,7 @@ public class TestingMsgActivity extends BaseActivity {
 		schoolTv = (TextView) findViewById(R.id.enroll_school_tv);
 		carStyleTv = (TextView) findViewById(R.id.enroll_carstyle_tv);
 		coachTv = (TextView) findViewById(R.id.enroll_coach_tv);
-		// classTv = (TextView) findViewById(R.id.enroll_class_tv);
+		classTv = (TextView) findViewById(R.id.enroll_class_tv);
 		subjectTV = (TextView) findViewById(R.id.enroll_subject_tv);
 
 		commitBtn = (Button) findViewById(R.id.enroll_commit_btn);
@@ -155,7 +158,7 @@ public class TestingMsgActivity extends BaseActivity {
 		schoolTv.setCompoundDrawables(null, null, arrow, null);
 		carStyleTv.setCompoundDrawables(null, null, arrow, null);
 		coachTv.setCompoundDrawables(null, null, arrow, null);
-		// classTv.setCompoundDrawables(null, null, arrow, null);
+		classTv.setCompoundDrawables(null, null, arrow, null);
 		subjectTV.setCompoundDrawables(null, null, arrow, null);
 	}
 
@@ -165,7 +168,7 @@ public class TestingMsgActivity extends BaseActivity {
 		schoolTv.setOnClickListener(this);
 		carStyleTv.setOnClickListener(this);
 		coachTv.setOnClickListener(this);
-		// classTv.setOnClickListener(this);
+		classTv.setOnClickListener(this);
 		subjectTV.setOnClickListener(this);
 	}
 
@@ -221,7 +224,12 @@ public class TestingMsgActivity extends BaseActivity {
 				}
 				break;
 			case R.id.enroll_subject_tv:
-
+				if (school == null) {
+					ZProgressHUD.getInstance(this).show();
+					ZProgressHUD.getInstance(this).dismissWithFailure("先选择驾校");
+				} else {
+					intent = new Intent(this, EnrollSubjectActivity.class);
+				}
 				break;
 			case R.id.enroll_commit_btn:
 				enroll();
@@ -238,7 +246,11 @@ public class TestingMsgActivity extends BaseActivity {
 		if (checkResult == null) {
 			Map<String, String> paramMap = new HashMap<String, String>();
 			paramMap.put("userid", app.userVO.getUserid());
+			paramMap.put("telephone", app.userVO.getMobile());
+			paramMap.put("subjectid", subject.getSubjecyId() + "");
 			paramMap.put("schoolid", school.getSchoolid());
+			paramMap.put("name", coach.getName());
+			paramMap.put("code", carStyle.getCode());
 			paramMap.put("coachid", coach.getCoachid());
 			paramMap.put("classtypeid", classId.getCalssid());
 			paramMap.put("carmodel", carStyle.toString());
@@ -246,7 +258,7 @@ public class TestingMsgActivity extends BaseActivity {
 			Map<String, String> headerMap = new HashMap<String, String>();
 			headerMap.put("authorization", app.userVO.getToken());
 			HttpSendUtils.httpPostSend(enroll, this, Config.IP
-					+ "api/v1/userinfo/userapplyschool", paramMap, 10000,
+					+ "api/v1/userinfo/enrollverificationv2", paramMap, 10000,
 					headerMap);
 		} else {
 			ZProgressHUD.getInstance(this).show();
@@ -261,11 +273,14 @@ public class TestingMsgActivity extends BaseActivity {
 		if (coach == null) {
 			return "教练为空";
 		}
-		// if (classId == null) {
-		// return "班型为空";
-		// }
+		if (classId == null) {
+			return "班型为空";
+		}
 		if (carStyle == null) {
 			return "车型为空";
+		}
+		if (subject == null) {
+			return "科目为空";
 		}
 		return null;
 	}
@@ -309,7 +324,7 @@ public class TestingMsgActivity extends BaseActivity {
 				coach = null;
 				coachTv.setText("");
 				classId = null;
-				// classTv.setText("");
+				classTv.setText("");
 				carStyle = null;
 				carStyleTv.setText("");
 			}
@@ -329,10 +344,15 @@ public class TestingMsgActivity extends BaseActivity {
 			coach = (CoachVO) data.getSerializableExtra("coach");
 			coachTv.setText(coach.getName());
 			break;
+		case R.id.enroll_subject_tv:
+			// 报名页面选择科目
+			subject = (SubjectVO) data.getSerializableExtra("subject");
+			subjectTV.setText(subject.getName());
+			break;
 		case R.id.enroll_class_tv:
 			// 报名页面选择班级
 			classId = (ClassVO) data.getSerializableExtra("class");
-			// classTv.setText(classId.getClassname());
+			classTv.setText(classId.getClassname());
 			break;
 		case R.id.main_appointment_layout:
 			// 报名首页点击教练卡，选择教练点击报完成后
@@ -343,7 +363,7 @@ public class TestingMsgActivity extends BaseActivity {
 			coach = null;
 			coachTv.setText("");
 			classId = null;
-			// classTv.setText("");
+			classTv.setText("");
 			carStyle = null;
 			carStyleTv.setText("");
 
