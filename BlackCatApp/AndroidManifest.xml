@@ -368,6 +368,9 @@
               <activity
             android:name="com.sft.blackcatapp.NewActivitysActivity"
             android:screenOrientation="portrait" />
+              <activity
+            android:name="com.sft.blackcatapp.EnrollSubjectActivity"
+            android:screenOrientation="portrait" />
            <!-- 确认订单 -->
            <activity
                android:name=".ConfirmOrderActivity"

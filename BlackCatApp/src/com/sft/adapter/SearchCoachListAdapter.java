@@ -148,14 +148,14 @@ public class SearchCoachListAdapter extends BaseAdapter {
 		String rate = mData.get(position).getPassrate();
 		holder.teachAge.setText("通过率: " + rate + "%");
 		String age = mData.get(position).getSeniority();
-		holder.teachAge.setText("驾龄:" + age);
+		holder.teachAge.setText("教龄:" + age);
 		String distance = mData.get(position).getDistance();
 		int distanceInt = 0;
 		try {
 			distanceInt = Integer.parseInt(distance);
 		} catch (NumberFormatException e) {
 		}
-		holder.distance.setText(distanceInt / 1000 + "KM");
+		holder.distance.setText(distanceInt / 1000 + "km");
 
 		LinearLayout.LayoutParams headParam = (LinearLayout.LayoutParams) holder.headPic
 				.getLayoutParams();

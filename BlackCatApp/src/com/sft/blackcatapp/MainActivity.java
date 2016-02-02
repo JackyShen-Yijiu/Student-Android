@@ -17,15 +17,23 @@ import android.annotation.SuppressLint;
 import android.app.LocalActivityManager;
 import android.content.Intent;
 import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 import cn.jpush.android.api.JPushInterface;
@@ -43,6 +51,7 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.sft.adapter.HomePageAdapter;
+import com.sft.adapter.OpenCityAdapter;
 import com.sft.api.ApiHttpClient;
 import com.sft.common.BlackCatApplication;
 import com.sft.common.Config;
@@ -66,6 +75,7 @@ import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.ActivitiesVO;
 import com.sft.vo.CoachVO;
 import com.sft.vo.MyAppointmentVO;
+import com.sft.vo.OpenCityVO;
 import com.sft.vo.QuestionVO;
 import com.sft.vo.SchoolVO;
 
@@ -81,6 +91,7 @@ public class MainActivity extends BaseMainActivity implements
 	private static final String questionaddress = "questionaddress";
 	private static final String TODAY_IS_OPEN_ACTIVITIES = "today_is_open_activities";
 	public static final String ISCLICKCONFIRM = "isclickconfirm";
+	private final static String openCity = "openCity";
 	//
 	private MapView mapView;
 	//
@@ -124,6 +135,11 @@ public class MainActivity extends BaseMainActivity implements
 		if (app.userVO!=null && app.userVO.getApplystate().equals("0")) {
 			// 填写课时信息
 			checkStateDialog();
+		if (app.userVO.getApplystate().equals("0")) {
+			// 只弹出一次进入验证学车进度的判断弹出框
+			if (!SharedPreferencesUtil.getBoolean(this, ISCLICKCONFIRM, false)) {
+				checkStateDialog();
+			}
 		} else {
 			//获取未评论列表
 			
@@ -131,6 +147,7 @@ public class MainActivity extends BaseMainActivity implements
 		setTag();
 		if (app != null && app.isLogin) {
 			util.print("userid=" + app.userVO.getUserid());
+		}
 		}
 
 	}
@@ -155,8 +172,6 @@ public class MainActivity extends BaseMainActivity implements
 	 * 检查学时状态 对话框，
 	 */
 	private void checkStateDialog() {
-		SharedPreferencesUtil.putBoolean(MainActivity.this, ISCLICKCONFIRM,
-				false);
 		// 没报名
 		// LogUtil.print("state---->" + app.userVO.getApplystate());
 		if (app.isLogin) {
@@ -221,6 +236,8 @@ public class MainActivity extends BaseMainActivity implements
 		subjectThree = (TextView) findViewById(R.id.main_subject_three_tv);
 		subjectFour = (TextView) findViewById(R.id.main_subject_four_tv);
 
+		curCityTv = (TextView) findViewById(R.id.cur_city_tv);
+
 		// set the Behind View
 		setBehindContentView(R.layout.frame_left_menu);
 		home_btn = (ImageView) findViewById(R.id.home_btn);
@@ -272,6 +289,7 @@ public class MainActivity extends BaseMainActivity implements
 			app.selectEnrollCoach = Util.getEnrollUserSelectedCoach(this);
 			app.selectEnrollCarStyle = Util.getEnrollUserSelectedCarStyle(this);
 			app.selectEnrollClass = Util.getEnrollUserSelectedClass(this);
+
 		}
 		/*
 		 * 在一个Activity的一部分中显示其他Activity”要用到LocalActivityManagerity
@@ -319,6 +337,7 @@ public class MainActivity extends BaseMainActivity implements
 
 	private void setListener() {
 		home_btn.setOnClickListener(this);
+		curCityTv.setOnClickListener(this);
 		viewPager.setOnPageChangeListener(new MainOnPageChangeListener());
 	}
 
@@ -392,6 +411,9 @@ public class MainActivity extends BaseMainActivity implements
 		case R.id.home_btn:
 			toggle(); // 动态判断自动关闭或开启SlidingMenu
 			break;
+		case R.id.cur_city_tv:
+			obtainOpenCity();
+			break;
 		default:
 			break;
 		}
@@ -411,6 +433,11 @@ public class MainActivity extends BaseMainActivity implements
 		HttpSendUtils.httpGetSend(NOT_COMMENT, this, Config.IP
 				+ "api/v1/courseinfo/getmyuncommentreservation", paramMap, 10000,
 				headerMap);
+	}
+
+	private void obtainOpenCity() {
+		HttpSendUtils.httpGetSend(openCity, this, Config.IP
+				+ "api/v1/getopencity");
 	}
 
 	private void obtainSubjectContent() {
@@ -539,6 +566,30 @@ public class MainActivity extends BaseMainActivity implements
 					
 				}
 				
+			} else if (type.equals(openCity)) {
+				if (dataArray != null) {
+					int length = dataArray.length();
+					openCityList = new ArrayList<OpenCityVO>();
+					for (int i = 0; i < length; i++) {
+						OpenCityVO openCityVO = null;
+						try {
+							openCityVO = JSONUtil.toJavaBean(OpenCityVO.class,
+									dataArray.getJSONObject(i));
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+						if (openCityVO != null) {
+							openCityList.add(openCityVO);
+						}
+					}
+					if (length > 0) {
+						// 添加当前城市到listview的头部
+						OpenCityVO curCityVO = new OpenCityVO();
+						curCityVO.setName("当前城市");
+						openCityList.add(0, curCityVO);
+						showOpenCityPopupWindow(curCityTv);
+					}
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -549,6 +600,56 @@ public class MainActivity extends BaseMainActivity implements
 	/**未评论*/
 	NoCommentDialog commentDialog = null;
 
+	@SuppressLint("NewApi") private void showOpenCityPopupWindow(View parent) {
+		if (openCityPopupWindow == null) {
+			LinearLayout popWindowLayout = (LinearLayout) View.inflate(this,
+					R.layout.pop_window, null);
+			popWindowLayout.removeAllViews();
+			// LinearLayout popWindowLayout = new LinearLayout(mContext);
+			popWindowLayout.setOrientation(LinearLayout.VERTICAL);
+			ListView OpenCityListView = new ListView(this);
+			OpenCityListView.setDividerHeight(0);
+			OpenCityListView.setSelector(android.R.color.transparent);
+			OpenCityListView.setCacheColorHint(android.R.color.transparent);
+			OpenCityListView.setOnItemClickListener(new OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view,
+						int position, long id) {
+					if (position == 0) {
+						selectCity = util.readParam(Config.USER_CITY);
+					} else {
+						OpenCityVO selectCityVO = openCityList.get(position);
+						selectCity = selectCityVO.getName();
+					}
+					// 替换城市
+					app.curCity = selectCity;
+					openCityPopupWindow.dismiss();
+					openCityPopupWindow = null;
+				}
+			});
+			LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
+					LinearLayout.LayoutParams.MATCH_PARENT,
+					LinearLayout.LayoutParams.WRAP_CONTENT);
+			param.gravity = Gravity.CENTER;
+			param.width = LinearLayout.LayoutParams.MATCH_PARENT;
+			popWindowLayout.addView(OpenCityListView, param);
+			OpenCityAdapter openCityAdapter = new OpenCityAdapter(this,
+					openCityList);
+			OpenCityListView.setAdapter(openCityAdapter);
+
+			openCityPopupWindow = new PopupWindow(popWindowLayout,
+					LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+		}
+		openCityPopupWindow.setFocusable(true);
+		openCityPopupWindow.setOutsideTouchable(true);
+		// 这个是为了点击“返回Back”也能使其消失，并且并不会影响你的背景
+		openCityPopupWindow.setBackgroundDrawable(new BitmapDrawable());
+
+		openCityPopupWindow.showAsDropDown(parent, 0, 20,
+				Gravity.CENTER_HORIZONTAL);
+	}
+
 	private LocationClient mLocationClient;
 	private ImageView carImageView;
 	private TextView introduce;
@@ -556,6 +657,9 @@ public class MainActivity extends BaseMainActivity implements
 	private TextView subjectTwo;
 	private TextView subjectThree;
 	private TextView subjectFour;
+	private List<OpenCityVO> openCityList;
+	private PopupWindow openCityPopupWindow;
+	private String selectCity = "";
 
 	private void initMyLocation() {
 		// 定位初始化
@@ -587,10 +691,11 @@ public class MainActivity extends BaseMainActivity implements
 			app.longtitude = String.valueOf(location.getLongitude());
 			String curCity = location.getAddress().city;
 			if (curCity != null) {
-				curCity = curCity.replace("市", "");
+				// curCity = curCity.replace("市", "");
 				app.curCity = curCity;
 				util.saveParam(Config.USER_CITY, curCity);
 				stopLocation();
+				curCityTv.setText(curCity);
 			}
 		}
 	}
@@ -741,6 +846,7 @@ public class MainActivity extends BaseMainActivity implements
 	}
 
 	private long firstTime;
+	private TextView curCityTv;
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {

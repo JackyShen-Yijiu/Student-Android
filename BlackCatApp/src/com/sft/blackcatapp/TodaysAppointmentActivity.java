@@ -121,6 +121,7 @@ public class TodaysAppointmentActivity extends BaseActivity implements
 						ZProgressHUD.getInstance(this).show();
 					} else {
 						if (adapter == null) {
+							mList.clear();
 							mList.addAll(list);
 							adapter = new TodayAppointmentAdapter(mList, this);
 							mListView.setAdapter(adapter);

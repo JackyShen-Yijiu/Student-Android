@@ -24,7 +24,7 @@
             android:id="@+id/fragment_menu_driving_school"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="5dp"
             android:text="您未选择驾校"
             android:textColor="#f2f2f2"
             android:textSize="14sp" />
@@ -33,7 +33,7 @@
             android:id="@+id/fragment_menu_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="5dp"
             android:textColor="#f2f2f2"
             android:textSize="14sp" />
     </LinearLayout>
@@ -322,15 +322,15 @@
     <com.joooonho.SelectableRoundedImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/fragment_menu_headpic_im"
-        android:layout_width="66dp"
-        android:layout_height="66dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:layout_alignLeft="@+id/fragment_menu_content_first"
         android:layout_alignParentTop="true"
         android:layout_marginTop="31dp"
         app:sriv_border_color="#00000000"
         app:sriv_border_width="1dip" />
 
-    <TextView
+    <!-- <TextView
         android:id="@+id/left_tv_map"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -338,6 +338,6 @@
         android:layout_toRightOf="@+id/linearLayout1"
         android:layout_marginRight="5dp"
         android:text="定位中"
-        android:textColor="#f2f2f2" />
+        android:textColor="#f2f2f2" /> -->
 
 </RelativeLayout>

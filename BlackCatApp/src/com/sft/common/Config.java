@@ -11,9 +11,8 @@ public class Config {
 	// 友盟appkey
 	public static final String UMENG_CHANNELID = "ceshi";
 	//
-	// public static final String IP = "http://101.200.204.240:8181/";
-	// public static final String IP = "http://123.57.63.15:8181/";
-	public static final String IP = "http://api.yibuxueche.com/";
+	public static final String IP = "http://101.200.204.240:8181/";
+	// public static final String IP = "http://api.yibuxueche.com/";
 
 	// 默认头像下载地址
 	public static final String HEAD_URL = "http://7xnjg0.com1.z0.glb.clouddn.com/";
@@ -76,7 +75,14 @@ public class Config {
 		//
 		ucomments("6"),
 		//
-		finish("7");
+		finish("7"),
+		// 系统取消
+		systemcancel("8"),
+		// 已签到
+		signfinish("9"),
+		// 漏课
+		missclass("10");
+
 		private String index;
 
 		private AppointmentResult(String index) {

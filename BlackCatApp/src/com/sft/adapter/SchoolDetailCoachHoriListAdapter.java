@@ -171,7 +171,7 @@ public class SchoolDetailCoachHoriListAdapter extends BaseAdapter {
 			holder.rateBar.setRating(0f);
 		}
 		String age = mData.get(position).getSeniority();
-		holder.teachAge.setText("驾龄:" + age + "年");
+		holder.teachAge.setText("教龄:" + age + "年");
 		String distance = mData.get(position).getDistance();
 		int distanceInt = 0;
 		try {

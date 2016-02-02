@@ -61,10 +61,11 @@ public class EnrollSuccessActivity extends BaseActivity {
 	}
 
 	private void initView() {
+		setTitleText(R.string.enroll_success_title);
 		app.isEnrollAgain = false;
 		showTitlebarBtn(1);
-		showTitlebarText(BaseActivity.SHOW_RIGHT_TEXT);
-		setText(0, R.string.enroll_again);
+		// showTitlebarText(BaseActivity.SHOW_RIGHT_TEXT);
+		// setText(0, R.string.enroll_again);
 		setTitleText("");
 		button_sus = (Button) findViewById(R.id.button_sus);
 		qrcode = (ImageView) findViewById(R.id.apply_commit_qrcode);
@@ -161,7 +162,7 @@ public class EnrollSuccessActivity extends BaseActivity {
 						tv_qrcode.setText(successVO.userid);
 						// app.userVO.setApplystate(EnrollResult.SUBJECT_ENROLLING
 						// .getValue());
-						 checkUserEnrollState();
+						checkUserEnrollState();
 						if (successVO.applynotes != null) {
 							carryData.setText(successVO.applynotes);
 						}
