@@ -48,6 +48,7 @@ import com.sft.adapter.SchoolDetailCourseFeeAdapter;
 import com.sft.adapter.SchoolDetailCourseFeeAdapter.MyClickListener;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
+import com.sft.dialog.NoLoginDialog;
 import com.sft.dialog.EnrollSelectConfilctDialog.OnSelectConfirmListener;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
@@ -834,6 +835,11 @@ public class SchoolDetailActivity extends BaseActivity implements
 			boolean isFromSearchCoach = getIntent().getBooleanExtra(
 					SearchCoachActivity.from_searchCoach_enroll, false);
 			Intent intent = null;
+			if(!app.isLogin){
+				NoLoginDialog dialog = new NoLoginDialog(SchoolDetailActivity.this);
+				dialog.show();
+				return ;
+			}
 			if (app.userVO.getApplystate().equals(
 					EnrollResult.SUBJECT_NONE.getValue())) {
 
@@ -890,7 +896,8 @@ public class SchoolDetailActivity extends BaseActivity implements
 		i.putExtra("from", 0);
 		LogUtil.print("schoolId->"+school.getSchoolid()+"id::"+classe.getSchoolinfo().getId());
 		i.putExtra(SearchCoachActivity.from_searchCoach_enroll, true);
-		startActivity(i);
+//		startActivity(i);
+		startActivityForResult(i, 9);
 
 	}
 

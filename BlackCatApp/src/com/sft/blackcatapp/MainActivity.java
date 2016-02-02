@@ -48,6 +48,7 @@ import com.sft.common.BlackCatApplication;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
 import com.sft.dialog.CheckApplyDialog;
+import com.sft.dialog.NoCommentDialog;
 import com.sft.dialog.NoLoginDialog;
 import com.sft.fragment.IntroducesFragment;
 import com.sft.fragment.MenuFragment;
@@ -64,6 +65,7 @@ import com.sft.util.Util;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.ActivitiesVO;
 import com.sft.vo.CoachVO;
+import com.sft.vo.MyAppointmentVO;
 import com.sft.vo.QuestionVO;
 import com.sft.vo.SchoolVO;
 
@@ -74,6 +76,8 @@ public class MainActivity extends BaseMainActivity implements
 	private static final String subjectContent = "subjectContent";
 	private static final String coach = "coach";
 	private static final String school = "school";
+	private static final String NOT_COMMENT = "nocomment";
+	
 	private static final String questionaddress = "questionaddress";
 	private static final String TODAY_IS_OPEN_ACTIVITIES = "today_is_open_activities";
 	public static final String ISCLICKCONFIRM = "isclickconfirm";
@@ -115,16 +119,14 @@ public class MainActivity extends BaseMainActivity implements
 		obtainFavouriteCoach();
 		obtainQuestionAddress();
 		obtainSubjectContent();
-		if (app.userVO.getApplystate().equals("0")) {
+		
+		LogUtil.print("app--->"+app+"user::"+app.userVO);
+		if (app.userVO!=null && app.userVO.getApplystate().equals("0")) {
+			// 填写课时信息
 			checkStateDialog();
 		} else {
-			// 获取活动
-			df = new SimpleDateFormat("yyyy-MM-dd");
-			String todayIsOpen = SharedPreferencesUtil.getString(this,
-					TODAY_IS_OPEN_ACTIVITIES, "");
-			if (!df.format(new Date()).toString().equals(todayIsOpen)) {
-				obtainActivities();
-			}
+			//获取未评论列表
+			
 		}
 		setTag();
 		if (app != null && app.isLogin) {
@@ -132,6 +134,22 @@ public class MainActivity extends BaseMainActivity implements
 		}
 
 	}
+	
+	
+
+	@Override
+	protected void onResume() {
+		if (app.userVO!=null && app.userVO.getApplystate().equals("0")) {
+			
+		} else if(app.userVO!=null) {
+			//获取未评论列表
+			obtainNotComments();
+		}
+		
+		super.onResume();
+	}
+
+
 
 	/**
 	 * 检查学时状态 对话框，
@@ -378,6 +396,22 @@ public class MainActivity extends BaseMainActivity implements
 			break;
 		}
 	}
+	
+	/**
+	 * 获取未评论列表
+	 */
+	private void obtainNotComments(){
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("userid", app.userVO.getUserid());
+		LogUtil.print("subject---Id==>"+app.userVO.getSubject().getSubjectid());
+		paramMap.put("subjectid",app.userVO.getSubject().getSubjectid());//订单的状态 // 0 订单生成 2 支付成功 3 支付失败 4 订单取消 -1 全部(未支付的订单)
+		
+		Map<String, String> headerMap = new HashMap<String, String>();
+		headerMap.put("authorization", app.userVO.getToken());
+		HttpSendUtils.httpGetSend(NOT_COMMENT, this, Config.IP
+				+ "api/v1/courseinfo/getmyuncommentreservation", paramMap, 10000,
+				headerMap);
+	}
 
 	private void obtainSubjectContent() {
 		HttpSendUtils.httpGetSend(subjectContent, this, Config.IP
@@ -464,12 +498,56 @@ public class MainActivity extends BaseMainActivity implements
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+			}else if(type.equals(NOT_COMMENT)){
+				//未评论 的 预约列表
+				LogUtil.print("notcomment::::>>"+jsonString);
+				if (dataArray != null) {
+					int length = dataArray.length();
+					if(length == 0){//不存在 未评论
+						if(null != commentDialog){//不是空
+							commentDialog.dismiss();
+							return true;
+						}
+						// 获取活动
+						df = new SimpleDateFormat("yyyy-MM-dd");
+						String todayIsOpen = SharedPreferencesUtil.getString(this,
+								TODAY_IS_OPEN_ACTIVITIES, "");
+						if (!df.format(new Date()).toString().equals(todayIsOpen)) {
+							obtainActivities();
+						}
+						return true;
+					}
+					//开始 显示对话框
+					if(commentDialog!=null && commentDialog.isShowing()){
+						return true;
+					}
+					commentDialog = new NoCommentDialog(this);
+					commentDialog.setTextAndImage("去评价", "您有未评价订单\n给您的教练一个好评吧！", "去投诉", R.drawable.appointment_time_error);
+					commentDialog.setCancelable(false);
+					commentDialog.setCanceledOnTouchOutside(false);
+					commentDialog.show();
+					
+					
+//					List<MyAppointmentVO> list = new ArrayList<MyAppointmentVO>();
+//
+//					for (int i = 0; i < length; i++) {
+//						MyAppointmentVO appointmentVO = JSONUtil.toJavaBean(
+//								MyAppointmentVO.class,
+//								dataArray.getJSONObject(i));
+//						list.add(appointmentVO);
+//					}
+					
+				}
+				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return true;
 	}
+	
+	/**未评论*/
+	NoCommentDialog commentDialog = null;
 
 	private LocationClient mLocationClient;
 	private ImageView carImageView;

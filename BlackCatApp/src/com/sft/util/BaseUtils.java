@@ -31,7 +31,27 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
+import com.sft.blackcatapp.LoginActivity;
+import com.sft.common.BlackCatApplication;
+
 public class BaseUtils {
+	
+	/**
+	 * 随便看看
+	 */
+	public static boolean justSay(Activity a){
+//		if(app.)
+		BlackCatApplication app = BlackCatApplication.getInstance();
+		if(!app.isLogin){
+			Intent intent = new Intent(a, LoginActivity.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			a.startActivity(intent);
+			a.finish();
+			return true;
+		}
+		return false;
+	}
 
 	/**
 	 * SD卡是否已经安装

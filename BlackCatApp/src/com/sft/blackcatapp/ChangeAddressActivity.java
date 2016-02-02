@@ -47,6 +47,8 @@ public class ChangeAddressActivity extends BaseActivity {
 		et = (EditText) findViewById(R.id.callback_et);
 
 		et.setHint(setHint(R.string.address));
+		et.setText(app.userVO.getAddress());
+		
 	}
 
 	private void setListener() {

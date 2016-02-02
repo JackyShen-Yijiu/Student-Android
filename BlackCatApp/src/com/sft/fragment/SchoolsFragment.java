@@ -433,8 +433,9 @@ public class SchoolsFragment extends BaseFragment implements
 		searchSchool = (EditText) headerView
 				.findViewById(R.id.enroll_school_search_et);
 		//
-		// classSelect = (TextView)
-		// findViewById(R.id.enroll_school_class_select_tv);
+//		classSelect = (TextView) headerView
+//				.findViewById(R.id.enroll_school_class_select_tv);
+		
 		// distanceSelect = (TextView)
 		// findViewById(R.id.enroll_school_distance_select_tv);
 		// commentSelect = (TextView)
@@ -651,6 +652,7 @@ public class SchoolsFragment extends BaseFragment implements
 			licensetype = "1";
 			schoolname = "";
 			ordertype = "";
+			classSelect.setText(R.string.c1_automatic_gear_car);
 			LogUtil.print("====" + licensetype);
 			obtainNearBySchool();
 			if (popupWindow != null) {
@@ -659,6 +661,7 @@ public class SchoolsFragment extends BaseFragment implements
 			break;
 		case R.id.pop_window_two:
 			// setSelectState(1);
+			classSelect.setText(R.string.c2_manual_gear_car);
 			isClassSelected = true;
 			cityname = currCity;
 			licensetype = "2";
@@ -718,11 +721,23 @@ public class SchoolsFragment extends BaseFragment implements
 			break;
 		case R.id.pop_window_two:
 			// setSelectState(1);
+//			classSelect.setText(R.string.c2_manual_gear_car);
 			isClassSelected = true;
 			cityname = currCity;
 			licensetype = "2";
 			schoolname = "";
 			LogUtil.print("====" + licensetype);
+			ordertype = "";
+			obtainNearBySchool();
+			if (popupWindow != null) {
+				popupWindow.dismiss();
+			}
+			break;
+		case R.id.pop_window_three:
+			isClassSelected = true;
+			cityname = currCity;
+			licensetype = "3";
+			schoolname = "";
 			ordertype = "";
 			obtainNearBySchool();
 			if (popupWindow != null) {
@@ -804,8 +819,12 @@ public class SchoolsFragment extends BaseFragment implements
 			c1Car.setText(R.string.c1_automatic_gear_car);
 			TextView c2Car = (TextView) view.findViewById(R.id.pop_window_two);
 			c2Car.setText(R.string.c2_manual_gear_car);
+			TextView other = (TextView) view.findViewById(R.id.pop_window_three);
+			other.setText(R.string.other);
+			other.setOnClickListener(this);
 			c1Car.setOnClickListener(this);
 			c2Car.setOnClickListener(this);
+			
 
 			popupWindow = new PopupWindow(view, LayoutParams.WRAP_CONTENT,
 					LayoutParams.WRAP_CONTENT);
@@ -1009,6 +1028,11 @@ public class SchoolsFragment extends BaseFragment implements
 					pay = JSONUtil.toJavaBean(PayOrderVO.class,
 							dataArray.getJSONObject(i));
 					if(pay.userpaystate.equals("0") ||pay.userpaystate.equals("3")){//订单刚生成，支付失败
+						
+						//存在未支付订单
+						app.userVO.setApplystate(EnrollResult.SUBJECT_NONE.getValue());
+						
+						app.isEnrollAgain = true;
 						HasOrder(pay);
 						break;
 					}
@@ -1166,7 +1190,8 @@ public class SchoolsFragment extends BaseFragment implements
 		schoolname = "";
 		ordertype = "";
 		obtainNearBySchool();
-		requestNotFinshOrder();
+		if(app.isLogin)
+			requestNotFinshOrder();
 	}
 	
 	/**

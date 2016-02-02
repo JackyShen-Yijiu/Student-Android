@@ -10,19 +10,33 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="center"
-         android:background="@drawable/pop_window_bg"
+        android:background="@drawable/pop_window_bg"
         android:clickable="true"
         android:textColor="#333"
-        android:textSize="14sp" />
+        android:padding="10dp"
+        android:textSize="16sp" />
     <TextView
         android:id="@+id/pop_window_two"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="center"
-         android:background="@drawable/pop_window_bg"
+        android:background="@drawable/pop_window_bg"
         android:clickable="true"
+        android:padding="10dp"
         android:textColor="#333"
-        android:textSize="14sp" />
+        android:textSize="16sp" />
+    
+    <TextView
+        android:id="@+id/pop_window_three"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:background="@drawable/pop_window_bg"
+        android:clickable="true"
+        android:padding="10dp"
+        android:textColor="#333"
+        android:textSize="16sp" />
 
 </LinearLayout>

@@ -179,6 +179,7 @@
                     android:layout_marginLeft="15dp"
                     android:text="微信支付"
                     android:textColor="#333333"
+                    android:visibility="gone"
                     android:textSize="14sp" />
 
                 <RadioButton

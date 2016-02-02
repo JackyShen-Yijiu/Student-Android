@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONObject;
+
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.ValueAnimator;
@@ -45,6 +47,7 @@ import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.CarModelVO;
 import com.sft.vo.ClassVO;
 import com.sft.vo.CoachVO;
+import com.sft.vo.PayOrderVO;
 import com.sft.vo.SchoolVO;
 
 /**
@@ -114,15 +117,13 @@ public class ApplyActivity extends BaseActivity implements
 	private SchoolVO schoolName;
 
 	private ClassVO classe;
-//	private String classID;
+	// private String classID;
 	/** 实际价格 */
 	private TextView tvOnSale;
 
 	private RadioButton radioOnLine, radioOffLine;
 	/**
-	 * 0：驾校详情
-	 * 1：教练详情
-	 * 2.活动详情 ，，待定
+	 * 0：驾校详情 1：教练详情 2.活动详情 ，，待定
 	 */
 	private int from;
 
@@ -137,100 +138,103 @@ public class ApplyActivity extends BaseActivity implements
 		setListener();
 		obtainEnrollCarStyle();
 		initApplyData();
-//		View v;
-//		v.setBackgroundColor(Color.)
+		// View v;
+		// v.setBackgroundColor(Color.)
 	}
-	
+
 	private String enCoachId;
 	private String enSchoolId;
 	private String enclassTypeId;
 	private String encarmodel;
 
 	private void initApplyData() {
-		
+
 		from = getIntent().getIntExtra("from", 0);
-		
-//		boolean isFromMenu = getIntent().getBooleanExtra("isFromMenu", false);
-//		boolean isFromEnroll = getIntent().getBooleanExtra(
-//				SearchCoachActivity.from_searchCoach_enroll, false);
-//		// 活动页面
-//		boolean isFromPlay = getIntent().getBooleanExtra("isFromPlay", false);
-		
-//		if(classe!=null){
-//			classID = classe.get_id();
-//		}
-//		if (school != null) {//从驾校跳转过来 
-//			setDefaultData(school);
-//		}
-		
-//		coach = (CoachVO) getIntent().getSerializableExtra("coach");
-//		if (classe != null) {
-//			licenseType.setText(classe.getClassname() + "￥"
-//					+ classe.getOnsaleprice());
-//			tvOnSale.setText(classe.getOnsaleprice() + "元");
-//			classID = classe.get_id();
-//		}
-		
-		switch(from){
-		case 0://驾校详情
+
+		// boolean isFromMenu = getIntent().getBooleanExtra("isFromMenu",
+		// false);
+		// boolean isFromEnroll = getIntent().getBooleanExtra(
+		// SearchCoachActivity.from_searchCoach_enroll, false);
+		// // 活动页面
+		// boolean isFromPlay = getIntent().getBooleanExtra("isFromPlay",
+		// false);
+
+		// if(classe!=null){
+		// classID = classe.get_id();
+		// }
+		// if (school != null) {//从驾校跳转过来
+		// setDefaultData(school);
+		// }
+
+		// coach = (CoachVO) getIntent().getSerializableExtra("coach");
+		// if (classe != null) {
+		// licenseType.setText(classe.getClassname() + "￥"
+		// + classe.getOnsaleprice());
+		// tvOnSale.setText(classe.getOnsaleprice() + "元");
+		// classID = classe.get_id();
+		// }
+
+		switch (from) {
+		case 0:// 驾校详情
 			classe = (ClassVO) getIntent().getSerializableExtra("class");
 			school = (SchoolVO) getIntent().getSerializableExtra("school");
 			enSchoolId = classe.getSchoolinfo().getSchoolid();
-			
-			LogUtil.print("school--id:"+enSchoolId+"id::"+school.getId());
-			enCoachId = "";//智能分配
+
+			LogUtil.print("school--id:" + enSchoolId + "id::" + school.getId());
+			enCoachId = "";// 智能分配
 			enclassTypeId = classe.getCalssid();
-			encarmodel =  classe.getCarmodel().toString();
-			//coachId  智能分配
+			encarmodel = classe.getCarmodel().toString();
+			// coachId 智能分配
 			break;
-		case 1://教练详情
-			coach = (CoachVO) getIntent().getSerializableExtra(
-					"coach");
+		case 1:// 教练详情
+			coach = (CoachVO) getIntent().getSerializableExtra("coach");
 			classe = (ClassVO) getIntent().getSerializableExtra("class");
-			
+
 			enSchoolId = classe.getSchoolinfo().getSchoolid();
-			enCoachId = coach.getCoachid();//智能分配
+			enCoachId = coach.getCoachid();// 智能分配
 			enclassTypeId = classe.getCalssid();
-			encarmodel =  classe.getCarmodel().toString();
+			encarmodel = classe.getCarmodel().toString();
 			break;
-		case 2://活动详情
+		case 2:// 活动详情
 			break;
 		}
-		initDefaultData(classe.getSchoolinfo().getName(),coach,classe);
-		
+		LogUtil.print("class--name::>>>" + classe.getSchoolinfo().getName());
+		initDefaultData(classe.getSchoolinfo().getName(), coach, classe);
 
-//		// 从查找驾校处报名
-//		if (isFromMenu) {
-//			SchoolVO schoolVO = (SchoolVO) getIntent().getSerializableExtra(
-//					"school");
-//			CoachVO coachVO = (CoachVO) getIntent().getSerializableExtra(
-//					"coach");
-//			if (schoolVO != null) {
-//				setDefaultData(schoolVO);
-//			}
-//			if (coachVO != null) {
-//				coachTv.setText(coachVO.getName());
-//			}
-//			// 从查找教练处报名
-//		} else if (isFromEnroll) {
-//
-//			if (coach != null) {
-//				schoolRl.setClickable(false);
-//				coachTv.setText(coach.getName());
-//				obtainSchoolById(coach.getDriveschoolinfo().getId());
-//			}
-//		} else if (isFromPlay) {
-//
-//		} else {
-			obtainNearBySchool();
-//		}
+		// // 从查找驾校处报名
+		// if (isFromMenu) {
+		// SchoolVO schoolVO = (SchoolVO) getIntent().getSerializableExtra(
+		// "school");
+		// CoachVO coachVO = (CoachVO) getIntent().getSerializableExtra(
+		// "coach");
+		// if (schoolVO != null) {
+		// setDefaultData(schoolVO);
+		// }
+		// if (coachVO != null) {
+		// coachTv.setText(coachVO.getName());
+		// }
+		// // 从查找教练处报名
+		// } else if (isFromEnroll) {
+		//
+		// if (coach != null) {
+		// schoolRl.setClickable(false);
+		// coachTv.setText(coach.getName());
+		// obtainSchoolById(coach.getDriveschoolinfo().getId());
+		// }
+		// } else if (isFromPlay) {
+		//
+		// } else {
+		obtainNearBySchool();
+		// }
 	}
-	
-	private void initDefaultData(String schoolName,CoachVO coach,ClassVO classe){
-		coachTv.setText(null==coach?"智能匹配":coach.getName());
+
+	private void initDefaultData(String schoolName, CoachVO coach,
+			ClassVO classe) {
+		coachTv.setText(null == coach ? "智能匹配" : coach.getName());
 		schoolTv.setText(schoolName);
-		licenseType.setText(classe.getClassname()+"￥"+classe.getOnsaleprice());
-		tvOnSale.setText(classe.getOnsaleprice()+"元");
+		licenseType.setText(classe.getClassname() + "￥"
+				+ classe.getOnsaleprice());
+		tvOnSale.setText(classe.getOnsaleprice() + "元");
 	}
 
 	private void obtainSchoolById(String schoolId) {
@@ -355,14 +359,10 @@ public class ApplyActivity extends BaseActivity implements
 		} else {
 			contactEt.setText(app.userVO.getMobile());
 		}
-		
-		
-		//1.2版 获取新的数据
-//		
-		
-		
-		
-		
+
+		// 1.2版 获取新的数据
+		//
+
 		// 1.2版 获取新的数据
 		//
 
@@ -502,20 +502,22 @@ public class ApplyActivity extends BaseActivity implements
 		// }
 		// break;
 		case R.id.enroll_commit_btn:
+
 			// 验证Y码
-			if(null == etYCodeCard.getText().toString() || TextUtils.isEmpty(etYCodeCard.getText().toString().trim())){
-				enroll(null,enCoachId,enSchoolId,enclassTypeId,encarmodel);
-			}else{
-				obtainYCode();//正式
+			if (null == etYCodeCard.getText().toString()
+					|| TextUtils.isEmpty(etYCodeCard.getText().toString()
+							.trim())) {
+				enroll(null, enCoachId, enSchoolId, enclassTypeId, encarmodel);
+			} else {
+				obtainYCode();// 正式
 			}
-			
-			
-//			Intent intent1 = new Intent(this, ConfirmOrderActivity.class);
-//			intent1.putExtra("class", classe);
-//			intent1.putExtra("schoolName", school.getName());
-//			intent1.putExtra("phone", contactEt.getText().toString());
-//			startActivity(intent1);
-//			finish();
+
+			// Intent intent1 = new Intent(this, ConfirmOrderActivity.class);
+			// intent1.putExtra("class", classe);
+			// intent1.putExtra("schoolName", school.getName());
+			// intent1.putExtra("phone", contactEt.getText().toString());
+			// startActivity(intent1);
+			// finish();
 
 			// String checkResult = checkEnrollInfo();
 			// // if (checkResult == null) {
@@ -524,7 +526,7 @@ public class ApplyActivity extends BaseActivity implements
 			// enroll(checkResult);
 			// // }
 			// // 保存数据
-			
+
 			break;
 
 		case R.id.pop_window_one:
@@ -615,18 +617,18 @@ public class ApplyActivity extends BaseActivity implements
 			break;
 		}
 	}
-	
-	
 
-	private void enroll(String checkResult,String coachId,String SchoolId,String classTypeId,String carModel) {
+	private void enroll(String checkResult, String coachId, String SchoolId,
+			String classTypeId, String carModel) {
 
 		if (checkResult == null) {
 			Map<String, String> paramMap = new HashMap<String, String>();
 			paramMap.put("name", nameEt.getText().toString());
 			paramMap.put("telephone", contactEt.getText().toString());
 			paramMap.put("userid", app.userVO.getUserid());
-			
-			LogUtil.print("enrollll--->"+coachId+"schoolId;:>"+SchoolId+"classType:>"+classTypeId+"CarModel-->"+carModel);
+
+			LogUtil.print("enrollll--->" + coachId + "schoolId;:>" + SchoolId
+					+ "classType:>" + classTypeId + "CarModel-->" + carModel);
 
 			paramMap.put("coachid", coachId);
 			paramMap.put("schoolid", SchoolId);// school.getSchoolid()
@@ -638,11 +640,12 @@ public class ApplyActivity extends BaseActivity implements
 																			// 线下支付
 																			// 2.线上支付
 
-			 if (TextUtils.isEmpty(etYCodeCard.getText().toString())) {
-				 paramMap.put("fcode", "");
-			 } else {
-				 paramMap.put("fcode", etYCodeCard.getText().toString());
-			 }
+			if (TextUtils.isEmpty(etYCodeCard.getText().toString())) {
+				paramMap.put("fcode", "");
+			} else {
+				paramMap.put("fcode", etYCodeCard.getText().toString());
+			}
+			LogUtil.print("重复报名:--->	" + app.isEnrollAgain);
 			if (app.isEnrollAgain) {
 				paramMap.put("applyagain", "1");
 			}
@@ -736,6 +739,10 @@ public class ApplyActivity extends BaseActivity implements
 			return;
 		}
 		switch (requestCode) {
+		case 9://报名成功
+			setResult(9);
+			finish();
+			break;
 		case R.id.enroll_school_rl:
 			// 报名页面选择学校
 			SchoolVO tempSchool = (SchoolVO) data
@@ -743,7 +750,7 @@ public class ApplyActivity extends BaseActivity implements
 			if (school == null || !school.equals(tempSchool)) {
 				// 更换驾校，并删除了相应的冲突信息
 				school = tempSchool;
-				schoolTv.setText(school.getName());
+				// schoolTv.setText(school.getName());
 				coach = null;
 				coachTv.setText(R.string.apply_system_distribute);
 				obtainEnrollClass();
@@ -776,7 +783,7 @@ public class ApplyActivity extends BaseActivity implements
 		case R.id.main_my_layout:
 			// 我喜欢的教练，驾校
 			school = null;
-			schoolTv.setText("");
+			// schoolTv.setText("");
 			coach = null;
 			coachTv.setText("");
 			classId = null;
@@ -789,14 +796,14 @@ public class ApplyActivity extends BaseActivity implements
 			if (coach != null) {
 				coachTv.setText(coach.getName());
 				school = Util.getEnrollUserSelectedSchool(this);
-				if (school != null) {
-					schoolTv.setText(school.getName());
-				}
+				// if (school != null) {
+				// schoolTv.setText(school.getName());
+				// }
 			} else {
 				school = (SchoolVO) data.getSerializableExtra("school");
-				if (school != null) {
-					schoolTv.setText(school.getName());
-				}
+				// if (school != null) {
+				// schoolTv.setText(school.getName());
+				// }
 			}
 
 			carStyle = Util.getEnrollUserSelectedCarStyle(this);
@@ -841,26 +848,45 @@ public class ApplyActivity extends BaseActivity implements
 					applyClassTypeLayout.clearData();
 					applyClassTypeLayout.setData(list);
 				}
+				// {"type":1,"msg":"","data":"success","extra":{"__v":0,"paymoney":4680,"payendtime":"2016-02-04T15:46:52.002Z",
+				// "creattime":"2016-02-01T15:46:52.002Z","userid":"56a74ca04cc338e971ca226a",
+				// "_id":"56af7dec1b27e71413067afe","discountmoney":0,"couponcode":"","applyclasstypeinfo":
+				// {"onsaleprice":4680,"price":4980,"name":"新春特惠班","id":"56a9ba41fe60f807363001c9"},
+				// "applyschoolinfo":{"name":"一步互联网驾校","id":"562dcc3ccb90f25c3bde40da"},"paychannel":0,"userpaystate":0}}
+				// LogUtil
 			} else if (type.equals(enroll)) {
 				if ("success".equals(dataString)) {
-					//更新本地数据
-					 SharedPreferencesUtil.putString(this,
-					 realName + app.userVO.getUserid(), nameEt.getText()
-					 .toString());
-					 SharedPreferencesUtil.putString(this,
-					 contact + app.userVO.getUserid(), contactEt.getText()
-					 .toString());
-					
-					
-					Intent intent = new Intent(this, ConfirmOrderActivity.class);
-					intent.putExtra("class", classe);
-					intent.putExtra("schoolName", school.getName());
-					intent.putExtra("phone", contactEt.getText().toString());
+					// 更新本地数据
+					SharedPreferencesUtil.putString(this,
+							realName + app.userVO.getUserid(), nameEt.getText()
+									.toString());
+					SharedPreferencesUtil.putString(this,
+							contact + app.userVO.getUserid(), contactEt
+									.getText().toString());
+					LogUtil.print("success--->" + jsonString);
+
+					if (radioOnLine.isChecked()) {// 线上支付
+						jsonObject = new JSONObject(jsonString.toString());
+						JSONObject extra = jsonObject.getJSONObject("extra");
+
+						PayOrderVO pay = JSONUtil.toJavaBean(PayOrderVO.class,
+								extra);
+						Intent intent = new Intent(this,
+								ConfirmOrderActivity.class);
+						intent.putExtra("class", classe);
+						intent.putExtra("schoolName", school.getName());
+						intent.putExtra("phone", contactEt.getText().toString());
+						intent.putExtra("bean", pay);
+						startActivity(intent);
+					} else {// 线下支付
+						Intent intent1 = new Intent(this,
+								EnrollSuccessActivity.class);
+						startActivity(intent1);
+					}
+					//
+
 					// 报名成功
-					// Intent intent = new Intent(this,
-					// EnrollSuccessActivity.class);
-					startActivity(intent);
-					finish();
+					//
 				} else {
 					// 不成功
 					ZProgressHUD.getInstance(this).show();
@@ -885,7 +911,7 @@ public class ApplyActivity extends BaseActivity implements
 						schoolVO = JSONUtil.toJavaBean(SchoolVO.class,
 								dataArray.getJSONObject(0));
 
-						setDefaultData(schoolVO);
+						// setDefaultData(schoolVO);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -896,7 +922,7 @@ public class ApplyActivity extends BaseActivity implements
 						SchoolVO schoolVO;
 						schoolVO = JSONUtil.toJavaBean(SchoolVO.class, data);
 
-						setDefaultData(schoolVO);
+						// setDefaultData(schoolVO);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -909,7 +935,8 @@ public class ApplyActivity extends BaseActivity implements
 					dialog.show();
 				}
 				if (result != null && result.equals("1")) {
-					enroll(null,enCoachId,enSchoolId,enclassTypeId,encarmodel);
+					enroll(null, enCoachId, enSchoolId, enclassTypeId,
+							encarmodel);
 				}
 			}
 		} catch (Exception e) {
@@ -919,15 +946,13 @@ public class ApplyActivity extends BaseActivity implements
 	}
 
 	// 设置默认驾校
-	private void setDefaultData(SchoolVO schoolVO) {
-		if (schoolVO != null) {
-			school = schoolVO;
-			schoolTv.setText(schoolVO.getName());
-			obtainEnrollClass();
-		}
-	}
-	
-	
+	// private void setDefaultData(SchoolVO schoolVO) {
+	// if (schoolVO != null) {
+	// school = schoolVO;
+	// schoolTv.setText(schoolVO.getName());
+	// obtainEnrollClass();
+	// }
+	// }
 
 	// private void setLienseType(List<CarModelVO> listCarModelVOs) {
 	// licenseTypeC1.setText(listCarModelVOs.get(0).getCode() + "手动档");
@@ -1068,7 +1093,7 @@ public class ApplyActivity extends BaseActivity implements
 	public void selectConfirm(boolean isConfirm, boolean isFreshAll) {
 
 		if (isConfirm) {
-			enroll(null,enCoachId,enSchoolId,enclassTypeId,encarmodel);
+			enroll(null, enCoachId, enSchoolId, enclassTypeId, encarmodel);
 		} else {
 
 		}

@@ -46,6 +46,7 @@ import com.sft.adapter.SchoolDetailCourseFeeAdapter.MyClickListener;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
 import com.sft.dialog.EnrollSelectConfilctDialog;
+import com.sft.dialog.NoLoginDialog;
 import com.sft.dialog.EnrollSelectConfilctDialog.OnSelectConfirmListener;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
@@ -385,6 +386,14 @@ public class CoachDetailActivity extends BaseActivity implements
 			boolean isFromSearchCoach = getIntent().getBooleanExtra(
 					SearchCoachActivity.from_searchCoach_enroll, false);
 			Intent intent = null;
+			//未登录
+			if(!app.isLogin){
+				NoLoginDialog dialog = new NoLoginDialog(CoachDetailActivity.this);
+				dialog.show();
+				return ;
+			}
+			
+			
 			if (app.userVO.getApplystate().equals(
 					EnrollResult.SUBJECT_NONE.getValue())) {
 
@@ -461,7 +470,8 @@ public class CoachDetailActivity extends BaseActivity implements
 		i.putExtra("class", classe);
 		i.putExtra("from", 1);
 		i.putExtra(SearchCoachActivity.from_searchCoach_enroll, true);
-		startActivity(i);
+//		startActivity(i);
+		startActivityForResult(i, 9);
 		// coachVO.getDriveschoolinfo().
 		// i.putExtra("school", "");
 		// qw

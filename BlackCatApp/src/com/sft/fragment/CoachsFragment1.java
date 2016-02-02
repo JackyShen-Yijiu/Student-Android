@@ -141,6 +141,18 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener,
 				popupWindow.dismiss();
 			}
 			break;
+		case R.id.pop_window_three:
+			
+			isCarSelected = true;
+			index = 1;
+			licensetype = "3";
+			coachname = "";
+			ordertype = "";
+			obtainCaoch();
+			if (popupWindow != null) {
+				popupWindow.dismiss();
+			}
+			break;
 		}
 
 	}
