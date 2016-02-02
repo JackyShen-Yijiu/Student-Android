@@ -45,7 +45,9 @@ import com.sft.blackcatapp.NewActivitysActivity;
 import com.sft.blackcatapp.NewApplystateActivity;
 import com.sft.blackcatapp.PersonCenterActivity;
 import com.sft.blackcatapp.R;
+import com.sft.blackcatapp.SchoolBusRouteActivity;
 import com.sft.blackcatapp.TodaysAppointmentActivity;
+import com.sft.blackcatapp.YiBuIntroduceActivity;
 import com.sft.common.BlackCatApplication;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
@@ -163,6 +165,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 		money = (TextView) rootView.findViewById(R.id.fragment_menu_money);
 		personIcon = (SelectableRoundedImageView) rootView
 				.findViewById(R.id.fragment_menu_headpic_im);
+
 		personIcon.setScaleType(ScaleType.CENTER_CROP);
 		personIcon.setImageResource(R.drawable.default_small_pic);
 		personIcon.setOval(true);
@@ -202,6 +205,10 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 
 		rootView.findViewById(R.id.fragment_menu_complaint_btn)
 				.setOnClickListener(this);
+		rootView.findViewById(R.id.fragment_menu_goddness_btn)
+				.setOnClickListener(this);
+		rootView.findViewById(R.id.fragment_menu_classcar_btn)
+				.setOnClickListener(this);
 		// rootView.findViewById(R.id.fragment_menu_search_coach_btn)
 		// .setOnClickListener(this);
 
@@ -224,8 +231,9 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 
 			if (app.userVO.getName() != null) {
 				username.setText(app.userVO.getName());
+			} else {
+				username.setText(app.userVO.getDisplaymobile());
 			}
-			username.setText(app.userVO.getDisplaymobile());
 		}
 		if (TextUtils.isEmpty(app.userVO.getApplyschoolinfo().getName())) {
 
@@ -428,11 +436,34 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 				dialog.show();
 			}
 			break;
+		case R.id.fragment_menu_goddness_btn:
+			// 优势
+			intent = new Intent(mContext, YiBuIntroduceActivity.class);
+			intent.putExtra("typeId", R.id.introduce_student_know);
+			mContext.startActivity(intent);
+			break;
+		case R.id.fragment_menu_classcar_btn:
+			// 班车
+
+			if (app != null && app.userVO != null
+					&& app.userVO.getApplyschoolinfo() != null) {
+				intent = new Intent(mContext, SchoolBusRouteActivity.class);
+				intent.putExtra(schoolId, app.userVO.getApplyschoolinfo()
+						.getId());
+				mContext.startActivity(intent);
+			} else {
+				ZProgressHUD.getInstance(mContext).show();
+				ZProgressHUD.getInstance(mContext).dismissWithSuccess(
+						"您还未报名，不能查看班车信息");
+			}
+			break;
 
 		default:
 			break;
 		}
 	}
+
+	public static final String schoolId = "schoolId";
 
 	protected void setRightText() {
 		// Drawable cityIcon = getResources().getDrawable(

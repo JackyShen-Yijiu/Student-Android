@@ -145,6 +145,21 @@ public class MyAppointmentListAdapter extends
 				holder.status.setText("完成");
 				holder.status.setTextColor(Color.parseColor("#999999"));
 				holder.line.setBackgroundColor(Color.parseColor("#999999"));
+			} else if (state.equals(AppointmentResult.systemcancel.getValue())) {
+				// 系统取消
+				holder.status.setText("系统取消");
+				holder.status.setTextColor(Color.parseColor("#999999"));
+				holder.line.setBackgroundColor(Color.parseColor("#999999"));
+			} else if (state.equals(AppointmentResult.signfinish.getValue())) {
+				// 已签到
+				holder.status.setText("已签到");
+				holder.status.setTextColor(Color.parseColor("#999999"));
+				holder.line.setBackgroundColor(Color.parseColor("#999999"));
+			} else if (state.equals(AppointmentResult.missclass.getValue())) {
+				// 漏课
+				holder.status.setText("漏课");
+				holder.status.setTextColor(Color.parseColor("#999999"));
+				holder.line.setBackgroundColor(Color.parseColor("#999999"));
 			}
 		}
 

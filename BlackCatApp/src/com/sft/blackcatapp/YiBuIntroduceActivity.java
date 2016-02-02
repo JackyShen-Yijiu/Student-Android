@@ -59,7 +59,7 @@ public class YiBuIntroduceActivity extends BaseActivity {
 	private void initData() {
 		int typeId = getIntent().getIntExtra("typeId", 0);
 		switch (typeId) {
-		case R.id.introduce_superiority:
+		case R.id.introduce_student_know:
 			url = "http://123.57.63.15:8181/youshi.html";
 			setTitleText(R.string.yibu_superiority);
 			break;

@@ -22,6 +22,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.sft.adapter.ActivityAdapter;
 import com.sft.api.ApiHttpClient;
+import com.sft.dialog.BonusDialog;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
 import com.sft.vo.ActivitiesVO;
@@ -48,6 +49,8 @@ public class NewActivitysActivity extends BaseActivity implements
 
 	private void initView() {
 		setTitleText(R.string.activitys);
+		showTitlebarText(BaseActivity.SHOW_RIGHT_TEXT);
+		setText(0, R.string.share);
 		listView_activitys = (ListView) findViewById(R.id.listView_activitys);
 
 		listView_activitys.setOnItemClickListener(this);
@@ -67,6 +70,10 @@ public class NewActivitysActivity extends BaseActivity implements
 		switch (v.getId()) {
 		case R.id.base_left_btn:
 			finish();
+			break;
+		case R.id.base_right_tv:
+			Intent intent2 = new Intent(this, BonusDialog.class);
+			startActivity(intent2);
 			break;
 		}
 	}

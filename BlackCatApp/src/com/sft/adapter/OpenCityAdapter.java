@@ -63,7 +63,7 @@ public class OpenCityAdapter extends BaseAdapter {
 
 			ImageView imageView = new ImageView(mContext);
 			imageView.setBackgroundColor(CommonUtil.getColor(mContext,
-					R.color.txt_999));
+					R.color.white_pure));
 			RelativeLayout.LayoutParams params1 = new LayoutParams(
 					ViewGroup.LayoutParams.WRAP_CONTENT,
 					ViewGroup.LayoutParams.WRAP_CONTENT);
