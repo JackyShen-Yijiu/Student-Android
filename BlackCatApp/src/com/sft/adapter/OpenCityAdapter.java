@@ -57,7 +57,7 @@ public class OpenCityAdapter extends BaseAdapter {
 			// textView.setGravity(Gravity.CENTER);
 			// textView.setBackgroundResource(R.drawable.pop_window_bg);
 			textView.setTextColor(CommonUtil.getColor(mContext,
-					R.color.default_text_color));
+					R.color.white));//default_text_color
 			textView.setTextSize(14);
 			textView.setId(position);
 

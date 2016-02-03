@@ -48,8 +48,8 @@ public class SchoolBusRouteActivity extends BaseActivity implements
 			obtainEnrollSchoolDetail(schoolId);
 		} else {
 
-			if (school == null && school.getSchoolbusroute() == null
-					&& school.getSchoolbusroute().size() == 0) {
+			if (school == null || school.getSchoolbusroute() == null
+					|| school.getSchoolbusroute().size() == 0) {
 				noBus.setVisibility(View.VISIBLE);
 				listview.setVisibility(View.GONE);
 			} else {

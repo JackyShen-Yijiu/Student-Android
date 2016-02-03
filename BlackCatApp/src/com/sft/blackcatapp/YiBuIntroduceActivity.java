@@ -3,6 +3,7 @@ package com.sft.blackcatapp;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -56,12 +57,12 @@ public class YiBuIntroduceActivity extends BaseActivity {
 
 	}
 
-	private void initData() {
+	@SuppressLint("SetJavaScriptEnabled") private void initData() {
 		int typeId = getIntent().getIntExtra("typeId", 0);
 		switch (typeId) {
 		case R.id.introduce_student_know:
-			url = "http://123.57.63.15:8181/youshi.html";
-			setTitleText(R.string.yibu_superiority);
+			url = Config.STUDENT_KNOW;
+			setTitleText(R.string.yibu_student_know);
 			break;
 		case R.id.introduce_procedure:
 

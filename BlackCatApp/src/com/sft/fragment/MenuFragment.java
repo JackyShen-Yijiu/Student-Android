@@ -141,6 +141,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 	@Override
 	public void onResume() {
 		super.onResume();
+		LogUtil.print("onResume---->menuFragment");
 		if (app.isLogin) {
 			obtainMyMoney();
 			obtainPersionInfo();

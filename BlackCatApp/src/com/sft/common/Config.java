@@ -11,8 +11,17 @@ public class Config {
 	// 友盟appkey
 	public static final String UMENG_CHANNELID = "ceshi";
 	//
-	public static final String IP = "http://101.200.204.240:8181/";
-	// public static final String IP = "http://api.yibuxueche.com/";
+//	public static final String IP = "http://101.200.204.240:8181/";
+	 public static final String IP = "http://api.yibuxueche.com/";
+	 
+	 /**学员须知*/
+	public static final String STUDENT_KNOW = IP + "xueyuanxuzhi.html";
+	
+	/**支付宝回掉接口*/
+	public static final String RECALL_URL = Config.IP + "paynotice/alipay";
+	
+	/**当前版本号*/
+	public static final String VERSION =  "http://yibuxueche.com/about.html?ver=";
 
 	// 默认头像下载地址
 	public static final String HEAD_URL = "http://7xnjg0.com1.z0.glb.clouddn.com/";

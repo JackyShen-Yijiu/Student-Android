@@ -38,7 +38,7 @@ public class EnrollSuccessActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		addView(R.layout.apply_commit);
 		initView();
-
+		setTitleText("报名成功");
 		setListener();
 		obtainApplySuccessInfo();
 	}
@@ -85,6 +85,7 @@ public class EnrollSuccessActivity extends BaseActivity {
 		}
 		switch (v.getId()) {
 		case R.id.base_left_btn:
+			setResult(9,getIntent());
 			finish();
 			break;
 		case R.id.base_right_tv:
@@ -110,6 +111,7 @@ public class EnrollSuccessActivity extends BaseActivity {
 		case R.id.button_sus:
 			sendBroadcast(new Intent(MainActivity.class.getName()).putExtra(
 					"isEnrollSuccess", true));
+			setResult(9,getIntent());
 			finish();
 			break;
 		}

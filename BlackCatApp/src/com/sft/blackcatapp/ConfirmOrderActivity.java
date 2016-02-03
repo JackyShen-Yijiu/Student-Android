@@ -19,9 +19,11 @@ import com.sft.alipay.PayResult;
 import com.sft.alipay.PayUtils;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
+import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
 import com.sft.vo.ClassVO;
 import com.sft.vo.PayOrderVO;
+import com.sft.vo.UserVO;
 
 public class ConfirmOrderActivity extends BaseActivity implements
 		OnClickListener {
@@ -29,6 +31,8 @@ public class ConfirmOrderActivity extends BaseActivity implements
 	private TextView tv_coupon_show, tvGoodName, tvGoodPrice, tvYcode;
 
 	private TextView tvShoudPay, tvReallyPay;
+	
+	private TextView tvDiscodeBottom;
 
 	private ClassVO classe;
 
@@ -79,6 +83,9 @@ public class ConfirmOrderActivity extends BaseActivity implements
 		tvYcode = (TextView) findViewById(R.id.tv_discount_show);
 		tvShoudPay = (TextView) findViewById(R.id.textView_money_should);
 		tvReallyPay = (TextView) findViewById(R.id.textView_money_cale);
+		
+		tvDiscodeBottom = (TextView) findViewById(R.id.textView_discode_bottom);
+		
 		if(repay){//重新支付
 			doRepay();
 		}else{
@@ -119,6 +126,8 @@ public class ConfirmOrderActivity extends BaseActivity implements
 		
 		productName = bean.applyclasstypeinfo.name;
 		productDetail = bean.applyclasstypeinfo.name +onSalePrice;
+		
+		tvDiscodeBottom.setText("一步现金可抵扣"+bean.discountmoney+"元");
 		
 		
 		phone = app.userVO.getMobile();
@@ -191,6 +200,13 @@ public class ConfirmOrderActivity extends BaseActivity implements
 			pay.pay(this,mHandler,productName,productDetail,paymoney);
 		}else if(type.equals("notPay")){
 			
+		}else if(type.equals("reLogin")){//重新登录获取信息
+			try {
+				app.userVO = JSONUtil.toJavaBean(UserVO.class, data);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
 		}
 		
 		
@@ -219,6 +235,7 @@ public class ConfirmOrderActivity extends BaseActivity implements
 //				money = "0.01";
 				PayUtils pay = new PayUtils();
 				pay.setTradeNo(orderId);
+//				paymoney = "0.01";
 				pay.pay(this,mHandler,productName,productDetail,paymoney);
 			}else{
 				request(coupCode,couponId,orderId);
@@ -235,6 +252,9 @@ public class ConfirmOrderActivity extends BaseActivity implements
 	
 	private Handler mHandler = new Handler() {
 		public void handleMessage(Message msg) {
+//			ConfirmOrderActivity.this.setResult(9,getIntent());
+//			ConfirmOrderActivity.this.finish();
+			
 			LogUtil.print("msg;::::>>>"+msg.obj);
 			switch (msg.what) {
 			case SDK_PAY_FLAG: {
@@ -251,6 +271,9 @@ public class ConfirmOrderActivity extends BaseActivity implements
 				if (TextUtils.equals(resultStatus, "9000")) {
 					app.userVO.setApplystate(EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue());
 					Toast.makeText(ConfirmOrderActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
+					ConfirmOrderActivity.this.setResult(9,getIntent());
+					ConfirmOrderActivity.this.finish();
+					reLogin();
 				} else {
 					app.userVO.setApplystate(EnrollResult.SUBJECT_NONE.getValue());
 					
@@ -288,15 +311,29 @@ public class ConfirmOrderActivity extends BaseActivity implements
 			tv_coupon_show.setText(coupCode);
 			tvYcode.setText("￥-"+data.getStringExtra("money"));
 			String m = data.getStringExtra("money");
-			tvShoudPay.setText(getPrice(price,m) + "元(" + schoolName + ")");
+			tvShoudPay.setText(price + "元(" + schoolName + ")");
 			
 			//最终付款价格
 			paymoney = getPrice(onSalePrice,m)+"";
 			tvReallyPay.setText(paymoney + "元");
+			tvDiscodeBottom.setText("一步现金可抵扣"+m+"元");
+			
 			
 		}
 		LogUtil.print("class---》》"+data);
 
+	}
+	
+	private void reLogin(){
+		String lastLoginPhone = util.readParam(Config.LAST_LOGIN_ACCOUNT);
+		String password = util.readParam(Config.LAST_LOGIN_PASSWORD);
+		
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("mobile", lastLoginPhone);
+		paramMap.put("usertype", "1");
+		paramMap.put("password", util.MD5(password));
+		HttpSendUtils.httpPostSend("reLogin", this, Config.IP
+				+ "api/v1/userinfo/userlogin", paramMap);
 	}
 	
 	private int getPrice(String a1,String a2){

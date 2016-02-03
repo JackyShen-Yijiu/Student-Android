@@ -2,6 +2,7 @@ package com.sft.fragment;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.LogRecord;
 
 import android.content.Context;
 import android.content.Intent;
@@ -24,6 +25,7 @@ import com.sft.common.Config.EnrollResult;
 import com.sft.common.Config.SubjectStatu;
 import com.sft.dialog.NoLoginDialog;
 import com.sft.util.JSONUtil;
+import com.sft.util.LogUtil;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.UserBaseStateVO;
 
@@ -127,7 +129,7 @@ public class SubjectTwoFragment extends BaseFragment implements OnClickListener 
 					"您已报名，请等待驾校审核");
 			return;
 		}
-
+//		LogUtil.print("subjectid--->"+app.userVO.getSubject().getSubjectid());
 		if (type.equals(checkEnrollState_my)) {
 			Intent intent = new Intent(mContext, MyAppointmentActivity.class);
 			intent.putExtra("subject", "2");

@@ -132,10 +132,10 @@ public class MainActivity extends BaseMainActivity implements
 		obtainSubjectContent();
 		
 		LogUtil.print("app--->"+app+"user::"+app.userVO);
+//		if (app.userVO!=null && app.userVO.getApplystate().equals("0")) {
+//			// 填写课时信息
+//			checkStateDialog();
 		if (app.userVO!=null && app.userVO.getApplystate().equals("0")) {
-			// 填写课时信息
-			checkStateDialog();
-		if (app.userVO.getApplystate().equals("0")) {
 			// 只弹出一次进入验证学车进度的判断弹出框
 			if (!SharedPreferencesUtil.getBoolean(this, ISCLICKCONFIRM, false)) {
 				checkStateDialog();
@@ -150,7 +150,7 @@ public class MainActivity extends BaseMainActivity implements
 		}
 		}
 
-	}
+//	}
 	
 	
 
@@ -177,8 +177,8 @@ public class MainActivity extends BaseMainActivity implements
 		if (app.isLogin) {
 			if (app.userVO.getApplystate().equals("0")) {
 				CheckApplyDialog dialog = new CheckApplyDialog(this);
-				dialog.setTextAndImage("猜对了，你真聪明",
-						"闲着也是闲着，小步与您玩个游戏吧!\n 小步猜您已经在学车了，亲对吗?", "笨死了,答错了",
+				dialog.setTextAndImage("是,我已报名",
+						"您是否已经报名学车", "否，我要学车",
 						R.drawable.ic_question);
 				dialog.setListener(new OnClickListener() {
 

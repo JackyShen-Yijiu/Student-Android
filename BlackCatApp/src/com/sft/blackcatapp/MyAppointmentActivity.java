@@ -52,17 +52,20 @@ public class MyAppointmentActivity extends BaseActivity implements
 	private StudentSubject subject = null;
 	
 	private TextView tvLeft1,tvRight1,tvLeft2,tvRight2;
+	
+	int flag = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		addView(R.layout.activity_my_appointment);
 		initView();
-		int flag = getIntent().getIntExtra("flag", 0);
+		flag = getIntent().getIntExtra("flag", 0);
 		if(flag == 0){//正常情况
 			obtainOppointment();
 			showTitlebarText(BaseActivity.SHOW_RIGHT_TEXT);
 		}else{//微评论列表
+			
 			obtainNotComments();
 			appointmentBtn.setVisibility(View.GONE);
 			//隐藏报考
@@ -127,9 +130,16 @@ public class MyAppointmentActivity extends BaseActivity implements
 				.getValue())) {
 			subject = app.userVO.getSubjectthree();
 		}
+		if(null!= subject ){
+			tvLeft1.setText("已约学时"+subject.getFinishcourse()+"课时");
+			tvLeft2.setText("漏课"+subject.getReservation()+"课时");
+		}else{
+			tvLeft1.setVisibility(View.GONE);
+			tvLeft2.setVisibility(View.GONE);
+			tvRight2.setVisibility(View.GONE);
+			tvRight1.setVisibility(View.GONE);
+		}
 		
-		tvLeft1.setText("已约学时"+subject.getFinishcourse()+"课时");
-		tvLeft2.setText("漏课"+subject.getReservation()+"课时");
 //		tvRight1.setText("实际练车"+subject.getFinishcourse()+"小时");
 //		tvRight2.setText("剩余学时"+subject.getFinishcourse()+"课时");
 
@@ -246,7 +256,10 @@ public class MyAppointmentActivity extends BaseActivity implements
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (data != null) {
-			obtainOppointment();
+			if(flag ==0)
+				obtainOppointment();
+			else
+				obtainNotComments();
 		}
 	}
 
@@ -302,18 +315,29 @@ public class MyAppointmentActivity extends BaseActivity implements
 				}
 			} else if (type.equals(MYPROGRESS)) {
 				if (null != data) {
+					
 					UserVO userVo = JSONUtil.toJavaBean(UserVO.class, data);
 					String subjectId = userVo.getSubject().getSubjectid();
+					LogUtil.print("myProgress----jsonString>"+jsonString);
+					LogUtil.print("myProgress----subjectId>"+subjectId);
 					StudentSubject tempSubject = null;
 					// 获取当前学习的 课，科目2 或者科目3
 					if (subjectId.equals(Config.SubjectStatu.SUBJECT_TWO
 							.getValue())) {
+						LogUtil.print("myProgress----subjectId22222>");
 						tempSubject = userVo.getSubjecttwo();
 					} else if (subjectId
 							.equals(Config.SubjectStatu.SUBJECT_THREE
 									.getValue())) {
+						LogUtil.print("myProgress----subjectId33333>");
 						tempSubject = userVo.getSubjectthree();
 					}
+					
+					LogUtil.print("myProgress----333>"+tempSubject.getFinishcourse()+"last:"+tempSubject.getReservation());
+					//
+//					tempSubject.getTotalcourse() - tempSubject.getFinishcourse();
+					tvLeft1.setText("已约学时"+tempSubject.getFinishcourse()+"课时");
+					tvLeft2.setText("漏课"+tempSubject.missingcourse+"课时");
 
 					if (tempSubject.getReservation()
 							+ tempSubject.getFinishcourse() >= tempSubject
@@ -365,7 +389,10 @@ public class MyAppointmentActivity extends BaseActivity implements
 		}
 		boolean isRefresh = intent.getBooleanExtra("isRefresh", false);
 		if (isRefresh) {
-			obtainOppointment();
+			if(flag ==0)
+				obtainOppointment();
+			else
+				obtainNotComments();
 		}
 
 		boolean isApplyExam = intent.getBooleanExtra("isApplyExam", false);
@@ -390,7 +417,10 @@ public class MyAppointmentActivity extends BaseActivity implements
 			if (!curState.equals(state)) {
 				adapter.changeState(position, state);
 				// 状态已经改变了， 请求最新的数据
-				obtainOppointment();
+				if(flag ==0)
+					obtainOppointment();
+				else
+					obtainNotComments();
 			}
 
 			return;
@@ -407,7 +437,10 @@ public class MyAppointmentActivity extends BaseActivity implements
 
 	@Override
 	public void onRefresh() {
-		obtainOppointment();
+		if(flag ==0)
+			obtainOppointment();
+		else
+			obtainNotComments();
 	}
 
 	@Override

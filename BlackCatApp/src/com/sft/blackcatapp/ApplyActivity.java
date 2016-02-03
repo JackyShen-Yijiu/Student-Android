@@ -49,6 +49,7 @@ import com.sft.vo.ClassVO;
 import com.sft.vo.CoachVO;
 import com.sft.vo.PayOrderVO;
 import com.sft.vo.SchoolVO;
+import com.sft.vo.UserVO;
 
 /**
  * 报名
@@ -114,7 +115,7 @@ public class ApplyActivity extends BaseActivity implements
 	private String price;
 	private String classType;
 	private String schoolId;
-	private SchoolVO schoolName;
+//	private SchoolVO school;
 
 	private ClassVO classe;
 	// private String classID;
@@ -146,6 +147,7 @@ public class ApplyActivity extends BaseActivity implements
 	private String enSchoolId;
 	private String enclassTypeId;
 	private String encarmodel;
+	String schoolName = "";
 
 	private void initApplyData() {
 
@@ -173,33 +175,40 @@ public class ApplyActivity extends BaseActivity implements
 		// tvOnSale.setText(classe.getOnsaleprice() + "元");
 		// classID = classe.get_id();
 		// }
-
+		
 		switch (from) {
 		case 0:// 驾校详情
 			classe = (ClassVO) getIntent().getSerializableExtra("class");
 			school = (SchoolVO) getIntent().getSerializableExtra("school");
 			enSchoolId = classe.getSchoolinfo().getSchoolid();
 
+			
+			schoolName = classe.getSchoolinfo().getName();
 			LogUtil.print("school--id:" + enSchoolId + "id::" + school.getId());
 			enCoachId = "";// 智能分配
 			enclassTypeId = classe.getCalssid();
 			encarmodel = classe.getCarmodel().toString();
+			LogUtil.print("classTypeId---000>"+enclassTypeId);
 			// coachId 智能分配
 			break;
 		case 1:// 教练详情
 			coach = (CoachVO) getIntent().getSerializableExtra("coach");
 			classe = (ClassVO) getIntent().getSerializableExtra("class");
 
-			enSchoolId = classe.getSchoolinfo().getSchoolid();
+			enSchoolId = coach.getDriveschoolinfo().getId();
+			
+			schoolName = coach.getDriveschoolinfo().getName();
 			enCoachId = coach.getCoachid();// 智能分配
-			enclassTypeId = classe.getCalssid();
+			
+			enclassTypeId = classe.get_id();
+			LogUtil.print("classTypeId--->"+enclassTypeId);
 			encarmodel = classe.getCarmodel().toString();
 			break;
 		case 2:// 活动详情
 			break;
 		}
-		LogUtil.print("class--name::>>>" + classe.getSchoolinfo().getName());
-		initDefaultData(classe.getSchoolinfo().getName(), coach, classe);
+//		LogUtil.print("class--name::>>>" + classe.getSchoolinfo().getSchoolid());
+		initDefaultData(schoolName, coach, classe);
 
 		// // 从查找驾校处报名
 		// if (isFromMenu) {
@@ -502,15 +511,25 @@ public class ApplyActivity extends BaseActivity implements
 		// }
 		// break;
 		case R.id.enroll_commit_btn:
-
-			// 验证Y码
-			if (null == etYCodeCard.getText().toString()
-					|| TextUtils.isEmpty(etYCodeCard.getText().toString()
-							.trim())) {
-				enroll(null, enCoachId, enSchoolId, enclassTypeId, encarmodel);
-			} else {
-				obtainYCode();// 正式
+			String checkResult = checkEnrollInfo();
+			LogUtil.print("checkResult---->"+checkResult);
+			if(null != checkResult){
+				ZProgressHUD.getInstance(this).show();
+				ZProgressHUD.getInstance(this)
+						.dismissWithFailure(checkResult);
+//				Toast();
+			}else{
+				// 验证Y码
+				if (null == etYCodeCard.getText().toString()
+						|| TextUtils.isEmpty(etYCodeCard.getText().toString()
+								.trim())) {
+					
+					enroll(null, enCoachId, enSchoolId, enclassTypeId, encarmodel);
+				} else {
+					obtainYCode();// 正式
+				}
 			}
+			
 
 			// Intent intent1 = new Intent(this, ConfirmOrderActivity.class);
 			// intent1.putExtra("class", classe);
@@ -519,7 +538,7 @@ public class ApplyActivity extends BaseActivity implements
 			// startActivity(intent1);
 			// finish();
 
-			// String checkResult = checkEnrollInfo();
+			 
 			// // if (checkResult == null) {
 			// // enroll(checkResult);
 			// // } else {
@@ -662,15 +681,15 @@ public class ApplyActivity extends BaseActivity implements
 	}
 
 	private String checkEnrollInfo() {
-		if (carStyle == null) {
-			return "车型为空";
-		}
-		if (school == null) {
-			return "驾校为空";
-		}
-		if (classId == null) {
-			return "班型为空";
-		}
+//		if (carStyle == null) {
+//			return "车型为空";
+//		}
+//		if (school == null) {
+//			return "驾校为空";
+//		}
+//		if (classId == null) {
+//			return "班型为空";
+//		}
 
 		String name = nameEt.getText().toString();
 		if (TextUtils.isEmpty(name)) {
@@ -734,13 +753,13 @@ public class ApplyActivity extends BaseActivity implements
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+//		Toast("Activity--->"+data);
 		if (data == null) {
 			return;
 		}
 		switch (requestCode) {
 		case 9://报名成功
-			setResult(9);
+			setResult(9,getIntent());
 			finish();
 			break;
 		case R.id.enroll_school_rl:
@@ -865,6 +884,7 @@ public class ApplyActivity extends BaseActivity implements
 									.getText().toString());
 					LogUtil.print("success--->" + jsonString);
 
+					app.isEnrollAgain = true;
 					if (radioOnLine.isChecked()) {// 线上支付
 						jsonObject = new JSONObject(jsonString.toString());
 						JSONObject extra = jsonObject.getJSONObject("extra");
@@ -874,14 +894,17 @@ public class ApplyActivity extends BaseActivity implements
 						Intent intent = new Intent(this,
 								ConfirmOrderActivity.class);
 						intent.putExtra("class", classe);
-						intent.putExtra("schoolName", school.getName());
+						intent.putExtra("schoolName", schoolName);
 						intent.putExtra("phone", contactEt.getText().toString());
 						intent.putExtra("bean", pay);
-						startActivity(intent);
+//						startActivity(intent);
+						startActivityForResult(intent, 9);
 					} else {// 线下支付
 						Intent intent1 = new Intent(this,
 								EnrollSuccessActivity.class);
-						startActivity(intent1);
+//						startActivity(intent1);
+						startActivityForResult(intent1, 9);
+//						reLogin();
 					}
 					//
 
@@ -938,11 +961,30 @@ public class ApplyActivity extends BaseActivity implements
 					enroll(null, enCoachId, enSchoolId, enclassTypeId,
 							encarmodel);
 				}
+			}else if(type.equals("reLogin")){
+				try {
+//					Toast("登录成功");
+					app.userVO = JSONUtil.toJavaBean(UserVO.class, data);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return true;
+	}
+	
+	private void reLogin(){
+		String lastLoginPhone = util.readParam(Config.LAST_LOGIN_ACCOUNT);
+		String password = util.readParam(Config.LAST_LOGIN_PASSWORD);
+		
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("mobile", lastLoginPhone);
+		paramMap.put("usertype", "1");
+		paramMap.put("password", util.MD5(password));
+		HttpSendUtils.httpPostSend("reLogin", this, Config.IP
+				+ "api/v1/userinfo/userlogin", paramMap);
 	}
 
 	// 设置默认驾校

@@ -328,6 +328,7 @@ public class CoachDetailActivity extends BaseActivity implements
 			seniorityTv.setText("教龄:" + coachVO.getSeniority() + "年");
 			placeTv.setText(coachVO.getDriveschoolinfo().getName());
 			schoolTv.setText(coachVO.getTrainfieldlinfo().getFieldname());
+			
 			carTypeTv.setText(coachVO.getCartype());
 			String subjectString = "";
 			for (int i = 0; i < coachVO.getSubject().size(); i++) {
@@ -464,6 +465,7 @@ public class CoachDetailActivity extends BaseActivity implements
 	 */
 	private void toPay(int po) {
 		ClassVO classe = courseFeeAdapter.getItem(po);
+//		LogUtil.print("classTypeId:---->"+classe.getCalssid()+"id:::>>"+classe.get_id());
 		Intent i = new Intent(CoachDetailActivity.this, ApplyActivity.class);
 		i.putExtra("coach", coachVO);
 		i.putExtra("schoolId", schoolId);
@@ -755,6 +757,8 @@ public class CoachDetailActivity extends BaseActivity implements
 
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+		if(!app.isLogin)
+			return;
 		Map<String, String> headerMap = new HashMap<String, String>();
 		headerMap.put("authorization", app.userVO.getToken());
 
