@@ -4,22 +4,26 @@ import java.io.InputStream;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sft.blackcatapp.R;
+import com.umeng.socialize.Config;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.shareboard.SnsPlatform;
+import com.umeng.socialize.utils.Log;
 import com.umeng.socialize.utils.ShareBoardlistener;
 
 @SuppressLint("InflateParams")
@@ -53,12 +57,24 @@ public class BonusDialog extends Activity {
 		qqBtn = (ImageButton) findViewById(R.id.send_invite_qq_btn);
 		messageBtn = (ImageButton) findViewById(R.id.send_invite_message_btn);
 
+		weixinLl = (LinearLayout) findViewById(R.id.send_invite_weixin_ll);
+		messageLl = (LinearLayout) findViewById(R.id.send_invite_message_ll);
+		weiboLl = (LinearLayout) findViewById(R.id.send_invite_weibo_ll);
+		qqLl = (LinearLayout) findViewById(R.id.send_invite_qq_ll);
+
 		weixinBtn.setOnClickListener(new MyOnClickListener());
 		weiboBtn.setOnClickListener(new MyOnClickListener());
 		qqBtn.setOnClickListener(new MyOnClickListener());
 		messageBtn.setOnClickListener(new MyOnClickListener());
-
+		Log.LOG = false;
+		Config.IsToastTip = false;
 		setFinishOnTouchOutside(false);
+		ProgressDialog dialog = new ProgressDialog(this);
+		dialog.setTitle("");
+		dialog.setMessage("加载中...");
+		Config.dialog = dialog;
+
+		showShareButton();
 		// DisplayMetrics d = getResources().getDisplayMetrics();
 		// Window dialogWindow = getWindow();
 		// WindowManager.LayoutParams p = dialogWindow.getAttributes(); //
@@ -71,6 +87,21 @@ public class BonusDialog extends Activity {
 	//
 	// setCanceledOnTouchOutside(true);// 设置点击Dialog外部任意区域关闭Dialog
 	// }
+
+	private void showShareButton() {
+		if (!UMShareAPI.get(this).isInstall(this, SHARE_MEDIA.WEIXIN)) {
+			weixinLl.setVisibility(View.GONE);
+		}
+		if (!UMShareAPI.get(this).isInstall(this, SHARE_MEDIA.WEIXIN_CIRCLE)) {
+			messageLl.setVisibility(View.GONE);
+		}
+		if (!UMShareAPI.get(this).isInstall(this, SHARE_MEDIA.QQ)) {
+			qqLl.setVisibility(View.GONE);
+		}
+		if (!UMShareAPI.get(this).isInstall(this, SHARE_MEDIA.SINA)) {
+			weiboLl.setVisibility(View.GONE);
+		}
+	}
 
 	private class MyOnClickListener implements
 			android.view.View.OnClickListener {
@@ -100,6 +131,7 @@ public class BonusDialog extends Activity {
 			// dismiss();
 			// break;
 			case R.id.send_invite_weixin_btn:
+
 				new ShareAction(BonusDialog.this)
 						.setPlatform(SHARE_MEDIA.WEIXIN)
 						.setCallback(umShareListener)
@@ -157,7 +189,7 @@ public class BonusDialog extends Activity {
 
 		@Override
 		public void onCancel(SHARE_MEDIA platform) {
-			Toast.makeText(BonusDialog.this, " 分享取消了", Toast.LENGTH_SHORT)
+			Toast.makeText(BonusDialog.this, " 分享取消啦", Toast.LENGTH_SHORT)
 					.show();
 		}
 	};
@@ -169,6 +201,10 @@ public class BonusDialog extends Activity {
 					.setCallback(umShareListener).withText("多平台分享").share();
 		}
 	};
+	private LinearLayout weixinLl;
+	private LinearLayout messageLl;
+	private LinearLayout weiboLl;
+	private LinearLayout qqLl;
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -177,4 +213,5 @@ public class BonusDialog extends Activity {
 		UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
 
 	}
+
 }

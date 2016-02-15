@@ -425,6 +425,7 @@
                     android:id="@+id/enroll_contact_et"
                     style="@style/enroll_et_style"
                     android:hint="联系电话"
+                    android:maxLength="11"
                     android:inputType="number" />
             </RelativeLayout>
 

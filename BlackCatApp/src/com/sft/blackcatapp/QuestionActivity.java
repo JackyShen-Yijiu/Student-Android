@@ -26,7 +26,7 @@ public class QuestionActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		addView(R.layout.activity_question);
+		setContentView(R.layout.activity_question);
 		webView = (WebView) findViewById(R.id.question_webview);
 		// setTitleBarVisible(View.GONE);
 		showTitlebarBtn(1);
@@ -79,6 +79,9 @@ public class QuestionActivity extends BaseActivity {
 
 	@Override
 	public void onClick(View v) {
+		if(v.getId() == R.id.base_left_btn11){
+			finish();
+		}
 		if (v.getId() == R.id.base_left_btn)
 			finish();
 	}

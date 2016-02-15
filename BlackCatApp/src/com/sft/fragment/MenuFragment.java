@@ -12,7 +12,6 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -39,13 +38,16 @@ import com.sft.api.ApiHttpClient;
 import com.sft.blackcatapp.ActivitiesActivity;
 import com.sft.blackcatapp.EditPersonInfoActivity;
 import com.sft.blackcatapp.EnrollSchoolActivity1;
+import com.sft.blackcatapp.MallActivity;
 import com.sft.blackcatapp.MessageActivity;
 import com.sft.blackcatapp.MyWalletActivity;
 import com.sft.blackcatapp.NewActivitysActivity;
 import com.sft.blackcatapp.NewApplystateActivity;
 import com.sft.blackcatapp.PersonCenterActivity;
 import com.sft.blackcatapp.R;
+import com.sft.blackcatapp.SchoolBusRouteActivity;
 import com.sft.blackcatapp.TodaysAppointmentActivity;
+import com.sft.blackcatapp.YiBuIntroduceActivity;
 import com.sft.common.BlackCatApplication;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
@@ -83,7 +85,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 
 	private int showType;// 展示类型： 0驾校 1 教练;
 
-	private TextView left_tv_map;
+	// private TextView left_tv_map;
 	private String currCity;
 
 	@Override
@@ -139,6 +141,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 	@Override
 	public void onResume() {
 		super.onResume();
+		LogUtil.print("onResume---->menuFragment");
 		if (app.isLogin) {
 			obtainMyMoney();
 			obtainPersionInfo();
@@ -147,7 +150,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 
 	private void initView(View rootView) {
 
-		left_tv_map = (TextView) rootView.findViewById(R.id.left_tv_map);
+		// left_tv_map = (TextView) rootView.findViewById(R.id.left_tv_map);
 		username = (TextView) rootView
 				.findViewById(R.id.fragment_menu_username);
 		phone = (TextView) rootView.findViewById(R.id.fragment_menu_phone);
@@ -163,6 +166,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 		money = (TextView) rootView.findViewById(R.id.fragment_menu_money);
 		personIcon = (SelectableRoundedImageView) rootView
 				.findViewById(R.id.fragment_menu_headpic_im);
+
 		personIcon.setScaleType(ScaleType.CENTER_CROP);
 		personIcon.setImageResource(R.drawable.default_small_pic);
 		personIcon.setOval(true);
@@ -182,7 +186,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 		rootView.findViewById(R.id.fragment_menu_content_third)
 				.setOnClickListener(this);
 		// 定位地图点击
-		rootView.findViewById(R.id.left_tv_map).setOnClickListener(this);
+		// rootView.findViewById(R.id.left_tv_map).setOnClickListener(this);
 
 		// 底部图片点击
 		// rootView.findViewById(R.id.fragment_menu_home_btn).setOnClickListener(
@@ -201,6 +205,10 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 				.setOnClickListener(this);
 
 		rootView.findViewById(R.id.fragment_menu_complaint_btn)
+				.setOnClickListener(this);
+		rootView.findViewById(R.id.fragment_menu_goddness_btn)
+				.setOnClickListener(this);
+		rootView.findViewById(R.id.fragment_menu_classcar_btn)
 				.setOnClickListener(this);
 		// rootView.findViewById(R.id.fragment_menu_search_coach_btn)
 		// .setOnClickListener(this);
@@ -221,17 +229,23 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 
 			username.setText("未登陆");
 		} else {
-
-			if (app.userVO.getName() != null) {
+			LogUtil.print("name:::=-->"+app.userVO.getName());
+			if (app.userVO.getName() != null && app.userVO.getName().trim().length() > 0) {
 				username.setText(app.userVO.getName());
+			}else{
+				username.setText(app.userVO.getDisplaymobile());
 			}
-			username.setText(app.userVO.getDisplaymobile());
-		}
+			
+//			} else {
+//				username.setText(app.userVO.getDisplaymobile());
+//			}
+		
 		if (TextUtils.isEmpty(app.userVO.getApplyschoolinfo().getName())) {
 
 			drivingSchool.setText("您未选择驾校");
 		} else {
 			drivingSchool.setText(app.userVO.getApplyschoolinfo().getName());
+		}
 		}
 	}
 
@@ -297,9 +311,9 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 				dialog.show();
 			}
 			break;
-		case R.id.left_tv_map:
-			obtainOpenCity();
-			break;
+		// case R.id.left_tv_map:
+		// obtainOpenCity();
+		// break;
 
 		// case R.id.fragment_menu_home_btn:
 		// ((MainActivity) mContext).changeMenu();
@@ -318,17 +332,13 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 			}
 			break;
 		case R.id.fragment_menu_mall_btn:
-			// if (app.isLogin) {
-			// Toast.makeText(getActivity(), "mall---->",
-			// Toast.LENGTH_SHORT).show();
-			// intent = new Intent(getActivity(), PayDemoActivity.class);
-			// startActivity(intent);
-			// } else {
-			// NoLoginDialog dialog = new NoLoginDialog(mContext);
-			// dialog.show();
-			// }
-			ZProgressHUD.getInstance(mContext).show();
-			ZProgressHUD.getInstance(mContext).dismissWithFailure("敬请期待！");
+			// ZProgressHUD.getInstance(mContext).show();
+			// ZProgressHUD.getInstance(mContext).dismissWithFailure("敬请期待！");
+			// 进入积分商城
+			intent = new Intent(mContext, MallActivity.class);
+			intent.putExtra("moneytype",
+					Config.MoneyType.INTEGRAL_RETURN.getValue());
+			startActivity(intent);
 			break;
 		// 活动
 		case R.id.fragment_menu_activity_btn:
@@ -432,18 +442,41 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 				dialog.show();
 			}
 			break;
+		case R.id.fragment_menu_goddness_btn:
+			// 优势
+			intent = new Intent(mContext, YiBuIntroduceActivity.class);
+			intent.putExtra("typeId", R.id.introduce_student_know);
+			mContext.startActivity(intent);
+			break;
+		case R.id.fragment_menu_classcar_btn:
+			// 班车
+
+			if (app != null && app.userVO != null
+					&& app.userVO.getApplyschoolinfo() != null) {
+				intent = new Intent(mContext, SchoolBusRouteActivity.class);
+				intent.putExtra(schoolId, app.userVO.getApplyschoolinfo()
+						.getId());
+				mContext.startActivity(intent);
+			} else {
+				ZProgressHUD.getInstance(mContext).show();
+				ZProgressHUD.getInstance(mContext).dismissWithSuccess(
+						"您还未报名，不能查看班车信息");
+			}
+			break;
 
 		default:
 			break;
 		}
 	}
 
+	public static final String schoolId = "schoolId";
+
 	protected void setRightText() {
-		Drawable cityIcon = getResources().getDrawable(
-				R.drawable.location_left_city);
-		left_tv_map.setCompoundDrawablesWithIntrinsicBounds(cityIcon, null,
-				null, null);
-		left_tv_map.setText(currCity);
+		// Drawable cityIcon = getResources().getDrawable(
+		// R.drawable.location_left_city);
+		// left_tv_map.setCompoundDrawablesWithIntrinsicBounds(cityIcon, null,
+		// null, null);
+		// left_tv_map.setText(currCity);
 	}
 
 	private void obtainOpenCity() {

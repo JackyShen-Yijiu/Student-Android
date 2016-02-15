@@ -46,6 +46,7 @@ import com.sft.adapter.SchoolDetailCourseFeeAdapter.MyClickListener;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
 import com.sft.dialog.EnrollSelectConfilctDialog;
+import com.sft.dialog.NoLoginDialog;
 import com.sft.dialog.EnrollSelectConfilctDialog.OnSelectConfirmListener;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
@@ -199,7 +200,7 @@ public class CoachDetailActivity extends BaseActivity implements
 		studentEvaluation = (TextView) findViewById(R.id.coach_detail_studentevaluation_tv);
 		noCommentTv = (TextView) findViewById(R.id.coach_detail_noevaluation_tv);
 		commentList = (XListView) findViewById(R.id.coach_detail_listview);
-
+		commentList.setFocusable(false);
 		carTypeTv = (TextView) findViewById(R.id.coach_detail_car_style_tv);
 		subjectTv = (TextView) findViewById(R.id.coach_detail_enable_subject_tv);
 		distanceTv = (TextView) findViewById(R.id.coach_detail_distance_tv);
@@ -207,7 +208,7 @@ public class CoachDetailActivity extends BaseActivity implements
 		personLabel = (WordWrapView) findViewById(R.id.coach_detail_personality_labels);
 		personLabel.showColor(true);
 		courseFeeListView = (ListView) findViewById(R.id.coash_detail_course_fee_listview);
-
+		courseFeeListView.setFocusable(false);
 		// 如果是预约时更多教练放入教练详情，此处不显示
 		courseFeeIm = (ImageView) findViewById(R.id.caoch_detail_course_fee_im);
 		courseFeeRl = (RelativeLayout) findViewById(R.id.caoch_detail_course_fee_rl);
@@ -327,6 +328,7 @@ public class CoachDetailActivity extends BaseActivity implements
 			seniorityTv.setText("教龄:" + coachVO.getSeniority() + "年");
 			placeTv.setText(coachVO.getDriveschoolinfo().getName());
 			schoolTv.setText(coachVO.getTrainfieldlinfo().getFieldname());
+			
 			carTypeTv.setText(coachVO.getCartype());
 			String subjectString = "";
 			for (int i = 0; i < coachVO.getSubject().size(); i++) {
@@ -385,6 +387,14 @@ public class CoachDetailActivity extends BaseActivity implements
 			boolean isFromSearchCoach = getIntent().getBooleanExtra(
 					SearchCoachActivity.from_searchCoach_enroll, false);
 			Intent intent = null;
+			//未登录
+			if(!app.isLogin){
+				NoLoginDialog dialog = new NoLoginDialog(CoachDetailActivity.this);
+				dialog.show();
+				return ;
+			}
+			
+			
 			if (app.userVO.getApplystate().equals(
 					EnrollResult.SUBJECT_NONE.getValue())) {
 
@@ -455,12 +465,15 @@ public class CoachDetailActivity extends BaseActivity implements
 	 */
 	private void toPay(int po) {
 		ClassVO classe = courseFeeAdapter.getItem(po);
+//		LogUtil.print("classTypeId:---->"+classe.getCalssid()+"id:::>>"+classe.get_id());
 		Intent i = new Intent(CoachDetailActivity.this, ApplyActivity.class);
 		i.putExtra("coach", coachVO);
 		i.putExtra("schoolId", schoolId);
 		i.putExtra("class", classe);
+		i.putExtra("from", 1);
 		i.putExtra(SearchCoachActivity.from_searchCoach_enroll, true);
-		startActivity(i);
+//		startActivity(i);
+		startActivityForResult(i, 9);
 		// coachVO.getDriveschoolinfo().
 		// i.putExtra("school", "");
 		// qw
@@ -744,6 +757,8 @@ public class CoachDetailActivity extends BaseActivity implements
 
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+		if(!app.isLogin)
+			return;
 		Map<String, String> headerMap = new HashMap<String, String>();
 		headerMap.put("authorization", app.userVO.getToken());
 

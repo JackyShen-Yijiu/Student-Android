@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
-import com.sft.blackcatapp.R;
 
 /**
  * 报名成功提示界面
@@ -22,7 +21,12 @@ public class TestingCommit extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		addView(R.layout.testing_commit);
 		initView();
+		initData();
 		setListener();
+	}
+
+	private void initData() {
+
 	}
 
 	@Override

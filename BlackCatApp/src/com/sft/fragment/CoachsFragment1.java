@@ -95,6 +95,15 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener,
 		return frag;
 	}
 
+	public void order(String cityName) {
+		index = 1;
+		cityname = cityName;
+		coachname = "";
+		ordertype = "0";
+		// setSelectState(2);
+		obtainCaoch();
+	}
+
 	public void order(int flag) {
 		switch (flag) {
 		case R.id.enroll_school_distance_select_tv:// 距离
@@ -134,6 +143,19 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener,
 			isCarSelected = true;
 			index = 1;
 			licensetype = "2";
+			coachname = "";
+			ordertype = "";
+			obtainCaoch();
+			if (popupWindow != null) {
+				popupWindow.dismiss();
+			}
+			break;
+		case R.id.pop_window_three:
+			
+			isCarSelected = true;
+			index = 1;
+			licensetype = "3";
+			// setSelectState(1);
 			coachname = "";
 			ordertype = "";
 			obtainCaoch();

@@ -38,7 +38,7 @@ public class EnrollSuccessActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		addView(R.layout.apply_commit);
 		initView();
-
+		setTitleText("报名成功");
 		setListener();
 		obtainApplySuccessInfo();
 	}
@@ -61,10 +61,11 @@ public class EnrollSuccessActivity extends BaseActivity {
 	}
 
 	private void initView() {
+		setTitleText(R.string.enroll_success_title);
 		app.isEnrollAgain = false;
 		showTitlebarBtn(1);
-		showTitlebarText(BaseActivity.SHOW_RIGHT_TEXT);
-		setText(0, R.string.enroll_again);
+		// showTitlebarText(BaseActivity.SHOW_RIGHT_TEXT);
+		// setText(0, R.string.enroll_again);
 		setTitleText("");
 		button_sus = (Button) findViewById(R.id.button_sus);
 		qrcode = (ImageView) findViewById(R.id.apply_commit_qrcode);
@@ -84,6 +85,7 @@ public class EnrollSuccessActivity extends BaseActivity {
 		}
 		switch (v.getId()) {
 		case R.id.base_left_btn:
+			setResult(9,getIntent());
 			finish();
 			break;
 		case R.id.base_right_tv:
@@ -109,6 +111,7 @@ public class EnrollSuccessActivity extends BaseActivity {
 		case R.id.button_sus:
 			sendBroadcast(new Intent(MainActivity.class.getName()).putExtra(
 					"isEnrollSuccess", true));
+			setResult(9,getIntent());
 			finish();
 			break;
 		}
@@ -161,7 +164,7 @@ public class EnrollSuccessActivity extends BaseActivity {
 						tv_qrcode.setText(successVO.userid);
 						// app.userVO.setApplystate(EnrollResult.SUBJECT_ENROLLING
 						// .getValue());
-						 checkUserEnrollState();
+						checkUserEnrollState();
 						if (successVO.applynotes != null) {
 							carryData.setText(successVO.applynotes);
 						}

@@ -48,6 +48,7 @@ import com.sft.adapter.SchoolDetailCourseFeeAdapter;
 import com.sft.adapter.SchoolDetailCourseFeeAdapter.MyClickListener;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
+import com.sft.dialog.NoLoginDialog;
 import com.sft.dialog.EnrollSelectConfilctDialog.OnSelectConfirmListener;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
@@ -232,6 +233,9 @@ public class SchoolDetailActivity extends BaseActivity implements
 
 		school = (SchoolVO) getIntent().getSerializableExtra("school");
 
+		LogUtil.print("schoolId--id--00>"+school.getId());
+		
+		
 		// if (app.userVO == null) {
 		// enrollBtn.setVisibility(View.GONE);
 		// addDeleteSchoolCk.setEnabled(false);
@@ -732,6 +736,9 @@ public class SchoolDetailActivity extends BaseActivity implements
 
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+		
+		if(!app.isLogin)
+			return;
 		Map<String, String> headerMap = new HashMap<String, String>();
 		headerMap.put("authorization", app.userVO.getToken());
 
@@ -831,6 +838,11 @@ public class SchoolDetailActivity extends BaseActivity implements
 			boolean isFromSearchCoach = getIntent().getBooleanExtra(
 					SearchCoachActivity.from_searchCoach_enroll, false);
 			Intent intent = null;
+			if(!app.isLogin){
+				NoLoginDialog dialog = new NoLoginDialog(SchoolDetailActivity.this);
+				dialog.show();
+				return ;
+			}
 			if (app.userVO.getApplystate().equals(
 					EnrollResult.SUBJECT_NONE.getValue())) {
 
@@ -882,10 +894,13 @@ public class SchoolDetailActivity extends BaseActivity implements
 		ClassVO classe = courseFeeAdapter.getItem(po);
 		Intent i = new Intent(SchoolDetailActivity.this, ApplyActivity.class);
 		i.putExtra("school", school);
-		i.putExtra("schoolId", school.getId());
+		i.putExtra("schoolId", school.getSchoolid());
 		i.putExtra("class", classe);
+		i.putExtra("from", 0);
+		LogUtil.print("schoolId->"+school.getSchoolid()+"id::"+classe.getSchoolinfo().getId());
 		i.putExtra(SearchCoachActivity.from_searchCoach_enroll, true);
-		startActivity(i);
+//		startActivity(i);
+		startActivityForResult(i, 9);
 
 	}
 

@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
+import com.sft.common.Config;
 import com.sft.util.LogUtil;
 
 public class PayUtils {
@@ -32,17 +33,17 @@ public class PayUtils {
 	// 支付宝公钥
 	public static final String RSA_PUBLIC = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDDI6d306Q8fIfCOaTXyiUeJHkrIvYISRcc73s3vF1ZT7XN8RNPwJxo8pWaJMmvyTn9N4HQ632qJBVHf8sxHi/fEsraprwCtzvzQETrNRwVxLO5jVmRGi60j8Ue1efIlzPXV9je9mkjzOmdssymZkh2QhUrCmZYI/FCEa3/cNMW0QIDAQAB";
 
-	private static final String RECALL_URL = "http://api.yibuxueche.com/paynotice/alipay";// "http://notify.msp.hk/notify.htm";
+//	private static final String RECALL_URL = Config.IP + "paynotice/alipay";// "http://notify.msp.hk/notify.htm";
 
 	private static final int SDK_PAY_FLAG = 1;
 	private static final int SDK_CHECK_FLAG = 2;
 	
 	
 
-	public void pay(View v,final Activity c,final Handler mHandler,String payName,String payDetail,String money) {
+	public void pay(final Activity c,final Handler mHandler,String payName,String payDetail,String money) {
 		if (TextUtils.isEmpty(PARTNER) || TextUtils.isEmpty(RSA_PRIVATE)
 				|| TextUtils.isEmpty(SELLER)) {
-			new AlertDialog.Builder(v.getContext())
+			new AlertDialog.Builder(c)
 					.setTitle("警告")
 					.setMessage("需要配置PARTNER | RSA_PRIVATE| SELLER")
 					.setPositiveButton("确定",
@@ -182,7 +183,7 @@ public class PayUtils {
 		orderInfo += "&total_fee=" + "\"" + price + "\"";
 
 		// 服务器异步通知页面路径
-		orderInfo += "&notify_url=" + "\"" + "http://notify.msp.hk/notify.htm" + "\"";
+		orderInfo += "&notify_url=" + "\"" + Config.RECALL_URL + "\"";
 
 		// 服务接口名称， 固定值
 		orderInfo += "&service=\"mobile.securitypay.pay\"";

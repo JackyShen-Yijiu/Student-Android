@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.sft.blackcatapp"
-    android:versionCode="3"
-    android:versionName="1.1" >
+    android:versionCode="4"
+    android:versionName="1.2" >
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -368,6 +368,9 @@
               <activity
             android:name="com.sft.blackcatapp.NewActivitysActivity"
             android:screenOrientation="portrait" />
+              <activity
+            android:name="com.sft.blackcatapp.EnrollSubjectActivity"
+            android:screenOrientation="portrait" />
            <!-- 确认订单 -->
            <activity
                android:name=".ConfirmOrderActivity"
@@ -555,7 +558,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="tencent100424468" />
+                <data android:scheme="tencent1105134894" />
             </intent-filter>
         </activity>
         <!-- QQ、Qzone -->

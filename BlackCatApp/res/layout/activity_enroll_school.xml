@@ -17,15 +17,16 @@
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:layout_gravity="center"
             android:layout_weight="1" >
 
             <TextView
                 android:id="@+id/enroll_school_class_select_tv"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:text="车型选择"
+                android:gravity="center"
                 android:clickable="true"
                 android:textColor="#333"
                 android:onClick="onClick"

@@ -62,6 +62,8 @@ public class CheckApplyDialog extends Dialog implements
 		cancelBtn.setText(right);
 	}
 	
+	
+	
 	/**
 	 * 确认事件
 	 * @param listener

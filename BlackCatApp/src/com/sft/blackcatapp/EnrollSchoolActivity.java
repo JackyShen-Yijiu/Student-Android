@@ -19,10 +19,10 @@ import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AbsListView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -30,7 +30,6 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.TextView.OnEditorActionListener;
 import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.infinitescrollviewpager.BitMapURLExcepteionListner;
@@ -87,8 +86,8 @@ public class EnrollSchoolActivity extends BaseActivity implements
 	private List<SchoolVO> schoolList = new ArrayList<SchoolVO>();
 	//
 	private SchoolListAdapter adapter;
-	
-//	private 
+
+	// private
 	// 当前选择的学校
 	private SchoolVO school;
 
@@ -133,9 +132,9 @@ public class EnrollSchoolActivity extends BaseActivity implements
 
 	private List<OpenCityVO> openCityList;
 	private PopupWindow openCityPopupWindow;
-	
+
 	private boolean scrollFlag;
-	/**上次所在的位置*/
+	/** 上次所在的位置 */
 	private int lastId = 0;
 
 	@Override
@@ -240,12 +239,12 @@ public class EnrollSchoolActivity extends BaseActivity implements
 		public void onSuccess(int paramInt, Header[] paramArrayOfHeader,
 				byte[] paramArrayOfByte) {
 			String value = parseJson(paramArrayOfByte);
-			
+
 			if (!TextUtils.isEmpty(msg)) {
 				// 加载失败，弹出失败对话框
 				toast.setText(msg);
 			} else {
-				
+
 				processSuccess(value);
 
 			}
@@ -295,7 +294,7 @@ public class EnrollSchoolActivity extends BaseActivity implements
 
 	// 搜索成功
 	protected void processSuccess(String value) {
-		LogUtil.print("aaaaaaaaa111"+getCurrentFocus() );
+		LogUtil.print("aaaaaaaaa111" + getCurrentFocus());
 		searchSchool.setVisibility(View.GONE);
 		if (value != null) {
 			LogUtil.print(value);
@@ -314,7 +313,7 @@ public class EnrollSchoolActivity extends BaseActivity implements
 						}
 					}
 				}
-				
+
 				if (isSearchSchool) {
 					setSearchData(schoolList, selectIndex);
 				} else {
@@ -377,58 +376,62 @@ public class EnrollSchoolActivity extends BaseActivity implements
 
 		schoolListView = (ListView) findViewById(R.id.enroll_select_school_listview);
 		swipeLayout.setChildScroll(new MOnScrollListener() {
- 
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-                // TODO Auto-generated method stub
-            	LogUtil.print("scrolling--->"+schoolListView.getFirstVisiblePosition());
-                switch (scrollState) {
-                // 当不滚动时
-                case OnScrollListener.SCROLL_STATE_IDLE:// 是当屏幕停止滚动时
-                    scrollFlag = false;
-                    // 判断滚动到底部
-                    if (schoolListView.getLastVisiblePosition() == (schoolListView
-                            .getCount() - 1)) {
-//                        toTopBtn.setVisibility(View.VISIBLE);
-                    }
-                    // 判断滚动到顶部
-                    if (schoolListView.getFirstVisiblePosition() == 0) {
-//                        toTopBtn.setVisibility(View.GONE);
-                    }
- 
-                    break;
-                case OnScrollListener.SCROLL_STATE_TOUCH_SCROLL:// 滚动时
-                    scrollFlag = true;
-                    
-                    break;
-                case OnScrollListener.SCROLL_STATE_FLING:// 是当用户由于之前划动屏幕并抬起手指，屏幕产生惯性滑动时
-                    scrollFlag = false;
-                    break;
-                }
-            }
- 
-            /**
-             * firstVisibleItem：当前能看见的第一个列表项ID（从0开始）
-             * visibleItemCount：当前能看见的列表项个数（小半个也算） totalItemCount：列表项共数
-             */
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem,
-                    int visibleItemCount, int totalItemCount) {
-            	
-            	lastId = firstVisibleItem;
-            }
 
-			@SuppressLint("NewApi") @Override
+			@Override
+			public void onScrollStateChanged(AbsListView view, int scrollState) {
+				// TODO Auto-generated method stub
+				LogUtil.print("scrolling--->"
+						+ schoolListView.getFirstVisiblePosition());
+				switch (scrollState) {
+				// 当不滚动时
+				case OnScrollListener.SCROLL_STATE_IDLE:// 是当屏幕停止滚动时
+					scrollFlag = false;
+					// 判断滚动到底部
+					if (schoolListView.getLastVisiblePosition() == (schoolListView
+							.getCount() - 1)) {
+						// toTopBtn.setVisibility(View.VISIBLE);
+					}
+					// 判断滚动到顶部
+					if (schoolListView.getFirstVisiblePosition() == 0) {
+						// toTopBtn.setVisibility(View.GONE);
+					}
+
+					break;
+				case OnScrollListener.SCROLL_STATE_TOUCH_SCROLL:// 滚动时
+					scrollFlag = true;
+
+					break;
+				case OnScrollListener.SCROLL_STATE_FLING:// 是当用户由于之前划动屏幕并抬起手指，屏幕产生惯性滑动时
+					scrollFlag = false;
+					break;
+				}
+			}
+
+			/**
+			 * firstVisibleItem：当前能看见的第一个列表项ID（从0开始）
+			 * visibleItemCount：当前能看见的列表项个数（小半个也算） totalItemCount：列表项共数
+			 */
+			@Override
+			public void onScroll(AbsListView view, int firstVisibleItem,
+					int visibleItemCount, int totalItemCount) {
+
+				lastId = firstVisibleItem;
+			}
+
+			@SuppressLint("NewApi")
+			@Override
 			public void downPull() {
-				if(lastId == 0){
-					LogUtil.print("scrolling---2222>"+schoolListView.getPivotX());
+				if (lastId == 0) {
+					LogUtil.print("scrolling---2222>"
+							+ schoolListView.getPivotX());
 					searchSchool.setVisibility(View.VISIBLE);
 					schoolListView.scrollListBy(0);
-					LogUtil.print("scrolling---4444>"+schoolListView.getPivotX());
+					LogUtil.print("scrolling---4444>"
+							+ schoolListView.getPivotX());
 				}
-				
+
 			}
-        });
+		});
 		// schoolListView.setPullRefreshEnable(false);
 		// schoolListView.setPullLoadEnable(false);
 
@@ -452,11 +455,11 @@ public class EnrollSchoolActivity extends BaseActivity implements
 				null);
 
 		schoolListView.addHeaderView(headerView);
-		
-		//查找搜索框
-		llSearch  = (LinearLayout)headerView.findViewById(R.id.enroll_school_select_ll);
-		
-		
+
+		// 查找搜索框
+		llSearch = (LinearLayout) headerView
+				.findViewById(R.id.enroll_school_select_ll);
+
 		adLayout = (RelativeLayout) headerView
 				.findViewById(R.id.enroll_school_top_headpic_im);
 		topViewPager = (InfiniteViewPager) headerView
@@ -468,24 +471,14 @@ public class EnrollSchoolActivity extends BaseActivity implements
 		searchSchool = (EditText) headerView
 				.findViewById(R.id.enroll_school_search_et);
 
-		
-		
-		classSelect = (TextView) 
-				findViewById(R.id.enroll_school_class_select_tv);
-		distanceSelect = (TextView) 
-				findViewById(R.id.enroll_school_distance_select_tv);
-		commentSelect = (TextView) 
-				findViewById(R.id.enroll_school_comment_select_tv);
-		priceSelect = (TextView) 
-				findViewById(R.id.enroll_school_price_select_tv);
-		arrow1 = (ImageView) 
-				findViewById(R.id.enroll_school_arrow1_iv);
-		arrow2 = (ImageView) 
-				findViewById(R.id.enroll_school_arrow2_iv);
-		arrow3 = (ImageView) 
-				findViewById(R.id.enroll_school_arrow3_iv);
-		arrow4 = (ImageView) 
-				findViewById(R.id.enroll_school_arrow4_iv);
+		classSelect = (TextView) findViewById(R.id.enroll_school_class_select_tv);
+		distanceSelect = (TextView) findViewById(R.id.enroll_school_distance_select_tv);
+		commentSelect = (TextView) findViewById(R.id.enroll_school_comment_select_tv);
+		priceSelect = (TextView) findViewById(R.id.enroll_school_price_select_tv);
+		arrow1 = (ImageView) findViewById(R.id.enroll_school_arrow1_iv);
+		arrow2 = (ImageView) findViewById(R.id.enroll_school_arrow2_iv);
+		arrow3 = (ImageView) findViewById(R.id.enroll_school_arrow3_iv);
+		arrow4 = (ImageView) findViewById(R.id.enroll_school_arrow4_iv);
 
 		searchSchool.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
 		RelativeLayout.LayoutParams headParams = (RelativeLayout.LayoutParams) adLayout
@@ -570,16 +563,15 @@ public class EnrollSchoolActivity extends BaseActivity implements
 	}
 
 	private void setData(List<SchoolVO> school, int selectIndex) {
-		
+
 		if (index == 1) {
 			schoolList.clear();
-			if (!isRefreshing) {				
+			if (!isRefreshing) {
 				schoolList.addAll(school);
 				adapter = new SchoolListAdapter(this, schoolList);
 				schoolListView.setAdapter(adapter);
-			}
-			else{//???  正在刷新
-//				schoolList.addAll(school);
+			} else {// ??? 正在刷新
+			// schoolList.addAll(school);
 				schoolList = school;
 				adapter = new SchoolListAdapter(this, schoolList);
 				schoolListView.setAdapter(adapter);
@@ -591,7 +583,6 @@ public class EnrollSchoolActivity extends BaseActivity implements
 
 				schoolList.addAll(school);
 
-				
 				adapter.notifyDataSetChanged();
 				if (selectIndex >= 0) {
 					adapter.setSelected(0);
