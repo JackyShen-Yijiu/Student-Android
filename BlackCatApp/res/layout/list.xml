@@ -3,6 +3,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    
+    <com.sft.view.RefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/enroll_school_swipe_container"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/enroll_school_select_ll"
+        android:layout_height="match_parent" >
+
+        <ListView
+            android:id="@+id/enroll_select_school_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ffffff"
+            android:cacheColorHint="#00000000"
+            android:divider="@android:color/transparent"
+            android:fadingEdge="none"
+            android:listSelector="@android:color/transparent"
+            android:overScrollMode="always"
+            android:scrollbars="none" />
+    </com.sft.view.RefreshLayout>
 
 </LinearLayout>

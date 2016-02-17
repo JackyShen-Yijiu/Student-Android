@@ -64,6 +64,7 @@
             android:text="您输入的信息有误"
 			android:drawablePadding="5dp"
             android:gravity="center"
+            android:visibility="invisible"
             android:textColor="@color/new_app_main_color"
             android:drawableRight="@drawable/login_hint"
             android:textSize="14sp" />
@@ -81,7 +82,7 @@
             <ImageView
                 android:id="@+id/login_deivder2_im"
                 android:layout_width="match_parent"
-                android:layout_height="0.5dp"
+                android:layout_height="0.5dp"  
                 android:layout_alignLeft="@+id/TextView_phone"
                 android:layout_below="@+id/login_passwd_et"
                 android:background="#88e6e6e6"

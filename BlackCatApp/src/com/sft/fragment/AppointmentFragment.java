@@ -10,10 +10,12 @@ import com.sft.blackcatapp.R;
 
 public class AppointmentFragment extends BaseHomeFragment implements OnClickListener {
 
+	public AppointmentFragment(){}
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_apply, container,
+		View rootView = inflater.inflate(R.layout.fragment_apply, null,//container
 				false);
 		initViews(rootView);
 		return rootView;

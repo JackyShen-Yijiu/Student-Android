@@ -26,7 +26,6 @@ import com.sft.common.Config;
 import com.sft.listener.EMLoginListener;
 import com.sft.util.DownLoadService;
 import com.sft.util.JSONUtil;
-import com.sft.util.LogUtil;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.UserVO;
 import com.sft.vo.VersionVO;
@@ -52,6 +51,7 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 	private TextView forgetPassTv;
 	// 注册账号
 	private TextView registerAccountTv;
+	private TextView TextView_hint;
 
 	// 用户登录
 	private final static String login = "login";
@@ -112,6 +112,7 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 		passwordEt = (EditText) findViewById(R.id.login_passwd_et);
 		forgetPassTv = (TextView) findViewById(R.id.login_forget_tv);
 		registerAccountTv = (TextView) findViewById(R.id.login_register_tv);
+		TextView_hint = (TextView) findViewById(R.id.TextView_hint);
 
 		// phontEt.setHint(setHint(R.string.phonenumber));
 		// passwordEt.setHint(setHint(R.string.password));
@@ -137,7 +138,6 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 			login();
 			break;
 		case R.id.login_lookaround_btn:
-			LogUtil.print("=0-=-=-=");
 			finish();
 			intent = new Intent(this, MainActivity.class);
 			break;
@@ -170,19 +170,20 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 					+ "api/v1/userinfo/userlogin", paramMap);
 		} else {
 			loginBtn.setEnabled(true);
-			ZProgressHUD.getInstance(this).show();
-			ZProgressHUD.getInstance(this).dismissWithFailure(checkResult);
+			// ZProgressHUD.getInstance(this).show();
+			// ZProgressHUD.getInstance(this).dismissWithFailure(checkResult);
+			checkLoginInfo();
 		}
 	}
 
 	private String checkLoginInfo() {
 		String mobile = phontEt.getText().toString();
 		if (TextUtils.isEmpty(mobile)) {
-			return "用户名为空";
+			TextView_hint.setVisibility(View.VISIBLE);
 		}
 		String password = passwordEt.getText().toString();
 		if (TextUtils.isEmpty(password)) {
-			return "密码为空";
+			TextView_hint.setVisibility(View.VISIBLE);
 		}
 		return null;
 	}

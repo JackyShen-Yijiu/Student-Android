@@ -14,6 +14,7 @@ import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.sft.blackcatapp.MainActivity;
@@ -21,10 +22,10 @@ import com.sft.blackcatapp.R;
 import com.sft.blackcatapp.home.i.IIndicateMainTabNotification;
 import com.sft.blackcatapp.home.i.INewIntent;
 import com.sft.blackcatapp.home.i.IOnKeyDown;
-import com.sft.fragment.AppayFragment;
 import com.sft.fragment.AppointmentFragment;
 import com.sft.fragment.CommunityFragment;
 import com.sft.fragment.MallFragment;
+import com.sft.fragment.SchoolsFragment;
 import com.sft.fragment.StudyFragment;
 import com.sft.util.LogUtil;
 
@@ -74,13 +75,24 @@ public class MainScreenContainer extends LinearLayout implements
 		initView();
 	}
 
+	private FrameLayout temp;
+
 	private void initView() {
 		inflate(getContext(), R.layout.layout_main_screen, this);
+		setOrientation(LinearLayout.VERTICAL);
 		mContentId = R.id.fl_content;
+
+		temp = (FrameLayout) findViewById(mContentId);
+		LayoutParams params = (LayoutParams) temp.getLayoutParams();
+		params.weight = 1;
+		temp.setLayoutParams(params);
+
 		mTabContainer = findViewById(R.id.ll_tab_container);
 		mTabs = new ArrayList<TabInfo>();
-		mTabs.add(getTabInfo(R.id.tab_apply, new AppayFragment(),
-				MainActivity.TAB_APPLY, R.string.tab_indicator_title_apply,
+
+		mTabs.add(getTabInfo(R.id.tab_apply, new SchoolsFragment(),
+
+		MainActivity.TAB_APPLY, R.string.tab_indicator_title_apply,
 				R.drawable.sl_tab_icon_apply));
 		mTabs.add(getTabInfo(R.id.tab_study, new StudyFragment(),
 				MainActivity.TAB_STUDY, R.string.tab_indicator_title_study,
@@ -133,11 +145,18 @@ public class MainScreenContainer extends LinearLayout implements
 			FragmentTransaction ft = mFragmentManager.beginTransaction();
 			if (mAddedTabs.contains(mCurrentTab)) {
 				ft.show(tab.fragment);
+				LogUtil.print("show--one---show>" + tab.type);
 			} else {
 				ft.add(mContentId, tab.fragment, tab.type + "");
 				mAddedTabs.add(mCurrentTab);
+				LogUtil.print("show--one---add>" + tab.type);
 			}
+			// ft.replace(mContentId, tab.fragment, tab.type +"");
+
+			// ft.commit();
 			ft.commitAllowingStateLoss();
+			// if(tab.fragment!=null )
+			// LogUtil.print(temp.getHeight()+"Wdith::"+temp.getWidth()+"Type::"+tab.type+"Count::"+temp.getChildCount()+"Add::>>"+tab.fragment.isAdded()+"show--one---add>"+this.getHeight()+this.getWidth());
 		}
 		refreshTab(tab);
 	}
