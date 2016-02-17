@@ -282,5 +282,8 @@
     <string name="tab_indicator_title_appointment">预约</string>
     <string name="tab_indicator_title_mall">商城</string>
     <string name="tab_indicator_title_community">社区</string>
+    <string name="change_coach">换教练</string>
+    <string name="driving_school">驾校</string>
+    <string name="locationing">定位中</string>
 
 </resources>

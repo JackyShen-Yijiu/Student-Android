@@ -21,8 +21,14 @@ import com.sft.blackcatapp.R;
 import com.sft.blackcatapp.home.i.IIndicateMainTabNotification;
 import com.sft.blackcatapp.home.i.INewIntent;
 import com.sft.blackcatapp.home.i.IOnKeyDown;
-import com.sft.fragment.AppayFragment;
+import com.sft.fragment.AppointmentFragment;
+import com.sft.fragment.CommunityFragment;
+import com.sft.fragment.MallFragment;
 import com.sft.fragment.SchoolsFragment;
+import com.sft.fragment.StudyFragment;
+
+
+
 
 /**
  * 底部Tab
@@ -75,18 +81,24 @@ public class MainScreenContainer extends RelativeLayout implements
 		mContentId = R.id.fl_content;
 		mTabContainer = findViewById(R.id.ll_tab_container);
 		mTabs = new ArrayList<TabInfo>();
-		mTabs.add(getTabInfo(R.id.tab_grab_order, new SchoolsFragment(),
+
+		mTabs.add(getTabInfo(R.id.tab_apply, new SchoolsFragment(),
+
 				MainActivity.TAB_APPLY, R.string.tab_indicator_title_apply,
 				R.drawable.sl_tab_icon_apply));
-		mTabs.add(getTabInfo(R.id.tab_schedule, new AppayFragment(),
+		mTabs.add(getTabInfo(R.id.tab_study, new StudyFragment(),
 				MainActivity.TAB_STUDY, R.string.tab_indicator_title_study,
 				R.drawable.sl_tab_icon_study));
-		mTabs.add(getTabInfo(R.id.tab_my_orders, new AppayFragment(),
+		mTabs.add(getTabInfo(R.id.tab_appointment, new AppointmentFragment(),
 				MainActivity.TAB_APPOINTMENT,
 				R.string.tab_indicator_title_appointment,
 				R.drawable.sl_tab_icon_appointment));
-		mTabs.add(getTabInfo(R.id.tab_profile, new AppayFragment(),
+		mTabs.add(getTabInfo(R.id.tab_mall, new MallFragment(),
 				MainActivity.TAB_MALL, R.string.tab_indicator_title_mall,
+				R.drawable.sl_tab_icon_mall));
+		mTabs.add(getTabInfo(R.id.tab_community, new CommunityFragment(),
+				MainActivity.TAB_COMMUNITY,
+				R.string.tab_indicator_title_community,
 				R.drawable.sl_tab_icon_community));
 	}
 

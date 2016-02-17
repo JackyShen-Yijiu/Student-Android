@@ -67,8 +67,9 @@
     
     <!-- 以下为2.0版本 -->
     <!-- 首页 -->
+    <color name="app_bg">#fafafa</color>
     <color name="maintab_text_normal">#999999</color>
-      <color name="maintab_text_selected">#2879F3</color>
+      <color name="maintab_text_selected">#db4437</color>
       <color name="transparent">#00000000</color>
       <color name="white_pure">#ffffff</color>
       <color name="subtab_text_normal">#FFFFFF</color>
