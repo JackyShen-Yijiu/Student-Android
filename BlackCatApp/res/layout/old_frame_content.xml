@@ -35,7 +35,7 @@
             android:textColor="#fefefe"
             android:textSize="18sp" />
         <TextView
-            android:id="@+id/cur_city_tv"
+            android:id="@+id/title_right_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"

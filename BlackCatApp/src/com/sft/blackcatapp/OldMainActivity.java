@@ -215,7 +215,7 @@ public class OldMainActivity extends BaseMainActivity implements
 		subjectThree = (TextView) findViewById(R.id.main_subject_three_tv);
 		subjectFour = (TextView) findViewById(R.id.main_subject_four_tv);
 
-		curCityTv = (TextView) findViewById(R.id.cur_city_tv);
+		curCityTv = (TextView) findViewById(R.id.title_right_tv);
 
 		// set the Behind View
 		setBehindContentView(R.layout.frame_left_menu);
@@ -390,7 +390,7 @@ public class OldMainActivity extends BaseMainActivity implements
 		case R.id.home_btn:
 			toggle(); // 动态判断自动关闭或开启SlidingMenu
 			break;
-		case R.id.cur_city_tv:
+		case R.id.title_right_tv:
 			obtainOpenCity();
 			break;
 		default:

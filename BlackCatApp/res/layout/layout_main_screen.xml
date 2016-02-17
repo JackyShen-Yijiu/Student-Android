@@ -23,14 +23,14 @@
         android:orientation="horizontal">
 
         <com.sft.blackcatapp.home.view.MainScreenTab
-            android:id="@+id/tab_grab_order"
+            android:id="@+id/tab_apply"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/sl_tab_indicator_bg"
             android:duplicateParentState="true" />
         <com.sft.blackcatapp.home.view.MainScreenTab
-            android:id="@+id/tab_schedule"
+            android:id="@+id/tab_study"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -38,7 +38,7 @@
             android:duplicateParentState="true" />
 
         <com.sft.blackcatapp.home.view.MainScreenTab
-            android:id="@+id/tab_my_orders"
+            android:id="@+id/tab_appointment"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -47,7 +47,14 @@
 
 
         <com.sft.blackcatapp.home.view.MainScreenTab
-            android:id="@+id/tab_profile"
+            android:id="@+id/tab_mall"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/sl_tab_indicator_bg"
+            android:duplicateParentState="true" />
+        <com.sft.blackcatapp.home.view.MainScreenTab
+            android:id="@+id/tab_community"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

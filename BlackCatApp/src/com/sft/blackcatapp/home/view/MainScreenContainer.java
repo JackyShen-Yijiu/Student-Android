@@ -74,18 +74,22 @@ public class MainScreenContainer extends RelativeLayout implements
 		mContentId = R.id.fl_content;
 		mTabContainer = findViewById(R.id.ll_tab_container);
 		mTabs = new ArrayList<TabInfo>();
-		mTabs.add(getTabInfo(R.id.tab_grab_order, new AppayFragment(),
+		mTabs.add(getTabInfo(R.id.tab_apply, new AppayFragment(),
 				MainActivity.TAB_APPLY, R.string.tab_indicator_title_apply,
 				R.drawable.sl_tab_icon_apply));
-		mTabs.add(getTabInfo(R.id.tab_schedule, new AppayFragment(),
+		mTabs.add(getTabInfo(R.id.tab_study, new AppayFragment(),
 				MainActivity.TAB_STUDY, R.string.tab_indicator_title_study,
 				R.drawable.sl_tab_icon_study));
-		mTabs.add(getTabInfo(R.id.tab_my_orders, new AppayFragment(),
+		mTabs.add(getTabInfo(R.id.tab_appointment, new AppayFragment(),
 				MainActivity.TAB_APPOINTMENT,
 				R.string.tab_indicator_title_appointment,
 				R.drawable.sl_tab_icon_appointment));
-		mTabs.add(getTabInfo(R.id.tab_profile, new AppayFragment(),
+		mTabs.add(getTabInfo(R.id.tab_mall, new AppayFragment(),
 				MainActivity.TAB_MALL, R.string.tab_indicator_title_mall,
+				R.drawable.sl_tab_icon_mall));
+		mTabs.add(getTabInfo(R.id.tab_community, new AppayFragment(),
+				MainActivity.TAB_COMMUNITY,
+				R.string.tab_indicator_title_community,
 				R.drawable.sl_tab_icon_community));
 	}
 

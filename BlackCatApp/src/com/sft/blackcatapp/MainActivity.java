@@ -36,6 +36,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
@@ -62,6 +63,7 @@ import com.sft.dialog.NoCommentDialog;
 import com.sft.dialog.NoLoginDialog;
 import com.sft.fragment.MenuFragment;
 import com.sft.fragment.MenuFragment.SLMenuListOnItemClickListener;
+import com.sft.util.CommonUtil;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
 import com.sft.util.SharedPreferencesUtil;
@@ -240,6 +242,10 @@ public class MainActivity extends BaseMainActivity implements
 		// set the Behind View
 		setBehindContentView(R.layout.frame_left_menu);
 		home_btn = (ImageView) findViewById(R.id.home_btn);
+		titleLeftIv = (ImageView) findViewById(R.id.title_left_iv);
+		titleTv = (TextView) findViewById(R.id.title_tv);
+		titleRightIv = (ImageView) findViewById(R.id.title_right_iv);
+		titleRightTv = (TextView) findViewById(R.id.title_right_tv);
 		// customize the SlidingMenu
 		mSlidingMenu = getSlidingMenu();
 
@@ -327,6 +333,9 @@ public class MainActivity extends BaseMainActivity implements
 
 	private void setListener() {
 		home_btn.setOnClickListener(this);
+		titleLeftIv.setOnClickListener(this);
+		titleRightIv.setOnClickListener(this);
+		titleRightTv.setOnClickListener(this);
 	}
 
 	// 左侧菜单条目点击
@@ -399,8 +408,14 @@ public class MainActivity extends BaseMainActivity implements
 		case R.id.home_btn:
 			toggle(); // 动态判断自动关闭或开启SlidingMenu
 			break;
-		case R.id.cur_city_tv:
+		case R.id.title_right_tv:
 			obtainOpenCity();
+			break;
+		case R.id.title_left_iv:
+			// 切换为驾校
+			break;
+		case R.id.title_right_iv:
+			// 切换为教练
 			break;
 		default:
 			break;
@@ -729,6 +744,10 @@ public class MainActivity extends BaseMainActivity implements
 	}
 
 	private long firstTime;
+	private TextView titleTv;
+	private TextView titleRightTv;
+	private ImageView titleRightIv;
+	private ImageView titleLeftIv;
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -891,18 +910,38 @@ public class MainActivity extends BaseMainActivity implements
 
 	@Override
 	public void onTabSelected(int index, boolean reClicked) {
+		titleLeftIv.setVisibility(View.GONE);
+		titleRightIv.setVisibility(View.GONE);
+		titleRightTv.setVisibility(View.GONE);
 		switch (index) {
 		case TAB_APPLY:
-			Toast.makeText(this, "报名", 0).show();
+			titleLeftIv.setVisibility(View.VISIBLE);
+			titleRightIv.setVisibility(View.VISIBLE);
+			titleRightTv.setVisibility(View.VISIBLE);
+			titleTv.setText(CommonUtil.getString(this, R.string.driving_school));
+			titleTv.setText(CommonUtil.getString(this, R.string.locationing));
 			break;
 		case TAB_STUDY:
+			titleTv.setText(CommonUtil.getString(this,
+					R.string.tab_indicator_title_study));
 			break;
 		case TAB_APPOINTMENT:
+			titleRightTv.setVisibility(View.VISIBLE);
+			titleRightTv.setText(CommonUtil.getString(this,
+					R.string.change_coach));
+			titleTv.setText(CommonUtil.getString(this,
+					R.string.tab_indicator_title_appointment));
+
 			break;
 		case TAB_MALL:
+			titleTv.setText(CommonUtil.getString(this,
+					R.string.tab_indicator_title_mall));
 			break;
 		case TAB_COMMUNITY:
+			titleTv.setText(CommonUtil.getString(this,
+					R.string.tab_indicator_title_community));
 			break;
+
 		default:
 			break;
 		}
