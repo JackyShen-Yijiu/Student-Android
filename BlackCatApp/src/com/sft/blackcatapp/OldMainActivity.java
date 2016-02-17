@@ -1,11 +1,44 @@
 package com.sft.blackcatapp;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import org.apache.http.Header;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import android.annotation.SuppressLint;
+import android.app.LocalActivityManager;
+import android.content.Intent;
+import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.text.TextUtils;
+import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.PopupWindow;
+import android.widget.TextView;
+import android.widget.Toast;
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
+import cn.sft.baseactivity.util.HttpSendUtils;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -13,127 +46,146 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.MapView;
-import com.sft.blackcatapp.R;
+import com.google.gson.reflect.TypeToken;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+import com.sft.adapter.HomePageAdapter;
+import com.sft.adapter.OpenCityAdapter;
+import com.sft.api.ApiHttpClient;
+import com.sft.common.BlackCatApplication;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
-import com.sft.common.Config.SubjectStatu;
-import com.sft.listener.OnTabActivityResultListener;
+import com.sft.dialog.CheckApplyDialog;
+import com.sft.dialog.NoLoginDialog;
+import com.sft.fragment.IntroducesFragment;
+import com.sft.fragment.MenuFragment;
+import com.sft.fragment.MenuFragment.SLMenuListOnItemClickListener;
+import com.sft.fragment.SubjectFourFragment;
+import com.sft.fragment.SubjectOneFragment;
+import com.sft.fragment.SubjectThreeFragment;
+import com.sft.fragment.SubjectTwoFragment;
+import com.sft.util.CommonUtil;
 import com.sft.util.JSONUtil;
+import com.sft.util.LogUtil;
+import com.sft.util.SharedPreferencesUtil;
 import com.sft.util.Util;
 import com.sft.viewutil.ZProgressHUD;
+import com.sft.vo.ActivitiesVO;
 import com.sft.vo.CoachVO;
-import com.sft.vo.HeadLineNewsVO;
+import com.sft.vo.OpenCityVO;
 import com.sft.vo.QuestionVO;
 import com.sft.vo.SchoolVO;
 
-import android.app.Activity;
-import android.app.LocalActivityManager;
-import android.content.Intent;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.os.Parcelable;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.RadioGroup.OnCheckedChangeListener;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import cn.jpush.android.api.JPushInterface;
-import cn.jpush.android.api.TagAliasCallback;
-import cn.sft.baseactivity.util.HttpSendUtils;
-import cn.sft.infinitescrollviewpager.BitMapURLExcepteionListner;
-import cn.sft.infinitescrollviewpager.InfinitePagerAdapter;
-import cn.sft.infinitescrollviewpager.InfiniteViewPager;
-import cn.sft.infinitescrollviewpager.PageChangeListener;
-import cn.sft.infinitescrollviewpager.PageClickListener;
+public class OldMainActivity extends BaseMainActivity implements
+		SLMenuListOnItemClickListener, OnClickListener {
 
-/**
- * 首页
- * 
- * @author Administrator
- * 
- */
-@SuppressWarnings("deprecation")
-public class OldMainActivity extends BaseActivity implements PageChangeListener, BitMapURLExcepteionListner {
 	//
 	private static final String subjectContent = "subjectContent";
-	private static final String headlineNews = "headlineNews";
 	private static final String coach = "coach";
 	private static final String school = "school";
 	private static final String questionaddress = "questionaddress";
+	private static final String TODAY_IS_OPEN_ACTIVITIES = "today_is_open_activities";
+	public static final String ISCLICKCONFIRM = "isclickconfirm";
+	private final static String openCity = "openCity";
 	//
 	private MapView mapView;
 	//
 	private BaiduMap mBaiduMap;
-	/**
-	 * 广告栏的地址
-	 */
-	private String[] adImageUrl;
-	/**
-	 * 包含小圆点的layout
-	 */
-	private LinearLayout dotLayout;
-	/**
-	 * 小圆点的集合
-	 */
-	private ImageView[] imageViews;
-	/**
-	 * 广告栏
-	 */
-	private InfiniteViewPager topViewPager;
-	/**
-	 * 广告内容
-	 */
-	private List<HeadLineNewsVO> adList;
-	/**
-	 * 广告默认图片
-	 */
-	private ImageView defaultImage;
 
-	private int viewPagerHeight;
-	private RelativeLayout adLayout;
-	//
-	private ViewPager viewPager;
-	//
 	private LocalActivityManager activityManager = null;
-	//
-	private RadioGroup radioGroup;
 
-	private RadioButton leftBlank1Btn, leftBlank2Btn, rightBlank1Btn, rightBlank2Btn;
-	private RadioButton enrollBtn, course1Btn, course2Btn, course3Btn, course4Btn;
+	private ImageView home_btn;
+	private SlidingMenu mSlidingMenu;
+	/** 左阴影部分 */
+	public ImageView shade_left;
+	/** Item宽度 */
+	/** 右阴影部分 */
+	public ImageView shade_right;
+	/** 请求CODE */
+	public final static int CHANNELREQUEST = 1;
+	/** 调整返回的RESULTCODE */
+	public final static int CHANNELRESULT = 10;
+	private HomePageAdapter mHomePageAdapter;
+	private ViewPager viewPager;
 
+	SimpleDateFormat df;
+
+	@SuppressLint("NewApi")
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		addView(R.layout.activity_main);
+
+		setContentView(R.layout.old_frame_content);
 		initView();
 		initData(savedInstanceState);
 		setListener();
-		obtainHeadLineNews();
-
+		// 气球按钮
+		// initBalloon();
 		obtainFavouriteSchool();
 		obtainFavouriteCoach();
 		obtainQuestionAddress();
 		obtainSubjectContent();
+		if (app.userVO.getApplystate().equals("0")) {
+			// 只弹出一次进入验证学车进度的判断弹出框
+			if (!SharedPreferencesUtil.getBoolean(this, ISCLICKCONFIRM, false)) {
+				checkStateDialog();
+			}
+		} else {
+			// 获取活动
+			df = new SimpleDateFormat("yyyy-MM-dd");
+			String todayIsOpen = SharedPreferencesUtil.getString(this,
+					TODAY_IS_OPEN_ACTIVITIES, "");
+			if (!df.format(new Date()).toString().equals(todayIsOpen)) {
+				obtainActivities();
+			}
+		}
 		setTag();
 		if (app != null && app.isLogin) {
 			util.print("userid=" + app.userVO.getUserid());
 		}
+
+	}
+
+	/**
+	 * 检查学时状态 对话框，
+	 */
+	private void checkStateDialog() {
+		// 没报名
+		// LogUtil.print("state---->" + app.userVO.getApplystate());
+		if (app.isLogin) {
+			if (app.userVO.getApplystate().equals("0")) {
+				CheckApplyDialog dialog = new CheckApplyDialog(this);
+				dialog.setTextAndImage("猜对了，你真聪明",
+						"闲着也是闲着，小步与您玩个游戏吧!\n 小步猜您已经在学车了，亲对吗?", "笨死了,答错了",
+						R.drawable.ic_question);
+				dialog.setListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View arg0) {
+
+						// 保存选择状态，默认是否,
+						SharedPreferencesUtil.putBoolean(OldMainActivity.this,
+								ISCLICKCONFIRM, true);
+						startActivity(new Intent(OldMainActivity.this,
+								TestingPhoneActivity.class));
+
+					}
+				});
+				dialog.show();
+
+			}
+		}
+
 	}
 
 	private int sum = 0;
+	private ImageView bottomProgress;
 
 	private void setTag() {
 		if (app.isLogin) {
-			JPushInterface.setAlias(this, app.userVO.getUserid(), new MyTagAliasCallback());
+			JPushInterface.setAlias(this, app.userVO.getUserid(),
+					new MyTagAliasCallback());
 		}
 	}
 
@@ -149,20 +201,224 @@ public class OldMainActivity extends BaseActivity implements PageChangeListener,
 
 	}
 
+	private void initView() {
+
+		mapView = (MapView) findViewById(R.id.main_bmapView);
+		mBaiduMap = mapView.getMap();
+		viewPager = (ViewPager) findViewById(R.id.main_content_vp);
+		carImageView = (ImageView) findViewById(R.id.main_car_iv);
+
+		bottomProgress = (ImageView) findViewById(R.id.main_bottom_progress_iv);
+		introduce = (TextView) findViewById(R.id.main_yibu_introduce_tv);
+		subjectOne = (TextView) findViewById(R.id.main_subject_one_tv);
+		subjectTwo = (TextView) findViewById(R.id.main_subject_two_tv);
+		subjectThree = (TextView) findViewById(R.id.main_subject_three_tv);
+		subjectFour = (TextView) findViewById(R.id.main_subject_four_tv);
+
+		curCityTv = (TextView) findViewById(R.id.cur_city_tv);
+
+		// set the Behind View
+		setBehindContentView(R.layout.frame_left_menu);
+		home_btn = (ImageView) findViewById(R.id.home_btn);
+		// customize the SlidingMenu
+		mSlidingMenu = getSlidingMenu();
+
+		mSlidingMenu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
+		mSlidingMenu.setFadeEnabled(false);
+		mSlidingMenu.setBehindScrollScale(0.25f);
+		mSlidingMenu.setFadeDegree(0.25f);
+		mSlidingMenu.setBackgroundResource(R.drawable.left_bg);
+		mSlidingMenu
+				.setBehindCanvasTransformer(new SlidingMenu.CanvasTransformer() {
+					@Override
+					public void transformCanvas(Canvas canvas, float percentOpen) {
+						float scale = (float) (percentOpen * 0.25 + 0.75);
+						canvas.scale(scale, scale, -canvas.getWidth() / 2,
+								canvas.getHeight() / 2);
+					}
+				});
+
+		mSlidingMenu
+				.setAboveCanvasTransformer(new SlidingMenu.CanvasTransformer() {
+					@Override
+					public void transformCanvas(Canvas canvas, float percentOpen) {
+						float scale = (float) (1 - percentOpen * 0.25);
+						canvas.scale(scale, scale, 0, canvas.getHeight() / 2);
+					}
+				});
+
+		// 设置 SlidingMenu 内容
+		FragmentTransaction fragmentTransaction = getSupportFragmentManager()
+				.beginTransaction();
+		fragmentTransaction.replace(R.id.left_menu, new MenuFragment());
+		fragmentTransaction.commit();
+	}
+
+	public void changeMenu() {
+		mSlidingMenu.toggle();
+	}
+
+	private void initData(Bundle savedInstanceState) {
+
+		// 如果用户没有报名，读取用户报名填写过的信息
+		if (app.userVO != null
+				&& app.userVO.getApplystate().equals(
+						EnrollResult.SUBJECT_NONE.getValue())) {
+			app.selectEnrollSchool = Util.getEnrollUserSelectedSchool(this);
+			app.selectEnrollCoach = Util.getEnrollUserSelectedCoach(this);
+			app.selectEnrollCarStyle = Util.getEnrollUserSelectedCarStyle(this);
+			app.selectEnrollClass = Util.getEnrollUserSelectedClass(this);
+
+		}
+		/*
+		 * 在一个Activity的一部分中显示其他Activity”要用到LocalActivityManagerity
+		 * 作用体现在manager获取View：manager.startActivity(String,
+		 * Intent).getDecorView()
+		 */
+		// activityManager = new LocalActivityManager(this, true);
+		// activityManager.dispatchCreate(savedInstanceState);
+		//
+		// // 加入2个子Activity
+		// Intent i1 = new Intent(this, SubjectEnrollActivity.class);
+		// Intent i2 = new Intent(this, SubjectOneActivity.class);
+		// Intent i3 = new Intent(this, SubjectTwoActivity.class);
+		// Intent i4 = new Intent(this, SubjectThreeActivity.class);
+		// Intent i5 = new Intent(this, SubjectFourActivity.class);
+		//
+		// List<View> listViews = new ArrayList<View>(); // 实例化listViews
+		// listViews.add(activityManager
+		// .startActivity("SubjectEnrollActivity", i1).getDecorView());
+		// listViews.add(activityManager.startActivity("SubjectOneActivity", i2)
+		// .getDecorView());
+		// listViews.add(activityManager.startActivity("SubjectTwoActivity", i3)
+		// .getDecorView());
+		// listViews.add(activityManager.startActivity("SubjectThreeActivity",
+		// i4)
+		// .getDecorView());
+		// listViews.add(activityManager.startActivity("SubjectFourActivity",
+		// i5)
+		// .getDecorView());
+		//
+		// viewPager.setAdapter(new MyPageAdapter(listViews));
+
+		mHomePageAdapter = new HomePageAdapter(
+				this.getSupportFragmentManager(), getBaseContext());
+		mHomePageAdapter.addFragmentClass(IntroducesFragment.class);
+		mHomePageAdapter.addFragmentClass(SubjectOneFragment.class);
+		mHomePageAdapter.addFragmentClass(SubjectTwoFragment.class);
+		mHomePageAdapter.addFragmentClass(SubjectThreeFragment.class);
+		mHomePageAdapter.addFragmentClass(SubjectFourFragment.class);
+		viewPager.setAdapter(mHomePageAdapter);
+		viewPager.setOffscreenPageLimit(4);
+		app.curCity = util.readParam(Config.USER_CITY);
+		initMyLocation();
+	}
+
+	private void setListener() {
+		home_btn.setOnClickListener(this);
+		curCityTv.setOnClickListener(this);
+		viewPager.setOnPageChangeListener(new MainOnPageChangeListener());
+	}
+
+	// 左侧菜单条目点击
+	@Override
+	public void selectItem(int position, String title) {
+		Intent intent;
+		switch (position) {
+
+		case 0:
+			// Toast.makeText(getBaseContext(), "查找教练", 0).show();
+			intent = new Intent(this, OldMainActivity.class);
+			startActivity(intent);
+			this.finish();
+			break;
+		case 1:
+			// Toast.makeText(getBaseContext(), "查找教练", 0).show();
+			intent = new Intent(this, EnrollSchoolActivity.class);
+			startActivity(intent);
+			break;
+		case 2:
+			if (app.isLogin) {
+				intent = new Intent(this, MessageActivity.class);
+				startActivity(intent);
+			} else {
+				NoLoginDialog dialog = new NoLoginDialog(this);
+				dialog.show();
+			}
+			break;
+		case 3:
+			if (app.isLogin) {
+				intent = new Intent(this, MyWalletActivity.class);
+				startActivity(intent);
+			} else {
+				NoLoginDialog dialog = new NoLoginDialog(this);
+				dialog.show();
+			}
+			break;
+		case 4:
+			if (app.isLogin) {
+				intent = new Intent(this, PersonCenterActivity.class);
+				startActivityForResult(intent, position);
+			} else {
+				NoLoginDialog dialog = new NoLoginDialog(this);
+				dialog.show();
+			}
+			break;
+		default:
+			break;
+		}
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		switch (requestCode) {
+		// case CHANNELREQUEST:
+		// if (resultCode == CHANNELRESULT) {
+		// setChangelView();
+		// }
+		// break;
+
+		default:
+			break;
+		}
+		super.onActivityResult(requestCode, resultCode, data);
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.home_btn:
+			toggle(); // 动态判断自动关闭或开启SlidingMenu
+			break;
+		case R.id.cur_city_tv:
+			obtainOpenCity();
+			break;
+		default:
+			break;
+		}
+	}
+
+	private void obtainOpenCity() {
+		HttpSendUtils.httpGetSend(openCity, this, Config.IP
+				+ "api/v1/getopencity");
+	}
+
 	private void obtainSubjectContent() {
-		HttpSendUtils.httpGetSend(subjectContent, this, Config.IP + "api/v1/trainingcontent");
+		HttpSendUtils.httpGetSend(subjectContent, this, Config.IP
+				+ "api/v1/trainingcontent");
 	}
 
 	private void obtainQuestionAddress() {
-		HttpSendUtils.httpGetSend(questionaddress, this, Config.IP + "api/v1/info/examquestion");
+		HttpSendUtils.httpGetSend(questionaddress, this, Config.IP
+				+ "api/v1/info/examquestion");
 	}
 
 	private void obtainFavouriteSchool() {
 		if (app.isLogin) {
 			Map<String, String> headerMap = new HashMap<String, String>();
 			headerMap.put("authorization", app.userVO.getToken());
-			HttpSendUtils.httpGetSend(school, this, Config.IP + "api/v1/userinfo/favoriteschool", null, 10000,
-					headerMap);
+			HttpSendUtils.httpGetSend(school, this, Config.IP
+					+ "api/v1/userinfo/favoriteschool", null, 10000, headerMap);
 		}
 	}
 
@@ -170,120 +426,9 @@ public class OldMainActivity extends BaseActivity implements PageChangeListener,
 		if (app.isLogin) {
 			Map<String, String> headerMap = new HashMap<String, String>();
 			headerMap.put("authorization", app.userVO.getToken());
-			HttpSendUtils.httpGetSend(coach, this, Config.IP + "api/v1/userinfo/favoritecoach", null, 10000, headerMap);
+			HttpSendUtils.httpGetSend(coach, this, Config.IP
+					+ "api/v1/userinfo/favoritecoach", null, 10000, headerMap);
 		}
-	}
-
-	private void obtainHeadLineNews() {
-		HttpSendUtils.httpGetSend(headlineNews, this, Config.IP + "api/v1/info/headlinenews");
-	}
-
-	protected void onResume() {
-		register(getClass().getName());
-		super.onResume();
-	};
-
-	private void initView() {
-		setTitleBarVisible(View.GONE);
-		showTitlebarBtn(0);
-
-		mapView = (MapView) findViewById(R.id.main_bmapView);
-		mBaiduMap = mapView.getMap();
-		viewPager = (ViewPager) findViewById(R.id.main_viewpager);
-		radioGroup = (RadioGroup) findViewById(R.id.main_radiobtn);
-		adLayout = (RelativeLayout) findViewById(R.id.main_top_headpic_im);
-		topViewPager = (InfiniteViewPager) findViewById(R.id.main_top_viewpager);
-		defaultImage = (ImageView) findViewById(R.id.main_top_defaultimage);
-		dotLayout = (LinearLayout) findViewById(R.id.main_top_dotlayout);
-
-		leftBlank1Btn = (RadioButton) findViewById(R.id.main_leftblank1_btn);
-		leftBlank2Btn = (RadioButton) findViewById(R.id.main_leftblank2_btn);
-		rightBlank1Btn = (RadioButton) findViewById(R.id.main_rightblank1_btn);
-		rightBlank2Btn = (RadioButton) findViewById(R.id.main_rightblank2_btn);
-		enrollBtn = (RadioButton) findViewById(R.id.main_enroll_btn);
-		course1Btn = (RadioButton) findViewById(R.id.main_course1_btn);
-		course2Btn = (RadioButton) findViewById(R.id.main_course2_btn);
-		course3Btn = (RadioButton) findViewById(R.id.main_course3_btn);
-		course4Btn = (RadioButton) findViewById(R.id.main_course4_btn);
-
-		leftBlank1Btn.setEnabled(false);
-		leftBlank2Btn.setEnabled(false);
-		rightBlank1Btn.setEnabled(false);
-		rightBlank2Btn.setEnabled(false);
-
-		RelativeLayout.LayoutParams headParams = (RelativeLayout.LayoutParams) adLayout.getLayoutParams();
-		headParams.width = screenWidth;
-		int height = (int) ((screenWidth - 16 * screenDensity) / 3 + (screenWidth - 12 * screenDensity) * 2 / 3
-				+ statusbarHeight);
-		height += (63 * screenDensity);
-
-		headParams.height = screenHeight - height;
-		viewPagerHeight = headParams.height;
-		setViewPager();
-	}
-
-	private void setListener() {
-		topViewPager.setPageChangeListener(this);
-		radioGroup.setOnCheckedChangeListener(new MyOnCheckedChangeListener());
-		viewPager.setOnPageChangeListener(new MyPageChangeListener());
-
-		if (app.isLogin) {
-			if (app.userVO.getApplystate().equals(EnrollResult.SUBJECT_NONE.getValue())) {
-				radioGroup.check(R.id.main_enroll_btn);
-			} else {
-				String subjectId = app.userVO.getSubject().getSubjectid();
-				if (subjectId.equals(Config.SubjectStatu.SUBJECT_TWO.getValue())) {
-					radioGroup.check(R.id.main_course2_btn);
-				} else if (subjectId.equals(SubjectStatu.SUBJECT_ONE.getValue())) {
-					radioGroup.check(R.id.main_course1_btn);
-				} else if (subjectId.equals(SubjectStatu.SUBJECT_THREE.getValue())) {
-					radioGroup.check(R.id.main_course3_btn);
-				} else if (subjectId.equals(SubjectStatu.SUBJECT_FOUR.getValue())) {
-					radioGroup.check(R.id.main_course4_btn);
-				} else {
-					radioGroup.check(R.id.main_course1_btn);
-				}
-			}
-		} else {
-			radioGroup.check(R.id.main_enroll_btn);
-		}
-	}
-
-	private void initData(Bundle savedInstanceState) {
-
-		// 如果用户没有报名，读取用户报名填写过的信息
-		if (app.userVO != null && app.userVO.getApplystate().equals(EnrollResult.SUBJECT_NONE.getValue())) {
-			app.selectEnrollSchool = Util.getEnrollUserSelectedSchool(this);
-			app.selectEnrollCoach = Util.getEnrollUserSelectedCoach(this);
-			app.selectEnrollCarStyle = Util.getEnrollUserSelectedCarStyle(this);
-			app.selectEnrollClass = Util.getEnrollUserSelectedClass(this);
-		}
-		/*
-		 * 在一个Activity的一部分中显示其他Activity”要用到LocalActivityManagerity
-		 * 作用体现在manager获取View：manager.startActivity(String,
-		 * Intent).getDecorView()
-		 */
-		activityManager = new LocalActivityManager(this, true);
-		activityManager.dispatchCreate(savedInstanceState);
-
-		// 加入2个子Activity
-		Intent i1 = new Intent(this, SubjectEnrollActivity.class);
-		Intent i2 = new Intent(this, SubjectOneActivity.class);
-		Intent i3 = new Intent(this, SubjectTwoActivity.class);
-		Intent i4 = new Intent(this, SubjectThreeActivity.class);
-		Intent i5 = new Intent(this, SubjectFourActivity.class);
-
-		List<View> listViews = new ArrayList<View>(); // 实例化listViews
-		listViews.add(activityManager.startActivity("SubjectEnrollActivity", i1).getDecorView());
-		listViews.add(activityManager.startActivity("SubjectOneActivity", i2).getDecorView());
-		listViews.add(activityManager.startActivity("SubjectTwoActivity", i3).getDecorView());
-		listViews.add(activityManager.startActivity("SubjectThreeActivity", i4).getDecorView());
-		listViews.add(activityManager.startActivity("SubjectFourActivity", i5).getDecorView());
-
-		viewPager.setAdapter(new MyPageAdapter(listViews));
-
-		app.curCity = util.readParam(Config.USER_CITY);
-		initMyLocation();
 	}
 
 	@Override
@@ -292,29 +437,13 @@ public class OldMainActivity extends BaseActivity implements PageChangeListener,
 			return true;
 		}
 		try {
-			if (type.equals(headlineNews)) {
-				if (dataArray != null) {
-					int length = dataArray.length();
-					adList = new ArrayList<HeadLineNewsVO>();
-					if (length > 0) {
-						adImageUrl = new String[length];
-					}
-					for (int i = 0; i < length; i++) {
-						HeadLineNewsVO headLineNewsVO = (HeadLineNewsVO) JSONUtil.toJavaBean(HeadLineNewsVO.class,
-								dataArray.getJSONObject(i));
-						adList.add(headLineNewsVO);
-						adImageUrl[i] = headLineNewsVO.getHeadportrait().getOriginalpic();
-					}
-					if (length > 0) {
-						setViewPager();
-					}
-				}
-			} else if (type.equals(coach)) {
+			if (type.equals(coach)) {
 				if (dataArray != null) {
 					List<CoachVO> list = new ArrayList<CoachVO>();
 					int length = dataArray.length();
 					for (int i = 0; i < length; i++) {
-						CoachVO coachVO = (CoachVO) JSONUtil.toJavaBean(CoachVO.class, dataArray.getJSONObject(i));
+						CoachVO coachVO = JSONUtil.toJavaBean(CoachVO.class,
+								dataArray.getJSONObject(i));
 						list.add(coachVO);
 					}
 					app.favouriteCoach = list;
@@ -324,7 +453,8 @@ public class OldMainActivity extends BaseActivity implements PageChangeListener,
 					List<SchoolVO> list = new ArrayList<SchoolVO>();
 					int length = dataArray.length();
 					for (int i = 0; i < length; i++) {
-						SchoolVO schoolVO = (SchoolVO) JSONUtil.toJavaBean(SchoolVO.class, dataArray.getJSONObject(i));
+						SchoolVO schoolVO = JSONUtil.toJavaBean(SchoolVO.class,
+								dataArray.getJSONObject(i));
 						list.add(schoolVO);
 					}
 					app.favouriteSchool = list;
@@ -332,27 +462,55 @@ public class OldMainActivity extends BaseActivity implements PageChangeListener,
 			} else if (type.equals(questionaddress)) {
 				try {
 					if (data != null) {
-						QuestionVO questionVO = (QuestionVO) JSONUtil.toJavaBean(QuestionVO.class, data);
+						QuestionVO questionVO = JSONUtil.toJavaBean(
+								QuestionVO.class, data);
 						app.questionVO = questionVO;
 					}
 				} catch (Exception e) {
 					ZProgressHUD.getInstance(this).show();
-					ZProgressHUD.getInstance(this).dismissWithFailure("题库地址数据错误");
+					ZProgressHUD.getInstance(this).dismissWithFailure(
+							"题库地址数据错误");
 					e.printStackTrace();
 				}
 			} else if (type.equals(subjectContent)) {
 				try {
 					if (data != null) {
 						String two = data.getString("subjecttwo");
-						two = two.replace("[", "").replace("]", "").replace("\"", "");
+						two = two.replace("[", "").replace("]", "")
+								.replace("\"", "");
 						app.subjectTwoContent = Arrays.asList(two.split(","));
 
 						String three = data.getString("subjectthree");
 						three = three.replace("[", "").replace("]", "");
-						app.subjectThreeContent = Arrays.asList(three.split(","));
+						app.subjectThreeContent = Arrays.asList(three
+								.split(","));
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
+				}
+			} else if (type.equals(openCity)) {
+				if (dataArray != null) {
+					int length = dataArray.length();
+					openCityList = new ArrayList<OpenCityVO>();
+					for (int i = 0; i < length; i++) {
+						OpenCityVO openCityVO = null;
+						try {
+							openCityVO = JSONUtil.toJavaBean(OpenCityVO.class,
+									dataArray.getJSONObject(i));
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+						if (openCityVO != null) {
+							openCityList.add(openCityVO);
+						}
+					}
+					if (length > 0) {
+						// 添加当前城市到listview的头部
+						OpenCityVO curCityVO = new OpenCityVO();
+						curCityVO.setName("当前城市");
+						openCityList.add(0, curCityVO);
+						showOpenCityPopupWindow(curCityTv);
+					}
 				}
 			}
 		} catch (Exception e) {
@@ -361,274 +519,66 @@ public class OldMainActivity extends BaseActivity implements PageChangeListener,
 		return true;
 	}
 
-	private class MyPageChangeListener implements OnPageChangeListener {
-		@Override
-		public void onPageSelected(int position) {
-			radioGroup.setOnCheckedChangeListener(null);
-			switch (position) {
-			case 0:
-				radioGroup.check(R.id.main_enroll_btn);
-				break;
-			case 1:
-				radioGroup.check(R.id.main_course1_btn);
-				break;
-			case 2:
-				radioGroup.check(R.id.main_course2_btn);
-				break;
-			case 3:
-				radioGroup.check(R.id.main_course3_btn);
-				break;
-			case 4:
-				radioGroup.check(R.id.main_course4_btn);
-				break;
-			}
-			setRadioButtonCenter(position);
-			radioGroup.setOnCheckedChangeListener(new MyOnCheckedChangeListener());
-		}
+	private void showOpenCityPopupWindow(View parent) {
+		if (openCityPopupWindow == null) {
+			LinearLayout popWindowLayout = (LinearLayout) View.inflate(this,
+					R.layout.pop_window, null);
+			popWindowLayout.removeAllViews();
+			// LinearLayout popWindowLayout = new LinearLayout(mContext);
+			popWindowLayout.setOrientation(LinearLayout.VERTICAL);
+			ListView OpenCityListView = new ListView(this);
+			OpenCityListView.setDividerHeight(0);
+			OpenCityListView.setSelector(android.R.color.transparent);
+			OpenCityListView.setCacheColorHint(android.R.color.transparent);
+			OpenCityListView.setOnItemClickListener(new OnItemClickListener() {
 
-		@Override
-		public void onPageScrolled(int arg0, float arg1, int arg2) {
-		}
-
-		@Override
-		public void onPageScrollStateChanged(int arg0) {
-		}
-	}
-
-	private void setRadioButtonCenter(int index) {
-		leftBlank1Btn.setVisibility(View.GONE);
-		leftBlank2Btn.setVisibility(View.GONE);
-		enrollBtn.setVisibility(View.GONE);
-		course1Btn.setVisibility(View.GONE);
-		course2Btn.setVisibility(View.GONE);
-		course3Btn.setVisibility(View.GONE);
-		course4Btn.setVisibility(View.GONE);
-		rightBlank1Btn.setVisibility(View.GONE);
-		rightBlank2Btn.setVisibility(View.GONE);
-		switch (index) {
-		case 0:
-			leftBlank1Btn.setVisibility(View.VISIBLE);
-			leftBlank2Btn.setVisibility(View.VISIBLE);
-			enrollBtn.setVisibility(View.VISIBLE);
-			course1Btn.setVisibility(View.VISIBLE);
-			course2Btn.setVisibility(View.VISIBLE);
-			break;
-		case 1:
-			leftBlank2Btn.setVisibility(View.VISIBLE);
-			enrollBtn.setVisibility(View.VISIBLE);
-			course1Btn.setVisibility(View.VISIBLE);
-			course2Btn.setVisibility(View.VISIBLE);
-			course3Btn.setVisibility(View.VISIBLE);
-			break;
-		case 2:
-			enrollBtn.setVisibility(View.VISIBLE);
-			course1Btn.setVisibility(View.VISIBLE);
-			course2Btn.setVisibility(View.VISIBLE);
-			course3Btn.setVisibility(View.VISIBLE);
-			course4Btn.setVisibility(View.VISIBLE);
-			break;
-		case 3:
-			course1Btn.setVisibility(View.VISIBLE);
-			course2Btn.setVisibility(View.VISIBLE);
-			course3Btn.setVisibility(View.VISIBLE);
-			course4Btn.setVisibility(View.VISIBLE);
-			rightBlank1Btn.setVisibility(View.VISIBLE);
-			break;
-		case 4:
-			course2Btn.setVisibility(View.VISIBLE);
-			course3Btn.setVisibility(View.VISIBLE);
-			course4Btn.setVisibility(View.VISIBLE);
-			rightBlank1Btn.setVisibility(View.VISIBLE);
-			rightBlank2Btn.setVisibility(View.VISIBLE);
-			break;
-		}
-	}
-
-	private class MyOnCheckedChangeListener implements OnCheckedChangeListener {
-		@Override
-		public void onCheckedChanged(RadioGroup group, int checkedId) {
-			viewPager.setOnPageChangeListener(null);
-			switch (checkedId) {
-			case R.id.main_enroll_btn:
-				viewPager.setCurrentItem(0);
-				setRadioButtonCenter(0);
-				break;
-			case R.id.main_course1_btn:
-				viewPager.setCurrentItem(1);
-				setRadioButtonCenter(1);
-				break;
-			case R.id.main_course2_btn:
-				viewPager.setCurrentItem(2);
-				setRadioButtonCenter(2);
-				break;
-			case R.id.main_course3_btn:
-				viewPager.setCurrentItem(3);
-				setRadioButtonCenter(3);
-				break;
-			case R.id.main_course4_btn:
-				viewPager.setCurrentItem(4);
-				setRadioButtonCenter(4);
-				break;
-			}
-			viewPager.setOnPageChangeListener(new MyPageChangeListener());
-		}
-	}
-
-	private class MyPageAdapter extends PagerAdapter {
-
-		private List<View> list;
-
-		private MyPageAdapter(List<View> list) {
-			this.list = list;
-		}
-
-		@Override
-		public void destroyItem(ViewGroup view, int position, Object arg2) {
-			ViewPager pViewPager = ((ViewPager) view);
-			pViewPager.removeView(list.get(position));
-		}
-
-		@Override
-		public void finishUpdate(View arg0) {
-		}
-
-		@Override
-		public int getCount() {
-			return list.size();
-		}
-
-		@Override
-		public Object instantiateItem(ViewGroup view, int position) {
-			ViewPager pViewPager = ((ViewPager) view);
-			pViewPager.addView(list.get(position));
-			return list.get(position);
-		}
-
-		@Override
-		public boolean isViewFromObject(View arg0, Object arg1) {
-			return arg0 == arg1;
-		}
-
-		@Override
-		public void restoreState(Parcelable arg0, ClassLoader arg1) {
-		}
-
-		@Override
-		public Parcelable saveState() {
-			return null;
-		}
-
-		@Override
-		public void startUpdate(View arg0) {
-		}
-	}
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (data == null) {
-			return;
-		}
-		if (resultCode == R.id.base_right_tv) {
-			return;
-		}
-		String activityName = data.getStringExtra("activityName");
-		if (activityName.contains(".")) {
-			activityName = activityName.substring(activityName.lastIndexOf(".") + 1);
-		}
-		util.print("name=" + activityName);
-		// 获取当前活动的Activity实例
-		Activity subActivity = activityManager.getActivity(activityName);
-		// 判断是否实现返回值接口
-		if (subActivity instanceof OnTabActivityResultListener) {
-			// 获取返回值接口实例
-			OnTabActivityResultListener listener = (OnTabActivityResultListener) subActivity;
-			// 转发请求到子Activity
-			listener.onTabActivityResult(requestCode, resultCode, data);
-		}
-	}
-
-	@Override
-	public void onPageChanged(int position) {
-		if (imageViews != null) {
-			for (int i = 0; i < imageViews.length; i++) {
-				imageViews[position].setBackgroundColor(Color.parseColor("#21b8c6"));
-				// 不是当前选中的page，其小圆点设置为未选中的状态
-				if (position != i) {
-					imageViews[i].setBackgroundColor(Color.parseColor("#eeeeee"));
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view,
+						int position, long id) {
+					if (position == 0) {
+						selectCity = util.readParam(Config.USER_CITY);
+					} else {
+						OpenCityVO selectCityVO = openCityList.get(position);
+						selectCity = selectCityVO.getName();
+					}
+					// 替换城市
+					app.curCity = selectCity;
+					openCityPopupWindow.dismiss();
+					openCityPopupWindow = null;
 				}
-			}
+			});
+			LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
+					LinearLayout.LayoutParams.MATCH_PARENT,
+					LinearLayout.LayoutParams.WRAP_CONTENT);
+			param.gravity = Gravity.CENTER;
+			param.width = LinearLayout.LayoutParams.MATCH_PARENT;
+			popWindowLayout.addView(OpenCityListView, param);
+			OpenCityAdapter openCityAdapter = new OpenCityAdapter(this,
+					openCityList);
+			OpenCityListView.setAdapter(openCityAdapter);
+
+			openCityPopupWindow = new PopupWindow(popWindowLayout,
+					LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 		}
-	}
+		openCityPopupWindow.setFocusable(true);
+		openCityPopupWindow.setOutsideTouchable(true);
+		// 这个是为了点击“返回Back”也能使其消失，并且并不会影响你的背景
+		openCityPopupWindow.setBackgroundDrawable(new BitmapDrawable());
 
-	private void setViewPager() {
-		InfinitePagerAdapter adapter = null;
-		int length = 0;
-		if (adImageUrl != null && adImageUrl.length > 0) {
-			adapter = new InfinitePagerAdapter(this, adImageUrl, screenWidth, viewPagerHeight);
-			length = adImageUrl.length;
-		} else {
-			adapter = new InfinitePagerAdapter(this, new int[] { R.drawable.defaultimage });
-			length = 1;
-			defaultImage.setVisibility(View.GONE);
-		}
-		adapter.setPageClickListener(new MyPageClickListener());
-		adapter.setURLErrorListener(this);
-		topViewPager.setAdapter(adapter);
-
-		imageViews = new ImageView[length];
-		ImageView imageView = null;
-		dotLayout.removeAllViews();
-		LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams((int) (8 * screenDensity),
-				(int) (4 * screenDensity));
-		dotLayout.addView(new TextView(this), textParams);
-		// 添加小圆点的图片
-		for (int i = 0; i < length; i++) {
-			imageView = new ImageView(this);
-			// 设置小圆点imageview的参数
-			imageView.setLayoutParams(new LayoutParams((int) (16 * screenDensity), (int) (4 * screenDensity)));// 创建一个宽高均为20
-			// 的布局
-			// 将小圆点layout添加到数组中
-			imageViews[i] = imageView;
-
-			// 默认选中的是第一张图片，此时第一个小圆点是选中状态，其他不是
-			if (i == 0) {
-				imageViews[i].setBackgroundColor(Color.parseColor("#21b8c6"));
-			} else {
-				imageViews[i].setBackgroundColor(Color.parseColor("#eeeeee"));
-			}
-			// 将imageviews添加到小圆点视图组
-			dotLayout.addView(imageViews[i]);
-			dotLayout.addView(new TextView(this), textParams);
-		}
-	}
-
-	private class MyPageClickListener implements PageClickListener {
-
-		@Override
-		public void onPageClick(int position) {
-			// try {
-			// if (adList != null && adList.size() > position) {
-			// String url =
-			// adList.get(position).getHeadportrait().getOriginalpic();
-			// if (!TextUtils.isEmpty(url)) {
-			// Intent intent = new Intent();
-			// intent.setAction("android.intent.action.VIEW");
-			// Uri content_url = Uri.parse(url);
-			// intent.setData(content_url);
-			// startActivity(intent);
-			// }
-			// }
-			// } catch (Exception e) {
-			// }
-		}
-	}
-
-	@Override
-	public void onURlError(Exception e) {
-
+		openCityPopupWindow.showAsDropDown(parent, 0, 20,
+				Gravity.CENTER_HORIZONTAL);
 	}
 
 	private LocationClient mLocationClient;
+	private ImageView carImageView;
+	private TextView introduce;
+	private TextView subjectOne;
+	private TextView subjectTwo;
+	private TextView subjectThree;
+	private TextView subjectFour;
+	private List<OpenCityVO> openCityList;
+	private PopupWindow openCityPopupWindow;
+	private String selectCity = "";
 
 	private void initMyLocation() {
 		// 定位初始化
@@ -660,19 +610,13 @@ public class OldMainActivity extends BaseActivity implements PageChangeListener,
 			app.longtitude = String.valueOf(location.getLongitude());
 			String curCity = location.getAddress().city;
 			if (curCity != null) {
-				curCity = curCity.replace("市", "");
+				// curCity = curCity.replace("市", "");
 				app.curCity = curCity;
 				util.saveParam(Config.USER_CITY, curCity);
 				stopLocation();
+				curCityTv.setText(curCity);
 			}
 		}
-	}
-
-	@Override
-	protected void onPause() {
-		mapView.onPause();
-		stopLocation();
-		super.onPause();
 	}
 
 	private void startLocation() {
@@ -691,19 +635,126 @@ public class OldMainActivity extends BaseActivity implements PageChangeListener,
 	}
 
 	@Override
-	public void forOperResult(Intent intent) {
-		boolean isRequestLogin = intent.getBooleanExtra("isRequestLogin", false);
-		if (isRequestLogin) {
-			finish();
+	protected void onPause() {
+		mapView.onPause();
+		stopLocation();
+		super.onPause();
+	}
+
+	private boolean isOnly = false;
+
+	class MainOnPageChangeListener implements OnPageChangeListener {
+
+		@Override
+		public void onPageScrolled(int position, float positionOffset,
+				int positionOffsetPixels) {
+			// if (!isOnly) {
+			//
+			// if (position == 1 && positionOffset > 0) {
+			// String enrollState = app.userVO.getApplystate();
+			// if (!EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue().equals(
+			// enrollState)) {
+			// Intent intent = new Intent(getBaseContext(),
+			// ApplyActivity.class);
+			// startActivity(intent);
+			// isOnly = true;
+			// }
+			//
+			// }
+			// }
+			int carPointX = (int) ((positionOffset + position) * CommonUtil
+					.dip2px(getBaseContext(), 65));
+			android.widget.RelativeLayout.LayoutParams layoutParams = (android.widget.RelativeLayout.LayoutParams) carImageView
+					.getLayoutParams();
+			layoutParams.leftMargin = carPointX;
+			carImageView.setLayoutParams(layoutParams);
 		}
-		boolean isVertify = intent.getBooleanExtra("isVertify", false);
-		if (isVertify) {
-			radioGroup.check(R.id.main_course2_btn);
+
+		@Override
+		public void onPageSelected(int position) {
+			setBottomState(position);
+
+			if (position == 2) {
+
+				if (app.isLogin) {
+					String enrollState = BlackCatApplication.app.userVO
+							.getApplystate();
+					if (EnrollResult.SUBJECT_NONE.getValue()
+							.equals(enrollState)) {
+						Intent intent = new Intent(getBaseContext(),
+								EnrollSchoolActivity1.class);
+						startActivity(intent);
+						viewPager.setCurrentItem(position - 1);
+					}
+				} else {
+					Intent intent = new Intent(getBaseContext(),
+							LoginActivity.class);
+					startActivity(intent);
+					finish();
+					viewPager.setCurrentItem(position - 1);
+				}
+			}
 		}
-		boolean isEnrollSuccess = intent.getBooleanExtra("isEnrollSuccess", false);
-		if (isEnrollSuccess) {
-			app.userVO.setApplystate(EnrollResult.SUBJECT_ENROLLING.getValue());
-			radioGroup.check(R.id.main_course1_btn);
+
+		@Override
+		public void onPageScrollStateChanged(int state) {
+
+		}
+
+	}
+
+	private void setBottomState(int postion) {
+		introduce.setTextColor(getResources().getColor(
+				R.color.bottom_text_unselector));
+		introduce.setTextSize(16);
+		subjectOne.setTextColor(getResources().getColor(
+				R.color.bottom_text_unselector));
+		subjectOne.setTextSize(16);
+		subjectTwo.setTextColor(getResources().getColor(
+				R.color.bottom_text_unselector));
+		subjectTwo.setTextSize(16);
+		subjectThree.setTextColor(getResources().getColor(
+				R.color.bottom_text_unselector));
+		subjectThree.setTextSize(16);
+		subjectFour.setTextColor(getResources().getColor(
+				R.color.bottom_text_unselector));
+		subjectFour.setTextSize(16);
+		// bottomProgress.setBackgroundDrawable(null);
+
+		switch (postion) {
+		case 0:
+			introduce.setTextColor(getResources().getColor(
+					R.color.bottom_text_selector));
+			introduce.setTextSize(18);
+			bottomProgress.setImageResource(R.drawable.loding_one);
+			break;
+		case 1:
+			subjectOne.setTextColor(getResources().getColor(
+					R.color.bottom_text_selector));
+			subjectOne.setTextSize(18);
+			bottomProgress.setImageResource(R.drawable.loding_two);
+			break;
+		case 2:
+			subjectTwo.setTextColor(getResources().getColor(
+					R.color.bottom_text_selector));
+			subjectTwo.setTextSize(18);
+			bottomProgress.setImageResource(R.drawable.loding_three);
+			break;
+		case 3:
+			subjectThree.setTextColor(getResources().getColor(
+					R.color.bottom_text_selector));
+			subjectThree.setTextSize(18);
+			bottomProgress.setImageResource(R.drawable.loding_four);
+			break;
+		case 4:
+			subjectFour.setTextColor(getResources().getColor(
+					R.color.bottom_text_selector));
+			subjectFour.setTextSize(18);
+			bottomProgress.setImageResource(R.drawable.loding_five);
+			break;
+
+		default:
+			break;
 		}
 	}
 
@@ -713,11 +764,137 @@ public class OldMainActivity extends BaseActivity implements PageChangeListener,
 		super.onDestroy();
 	}
 
+	private long firstTime;
+	private TextView curCityTv;
+
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			moveTaskToBack(true);
+			long secondTime = System.currentTimeMillis();
+			if (secondTime - firstTime > 2000) {// 如果两次按键时间间隔大于800毫秒，则不退出
+				Toast.makeText(OldMainActivity.this, "再按一次退出程序...",
+						Toast.LENGTH_SHORT).show();
+				firstTime = secondTime;// 更新firstTime
+				return true;
+			} else {
+				// System.exit(0);// 否则退出程序
+				finish();
+			}
 		}
 		return super.onKeyDown(keyCode, event);
 	}
+
+	// @Override
+	// public boolean onKeyUp(int keyCode, KeyEvent event) {
+	// if (keyCode == KeyEvent.KEYCODE_BACK) {
+	// long secondTime = System.currentTimeMillis();
+	// if (secondTime - firstTime > 2000) {// 如果两次按键时间间隔大于800毫秒，则不退出
+	// Toast.makeText(MainActivity.this, "再按一次退出程序...",
+	// Toast.LENGTH_SHORT).show();
+	// firstTime = secondTime;// 更新firstTime
+	// return true;
+	// } else {
+	// System.exit(0);// 否则退出程序
+	// }
+	// }
+	// return super.onKeyUp(keyCode, event);
+	// }
+
+	private void obtainActivities() {
+
+		// System.out.println(app.curCity);
+		RequestParams params = new RequestParams();
+		params.put("cityname", app.curCity);
+		ApiHttpClient.get("getactivity", params,
+				new AsyncHttpResponseHandler() {
+
+					@Override
+					public void onSuccess(int paramInt,
+							Header[] paramArrayOfHeader, byte[] paramArrayOfByte) {
+						String value = parseJson(paramArrayOfByte);
+						if (!TextUtils.isEmpty(msg)) {
+							// 加载失败，弹出失败对话框
+							Toast.makeText(getBaseContext(), msg, 0).show();
+						} else {
+							processSuccess(value);
+
+						}
+					}
+
+					@Override
+					public void onFailure(int paramInt,
+							Header[] paramArrayOfHeader,
+							byte[] paramArrayOfByte, Throwable paramThrowable) {
+
+					}
+				});
+
+	}
+
+	protected void processSuccess(String value) {
+		if (value != null) {
+			LogUtil.print(value);
+			try {
+				List<ActivitiesVO> activitiesList = (List<ActivitiesVO>) JSONUtil
+						.parseJsonToList(value,
+								new TypeToken<List<ActivitiesVO>>() {
+								}.getType());
+
+				if (activitiesList != null && activitiesList.size() > 0) {
+
+					String contenturl = activitiesList.get(0).getContenturl();
+
+					// 打开活动界面
+					if (!TextUtils.isEmpty(contenturl)) {
+						Intent intent = new Intent(this,
+								ActivitiesActivity.class);
+						intent.putExtra("url", contenturl);
+						startActivity(intent);
+						SharedPreferencesUtil.putString(this,
+								TODAY_IS_OPEN_ACTIVITIES, df.format(new Date())
+										.toString());
+
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	private String parseJson(byte[] responseBody) {
+		String value = null;
+		JSONObject dataObject = null;
+		JSONArray dataArray = null;
+		String dataString = null;
+		try {
+
+			JSONObject jsonObject = new JSONObject(new String(responseBody));
+			result = jsonObject.getString("type");
+			msg = jsonObject.getString("msg");
+			try {
+				dataObject = jsonObject.getJSONObject("data");
+
+			} catch (Exception e2) {
+				try {
+					dataArray = jsonObject.getJSONArray("data");
+				} catch (Exception e3) {
+					dataString = jsonObject.getString("data");
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		if (dataObject != null) {
+			value = dataObject.toString();
+		} else if (dataArray != null) {
+			value = dataArray.toString();
+
+		} else if (dataString != null) {
+			value = dataString;
+		}
+		return value;
+	}
+
 }

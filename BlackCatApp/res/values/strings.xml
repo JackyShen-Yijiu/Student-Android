@@ -271,5 +271,13 @@
     <string name="apply_add_byself">自行添加</string>
     <string name="yibu_phone">4006269255</string>
     <string name="course_fee">课程费用</string>
+    
+    <!-- 以下为2.0版本 -->
+    <!-- 首页底部按钮 -->
+    <string name="tab_indicator_title_apply">报名</string>
+    <string name="tab_indicator_title_study">学习</string>
+    <string name="tab_indicator_title_appointment">预约</string>
+    <string name="tab_indicator_title_mall">商城</string>
+    <string name="tab_indicator_title_community">社区</string>
 
 </resources>

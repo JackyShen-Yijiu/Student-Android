@@ -15,13 +15,15 @@ import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.app.LocalActivityManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -34,7 +36,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
-import android.widget.TextView;
 import android.widget.Toast;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
@@ -50,22 +51,16 @@ import com.google.gson.reflect.TypeToken;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.sft.adapter.HomePageAdapter;
 import com.sft.adapter.OpenCityAdapter;
 import com.sft.api.ApiHttpClient;
-import com.sft.common.BlackCatApplication;
+import com.sft.blackcatapp.home.view.MainScreenContainer;
+import com.sft.blackcatapp.home.view.MainScreenContainer.OnTabLisener;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
 import com.sft.dialog.CheckApplyDialog;
 import com.sft.dialog.NoLoginDialog;
-import com.sft.fragment.IntroducesFragment;
 import com.sft.fragment.MenuFragment;
 import com.sft.fragment.MenuFragment.SLMenuListOnItemClickListener;
-import com.sft.fragment.SubjectFourFragment;
-import com.sft.fragment.SubjectOneFragment;
-import com.sft.fragment.SubjectThreeFragment;
-import com.sft.fragment.SubjectTwoFragment;
-import com.sft.util.CommonUtil;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
 import com.sft.util.SharedPreferencesUtil;
@@ -78,7 +73,7 @@ import com.sft.vo.QuestionVO;
 import com.sft.vo.SchoolVO;
 
 public class MainActivity extends BaseMainActivity implements
-		SLMenuListOnItemClickListener, OnClickListener {
+		SLMenuListOnItemClickListener, OnClickListener, OnTabLisener {
 
 	//
 	private static final String subjectContent = "subjectContent";
@@ -106,10 +101,43 @@ public class MainActivity extends BaseMainActivity implements
 	public final static int CHANNELREQUEST = 1;
 	/** 调整返回的RESULTCODE */
 	public final static int CHANNELRESULT = 10;
-	private HomePageAdapter mHomePageAdapter;
-	private ViewPager viewPager;
 
 	SimpleDateFormat df;
+
+	/**
+	 * 框架
+	 */
+	public static final String SELECT_TAB_NAME = "SELECT_TAB_NAME";
+	public static final int TAB_APPLY = 1;// 报名
+	public static final int TAB_STUDY = 2;// 学习
+	public static final int TAB_APPOINTMENT = 3;// 预约
+	public static final int TAB_MALL = 4;// 商城
+	public static final int TAB_COMMUNITY = 5;// 社区
+
+	private static final String STATE_KEY_INT_SELECTED_TAB = "selected_tab";
+
+	private MainScreenContainer mMainContainer;
+	public static final String ACTION_REFRESH_REDPOINT = "ACTION_REFRESH_REDPOINT";// 刷新红点状态
+	public static final String ACTION_SHOW_TAB = "ACTION_SHOW_TAB";// 显示tab
+	public static final String ACTION_HIDE_TAB = "ACTION_HIDE_TAB";// 隐藏tab
+	private final BroadcastReceiver mMainScreenLocalReceiver = new BroadcastReceiver() {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			if (intent == null) {
+				return;
+			}
+
+			String act = intent.getAction();
+			if (ACTION_REFRESH_REDPOINT.equals(act)) {
+				mMainContainer.refreshTab();
+			} else if (ACTION_HIDE_TAB.equals(act)) {
+				mMainContainer.hideTabContainer();
+			} else if (ACTION_SHOW_TAB.equals(act)) {
+				mMainContainer.showTabContainer();
+			}
+		}
+	};
 
 	@SuppressLint("NewApi")
 	@Override
@@ -117,6 +145,7 @@ public class MainActivity extends BaseMainActivity implements
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.frame_content);
+		init();
 		initView();
 		initData(savedInstanceState);
 		setListener();
@@ -126,20 +155,21 @@ public class MainActivity extends BaseMainActivity implements
 		obtainFavouriteCoach();
 		obtainQuestionAddress();
 		obtainSubjectContent();
-		if (app.userVO.getApplystate().equals("0")) {
-			// 只弹出一次进入验证学车进度的判断弹出框
-			if (!SharedPreferencesUtil.getBoolean(this, ISCLICKCONFIRM, false)) {
-				checkStateDialog();
-			}
-		} else {
-			// 获取活动
-			df = new SimpleDateFormat("yyyy-MM-dd");
-			String todayIsOpen = SharedPreferencesUtil.getString(this,
-					TODAY_IS_OPEN_ACTIVITIES, "");
-			if (!df.format(new Date()).toString().equals(todayIsOpen)) {
-				obtainActivities();
-			}
-		}
+		// 弹出框
+		// if (app.userVO.getApplystate().equals("0")) {
+		// // 只弹出一次进入验证学车进度的判断弹出框
+		// if (!SharedPreferencesUtil.getBoolean(this, ISCLICKCONFIRM, false)) {
+		// checkStateDialog();
+		// }
+		// } else {
+		// // 获取活动
+		// df = new SimpleDateFormat("yyyy-MM-dd");
+		// String todayIsOpen = SharedPreferencesUtil.getString(this,
+		// TODAY_IS_OPEN_ACTIVITIES, "");
+		// if (!df.format(new Date()).toString().equals(todayIsOpen)) {
+		// obtainActivities();
+		// }
+		// }
 		setTag();
 		if (app != null && app.isLogin) {
 			util.print("userid=" + app.userVO.getUserid());
@@ -180,7 +210,6 @@ public class MainActivity extends BaseMainActivity implements
 	}
 
 	private int sum = 0;
-	private ImageView bottomProgress;
 
 	private void setTag() {
 		if (app.isLogin) {
@@ -205,17 +234,6 @@ public class MainActivity extends BaseMainActivity implements
 
 		mapView = (MapView) findViewById(R.id.main_bmapView);
 		mBaiduMap = mapView.getMap();
-		viewPager = (ViewPager) findViewById(R.id.main_content_vp);
-		carImageView = (ImageView) findViewById(R.id.main_car_iv);
-
-		bottomProgress = (ImageView) findViewById(R.id.main_bottom_progress_iv);
-		introduce = (TextView) findViewById(R.id.main_yibu_introduce_tv);
-		subjectOne = (TextView) findViewById(R.id.main_subject_one_tv);
-		subjectTwo = (TextView) findViewById(R.id.main_subject_two_tv);
-		subjectThree = (TextView) findViewById(R.id.main_subject_three_tv);
-		subjectFour = (TextView) findViewById(R.id.main_subject_four_tv);
-
-		curCityTv = (TextView) findViewById(R.id.cur_city_tv);
 
 		// set the Behind View
 		setBehindContentView(R.layout.frame_left_menu);
@@ -301,23 +319,12 @@ public class MainActivity extends BaseMainActivity implements
 		//
 		// viewPager.setAdapter(new MyPageAdapter(listViews));
 
-		mHomePageAdapter = new HomePageAdapter(
-				this.getSupportFragmentManager(), getBaseContext());
-		mHomePageAdapter.addFragmentClass(IntroducesFragment.class);
-		mHomePageAdapter.addFragmentClass(SubjectOneFragment.class);
-		mHomePageAdapter.addFragmentClass(SubjectTwoFragment.class);
-		mHomePageAdapter.addFragmentClass(SubjectThreeFragment.class);
-		mHomePageAdapter.addFragmentClass(SubjectFourFragment.class);
-		viewPager.setAdapter(mHomePageAdapter);
-		viewPager.setOffscreenPageLimit(4);
 		app.curCity = util.readParam(Config.USER_CITY);
 		initMyLocation();
 	}
 
 	private void setListener() {
 		home_btn.setOnClickListener(this);
-		curCityTv.setOnClickListener(this);
-		viewPager.setOnPageChangeListener(new MainOnPageChangeListener());
 	}
 
 	// 左侧菜单条目点击
@@ -509,7 +516,7 @@ public class MainActivity extends BaseMainActivity implements
 						OpenCityVO curCityVO = new OpenCityVO();
 						curCityVO.setName("当前城市");
 						openCityList.add(0, curCityVO);
-						showOpenCityPopupWindow(curCityTv);
+						// showOpenCityPopupWindow(curCityTv);
 					}
 				}
 			}
@@ -570,12 +577,6 @@ public class MainActivity extends BaseMainActivity implements
 	}
 
 	private LocationClient mLocationClient;
-	private ImageView carImageView;
-	private TextView introduce;
-	private TextView subjectOne;
-	private TextView subjectTwo;
-	private TextView subjectThree;
-	private TextView subjectFour;
 	private List<OpenCityVO> openCityList;
 	private PopupWindow openCityPopupWindow;
 	private String selectCity = "";
@@ -614,7 +615,7 @@ public class MainActivity extends BaseMainActivity implements
 				app.curCity = curCity;
 				util.saveParam(Config.USER_CITY, curCity);
 				stopLocation();
-				curCityTv.setText(curCity);
+				// curCityTv.setText(curCity);
 			}
 		}
 	}
@@ -643,121 +644,6 @@ public class MainActivity extends BaseMainActivity implements
 
 	private boolean isOnly = false;
 
-	class MainOnPageChangeListener implements OnPageChangeListener {
-
-		@Override
-		public void onPageScrolled(int position, float positionOffset,
-				int positionOffsetPixels) {
-			// if (!isOnly) {
-			//
-			// if (position == 1 && positionOffset > 0) {
-			// String enrollState = app.userVO.getApplystate();
-			// if (!EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue().equals(
-			// enrollState)) {
-			// Intent intent = new Intent(getBaseContext(),
-			// ApplyActivity.class);
-			// startActivity(intent);
-			// isOnly = true;
-			// }
-			//
-			// }
-			// }
-			int carPointX = (int) ((positionOffset + position) * CommonUtil
-					.dip2px(getBaseContext(), 65));
-			android.widget.RelativeLayout.LayoutParams layoutParams = (android.widget.RelativeLayout.LayoutParams) carImageView
-					.getLayoutParams();
-			layoutParams.leftMargin = carPointX;
-			carImageView.setLayoutParams(layoutParams);
-		}
-
-		@Override
-		public void onPageSelected(int position) {
-			setBottomState(position);
-
-			if (position == 2) {
-
-				if (app.isLogin) {
-					String enrollState = BlackCatApplication.app.userVO
-							.getApplystate();
-					if (EnrollResult.SUBJECT_NONE.getValue()
-							.equals(enrollState)) {
-						Intent intent = new Intent(getBaseContext(),
-								EnrollSchoolActivity1.class);
-						startActivity(intent);
-						viewPager.setCurrentItem(position - 1);
-					}
-				} else {
-					Intent intent = new Intent(getBaseContext(),
-							LoginActivity.class);
-					startActivity(intent);
-					finish();
-					viewPager.setCurrentItem(position - 1);
-				}
-			}
-		}
-
-		@Override
-		public void onPageScrollStateChanged(int state) {
-
-		}
-
-	}
-
-	private void setBottomState(int postion) {
-		introduce.setTextColor(getResources().getColor(
-				R.color.bottom_text_unselector));
-		introduce.setTextSize(16);
-		subjectOne.setTextColor(getResources().getColor(
-				R.color.bottom_text_unselector));
-		subjectOne.setTextSize(16);
-		subjectTwo.setTextColor(getResources().getColor(
-				R.color.bottom_text_unselector));
-		subjectTwo.setTextSize(16);
-		subjectThree.setTextColor(getResources().getColor(
-				R.color.bottom_text_unselector));
-		subjectThree.setTextSize(16);
-		subjectFour.setTextColor(getResources().getColor(
-				R.color.bottom_text_unselector));
-		subjectFour.setTextSize(16);
-		// bottomProgress.setBackgroundDrawable(null);
-
-		switch (postion) {
-		case 0:
-			introduce.setTextColor(getResources().getColor(
-					R.color.bottom_text_selector));
-			introduce.setTextSize(18);
-			bottomProgress.setImageResource(R.drawable.loding_one);
-			break;
-		case 1:
-			subjectOne.setTextColor(getResources().getColor(
-					R.color.bottom_text_selector));
-			subjectOne.setTextSize(18);
-			bottomProgress.setImageResource(R.drawable.loding_two);
-			break;
-		case 2:
-			subjectTwo.setTextColor(getResources().getColor(
-					R.color.bottom_text_selector));
-			subjectTwo.setTextSize(18);
-			bottomProgress.setImageResource(R.drawable.loding_three);
-			break;
-		case 3:
-			subjectThree.setTextColor(getResources().getColor(
-					R.color.bottom_text_selector));
-			subjectThree.setTextSize(18);
-			bottomProgress.setImageResource(R.drawable.loding_four);
-			break;
-		case 4:
-			subjectFour.setTextColor(getResources().getColor(
-					R.color.bottom_text_selector));
-			subjectFour.setTextSize(18);
-			bottomProgress.setImageResource(R.drawable.loding_five);
-			break;
-
-		default:
-			break;
-		}
-	}
-
 	@Override
 	protected void onDestroy() {
 		app.isLogin = false;
@@ -765,7 +651,6 @@ public class MainActivity extends BaseMainActivity implements
 	}
 
 	private long firstTime;
-	private TextView curCityTv;
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -897,4 +782,83 @@ public class MainActivity extends BaseMainActivity implements
 		return value;
 	}
 
+	private void init() {
+		mMainContainer = (MainScreenContainer) findViewById(R.id.main_screen_container);
+		mMainContainer.setup(getSupportFragmentManager());
+		mMainContainer.setOnTabListener(this);
+
+		IntentFilter intentFilter = new IntentFilter();
+		intentFilter.addAction(ACTION_REFRESH_REDPOINT);
+		intentFilter.addAction(ACTION_SHOW_TAB);
+		intentFilter.addAction(ACTION_HIDE_TAB);
+		LocalBroadcastManager.getInstance(this).registerReceiver(
+				mMainScreenLocalReceiver, intentFilter);
+
+		mMainContainer.post(new Runnable() {
+
+			@Override
+			public void run() {
+				selectTabByIntent(getIntent());
+			}
+		});
+	}
+
+	private void selectTabByIntent(Intent intent) {
+		int tab = 0;
+		if (intent != null) {
+			tab = intent.getIntExtra(SELECT_TAB_NAME, 0);
+		}
+		mMainContainer.jumpTab(tab, intent);
+	}
+
+	@Override
+	public void onTabSelected(int index, boolean reClicked) {
+		switch (index) {
+		case TAB_APPLY:
+			Toast.makeText(this, "报名", 0).show();
+			break;
+		case TAB_STUDY:
+			break;
+		case TAB_APPOINTMENT:
+			break;
+		case TAB_MALL:
+			break;
+		case TAB_COMMUNITY:
+			break;
+		default:
+			break;
+		}
+	}
+
+	private void refreshView() {
+		mMainContainer.refreshTab();
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		refreshView();
+		refreshUI();
+	}
+
+	private void refreshUI() {
+		// 刷新当前页面
+
+	}
+
+	@Override
+	protected void onNewIntent(Intent intent) {
+		super.onNewIntent(intent);
+		selectTabByIntent(intent);
+		// refreshCheck();
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putInt(STATE_KEY_INT_SELECTED_TAB,
+				mMainContainer != null ? mMainContainer.getCurrentTabType()
+						: MainActivity.TAB_APPLY);
+		// outState.putBoolean(Constant.LOGIN_STATE_CONFLICT, isConflict());
+	}
 }
