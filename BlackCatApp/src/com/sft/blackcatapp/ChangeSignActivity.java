@@ -57,13 +57,19 @@ public class ChangeSignActivity extends BaseActivity {
 
 		if (type.equals(changeSign)) {
 			setTitleText(R.string.change_personalized);
+			et.setText(app.userVO.getSignature());
+			
 		}
 		if (type.equals(changeName)) {
 			setTitleText(R.string.change_name);
+			et.setText(app.userVO.getName());
 		}
 		if (type.equals(changeNickName)) {
 			setTitleText(R.string.change_nickname);
+			et.setText(app.userVO.getNickname());
 		}
+		
+		
 
 	}
 

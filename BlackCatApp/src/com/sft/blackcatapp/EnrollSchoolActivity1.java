@@ -94,8 +94,13 @@ public class EnrollSchoolActivity1 extends FragmentActivity implements
 			getWindow().addFlags(
 					WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 		}
+		//随便看看
+//		if(BaseUtils.justSay(this)){
+//			return ;
+//		}
+		
 		selected = getIntent().getIntExtra("select", 0);
-		LogUtil.print("selected----" + selected);
+		LogUtil.print("schoolsss->>----" + savedInstanceState);
 		setContentView(R.layout.act_enrollschool_container);
 
 		initView(type);
@@ -267,6 +272,8 @@ public class EnrollSchoolActivity1 extends FragmentActivity implements
 			onClickFragment(id);
 			break;
 		case R.id.pop_window_one:
+			classSelect.setText(R.string.c1_automatic_gear_car);
+			
 			setSelectState(1);
 			onClickFragment(id);
 			if (popupWindow != null) {
@@ -274,13 +281,16 @@ public class EnrollSchoolActivity1 extends FragmentActivity implements
 			}
 			break;
 		case R.id.pop_window_two:
+			classSelect.setText(R.string.c2_manual_gear_car);
+			
 			setSelectState(1);
 			onClickFragment(id);
 			if (popupWindow != null) {
 				popupWindow.dismiss();
 			}
 			break;
-		case R.id.pop_window_three:
+		case R.id.pop_window_three://其他
+			classSelect.setText(R.string.other);
 			setSelectState(1);
 			onClickFragment(id);
 			if (popupWindow != null) {
@@ -328,6 +338,10 @@ public class EnrollSchoolActivity1 extends FragmentActivity implements
 			c1Car.setText(R.string.c1_automatic_gear_car);
 			TextView c2Car = (TextView) view.findViewById(R.id.pop_window_two);
 			c2Car.setText(R.string.c2_manual_gear_car);
+			
+			TextView other = (TextView) view.findViewById(R.id.pop_window_three);
+			other.setText(R.string.other);
+			other.setOnClickListener(this);
 			TextView all = (TextView) view.findViewById(R.id.pop_window_three);
 			all.setText(R.string.all);
 			c1Car.setOnClickListener(this);
@@ -406,6 +420,21 @@ public class EnrollSchoolActivity1 extends FragmentActivity implements
 	@Override
 	protected void onActivityResult(int requestCode, final int resultCode,
 			final Intent data) {
+//			if (data != null) {
+//				if (resultCode == R.id.base_left_btn) {
+//					return;
+//				}
+//				if(resultCode == 9){
+//					new MyHandler(200) {
+//						@Override
+//						public void run() {
+//							setResult(RESULT_OK, data);
+//							finish();
+//						}
+//					};
+//				}
+//				
+//			}
 		if (type == 0) {
 			schoolFragment.onActivityResult(requestCode, resultCode, data);
 		} else {
@@ -416,7 +445,7 @@ public class EnrollSchoolActivity1 extends FragmentActivity implements
 
 	private String selectCity = "";
 
-	private void showOpenCityPopupWindow(View parent) {
+	@SuppressLint("NewApi") private void showOpenCityPopupWindow(View parent) {
 		if (openCityPopupWindow == null) {
 			LinearLayout popWindowLayout = (LinearLayout) View.inflate(this,
 					R.layout.pop_window, null);

@@ -141,6 +141,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 	@Override
 	public void onResume() {
 		super.onResume();
+		LogUtil.print("onResume---->menuFragment");
 		if (app.isLogin) {
 			obtainMyMoney();
 			obtainPersionInfo();
@@ -228,18 +229,23 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 
 			username.setText("未登陆");
 		} else {
-
-			if (app.userVO.getName() != null) {
+			LogUtil.print("name:::=-->"+app.userVO.getName());
+			if (app.userVO.getName() != null && app.userVO.getName().trim().length() > 0) {
 				username.setText(app.userVO.getName());
-			} else {
+			}else{
 				username.setText(app.userVO.getDisplaymobile());
 			}
-		}
+			
+//			} else {
+//				username.setText(app.userVO.getDisplaymobile());
+//			}
+		
 		if (TextUtils.isEmpty(app.userVO.getApplyschoolinfo().getName())) {
 
 			drivingSchool.setText("您未选择驾校");
 		} else {
 			drivingSchool.setText(app.userVO.getApplyschoolinfo().getName());
+		}
 		}
 	}
 

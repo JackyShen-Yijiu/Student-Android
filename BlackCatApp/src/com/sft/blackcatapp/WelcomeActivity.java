@@ -128,6 +128,7 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 
 	@Override
 	public void doTimeOut(String type) {
+		LogUtil.print("do---TimeOut");
 		super.doTimeOut(type);
 		Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
 		startActivity(intent);
@@ -136,6 +137,7 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 
 	@Override
 	public void doException(String type, Exception e, int code) {
+		LogUtil.print("do---Exception");
 		super.doException(type, e, code);
 		new MyHandler(2000) {
 			@Override
@@ -150,7 +152,12 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 
 	@Override
 	public synchronized boolean doCallBack(String type, Object jsonString) {
+		LogUtil.print("do---doCallback"+jsonString);
 		if (super.doCallBack(type, jsonString)) {
+			Intent intent = new Intent(WelcomeActivity.this,
+					LoginActivity.class);
+			startActivity(intent);
+			finish();
 			return true;
 		}
 		if (handler != null) {

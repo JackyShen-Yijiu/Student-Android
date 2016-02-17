@@ -15,6 +15,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
+import com.sft.common.Config;
 import com.sft.util.DownLoadService;
 import com.sft.viewutil.ZProgressHUD;
 
@@ -125,7 +126,7 @@ public class AboutUsActivity extends BaseActivity {
 
 		// String curVersion = util.getAppVersion().replace("v", "")
 		// .replace("V", "").replace(".", "");
-		webview.loadUrl("http://www.yibuxueche.com/about.html?ver="
+		webview.loadUrl(Config.VERSION
 				+ util.getAppVersion());
 	}
 

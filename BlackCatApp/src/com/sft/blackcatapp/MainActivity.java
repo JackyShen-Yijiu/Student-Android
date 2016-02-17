@@ -58,6 +58,7 @@ import com.sft.blackcatapp.home.view.MainScreenContainer.OnTabLisener;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
 import com.sft.dialog.CheckApplyDialog;
+import com.sft.dialog.NoCommentDialog;
 import com.sft.dialog.NoLoginDialog;
 import com.sft.fragment.MenuFragment;
 import com.sft.fragment.MenuFragment.SLMenuListOnItemClickListener;
@@ -79,6 +80,8 @@ public class MainActivity extends BaseMainActivity implements
 	private static final String subjectContent = "subjectContent";
 	private static final String coach = "coach";
 	private static final String school = "school";
+	private static final String NOT_COMMENT = "nocomment";
+
 	private static final String questionaddress = "questionaddress";
 	private static final String TODAY_IS_OPEN_ACTIVITIES = "today_is_open_activities";
 	public static final String ISCLICKCONFIRM = "isclickconfirm";
@@ -155,27 +158,27 @@ public class MainActivity extends BaseMainActivity implements
 		obtainFavouriteCoach();
 		obtainQuestionAddress();
 		obtainSubjectContent();
-		// 弹出框
-		// if (app.userVO.getApplystate().equals("0")) {
-		// // 只弹出一次进入验证学车进度的判断弹出框
-		// if (!SharedPreferencesUtil.getBoolean(this, ISCLICKCONFIRM, false)) {
+
+		LogUtil.print("app--->" + app + "user::" + app.userVO);
+		// if (app.userVO!=null && app.userVO.getApplystate().equals("0")) {
+		// // 填写课时信息
 		// checkStateDialog();
-		// }
-		// } else {
-		// // 获取活动
-		// df = new SimpleDateFormat("yyyy-MM-dd");
-		// String todayIsOpen = SharedPreferencesUtil.getString(this,
-		// TODAY_IS_OPEN_ACTIVITIES, "");
-		// if (!df.format(new Date()).toString().equals(todayIsOpen)) {
-		// obtainActivities();
-		// }
-		// }
+		if (app.userVO != null && app.userVO.getApplystate().equals("0")) {
+			// 只弹出一次进入验证学车进度的判断弹出框
+			if (!SharedPreferencesUtil.getBoolean(this, ISCLICKCONFIRM, false)) {
+				checkStateDialog();
+			}
+		} else {
+			// 获取未评论列表
+
+		}
 		setTag();
 		if (app != null && app.isLogin) {
 			util.print("userid=" + app.userVO.getUserid());
 		}
-
 	}
+
+	// }
 
 	/**
 	 * 检查学时状态 对话框，
@@ -186,8 +189,7 @@ public class MainActivity extends BaseMainActivity implements
 		if (app.isLogin) {
 			if (app.userVO.getApplystate().equals("0")) {
 				CheckApplyDialog dialog = new CheckApplyDialog(this);
-				dialog.setTextAndImage("猜对了，你真聪明",
-						"闲着也是闲着，小步与您玩个游戏吧!\n 小步猜您已经在学车了，亲对吗?", "笨死了,答错了",
+				dialog.setTextAndImage("是,我已报名", "您是否已经报名学车", "否，我要学车",
 						R.drawable.ic_question);
 				dialog.setListener(new OnClickListener() {
 
@@ -405,6 +407,34 @@ public class MainActivity extends BaseMainActivity implements
 		}
 	}
 
+	/**
+	 * 获取未评论列表
+	 */
+	private void obtainNotComments() {
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("userid", app.userVO.getUserid());
+		LogUtil.print("subject---Id==>"
+				+ app.userVO.getSubject().getSubjectid());
+		paramMap.put("subjectid", app.userVO.getSubject().getSubjectid());// 订单的状态
+																			// //
+																			// 0
+																			// 订单生成
+																			// 2
+																			// 支付成功
+																			// 3
+																			// 支付失败
+																			// 4
+																			// 订单取消
+																			// -1
+																			// 全部(未支付的订单)
+
+		Map<String, String> headerMap = new HashMap<String, String>();
+		headerMap.put("authorization", app.userVO.getToken());
+		HttpSendUtils.httpGetSend(NOT_COMMENT, this, Config.IP
+				+ "api/v1/courseinfo/getmyuncommentreservation", paramMap,
+				10000, headerMap);
+	}
+
 	private void obtainOpenCity() {
 		HttpSendUtils.httpGetSend(openCity, this, Config.IP
 				+ "api/v1/getopencity");
@@ -495,6 +525,50 @@ public class MainActivity extends BaseMainActivity implements
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+			} else if (type.equals(NOT_COMMENT)) {
+				// 未评论 的 预约列表
+				LogUtil.print("notcomment::::>>" + jsonString);
+				if (dataArray != null) {
+					int length = dataArray.length();
+					if (length == 0) {// 不存在 未评论
+						if (null != commentDialog) {// 不是空
+							commentDialog.dismiss();
+							return true;
+						}
+						// 获取活动
+						df = new SimpleDateFormat("yyyy-MM-dd");
+						String todayIsOpen = SharedPreferencesUtil.getString(
+								this, TODAY_IS_OPEN_ACTIVITIES, "");
+						if (!df.format(new Date()).toString()
+								.equals(todayIsOpen)) {
+							obtainActivities();
+						}
+						return true;
+					}
+					// 开始 显示对话框
+					if (commentDialog != null && commentDialog.isShowing()) {
+						return true;
+					}
+					commentDialog = new NoCommentDialog(this);
+					commentDialog.setTextAndImage("去评价",
+							"您有未评价订单\n给您的教练一个好评吧！", "去投诉",
+							R.drawable.appointment_time_error);
+					commentDialog.setCancelable(false);
+					commentDialog.setCanceledOnTouchOutside(false);
+					commentDialog.show();
+
+					// List<MyAppointmentVO> list = new
+					// ArrayList<MyAppointmentVO>();
+					//
+					// for (int i = 0; i < length; i++) {
+					// MyAppointmentVO appointmentVO = JSONUtil.toJavaBean(
+					// MyAppointmentVO.class,
+					// dataArray.getJSONObject(i));
+					// list.add(appointmentVO);
+					// }
+
+				}
+
 			} else if (type.equals(openCity)) {
 				if (dataArray != null) {
 					int length = dataArray.length();
@@ -526,6 +600,10 @@ public class MainActivity extends BaseMainActivity implements
 		return true;
 	}
 
+	/** 未评论 */
+	NoCommentDialog commentDialog = null;
+
+	@SuppressLint("NewApi")
 	private void showOpenCityPopupWindow(View parent) {
 		if (openCityPopupWindow == null) {
 			LinearLayout popWindowLayout = (LinearLayout) View.inflate(this,
@@ -839,6 +917,10 @@ public class MainActivity extends BaseMainActivity implements
 		super.onResume();
 		refreshView();
 		refreshUI();
+		if (app.userVO != null && !app.userVO.getApplystate().equals("0")) {
+			// 获取未评论列表
+			obtainNotComments();
+		}
 	}
 
 	private void refreshUI() {

@@ -21,6 +21,7 @@ import com.sft.common.Config;
 import com.sft.dialog.ApplyExamDialog;
 import com.sft.dialog.CustomDialog;
 import com.sft.util.JSONUtil;
+import com.sft.util.LogUtil;
 import com.sft.vo.MyAppointmentVO;
 import com.sft.vo.UserVO;
 import com.sft.vo.uservo.StudentSubject;
@@ -37,6 +38,8 @@ public class MyAppointmentActivity extends BaseActivity implements
 	private static final String reservation = "reservation";
 	private static final String applyExam = "applyExam";
 	private static final String MYPROGRESS = "getmyprogress";
+	
+	private static final String NOT_COMMENT = "not_comment";
 	//
 	private RefreshLoadMoreView appointmentList;
 	//
@@ -47,13 +50,28 @@ public class MyAppointmentActivity extends BaseActivity implements
 	private TextView subjectValueTv, subjectTextTv;
 	//
 	private StudentSubject subject = null;
+	
+	private TextView tvLeft1,tvRight1,tvLeft2,tvRight2;
+	
+	int flag = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		addView(R.layout.activity_my_appointment);
 		initView();
-		obtainOppointment();
+		flag = getIntent().getIntExtra("flag", 0);
+		if(flag == 0){//正常情况
+			obtainOppointment();
+			showTitlebarText(BaseActivity.SHOW_RIGHT_TEXT);
+		}else{//微评论列表
+			
+			obtainNotComments();
+			appointmentBtn.setVisibility(View.GONE);
+			//隐藏报考
+			//
+		}
+		
 	}
 
 	@Override
@@ -70,6 +88,8 @@ public class MyAppointmentActivity extends BaseActivity implements
 							+ (subject.getReservation() + subject
 									.getFinishcourse()) + "total-->"
 							+ subject.getTotalcourse());
+			
+			
 			if (subject.getReservation() + subject.getFinishcourse() >= subject
 					.getTotalcourse()) {
 				appointmentBtn.setText(app.userVO.getSubject().getName()
@@ -86,7 +106,7 @@ public class MyAppointmentActivity extends BaseActivity implements
 
 	private void initView() {
 		setTitleText(R.string.my_appointment);
-		showTitlebarText(BaseActivity.SHOW_RIGHT_TEXT);
+		
 		setText(0, R.string.requirements);
 		rightTV.setTextColor(Color.parseColor("#cccccc"));
 
@@ -94,6 +114,12 @@ public class MyAppointmentActivity extends BaseActivity implements
 		appointmentBtn = (Button) findViewById(R.id.my_appointment_app_btn);
 		subjectValueTv = (TextView) findViewById(R.id.my_appointment_subject_value_tv);
 		subjectTextTv = (TextView) findViewById(R.id.my_appointment_subject_text_tv);
+		
+		tvLeft1 = (TextView) findViewById(R.id.my_appoint_studied);
+		tvRight1 = (TextView) findViewById(R.id.my_appoint_really);
+		tvRight2 = (TextView) findViewById(R.id.my_appoint_last);
+		tvLeft2 = (TextView) findViewById(R.id.my_appoint_notsign);
+		
 
 		String subjectId = app.userVO.getSubject().getSubjectid();
 		subjectValueTv.setText(subjectId);
@@ -104,6 +130,18 @@ public class MyAppointmentActivity extends BaseActivity implements
 				.getValue())) {
 			subject = app.userVO.getSubjectthree();
 		}
+		if(null!= subject ){
+			tvLeft1.setText("已约学时"+subject.getFinishcourse()+"课时");
+			tvLeft2.setText("漏课"+subject.getReservation()+"课时");
+		}else{
+			tvLeft1.setVisibility(View.GONE);
+			tvLeft2.setVisibility(View.GONE);
+			tvRight2.setVisibility(View.GONE);
+			tvRight1.setVisibility(View.GONE);
+		}
+		
+//		tvRight1.setText("实际练车"+subject.getFinishcourse()+"小时");
+//		tvRight2.setText("剩余学时"+subject.getFinishcourse()+"课时");
 
 		// 只会在初始化时 进行数据的更新，， 放到onresume中
 		// if (subject != null) {
@@ -125,6 +163,22 @@ public class MyAppointmentActivity extends BaseActivity implements
 		// }
 
 		appointmentList.setRefreshLoadMoreListener(this);
+	}
+	
+	/**
+	 * 未评论
+	 */
+	private void obtainNotComments(){
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("userid", app.userVO.getUserid());
+		LogUtil.print("subject---Id==>"+app.userVO.getSubject().getSubjectid());
+		paramMap.put("subjectid",app.userVO.getSubject().getSubjectid());//订单的状态 // 0 订单生成 2 支付成功 3 支付失败 4 订单取消 -1 全部(未支付的订单)
+		
+		Map<String, String> headerMap = new HashMap<String, String>();
+		headerMap.put("authorization", app.userVO.getToken());
+		HttpSendUtils.httpGetSend(NOT_COMMENT, this, Config.IP
+				+ "api/v1/courseinfo/getmyuncommentreservation", paramMap, 10000,
+				headerMap);
 	}
 
 	private void obtainOppointment() {
@@ -202,7 +256,10 @@ public class MyAppointmentActivity extends BaseActivity implements
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (data != null) {
-			obtainOppointment();
+			if(flag ==0)
+				obtainOppointment();
+			else
+				obtainNotComments();
 		}
 	}
 
@@ -258,18 +315,29 @@ public class MyAppointmentActivity extends BaseActivity implements
 				}
 			} else if (type.equals(MYPROGRESS)) {
 				if (null != data) {
+					
 					UserVO userVo = JSONUtil.toJavaBean(UserVO.class, data);
 					String subjectId = userVo.getSubject().getSubjectid();
+					LogUtil.print("myProgress----jsonString>"+jsonString);
+					LogUtil.print("myProgress----subjectId>"+subjectId);
 					StudentSubject tempSubject = null;
 					// 获取当前学习的 课，科目2 或者科目3
 					if (subjectId.equals(Config.SubjectStatu.SUBJECT_TWO
 							.getValue())) {
+						LogUtil.print("myProgress----subjectId22222>");
 						tempSubject = userVo.getSubjecttwo();
 					} else if (subjectId
 							.equals(Config.SubjectStatu.SUBJECT_THREE
 									.getValue())) {
+						LogUtil.print("myProgress----subjectId33333>");
 						tempSubject = userVo.getSubjectthree();
 					}
+					
+					LogUtil.print("myProgress----333>"+tempSubject.getFinishcourse()+"last:"+tempSubject.getReservation());
+					//
+//					tempSubject.getTotalcourse() - tempSubject.getFinishcourse();
+					tvLeft1.setText("已约学时"+tempSubject.getFinishcourse()+"课时");
+					tvLeft2.setText("漏课"+tempSubject.missingcourse+"课时");
 
 					if (tempSubject.getReservation()
 							+ tempSubject.getFinishcourse() >= tempSubject
@@ -282,6 +350,22 @@ public class MyAppointmentActivity extends BaseActivity implements
 						appointmentBtn.setOnClickListener(this);
 					}
 				}
+			}else if(type.equals(NOT_COMMENT)){//
+				if(dataArray!= null){
+					int length = dataArray.length();
+					List<MyAppointmentVO> list = new ArrayList<MyAppointmentVO>();
+					//
+					for (int i = 0; i < length; i++) {
+						MyAppointmentVO appointmentVO = JSONUtil.toJavaBean(
+								MyAppointmentVO.class, dataArray.getJSONObject(i));
+						list.add(appointmentVO);
+					}
+					adapter = new MyAppointmentListAdapter(this, list);
+					appointmentList.setAdapter(adapter);
+					appointmentList.stopRefresh();
+					
+				}
+				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -305,7 +389,10 @@ public class MyAppointmentActivity extends BaseActivity implements
 		}
 		boolean isRefresh = intent.getBooleanExtra("isRefresh", false);
 		if (isRefresh) {
-			obtainOppointment();
+			if(flag ==0)
+				obtainOppointment();
+			else
+				obtainNotComments();
 		}
 
 		boolean isApplyExam = intent.getBooleanExtra("isApplyExam", false);
@@ -330,7 +417,10 @@ public class MyAppointmentActivity extends BaseActivity implements
 			if (!curState.equals(state)) {
 				adapter.changeState(position, state);
 				// 状态已经改变了， 请求最新的数据
-				obtainOppointment();
+				if(flag ==0)
+					obtainOppointment();
+				else
+					obtainNotComments();
 			}
 
 			return;
@@ -347,7 +437,10 @@ public class MyAppointmentActivity extends BaseActivity implements
 
 	@Override
 	public void onRefresh() {
-		obtainOppointment();
+		if(flag ==0)
+			obtainOppointment();
+		else
+			obtainNotComments();
 	}
 
 	@Override

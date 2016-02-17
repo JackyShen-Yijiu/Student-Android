@@ -7,8 +7,8 @@
     <string name="password">密码</string>
     <string name="login">登录</string>
     <string name="forget_password">忘记密码</string>
-    <string name="register_account">现在注册账号</string>
-    <string name="look_around">先随便看看 </string>
+    <string name="register_account">注册新用户</string>
+    <string name="look_around">随便看看 </string>
     <string name="register">注册</string>
     <string name="confirm_password">确认密码</string>
     <string name="auth_code">验证码</string>
@@ -38,6 +38,7 @@
     <string name="yibu_favourable_class">一步特色班</string>
     <string name="yibu_procedure">合作驾校</string>
     <string name="yibu_superiority">平台优势</string>
+    <string name="yibu_student_know">学员须知</string>
     <string name="enroll_info_table">报名</string>
     <string name="apply_left">投诉</string>
     <string name="apply_left_coach">投诉教练</string>
@@ -266,6 +267,8 @@
     <string name="search_school">搜索</string>
     <string name="c1_automatic_gear_car">C1手动档小车</string>
     <string name="c2_manual_gear_car">C2自动档小车</string>
+     <string name="other">其   他</string>
+    
     <string name="all">全部</string>
     <string name="apply_system_distribute">系统分配</string>
     <string name="apply_add_byself">自行添加</string>

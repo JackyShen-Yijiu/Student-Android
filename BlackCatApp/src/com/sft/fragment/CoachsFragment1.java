@@ -151,10 +151,11 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener,
 			}
 			break;
 		case R.id.pop_window_three:
-			// setSelectState(1);
+			
 			isCarSelected = true;
 			index = 1;
-			licensetype = null;
+			licensetype = "3";
+			// setSelectState(1);
 			coachname = "";
 			ordertype = "";
 			obtainCaoch();

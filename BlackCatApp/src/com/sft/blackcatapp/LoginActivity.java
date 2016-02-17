@@ -113,8 +113,8 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 		forgetPassTv = (TextView) findViewById(R.id.login_forget_tv);
 		registerAccountTv = (TextView) findViewById(R.id.login_register_tv);
 
-		phontEt.setHint(setHint(R.string.phonenumber));
-		passwordEt.setHint(setHint(R.string.password));
+		// phontEt.setHint(setHint(R.string.phonenumber));
+		// passwordEt.setHint(setHint(R.string.password));
 
 		app.isLogin = false;
 	}

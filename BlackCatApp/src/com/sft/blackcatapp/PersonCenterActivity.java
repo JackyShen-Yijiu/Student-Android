@@ -1,6 +1,12 @@
 package com.sft.blackcatapp;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
+
+import org.json.JSONException;
 
 import android.content.Intent;
 import android.content.res.Resources;
@@ -15,15 +21,19 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
+import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.infinitescrollviewpager.BitmapManager;
 import cn.sft.infinitescrollviewpager.MyHandler;
 
 import com.easemob.chat.EMChatManager;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
+import com.sft.util.JSONUtil;
+import com.sft.util.LogUtil;
 import com.sft.util.SharedPreferencesUtil;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.CarModelVO;
+import com.sft.vo.PayOrderVO;
 import com.sft.vo.SchoolVO;
 
 /**
@@ -43,6 +53,10 @@ public class PersonCenterActivity extends BaseActivity {
 
 	private Button logoutBtn;
 	private TextView testingDetailTV;
+	
+	private final static String PAY_STATE = "pay_state";
+	
+	private boolean first = true;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +66,9 @@ public class PersonCenterActivity extends BaseActivity {
 		initData();
 		resizeDrawalbeLeftSize();
 		setListener();
+		//请求 订单状态
+		isApplyOk();
+		requestNotFinshOrder();
 	}
 
 	@Override
@@ -252,33 +269,16 @@ public class PersonCenterActivity extends BaseActivity {
 			break;
 		// 报名详情
 		case R.id.person_center_enroll_detail_tv:
-			String applystate = app.userVO.getApplystate();
-			if (EnrollResult.SUBJECT_NONE.getValue().equals(applystate)) {
-				ZProgressHUD.getInstance(this).show();
-				ZProgressHUD.getInstance(this).dismissWithFailure("您还没有报名");
-
-				new MyHandler(1000) {
-					@Override
-					public void run() {
-						Intent intent = new Intent(PersonCenterActivity.this,
-								EnrollSchoolActivity1.class);
-						startActivity(intent);
-						// finish();
-					}
-				};
-			} else if (EnrollResult.SUBJECT_ENROLLING.getValue().equals(
-					applystate)) {
-				Intent intent1 = new Intent(PersonCenterActivity.this,
-						EnrollSuccessActivity.class);
-				startActivity(intent1);
-			} else if (EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue().equals(
-					applystate)) {
-				// Intent intent1 = new Intent(PersonCenterActivity.this,
-				// EnrollSuccessActivity.class);
-				// startActivity(intent1);
-				ZProgressHUD.getInstance(this).show();
-				ZProgressHUD.getInstance(this).dismissWithSuccess("您已报名");
+			
+			if(applystate <0){//尚未请求，获取数据
+				isApplyOk();
+				return;
+			}else{
+				doAppResult(applystate+"",paytype);
 			}
+			
+			
+			
 			break;
 		// 验证报名信息
 		case R.id.person_center_testing_detail_tv:
@@ -295,25 +295,176 @@ public class PersonCenterActivity extends BaseActivity {
 			} else {
 				boolean isclickconfirm = SharedPreferencesUtil.getBoolean(this,
 						MainActivity.ISCLICKCONFIRM, false);
+//				Log.
 				if (isclickconfirm) {
 					intent1 = new Intent(PersonCenterActivity.this,
 							TestingPhoneActivity.class);
-					startActivity(intent1);
-
+//					startActivity(intent1);
+					startActivityForResult(intent1, 8);
 				} else {
 					intent1 = new Intent(PersonCenterActivity.this,
 							EnrollSchoolActivity1.class);
 					startActivity(intent1);
+					
 				}
 			}
 
 			break;
 		}
 	}
+	
+	/**
+	 * 是否报名，线上支付1 提示，已报名，请等待审核，线下支付,进入二维码页面
+	 * @return
+	 */
+	private void isApplyOk(){
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("userid", app.userVO.getUserid());
+//		LogUtil.print("subject---Id==>"+app.userVO.getSubject().getSubjectid());
+//		paramMap.put("subjectid",app.userVO.getSubject().getSubjectid());//订单的状态 // 0 订单生成 2 支付成功 3 支付失败 4 订单取消 -1 全部(未支付的订单)
+		
+		Map<String, String> headerMap = new HashMap<String, String>();
+		headerMap.put("authorization", app.userVO.getToken());
+		HttpSendUtils.httpGetSend(PAY_STATE, this, Config.IP
+				+ "api/v1/userinfo/getmyapplystate", paramMap, 10000,
+				headerMap);
+	}
+	
+	/**
+	 * 获取未完成订单
+	 */
+	private void requestNotFinshOrder() {
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("userid", app.userVO.getUserid());
+		paramMap.put("orderstate", "0");// 订单的状态 // 0 订单生成 2 支付成功 3 支付失败 4 订单取消
+										// -1 全部(未支付的订单)
+
+		Map<String, String> headerMap = new HashMap<String, String>();
+		headerMap.put("authorization", app.userVO.getToken());
+		HttpSendUtils.httpGetSend("notPay", this, Config.IP
+				+ "api/v1/userinfo/getmypayorder", paramMap, 10000, headerMap);
+
+	}
+
+	
+	/**
+	 * 处理结果
+	 */
+	private void doAppResult(String applyState,int payType){
+//		String applystate = app.userVO.getApplystate();
+		LogUtil.print("state-->"+applyState+"type::"+payType);
+		if (EnrollResult.SUBJECT_NONE.getValue().equals(applyState)) {
+			ZProgressHUD.getInstance(this).show();
+			ZProgressHUD.getInstance(this).dismissWithFailure("您还没有报名");
+
+			new MyHandler(1000) {
+				@Override
+				public void run() {
+					Intent intent = new Intent(PersonCenterActivity.this,
+							EnrollSchoolActivity1.class);
+					startActivity(intent);
+					// finish();
+				}
+			};
+		}else if (hasNotPay) {//线上支付,存在未支付订单
+			
+			ZProgressHUD.getInstance(this).show();
+			ZProgressHUD.getInstance(this).dismissWithSuccess("存在未支付订单，请支付");
+			new MyHandler(1000) {
+				@Override
+				public void run() {
+					Intent intent = new Intent(PersonCenterActivity.this,
+							EnrollSchoolActivity1.class);
+					startActivity(intent);
+					// finish();
+				}
+			};
+		}else if (EnrollResult.SUBJECT_ENROLLING.getValue().equals(
+				applyState) && payType == 2) {//线上支付
+			
+			ZProgressHUD.getInstance(this).show();
+			ZProgressHUD.getInstance(this).dismissWithSuccess("您已报名,正在等待审核");
+			
+		}  else if (EnrollResult.SUBJECT_ENROLLING.getValue().equals(
+				applyState) && payType == 1) {//线下支付 跳转到  二维码页面
+			Intent intent1 = new Intent(PersonCenterActivity.this,
+					EnrollSuccessActivity.class);
+			startActivity(intent1);
+		} else if (EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue().equals(
+				applyState)) {
+			// Intent intent1 = new Intent(PersonCenterActivity.this,
+			// EnrollSuccessActivity.class);
+			// startActivity(intent1);
+			ZProgressHUD.getInstance(this).show();
+			ZProgressHUD.getInstance(this).dismissWithSuccess("您已报名");
+		}
+	}
+	
+	int applystate = -2;
+	int paytypestatus = -2;
+	int paytype = -2;
+	boolean hasNotPay = false;
+	
+	@Override
+	public synchronized boolean doCallBack(String type, Object jsonString) {
+		if (super.doCallBack(type, jsonString)) {
+			
+			return true;
+		}
+		if(type.equals(PAY_STATE)){
+			LogUtil.print(type+"---"+jsonString);
+			try {
+				applystate = data.getInt("applystate");//申请状态  0 未报名 1 申请中 2 申请成功 
+				paytypestatus = data.getInt("paytypestatus");//0 未支付 20支付成功(等待验证) 30 支付失败 
+				paytype = data.getInt("paytype");// 1 线下支付， 2 线上支付
+				
+				app.userVO.setApplystate(applystate+"");
+				if(!first)
+					doAppResult(applystate+"",paytype);
+				first = false;
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			
+			
+		}else if(type.equals("notPay")){
+			int length = dataArray.length();
+			for (int i = 0; i < length; i++) {
+				PayOrderVO pay;
+				try {
+					pay = JSONUtil.toJavaBean(PayOrderVO.class,
+							dataArray.getJSONObject(i));
+					if(pay.userpaystate.equals("0") ||pay.userpaystate.equals("3")){//订单刚生成，支付失败
+						
+						//存在未支付订单
+						app.userVO.setApplystate(EnrollResult.SUBJECT_NONE.getValue());
+						
+						app.isEnrollAgain = true;
+						hasNotPay = true;
+						break;
+					}else{
+						hasNotPay = false;
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+			}
+		}
+		
+		return false;
+	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode,
 			final Intent data) {
+		if(requestCode == 8){//验证报名信息，，
+			first = true;
+			isApplyOk();
+		}
+		
 		if (data != null) {
 			if (requestCode == R.id.person_center_carstyle_value_tv) {
 				// 更新

@@ -66,8 +66,10 @@ public class IntroducesFragment extends BaseFragment implements OnClickListener 
 		Intent intent = new Intent(mContext, YiBuIntroduceActivity.class);
 		switch (v.getId()) {
 		case R.id.introduce_student_know:
-			ZProgressHUD.getInstance(mContext).show();
-			ZProgressHUD.getInstance(mContext).dismissWithSuccess("该功能尚未开通");
+//			ZProgressHUD.getInstance(mContext).show();
+//			ZProgressHUD.getInstance(mContext).dismissWithSuccess("该功能尚未开通");
+			intent.putExtra("typeId", R.id.introduce_student_know);
+
 			break;
 		case R.id.introduce_favourable_class:
 			intent.putExtra("typeId", R.id.introduce_favourable_class);
@@ -81,8 +83,8 @@ public class IntroducesFragment extends BaseFragment implements OnClickListener 
 		default:
 			break;
 		}
-
-		mContext.startActivity(intent);
+		if(intent!=null)
+			mContext.startActivity(intent);
 	}
 
 }

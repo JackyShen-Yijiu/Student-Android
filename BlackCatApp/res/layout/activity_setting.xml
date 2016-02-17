@@ -37,6 +37,7 @@
             android:layout_gravity="center_vertical"
             android:layout_height="22dp"
             android:button="@null"
+            android:checked="true"
             android:background="@drawable/switch_bkground"
             android:layout_marginRight="15dp" />
     </LinearLayout>
@@ -68,6 +69,7 @@
             android:layout_gravity="center_vertical"
             android:layout_height="22dp"
             android:button="@null"
+            android:checked="true"
             android:background="@drawable/switch_bkground"
             android:layout_marginRight="15dp" />
     </LinearLayout>

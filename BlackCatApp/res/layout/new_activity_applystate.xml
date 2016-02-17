@@ -108,6 +108,8 @@
                 android:layout_alignBottom="@+id/complaint_feedbackusertype"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="12dp"
+                android:textSize="14sp"
+                android:textColor="@color/txt_999"
                 android:text="投诉人：" />
         </RelativeLayout>
 
@@ -123,6 +125,7 @@
         android:id="@+id/complaint_coach_name_tv"
         style="@style/person_center_text_style"
         android:textColor="@color/txt_999"
+        android:textSize="14sp"
         android:text="@string/apply_left_coach" />
 
         <LinearLayout
@@ -144,7 +147,6 @@
             android:layout_width="fill_parent"
             android:layout_height="80dp"
             android:layout_marginBottom="12dp"
-            android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
             android:background="@null"
             android:clickable="true"
@@ -155,6 +157,8 @@
             android:maxLines="7"
             android:scrollbars="vertical"
             android:textColor="#333"
+            android:textSize="14sp"
+            android:padding="12dp"
             android:textCursorDrawable="@null" >
         </com.sft.view.BulleinEditText>
 

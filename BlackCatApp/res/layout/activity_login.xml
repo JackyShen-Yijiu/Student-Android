@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@drawable/log_bg" >
+    android:layout_height="fill_parent" 
+    android:background="#fff">
 
     <ImageView
         android:id="@+id/login_logo_iv"
@@ -10,32 +10,30 @@
         android:layout_height="@dimen/login_logo_height"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/login_logo_margintop"
-        android:background="@drawable/app_logo"
+        android:background="@drawable/login_head"
         android:clipToPadding="true"
         android:contentDescription="@string/app_name"
         android:fitsSystemWindows="true" />
 
-    <RelativeLayout
-        android:id="@+id/login_login_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/login_logo_iv"
-        android:layout_marginLeft="@dimen/login_loginlayout_marginleftright"
-        android:layout_marginRight="@dimen/login_loginlayout_marginleftright"
-        android:layout_marginTop="@dimen/login_loginlayout_margintop" >
-
-        <RelativeLayout
-            android:id="@+id/login_et_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
+          
+	<TextView 
+   		 android:id="@+id/TextView_phone"
+   		 android:layout_width="wrap_content"
+   		 android:layout_height="wrap_content"
+   		  android:layout_below="@+id/login_logo_iv"
+   		    android:layout_marginLeft="18dp"
+   		  android:layout_marginTop="15dp"
+   		  android:textSize="12sp"
+   		 android:text="手机号"/>
             <EditText
                 android:id="@+id/login_phone_et"
-                style="@style/login_et_style"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/login_et_height"
                 android:background="@null"
-                android:drawableLeft="@drawable/acc_drawable_left"
-                android:hint="@string/phonenumber"
                 android:inputType="phone"
+                android:layout_marginTop="10dp"
+                android:layout_alignLeft="@+id/TextView_phone"
+                android:layout_below="@+id/TextView_phone"
                 android:maxLength="11"
                 android:textColor="#999" />
 
@@ -45,91 +43,51 @@
                 android:layout_height="0.5dp"
                 android:layout_below="@+id/login_phone_et"
                 android:background="#88e6e6e6"
+                android:layout_alignLeft="@+id/TextView_phone"
                 android:contentDescription="@string/app_name" />
 
+            <TextView 
+   		 	android:id="@+id/TextView_password"
+   		 	android:layout_width="wrap_content"
+   		 	android:layout_height="wrap_content"
+   		 	 android:layout_below="@+id/login_deivder_im"
+   		  	  android:layout_marginLeft="18dp"
+   		 	 android:layout_marginTop="18dp"
+   		 	 android:textSize="12sp"
+   			 android:text="密码"/>
+            <TextView
+            android:id="@+id/TextView_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/login_passwd_et"
+            android:layout_alignRight="@+id/login_forget_tv"
+            android:text="您输入的信息有误"
+			android:drawablePadding="5dp"
+            android:gravity="center"
+            android:textColor="@color/new_app_main_color"
+            android:drawableRight="@drawable/login_hint"
+            android:textSize="14sp" />
             <EditText
                 android:id="@+id/login_passwd_et"
-                style="@style/login_password_et_style"
-                android:layout_below="@+id/login_deivder_im"
+                 android:layout_width="match_parent"
+                android:layout_height="@dimen/login_et_height"
+                android:layout_below="@+id/TextView_password"
                 android:background="@null"
-                android:drawableLeft="@drawable/pass_drawable_left"
-                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:layout_marginTop="10dp"
+                android:layout_alignLeft="@+id/TextView_phone"
                 android:textColor="#999" />
 
             <ImageView
                 android:id="@+id/login_deivder2_im"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
+                android:layout_alignLeft="@+id/TextView_phone"
                 android:layout_below="@+id/login_passwd_et"
                 android:background="#88e6e6e6"
                 android:contentDescription="@string/app_name" />
 
-            
-
-        </RelativeLayout>
-
-        <Button
-            android:id="@+id/login_login_btn"
-            style="@style/btn_style"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/login_login_btn_height"
-            android:layout_below="@+id/login_et_layout"
-            android:layout_marginBottom="@dimen/login_login_btn_marginbottom"
-            android:layout_marginTop="@dimen/login_login_btn_margintop"
-            android:contentDescription="@string/app_name"
-            android:text="@string/login" />
-
-        <TextView
-            android:id="@+id/login_forget_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/login_login_btn"
-            android:text="@string/forget_password"
-            android:textColor="#666666"
-            android:textSize="14dp" />
-
-        <TextView
-            android:id="@+id/login_register_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/login_or_layout"
-            android:layout_centerHorizontal="true"
-            android:text="@string/register_account"
-            android:textColor="@color/app_main_color"
-            android:textSize="14dp" />
-
-        <LinearLayout
-            android:id="@+id/login_or_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/login_lookaround_ll"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal" >
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="0.5dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginRight="15dp"
-                android:layout_weight="1"
-                android:background="#88e6e6e6" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="or"
-                android:textColor="#666666"
-                android:textSize="18dp" />
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="0.5dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="15dp"
-                android:layout_weight="1"
-                android:background="#88e6e6e6" />
-        </LinearLayout>
+        
 
         <LinearLayout
             android:id="@+id/login_lookaround_ll"
@@ -149,15 +107,43 @@
                 android:layout_height="@dimen/login_lookaround_btn_height"
                 android:background="@null"
                 android:text="@string/look_around"
-                android:textColor="#666666"
+                android:textColor="#bd4437"
                 android:textSize="14dp" />
-            <ImageView 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/look_around"
-                android:alpha="0.3"
-                />
+            
         </LinearLayout>
-    </RelativeLayout>
+
+        <Button
+            android:id="@+id/login_login_btn"
+            style="@style/btn_style"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/login_login_btn_height"
+            android:layout_above="@+id/login_lookaround_ll"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="18dp"
+            android:contentDescription="@string/app_name"
+            android:text="@string/login" />
+
+        <TextView
+            android:id="@+id/login_register_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/login_passwd_et"
+            android:layout_marginTop="22dp"
+            android:text="@string/register_account"
+             android:layout_alignLeft="@+id/TextView_phone"
+            android:textSize="14dp" />
+
+        <TextView
+            android:id="@+id/login_forget_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/login_register_tv"
+            android:layout_alignBottom="@+id/login_register_tv"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="12dp"
+            android:text="@string/forget_password"
+            android:textSize="14dp" />
+
+        
 
 </RelativeLayout>

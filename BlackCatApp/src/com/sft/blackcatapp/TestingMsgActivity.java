@@ -19,6 +19,7 @@ import cn.sft.baseactivity.util.HttpSendUtils;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
 import com.sft.dialog.CustomDialog;
+import com.sft.util.SharedPreferencesUtil;
 import com.sft.util.Util;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.CarModelVO;
@@ -291,6 +292,8 @@ public class TestingMsgActivity extends BaseActivity {
 			return true;
 		}
 		if (type.equals(enroll)) {
+//			SharedPreferencesUtil.putBoolean(TestingMsgActivity.this,
+//					MainActivity.ISCLICKCONFIRM, true);
 			Intent intent = new Intent(this, TestingCommit.class);
 			startActivity(intent);
 			finish();

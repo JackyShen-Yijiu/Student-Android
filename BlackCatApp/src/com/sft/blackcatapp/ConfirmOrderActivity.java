@@ -18,9 +18,12 @@ import cn.sft.baseactivity.util.HttpSendUtils;
 import com.sft.alipay.PayResult;
 import com.sft.alipay.PayUtils;
 import com.sft.common.Config;
+import com.sft.common.Config.EnrollResult;
+import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
 import com.sft.vo.ClassVO;
 import com.sft.vo.PayOrderVO;
+import com.sft.vo.UserVO;
 
 public class ConfirmOrderActivity extends BaseActivity implements
 		OnClickListener {
@@ -28,6 +31,8 @@ public class ConfirmOrderActivity extends BaseActivity implements
 	private TextView tv_coupon_show, tvGoodName, tvGoodPrice, tvYcode;
 
 	private TextView tvShoudPay, tvReallyPay;
+	
+	private TextView tvDiscodeBottom;
 
 	private ClassVO classe;
 
@@ -62,9 +67,14 @@ public class ConfirmOrderActivity extends BaseActivity implements
 	}
 	
 	String schoolName;
+	/**商品名字  一步驾校快班 价格，*/
+	String productName = "";
+	String productDetail = "";
+	
+	boolean repay = false;
 
 	private void initView() {
-		boolean repay = getIntent().getBooleanExtra("repay", false);
+		repay = getIntent().getBooleanExtra("repay", false);
 		
 		tv_coupon_show = (TextView) findViewById(R.id.tv_coupon_show);
 		tvGoodName = (TextView) findViewById(R.id.tv_goods_show);
@@ -73,49 +83,69 @@ public class ConfirmOrderActivity extends BaseActivity implements
 		tvYcode = (TextView) findViewById(R.id.tv_discount_show);
 		tvShoudPay = (TextView) findViewById(R.id.textView_money_should);
 		tvReallyPay = (TextView) findViewById(R.id.textView_money_cale);
+		
+		tvDiscodeBottom = (TextView) findViewById(R.id.textView_discode_bottom);
+		
 		if(repay){//重新支付
-			PayOrderVO bean = (PayOrderVO) getIntent().getSerializableExtra("bean");
-			coupCode = bean.couponcode;
-			couponId = bean.activitycoupon;
-			orderId = bean._id;
-			
-			price = bean.applyclasstypeinfo.price;
-			onSalePrice = bean.applyclasstypeinfo.onsaleprice;
-			paymoney = bean.paymoney;
-			
-			phone = app.userVO.getMobile();
-			schoolName = bean.applyschoolinfo.getName();
-			LogUtil.print("repay--->"+coupCode+"price-->"+bean.applyclasstypeinfo.price );
-			if((coupCode==null || coupCode.length()==0)){//请选择
-				tv_coupon_show.setText("请选择");
-			}else{
-				tv_coupon_show.setText(coupCode);
-				tv_coupon_show.setClickable(false);
-				tv_coupon_show.setEnabled(false);
-				
-			}
-			
-			tvGoodPrice.setText(bean.applyclasstypeinfo.price + "元");
-			tvGoodName.setText(bean.applyclasstypeinfo.name+"元");
-			
-			tvReallyPay.setText(bean.applyclasstypeinfo.onsaleprice + "元");
-			tvShoudPay.setText(bean.applyclasstypeinfo.price + "元(" + bean.applyschoolinfo.getName() + ")");
+			doRepay();
 		}else{
 			//请求订单 状态
 			classe = (ClassVO) getIntent().getSerializableExtra("class");
 			schoolName = getIntent().getStringExtra("schoolName");
 			phone = getIntent().getStringExtra("phone");
+			
+			
 			if(null!=classe){
 				price = classe.getPrice();
 				onSalePrice = classe.getOnsaleprice();
 				
+				productName = classe.getClassname();
+				productDetail = classe.getClassname() +onSalePrice;
+				
 				tvReallyPay.setText(onSalePrice + "元");
 				tvShoudPay.setText(price + "元(" + schoolName + ")");
 			}
+			
+			doRepay();
 		}
 		
 		
 
+	}
+	
+	private void doRepay(){
+		PayOrderVO bean = (PayOrderVO) getIntent().getSerializableExtra("bean");
+		coupCode = bean.couponcode;
+		couponId = bean.activitycoupon;
+		orderId = bean._id;
+		
+		price = bean.applyclasstypeinfo.price;
+		onSalePrice = bean.applyclasstypeinfo.onsaleprice;
+		paymoney = bean.paymoney;
+		
+		
+		productName = bean.applyclasstypeinfo.name;
+		productDetail = bean.applyclasstypeinfo.name +onSalePrice;
+		
+		tvDiscodeBottom.setText("一步现金可抵扣"+bean.discountmoney+"元");
+		
+		
+		phone = app.userVO.getMobile();
+		schoolName = bean.applyschoolinfo.getName();
+//		LogUtil.print("repay--->"+coupCode+"price-->"+bean.applyclasstypeinfo.price );
+		if((coupCode==null || coupCode.length()==0)){//请选择
+			tv_coupon_show.setText("请选择");
+		}else{
+			tv_coupon_show.setText(coupCode);
+			tv_coupon_show.setClickable(false);
+			tv_coupon_show.setEnabled(false);
+		}
+		
+		tvGoodPrice.setText(bean.applyclasstypeinfo.price + "元");
+		tvGoodName.setText(bean.applyclasstypeinfo.name+"元");
+		
+		tvReallyPay.setText(bean.applyclasstypeinfo.onsaleprice + "元");
+		tvShoudPay.setText(bean.applyclasstypeinfo.price + "元(" + bean.applyschoolinfo.getName() + ")");
 	}
 
 	private void Listenner() {
@@ -167,8 +197,15 @@ public class ConfirmOrderActivity extends BaseActivity implements
 		if(type.equals("sendPay")){
 			PayUtils pay = new PayUtils();
 			pay.setTradeNo(orderId);
-			pay.pay(this,mHandler,payName,payDetail,money);
+			pay.pay(this,mHandler,productName,productDetail,paymoney);
 		}else if(type.equals("notPay")){
+			
+		}else if(type.equals("reLogin")){//重新登录获取信息
+			try {
+				app.userVO = JSONUtil.toJavaBean(UserVO.class, data);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			
 		}
 		
@@ -189,17 +226,20 @@ public class ConfirmOrderActivity extends BaseActivity implements
 			finish();
 			break;
 		case R.id.act_pay_now://立即支付
+			LogUtil.print("coupCode--orderId>"+orderId+"coupCode-->"+coupCode);
+//			Toast("click--payNow"+coupCode);
 			if((coupCode==null || coupCode.length()==0)){//直接支付
+				LogUtil.print("coupCode--orderId>"+orderId+"Name-->"+productName+"Detail-->"+productDetail+"money"+paymoney);
+//				payName="123456";
+//				payDetail = "12345978";
+//				money = "0.01";
 				PayUtils pay = new PayUtils();
 				pay.setTradeNo(orderId);
-				pay.pay(this,mHandler,payName,payDetail,money);
+//				paymoney = "0.01";
+				pay.pay(this,mHandler,productName,productDetail,paymoney);
 			}else{
 				request(coupCode,couponId,orderId);
 			}
-			
-			
-			
-			
 			break;
 		default:
 			break;
@@ -212,6 +252,9 @@ public class ConfirmOrderActivity extends BaseActivity implements
 	
 	private Handler mHandler = new Handler() {
 		public void handleMessage(Message msg) {
+//			ConfirmOrderActivity.this.setResult(9,getIntent());
+//			ConfirmOrderActivity.this.finish();
+			
 			LogUtil.print("msg;::::>>>"+msg.obj);
 			switch (msg.what) {
 			case SDK_PAY_FLAG: {
@@ -226,8 +269,14 @@ public class ConfirmOrderActivity extends BaseActivity implements
 				String resultStatus = payResult.getResultStatus();
 				// 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
 				if (TextUtils.equals(resultStatus, "9000")) {
+					app.userVO.setApplystate(EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue());
 					Toast.makeText(ConfirmOrderActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
+					ConfirmOrderActivity.this.setResult(9,getIntent());
+					ConfirmOrderActivity.this.finish();
+					reLogin();
 				} else {
+					app.userVO.setApplystate(EnrollResult.SUBJECT_NONE.getValue());
+					
 					// 判断resultStatus 为非"9000"则代表可能支付失败
 					// "8000"代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
 					if (TextUtils.equals(resultStatus, "8000")) {
@@ -262,12 +311,29 @@ public class ConfirmOrderActivity extends BaseActivity implements
 			tv_coupon_show.setText(coupCode);
 			tvYcode.setText("￥-"+data.getStringExtra("money"));
 			String m = data.getStringExtra("money");
-			tvShoudPay.setText(getPrice(price,m) + "元(" + schoolName + ")");
-			tvReallyPay.setText(getPrice(onSalePrice,m) + "元");
+			tvShoudPay.setText(price + "元(" + schoolName + ")");
+			
+			//最终付款价格
+			paymoney = getPrice(onSalePrice,m)+"";
+			tvReallyPay.setText(paymoney + "元");
+			tvDiscodeBottom.setText("一步现金可抵扣"+m+"元");
+			
 			
 		}
 		LogUtil.print("class---》》"+data);
 
+	}
+	
+	private void reLogin(){
+		String lastLoginPhone = util.readParam(Config.LAST_LOGIN_ACCOUNT);
+		String password = util.readParam(Config.LAST_LOGIN_PASSWORD);
+		
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("mobile", lastLoginPhone);
+		paramMap.put("usertype", "1");
+		paramMap.put("password", util.MD5(password));
+		HttpSendUtils.httpPostSend("reLogin", this, Config.IP
+				+ "api/v1/userinfo/userlogin", paramMap);
 	}
 	
 	private int getPrice(String a1,String a2){
