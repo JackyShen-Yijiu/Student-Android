@@ -97,7 +97,7 @@ public class MainActivity extends BaseMainActivity implements
 	//
 	private BaiduMap mBaiduMap;
 
-	private LocalActivityManager activityManager = null;
+//	private LocalActivityManager activityManager = null;
 
 	private ImageView home_btn;
 	private SlidingMenu mSlidingMenu;
