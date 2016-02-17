@@ -32,13 +32,17 @@
     <string name="search_coach">搜索教练</string>
     <string name="school_detail">驾校详情</string>
     <string name="enroll">报名</string>
+    <string name="enroll_success_title">报名成功</string>
     <string name="go_and_see">再去看看</string>
     <string name="enroll_again">重新报名</string>
     <string name="yibu_favourable_class">一步特色班</string>
     <string name="yibu_procedure">合作驾校</string>
     <string name="yibu_superiority">平台优势</string>
-    <string name="enroll_info_table">报名信息表</string>
+    <string name="yibu_student_know">学员须知</string>
+    <string name="enroll_info_table">报名</string>
     <string name="apply_left">投诉</string>
+    <string name="apply_left_coach">投诉教练</string>
+    <string name="apply_left_school">投诉驾校名</string>
     <string name="in_uploading">正在上传</string>
     <string name="commit">提交</string>
     <string name="real_name">真实姓名</string>
@@ -62,12 +66,14 @@
     <string name="general">全科</string>
     <string name="coach_info">教练信息</string>
     <string name="coach_course_info">授课信息</string>
-    <string name="ex_place">训练场地:</string>
+    <string name="ex_place">练车场地:</string>
     <string name="coach_shuttle">接        送:</string>
     <string name="coach_seniority">教        龄:</string>
     <string name="coach_worktime">工作时间:</string>
+    <string name="coach_in_school_name">所属驾校:</string>
     <string name="coach_course">授课科目:</string>
-    <string name="self_evaluation">个人评价</string>
+    <string name="personality_label">个性标签:</string>
+    <string name="self_evaluation">个人说明</string>
     <string name="student_evaluation">学员评价</string>
     <string name="school_info">驾校信息</string>
     <string name="success_rate">通  过  率:</string>
@@ -110,8 +116,10 @@
     <string name="my_coach">我的教练</string>
     <string name="setting">设置</string>
     <string name="enroll_detail">报名详情</string>
+    <string name="testing_detail">验证报名信息</string>
     <string name="logout">退出登录</string>
     <string name="person_center">个人中心</string>
+    <string name="testing_person_center">验证报名信息</string>
     <string name="eidt_info">编辑信息</string>
     <string name="headpic">头像</string>
     <string name="gender">性别</string>
@@ -126,6 +134,7 @@
     <string name="about_us">关于我们</string>
     <string name="set_rate">去评分</string>
     <string name="callback">反馈</string>
+     <string name="activitys">活动</string>
     <string name="opinions_suggestions">请留下宝贵的意见和建议</string>
     <string name="attitude_school">做有态度的驾校培训</string>
     <string name="allow_protocol">许可服务协议</string>
@@ -171,6 +180,7 @@
     <string name="amount">现金</string>
     <string name="my_change">YB</string>
     <string name="invite_friends">分享好友</string>
+    <string name="share">分享</string>
     <string name="exchange">兑换券兑换</string>
     <string name="deal_detail">交易详情</string>
     <string name="share_income">分享收益</string>
@@ -186,10 +196,11 @@
     <string name="five_coach_shuttle">5KM内可接送</string>
     <string name="no_comment">暂无评论</string>
     <string name="simple_sign">一句话签名</string>
-    <string name="change_headpic">更换头像</string>
- 	<string name="change_name">修改姓名</string>
+ <string name="change_name">修改姓名</string>
     <string name="change_nickname">修改昵称</string>
     <string name="change_personalized">修改个性签名</string>
+    
+    <string name="change_headpic">更换头像</string>
     <string name="appointment">预约</string>
     <string name="input_shuttle_address">输入接送地址</string>
     <string name="no_coach">没有教练</string>
@@ -212,6 +223,7 @@
     <string name="attitude">态度</string>
     <string name="capacity">能力</string>
     <string name="take_picture">拍照</string>
+    <string name="take_cancle">取消</string>
     <string name="photo_album">相册</string>
     <string name="my_invit_code">我的Y码:</string>
     <string name="change_commodity">积分兑换</string>
@@ -245,7 +257,7 @@
     <string name="buy_success_tip">我们已经收到你的订单，我们将尽快把商品送到你的手中，祝您愉快！</string>
     <string name="continue_buy">返回商城</string>
     <string name="mall_construct">商城建设中</string>
-    <string name="welcome_text">www.ifanying.com</string>
+    <string name="welcome_text">www.yibuxueche.com</string>
     <string name="picture">图片</string>
     <string name="name">姓名</string>
     <string name="nickname">昵称</string>
@@ -255,6 +267,9 @@
     <string name="search_school">搜索</string>
     <string name="c1_automatic_gear_car">C1手动档小车</string>
     <string name="c2_manual_gear_car">C2自动档小车</string>
+     <string name="other">其   他</string>
+    
+    <string name="all">全部</string>
     <string name="apply_system_distribute">系统分配</string>
     <string name="apply_add_byself">自行添加</string>
     <string name="yibu_phone">4006269255</string>

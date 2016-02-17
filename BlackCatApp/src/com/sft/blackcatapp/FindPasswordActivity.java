@@ -130,6 +130,21 @@ public class FindPasswordActivity extends BaseActivity {
 		return null;
 	}
 
+	private String checkInputs() {
+		String phone = phoneEt.getText().toString();
+		if (TextUtils.isEmpty(phone)) {
+			return "手机号为空";
+		} else {
+			if (!CommonUtil.isMobile(phone)) {
+				return "手机号格式不正确";
+			}
+		}
+		if (phone.length() != 11) {
+			return "请输入正确的手机号";
+		}
+		return null;
+	}
+
 	@Override
 	public synchronized boolean doCallBack(String type, Object jsonString) {
 		if (super.doCallBack(type, jsonString)) {
@@ -182,7 +197,7 @@ public class FindPasswordActivity extends BaseActivity {
 		case R.id.base_right_btn:
 			break;
 		case R.id.findpass_code_btn:
-			String result1 = checkInput();
+			String result1 = checkInputs();
 			if (result1 == null) {
 				obtainCode();
 			} else {

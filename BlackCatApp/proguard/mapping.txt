@@ -32814,18 +32814,19 @@ com.sft.blackcatapp.FindPasswordActivity -> com.sft.blackcatapp.FindPasswordActi
     82:97:void obtainCode() -> d
     100:108:void changePassword() -> e
     111:130:java.lang.String checkInput() -> f
-    135:170:boolean doCallBack(java.lang.String,java.lang.Object) -> a
-    175:204:void onClick(android.view.View) -> onClick
-    208:212:void onDestroy() -> onDestroy
+    134:145:java.lang.String checkInputs() -> g
+    150:185:boolean doCallBack(java.lang.String,java.lang.Object) -> a
+    190:219:void onClick(android.view.View) -> onClick
+    223:227:void onDestroy() -> onDestroy
     37:37:android.widget.Button access$0(com.sft.blackcatapp.FindPasswordActivity) -> a
     42:42:cn.sft.baseactivity.util.MyHandler access$1(com.sft.blackcatapp.FindPasswordActivity) -> b
 com.sft.blackcatapp.FindPasswordActivity$1 -> com.sft.blackcatapp.bm:
     int time -> b
     com.sft.blackcatapp.FindPasswordActivity this$0 -> a
-    144:156:void run() -> a
+    159:171:void run() -> a
 com.sft.blackcatapp.FindPasswordActivity$2 -> com.sft.blackcatapp.bn:
     com.sft.blackcatapp.FindPasswordActivity this$0 -> a
-    165:166:void run() -> a
+    180:181:void run() -> a
 com.sft.blackcatapp.GuideActivity -> com.sft.blackcatapp.GuideActivity:
     android.widget.ImageView iv -> a
     android.graphics.drawable.Drawable[] drawables -> b
