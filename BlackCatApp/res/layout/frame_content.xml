@@ -66,8 +66,9 @@
 
     <com.sft.blackcatapp.home.view.MainScreenContainer
         android:id="@+id/main_screen_container"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/orange"
         android:layout_below="@+id/title_layout"
         android:orientation="vertical" />
 

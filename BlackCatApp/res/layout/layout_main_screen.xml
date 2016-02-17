@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android">
-
-
-    <FrameLayout
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <!-- 
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        >
+        </RelativeLayout>
+     -->
+    
+        <FrameLayout
         android:id="@+id/fl_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/red_color"
         android:layout_above="@+id/bottom_line"
-        android:layout_below="@+id/toolbar" />
+         />
 
     <View
         android:id="@+id/bottom_line"
@@ -61,5 +70,11 @@
             android:background="@drawable/sl_tab_indicator_bg"
             android:duplicateParentState="true" />
     </LinearLayout>
+        
+    
+
+    
+    
+    
 
 </merge>

@@ -14,6 +14,8 @@ import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.sft.blackcatapp.MainActivity;
@@ -26,6 +28,7 @@ import com.sft.fragment.CommunityFragment;
 import com.sft.fragment.MallFragment;
 import com.sft.fragment.SchoolsFragment;
 import com.sft.fragment.StudyFragment;
+import com.sft.util.LogUtil;
 
 
 
@@ -33,7 +36,7 @@ import com.sft.fragment.StudyFragment;
 /**
  * 底部Tab
  */
-public class MainScreenContainer extends RelativeLayout implements
+public class MainScreenContainer extends LinearLayout implements
 		OnClickListener {
 
 	private static final String TAG = "MainScreenContainer";
@@ -75,10 +78,20 @@ public class MainScreenContainer extends RelativeLayout implements
 		super(context, attrs);
 		initView();
 	}
+	
+	private FrameLayout temp;
 
 	private void initView() {
 		inflate(getContext(), R.layout.layout_main_screen, this);
+		setOrientation(LinearLayout.VERTICAL);
 		mContentId = R.id.fl_content;
+		
+		temp = (FrameLayout) findViewById(mContentId);
+		LayoutParams params = (LayoutParams) temp.getLayoutParams();
+		params.weight = 1;
+		temp.setLayoutParams(params);
+		
+		
 		mTabContainer = findViewById(R.id.ll_tab_container);
 		mTabs = new ArrayList<TabInfo>();
 
@@ -136,11 +149,18 @@ public class MainScreenContainer extends RelativeLayout implements
 			FragmentTransaction ft = mFragmentManager.beginTransaction();
 			if (mAddedTabs.contains(mCurrentTab)) {
 				ft.show(tab.fragment);
+				LogUtil.print("show--one---show>"+tab.type);
 			} else {
 				ft.add(mContentId, tab.fragment, tab.type + "");
 				mAddedTabs.add(mCurrentTab);
+				LogUtil.print("show--one---add>"+tab.type);
 			}
+//			ft.replace(mContentId, tab.fragment, tab.type +"");
+			
+//			ft.commit();
 			ft.commitAllowingStateLoss();
+//			if(tab.fragment!=null )
+//				LogUtil.print(temp.getHeight()+"Wdith::"+temp.getWidth()+"Type::"+tab.type+"Count::"+temp.getChildCount()+"Add::>>"+tab.fragment.isAdded()+"show--one---add>"+this.getHeight()+this.getWidth());
 		}
 		refreshTab(tab);
 	}

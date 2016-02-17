@@ -82,10 +82,10 @@ public class SchoolsFragment extends BaseFragment implements
 
 	private String currCity = null;
 
-	private String cityname;
-	private String licensetype;
+	private String cityname = "北京";
+	private String licensetype = "1";
 	public String schoolname;
-	private String ordertype;
+	private String ordertype = "0";
 
 	private final static String nearBySchool = "nearBySchool";
 	private static final String headlineNews = "headlineNews";
@@ -195,7 +195,8 @@ public class SchoolsFragment extends BaseFragment implements
 		public void onSuccess(int paramInt, Header[] paramArrayOfHeader,
 				byte[] paramArrayOfByte) {
 			String value = parseJson(paramArrayOfByte);
-
+//			LogUtil.print("nearby--onSuccess->"+ value );
+			
 			if (!TextUtils.isEmpty(msg)) {
 				// 加载失败，弹出失败对话框
 				Toast(msg);
@@ -207,7 +208,8 @@ public class SchoolsFragment extends BaseFragment implements
 		@Override
 		public void onFailure(int paramInt, Header[] paramArrayOfHeader,
 				byte[] paramArrayOfByte, Throwable paramThrowable) {
-
+			LogUtil.print("nearby--onFailure->"+ paramInt );
+			
 		}
 	};
 
@@ -248,7 +250,7 @@ public class SchoolsFragment extends BaseFragment implements
 
 	// 搜索成功
 	protected void processSuccess(String value) {
-		// LogUtil.print("aaaaaaaaa111" );
+		 
 		if (!isSearchSchool)
 			searchSchool.setVisibility(View.GONE);
 		// ((EnrollSchoolActivity1)getActivity()).etSearch.setVisibility(View.GONE);
@@ -256,6 +258,7 @@ public class SchoolsFragment extends BaseFragment implements
 		if (value != null) {
 			LogUtil.print(value);
 			try {
+				@SuppressWarnings("unchecked")
 				List<SchoolVO> schoolList = (List<SchoolVO>) JSONUtil
 						.parseJsonToList(value,
 								new TypeToken<List<SchoolVO>>() {
@@ -270,7 +273,7 @@ public class SchoolsFragment extends BaseFragment implements
 						}
 					}
 				}
-
+				
 				if (isSearchSchool) {
 					setSearchData(schoolList, selectIndex);
 				} else {
@@ -309,11 +312,11 @@ public class SchoolsFragment extends BaseFragment implements
 	}
 
 	// 获取头部轮播图图片
-	private void obtainHeadLineNews() {
-		HttpSendUtils.httpGetSend(headlineNews, this, Config.IP
-				+ "api/v1/info/headlinenews");
-
-	}
+//	private void obtainHeadLineNews() {
+//		HttpSendUtils.httpGetSend(headlineNews, this, Config.IP
+//				+ "api/v1/info/headlinenews");
+//
+//	}
 
 	// @Override
 	// protected void onResume() {
@@ -334,6 +337,9 @@ public class SchoolsFragment extends BaseFragment implements
 
 		schoolListView = (ListView) rootView
 				.findViewById(R.id.enroll_select_school_listview);
+		adapter = new SchoolListAdapter(getActivity(), schoolList);
+		schoolListView.setAdapter(adapter);
+		
 		swipeLayout.setChildScroll(new MOnScrollListener() {
 
 			@Override
@@ -531,18 +537,22 @@ public class SchoolsFragment extends BaseFragment implements
 	}
 
 	private void setData(List<SchoolVO> school, int selectIndex) {
-
+		
 		if (index == 1) {
 			schoolList.clear();
 			if (!isRefreshing) {
 				schoolList.addAll(school);
-				adapter = new SchoolListAdapter(getActivity(), schoolList);
-				schoolListView.setAdapter(adapter);
+//				adapter = new SchoolListAdapter(getActivity(), schoolList);
+//				schoolListView.setAdapter(adapter);
+				adapter.notifyDataSetChanged();
+				LogUtil.print("nearby---000>"+ schoolList.size() );
 			} else {// ??? 正在刷新
 				// schoolList.addAll(school);
 				schoolList = school;
-				adapter = new SchoolListAdapter(getActivity(), schoolList);
-				schoolListView.setAdapter(adapter);
+				adapter.notifyDataSetChanged();
+				LogUtil.print("nearby---111>"+ schoolList.size() );
+//				adapter = new SchoolListAdapter(getActivity(), schoolList);
+//				schoolListView.setAdapter(adapter);
 			}
 		} else {
 			if (school.size() == 0) {
@@ -552,6 +562,7 @@ public class SchoolsFragment extends BaseFragment implements
 				schoolList.addAll(school);
 
 				adapter.notifyDataSetChanged();
+				LogUtil.print("nearby---222>"+ schoolList.size() );
 				if (selectIndex >= 0) {
 					adapter.setSelected(0);
 				}
@@ -583,8 +594,8 @@ public class SchoolsFragment extends BaseFragment implements
 		paramMap.put("ordertype", ordertype);
 		paramMap.put("index", index + "");
 		paramMap.put("count", "10");
-
-		ApiHttpClient.get("searchschool", paramMap, handler);
+		LogUtil.print("Nearby-->"+app.latitude+"long-->"+app.longtitude);
+		ApiHttpClient.get("searchSchool", paramMap, handler);//"searchschool"
 	}
 
 	private void setListener() {
@@ -1199,7 +1210,7 @@ public class SchoolsFragment extends BaseFragment implements
 		initViewA(v);
 		initData();
 		setListener();
-		obtainHeadLineNews();
+//		obtainHeadLineNews();
 		cityname = "";
 		licensetype = "";
 		schoolname = "";
