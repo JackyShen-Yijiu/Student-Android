@@ -7,13 +7,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bottom_line"
-        android:layout_below="@+id/toolbar" />
+         />
 
     <View
         android:id="@+id/bottom_line"
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="#979797" />
+        android:background="#f00" />
 
     <LinearLayout
         android:id="@+id/ll_tab_container"

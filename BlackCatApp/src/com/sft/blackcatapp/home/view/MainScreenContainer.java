@@ -14,7 +14,7 @@ import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 
 import com.sft.blackcatapp.MainActivity;
 import com.sft.blackcatapp.R;
@@ -26,11 +26,12 @@ import com.sft.fragment.AppointmentFragment;
 import com.sft.fragment.CommunityFragment;
 import com.sft.fragment.MallFragment;
 import com.sft.fragment.StudyFragment;
+import com.sft.util.LogUtil;
 
 /**
  * 底部Tab
  */
-public class MainScreenContainer extends RelativeLayout implements
+public class MainScreenContainer extends LinearLayout implements
 		OnClickListener {
 
 	private static final String TAG = "MainScreenContainer";
@@ -113,6 +114,7 @@ public class MainScreenContainer extends RelativeLayout implements
 
 	@Override
 	public void onClick(View v) {
+		LogUtil.print("showTabqqqqq");
 		int type = (Integer) v.getTag();
 		showTab(type);
 	}
@@ -217,6 +219,7 @@ public class MainScreenContainer extends RelativeLayout implements
 	}
 
 	public void refreshTab(TabInfo tab) {
+		LogUtil.print("refreshTab+++" + tab.type);
 		Fragment f = tab.fragment;
 		if (f != null && f instanceof IIndicateMainTabNotification) {
 			IIndicateMainTabNotification in = (IIndicateMainTabNotification) f;

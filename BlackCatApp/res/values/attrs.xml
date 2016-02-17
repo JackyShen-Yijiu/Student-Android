@@ -20,5 +20,12 @@
         <attr name="overspread" format="boolean" />
         <attr name="columnNum" format="integer" />
     </declare-styleable>
+    
+    <declare-styleable name="StudyItemLayout">
+        <attr name="itemIcon" format="reference"/>
+        <attr name="itemTitle" format="string"/>
+        <attr name="itemDescribe" format="string"/>
+        
+    </declare-styleable>
 
 </resources>

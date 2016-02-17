@@ -14,7 +14,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
-import android.app.LocalActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -93,7 +92,7 @@ public class MainActivity extends BaseMainActivity implements
 	//
 	private BaiduMap mBaiduMap;
 
-//	private LocalActivityManager activityManager = null;
+	// private LocalActivityManager activityManager = null;
 
 	private ImageView home_btn;
 	private SlidingMenu mSlidingMenu;
@@ -919,7 +918,8 @@ public class MainActivity extends BaseMainActivity implements
 			titleRightIv.setVisibility(View.VISIBLE);
 			titleRightTv.setVisibility(View.VISIBLE);
 			titleTv.setText(CommonUtil.getString(this, R.string.driving_school));
-			titleTv.setText(CommonUtil.getString(this, R.string.locationing));
+			titleRightTv.setText(CommonUtil.getString(this,
+					R.string.locationing));
 			break;
 		case TAB_STUDY:
 			titleTv.setText(CommonUtil.getString(this,

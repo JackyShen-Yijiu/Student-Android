@@ -7,13 +7,15 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
 import com.sft.blackcatapp.R;
+import com.sft.util.LogUtil;
 
 public class StudyFragment extends BaseHomeFragment implements OnClickListener {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_apply, container,
+		LogUtil.print("StudyFragment----");
+		View rootView = inflater.inflate(R.layout.fragment_study, container,
 				false);
 		initViews(rootView);
 		return rootView;
