@@ -956,6 +956,7 @@ public class SchoolsFragment extends BaseFragment implements
 
 	@Override
 	public synchronized boolean doCallBack(String type, Object jsonString) {
+		LogUtil.print(type+"doCallBack--"+jsonString);
 		if (super.doCallBack(type, jsonString)) {
 			return true;
 		}
@@ -1186,6 +1187,7 @@ public class SchoolsFragment extends BaseFragment implements
 	}
 
 	private void initView(View v) {
+		LogUtil.print("schooll--initView");
 
 		// addView(R.layout.activity_enroll_school);
 

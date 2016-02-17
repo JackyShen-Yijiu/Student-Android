@@ -22,6 +22,7 @@ import com.sft.blackcatapp.home.i.IIndicateMainTabNotification;
 import com.sft.blackcatapp.home.i.INewIntent;
 import com.sft.blackcatapp.home.i.IOnKeyDown;
 import com.sft.fragment.AppayFragment;
+import com.sft.fragment.SchoolsFragment;
 
 /**
  * 底部Tab
@@ -74,7 +75,7 @@ public class MainScreenContainer extends RelativeLayout implements
 		mContentId = R.id.fl_content;
 		mTabContainer = findViewById(R.id.ll_tab_container);
 		mTabs = new ArrayList<TabInfo>();
-		mTabs.add(getTabInfo(R.id.tab_grab_order, new AppayFragment(),
+		mTabs.add(getTabInfo(R.id.tab_grab_order, new SchoolsFragment(),
 				MainActivity.TAB_APPLY, R.string.tab_indicator_title_apply,
 				R.drawable.sl_tab_icon_apply));
 		mTabs.add(getTabInfo(R.id.tab_schedule, new AppayFragment(),
