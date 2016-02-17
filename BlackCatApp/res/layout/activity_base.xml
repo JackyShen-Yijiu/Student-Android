@@ -4,7 +4,7 @@
     android:layout_height="fill_parent"
     android:clipToPadding="true"
    	android:fitsSystemWindows="true"
-    android:background="@drawable/bg"
+   	android:background="#db4437"
     android:id="@+id/base_all"
      >
      <include layout="@layout/title"></include>

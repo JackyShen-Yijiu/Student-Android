@@ -22,15 +22,14 @@ import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import cn.jpush.android.api.JPushInterface;
 import cn.sft.listener.ICallBack;
 
 import com.sft.common.BlackCatApplication;
-import com.sft.util.LogUtil;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.CarModelVO;
 import com.sft.vo.ClassVO;
@@ -48,9 +47,9 @@ public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity
 	public static final int SHOW_LEFT_TEXT = 1;
 	public static final int SHOW_RIGHT_TEXT = 2;
 
-	/**总页面*/
+	/** 总页面 */
 	private RelativeLayout rl_base_content;
-	
+
 	// 标题栏
 	protected LinearLayout titlebarLayout;
 	// 标题栏左边按钮
@@ -141,7 +140,7 @@ public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity
 			finish();
 		}
 		setContentView(R.layout.activity_base);
-		
+
 		rl_base_content = (RelativeLayout) findViewById(R.id.base_all);
 		titlebarLayout = (LinearLayout) findViewById(R.id.base_titlebar_layout);
 		leftBtn = (ImageButton) findViewById(R.id.base_left_btn);
@@ -165,17 +164,18 @@ public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity
 			app = BlackCatApplication.getInstance();
 		}
 	}
-	
+
 	/**
 	 * 设置背景色
+	 * 
 	 * @param color
 	 */
-	public void setBg(int color){
-//		Toast("白色"+contentLayout);
-		if(contentLayout!=null){
+	public void setBg(int color) {
+		// Toast("白色"+contentLayout);
+		if (contentLayout != null) {
 			contentLayout.setBackgroundColor(color);
 		}
-			
+
 	}
 
 	private void setListener() {
@@ -331,8 +331,8 @@ public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity
 		}
 
 		if (!TextUtils.isEmpty(msg)) {
-			ZProgressHUD.getInstance(this).show();
-			ZProgressHUD.getInstance(this).dismissWithFailure(msg, 2000);
+			// ZProgressHUD.getInstance(this).show();
+			// ZProgressHUD.getInstance(this).dismissWithFailure(msg, 2000);
 			return true;
 		}
 
@@ -384,8 +384,8 @@ public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity
 		JPushInterface.onPause(this);
 
 	}
-	
-	public void Toast(String str){
+
+	public void Toast(String str) {
 		Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
 	}
 
