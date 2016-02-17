@@ -93,5 +93,8 @@
 	<dimen name="txt_size_middle">14sp</dimen>
 	<dimen name="txt_size_small">12sp</dimen>
 	<dimen name="txt_size_large">16sp</dimen>
+	
+	<!-- 以下为2.0版本 -->
+	<dimen name="actionBarSize">48dp</dimen>
 							
 </resources>

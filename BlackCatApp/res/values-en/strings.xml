@@ -7,8 +7,8 @@
     <string name="password">密码</string>
     <string name="login">登录</string>
     <string name="forget_password">忘记密码</string>
-    <string name="register_account">现在注册账号</string>
-    <string name="look_around">先随便看看 </string>
+    <string name="register_account">注册新用户</string>
+    <string name="look_around">随便看看 </string>
     <string name="register">注册</string>
     <string name="confirm_password">确认密码</string>
     <string name="auth_code">验证码</string>

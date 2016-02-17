@@ -12,6 +12,9 @@
     <!-- app的主色调 -->
     <color name="app_main_title_color">#fefefe</color>
     <color name="app_main_color">#ff6633</color> 
+      <!-- 新加的色调 -->
+    <color name="new_app_main_color">#bd4437</color> 
+    
     <!-- 按钮按下颜色 -->
     <color name="btn_press_color">#ff5a2b</color>
     <!-- 全科颜色 -->
@@ -52,16 +55,23 @@
     <color name="drawer_selector">#33ffffff</color>
     <color name="drawer_unselector">#00000000</color>
     
-    <color name="transparent">#00000000</color>
     
     <color name="bottom_text_unselector">#828282</color>
     <color name="bottom_text_selector">#ff6633</color>
     <color name="default_text_color">#333</color>
     <color name="red_color">#f00</color>
     
-    <color name="white_pure">#ffffff</color>
     <color name="white_p">#ECECEC</color>
 
     <color name="listview_selected_color">#99999999</color>
+    
+    <!-- 以下为2.0版本 -->
+    <!-- 首页 -->
+    <color name="maintab_text_normal">#999999</color>
+      <color name="maintab_text_selected">#2879F3</color>
+      <color name="transparent">#00000000</color>
+      <color name="white_pure">#ffffff</color>
+      <color name="subtab_text_normal">#FFFFFF</color>
+      <color name="subtab_text_selected">#2879F3</color>
     
 </resources>
