@@ -2,32 +2,36 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    
     android:orientation="vertical"
-     android:clipToPadding="true"
-   		 android:fitsSystemWindows="true"
+    android:clipToPadding="true"
+    android:background="#fff"
+   	android:fitsSystemWindows="true"
     android:paddingLeft="@dimen/register_registerlayout_paddingleftright"
     android:paddingRight="@dimen/register_registerlayout_paddingleftright" >
 
+    <TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="手机号"/>
     <EditText
         android:id="@+id/register_phone_et"
         style="@style/register_et_style"
         android:background="@null"
-        android:drawableLeft="@drawable/ac_drawable_left"
-        android:drawablePadding="15dp"
         android:layout_marginTop="15dp"
-        android:hint="@string/phonenumber"
-        android:textColor="#fff"
+        android:textColor="#212121"
         android:inputType="phone"
         android:maxLength="11" />
         <ImageView
                 android:id="@+id/login_deivder_im"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:layout_below="@+id/register_phone_et"
                 android:background="#88e6e6e6"
                 android:contentDescription="@string/app_name" />
 
+        
+          <TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="验证码"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/register_et_height"
@@ -43,9 +47,7 @@
             android:background="@null"
             android:layout_marginTop="0dp"
             android:layout_weight="1"
-            android:textColor="#fff"
-            android:hint="@string/auth_code"
-             android:drawableLeft="@drawable/verification_code"
+            android:textColor="#212121"
             android:inputType="text"
             android:maxLength="6" />
         
@@ -55,8 +57,8 @@
             android:id="@+id/register_code_btn"
             style="@style/btn_style"
             android:textSize="15dp"
-            android:textColor="#ff6633"
-            android:background="@null"
+            android:textColor="#fff"
+            android:background="@color/new_app_main_color"
             android:layout_width="@dimen/register_code_btn_width"
             android:layout_marginLeft="@dimen/register_code_btn_marginleft"
             android:text="@string/send_auth_code" />
@@ -64,70 +66,85 @@
       <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:layout_below="@+id/register_password_et"
                 android:background="#88e6e6e6"
+                android:layout_marginTop="5dp"
                 android:contentDescription="@string/app_name" />
-    
+      <TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="密码"/>
 
     <EditText
         android:id="@+id/register_password_et"
         style="@style/register_password_et_style"
         android:background="@null"
-        android:drawablePadding="15dp"
-        android:drawableLeft="@drawable/ac_pass_drawable_left"
-        android:textColor="#fff"
-        android:hint="@string/password" />
+        android:textColor="#212121"
+        />
       <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:layout_below="@+id/register_password_et"
                 android:background="#88e6e6e6"
                 android:contentDescription="@string/app_name" />
-    
+      <TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="确认密码"/>
 
     <EditText
         android:id="@+id/register_conpass_et"
         style="@style/register_password_et_style"
-        android:drawableLeft="@drawable/ac_pass_drawable_left"
         android:background="@null"
-        android:drawablePadding="15dp"
-        android:textColor="#fff"
-        android:hint="@string/confirm_password" />
+        android:textColor="#212121"
+         />
       <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:layout_below="@+id/register_conpass_et"
                 android:background="#88e6e6e6"
                 android:contentDescription="@string/app_name" />
+      <TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="邀请码(可选)"/>
 
     <EditText
         android:id="@+id/register_invitationcode_et"
         style="@style/register_et_style"
-        android:hint="@string/invitation_code"
-        android:drawablePadding="15dp"
         android:background="@null"
-        android:drawableLeft="@drawable/invitation_code"
-        android:textColor="#fff"
+        android:textColor="#212121"
         android:inputType="text" />
  <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:layout_below="@+id/register_invitationcode_et"
                 android:background="#88e6e6e6"
                 android:contentDescription="@string/app_name" />
-    <Button
-        android:id="@+id/register_register_btn"
-        style="@style/btn_style"
-        android:layout_marginBottom="@dimen/register_register_btn_marginbottom"
-        android:layout_marginTop="@dimen/register_register_btn_margintop"
-        android:text="@string/register" />
+ <RelativeLayout 
+     android:layout_width="match_parent"
+     android:layout_marginTop="10dp"
+     android:layout_height="wrap_content">
+<CheckBox 
+    android:id="@+id/rb_check"
+    android:layout_width="25dp"
+    android:layout_height="20dp"
+    android:checked="true"
+	android:layout_centerVertical="true"
+    android:button="@drawable/login_check"/>
+ <TextView
+     android:id="@+id/register_protocol_tv"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_marginTop="15dp"
+     android:layout_centerVertical="true"
+     android:layout_toRightOf="@+id/rb_check"
+     android:layout_marginLeft="15dp"
+     android:text="@string/protocol"
+     android:textSize="13dp" />
+</RelativeLayout>
 
-    <TextView
-        android:id="@+id/register_protocol_tv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#999"
-        android:textSize="13dp"
-        android:text="@string/protocol" />
+ <Button
+     android:id="@+id/register_register_btn"
+     style="@style/btn_style"
+     android:layout_marginBottom="@dimen/register_register_btn_marginbottom"
+     android:layout_marginTop="@dimen/register_register_btn_margintop"
+     android:text="@string/register" />
 
 </LinearLayout>

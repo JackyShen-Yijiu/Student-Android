@@ -15,7 +15,7 @@
     <string name="send_auth_code">发送验证码</string>
     <string name="more_send_auth_code">再次发送验证码</string>
     <string name="invitation_code">输入邀请码将获取奖励</string>
-    <string name="protocol">点击注册则表示你同意《用户服务协议》</string>
+    <string name="protocol">我同意《用户服务协议》</string>
     <string name="new_password">新密码</string>
     <string name="confirm_new_password">确认新密码</string>
     <string name="finish">完成</string>

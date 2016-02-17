@@ -84,11 +84,6 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 		sendCodeBtn = (Button) findViewById(R.id.register_code_btn);
 		registerBtn = (Button) findViewById(R.id.register_register_btn);
 
-		phoneEt.setHint(setHint(R.string.phonenumber));
-		codeEt.setHint(setHint(R.string.auth_code));
-		passwordEt.setHint(setHint(R.string.password));
-		conpassEt.setHint(setHint(R.string.confirm_password));
-		invitationEt.setHint(setHint(R.string.invitation_code));
 	}
 
 	private void setListener() {
