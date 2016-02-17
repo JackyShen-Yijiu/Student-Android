@@ -385,4 +385,12 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsTranslucent">true</item>
     </style>  
+    
+    <!-- 以下为2.0版本 -->
+    
+     <style name="tab_indicator">
+        <item name="android:textSize">10sp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@drawable/sl_tab_indicator_title_textcolor</item>
+    </style>
 </resources>

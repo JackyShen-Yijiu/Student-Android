@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <FrameLayout
+        android:id="@+id/fl_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_line"
+        android:layout_below="@+id/toolbar" />
+
+    <View
+        android:id="@+id/bottom_line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#979797" />
+
+    <LinearLayout
+        android:id="@+id/ll_tab_container"
+        android:layout_width="fill_parent"
+        android:layout_height="52dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <com.sft.blackcatapp.home.view.MainScreenTab
+            android:id="@+id/tab_apply"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/sl_tab_indicator_bg"
+            android:duplicateParentState="true" />
+        <com.sft.blackcatapp.home.view.MainScreenTab
+            android:id="@+id/tab_study"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/sl_tab_indicator_bg"
+            android:duplicateParentState="true" />
+
+        <com.sft.blackcatapp.home.view.MainScreenTab
+            android:id="@+id/tab_appointment"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/sl_tab_indicator_bg"
+            android:duplicateParentState="true" />
+
+
+        <com.sft.blackcatapp.home.view.MainScreenTab
+            android:id="@+id/tab_mall"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/sl_tab_indicator_bg"
+            android:duplicateParentState="true" />
+        <com.sft.blackcatapp.home.view.MainScreenTab
+            android:id="@+id/tab_community"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/sl_tab_indicator_bg"
+            android:duplicateParentState="true" />
+    </LinearLayout>
+
+</merge>
