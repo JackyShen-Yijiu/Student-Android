@@ -99,15 +99,30 @@
                         android:numStars="5" />
                 </RelativeLayout>
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/select_coach_schoolname_tv"
-                android:layout_width="wrap_content"
+            
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:layout_marginTop="7dp"
-                android:textColor="#999999"
-                android:textSize="14dp" />
+               	android:layout_marginTop="7dp"
+                 >
+
+                <TextView
+                    android:id="@+id/select_coach_sex_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="性别"
+                    android:textColor="#999999"
+                    android:textSize="14dp" />
+                
+                <!-- <TextView
+                    android:id="@+id/select_coach_teachage_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:textColor="#999999"
+                    android:textSize="12dp" /> -->
+                </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -115,31 +130,13 @@
                 android:layout_marginTop="7dp" >
 
                 <TextView
-                    android:id="@+id/select_coach_rate_tv"
+                    android:id="@+id/select_coach_teachage_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="asdf"
+                    android:text="教龄"
                     android:textColor="#999999"
                     android:textSize="12dp" />
 
-                <TextView
-                    android:id="@+id/select_coach_age_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="19dp"
-                    android:layout_toRightOf="@+id/select_coach_rate_tv"
-                    android:text="asdf"
-                    android:textColor="#999999"
-                    android:textSize="12dp" />
-
-                <TextView
-                    android:id="@+id/select_coach_distance_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:text="asdf"
-                    android:textColor="#999999"
-                    android:textSize="12dp" />
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>

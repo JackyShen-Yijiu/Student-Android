@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#00000000"
@@ -9,5 +9,14 @@
         android:id="@+id/question_webview"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"/>
+    
+    <ImageView 
+        android:id="@+id/base_left_btn11"
+        android:layout_width="@dimen/base_titlebar_leftright_btn_width"
+        android:layout_height="@dimen/base_titlebar_leftright_btn_height"
+        android:onClick="onClick"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/left_btn_press"
+        />
 
-</LinearLayout>
+</FrameLayout>

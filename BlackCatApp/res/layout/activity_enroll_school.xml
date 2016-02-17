@@ -4,11 +4,159 @@
     android:layout_height="fill_parent"
     android:background="#00000000"
      >
+      <LinearLayout
+        android:id="@+id/enroll_school_select_ll"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:background="#ffffff"
+        
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1" >
+
+            <TextView
+                android:id="@+id/enroll_school_class_select_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="车型选择"
+                android:gravity="center"
+                android:clickable="true"
+                android:textColor="#333"
+                android:onClick="onClick"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/enroll_school_arrow1_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="7dp"
+                android:layout_toRightOf="@+id/enroll_school_class_select_tv"
+                android:src="@drawable/arrow_below" />
+
+            <ImageView
+                android:layout_width="1dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="#88dddddd" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="1" >
+
+            <TextView
+                android:id="@+id/enroll_school_distance_select_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:clickable="true"
+                android:text="距离最近"
+                android:textColor="#333"
+                android:onClick="onClick"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/enroll_school_arrow2_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="7dp"
+                android:layout_toRightOf="@+id/enroll_school_distance_select_tv"
+                android:src="@drawable/arrow_below" />
+
+            <ImageView
+                android:layout_width="0.5dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="#88dddddd" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="1" >
+
+            <TextView
+                android:id="@+id/enroll_school_comment_select_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="评分最高"
+                android:clickable="true"
+                android:textColor="#333"
+                android:onClick="onClick"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/enroll_school_arrow3_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="7dp"
+                android:layout_toRightOf="@+id/enroll_school_comment_select_tv"
+                android:src="@drawable/arrow_below" />
+
+            <ImageView
+                android:layout_width="0.5dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="#88dddddd" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="1" >
+
+            <TextView
+                android:id="@+id/enroll_school_price_select_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:clickable="true"
+                android:text="价格最低"
+                android:textColor="#333"
+                android:onClick="onClick"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/enroll_school_arrow4_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="7dp"
+                android:layout_toRightOf="@+id/enroll_school_price_select_tv"
+                android:src="@drawable/arrow_below" />
+        </RelativeLayout>
+    </LinearLayout>
 
     <com.sft.view.RefreshLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/enroll_school_swipe_container"
         android:layout_width="match_parent"
+        android:layout_below="@+id/enroll_school_select_ll"
         android:layout_height="match_parent" >
 
         <ListView

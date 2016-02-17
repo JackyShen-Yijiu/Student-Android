@@ -8,6 +8,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:background="@null"
         android:orientation="vertical" >
 
         <TextView
@@ -56,6 +57,8 @@
         android:id="@+id/appointment_car_ck"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
         android:background="@drawable/appointment_car_ck_bkground"
         android:button="@null" />
 

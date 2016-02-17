@@ -9,6 +9,7 @@ public class StudentSubject extends DBVO {
 	private int finishcourse;
 	private String progress;
 	private String reservationid;
+	public int missingcourse;
 
 	public int getTotalcourse() {
 		return totalcourse;

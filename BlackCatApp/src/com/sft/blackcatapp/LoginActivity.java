@@ -26,6 +26,7 @@ import com.sft.common.Config;
 import com.sft.listener.EMLoginListener;
 import com.sft.util.DownLoadService;
 import com.sft.util.JSONUtil;
+import com.sft.util.LogUtil;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.UserVO;
 import com.sft.vo.VersionVO;
@@ -136,6 +137,7 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 			login();
 			break;
 		case R.id.login_lookaround_btn:
+			LogUtil.print("=0-=-=-=");
 			finish();
 			intent = new Intent(this, MainActivity.class);
 			break;

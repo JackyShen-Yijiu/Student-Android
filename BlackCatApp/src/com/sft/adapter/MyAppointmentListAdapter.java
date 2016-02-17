@@ -41,10 +41,10 @@ public class MyAppointmentListAdapter extends
 		notifyDataSetChanged();
 	}
 
-	public List<MyAppointmentVO> getData(){
+	public List<MyAppointmentVO> getData() {
 		return mData;
 	}
-	
+
 	public MyAppointmentVO getItem(int arg0) {
 		return mData.get(arg0);
 	}
@@ -145,6 +145,21 @@ public class MyAppointmentListAdapter extends
 				holder.status.setText("完成");
 				holder.status.setTextColor(Color.parseColor("#999999"));
 				holder.line.setBackgroundColor(Color.parseColor("#999999"));
+			} else if (state.equals(AppointmentResult.systemcancel.getValue())) {
+				// 系统取消
+				holder.status.setText("系统取消");
+				holder.status.setTextColor(Color.parseColor("#999999"));
+				holder.line.setBackgroundColor(Color.parseColor("#999999"));
+			} else if (state.equals(AppointmentResult.signfinish.getValue())) {
+				// 已签到
+				holder.status.setText("已签到");
+				holder.status.setTextColor(Color.parseColor("#999999"));
+				holder.line.setBackgroundColor(Color.parseColor("#999999"));
+			} else if (state.equals(AppointmentResult.missclass.getValue())) {
+				// 漏课
+				holder.status.setText("漏课");
+				holder.status.setTextColor(Color.parseColor("#999999"));
+				holder.line.setBackgroundColor(Color.parseColor("#999999"));
 			}
 		}
 
@@ -166,7 +181,8 @@ public class MyAppointmentListAdapter extends
 		String coachName = mData.get(position).getCoachid().getName();
 		String schoolName = mData.get(position).getCoachid()
 				.getDriveschoolinfo().getName();
-		String trainPlace = mData.get(position).getTrainfieldlinfo().getName();
+		String trainPlace = mData.get(position).getTrainfieldlinfo()
+				.getFieldname();
 
 		holder.coachinfo.setText(coachName + ", "
 				+ (TextUtils.isEmpty(trainPlace) ? schoolName : trainPlace));

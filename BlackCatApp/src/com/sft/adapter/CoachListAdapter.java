@@ -1,9 +1,7 @@
 package com.sft.adapter;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import com.sft.blackcatapp.R;
-import com.sft.vo.CoachVO;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -18,30 +16,55 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import cn.sft.infinitescrollviewpager.BitmapManager;
 
+import com.sft.adapter.SchoolDetailCourseFeeAdapter.MyClickListener;
+import com.sft.blackcatapp.R;
+import com.sft.util.LogUtil;
+import com.sft.vo.CoachVO;
+
 @SuppressLint("InflateParams")
 public class CoachListAdapter extends BaseAdapter {
 
 	private LayoutInflater mInflater;
 	private List<CoachVO> mData;
-	private boolean[] isSelected;
+	// private boolean[] isSelected;
+	private List<Boolean> isSelected = new ArrayList<Boolean>();
 
 	private int index = -1;
+	private Context mContext;
+	private MyClickListener mListener;
+
+	public CoachListAdapter(Context context, List<CoachVO> mData,
+			MyClickListener listener) {
+		this.mInflater = LayoutInflater.from(context);
+		this.mData = mData;
+		mContext = context;
+		mListener = listener;
+		// isSelected = ;
+		for (int i = 0; i < mData.size(); i++) {
+			isSelected.add(false);
+		}
+	}
 
 	public CoachListAdapter(Context context, List<CoachVO> mData) {
 		this.mInflater = LayoutInflater.from(context);
 		this.mData = mData;
-		isSelected = new boolean[mData.size()];
+		mContext = context;
+		// isSelected = ;
 		for (int i = 0; i < mData.size(); i++) {
-			isSelected[i] = false;
+			isSelected.add(false);
 		}
 	}
 
 	public void setSelected(int index) {
 		if (index >= 0) {
 			for (int i = 0; i < mData.size(); i++) {
-				isSelected[i] = false;
+				if (isSelected.size() - 1 > i) {
+					isSelected.set(i, false);
+				} else {
+					isSelected.add(false);
+				}
 			}
-			isSelected[index] = true;
+			isSelected.set(index, true);
 			this.index = index;
 		}
 	}
@@ -78,28 +101,39 @@ public class CoachListAdapter extends BaseAdapter {
 
 		ViewHolder holder = null;
 		if (convertView == null) {
-			convertView = mInflater.inflate(R.layout.select_coach_list_item, null);
+			convertView = mInflater.inflate(R.layout.select_coach_list_item,
+					null);
 			holder = new ViewHolder();
-			holder.coachName = (TextView) convertView.findViewById(R.id.select_coach_coachname_tv);
-			holder.schoolName = (TextView) convertView.findViewById(R.id.select_coach_schoolname_tv);
-			holder.headPic = (ImageView) convertView.findViewById(R.id.select_coach_headpin_im);
-			holder.rateBar = (RatingBar) convertView.findViewById(R.id.select_coach_ratingBar);
-			holder.shuttle = (TextView) convertView.findViewById(R.id.select_coach_shuttle);
-			holder.general = (TextView) convertView.findViewById(R.id.select_coach_general);
-			holder.rate = (TextView) convertView.findViewById(R.id.select_coach_rate_tv);
-			holder.age = (TextView) convertView.findViewById(R.id.select_coach_age_tv);
-			holder.distance = (TextView) convertView.findViewById(R.id.select_coach_distance_tv);
-			holder.selectIm = (ImageView) convertView.findViewById(R.id.select_coach_im);
+			holder.coachName = (TextView) convertView
+					.findViewById(R.id.select_coach_coachname_tv);
+			holder.sex = (TextView) convertView
+					.findViewById(R.id.select_coach_sex_tv);
+			holder.headPic = (ImageView) convertView
+					.findViewById(R.id.select_coach_headpin_im);
+			holder.rateBar = (RatingBar) convertView
+					.findViewById(R.id.select_coach_ratingBar);
+			holder.shuttle = (TextView) convertView
+					.findViewById(R.id.select_coach_shuttle);
+			holder.general = (TextView) convertView
+					.findViewById(R.id.select_coach_general);
+			holder.teachAge = (TextView) convertView
+					.findViewById(R.id.select_coach_teachage_tv);
+			holder.selectIm = (ImageView) convertView
+					.findViewById(R.id.select_coach_im);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		if (position >= isSelected.length) {
-			return convertView;
-		}
-		if (isSelected[position]) {
-			holder.selectIm.setBackgroundResource(R.drawable.select_class_ck_selected);
+		// if (position >= isSelected.length) {
+		// return convertView;
+		// }
+		// if (isSelected.size() - 1 < position) {
+		//
+		// }
+		if (isSelected.size() > position && isSelected.get(position)) {
+			holder.selectIm
+					.setBackgroundResource(R.drawable.select_class_ck_selected);
 		} else {
 			holder.selectIm.setBackgroundResource(android.R.color.transparent);
 		}
@@ -115,40 +149,44 @@ public class CoachListAdapter extends BaseAdapter {
 		}
 		String coachName = mData.get(position).getName();
 		holder.coachName.setText(coachName);
-		String schoolName = mData.get(position).getDriveschoolinfo().getName();
-		holder.schoolName.setText(schoolName);
+		holder.sex.setText("性别：" + mData.get(position).getGender());
 		String rateBar = mData.get(position).getStarlevel();
 		try {
 			holder.rateBar.setRating(Float.parseFloat(rateBar));
 		} catch (Exception e) {
 			holder.rateBar.setRating(0f);
 		}
-		String rate = mData.get(position).getPassrate();
-		holder.rate.setText("通过率: " + rate);
-		String age = mData.get(position).getSeniority();
-		holder.age.setText("通过率:" + age);
-		String distance = mData.get(position).getDistance();
-		holder.distance.setText(distance + "KM");
 
-		LinearLayout.LayoutParams headParam = (LinearLayout.LayoutParams) holder.headPic.getLayoutParams();
+		holder.teachAge.setText("教龄：" + mData.get(position).getSeniority()
+				+ "年");
+
+		LinearLayout.LayoutParams headParam = (LinearLayout.LayoutParams) holder.headPic
+				.getLayoutParams();
 
 		String url = mData.get(position).getHeadportrait().getOriginalpic();
 		if (TextUtils.isEmpty(url)) {
 			holder.headPic.setBackgroundResource(R.drawable.default_small_pic);
 		} else {
-			BitmapManager.INSTANCE.loadBitmap2(url, holder.headPic, headParam.width, headParam.height);
+			BitmapManager.INSTANCE.loadBitmap2(url, holder.headPic,
+					headParam.width, headParam.height);
 		}
+		// if (position == mData.size() - 1) {
+		LogUtil.print(mData.size() + "ssssssd===="
+				+ mData.get(position).getName() + position);
+		// }
 
+		holder.headPic.setTag(position);
+		holder.headPic.setOnClickListener(mListener);
 		return convertView;
 	}
 
 	private class ViewHolder {
 		public ImageView selectIm;
 		public TextView coachName;
-		public TextView schoolName;
+		public TextView sex;
 		public ImageView headPic;
 		public RatingBar rateBar;
 		public TextView shuttle, general;
-		public TextView rate, age, distance;
+		public TextView teachAge;
 	}
 }

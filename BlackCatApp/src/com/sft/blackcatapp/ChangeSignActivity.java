@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
-import com.sft.blackcatapp.R;
 import com.sft.common.Config;
 import com.sft.viewutil.ZProgressHUD;
 
@@ -39,7 +38,7 @@ public class ChangeSignActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		addView(R.layout.activity_callback);
+		addView(R.layout.activity_change_sign);
 		initView();
 		setListener();
 	}
@@ -58,13 +57,19 @@ public class ChangeSignActivity extends BaseActivity {
 
 		if (type.equals(changeSign)) {
 			setTitleText(R.string.change_personalized);
+			et.setText(app.userVO.getSignature());
+			
 		}
 		if (type.equals(changeName)) {
 			setTitleText(R.string.change_name);
+			et.setText(app.userVO.getName());
 		}
 		if (type.equals(changeNickName)) {
 			setTitleText(R.string.change_nickname);
+			et.setText(app.userVO.getNickname());
 		}
+		
+		
 
 	}
 
@@ -148,7 +153,7 @@ public class ChangeSignActivity extends BaseActivity {
 
 	private void changeName() {
 		String content = et.getText().toString();
-		if (!TextUtils.isEmpty(content)) {
+		if (!TextUtils.isEmpty(content.trim())) {
 			Map<String, String> paramMap = new HashMap<String, String>();
 			paramMap.put("userid", app.userVO.getUserid());
 			paramMap.put("name", content);
@@ -160,7 +165,7 @@ public class ChangeSignActivity extends BaseActivity {
 					headerMap);
 		} else {
 			ZProgressHUD.getInstance(this).show();
-			ZProgressHUD.getInstance(this).dismissWithFailure("签名不能为空");
+			ZProgressHUD.getInstance(this).dismissWithFailure("姓名不能为空");
 		}
 	}
 

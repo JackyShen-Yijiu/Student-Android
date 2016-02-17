@@ -22,7 +22,8 @@
             android:gravity="center"
             android:textColor="#ffffff"
             android:textSize="12dp"
-            android:visibility="gone" />
+            android:text="value"
+             />
 
         <TextView
             android:id="@+id/my_appointment_subject_text_tv"
@@ -34,8 +35,51 @@
             android:gravity="center_vertical"
             android:singleLine="true"
             android:textColor="#333333"
+            android:text="text"
             android:textSize="16dp" />
     </LinearLayout>
+    
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="33dp"
+        >
+        <TextView 
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:id="@+id/my_appoint_studied"
+            />
+        <TextView 
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:id="@+id/my_appoint_really"
+            />
+        
+        <TextView 
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_below="@+id/my_appoint_studied"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:id="@+id/my_appoint_notsign"
+            />
+        
+        <TextView 
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/my_appoint_studied"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:id="@+id/my_appoint_last"
+            />
+        
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"

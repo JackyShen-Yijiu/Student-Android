@@ -3,6 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/dialog_enrollsuccess_layout_bkground"
+    android:paddingBottom="20dp"
     android:orientation="vertical" >
 
     <ImageView
@@ -31,8 +32,33 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="32dp"
         android:textColor="#999999"
         android:textSize="14dp" />
+    <LinearLayout
+        android:id="@+id/dialog_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/dialog_confirm_btn"
+            style="@style/btn_style"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="20dp"
+            android:text="立即分享"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/dialog_cancel_btn"
+            android:layout_width="0dp"
+            style="@style/btn_style_white"
+            android:layout_height="match_parent"
+            android:layout_marginRight="15dp"
+            android:text="暂不分享"
+            android:layout_weight="1" />
+    </LinearLayout>
 
 </LinearLayout>

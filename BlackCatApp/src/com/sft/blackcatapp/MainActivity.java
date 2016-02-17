@@ -1,26 +1,39 @@
 package com.sft.blackcatapp;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.http.Header;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import android.annotation.SuppressLint;
 import android.app.LocalActivityManager;
 import android.content.Intent;
 import android.graphics.Canvas;
-import android.os.Build;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.WindowManager;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 import cn.jpush.android.api.JPushInterface;
@@ -33,11 +46,20 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.MapView;
+import com.google.gson.reflect.TypeToken;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.sft.adapter.HomePageAdapter;
+
+import com.sft.adapter.OpenCityAdapter;
+import com.sft.api.ApiHttpClient;
+
 import com.sft.common.BlackCatApplication;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
+import com.sft.dialog.CheckApplyDialog;
+import com.sft.dialog.NoCommentDialog;
 import com.sft.dialog.NoLoginDialog;
 import com.sft.fragment.IntroducesFragment;
 import com.sft.fragment.MenuFragment;
@@ -48,9 +70,14 @@ import com.sft.fragment.SubjectThreeFragment;
 import com.sft.fragment.SubjectTwoFragment;
 import com.sft.util.CommonUtil;
 import com.sft.util.JSONUtil;
+import com.sft.util.LogUtil;
+import com.sft.util.SharedPreferencesUtil;
 import com.sft.util.Util;
 import com.sft.viewutil.ZProgressHUD;
+import com.sft.vo.ActivitiesVO;
 import com.sft.vo.CoachVO;
+import com.sft.vo.MyAppointmentVO;
+import com.sft.vo.OpenCityVO;
 import com.sft.vo.QuestionVO;
 import com.sft.vo.SchoolVO;
 
@@ -61,7 +88,12 @@ public class MainActivity extends BaseMainActivity implements
 	private static final String subjectContent = "subjectContent";
 	private static final String coach = "coach";
 	private static final String school = "school";
+	private static final String NOT_COMMENT = "nocomment";
+	
 	private static final String questionaddress = "questionaddress";
+	private static final String TODAY_IS_OPEN_ACTIVITIES = "today_is_open_activities";
+	public static final String ISCLICKCONFIRM = "isclickconfirm";
+	private final static String openCity = "openCity";
 	//
 	private MapView mapView;
 	//
@@ -83,19 +115,13 @@ public class MainActivity extends BaseMainActivity implements
 	private HomePageAdapter mHomePageAdapter;
 	private ViewPager viewPager;
 
+	SimpleDateFormat df;
+
 	@SuppressLint("NewApi")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-			// 透明状态栏
-			getWindow().addFlags(
-					WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-			// 透明导航栏
-			getWindow().addFlags(
-					WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-		}
 		setContentView(R.layout.frame_content);
 		initView();
 		initData(savedInstanceState);
@@ -106,9 +132,72 @@ public class MainActivity extends BaseMainActivity implements
 		obtainFavouriteCoach();
 		obtainQuestionAddress();
 		obtainSubjectContent();
+		
+		LogUtil.print("app--->"+app+"user::"+app.userVO);
+//		if (app.userVO!=null && app.userVO.getApplystate().equals("0")) {
+//			// 填写课时信息
+//			checkStateDialog();
+		if (app.userVO!=null && app.userVO.getApplystate().equals("0")) {
+			// 只弹出一次进入验证学车进度的判断弹出框
+			if (!SharedPreferencesUtil.getBoolean(this, ISCLICKCONFIRM, false)) {
+				checkStateDialog();
+			}
+		} else {
+			//获取未评论列表
+			
+		}
 		setTag();
 		if (app != null && app.isLogin) {
 			util.print("userid=" + app.userVO.getUserid());
+		}
+		}
+
+//	}
+	
+	
+
+	@Override
+	protected void onResume() {
+		if (app.userVO!=null && app.userVO.getApplystate().equals("0")) {
+			
+		} else if(app.userVO!=null) {
+			//获取未评论列表
+			obtainNotComments();
+		}
+		
+		super.onResume();
+	}
+
+
+
+	/**
+	 * 检查学时状态 对话框，
+	 */
+	private void checkStateDialog() {
+		// 没报名
+		// LogUtil.print("state---->" + app.userVO.getApplystate());
+		if (app.isLogin) {
+			if (app.userVO.getApplystate().equals("0")) {
+				CheckApplyDialog dialog = new CheckApplyDialog(this);
+				dialog.setTextAndImage("是,我已报名",
+						"您是否已经报名学车", "否，我要学车",
+						R.drawable.ic_question);
+				dialog.setListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View arg0) {
+
+						// 保存选择状态，默认是否,
+						SharedPreferencesUtil.putBoolean(MainActivity.this,
+								ISCLICKCONFIRM, true);
+						startActivity(new Intent(MainActivity.this,
+								TestingPhoneActivity.class));
+
+					}
+				});
+				dialog.show();
+
+			}
 		}
 
 	}
@@ -148,6 +237,8 @@ public class MainActivity extends BaseMainActivity implements
 		subjectTwo = (TextView) findViewById(R.id.main_subject_two_tv);
 		subjectThree = (TextView) findViewById(R.id.main_subject_three_tv);
 		subjectFour = (TextView) findViewById(R.id.main_subject_four_tv);
+
+		curCityTv = (TextView) findViewById(R.id.cur_city_tv);
 
 		// set the Behind View
 		setBehindContentView(R.layout.frame_left_menu);
@@ -200,6 +291,7 @@ public class MainActivity extends BaseMainActivity implements
 			app.selectEnrollCoach = Util.getEnrollUserSelectedCoach(this);
 			app.selectEnrollCarStyle = Util.getEnrollUserSelectedCarStyle(this);
 			app.selectEnrollClass = Util.getEnrollUserSelectedClass(this);
+
 		}
 		/*
 		 * 在一个Activity的一部分中显示其他Activity”要用到LocalActivityManagerity
@@ -247,6 +339,7 @@ public class MainActivity extends BaseMainActivity implements
 
 	private void setListener() {
 		home_btn.setOnClickListener(this);
+		curCityTv.setOnClickListener(this);
 		viewPager.setOnPageChangeListener(new MainOnPageChangeListener());
 	}
 
@@ -320,9 +413,33 @@ public class MainActivity extends BaseMainActivity implements
 		case R.id.home_btn:
 			toggle(); // 动态判断自动关闭或开启SlidingMenu
 			break;
+		case R.id.cur_city_tv:
+			obtainOpenCity();
+			break;
 		default:
 			break;
 		}
+	}
+	
+	/**
+	 * 获取未评论列表
+	 */
+	private void obtainNotComments(){
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("userid", app.userVO.getUserid());
+		LogUtil.print("subject---Id==>"+app.userVO.getSubject().getSubjectid());
+		paramMap.put("subjectid",app.userVO.getSubject().getSubjectid());//订单的状态 // 0 订单生成 2 支付成功 3 支付失败 4 订单取消 -1 全部(未支付的订单)
+		
+		Map<String, String> headerMap = new HashMap<String, String>();
+		headerMap.put("authorization", app.userVO.getToken());
+		HttpSendUtils.httpGetSend(NOT_COMMENT, this, Config.IP
+				+ "api/v1/courseinfo/getmyuncommentreservation", paramMap, 10000,
+				headerMap);
+	}
+
+	private void obtainOpenCity() {
+		HttpSendUtils.httpGetSend(openCity, this, Config.IP
+				+ "api/v1/getopencity");
 	}
 
 	private void obtainSubjectContent() {
@@ -410,11 +527,129 @@ public class MainActivity extends BaseMainActivity implements
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+			}else if(type.equals(NOT_COMMENT)){
+				//未评论 的 预约列表
+				LogUtil.print("notcomment::::>>"+jsonString);
+				if (dataArray != null) {
+					int length = dataArray.length();
+					if(length == 0){//不存在 未评论
+						if(null != commentDialog){//不是空
+							commentDialog.dismiss();
+							return true;
+						}
+						// 获取活动
+						df = new SimpleDateFormat("yyyy-MM-dd");
+						String todayIsOpen = SharedPreferencesUtil.getString(this,
+								TODAY_IS_OPEN_ACTIVITIES, "");
+						if (!df.format(new Date()).toString().equals(todayIsOpen)) {
+							obtainActivities();
+						}
+						return true;
+					}
+					//开始 显示对话框
+					if(commentDialog!=null && commentDialog.isShowing()){
+						return true;
+					}
+					commentDialog = new NoCommentDialog(this);
+					commentDialog.setTextAndImage("去评价", "您有未评价订单\n给您的教练一个好评吧！", "去投诉", R.drawable.appointment_time_error);
+					commentDialog.setCancelable(false);
+					commentDialog.setCanceledOnTouchOutside(false);
+					commentDialog.show();
+					
+					
+//					List<MyAppointmentVO> list = new ArrayList<MyAppointmentVO>();
+//
+//					for (int i = 0; i < length; i++) {
+//						MyAppointmentVO appointmentVO = JSONUtil.toJavaBean(
+//								MyAppointmentVO.class,
+//								dataArray.getJSONObject(i));
+//						list.add(appointmentVO);
+//					}
+					
+				}
+				
+			} else if (type.equals(openCity)) {
+				if (dataArray != null) {
+					int length = dataArray.length();
+					openCityList = new ArrayList<OpenCityVO>();
+					for (int i = 0; i < length; i++) {
+						OpenCityVO openCityVO = null;
+						try {
+							openCityVO = JSONUtil.toJavaBean(OpenCityVO.class,
+									dataArray.getJSONObject(i));
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+						if (openCityVO != null) {
+							openCityList.add(openCityVO);
+						}
+					}
+					if (length > 0) {
+						// 添加当前城市到listview的头部
+						OpenCityVO curCityVO = new OpenCityVO();
+						curCityVO.setName("当前城市");
+						openCityList.add(0, curCityVO);
+						showOpenCityPopupWindow(curCityTv);
+					}
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return true;
+	}
+	
+	/**未评论*/
+	NoCommentDialog commentDialog = null;
+
+	@SuppressLint("NewApi") private void showOpenCityPopupWindow(View parent) {
+		if (openCityPopupWindow == null) {
+			LinearLayout popWindowLayout = (LinearLayout) View.inflate(this,
+					R.layout.pop_window, null);
+			popWindowLayout.removeAllViews();
+			// LinearLayout popWindowLayout = new LinearLayout(mContext);
+			popWindowLayout.setOrientation(LinearLayout.VERTICAL);
+			ListView OpenCityListView = new ListView(this);
+			OpenCityListView.setDividerHeight(0);
+			OpenCityListView.setSelector(android.R.color.transparent);
+			OpenCityListView.setCacheColorHint(android.R.color.transparent);
+			OpenCityListView.setOnItemClickListener(new OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view,
+						int position, long id) {
+					if (position == 0) {
+						selectCity = util.readParam(Config.USER_CITY);
+					} else {
+						OpenCityVO selectCityVO = openCityList.get(position);
+						selectCity = selectCityVO.getName();
+					}
+					// 替换城市
+					app.curCity = selectCity;
+					openCityPopupWindow.dismiss();
+					openCityPopupWindow = null;
+				}
+			});
+			LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
+					LinearLayout.LayoutParams.MATCH_PARENT,
+					LinearLayout.LayoutParams.WRAP_CONTENT);
+			param.gravity = Gravity.CENTER;
+			param.width = LinearLayout.LayoutParams.MATCH_PARENT;
+			popWindowLayout.addView(OpenCityListView, param);
+			OpenCityAdapter openCityAdapter = new OpenCityAdapter(this,
+					openCityList);
+			OpenCityListView.setAdapter(openCityAdapter);
+
+			openCityPopupWindow = new PopupWindow(popWindowLayout,
+					LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+		}
+		openCityPopupWindow.setFocusable(true);
+		openCityPopupWindow.setOutsideTouchable(true);
+		// 这个是为了点击“返回Back”也能使其消失，并且并不会影响你的背景
+		openCityPopupWindow.setBackgroundDrawable(new BitmapDrawable());
+
+		openCityPopupWindow.showAsDropDown(parent, 0, 20,
+				Gravity.CENTER_HORIZONTAL);
 	}
 
 	private LocationClient mLocationClient;
@@ -424,6 +659,9 @@ public class MainActivity extends BaseMainActivity implements
 	private TextView subjectTwo;
 	private TextView subjectThree;
 	private TextView subjectFour;
+	private List<OpenCityVO> openCityList;
+	private PopupWindow openCityPopupWindow;
+	private String selectCity = "";
 
 	private void initMyLocation() {
 		// 定位初始化
@@ -455,10 +693,11 @@ public class MainActivity extends BaseMainActivity implements
 			app.longtitude = String.valueOf(location.getLongitude());
 			String curCity = location.getAddress().city;
 			if (curCity != null) {
-				curCity = curCity.replace("市", "");
+				// curCity = curCity.replace("市", "");
 				app.curCity = curCity;
 				util.saveParam(Config.USER_CITY, curCity);
 				stopLocation();
+				curCityTv.setText(curCity);
 			}
 		}
 	}
@@ -526,7 +765,7 @@ public class MainActivity extends BaseMainActivity implements
 					if (EnrollResult.SUBJECT_NONE.getValue()
 							.equals(enrollState)) {
 						Intent intent = new Intent(getBaseContext(),
-								ApplyActivity.class);
+								EnrollSchoolActivity1.class);
 						startActivity(intent);
 						viewPager.setCurrentItem(position - 1);
 					}
@@ -609,6 +848,7 @@ public class MainActivity extends BaseMainActivity implements
 	}
 
 	private long firstTime;
+	private TextView curCityTv;
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -642,5 +882,102 @@ public class MainActivity extends BaseMainActivity implements
 	// }
 	// return super.onKeyUp(keyCode, event);
 	// }
+
+	private void obtainActivities() {
+
+		// System.out.println(app.curCity);
+		RequestParams params = new RequestParams();
+		params.put("cityname", app.curCity);
+		ApiHttpClient.get("getactivity", params,
+				new AsyncHttpResponseHandler() {
+
+					@Override
+					public void onSuccess(int paramInt,
+							Header[] paramArrayOfHeader, byte[] paramArrayOfByte) {
+						String value = parseJson(paramArrayOfByte);
+						if (!TextUtils.isEmpty(msg)) {
+							// 加载失败，弹出失败对话框
+							Toast.makeText(getBaseContext(), msg, 0).show();
+						} else {
+							processSuccess(value);
+
+						}
+					}
+
+					@Override
+					public void onFailure(int paramInt,
+							Header[] paramArrayOfHeader,
+							byte[] paramArrayOfByte, Throwable paramThrowable) {
+
+					}
+				});
+
+	}
+
+	protected void processSuccess(String value) {
+		if (value != null) {
+			LogUtil.print(value);
+			try {
+				List<ActivitiesVO> activitiesList = (List<ActivitiesVO>) JSONUtil
+						.parseJsonToList(value,
+								new TypeToken<List<ActivitiesVO>>() {
+								}.getType());
+
+				if (activitiesList != null && activitiesList.size() > 0) {
+
+					String contenturl = activitiesList.get(0).getContenturl();
+
+					// 打开活动界面
+					if (!TextUtils.isEmpty(contenturl)) {
+						Intent intent = new Intent(this,
+								ActivitiesActivity.class);
+						intent.putExtra("url", contenturl);
+						startActivity(intent);
+						SharedPreferencesUtil.putString(this,
+								TODAY_IS_OPEN_ACTIVITIES, df.format(new Date())
+										.toString());
+
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	private String parseJson(byte[] responseBody) {
+		String value = null;
+		JSONObject dataObject = null;
+		JSONArray dataArray = null;
+		String dataString = null;
+		try {
+
+			JSONObject jsonObject = new JSONObject(new String(responseBody));
+			result = jsonObject.getString("type");
+			msg = jsonObject.getString("msg");
+			try {
+				dataObject = jsonObject.getJSONObject("data");
+
+			} catch (Exception e2) {
+				try {
+					dataArray = jsonObject.getJSONArray("data");
+				} catch (Exception e3) {
+					dataString = jsonObject.getString("data");
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		if (dataObject != null) {
+			value = dataObject.toString();
+		} else if (dataArray != null) {
+			value = dataArray.toString();
+
+		} else if (dataString != null) {
+			value = dataString;
+		}
+		return value;
+	}
 
 }

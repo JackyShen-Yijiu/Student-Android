@@ -7,7 +7,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -16,14 +19,18 @@ import android.text.style.AbsoluteSizeSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.jpush.android.api.JPushInterface;
 import cn.sft.listener.ICallBack;
 
 import com.sft.common.BlackCatApplication;
+import com.sft.util.LogUtil;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.CarModelVO;
 import com.sft.vo.ClassVO;
@@ -41,6 +48,9 @@ public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity
 	public static final int SHOW_LEFT_TEXT = 1;
 	public static final int SHOW_RIGHT_TEXT = 2;
 
+	/**总页面*/
+	private RelativeLayout rl_base_content;
+	
 	// 标题栏
 	protected LinearLayout titlebarLayout;
 	// 标题栏左边按钮
@@ -71,6 +81,14 @@ public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+			// 透明状态栏
+			getWindow().addFlags(
+					WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+			// 透明导航栏
+			getWindow().addFlags(
+					WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+		}
 		if (savedInstanceState != null) {
 			if (app == null) {
 				app = BlackCatApplication.getInstance();
@@ -123,7 +141,8 @@ public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity
 			finish();
 		}
 		setContentView(R.layout.activity_base);
-
+		
+		rl_base_content = (RelativeLayout) findViewById(R.id.base_all);
 		titlebarLayout = (LinearLayout) findViewById(R.id.base_titlebar_layout);
 		leftBtn = (ImageButton) findViewById(R.id.base_left_btn);
 		rightBtn = (ImageButton) findViewById(R.id.base_right_btn);
@@ -145,6 +164,18 @@ public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity
 		if (app == null) {
 			app = BlackCatApplication.getInstance();
 		}
+	}
+	
+	/**
+	 * 设置背景色
+	 * @param color
+	 */
+	public void setBg(int color){
+//		Toast("白色"+contentLayout);
+		if(contentLayout!=null){
+			contentLayout.setBackgroundColor(color);
+		}
+			
 	}
 
 	private void setListener() {
@@ -205,6 +236,16 @@ public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity
 		rightTV.setCompoundDrawablesWithIntrinsicBounds(cityIcon, null, null,
 				null);
 		rightTV.setText(name);
+	}
+
+	// 解决系统改变字体大小的时候导致的界面布局混乱的问题
+
+	public Resources getResources() {
+		Resources res = super.getResources();
+		Configuration config = new Configuration();
+		config.setToDefaults();
+		res.updateConfiguration(config, res.getDisplayMetrics());
+		return res;
 	}
 
 	protected void showTitlebarBtn(int index) {
@@ -342,6 +383,10 @@ public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity
 		// 极光统计
 		JPushInterface.onPause(this);
 
+	}
+	
+	public void Toast(String str){
+		Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
 	}
 
 	@Override

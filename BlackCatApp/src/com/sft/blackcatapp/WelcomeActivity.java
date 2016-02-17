@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.infinitescrollviewpager.MyHandler;
@@ -127,6 +128,7 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 
 	@Override
 	public void doTimeOut(String type) {
+		LogUtil.print("do---TimeOut");
 		super.doTimeOut(type);
 		Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
 		startActivity(intent);
@@ -135,6 +137,7 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 
 	@Override
 	public void doException(String type, Exception e, int code) {
+		LogUtil.print("do---Exception");
 		super.doException(type, e, code);
 		new MyHandler(2000) {
 			@Override
@@ -149,15 +152,33 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 
 	@Override
 	public synchronized boolean doCallBack(String type, Object jsonString) {
+		LogUtil.print("do---doCallback"+jsonString);
 		if (super.doCallBack(type, jsonString)) {
+			Intent intent = new Intent(WelcomeActivity.this,
+					LoginActivity.class);
+			startActivity(intent);
+			finish();
 			return true;
 		}
 		if (handler != null) {
 			handler.cancle();
 		}
 		if (type.equals(login)) {
+			if (!TextUtils.isEmpty(msg)) {
+				new MyHandler(1000) {
+					@Override
+					public void run() {
+						Intent intent = new Intent(WelcomeActivity.this,
+								LoginActivity.class);
+						startActivity(intent);
+						finish();
+					}
+				};
+				return true;
+			}
 			try {
 				if (data != null) {
+					Log.d("tag","sun--welcome-->"+data);
 					app.userVO = JSONUtil.toJavaBean(UserVO.class, data);
 					util.saveParam(Config.LAST_LOGIN_PHONE,
 							app.userVO.getTelephone());

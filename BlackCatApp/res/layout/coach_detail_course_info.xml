@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="15dp"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/coachdetail_layout_paddingtopbottom"
+    android:paddingTop="@dimen/coachdetail_layout_paddingtopbottom" >
+
+    <TextView
+        android:id="@+id/coach_detail_coachinfo_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/coach_course_info"
+        android:textColor="@color/app_main_color"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            style="@style/coachdetail_content_style"
+            android:text="@string/coach_in_school_name" />
+
+        <TextView
+            android:id="@+id/coach_detail_place_tv"
+            style="@style/coachdetail_content_style"
+            android:layout_marginLeft="10dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            style="@style/coachdetail_content_style"
+            android:text="@string/ex_place" />
+
+        <TextView
+            android:id="@+id/coach_detail_school_tv"
+            style="@style/coachdetail_content_style"
+            android:layout_marginLeft="10dp" />
+    </LinearLayout>
+
+    <HorizontalScrollView
+        android:id="@+id/school_detail_trainingarea_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp" >
+
+        <LinearLayout
+            android:id="@+id/coach_detail_train_pic_ll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <TextView
+            android:id="@+id/coach_detail_personality_label_tv"
+            style="@style/coachdetail_content_style"
+            android:text="@string/personality_label" />
+
+        <com.sft.view.WordWrapView
+            android:id="@+id/coach_detail_personality_labels"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_centerHorizontal="true"
+            android:layout_toRightOf="@+id/coach_detail_personality_label_tv">
+            
+        </com.sft.view.WordWrapView>
+    </RelativeLayout>
+
+</LinearLayout>

@@ -27,6 +27,24 @@ public class ClassVO extends DBVO {
 	private List<VipServerListVO> vipserverlist;
 	private String classchedule;
 	private String applycount;
+	private String onsaleprice;// 优惠后的价格
+	private String _id;
+
+	public String getOnsaleprice() {
+		return onsaleprice;
+	}
+
+	public void setOnsaleprice(String onsaleprice) {
+		this.onsaleprice = onsaleprice;
+	}
+
+	public String get_id() {
+		return _id;
+	}
+
+	public void set_id(String _id) {
+		this._id = _id;
+	}
 
 	public String getDb_userid() {
 		return db_userid;

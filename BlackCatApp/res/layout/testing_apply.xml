@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+      
+    <EditText
+        android:id="@+id/testing_phone"
+        style="@style/testing_person_center_text_style"
+        android:maxLength="11"
+        android:inputType="phone"
+        android:hint="手机号" />
+    <ImageView
+        android:id="@+id/iv_1"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_below="@+id/testing_phone"
+        android:background="#e6e6e6"
+        android:contentDescription="@string/app_name" />
+       
+    
+    <EditText
+        android:id="@+id/testing_apply_code"
+        style="@style/testing_person_center_text_style"
+        android:layout_below="@+id/iv_1"
+        android:inputType="phone"
+        android:maxLength="8"
+        android:hint="验证码" />
+    
+    <Button
+        android:id="@+id/bt_send_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/testing_apply_code"
+        android:layout_alignBottom="@+id/testing_apply_code"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="12dp"
+        android:background="@null"
+        android:text="发送验证码"
+        android:textColor="#ff6633" />
+    
+    <ImageView
+        android:id="@+id/iv_2"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_below="@+id/testing_apply_code"
+        android:background="#e6e6e6"
+        android:contentDescription="@string/app_name" />
+    
+     <EditText
+        android:id="@+id/testing_apply_school"
+        style="@style/testing_person_center_text_style"
+        android:layout_below="@+id/iv_2"
+        android:hint="报考驾校" />
+    <ImageView
+        android:id="@+id/iv_3"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_below="@+id/testing_apply_school"
+        android:background="#e6e6e6"
+        android:contentDescription="@string/app_name" />
+    
+       
+       
+       <EditText
+        android:id="@+id/testing_apply_class"
+        style="@style/testing_person_center_text_style"
+        android:layout_below="@+id/iv_3"
+        android:hint="报考班级" />
+    <ImageView
+        android:id="@+id/iv_4"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_below="@+id/testing_apply_class"
+        android:background="#e6e6e6"
+        android:contentDescription="@string/app_name" />
+       
+       
+       <EditText
+        android:id="@+id/testing_apply_coach"
+        style="@style/testing_person_center_text_style"
+        android:layout_below="@+id/iv_4"
+        android:hint="所属教练" />
+    <ImageView
+        android:id="@+id/iv_5"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_below="@+id/testing_apply_coach"
+        android:background="#e6e6e6"
+        android:contentDescription="@string/app_name" />
+     
+    
+    <EditText
+        android:id="@+id/testing_apply_name"
+        style="@style/testing_person_center_text_style"
+        android:layout_below="@+id/iv_5"
+        android:hint="姓名" />
+    <ImageView
+        android:id="@+id/iv_6"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_below="@+id/testing_apply_name"
+        android:background="#e6e6e6"
+        android:contentDescription="@string/app_name" />
+       
+       
+       <EditText
+        android:id="@+id/testing_apply_person_code"
+        style="@style/testing_person_center_text_style"
+        android:layout_below="@+id/iv_6"
+        android:hint="身份证" />
+    <ImageView
+        android:id="@+id/iv_7"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_below="@+id/testing_apply_person_code"
+        android:background="#e6e6e6"
+        android:contentDescription="@string/app_name" />
+    
+       <EditText
+        android:id="@+id/testing_apply_class_progress"
+        style="@style/testing_person_center_text_style"
+        android:layout_below="@+id/iv_7"
+        android:hint="科目进度" />
+    <ImageView
+        android:id="@+id/iv_8"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_below="@+id/testing_apply_class_progress"
+        android:background="#e6e6e6"
+        android:contentDescription="@string/app_name" />
+    
+    
+    <Button
+        android:id="@+id/bt_commit" 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ff6633"
+        android:textColor="#fff"
+        android:padding="15dp"
+        android:layout_alignParentBottom="true"
+        android:text="提交"/>
+    
+
+</RelativeLayout>

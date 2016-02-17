@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#00000000" >
+    android:background="#fff" >
 
     <ScrollView
         android:id="@+id/coach_detail_scrollview"
@@ -17,54 +17,23 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal" >
 
-                <!-- 高度动态控制 -->
-
-                <RelativeLayout
-                    android:id="@+id/coach_detail_head_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp" >
-
-                    <ImageView
-                        android:id="@+id/coach_detail_headpic_im"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:contentDescription="@string/app_name" />
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/headpic_cover" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="@dimen/coachdetail_collection_widthheight"
-                    android:layout_height="@dimen/coachdetail_collection_widthheight"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@+id/coach_detail_head_layout"
-                    android:layout_marginRight="@dimen/coachdetail_collection_marginright"
-                    android:layout_marginTop="@dimen/coachdetail_collection_margintop"
-                    android:background="@drawable/collect_bkground" >
-
-                    <CheckBox
-                        android:id="@+id/coach_detail_collection_ck"
-                        android:layout_width="21dp"
-                        android:layout_height="21dp"
-                        android:layout_centerInParent="true"
-                        android:background="@drawable/collect_heart_bkground"
-                        android:button="@null"
-                        android:contentDescription="@string/app_name" />
-                </RelativeLayout>
+                <ImageView
+                    android:id="@+id/coach_detail_headicon_im"
+                    android:layout_width="@dimen/selectcoach_headpic_widthheight"
+                    android:layout_height="@dimen/selectcoach_headpic_widthheight"
+                    android:layout_marginLeft="20dp"
+                    android:contentDescription="@string/app_name" />
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/coach_detail_head_layout"
-                    android:layout_marginLeft="15dp"
-                    android:orientation="vertical"
-                    android:paddingBottom="@dimen/coachdetail_layout_paddingtopbottom"
-                    android:paddingTop="@dimen/coachdetail_layout_paddingtopbottom" >
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/coach_detail_headicon_im"
+                    android:orientation="vertical" >
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -99,151 +68,148 @@
                             android:textColor="@color/coach_general" />
                     </LinearLayout>
 
+                    <TextView
+                        android:id="@+id/coach_detail_coach_teachage_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#999"
+                        android:textSize="14dp" />
+
                     <RatingBar
                         android:id="@+id/coach_detail_ratingBar"
-                        style="@style/roomRatingBar_30"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginTop="5dp" />
+                        style="@style/roomRatingBar_30" />
+                </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/coach_detail_place_tv"
-                        android:layout_width="match_parent"
+                <RelativeLayout
+                    android:layout_width="@dimen/coachdetail_collection_widthheight"
+                    android:layout_height="@dimen/coachdetail_collection_widthheight"
+                    android:layout_alignParentRight="true" >
+
+                    <CheckBox
+                        android:id="@+id/coach_detail_collection_ck"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/coach_collect_heart_bkground"
+                        android:button="@null"
+                        android:contentDescription="@string/app_name" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/coach_detail_headicon_im"
+                    android:layout_marginLeft="20dp"
+                    android:orientation="vertical" >
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="15dp"
-                        android:drawableLeft="@drawable/location"
-                        android:drawableRight="@drawable/location"
-                        android:textColor="#333333"
-                        android:textSize="14dp" />
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:id="@+id/coach_detail_car_style_title_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="授课车型："
+                            android:textColor="#999"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/coach_detail_car_style_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#999"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:id="@+id/coach_detail_enable_subject_title_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="可授科目："
+                            android:textColor="#999"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/coach_detail_enable_subject_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@+id/coach_detail_enable_subject_title_tv"
+                            android:textColor="#999"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/coach_detail_distance_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            android:textColor="#999"
+                            android:textSize="14sp" />
+                    </RelativeLayout>
                 </LinearLayout>
             </RelativeLayout>
 
             <ImageView
-                style="@style/coachdetail_devider_style"
-                android:layout_marginLeft="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="#33cccccc"
                 android:contentDescription="@string/app_name" />
 
-            <LinearLayout
+            <include layout="@layout/coach_detail_course_info" />
+
+            <ImageView
+                android:id="@+id/caoch_detail_course_fee_im"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="#33cccccc"
+                android:contentDescription="@string/app_name" />
+
+            <RelativeLayout
+                android:id="@+id/caoch_detail_course_fee_rl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
-                android:orientation="vertical"
                 android:paddingBottom="@dimen/coachdetail_layout_paddingtopbottom"
                 android:paddingTop="@dimen/coachdetail_layout_paddingtopbottom" >
 
                 <TextView
-                    android:id="@+id/coach_detail_coachinfo_tv"
+                    android:id="@+id/coach_detail_course_fee_tv"
                     style="@style/coachdetail_title_style"
-                    android:text="@string/coach_info"
+                    android:text="@string/course_fee"
+                    android:textColor="@color/app_main_color"
                     android:textStyle="bold" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <com.sft.view.NoScrollListView
+                    android:id="@+id/coash_detail_course_fee_listview"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal" >
-
-                    <TextView
-                        style="@style/coachdetail_content_style"
-                        android:text="@string/coach_worktime" />
-
-                    <TextView
-                        android:id="@+id/coach_detail_weektime_tv"
-                        style="@style/coachdetail_content_style"
-                        android:layout_marginLeft="10dp" />
-
-                    <TextView
-                        android:id="@+id/coach_detail_time_tv"
-                        style="@style/coachdetail_content_style"
-                        android:textColor="#999999" />
-                </LinearLayout>
-                
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal" >
-
-                    <TextView
-                        style="@style/coachdetail_content_style"
-                        android:text="@string/ex_place" />
-
-                    <TextView
-                        android:id="@+id/coach_detail_school_tv"
-                        style="@style/coachdetail_content_style"
-                        android:layout_marginLeft="10dp" />
-                </LinearLayout>
-
-                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal" >
-
-                    <TextView
-                        style="@style/coachdetail_content_style"
-                        android:text="@string/coach_course" />
-
-                    <TextView
-                        android:id="@+id/coach_detail_course_tv"
-                        style="@style/coachdetail_content_style"
-                        android:layout_marginLeft="10dp" />
-                </LinearLayout>
-                
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal" >
-
-                    <TextView
-                        style="@style/coachdetail_content_style"
-                        android:text="@string/coach_seniority" />
-
-                    <TextView
-                        android:id="@+id/coach_detail_seniority_tv"
-                        style="@style/coachdetail_content_style"
-                        android:layout_marginLeft="10dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal" >
-
-                    <TextView
-                        android:id="@+id/coach_detail_student_count"
-                        style="@style/coachdetail_content_style" />
-
-                    <TextView
-                        android:id="@+id/coach_detail_rate_tv"
-                        style="@style/coachdetail_content_style"
-                        android:layout_marginLeft="10dp"
-                        android:textColor="@color/app_main_color" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal" >
-
-                    <TextView
-                        style="@style/coachdetail_content_style"
-                        android:text="@string/coach_shuttle" />
-
-                    <TextView
-                        android:id="@+id/coach_detail_shuttle_tv"
-                        style="@style/coachdetail_content_style"
-                        android:layout_marginLeft="10dp" />
-                </LinearLayout>
-
-            </LinearLayout>
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@+id/coach_detail_course_fee_tv"
+                    android:cacheColorHint="#00000000"
+                    android:divider="@null"
+                   android:dividerHeight="2dp" />
+               
+            </RelativeLayout>
 
             <ImageView
-                style="@style/coachdetail_devider_style"
-                android:layout_marginLeft="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="#33cccccc"
                 android:contentDescription="@string/app_name" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
-                android:orientation="vertical"
                 android:paddingBottom="@dimen/coachdetail_layout_paddingtopbottom"
                 android:paddingTop="@dimen/coachdetail_layout_paddingtopbottom" >
 
@@ -251,16 +217,29 @@
                     android:id="@+id/coach_detail_evaluationtitle_tv"
                     style="@style/coachdetail_title_style"
                     android:text="@string/self_evaluation"
+                    android:textColor="@color/app_main_color"
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/coach_detail_evaluation_more_tv"
+                    style="@style/coachdetail_title_style"
+                    android:layout_alignParentRight="true"
+                    android:drawablePadding="3dp"
+                    android:drawableRight="@drawable/arrow_right"
+                    android:layout_marginRight="5dp"
+                    android:text="更多" />
+
+                <TextView
                     android:id="@+id/coach_detail_evaluation_tv"
-                    style="@style/coachdetail_content_style" />
-            </LinearLayout>
+                    style="@style/coachdetail_content_style"
+                    android:layout_below="@+id/coach_detail_evaluationtitle_tv"
+                    android:layout_marginTop="12dp" />
+            </RelativeLayout>
 
             <ImageView
-                style="@style/coachdetail_devider_style"
-                android:layout_marginLeft="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="#33cccccc"
                 android:contentDescription="@string/app_name" />
 
             <RelativeLayout
@@ -273,6 +252,7 @@
                     style="@style/coachdetail_title_style"
                     android:layout_marginBottom="13dp"
                     android:layout_marginLeft="15dp"
+                    android:textColor="@color/app_main_color"
                     android:text="@string/student_evaluation" />
 
                 <TextView
@@ -303,12 +283,12 @@
                     android:scrollbars="none" />
             </RelativeLayout>
 
-            <Button
+           <!--  <Button
                 android:id="@+id/coach_detail_enroll_btn"
                 style="@style/btn_style"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:text="@string/enroll" />
+                android:text="@string/enroll" /> -->
         </LinearLayout>
     </ScrollView>
 

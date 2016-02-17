@@ -7,10 +7,10 @@
         android:id="@+id/subject_four_question_bank_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="67dp"
-        android:layout_marginTop="160dp"
+        android:layout_marginBottom="130dp"
+        android:layout_marginRight="30dp"
         android:src="@drawable/sb_question_bank" />
 
     <ImageView
@@ -19,8 +19,8 @@
         android:layout_height="80dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="150dp"
-        android:layout_marginRight="35dp"
+        android:layout_marginBottom="350dp"
+        android:layout_marginRight="85dp"
         android:src="@drawable/sb_error" />
 
     <ImageView
@@ -33,14 +33,6 @@
         android:layout_marginLeft="35dp"
         android:src="@drawable/sb_simulation" />
 
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="75dp"
-        android:layout_marginRight="15dp"
-        android:src="@drawable/telescope" />
+    
 
 </RelativeLayout>

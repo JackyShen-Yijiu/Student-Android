@@ -12,8 +12,9 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
-import com.sft.blackcatapp.R;
 import com.sft.common.Config;
+import com.sft.util.CommonUtil;
+import com.sft.viewutil.ZProgressHUD;
 
 /**
  * 设置界面
@@ -104,7 +105,12 @@ public class SettingActivity extends BaseActivity implements
 			finish();
 			break;
 		case R.id.setting_aboutus_tv:
-			intent = new Intent(this, AboutUsActivity.class);
+			if (!CommonUtil.isNetworkConnected(this)) {
+				ZProgressHUD.getInstance(this).show();
+				ZProgressHUD.getInstance(this).dismissWithFailure("网络异常");
+			} else {
+				intent = new Intent(this, AboutUsActivity.class);
+			}
 			break;
 		case R.id.setting_callback_tv:
 			intent = new Intent(this, CallBackActivity.class);

@@ -3,20 +3,18 @@ package com.sft.blackcatapp;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sft.adapter.ClasslListAdapter;
-import com.sft.blackcatapp.R;
-import com.sft.common.Config;
-import com.sft.util.JSONUtil;
-import com.sft.util.Util;
-import com.sft.vo.ClassVO;
-
+import me.maxwin.view.XListView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import cn.sft.baseactivity.util.HttpSendUtils;
-import me.maxwin.view.XListView;
+
+import com.sft.adapter.ClasslListAdapter;
+import com.sft.common.Config;
+import com.sft.util.JSONUtil;
+import com.sft.vo.ClassVO;
 
 /**
  * 选择班级界面
@@ -24,7 +22,8 @@ import me.maxwin.view.XListView;
  * @author Administrator
  * 
  */
-public class EnrollClassActivity extends BaseActivity implements OnItemClickListener {
+public class EnrollClassActivity extends BaseActivity implements
+		OnItemClickListener {
 
 	// 班级列表
 	private XListView classList;
@@ -35,6 +34,7 @@ public class EnrollClassActivity extends BaseActivity implements OnItemClickList
 
 	private ClassVO selectClass;
 
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		addView(R.layout.activity_enroll_class);
@@ -76,11 +76,12 @@ public class EnrollClassActivity extends BaseActivity implements OnItemClickList
 				ClassVO classVO = adapter.getItem(adapter.getIndex());
 				if (app.selectEnrollClass == null) {
 					app.selectEnrollClass = classVO;
-					Util.updateEnrollClass(this, classVO);
+					// Util.updateEnrollClass(this, classVO);
 				}
-				if (!app.selectEnrollClass.getCalssid().equals(classVO.getCalssid())) {
+				if (!app.selectEnrollClass.getCalssid().equals(
+						classVO.getCalssid())) {
 					app.selectEnrollClass = classVO;
-					Util.updateEnrollClass(this, classVO);
+					// Util.updateEnrollClass(this, classVO);
 				}
 				Intent intent = new Intent();
 				intent.putExtra("class", classVO);
@@ -93,7 +94,8 @@ public class EnrollClassActivity extends BaseActivity implements OnItemClickList
 
 	private void obtainEnrollClass() {
 		String schoolId = getIntent().getStringExtra("schoolId");
-		HttpSendUtils.httpGetSend(classInfo, this, Config.IP + "api/v1/driveschool/schoolclasstype/" + schoolId);
+		HttpSendUtils.httpGetSend(classInfo, this, Config.IP
+				+ "api/v1/driveschool/schoolclasstype/" + schoolId);
 	}
 
 	@Override
@@ -109,9 +111,11 @@ public class EnrollClassActivity extends BaseActivity implements OnItemClickList
 					int length = dataArray.length();
 					List<ClassVO> list = new ArrayList<ClassVO>();
 					for (int i = 0; i < length; i++) {
-						ClassVO classVO = (ClassVO) JSONUtil.toJavaBean(ClassVO.class, dataArray.getJSONObject(i));
+						ClassVO classVO = JSONUtil.toJavaBean(ClassVO.class,
+								dataArray.getJSONObject(i));
 						if (selectClass != null) {
-							if (classVO.getCalssid().equals(selectClass.getCalssid())) {
+							if (classVO.getCalssid().equals(
+									selectClass.getCalssid())) {
 								selectIndex = i;
 							}
 						}
@@ -129,7 +133,8 @@ public class EnrollClassActivity extends BaseActivity implements OnItemClickList
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
 		Intent intent = new Intent(this, ClassDetailActivity.class);
 		intent.putExtra("class", adapter.getItem(position - 1));
 		intent.putExtra("position", position - 1);
@@ -143,5 +148,21 @@ public class EnrollClassActivity extends BaseActivity implements OnItemClickList
 			adapter.setSelected(position);
 			adapter.notifyDataSetChanged();
 		}
+		if (adapter != null && adapter.getIndex() >= 0) {
+			ClassVO classVO = adapter.getItem(adapter.getIndex());
+			if (app.selectEnrollClass == null) {
+				app.selectEnrollClass = classVO;
+				// Util.updateEnrollClass(this, classVO);
+			}
+			if (!app.selectEnrollClass.getCalssid()
+					.equals(classVO.getCalssid())) {
+				app.selectEnrollClass = classVO;
+				// Util.updateEnrollClass(this, classVO);
+			}
+			Intent intent = new Intent();
+			intent.putExtra("class", classVO);
+			setResult(RESULT_OK, intent);
+		}
+		finish();
 	}
 }

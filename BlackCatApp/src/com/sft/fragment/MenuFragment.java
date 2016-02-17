@@ -2,8 +2,11 @@ package com.sft.fragment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.apache.http.Header;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.app.Activity;
@@ -22,25 +25,41 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView.ScaleType;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.infinitescrollviewpager.BitmapManager;
 import cn.sft.listener.ICallBack;
 
+import com.google.gson.reflect.TypeToken;
 import com.joooonho.SelectableRoundedImageView;
-import com.sft.blackcatapp.EnrollSchoolActivity;
-import com.sft.blackcatapp.MainActivity;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+import com.sft.api.ApiHttpClient;
+import com.sft.blackcatapp.ActivitiesActivity;
+import com.sft.blackcatapp.EditPersonInfoActivity;
+import com.sft.blackcatapp.EnrollSchoolActivity1;
+import com.sft.blackcatapp.MallActivity;
 import com.sft.blackcatapp.MessageActivity;
 import com.sft.blackcatapp.MyWalletActivity;
+import com.sft.blackcatapp.NewActivitysActivity;
+import com.sft.blackcatapp.NewApplystateActivity;
 import com.sft.blackcatapp.PersonCenterActivity;
 import com.sft.blackcatapp.R;
+import com.sft.blackcatapp.SchoolBusRouteActivity;
+import com.sft.blackcatapp.TodaysAppointmentActivity;
+import com.sft.blackcatapp.YiBuIntroduceActivity;
 import com.sft.common.BlackCatApplication;
 import com.sft.common.Config;
+import com.sft.common.Config.EnrollResult;
 import com.sft.dialog.NoLoginDialog;
 import com.sft.util.CommonUtil;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
 import com.sft.viewutil.ZProgressHUD;
+import com.sft.vo.ActivitiesVO;
+import com.sft.vo.LocationShowTypeVO;
 import com.sft.vo.MyMoneyVO;
+import com.sft.vo.UserVO;
 
 public class MenuFragment extends Fragment implements OnItemClickListener,
 		OnClickListener, ICallBack {
@@ -48,8 +67,9 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 	private ArrayList<HashMap<String, String>> mMenuTitles;
 	private SLMenuListOnItemClickListener mCallback;
 	private SelectableRoundedImageView personIcon;
-
+	private final static String openCity = "openCity";
 	private static final String mymoney = "mymoney";
+	private static final String userinfo = "userinfo";
 	BlackCatApplication app;
 	private TextView username;
 	private TextView drivingSchool;
@@ -60,6 +80,13 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 	private TextView money;
 	private TextView couponcount;
 	private TextView phone;
+	private String result;
+	private String msg;
+
+	private int showType;// 展示类型： 0驾校 1 教练;
+
+	// private TextView left_tv_map;
+	private String currCity;
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -75,12 +102,17 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+
 		if (app == null) {
 			app = BlackCatApplication.getInstance();
 		}
+
+		currCity = app.curCity;
+
 		mContext = getActivity();
 		View rootView = inflater.inflate(R.layout.fragment_menu_new, null);
 		initView(rootView);
+		setRightText();
 		// setData();
 		initData();
 		setListener();
@@ -89,6 +121,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 
 	private void initData() {
 		obtainMyMoney();
+
 	}
 
 	private void obtainMyMoney() {
@@ -108,13 +141,16 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 	@Override
 	public void onResume() {
 		super.onResume();
+		LogUtil.print("onResume---->menuFragment");
 		if (app.isLogin) {
-
-			setPersonInfo();
+			obtainMyMoney();
+			obtainPersionInfo();
 		}
 	}
 
 	private void initView(View rootView) {
+
+		// left_tv_map = (TextView) rootView.findViewById(R.id.left_tv_map);
 		username = (TextView) rootView
 				.findViewById(R.id.fragment_menu_username);
 		phone = (TextView) rootView.findViewById(R.id.fragment_menu_phone);
@@ -130,6 +166,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 		money = (TextView) rootView.findViewById(R.id.fragment_menu_money);
 		personIcon = (SelectableRoundedImageView) rootView
 				.findViewById(R.id.fragment_menu_headpic_im);
+
 		personIcon.setScaleType(ScaleType.CENTER_CROP);
 		personIcon.setImageResource(R.drawable.default_small_pic);
 		personIcon.setOval(true);
@@ -148,10 +185,12 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 				.setOnClickListener(this);
 		rootView.findViewById(R.id.fragment_menu_content_third)
 				.setOnClickListener(this);
+		// 定位地图点击
+		// rootView.findViewById(R.id.left_tv_map).setOnClickListener(this);
 
 		// 底部图片点击
-		rootView.findViewById(R.id.fragment_menu_home_btn).setOnClickListener(
-				this);
+		// rootView.findViewById(R.id.fragment_menu_home_btn).setOnClickListener(
+		// this);
 		rootView.findViewById(R.id.fragment_menu_driving_school_btn)
 				.setOnClickListener(this);
 		rootView.findViewById(R.id.fragment_menu_message_btn)
@@ -164,6 +203,15 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 				.setOnClickListener(this);
 		rootView.findViewById(R.id.fragment_menu_setting_btn)
 				.setOnClickListener(this);
+
+		rootView.findViewById(R.id.fragment_menu_complaint_btn)
+				.setOnClickListener(this);
+		rootView.findViewById(R.id.fragment_menu_goddness_btn)
+				.setOnClickListener(this);
+		rootView.findViewById(R.id.fragment_menu_classcar_btn)
+				.setOnClickListener(this);
+		// rootView.findViewById(R.id.fragment_menu_search_coach_btn)
+		// .setOnClickListener(this);
 
 	}
 
@@ -181,13 +229,23 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 
 			username.setText("未登陆");
 		} else {
-			username.setText(app.userVO.getDisplaymobile());
-		}
+			LogUtil.print("name:::=-->"+app.userVO.getName());
+			if (app.userVO.getName() != null && app.userVO.getName().trim().length() > 0) {
+				username.setText(app.userVO.getName());
+			}else{
+				username.setText(app.userVO.getDisplaymobile());
+			}
+			
+//			} else {
+//				username.setText(app.userVO.getDisplaymobile());
+//			}
+		
 		if (TextUtils.isEmpty(app.userVO.getApplyschoolinfo().getName())) {
 
 			drivingSchool.setText("您未选择驾校");
 		} else {
 			drivingSchool.setText(app.userVO.getApplyschoolinfo().getName());
+		}
 		}
 	}
 
@@ -245,7 +303,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 		switch (v.getId()) {
 		case R.id.fragment_menu_headpic_im:
 			if (app.isLogin) {
-				intent = new Intent(getActivity(), PersonCenterActivity.class);
+				intent = new Intent(getActivity(), EditPersonInfoActivity.class);
 				startActivity(intent);
 
 			} else {
@@ -253,14 +311,16 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 				dialog.show();
 			}
 			break;
+		// case R.id.left_tv_map:
+		// obtainOpenCity();
+		// break;
 
-		case R.id.fragment_menu_home_btn:
-			((MainActivity) mContext).changeMenu();
-			break;
-		case R.id.fragment_menu_driving_school_btn:
-			intent = new Intent(mContext, EnrollSchoolActivity.class);
-			intent.putExtra("isFromMenu", true);
-			mContext.startActivity(intent);
+		// case R.id.fragment_menu_home_btn:
+		// ((MainActivity) mContext).changeMenu();
+		// break;
+		case R.id.fragment_menu_driving_school_btn:// 报名
+			obtainlocationShowType();
+
 			break;
 		case R.id.fragment_menu_message_btn:
 			if (app.isLogin) {
@@ -272,24 +332,40 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 			}
 			break;
 		case R.id.fragment_menu_mall_btn:
-			// if (app.isLogin) {
-			// intent = new Intent(mContext, MyWalletActivity.class);
-			// mContext.startActivity(intent);
-			// } else {
-			// NoLoginDialog dialog = new NoLoginDialog(mContext);
-			// dialog.show();
-			// }
-			ZProgressHUD.getInstance(mContext).show();
-			ZProgressHUD.getInstance(mContext).dismissWithFailure("敬请期待！");
+			// ZProgressHUD.getInstance(mContext).show();
+			// ZProgressHUD.getInstance(mContext).dismissWithFailure("敬请期待！");
+			// 进入积分商城
+			intent = new Intent(mContext, MallActivity.class);
+			intent.putExtra("moneytype",
+					Config.MoneyType.INTEGRAL_RETURN.getValue());
+			startActivity(intent);
 			break;
+		// 活动
 		case R.id.fragment_menu_activity_btn:
-			ZProgressHUD.getInstance(mContext).show();
-			ZProgressHUD.getInstance(mContext).dismissWithFailure("敬请期待！");
+			// ZProgressHUD.getInstance(mContext).show();
+			// ZProgressHUD.getInstance(mContext).dismissWithFailure("敬请期待！");
+			Intent inten = new Intent(mContext, NewActivitysActivity.class);
+			startActivity(inten);
+			// obtainActivities();
 			break;
 		case R.id.fragment_menu_signin_btn:
-			ZProgressHUD.getInstance(mContext).show();
-			ZProgressHUD.getInstance(mContext).dismissWithFailure("敬请期待！");
+			if (app.isLogin) {
+				intent = new Intent(mContext, TodaysAppointmentActivity.class);
+				mContext.startActivity(intent);
+			} else {
+				NoLoginDialog dialog = new NoLoginDialog(mContext);
+				dialog.show();
+			}
 			break;
+		// case R.id.fragment_menu_search_coach_btn:
+		// if (app.isLogin) {
+		// intent = new Intent(mContext, SearchCoachActivity.class);
+		// mContext.startActivity(intent);
+		// } else {
+		// NoLoginDialog dialog = new NoLoginDialog(mContext);
+		// dialog.show();
+		// }
+		// break;
 		case R.id.fragment_menu_setting_btn:
 
 			if (app.isLogin) {
@@ -302,6 +378,27 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 			}
 
 			break;
+		// 投诉
+		case R.id.fragment_menu_complaint_btn:
+			if (app.isLogin) {
+
+				if (app.userVO.getApplystate().equals(
+						EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue())) {
+
+					intent = new Intent(getActivity(),
+							NewApplystateActivity.class);
+					startActivity(intent);
+				} else {
+					ZProgressHUD.getInstance(mContext).show();
+					ZProgressHUD.getInstance(mContext).dismissWithFailure(
+							"请等待审核");
+				}
+			} else {
+				NoLoginDialog dialog = new NoLoginDialog(getActivity());
+				dialog.show();
+			}
+			break;
+
 		case R.id.fragment_menu_phone:
 			String number = CommonUtil.getString(mContext, R.string.yibu_phone);
 			// 用intent启动拨打电话
@@ -345,10 +442,47 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 				dialog.show();
 			}
 			break;
+		case R.id.fragment_menu_goddness_btn:
+			// 优势
+			intent = new Intent(mContext, YiBuIntroduceActivity.class);
+			intent.putExtra("typeId", R.id.introduce_student_know);
+			mContext.startActivity(intent);
+			break;
+		case R.id.fragment_menu_classcar_btn:
+			// 班车
+
+			if (app != null && app.userVO != null
+					&& app.userVO.getApplyschoolinfo() != null) {
+				intent = new Intent(mContext, SchoolBusRouteActivity.class);
+				intent.putExtra(schoolId, app.userVO.getApplyschoolinfo()
+						.getId());
+				mContext.startActivity(intent);
+			} else {
+				ZProgressHUD.getInstance(mContext).show();
+				ZProgressHUD.getInstance(mContext).dismissWithSuccess(
+						"您还未报名，不能查看班车信息");
+			}
+			break;
 
 		default:
 			break;
 		}
+	}
+
+	public static final String schoolId = "schoolId";
+
+	protected void setRightText() {
+		// Drawable cityIcon = getResources().getDrawable(
+		// R.drawable.location_left_city);
+		// left_tv_map.setCompoundDrawablesWithIntrinsicBounds(cityIcon, null,
+		// null, null);
+		// left_tv_map.setText(currCity);
+	}
+
+	private void obtainOpenCity() {
+		HttpSendUtils.httpGetSend(openCity, this, Config.IP
+				+ "api/v1/getopencity");
+
 	}
 
 	@Override
@@ -358,19 +492,35 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 			JSONObject jsonObject = new JSONObject(jsonString.toString());
 			String msg = jsonObject.getString("msg");
 			JSONObject data = jsonObject.getJSONObject("data");
-			if (data != null) {
-				MyMoneyVO myMoneyVO = JSONUtil
-						.toJavaBean(MyMoneyVO.class, data);
-				if (myMoneyVO != null) {
-					setData(myMoneyVO);
+			if (type.equals(mymoney)) {
+				if (data != null) {
+					MyMoneyVO myMoneyVO = JSONUtil.toJavaBean(MyMoneyVO.class,
+							data);
+					if (myMoneyVO != null) {
+						setData(myMoneyVO);
+					}
 				}
-			}
 
-			if (!TextUtils.isEmpty(msg)) {
-				ZProgressHUD.getInstance(mContext).show();
-				ZProgressHUD.getInstance(mContext)
-						.dismissWithFailure(msg, 2000);
-				return true;
+				if (!TextUtils.isEmpty(msg)) {
+					ZProgressHUD.getInstance(mContext).show();
+					ZProgressHUD.getInstance(mContext).dismissWithFailure(msg,
+							2000);
+					return true;
+				}
+			} else if (type.equals(userinfo)) {
+				if (data != null) {
+					UserVO userVO = JSONUtil.toJavaBean(UserVO.class, data);
+					if (userVO != null) {
+						app.userVO
+								.setApplycoachinfo(userVO.getApplycoachinfo());
+						app.userVO.setApplyclasstypeinfo(userVO
+								.getApplyclasstypeinfo());
+						app.userVO.setApplyschoolinfo(userVO
+								.getApplyschoolinfo());
+						// app.userVO.setApplystate(userVO.getApplystate());
+						setPersonInfo();
+					}
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -418,5 +568,168 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 		couponcount.setText(myMoneyVO.getCouponcount());
 		money.setText(myMoneyVO.getMoney());
 
+	}
+
+	private void obtainPersionInfo() {
+		// Map<String, String> paramsMap = new HashMap<String, String>();
+		// paramsMap.put("userid", app.userVO.getUserid());
+		// paramsMap.put("type", "1");
+		LogUtil.print(app.userVO.getUserid());
+		HttpSendUtils.httpGetSend(userinfo, this,
+				Config.IP + "api/v1/userinfo/getuserinfo" + "/1/userid/"
+						+ app.userVO.getUserid());
+		// HttpSendUtils.httpGetSend(userinfo, this, Config.IP
+		// + "api/v1/userinfo/getuserinfo", paramsMap);
+	}
+
+	private void obtainActivities() {
+
+		// System.out.println(app.curCity);
+		RequestParams params = new RequestParams();
+		params.put("cityname", app.curCity);
+		ApiHttpClient.get("getactivity", params,
+				new AsyncHttpResponseHandler() {
+
+					@Override
+					public void onSuccess(int paramInt,
+							Header[] paramArrayOfHeader, byte[] paramArrayOfByte) {
+						String value = parseJson(paramArrayOfByte);
+						if (!TextUtils.isEmpty(msg)) {
+							// 加载失败，弹出失败对话框
+							Toast.makeText(mContext, msg, 0).show();
+						} else {
+							processSuccess(value);
+
+						}
+					}
+
+					@Override
+					public void onFailure(int paramInt,
+							Header[] paramArrayOfHeader,
+							byte[] paramArrayOfByte, Throwable paramThrowable) {
+
+					}
+				});
+
+	}
+
+	private void obtainlocationShowType() {
+
+		// System.out.println(app.curCity);
+		RequestParams params = new RequestParams();
+		params.put("cityname", app.curCity);
+		ApiHttpClient.get("getlocationShowType", params,
+				new AsyncHttpResponseHandler() {
+
+					@Override
+					public void onSuccess(int paramInt,
+							Header[] paramArrayOfHeader, byte[] paramArrayOfByte) {
+						String value = parseJson(paramArrayOfByte);
+						if (!TextUtils.isEmpty(msg)) {
+							// 加载失败，弹出失败对话框
+							Toast.makeText(mContext, msg, 0).show();
+						} else {
+							processlocationShowTypeResult(value);
+
+						}
+					}
+
+					@Override
+					public void onFailure(int paramInt,
+							Header[] paramArrayOfHeader,
+							byte[] paramArrayOfByte, Throwable paramThrowable) {
+
+					}
+				});
+
+	}
+
+	protected void processSuccess(String value) {
+		if (value != null) {
+			LogUtil.print(value);
+			try {
+				List<ActivitiesVO> activitiesList = (List<ActivitiesVO>) JSONUtil
+						.parseJsonToList(value,
+								new TypeToken<List<ActivitiesVO>>() {
+								}.getType());
+
+				String contenturl = activitiesList.get(0).getContenturl();
+
+				// 打开活动界面
+				if (!TextUtils.isEmpty(contenturl)) {
+					Intent intent = new Intent(mContext,
+							ActivitiesActivity.class);
+					intent.putExtra("url", contenturl);
+					startActivity(intent);
+				} else {
+					ZProgressHUD.getInstance(mContext).show();
+					ZProgressHUD.getInstance(mContext).dismissWithFailure(
+							"没有活动！");
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	protected void processlocationShowTypeResult(String value) {
+		if (value != null) {
+			LogUtil.print(value);
+			try {
+				LocationShowTypeVO locationShowTypeVO = JSONUtil
+						.parseJsonToBean(value, LocationShowTypeVO.class);
+
+				showType = locationShowTypeVO.getShowtype();
+				openSearchSchool();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	private void openSearchSchool() {
+		if (showType == 0) {
+			Intent intent = new Intent(mContext, EnrollSchoolActivity1.class);
+			startActivityForResult(intent, 1);
+		} else {
+			ZProgressHUD.getInstance(mContext).show();
+			ZProgressHUD.getInstance(mContext).dismissWithFailure(
+					"该地区没有驾校，请选择教练");
+		}
+	}
+
+	private String parseJson(byte[] responseBody) {
+		String value = null;
+		JSONObject dataObject = null;
+		JSONArray dataArray = null;
+		String dataString = null;
+		try {
+
+			JSONObject jsonObject = new JSONObject(new String(responseBody));
+			result = jsonObject.getString("type");
+			msg = jsonObject.getString("msg");
+			try {
+				dataObject = jsonObject.getJSONObject("data");
+
+			} catch (Exception e2) {
+				try {
+					dataArray = jsonObject.getJSONArray("data");
+				} catch (Exception e3) {
+					dataString = jsonObject.getString("data");
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		if (dataObject != null) {
+			value = dataObject.toString();
+		} else if (dataArray != null) {
+			value = dataArray.toString();
+
+		} else if (dataString != null) {
+			value = dataString;
+		}
+		return value;
 	}
 }

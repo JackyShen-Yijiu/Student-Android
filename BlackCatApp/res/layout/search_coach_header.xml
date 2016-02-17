@@ -1,0 +1,153 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+    
+    <!-- 
+    
+    <LinearLayout
+        android:id="@+id/search_coach_select_ll"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1" >
+
+            <TextView
+                android:id="@+id/search_coach_car_select_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="车型选择"
+                android:clickable="true"
+                android:textColor="#333"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/search_coach_arrow1_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="7dp"
+                android:layout_toRightOf="@+id/search_coach_car_select_tv"
+                android:src="@drawable/arrow_below" />
+
+            <ImageView
+                android:layout_width="1dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="#88dddddd" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="14dp"
+            android:layout_weight="1" >
+
+            <TextView
+                android:id="@+id/search_coach_distance_select_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:clickable="true"
+                android:text="距离最近"
+                android:textColor="#333"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/search_coach_arrow2_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="7dp"
+                android:layout_toRightOf="@+id/search_coach_distance_select_tv"
+                android:src="@drawable/arrow_below" />
+
+            <ImageView
+                android:layout_width="0.5dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="#88dddddd" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="14dp"
+            android:layout_weight="1" >
+
+            <TextView
+                android:id="@+id/search_coach_comment_select_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="评分最高"
+                android:clickable="true"
+                android:textColor="#333"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/search_coach_arrow3_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="7dp"
+                android:layout_toRightOf="@+id/search_coach_comment_select_tv"
+                android:src="@drawable/arrow_below" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+    
+    <ImageView
+        android:id="@+id/search_coach_divide_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#dddddd"
+        android:layout_marginTop="6dp"
+        android:contentDescription="@string/app_name" />
+    
+     -->
+
+
+    
+    
+    <EditText 
+       android:id="@+id/search_coach_search_et"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:hint="@string/search_school"
+        android:imeOptions="actionSearch"
+        android:drawableLeft="@drawable/shuttle_address_find"
+        android:drawablePadding="8dp"
+        android:singleLine="true"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="8dp"
+       android:background="@drawable/change_shuttle_addess_bkground"
+        />
+     <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#dddddd"
+        android:layout_below="@+id/search_coach_search_et"
+        android:layout_marginTop="6dp"
+        android:contentDescription="@string/app_name" />
+</RelativeLayout>

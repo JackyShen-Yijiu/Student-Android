@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.json.JSONObject;
 
-import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningAppProcessInfo;
 import android.app.Application;
@@ -23,6 +22,7 @@ import com.qiniu.android.storage.UploadManager;
 import com.qiniu.android.storage.UploadOptions;
 import com.sft.api.ApiHttpClient;
 import com.sft.blackcatapp.CropImageActivity;
+import com.sft.blackcatapp.NewCropImageActivity;
 import com.sft.library.DemoHXSDKHelper;
 import com.sft.vo.CarModelVO;
 import com.sft.vo.ClassVO;
@@ -31,8 +31,9 @@ import com.sft.vo.QuestionVO;
 import com.sft.vo.SchoolVO;
 import com.sft.vo.UserVO;
 import com.sft.vo.VersionVO;
+import com.umeng.socialize.PlatformConfig;
 
-@SuppressLint("SimpleDateFormat")
+//@SuppressLint("SimpleDateFormat")
 public class BlackCatApplication extends Application {
 
 	public static BlackCatApplication app;
@@ -130,6 +131,40 @@ public class BlackCatApplication extends Application {
 				return false;
 			}
 		}));
+	}
+
+	public void uploadPicTou(File file, String s) {
+
+		uploadManager.put(file, s, qiniuToken, new UpCompletionHandler() {
+			@Override
+			public void complete(String key, ResponseInfo info, JSONObject res) {
+				sendBroadcast(new Intent(NewCropImageActivity.class.getName())
+						.putExtra("info", info.toString()).putExtra("res",
+								res == null ? "" : res.toString()));
+			}
+		}, new UploadOptions(null, null, false, new UpProgressHandler() {
+			@Override
+			public void progress(String key, double percent) {
+			}
+		}, new UpCancellationSignal() {
+			@Override
+			public boolean isCancelled() {
+				// return true 停止上传
+				return false;
+			}
+		}));
+	}
+
+	{
+		// 微信 appid appsecret
+		PlatformConfig.setWeixin("wxf1c209725d178604",
+				"4a17fd7d8cc0d0e1eacd0ce1d2e23e0e");
+		// 新浪微博 appkey appsecret
+		PlatformConfig.setSinaWeibo("16181237",
+				"215d345663ccb8cd2366c3b07d32b738");
+		// QQ和Qzone appid appkey
+		PlatformConfig.setQQZone("1105134894", "701hksN2KY0uPIky");
+
 	}
 
 }

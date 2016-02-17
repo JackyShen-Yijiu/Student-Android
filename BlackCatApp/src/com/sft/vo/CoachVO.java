@@ -3,13 +3,14 @@ package com.sft.vo;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.text.TextUtils;
+import cn.sft.sqlhelper.DBVO;
+
 import com.sft.vo.coachvo.TrainFieldlInfo;
 import com.sft.vo.coachvo.WorkTimeSpace;
 import com.sft.vo.commonvo.ApplySchoolInfo;
 import com.sft.vo.commonvo.HeadPortrait;
 import com.sft.vo.commonvo.Subject;
-
-import cn.sft.sqlhelper.DBVO;
 
 public class CoachVO extends DBVO {
 
@@ -44,7 +45,7 @@ public class CoachVO extends DBVO {
 	private String Seniority;
 	private List<Subject> subject;
 	private CarModelVO carmodel;
-	private TrainFieldlInfo trainfieldlinfo;
+	private TrainFieldlInfo trainfield;
 	private String coachnumber;
 	private String is_shuttle;
 	private String starlevel;
@@ -55,6 +56,28 @@ public class CoachVO extends DBVO {
 	private String worktimedesc;
 	private String[] workweek;
 	private WorkTimeSpace worktimespace;
+	private List<TagsList> tagslist;
+	private List<ClassVO> serverclasslist;
+	private String cartype;
+
+	public List<ClassVO> getServerclasslist() {
+		return serverclasslist;
+	}
+
+	public void setServerclasslist(List<ClassVO> serverclasslist) {
+		this.serverclasslist = serverclasslist;
+	}
+
+	public String getCartype() {
+		return TextUtils.isEmpty(cartype) ? "未知" : cartype;
+	}
+
+	public void setCartype(String cartype) {
+		this.cartype = cartype;
+	}
+
+	private String maxprice; // 最高价格
+	private String minprice;// 最低价格
 
 	@Override
 	public boolean equals(Object o) {
@@ -65,6 +88,38 @@ public class CoachVO extends DBVO {
 			}
 		}
 		return false;
+	}
+
+	public TrainFieldlInfo getTrainfield() {
+		return trainfield;
+	}
+
+	public void setTrainfield(TrainFieldlInfo trainfield) {
+		this.trainfield = trainfield;
+	}
+
+	public List<TagsList> getTagslist() {
+		return tagslist;
+	}
+
+	public void setTagslist(List<TagsList> tagslist) {
+		this.tagslist = tagslist;
+	}
+
+	public String getMaxprice() {
+		return maxprice == null ? "0" : maxprice;
+	}
+
+	public void setMaxprice(String maxprice) {
+		this.maxprice = maxprice;
+	}
+
+	public String getMinprice() {
+		return minprice == null ? "0" : minprice;
+	}
+
+	public void setMinprice(String minprice) {
+		this.minprice = minprice;
 	}
 
 	public String getDb_userid() {
@@ -91,7 +146,7 @@ public class CoachVO extends DBVO {
 	}
 
 	public String getDistance() {
-		return distance;
+		return distance == null ? "距离未知" : distance;
 	}
 
 	public void setDistance(String distance) {
@@ -139,7 +194,8 @@ public class CoachVO extends DBVO {
 	}
 
 	public ApplySchoolInfo getDriveschoolinfo() {
-		return driveschoolinfo == null ? new ApplySchoolInfo() : driveschoolinfo;
+		return driveschoolinfo == null ? new ApplySchoolInfo()
+				: driveschoolinfo;
 	}
 
 	public void setDriveschoolinfo(ApplySchoolInfo driveschoolinfo) {
@@ -211,7 +267,7 @@ public class CoachVO extends DBVO {
 	}
 
 	public String getGender() {
-		return Gender;
+		return Gender == null ? "未知" : Gender;
 	}
 
 	public void setGender(String gender) {
@@ -283,11 +339,11 @@ public class CoachVO extends DBVO {
 	}
 
 	public TrainFieldlInfo getTrainfieldlinfo() {
-		return trainfieldlinfo == null ? new TrainFieldlInfo() : trainfieldlinfo;
+		return trainfield == null ? new TrainFieldlInfo() : trainfield;
 	}
 
 	public void setTrainfieldlinfo(TrainFieldlInfo trainfieldlinfo) {
-		this.trainfieldlinfo = trainfieldlinfo;
+		this.trainfield = trainfieldlinfo;
 	}
 
 	public String getCoachnumber() {

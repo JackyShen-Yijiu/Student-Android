@@ -1,28 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="145dp"
-    android:layout_height="80dp"
-    android:layout_gravity="center_vertical"
-    android:background="@drawable/pop_window"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#88000000"
+    android:gravity="center"
+    android:padding="5dp"
     android:orientation="vertical" >
-
+<!-- android:background="#55383D4A" -->
     <TextView
         android:id="@+id/pop_window_one"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="center"
+        android:background="@drawable/pop_window_bg"
         android:clickable="true"
         android:textColor="#333"
-        android:textSize="14sp" />
+        android:padding="10dp"
+        android:textSize="16sp" />
     <TextView
         android:id="@+id/pop_window_two"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="center"
+        android:background="@drawable/pop_window_bg"
         android:clickable="true"
+        android:padding="10dp"
         android:textColor="#333"
-        android:textSize="14sp" />
+        android:textSize="16sp" />
+    <TextView
+        android:id="@+id/pop_window_three"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:background="@drawable/pop_window_bg"
+        android:clickable="true"
+        android:padding="10dp"
+        android:textColor="#333"
+        android:textSize="16sp" />
 
 </LinearLayout>

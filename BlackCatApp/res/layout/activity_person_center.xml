@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#01000000"
+    android:background="#fff"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -90,6 +90,7 @@
         android:layout_marginLeft="15dp"
         android:background="#e6e6e6"
         android:contentDescription="@string/app_name" />
+    
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -114,23 +115,13 @@
             android:gravity="right|center_vertical" />
     </LinearLayout>
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="#cccccc"
-        android:contentDescription="@string/app_name" />
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="#f7f9fb"
-        android:contentDescription="@string/app_name" />
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="#cccccc"
-        android:contentDescription="@string/app_name" />
+  <LinearLayout
+    	    android:id="@+id/line_five"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:orientation="horizontal"
+            android:background="#f7f9fb" >
+        </LinearLayout>
 
     <TextView
         android:id="@+id/person_center_favourite_tv"
@@ -150,34 +141,22 @@
         style="@style/person_center_text_style"
         android:drawableLeft="@drawable/ic_launcher"
         android:text="@string/my_coach" />
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="#cccccc"
-        android:contentDescription="@string/app_name" />
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="#f7f9fb"
-        android:contentDescription="@string/app_name" />
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="#cccccc"
-        android:contentDescription="@string/app_name" />
-
+<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:orientation="horizontal"
+            android:background="#f7f9fb" >
+        </LinearLayout>
     <TextView
         android:id="@+id/person_center_setting_tv"
         style="@style/person_center_text_style"
         android:drawableLeft="@drawable/ic_launcher"
         android:text="@string/setting" />
-<ImageView
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="#cccccc"
+        android:layout_marginLeft="15dp"
+        android:background="#e6e6e6"
         android:contentDescription="@string/app_name" />
     
     <TextView
@@ -185,23 +164,24 @@
         style="@style/person_center_text_style"
         android:drawableLeft="@drawable/person_center_enroll_detail"
         android:text="@string/enroll_detail" />
+    
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="#cccccc"
+        android:layout_marginLeft="15dp"
+        android:background="#e6e6e6"
         android:contentDescription="@string/app_name" />
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="#f7f9fb"
-        android:contentDescription="@string/app_name" />
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="#cccccc"
-        android:contentDescription="@string/app_name" />
+    <TextView
+        android:id="@+id/person_center_testing_detail_tv"
+        style="@style/person_center_text_style"
+        android:drawableLeft="@drawable/person_center_testing_detail"
+        android:text="@string/testing_detail" />
+<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:orientation="horizontal"
+            android:background="#f7f9fb" >
+        </LinearLayout>
 
     <Button
         android:id="@+id/person_center_logout_btn"
@@ -209,19 +189,15 @@
         android:layout_height="45dp"
         android:background="@null"
         android:text="@string/logout"
-        android:textColor="#333333"
+        android:textColor="#000000"
         android:textSize="14dp" />
+       
+  <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:background="#f7f9fb" >
+        </LinearLayout>
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="#cccccc"
-        android:contentDescription="@string/app_name" />
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#f7f9fb"
-        android:contentDescription="@string/app_name" />
 
 </LinearLayout>

@@ -5,10 +5,12 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -32,7 +34,6 @@ import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.sft.adapter.AppointmentDetailStudentHoriListAdapter;
-import com.sft.blackcatapp.R;
 import com.sft.common.Config;
 import com.sft.common.Config.AppointmentResult;
 import com.sft.common.Config.UserType;
@@ -94,6 +95,14 @@ public class AppointmentDetailActivity extends BaseActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+			// 透明状态栏
+			getWindow().addFlags(
+					WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+			// 透明导航栏
+			getWindow().addFlags(
+					WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+		}
 		setContentView(R.layout.activity_appointment_detail);
 		initView();
 		initData();
@@ -162,7 +171,7 @@ public class AppointmentDetailActivity extends BaseActivity implements
 		shuttleTv.setText("接送地点:" + appointmentVO.getShuttleaddress());
 		studyProcessTv.setText(appointmentVO.getCourseprocessdesc());
 
-		String trainPlace = appointmentVO.getTrainfieldlinfo().getName();
+		String trainPlace = appointmentVO.getTrainfieldlinfo().getFieldname();
 		if (TextUtils.isEmpty(trainPlace)) {
 			trainPlace = appointmentVO.getCoachid().getDriveschoolinfo()
 					.getName();

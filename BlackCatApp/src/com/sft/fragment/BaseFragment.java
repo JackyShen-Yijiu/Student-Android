@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.widget.Toast;
 import cn.sft.baseactivity.util.Util;
 import cn.sft.listener.ICallBack;
 
@@ -104,8 +105,16 @@ public class BaseFragment extends Fragment implements ICallBack {
 			JSONObject jsonObject = new JSONObject(jsonString.toString());
 			result = jsonObject.getString("type");
 			msg = jsonObject.getString("msg");
+			
 			try {
-				data = jsonObject.getJSONObject("data");
+				Object o = jsonObject.get("data");
+				if(o instanceof JSONObject){
+					data = jsonObject.getJSONObject("data");
+				}else if( o instanceof JSONArray){
+					dataArray = jsonObject.getJSONArray("data");
+				}else if(o instanceof String){
+					dataString = jsonObject.getString("data");
+				}
 			} catch (Exception e2) {
 				try {
 					dataArray = jsonObject.getJSONArray("data");
@@ -208,4 +217,8 @@ public class BaseFragment extends Fragment implements ICallBack {
 		super.onSaveInstanceState(outState);
 	}
 
+	public void Toast(String str){
+		Toast.makeText(getActivity(), str, Toast.LENGTH_SHORT).show();
+	}
+	
 }

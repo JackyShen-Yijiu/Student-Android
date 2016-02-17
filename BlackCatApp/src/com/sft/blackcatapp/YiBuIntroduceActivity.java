@@ -3,6 +3,7 @@ package com.sft.blackcatapp;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,10 +13,8 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
-import com.sft.blackcatapp.R;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
-import com.sft.dialog.NoLoginDialog;
 import com.sft.util.JSONUtil;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.UserBaseStateVO;
@@ -46,8 +45,6 @@ public class YiBuIntroduceActivity extends BaseActivity {
 
 	private void initView() {
 		showTitlebarBtn(1);
-		showTitlebarText(BaseActivity.SHOW_RIGHT_TEXT);
-		setText(0, R.string.enroll);
 
 		// button_sus = (Button) findViewById(R.id.button_sus);
 
@@ -60,23 +57,25 @@ public class YiBuIntroduceActivity extends BaseActivity {
 
 	}
 
-	private void initData() {
+	@SuppressLint("SetJavaScriptEnabled") private void initData() {
 		int typeId = getIntent().getIntExtra("typeId", 0);
 		switch (typeId) {
-		case R.id.introduce_superiority:
-			url = "http://123.57.63.15:8181/youshi.html";
-			setTitleText(R.string.yibu_superiority);
-			break;
-		case R.id.introduce_favourable_class:
-			url = "http://123.57.63.15:8181/3.html";
-			setTitleText(R.string.yibu_favourable_class);
-
+		case R.id.introduce_student_know:
+			url = Config.STUDENT_KNOW;
+			setTitleText(R.string.yibu_student_know);
 			break;
 		case R.id.introduce_procedure:
-			// url = "http://123.57.63.15:8181/liuchengt.html";
+
+			setTitleText(R.string.activitys);
+			Intent intent1 = new Intent(this, NewActivitysActivity.class);
+			startActivity(intent1);
+			finish();
+			break;
+		case R.id.introduce_favourable_class:
 			setTitleText(R.string.yibu_procedure);
-			Intent intent = new Intent(this, EnrollSchoolActivity.class);
-			startActivity(intent);
+			Intent intent = new Intent(this, EnrollSchoolActivity1.class);
+			intent.putExtra("isFromMenu", true);
+			startActivityForResult(intent, 1);
 			finish();
 			break;
 
@@ -125,17 +124,17 @@ public class YiBuIntroduceActivity extends BaseActivity {
 		case R.id.base_left_btn:
 			finish();
 			break;
-		case R.id.base_right_tv:
-			// 报名
-			if (!app.isLogin) {
-				NoLoginDialog dialog = new NoLoginDialog(this);
-				dialog.show();
-			} else {
-
-				checkUserEnrollState();
-
-			}
-			break;
+		// case R.id.base_right_tv:
+		// // 报名
+		// if (!app.isLogin) {
+		// NoLoginDialog dialog = new NoLoginDialog(this);
+		// dialog.show();
+		// } else {
+		//
+		// checkUserEnrollState();
+		//
+		// }
+		// break;
 		}
 	}
 

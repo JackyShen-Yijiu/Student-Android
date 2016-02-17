@@ -3,18 +3,22 @@ package com.sft.dialog;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sft.blackcatapp.R;
 
 @SuppressLint("InflateParams")
-public class CustomDialog extends Dialog {
+public class CustomDialog extends Dialog implements
+		android.view.View.OnClickListener {
 
 	public static final int APPOINTMENT_TIME_ERROR = 1;
 	public static final int APPOINTMENT_TIME_SUCCESS = 2;
@@ -22,10 +26,14 @@ public class CustomDialog extends Dialog {
 	public static final int VERTIFY_ENROLL = 4;
 	public static final int APPLY_EXAM = 5;
 	public static final int APPOINTMENT_COMPLAIN = 6;
+	public static final int ERROR_COACH = 7;
 
 	private Context context;
 	private ImageView image;
 	private TextView title, content;
+	private LinearLayout buttonsLayout;
+	private Button confirmBtn;
+	private Button cancelBtn;
 
 	public CustomDialog(Context context, int style) {
 		super(context, R.style.dialog);
@@ -39,6 +47,12 @@ public class CustomDialog extends Dialog {
 		image = (ImageView) view.findViewById(R.id.dialog_im);
 		title = (TextView) view.findViewById(R.id.dialog_title);
 		content = (TextView) view.findViewById(R.id.dialog_content);
+
+		buttonsLayout = (LinearLayout) view.findViewById(R.id.dialog_buttons);
+		confirmBtn = (Button) view.findViewById(R.id.dialog_confirm_btn);
+		cancelBtn = (Button) view.findViewById(R.id.dialog_cancel_btn);
+
+		buttonsLayout.setVisibility(View.GONE);
 		setTextAndImage(style);
 		setContentView(view);
 		DisplayMetrics d = context.getResources().getDisplayMetrics();
@@ -60,6 +74,11 @@ public class CustomDialog extends Dialog {
 			image.setBackgroundResource(R.drawable.appointment_success);
 			title.setText(R.string.appointment_time_success);
 			content.setText(R.string.coach_confirm_appointment_time);
+
+			// 显示分享按钮
+			buttonsLayout.setVisibility(View.VISIBLE);
+			confirmBtn.setOnClickListener(this);
+			cancelBtn.setOnClickListener(this);
 			break;
 		case ENROLL_SUCCESS:
 			image.setBackgroundResource(R.drawable.appointment_success);
@@ -80,6 +99,28 @@ public class CustomDialog extends Dialog {
 			image.setBackgroundResource(R.drawable.appointment_success);
 			title.setText(R.string.complain_success);
 			content.setVisibility(View.GONE);
+			break;
+		case ERROR_COACH:
+			image.setBackgroundResource(R.drawable.appointment_time_error);
+			title.setText(R.string.driveing_school_error);
+			content.setText(R.string.select_right_driveing_school);
+			break;
+		}
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.dialog_confirm_btn:
+			Intent intent = new Intent(context, BonusDialog.class);
+			context.startActivity(intent);
+			dismiss();
+			break;
+		case R.id.dialog_cancel_btn:
+			dismiss();
+			break;
+
+		default:
 			break;
 		}
 	}

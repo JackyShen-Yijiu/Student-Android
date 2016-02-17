@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -14,7 +15,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="230dp"
+            android:layout_height="200dp"
             android:background="@drawable/bonus_dialog_toplayout_bkground"
             android:orientation="vertical"
             android:paddingTop="28dp" >
@@ -37,7 +38,7 @@
                 android:text="@string/invite_friends_get_bonus"
                 android:textColor="#ffffff"
                 android:lineSpacingMultiplier="1.2"
-                android:textSize="15dp" />
+                android:textSize="17dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -45,26 +46,158 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="11dp"
                 android:text="@string/invite_success_income"
-                android:textColor="#ffffff"
-                android:textSize="13dp" />
+                android:textColor="#F2F2F2"
+                android:textSize="14dp" />
         </LinearLayout>
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:background="@drawable/bonus_dialog_bottomlayout_bkground"
-            android:layout_height="80dp" >
+        android:id="@+id/send_invite_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:paddingBottom="10dp" >
 
-            <Button
-                android:id="@+id/dialog_bonus_send_btn"
-                style="@style/btn_style"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_centerInParent="true"
-                android:text="@string/send_invite"
-                android:textColor="#ffffff" />
-        </RelativeLayout>
+        <!-- <TextView
+            android:id="@+id/send_invite_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="25dp"
+            android:text="@string/send_invite"
+            android:textColor="#333333"
+            android:textSize="14dp" /> -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:id="@+id/send_invite_weixin_ll"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <ImageButton
+                    android:id="@+id/send_invite_weixin_btn"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/weixin"
+                    android:contentDescription="@string/app_name" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="7dp"
+                    android:text="@string/weixin"
+                    android:textColor="#333333"
+                    android:textSize="12dp" />
+            </LinearLayout>
+             <!-- <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/app_name" /> -->
+
+            <LinearLayout
+                android:id="@+id/send_invite_message_ll"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <ImageButton
+                    android:id="@+id/send_invite_message_btn"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/weixin_circle"
+                    android:contentDescription="@string/app_name" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="7dp"
+                    android:text="@string/weixin_circle"
+                    android:textColor="#333333"
+                    android:textSize="12dp" />
+            </LinearLayout>
+
+           <!--  <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/app_name" /> -->
+
+            <LinearLayout
+                android:id="@+id/send_invite_weibo_ll"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <ImageButton
+                    android:id="@+id/send_invite_weibo_btn"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/sina"
+                    android:contentDescription="@string/app_name" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="7dp"
+                    android:text="@string/weibo"
+                    android:textColor="#333333"
+                    android:textSize="12dp" />
+            </LinearLayout>
+
+            <!-- <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/app_name" /> -->
+
+            <LinearLayout
+                android:id="@+id/send_invite_qq_ll"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:orientation="vertical" >
+
+                <ImageButton
+                    android:id="@+id/send_invite_qq_btn"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/qq"
+                    android:contentDescription="@string/app_name" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="7dp"
+                    android:text="@string/qq"
+                    android:textColor="#333333"
+                    android:textSize="12dp" />
+            </LinearLayout>
+
+           
+        </LinearLayout>
+    </RelativeLayout>
     </LinearLayout>
 
     <ImageView

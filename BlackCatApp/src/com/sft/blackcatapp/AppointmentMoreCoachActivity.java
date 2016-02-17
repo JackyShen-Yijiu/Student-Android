@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.maxwin.view.XListView;
+import me.maxwin.view.XListView.IXListViewListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,9 +15,11 @@ import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
 import com.sft.adapter.CoachListAdapter;
-import com.sft.blackcatapp.R;
+import com.sft.adapter.SchoolDetailCourseFeeAdapter.MyClickListener;
 import com.sft.common.Config;
 import com.sft.util.JSONUtil;
+import com.sft.util.LogUtil;
+import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.CoachVO;
 
 /**
@@ -26,7 +29,7 @@ import com.sft.vo.CoachVO;
  * 
  */
 public class AppointmentMoreCoachActivity extends BaseActivity implements
-		OnItemClickListener {
+		OnItemClickListener, IXListViewListener {
 
 	private static final String schoolCoach = "schoolCoach";
 	private XListView coachListView;
@@ -47,6 +50,7 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 		obtainSchoolCoach(moreCoachPage);
 	}
 
+	@Override
 	protected void onResume() {
 		register(getClass().getName());
 		super.onResume();
@@ -58,7 +62,9 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 		coachListView = (XListView) findViewById(R.id.more_caoch_listview);
 		layout = (RelativeLayout) findViewById(R.id.more_caoch_no_layout);
 
-		layout.setVisibility(View.VISIBLE);
+		// layout.setVisibility(View.VISIBLE);
+		ZProgressHUD.getInstance(this).setMessage("拼命加载中...");
+		ZProgressHUD.getInstance(this).show();
 		coachListView.setVisibility(View.GONE);
 
 		findViewById(R.id.more_caoch_devider_im).getLayoutParams().height = (int) (screenHeight * 0.2f);
@@ -68,8 +74,9 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 
 	private void setListener() {
 		coachListView.setPullRefreshEnable(false);
-		coachListView.setPullLoadEnable(false);
+		coachListView.setPullLoadEnable(true);
 		coachListView.setOnItemClickListener(this);
+		coachListView.setXListViewListener(this);
 	}
 
 	@Override
@@ -110,25 +117,35 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 				if (dataArray != null) {
 					int length = dataArray.length();
 					if (length > 0) {
+
+						if (moreCoachPage == 1) {
+							ZProgressHUD.getInstance(
+									AppointmentMoreCoachActivity.this)
+									.dismiss();
+							coachListView.setVisibility(View.VISIBLE);
+						}
 						moreCoachPage++;
-						layout.setVisibility(View.GONE);
-						coachListView.setVisibility(View.VISIBLE);
+					} else if (length == 0) {
+						toast.setText("没有更多数据了");
+						coachListView.setPullLoadEnable(false);
 					}
 					int curLength = coachList.size();
 					for (int i = 0; i < length; i++) {
-						CoachVO coachVO = (CoachVO) JSONUtil.toJavaBean(
-								CoachVO.class, dataArray.getJSONObject(i));
-						if(app.favouriteCoach.contains(coachVO))
-							continue;
+						CoachVO coachVO = JSONUtil.toJavaBean(CoachVO.class,
+								dataArray.getJSONObject(i));
+						// if (app.favouriteCoach.contains(coachVO))
+						// continue;
 						coachList.add(coachVO);
 					}
 					if (adapter == null) {
-						adapter = new CoachListAdapter(this, coachList);
+						adapter = new CoachListAdapter(this, coachList,
+								mListener);
 					} else {
 						adapter.setData(coachList);
 					}
 					coachListView.setAdapter(adapter);
 					coachListView.setSelection(curLength);
+					coachListView.stopLoadMore();
 				}
 			}
 		} catch (Exception e) {
@@ -136,4 +153,30 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 		}
 		return true;
 	}
+
+	@Override
+	public void onRefresh() {
+
+	}
+
+	@Override
+	public void onLoadMore() {
+		obtainSchoolCoach(moreCoachPage);
+	}
+
+	/**
+	 * 实现类，响应按钮点击事件
+	 */
+	private MyClickListener mListener = new MyClickListener() {
+		@Override
+		public void myOnClick(int position, View v) {
+			Intent intent = new Intent(AppointmentMoreCoachActivity.this,
+					CoachDetailActivity.class);
+			intent.putExtra("coach", coachList.get(position));
+			intent.putExtra("where",
+					AppointmentMoreCoachActivity.class.getName());
+			LogUtil.print(AppointmentMoreCoachActivity.class.getName() + "---");
+			startActivity(intent);
+		}
+	};
 }

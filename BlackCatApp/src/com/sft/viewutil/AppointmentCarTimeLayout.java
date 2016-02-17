@@ -81,8 +81,8 @@ public class AppointmentCarTimeLayout extends LinearLayout implements
 			ck.setOnCheckedChangeListener(null);
 			ck.setChecked(false);
 			ck.setOnCheckedChangeListener(this);
-			startTimeTv.setText("");
-			endTimeTv.setText("");
+			startTimeTv.setText("暂无");
+			endTimeTv.setText("暂无");
 			countTv.setText("剩余0个名额");
 			setOver(true, other);
 			return;
@@ -126,6 +126,9 @@ public class AppointmentCarTimeLayout extends LinearLayout implements
 				}
 
 			} catch (Exception e) {
+				// 没有数据的时候 课时列表显示
+				startTimeTv.setText("暂无");
+				endTimeTv.setText("暂无(请联系其他教练)");
 				countTv.setText("剩余0个名额");
 				setOver(true, other);
 				e.printStackTrace();
@@ -154,9 +157,9 @@ public class AppointmentCarTimeLayout extends LinearLayout implements
 	private void setTextColor(int style, int reason) {
 		if (style == over) {
 			if (reason == has) {
-				startTimeTv.setTextColor(Color.parseColor("#333333"));
-				endTimeTv.setTextColor(Color.parseColor("#333333"));
-				endTv.setTextColor(Color.parseColor("#333333"));
+				startTimeTv.setTextColor(Color.parseColor("#ff6633"));
+				endTimeTv.setTextColor(Color.parseColor("#ff6633"));
+				endTv.setTextColor(Color.parseColor("#ff6633"));
 				countTv.setTextColor(getResources().getColor(
 						R.color.app_main_color));
 			} else {

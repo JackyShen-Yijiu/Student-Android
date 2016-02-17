@@ -1,0 +1,533 @@
+﻿Merge branch 'develop'
+
+Conflicts:
+	BlackCatApp/proguard/seeds.txt
+	BlackCatApp/project.properties
+	BlackCatApp/src/com/sft/blackcatapp/MainActivity.java
+	Cropper/bin/cropper.jar
+	Cropper/project.properties
+	EMChatLib/bin/emchatlib.jar
+	EMChatLib/res/values-en/strings.xml
+	EMChatLib/res/values/strings.xml
+	InfiniteScrollViewPager/bin/infinitescrollviewpager.jar
+	InfiniteScrollViewPager/project.properties
+	SwipeRefreshLoadListview/bin/swiperefreshloadlistview.jar
+	SwipeRefreshLoadListview/project.properties
+	pullrefreshloadmorelib/bin/pullrefreshloadmorelib.jar
+#
+# It looks like you may be committing a merge.
+# If this is not correct, please remove the file
+#	.git/MERGE_HEAD
+# and try again.
+
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Your branch is up-to-date with 'origin/master'.
+#
+# All conflicts fixed but you are still merging.
+#
+# Changes to be committed:
+#	modified:   .gitignore
+#	modified:   BlackCatApp/.classpath
+#	modified:   BlackCatApp/.settings/org.eclipse.jdt.core.prefs
+#	modified:   BlackCatApp/AndroidManifest.xml
+#	deleted:    BlackCatApp/build.gradle.old
+#	new file:   BlackCatApp/libs/SocialSDK_QQZone_3.jar
+#	new file:   BlackCatApp/libs/SocialSDK_Sina.jar
+#	new file:   BlackCatApp/libs/SocialSDK_WeiXin_1.jar
+#	new file:   BlackCatApp/libs/SocialSDK_WeiXin_2.jar
+#	new file:   BlackCatApp/libs/alipaySdk-20160120.jar
+#	new file:   BlackCatApp/libs/android-support-v4.jar
+#	new file:   BlackCatApp/libs/arm64-v8a/libweibosdkcore.so
+#	new file:   BlackCatApp/libs/armeabi-v7a/libweibosdkcore.so
+#	new file:   BlackCatApp/libs/armeabi/libweibosdkcore.so
+#	new file:   BlackCatApp/libs/httpmime-4.1.3.jar
+#	new file:   BlackCatApp/libs/mips/libweibosdkcore.so
+#	new file:   BlackCatApp/libs/mips64/libweibosdkcore.so
+#	new file:   BlackCatApp/libs/mta-sdk-1.6.2.jar
+#	new file:   BlackCatApp/libs/nineoldandroids-2.4.0.jar
+#	new file:   BlackCatApp/libs/open_sdk_r5509.jar
+#	new file:   BlackCatApp/libs/umeng_social_sdk.jar
+#	new file:   BlackCatApp/libs/weiboSDKCore_3.1.2.jar
+#	new file:   BlackCatApp/libs/x86/libweibosdkcore.so
+#	new file:   BlackCatApp/libs/x86_64/libweibosdkcore.so
+#	new file:   BlackCatApp/libs/zxing.jar
+#	modified:   BlackCatApp/proguard.cfg
+#	deleted:    BlackCatApp/proguard/dump.txt
+#	modified:   BlackCatApp/proguard/mapping.txt
+#	modified:   BlackCatApp/proguard/seeds.txt
+#	modified:   BlackCatApp/proguard/usage.txt
+#	modified:   BlackCatApp/project.properties
+#	new file:   BlackCatApp/res/anim/alpha_in.xml
+#	new file:   BlackCatApp/res/anim/alpha_out.xml
+#	new file:   BlackCatApp/res/anim/umeng_socialize_fade_in.xml
+#	new file:   BlackCatApp/res/anim/umeng_socialize_fade_out.xml
+#	new file:   BlackCatApp/res/anim/umeng_socialize_shareboard_animation_in.xml
+#	new file:   BlackCatApp/res/anim/umeng_socialize_shareboard_animation_out.xml
+#	new file:   BlackCatApp/res/anim/umeng_socialize_slide_in_from_bottom.xml
+#	new file:   BlackCatApp/res/anim/umeng_socialize_slide_out_from_bottom.xml
+#	new file:   BlackCatApp/res/drawable-hdpi/ac_drawable_left.png
+#	new file:   BlackCatApp/res/drawable-hdpi/ac_pass_drawable_left.png
+#	new file:   BlackCatApp/res/drawable-hdpi/activitydefault.png
+#	new file:   BlackCatApp/res/drawable-hdpi/activitystateone.png
+#	new file:   BlackCatApp/res/drawable-hdpi/activitystatethree.png
+#	new file:   BlackCatApp/res/drawable-hdpi/activitystatetwo.png
+#	new file:   BlackCatApp/res/drawable-hdpi/applydefault.png
+#	modified:   BlackCatApp/res/drawable-hdpi/bg.png
+#	deleted:    BlackCatApp/res/drawable-hdpi/bg_main.png
+#	modified:   BlackCatApp/res/drawable-hdpi/bonus_dialog_toplayout_bkground.png
+#	new file:   BlackCatApp/res/drawable-hdpi/coach_collect_noselect.png
+#	new file:   BlackCatApp/res/drawable-hdpi/coach_collect_select.png
+#	modified:   BlackCatApp/res/drawable-hdpi/fragment_menu_activity.png
+#	modified:   BlackCatApp/res/drawable-hdpi/fragment_menu_driving_school.png
+#	modified:   BlackCatApp/res/drawable-hdpi/fragment_menu_home.png
+#	modified:   BlackCatApp/res/drawable-hdpi/fragment_menu_mall.png
+#	modified:   BlackCatApp/res/drawable-hdpi/fragment_menu_message.png
+#	new file:   BlackCatApp/res/drawable-hdpi/fragment_menu_search_coach.png
+#	modified:   BlackCatApp/res/drawable-hdpi/fragment_menu_setting.png
+#	modified:   BlackCatApp/res/drawable-hdpi/fragment_menu_signin.png
+#	new file:   BlackCatApp/res/drawable-hdpi/ic_question.png
+#	modified:   BlackCatApp/res/drawable-hdpi/introduce_class.png
+#	modified:   BlackCatApp/res/drawable-hdpi/introduce_good.png
+#	new file:   BlackCatApp/res/drawable-hdpi/invitation_code.png
+#	modified:   BlackCatApp/res/drawable-hdpi/left_bg.png
+#	new file:   BlackCatApp/res/drawable-hdpi/left_fragment.png
+#	new file:   BlackCatApp/res/drawable-hdpi/location_left_city.png
+#	modified:   BlackCatApp/res/drawable-hdpi/loding_five.png
+#	modified:   BlackCatApp/res/drawable-hdpi/loding_four.png
+#	modified:   BlackCatApp/res/drawable-hdpi/loding_one.png
+#	modified:   BlackCatApp/res/drawable-hdpi/loding_three.png
+#	modified:   BlackCatApp/res/drawable-hdpi/loding_two.png
+#	modified:   BlackCatApp/res/drawable-hdpi/look_around.png
+#	new file:   BlackCatApp/res/drawable-hdpi/msp_demo_title.png
+#	new file:   BlackCatApp/res/drawable-hdpi/msp_demo_title_bg.png
+#	new file:   BlackCatApp/res/drawable-hdpi/msp_icon.png
+#	new file:   BlackCatApp/res/drawable-hdpi/person_center_testing_detail.png
+#	new file:   BlackCatApp/res/drawable-hdpi/qq.png
+#	modified:   BlackCatApp/res/drawable-hdpi/sb_courseware.png
+#	modified:   BlackCatApp/res/drawable-hdpi/sb_error.png
+#	modified:   BlackCatApp/res/drawable-hdpi/sb_goodness.png
+#	modified:   BlackCatApp/res/drawable-hdpi/sb_order_three.png
+#	modified:   BlackCatApp/res/drawable-hdpi/sb_order_three_list.png
+#	modified:   BlackCatApp/res/drawable-hdpi/sb_order_two.png
+#	modified:   BlackCatApp/res/drawable-hdpi/sb_order_two_list.png
+#	modified:   BlackCatApp/res/drawable-hdpi/sb_preference_class.png
+#	modified:   BlackCatApp/res/drawable-hdpi/sb_question_bank.png
+#	modified:   BlackCatApp/res/drawable-hdpi/sb_simulation.png
+#	modified:   BlackCatApp/res/drawable-hdpi/sb_teem.png
+#	new file:   BlackCatApp/res/drawable-hdpi/search_del.png
+#	new file:   BlackCatApp/res/drawable-hdpi/sina.png
+#	deleted:    BlackCatApp/res/drawable-hdpi/star_five.png
+#	deleted:    BlackCatApp/res/drawable-hdpi/star_four.png
+#	deleted:    BlackCatApp/res/drawable-hdpi/star_one.png
+#	deleted:    BlackCatApp/res/drawable-hdpi/star_three.png
+#	deleted:    BlackCatApp/res/drawable-hdpi/star_two.png
+#	deleted:    BlackCatApp/res/drawable-hdpi/start_one.png
+#	new file:   BlackCatApp/res/drawable-hdpi/umeng_socialize_light_bar_bg_pad.9.png
+#	new file:   BlackCatApp/res/drawable-hdpi/umeng_socialize_nav_bar_bg_pad.9.png
+#	new file:   BlackCatApp/res/drawable-hdpi/umeng_socialize_oauth_check_off.png
+#	new file:   BlackCatApp/res/drawable-hdpi/umeng_socialize_oauth_check_on.png
+#	new file:   BlackCatApp/res/drawable-hdpi/umeng_socialize_share_music.png
+#	new file:   BlackCatApp/res/drawable-hdpi/umeng_socialize_share_pic.png
+#	new file:   BlackCatApp/res/drawable-hdpi/umeng_socialize_share_video.png
+#	new file:   BlackCatApp/res/drawable-hdpi/verification_code.png
+#	new file:   BlackCatApp/res/drawable-hdpi/weixin.png
+#	new file:   BlackCatApp/res/drawable-hdpi/weixin_circle.png
+#	modified:   BlackCatApp/res/drawable-hdpi/welcome.png
+#	modified:   BlackCatApp/res/drawable-hdpi/welcome_four.png
+#	modified:   BlackCatApp/res/drawable-hdpi/welcome_one.png
+#	modified:   BlackCatApp/res/drawable-hdpi/welcome_three.png
+#	modified:   BlackCatApp/res/drawable-hdpi/welcome_two.png
+#	new file:   BlackCatApp/res/drawable-hdpi/ybxch_official_website_qrcode.png
+#	modified:   BlackCatApp/res/drawable-mdpi/fragment_menu_activity.png
+#	modified:   BlackCatApp/res/drawable-mdpi/fragment_menu_driving_school.png
+#	modified:   BlackCatApp/res/drawable-mdpi/fragment_menu_home.png
+#	modified:   BlackCatApp/res/drawable-mdpi/fragment_menu_mall.png
+#	modified:   BlackCatApp/res/drawable-mdpi/fragment_menu_message.png
+#	new file:   BlackCatApp/res/drawable-mdpi/fragment_menu_search_coach.png
+#	modified:   BlackCatApp/res/drawable-mdpi/fragment_menu_setting.png
+#	modified:   BlackCatApp/res/drawable-mdpi/fragment_menu_signin.png
+#	new file:   BlackCatApp/res/drawable-xhdpi/fragment_complaint_activity.png
+#	modified:   BlackCatApp/res/drawable-xhdpi/fragment_menu_activity.png
+#	new file:   BlackCatApp/res/drawable-xhdpi/fragment_menu_classcar.png
+#	modified:   BlackCatApp/res/drawable-xhdpi/fragment_menu_driving_school.png
+#	modified:   BlackCatApp/res/drawable-xhdpi/fragment_menu_home.png
+#	modified:   BlackCatApp/res/drawable-xhdpi/fragment_menu_mall.png
+#	modified:   BlackCatApp/res/drawable-xhdpi/fragment_menu_message.png
+#	new file:   BlackCatApp/res/drawable-xhdpi/fragment_menu_order_school.png
+#	new file:   BlackCatApp/res/drawable-xhdpi/fragment_menu_search_coach.png
+#	modified:   BlackCatApp/res/drawable-xhdpi/fragment_menu_setting.png
+#	modified:   BlackCatApp/res/drawable-xhdpi/fragment_menu_signin.png
+#	new file:   BlackCatApp/res/drawable-xhdpi/strengths.png
+#	deleted:    BlackCatApp/res/drawable-xhdpi/subject_four_courseware.png
+#	deleted:    BlackCatApp/res/drawable-xhdpi/subject_four_error_data.png
+#	deleted:    BlackCatApp/res/drawable-xhdpi/subject_four_question_bank.png
+#	deleted:    BlackCatApp/res/drawable-xhdpi/subject_one_error_data.png
+#	deleted:    BlackCatApp/res/drawable-xhdpi/subject_one_mock.png
+#	deleted:    BlackCatApp/res/drawable-xhdpi/subject_one_question_bank.png
+#	deleted:    BlackCatApp/res/drawable-xhdpi/subject_three_appointment.png
+#	deleted:    BlackCatApp/res/drawable-xhdpi/subject_three_appointment_list.png
+#	deleted:    BlackCatApp/res/drawable-xhdpi/subject_three_courseware.png
+#	deleted:    BlackCatApp/res/drawable-xhdpi/subject_two_appointment.png
+#	deleted:    BlackCatApp/res/drawable-xhdpi/subject_two_appointment_list.png
+#	deleted:    BlackCatApp/res/drawable-xhdpi/subject_two_courseware.png
+#	modified:   BlackCatApp/res/drawable-xhdpi/welcome.png
+#	modified:   BlackCatApp/res/drawable-xxhdpi/welcome.png
+#	new file:   BlackCatApp/res/drawable/activities_bg.xml
+#	new file:   BlackCatApp/res/drawable/applystate_title.xml
+#	new file:   BlackCatApp/res/drawable/button_org_white.xml
+#	new file:   BlackCatApp/res/drawable/coach_collect_heart_bkground.xml
+#	new file:   BlackCatApp/res/drawable/dialog_progress.xml
+#	new file:   BlackCatApp/res/drawable/listview_selector.xml
+#	modified:   BlackCatApp/res/drawable/person_center_tv_bkground.xml
+#	new file:   BlackCatApp/res/drawable/pop_window_bg.xml
+#	new file:   BlackCatApp/res/drawable/radio_button_bg.xml
+#	new file:   BlackCatApp/res/drawable/register_line.png
+#	modified:   BlackCatApp/res/drawable/select_coach_radiobtn_textcolor.xml
+#	new file:   BlackCatApp/res/drawable/shape_line_bg.xml
+#	renamed:    pullrefreshloadmorelib/bin/AndroidManifest.xml -> BlackCatApp/res/drawable/sl_default_background.xml
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_action_back.xml
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_action_back_normal.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_action_back_selected.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_at_button.xml
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_at_normal.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_at_selected.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_bind_bg.9.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_button_blue.9.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_button_grey.9.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_button_grey_blue.xml
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_button_login.xml
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_button_login_normal.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_button_login_pressed.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_button_red.9.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_button_red_blue.xml
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_button_white.9.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_button_white_blue.xml
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_default_avatar.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_douban_off.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_douban_on.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_facebook.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_fetch_image.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_follow_check.xml
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_follow_off.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_follow_on.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_google.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_light_bar_bg.9.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_location_ic.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_location_off.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_location_on.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_nav_bar_bg.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_oauth_check.xml
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_oauth_check_off.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_oauth_check_on.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_qq_off.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_qq_on.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_qzone_off.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_qzone_on.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_refersh.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_renren_off.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_renren_on.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_search_icon.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_shape_solid_black.xml
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_shape_solid_grey.xml
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_share_to_button.xml
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_share_transparent_corner.xml
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_shareboard_item_background.xml
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_sidebar_normal.xml
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_sidebar_selected.xml
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_sidebar_selector.xml
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_sina_off.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_sina_on.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_title_back_bt.xml
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_title_back_bt_normal.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_title_back_bt_selected.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_title_right_bt.xml
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_title_right_bt_normal.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_title_right_bt_selected.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_title_tab_button_left.xml
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_title_tab_button_right.xml
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_title_tab_left_normal.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_title_tab_left_pressed.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_title_tab_right_normal.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_title_tab_right_pressed.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_twitter.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_tx_off.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_tx_on.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_wechat.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_wechat_gray.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_window_shadow_pad.xml
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_wxcircle.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_wxcircle_gray.png
+#	new file:   BlackCatApp/res/drawable/umeng_socialize_x_button.png
+#	new file:   BlackCatApp/res/layout-sw550dp-large/umeng_socialize_full_alert_dialog.xml
+#	new file:   BlackCatApp/res/layout-sw550dp-large/umeng_socialize_oauth_dialog.xml
+#	new file:   BlackCatApp/res/layout-sw550dp-large/umeng_socialize_post_share.xml
+#	new file:   BlackCatApp/res/layout-sw550dp-large/umeng_socialize_titile_bar.xml
+#	new file:   BlackCatApp/res/layout/act_check_discode.xml
+#	new file:   BlackCatApp/res/layout/act_enrollschool_container.xml
+#	new file:   BlackCatApp/res/layout/act_pay_test.xml
+#	new file:   BlackCatApp/res/layout/activity_activities.xml
+#	new file:   BlackCatApp/res/layout/activity_apply_image.xml
+#	modified:   BlackCatApp/res/layout/activity_appointment_car.xml
+#	modified:   BlackCatApp/res/layout/activity_appointment_detail.xml
+#	modified:   BlackCatApp/res/layout/activity_base.xml
+#	new file:   BlackCatApp/res/layout/activity_bus_route.xml
+#	new file:   BlackCatApp/res/layout/activity_bus_route_item.xml
+#	modified:   BlackCatApp/res/layout/activity_callback.xml
+#	new file:   BlackCatApp/res/layout/activity_change_sign.xml
+#	modified:   BlackCatApp/res/layout/activity_coach_detail.xml
+#	new file:   BlackCatApp/res/layout/activity_confirm_order.xml
+#	modified:   BlackCatApp/res/layout/activity_crop_image.xml
+#	modified:   BlackCatApp/res/layout/activity_enroll_class.xml
+#	modified:   BlackCatApp/res/layout/activity_enroll_school.xml
+#	modified:   BlackCatApp/res/layout/activity_find_password.xml
+#	modified:   BlackCatApp/res/layout/activity_login.xml
+#	modified:   BlackCatApp/res/layout/activity_more_coach.xml
+#	modified:   BlackCatApp/res/layout/activity_my_appointment.xml
+#	modified:   BlackCatApp/res/layout/activity_my_coach.xml
+#	modified:   BlackCatApp/res/layout/activity_my_wallet.xml
+#	modified:   BlackCatApp/res/layout/activity_my_wallet_invite.xml
+#	modified:   BlackCatApp/res/layout/activity_person_center.xml
+#	new file:   BlackCatApp/res/layout/activity_qr_code.xml
+#	modified:   BlackCatApp/res/layout/activity_question.xml
+#	modified:   BlackCatApp/res/layout/activity_register.xml
+#	modified:   BlackCatApp/res/layout/activity_school_detail.xml
+#	new file:   BlackCatApp/res/layout/activity_search_coach_list_item.xml
+#	modified:   BlackCatApp/res/layout/activity_select_coach.xml
+#	modified:   BlackCatApp/res/layout/activity_select_coach_distance.xml
+#	modified:   BlackCatApp/res/layout/activity_setting.xml
+#	new file:   BlackCatApp/res/layout/activity_today_appointment.xml
+#	new file:   BlackCatApp/res/layout/activitys_list.xml
+#	modified:   BlackCatApp/res/layout/apply_commit.xml
+#	new file:   BlackCatApp/res/layout/apply_dialog_progress.xml
+#	modified:   BlackCatApp/res/layout/appointmentcar_time_layout.xml
+#	new file:   BlackCatApp/res/layout/coach_detail_course_info.xml
+#	modified:   BlackCatApp/res/layout/coach_detail_list_item.xml
+#	modified:   BlackCatApp/res/layout/dialog_bonus.xml
+#	new file:   BlackCatApp/res/layout/dialog_check.xml
+#	modified:   BlackCatApp/res/layout/dialog_enroll_success.xml
+#	new file:   BlackCatApp/res/layout/dialog_photo_picker.xml
+#	modified:   BlackCatApp/res/layout/enroll_school_header.xml
+#	new file:   BlackCatApp/res/layout/fragment_coach_or_school.xml
+#	new file:   BlackCatApp/res/layout/fragment_coaches_search.xml
+#	modified:   BlackCatApp/res/layout/fragment_menu_new.xml
+#	modified:   BlackCatApp/res/layout/frame_content.xml
+#	new file:   BlackCatApp/res/layout/line.xml
+#	new file:   BlackCatApp/res/layout/look_school_all_coach.xml
+#	modified:   BlackCatApp/res/layout/main_view_five.xml
+#	modified:   BlackCatApp/res/layout/main_view_four.xml
+#	modified:   BlackCatApp/res/layout/main_view_one.xml
+#	modified:   BlackCatApp/res/layout/main_view_three.xml
+#	modified:   BlackCatApp/res/layout/main_view_two.xml
+#	new file:   BlackCatApp/res/layout/new_activity_applystate.xml
+#	new file:   BlackCatApp/res/layout/new_activity_crop_image.xml
+#	modified:   BlackCatApp/res/layout/new_apply.xml
+#	new file:   BlackCatApp/res/layout/pay_external.xml
+#	new file:   BlackCatApp/res/layout/pay_main.xml
+#	modified:   BlackCatApp/res/layout/pop_window.xml
+#	new file:   BlackCatApp/res/layout/school_detail_course_fee.xml
+#	new file:   BlackCatApp/res/layout/search_coach_header.xml
+#	new file:   BlackCatApp/res/layout/select_activity_list_item.xml
+#	modified:   BlackCatApp/res/layout/select_class_list_item.xml
+#	modified:   BlackCatApp/res/layout/select_coach_list_item.xml
+#	modified:   BlackCatApp/res/layout/select_school_list_item.xml
+#	new file:   BlackCatApp/res/layout/select_subject_list_item.xml
+#	new file:   BlackCatApp/res/layout/testing_apply.xml
+#	modified:   BlackCatApp/res/layout/testing_commit.xml
+#	modified:   BlackCatApp/res/layout/testing_msg.xml
+#	modified:   BlackCatApp/res/layout/testing_phone.xml
+#	new file:   BlackCatApp/res/layout/title.xml
+#	new file:   BlackCatApp/res/layout/today_appointment_list_item.xml
+#	new file:   BlackCatApp/res/layout/umeng_bak_at_list.xml
+#	new file:   BlackCatApp/res/layout/umeng_bak_at_list_item.xml
+#	new file:   BlackCatApp/res/layout/umeng_bak_platform_item_simple.xml
+#	new file:   BlackCatApp/res/layout/umeng_bak_platform_selector_dialog.xml
+#	new file:   BlackCatApp/res/layout/umeng_socialize_base_alert_dialog.xml
+#	new file:   BlackCatApp/res/layout/umeng_socialize_base_alert_dialog_button.xml
+#	new file:   BlackCatApp/res/layout/umeng_socialize_bind_select_dialog.xml
+#	new file:   BlackCatApp/res/layout/umeng_socialize_failed_load_page.xml
+#	new file:   BlackCatApp/res/layout/umeng_socialize_full_alert_dialog.xml
+#	new file:   BlackCatApp/res/layout/umeng_socialize_full_alert_dialog_item.xml
+#	new file:   BlackCatApp/res/layout/umeng_socialize_full_curtain.xml
+#	new file:   BlackCatApp/res/layout/umeng_socialize_oauth_dialog.xml
+#	new file:   BlackCatApp/res/layout/umeng_socialize_post_share.xml
+#	new file:   BlackCatApp/res/layout/umeng_socialize_shareboard_item.xml
+#	new file:   BlackCatApp/res/layout/umeng_socialize_simple_spinner_item.xml
+#	new file:   BlackCatApp/res/layout/umeng_socialize_titile_bar.xml
+#	new file:   BlackCatApp/res/layout/web_view.xml
+#	modified:   BlackCatApp/res/values-en/strings.xml
+#	modified:   BlackCatApp/res/values/array.xml
+#	modified:   BlackCatApp/res/values/colors.xml
+#	modified:   BlackCatApp/res/values/dimens.xml
+#	modified:   BlackCatApp/res/values/strings.xml
+#	modified:   BlackCatApp/res/values/styles.xml
+#	new file:   BlackCatApp/res/values/umeng_socialize_colors.xml
+#	new file:   BlackCatApp/res/values/umeng_socialize_strings.xml
+#	new file:   BlackCatApp/res/values/umeng_socialize_style.xml
+#	new file:   BlackCatApp/src/com/sft/adapter/ActivityAdapter.java
+#	modified:   BlackCatApp/src/com/sft/adapter/AppointmentDetailStudentHoriListAdapter.java
+#	modified:   BlackCatApp/src/com/sft/adapter/CoachCommentListAdapter.java
+#	modified:   BlackCatApp/src/com/sft/adapter/CoachListAdapter.java
+#	modified:   BlackCatApp/src/com/sft/adapter/MyAppointmentListAdapter.java
+#	new file:   BlackCatApp/src/com/sft/adapter/OpenCityAdapter.java
+#	new file:   BlackCatApp/src/com/sft/adapter/SchoolBusRouteAdapter.java
+#	modified:   BlackCatApp/src/com/sft/adapter/SchoolDetailCoachHoriListAdapter.java
+#	new file:   BlackCatApp/src/com/sft/adapter/SchoolDetailCourseFeeAdapter.java
+#	modified:   BlackCatApp/src/com/sft/adapter/SchoolListAdapter.java
+#	new file:   BlackCatApp/src/com/sft/adapter/SearchCoachListAdapter.java
+#	new file:   BlackCatApp/src/com/sft/adapter/SubjectListAdapter.java
+#	new file:   BlackCatApp/src/com/sft/adapter/TodayAppointmentAdapter.java
+#	new file:   BlackCatApp/src/com/sft/adapter/readme.txt
+#	new file:   BlackCatApp/src/com/sft/alipay/Base64.java
+#	new file:   BlackCatApp/src/com/sft/alipay/ExternalFragment.java
+#	new file:   BlackCatApp/src/com/sft/alipay/H5PayDemoActivity.java
+#	new file:   BlackCatApp/src/com/sft/alipay/PayDemoActivity.java
+#	new file:   BlackCatApp/src/com/sft/alipay/PayResult.java
+#	new file:   BlackCatApp/src/com/sft/alipay/PayUtils.java
+#	new file:   BlackCatApp/src/com/sft/alipay/SignUtils.java
+#	modified:   BlackCatApp/src/com/sft/blackcatapp/AboutUsActivity.java
+#	new file:   BlackCatApp/src/com/sft/blackcatapp/ActivitiesActivity.java
+#	modified:   BlackCatApp/src/com/sft/blackcatapp/ApplyActivity.java
+#	modified:   BlackCatApp/src/com/sft/blackcatapp/AppointmentCarActivity.java
+#	modified:   BlackCatApp/src/com/sft/blackcatapp/AppointmentDetailActivity.java
+#	modified:   BlackCatApp/src/com/sft/blackcatapp/AppointmentMoreCoachActivity.java
+#	modified:   BlackCatApp/src/com/sft/blackcatapp/AudioPlayActivity.java
+#	modified:   BlackCatApp/src/com/sft/blackcatapp/BaseActivity.java
+#	modified:   BlackCatApp/src/com/sft/blackcatapp/BaseMainActivity.java
+#	modified:   BlackCatApp/src/com/sft/blackcatapp/ChangeAddressActivity.java
+#	modified:   BlackCatApp/src/com/sft/blackcatapp/ChangeSignActivity.java
+#	new file:   BlackCatApp/src/com/sft/blackcatapp/CheckDiscodeAct.java
+#	modified:   BlackCatApp/src/com/sft/blackcatapp/ClassDetailActivity.java
+#	modified:   BlackCatApp/src/com/sft/blackcatapp/CoachDetailActivity.java
+#	new file:   BlackCatApp/src/com/sft/blackcatapp/ConfirmOrderActivity.java
+#	modified:   BlackCatApp/src/com/sft/blackcatapp/ConfirmStudyActivity.java
+#	modified:   BlackCatApp/src/com/sft/blackcatapp/CropImageActivity.java
+#	modified:   BlackCatApp/src/com/sft/blackcatapp/EnrollActivity.java
+#	modified:   BlackCatApp/src/com/sft/blackcatapp/EnrollClassActivity.java
+#	modified:   BlackCatApp/src/com/sft/blackcatapp/EnrollCoachActivity.java
+#	modified:   BlackCatApp/src/com/sft/blackcatapp/EnrollSchoolActivity.java
+#	new file:   BlackCatApp/src/com/sft/blackcatapp/EnrollSchoolActivity1.java
+#	new file:   BlackCatApp/src/com/sft/blackcatapp/EnrollSubjectActivity.java
+#	modified:   BlackCatApp/src/com/sft/blackcatapp/EnrollSuccessActivity.java
+#	modified:   BlackCatApp/src/com/sft/blackcatapp/FavouriteSchoolActivity.java
+#	modified:   BlackCatApp/src/com/sft/blackcatapp/FindPasswordActivity.java
+#	modified:   BlackCatApp/src/com/sft/blackcatapp/LoginActivity.java
+#	modified:   BlackCatApp/src/com/sft/blackcatapp/MainActivity.java
+#	modified:   BlackCatApp/src/com/sft/blackcatapp/MyAppointmentActivity.java
+#	modified:   BlackCatApp/src/com/sft/blackcatapp/MyWalletActivity.java
+#	modified:   BlackCatApp/src/com/sft/blackcatapp/MyWalletInviteActivity.java
+#	new file:   BlackCatApp/src/com/sft/blackcatapp/NewActivitysActivity.java
+#	new file:   BlackCatApp/src/com/sft/blackcatapp/NewApplystateActivity.java
+#	new file:   BlackCatApp/src/com/sft/blackcatapp/NewCropImageActivity.java
+#	modified:   BlackCatApp/src/com/sft/blackcatapp/PersonCenterActivity.java
+#	new file:   BlackCatApp/src/com/sft/blackcatapp/QRCodeCreateActivity.java
+#	modified:   BlackCatApp/src/com/sft/blackcatapp/QuestionActivity.java
+#	modified:   BlackCatApp/src/com/sft/blackcatapp/RegisterActivity.java
+#	new file:   BlackCatApp/src/com/sft/blackcatapp/SchoolAllCoachActivity.java
+#	new file:   BlackCatApp/src/com/sft/blackcatapp/SchoolBusRouteActivity.java
+#	modified:   BlackCatApp/src/com/sft/blackcatapp/SchoolDetailActivity.java
+#	new file:   BlackCatApp/src/com/sft/blackcatapp/SearchCoachActivity.java
+#	modified:   BlackCatApp/src/com/sft/blackcatapp/SettingActivity.java
+#	modified:   BlackCatApp/src/com/sft/blackcatapp/SubjectEnrollActivity.java
+#	new file:   BlackCatApp/src/com/sft/blackcatapp/TestPayAct.java
+#	new file:   BlackCatApp/src/com/sft/blackcatapp/TestingApplyActivity.java
+#	modified:   BlackCatApp/src/com/sft/blackcatapp/TestingCommit.java
+#	modified:   BlackCatApp/src/com/sft/blackcatapp/TestingMsgActivity.java
+#	modified:   BlackCatApp/src/com/sft/blackcatapp/TestingPhoneActivity.java
+#	new file:   BlackCatApp/src/com/sft/blackcatapp/TodaysAppointmentActivity.java
+#	new file:   BlackCatApp/src/com/sft/blackcatapp/WBShareActivity.java
+#	new file:   BlackCatApp/src/com/sft/blackcatapp/WebViewActivitys.java
+#	modified:   BlackCatApp/src/com/sft/blackcatapp/WelcomeActivity.java
+#	modified:   BlackCatApp/src/com/sft/blackcatapp/YiBuIntroduceActivity.java
+#	new file:   BlackCatApp/src/com/sft/blackcatapp/wxapi/WXEntryActivity.java
+#	modified:   BlackCatApp/src/com/sft/common/BlackCatApplication.java
+#	modified:   BlackCatApp/src/com/sft/common/Config.java
+#	new file:   BlackCatApp/src/com/sft/dialog/AsyncProgressDialog.java
+#	new file:   BlackCatApp/src/com/sft/dialog/BaseDialogWrapper.java
+#	modified:   BlackCatApp/src/com/sft/dialog/BonusDialog.java
+#	new file:   BlackCatApp/src/com/sft/dialog/CheckApplyDialog.java
+#	modified:   BlackCatApp/src/com/sft/dialog/CustomDialog.java
+#	new file:   BlackCatApp/src/com/sft/dialog/NoCommentDialog.java
+#	modified:   BlackCatApp/src/com/sft/fragment/BaseFragment.java
+#	new file:   BlackCatApp/src/com/sft/fragment/CoachsFragment.java
+#	new file:   BlackCatApp/src/com/sft/fragment/CoachsFragment1.java
+#	modified:   BlackCatApp/src/com/sft/fragment/IntroducesFragment.java
+#	modified:   BlackCatApp/src/com/sft/fragment/MenuFragment.java
+#	new file:   BlackCatApp/src/com/sft/fragment/SchoolsFragment.java
+#	modified:   BlackCatApp/src/com/sft/fragment/SubjectFourFragment.java
+#	modified:   BlackCatApp/src/com/sft/fragment/SubjectOneFragment.java
+#	modified:   BlackCatApp/src/com/sft/fragment/SubjectTwoFragment.java
+#	new file:   BlackCatApp/src/com/sft/listener/MOnScrollListener.java
+#	new file:   BlackCatApp/src/com/sft/listener/SameTimeStudentOnItemClickListener.java
+#	new file:   BlackCatApp/src/com/sft/qrcode/EncodingHandler.java
+#	new file:   BlackCatApp/src/com/sft/util/BaseUtils.java
+#	modified:   BlackCatApp/src/com/sft/util/CommonUtil.java
+#	new file:   BlackCatApp/src/com/sft/util/Constants.java
+#	new file:   BlackCatApp/src/com/sft/util/DateUtil.java
+#	modified:   BlackCatApp/src/com/sft/util/JSONUtil.java
+#	new file:   BlackCatApp/src/com/sft/util/PhotoUtil.java
+#	modified:   BlackCatApp/src/com/sft/util/UTC2LOC.java
+#	modified:   BlackCatApp/src/com/sft/util/Util.java
+#	new file:   BlackCatApp/src/com/sft/view/BulleinEditText.java
+#	new file:   BlackCatApp/src/com/sft/view/CleanableEditText.java
+#	new file:   BlackCatApp/src/com/sft/view/NoScrollListView.java
+#	modified:   BlackCatApp/src/com/sft/view/RefreshLayout.java
+#	new file:   BlackCatApp/src/com/sft/view/WordWrapView.java
+#	modified:   BlackCatApp/src/com/sft/viewutil/AppointmentCarTimeLayout.java
+#	modified:   BlackCatApp/src/com/sft/viewutil/ScrollTimeLayout.java
+#	new file:   BlackCatApp/src/com/sft/vo/ActivitiesVO.java
+#	modified:   BlackCatApp/src/com/sft/vo/ClassVO.java
+#	modified:   BlackCatApp/src/com/sft/vo/CoachVO.java
+#	new file:   BlackCatApp/src/com/sft/vo/LocationShowTypeVO.java
+#	new file:   BlackCatApp/src/com/sft/vo/OpenCityVO.java
+#	new file:   BlackCatApp/src/com/sft/vo/PayOrderClassVO.java
+#	new file:   BlackCatApp/src/com/sft/vo/PayOrderVO.java
+#	new file:   BlackCatApp/src/com/sft/vo/QRCodeCreateVO.java
+#	new file:   BlackCatApp/src/com/sft/vo/SchoolBusRoute.java
+#	modified:   BlackCatApp/src/com/sft/vo/SchoolVO.java
+#	new file:   BlackCatApp/src/com/sft/vo/SubjectVO.java
+#	modified:   BlackCatApp/src/com/sft/vo/SuccessVO.java
+#	new file:   BlackCatApp/src/com/sft/vo/TagsList.java
+#	modified:   BlackCatApp/src/com/sft/vo/coachvo/TrainFieldlInfo.java
+#	modified:   BlackCatApp/src/com/sft/vo/commentvo/CommentUser.java
+#	modified:   BlackCatApp/src/com/sft/vo/commonvo/CarModel.java
+#	modified:   BlackCatApp/src/com/sft/vo/uservo/StudentSubject.java
+#	deleted:    Cropper/bin/cropper.jar
+#	modified:   Cropper/project.properties
+#	deleted:    EMChatLib/bin/emchatlib.jar
+#	modified:   EMChatLib/res/values-en/strings.xml
+#	modified:   EMChatLib/res/values/strings.xml
+#	deleted:    InfiniteScrollViewPager/bin/infinitescrollviewpager.jar
+#	modified:   InfiniteScrollViewPager/project.properties
+#	modified:   QiniuTool/.classpath
+#	modified:   QiniuTool/.project
+#	modified:   QiniuTool/.settings/org.eclipse.jdt.core.prefs
+#	deleted:    QiniuTool/bin/AndroidManifest.xml
+#	modified:   QiniuTool/project.properties
+#	modified:   QiniuTool/res/values/strings.xml
+#	modified:   SlidingMenuLib/project.properties
+#	modified:   SwichLayoutLib/project.properties
+#	deleted:    SwipeRefreshLoadListview/bin/swiperefreshloadlistview.jar
+#	modified:   SwipeRefreshLoadListview/project.properties
+#	modified:   SwipeRefreshLoadListview/res/values-en/strings.xml
+#	modified:   SwipeRefreshLoadListview/res/values/strings.xml
+#	modified:   pullrefreshloadmorelib/.classpath
+#	modified:   pullrefreshloadmorelib/.project
+#	modified:   pullrefreshloadmorelib/.settings/org.eclipse.jdt.core.prefs
+#	modified:   pullrefreshloadmorelib/.svn/pristine/88/8843d82502bf94b4ad3bd2a74b45326a29714508.svn-base
+#	modified:   pullrefreshloadmorelib/.svn/pristine/92/92180b4b0db894517d6c00a34aeffb231fb6c1dc.svn-base
+#	deleted:    pullrefreshloadmorelib/bin/R.txt
+#	deleted:    pullrefreshloadmorelib/bin/pullrefreshloadmorelib.jar
+#	modified:   pullrefreshloadmorelib/build.gradle
+#	modified:   pullrefreshloadmorelib/project.properties
+#	modified:   pullrefreshloadmorelib/src/cn/sft/pull/AutoScrollListener.java
+#	modified:   pullrefreshloadmorelib/src/cn/sft/pull/DividerItemDecoration.java
+#	modified:   pullrefreshloadmorelib/src/cn/sft/pull/LoadMoreView.java
+#	modified:   pullrefreshloadmorelib/src/cn/sft/pull/OnItemClickListener.java
+#	modified:   pullrefreshloadmorelib/src/cn/sft/pull/RefreshLoadMoreView.java
+#	modified:   roundedimageviewlibrary/.classpath
+#	modified:   roundedimageviewlibrary/project.properties
+#
+

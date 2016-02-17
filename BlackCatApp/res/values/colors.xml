@@ -1,5 +1,14 @@
 <resources>
 
+    <color name="title_bg">#393f4b</color>
+    
+    <color name="white">#ffffff</color>
+    <color name="txt_999">#999999</color>
+    <color name="txt_333">#333333</color>
+    <color name="txt_3">#333</color>
+    <color name="txt_9">#999</color>
+    <!-- 主体 背景色 -->
+    <color name="main_bg">#f7f9fb</color>
     <!-- app的主色调 -->
     <color name="app_main_title_color">#fefefe</color>
     <color name="app_main_color">#ff6633</color> 
@@ -43,7 +52,16 @@
     <color name="drawer_selector">#33ffffff</color>
     <color name="drawer_unselector">#00000000</color>
     
+    <color name="transparent">#00000000</color>
+    
     <color name="bottom_text_unselector">#828282</color>
-    <color name="bottom_text_selector">#68e6ff</color>
+    <color name="bottom_text_selector">#ff6633</color>
     <color name="default_text_color">#333</color>
+    <color name="red_color">#f00</color>
+    
+    <color name="white_pure">#ffffff</color>
+    <color name="white_p">#ECECEC</color>
+
+    <color name="listview_selected_color">#99999999</color>
+    
 </resources>

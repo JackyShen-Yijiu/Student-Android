@@ -13,7 +13,7 @@ public class CarModel extends DBVO {
 	private String modelsid;
 
 	public String getName() {
-		return name;
+		return name == null ? "" : name;
 	}
 
 	public void setName(String name) {
@@ -21,7 +21,7 @@ public class CarModel extends DBVO {
 	}
 
 	public String getCode() {
-		return code;
+		return code == null ? "" : code;
 	}
 
 	public void setCode(String code) {

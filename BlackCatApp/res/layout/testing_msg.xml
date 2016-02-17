@@ -1,13 +1,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/testing_rootlayout"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent"
+    android:background="#fff" >
 
     <LinearLayout
         android:id="@+id/ll_title"
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:background="#ccc"
+        android:background="#f7f9fb"
         android:orientation="horizontal" >
     </LinearLayout>
 
@@ -63,7 +64,7 @@
         android:layout_height="10dp"
         android:layout_below="@+id/rl_title"
         android:layout_marginTop="21dp"
-        android:background="#ccc"
+        android:background="#f7f9fb"
         android:orientation="horizontal" >
     </LinearLayout>
 
@@ -93,7 +94,7 @@
         android:drawablePadding="10dp"
         android:textSize="14sp"
         android:textColor="#999"
-        android:text="一步互联网驾校" />
+        android:text="请选择驾校" />
 </RelativeLayout>
 
     <!-- 2 -->
@@ -122,7 +123,7 @@
         android:drawablePadding="10dp"
         android:textSize="14sp"
         android:textColor="#999"
-        android:text="C1小车手动挡" />
+        android:text="请选择驾照类型" />
 </RelativeLayout>
 
 <!-- 3 -->
@@ -151,11 +152,11 @@
         android:drawablePadding="10dp"
         android:textSize="14sp"
         android:textColor="#999"
-        android:text="张三" />
+        android:text="请选择教练" />
 </RelativeLayout>
 
 <!-- 4 -->
-   <RelativeLayout
+    <RelativeLayout
         android:id="@+id/rl_msg_four"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -180,7 +181,7 @@
         android:drawablePadding="10dp"
         android:textSize="14sp"
         android:textColor="#999"
-        android:text="一步互联网驾校快班" />
+        android:text="请选择班级" />
 </RelativeLayout>
 <!-- 5 -->
 <RelativeLayout
@@ -208,7 +209,7 @@
         android:drawablePadding="10dp"
         android:textSize="14sp"
         android:textColor="#999"
-        android:text="科目一" />
+        android:text="请选择科目" />
 </RelativeLayout>
 
    <TextView

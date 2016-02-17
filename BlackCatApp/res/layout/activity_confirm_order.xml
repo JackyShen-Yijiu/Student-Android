@@ -1,0 +1,341 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.confirmorderactivity.ConfirmOrderActivity" >
+    
+<!-- 1 -->
+
+		<ScrollView 
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:layout_above="@+id/act_pay_now"
+		    >
+		    <RelativeLayout 
+		        android:layout_width="match_parent"
+		    	android:layout_height="wrap_content"
+		        >
+		        <LinearLayout
+    	    android:id="@+id/line_one"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:orientation="horizontal"
+            android:background="#f7f9fb" >
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_coupon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line_one"
+            android:text="一步折扣卷"
+            android:padding="12dp"/>
+    
+        
+        <TextView
+            android:id="@+id/tv_coupon_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tv_coupon"
+            android:layout_alignRight="@+id/line_two"
+            android:layout_marginRight="0dp"
+            android:drawableRight="@drawable/arrow_right"
+            android:drawablePadding="8dp"
+            android:padding="12dp"
+            android:text="请填写" />
+        
+    <LinearLayout
+            android:id="@+id/line_two"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="1dp"
+            android:layout_below="@+id/tv_coupon"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="#f7f9fb" >
+        </LinearLayout>
+         
+    
+   <!-- 2 -->
+    <TextView
+            android:id="@+id/tv_goods"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line_two"
+            android:text="商品名称"
+            android:padding="12dp"/>
+    
+        
+        <TextView
+            android:id="@+id/tv_goods_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tv_goods"
+            android:layout_alignRight="@+id/line_two"
+            android:layout_marginRight="2dp"
+            android:padding="12dp"
+            android:text="" />
+        
+   
+    <LinearLayout
+            android:id="@+id/line_three"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="1dp"
+            android:layout_below="@+id/tv_goods"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="#f7f9fb" >
+        </LinearLayout>
+        
+    
+    <!-- 3 -->
+    
+     <TextView
+            android:id="@+id/tv_goods_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line_three"
+            android:text="商品金额"
+            android:padding="12dp"/>
+    
+        
+        <TextView
+            android:id="@+id/tv_goods_money_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tv_goods_money"
+            android:layout_alignRight="@+id/line_two"
+            android:layout_marginRight="2dp"
+            android:padding="12dp"
+            android:text="" />
+        
+   
+    <LinearLayout
+            android:id="@+id/line_four"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="1dp"
+            android:layout_below="@+id/tv_goods_money"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="#f7f9fb" >
+        </LinearLayout>
+        <!-- 4 -->
+    
+     <TextView
+            android:id="@+id/tv_discount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line_four"
+            android:text="折扣"
+            android:padding="12dp"/>
+    
+        
+        <TextView
+            android:id="@+id/tv_discount_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tv_discount"
+            android:layout_alignRight="@+id/line_two"
+            android:layout_marginRight="2dp"
+            android:textColor="@color/app_main_color"
+            android:padding="12dp"
+            android:text="" />
+        
+   
+ <LinearLayout
+    	    android:id="@+id/line_five"
+            android:layout_width="match_parent"
+            android:layout_below="@+id/tv_discount"
+            android:layout_height="10dp"
+            android:orientation="horizontal"
+            android:background="#f7f9fb" >
+        </LinearLayout>
+        
+  <RelativeLayout
+      android:id="@+id/rl_pay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line_five"
+            android:gravity="center" >
+
+            <RadioGroup
+                android:id="@+id/rg_sex_choice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/rb_weixing"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@android:color/transparent"
+                    android:button="@drawable/radio_button_bg"
+                    android:paddingLeft="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:text="微信支付"
+                    android:textColor="#333333"
+                    android:visibility="gone"
+                    android:textSize="14sp" />
+
+                <RadioButton
+                    android:id="@+id/rb_zhifubao"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:background="@android:color/transparent"
+                    android:button="@drawable/radio_button_bg"
+                    android:paddingLeft="10dp"
+                    
+                    android:text="支付宝支付"
+                    android:checked="true"
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
+
+            </RadioGroup>
+        </RelativeLayout>
+        <LinearLayout
+    	    android:id="@+id/line_six"
+            android:layout_width="match_parent"
+            android:layout_below="@+id/rl_pay"
+            android:layout_height="10dp"
+            android:orientation="horizontal"
+            android:background="#f7f9fb" >
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/line_four"
+            android:layout_below="@+id/line_six"
+            android:layout_marginTop="15dp"
+            android:textSize="12sp"
+            android:text="温馨提示:"
+            android:textColor="#ff6633" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView1"
+            android:layout_below="@+id/textView1"
+            android:layout_marginTop="8dp"
+            android:textSize="11sp"
+			android:textColor="#bfbfbf"
+            android:text="本业务暂不提供发票，请谅解。" />
+          <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView1"
+            android:layout_below="@+id/textView2"
+            android:layout_marginTop="8dp"
+            android:textSize="11sp"
+			android:textColor="#bfbfbf"
+            android:text="本业务只针对合作驾校参与优惠。" />
+            <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView1"
+            android:layout_below="@+id/textView3"
+            android:layout_marginTop="8dp"
+            android:textSize="11sp"
+			android:textColor="#bfbfbf"
+            android:text="如有疑问请拨打客服400-6288-7255" />
+              <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView1"
+            android:layout_below="@+id/textView4"
+            android:layout_marginTop="8dp"
+            android:textSize="11sp"
+			android:textColor="#bfbfbf"
+            android:text="最终解释权归北京一步科技有限公司" />
+              
+              <LinearLayout
+            android:id="@+id/line_seven"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="1dp"
+            android:layout_below="@+id/textView5"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="#f7f9fb" >
+        </LinearLayout>
+
+              <TextView
+                  android:id="@+id/textView_discode_bottom"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_alignLeft="@+id/line_seven"
+                  android:layout_below="@+id/line_seven"
+                  android:layout_marginTop="15dp"
+                  android:textSize="11sp"
+                  android:textColor="#bfbfbf"
+                  android:text="一步现金可抵扣100元" />
+
+              <TextView
+                  android:id="@+id/textView7"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_alignLeft="@+id/textView_discode_bottom"
+                  android:layout_below="@+id/textView_discode_bottom"
+                  android:layout_marginTop="12dp"
+                  android:text="应付：" />
+
+              <TextView
+                  android:id="@+id/textView8"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_alignLeft="@+id/textView7"
+                  android:layout_below="@+id/textView7"
+                  android:layout_marginTop="12dp"
+                  android:text="实付：" />
+
+              <TextView
+                  android:id="@+id/textView_money_should"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginLeft="10dp"
+                  android:layout_toRightOf="@+id/textView7"
+                  android:layout_alignTop="@+id/textView7"
+                  android:text="3288元(一步互联网驾校)" />
+              
+              <TextView
+                  android:id="@+id/textView_money_cale"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginLeft="10dp"
+                  android:layout_toRightOf="@+id/textView8"
+                  android:layout_alignTop="@+id/textView8"
+                  android:text="3188元" />
+		        
+		    </RelativeLayout>
+		    
+		</ScrollView>
+
+    	
+              
+              <Button 
+                  android:id="@+id/act_pay_now"
+                  android:layout_width="match_parent"
+                  android:text="立即支付"
+                  android:layout_height="50dp"
+                  android:background="#ff6633"
+                  android:textColor="@color/white"
+                  android:onClick="onClick"
+                  android:textSize="16sp"
+                  android:layout_alignParentBottom="true"/>
+        
+</RelativeLayout>

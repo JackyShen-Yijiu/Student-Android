@@ -12,11 +12,13 @@ import android.widget.ImageView;
 
 import com.sft.blackcatapp.R;
 import com.sft.blackcatapp.YiBuIntroduceActivity;
+import com.sft.util.CommonUtil;
+import com.sft.viewutil.ZProgressHUD;
 
 public class IntroducesFragment extends BaseFragment implements OnClickListener {
 
 	private View view;
-	private ImageView superiority;
+	private ImageView studentKnow;
 	private ImageView favourableClass;
 	private ImageView procedure;
 	private Context mContext;
@@ -35,14 +37,15 @@ public class IntroducesFragment extends BaseFragment implements OnClickListener 
 	}
 
 	private void initView() {
-		superiority = (ImageView) view.findViewById(R.id.introduce_superiority);
+		studentKnow = (ImageView) view
+				.findViewById(R.id.introduce_student_know);
 		favourableClass = (ImageView) view
 				.findViewById(R.id.introduce_favourable_class);
 		procedure = (ImageView) view.findViewById(R.id.introduce_procedure);
 	}
 
 	private void initListener() {
-		superiority.setOnClickListener(this);
+		studentKnow.setOnClickListener(this);
 		favourableClass.setOnClickListener(this);
 		procedure.setOnClickListener(this);
 	}
@@ -55,10 +58,18 @@ public class IntroducesFragment extends BaseFragment implements OnClickListener 
 	@Override
 	public void onClick(View v) {
 
+		if (!CommonUtil.isNetworkConnected(mContext)) {
+			ZProgressHUD.getInstance(mContext).show();
+			ZProgressHUD.getInstance(mContext).dismissWithFailure("网络异常");
+			return;
+		}
 		Intent intent = new Intent(mContext, YiBuIntroduceActivity.class);
 		switch (v.getId()) {
-		case R.id.introduce_superiority:
-			intent.putExtra("typeId", R.id.introduce_superiority);
+		case R.id.introduce_student_know:
+//			ZProgressHUD.getInstance(mContext).show();
+//			ZProgressHUD.getInstance(mContext).dismissWithSuccess("该功能尚未开通");
+			intent.putExtra("typeId", R.id.introduce_student_know);
+
 			break;
 		case R.id.introduce_favourable_class:
 			intent.putExtra("typeId", R.id.introduce_favourable_class);
@@ -72,8 +83,8 @@ public class IntroducesFragment extends BaseFragment implements OnClickListener 
 		default:
 			break;
 		}
-
-		mContext.startActivity(intent);
+		if(intent!=null)
+			mContext.startActivity(intent);
 	}
 
 }

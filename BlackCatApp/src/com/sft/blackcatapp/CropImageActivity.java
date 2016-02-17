@@ -36,8 +36,8 @@ import cn.sft.infinitescrollviewpager.CropRoundView;
 
 import com.edmodo.cropper.CropImageView;
 import com.edmodo.cropper.PreviewListener;
-import com.sft.blackcatapp.R;
 import com.sft.common.Config;
+import com.sft.util.LogUtil;
 import com.sft.util.Util;
 import com.sft.viewutil.ZProgressHUD;
 
@@ -189,7 +189,7 @@ public class CropImageActivity extends BaseActivity implements OnClickListener,
 		Bitmap bitmap = null;
 		final int width = src.getWidth(); // 获取图像宽
 		final int height = src.getHeight(); // 获取图像高
-		final float sx = w / (float) width; // 计算X轴伸缩因子
+		final float sx = w / width; // 计算X轴伸缩因子
 		Matrix m = new Matrix();
 		m.setScale(sx, sx);
 		bitmap = Bitmap.createBitmap(src, 0, 0, width, height, m, false); // 返回目的图像
@@ -199,7 +199,7 @@ public class CropImageActivity extends BaseActivity implements OnClickListener,
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-
+		LogUtil.print("333333onAct--->");
 		Bitmap img = null;
 		if (resultCode == RESULT_OK) {
 			if (requestCode == CAMERA) {
@@ -311,6 +311,7 @@ public class CropImageActivity extends BaseActivity implements OnClickListener,
 
 	@Override
 	public void forOperResult(Intent intent) {
+		LogUtil.print("333333onAct--success->");
 		String info = intent.getStringExtra("info");
 		if (!TextUtils.isEmpty(info)) {
 			if (info.contains("error:null")) {
@@ -319,6 +320,8 @@ public class CropImageActivity extends BaseActivity implements OnClickListener,
 				if (!TextUtils.isEmpty(key)) {
 					changeHeadPic(key);
 				}
+			} else {
+				toast.setText("请检查您的网络");
 			}
 		}
 	}
@@ -349,11 +352,12 @@ public class CropImageActivity extends BaseActivity implements OnClickListener,
 		if (super.doCallBack(type, jsonString)) {
 			return true;
 		}
+		LogUtil.print("333333success--->" + jsonString);
 		if (type.equals(changeHead)) {
 			if (dataString != null) {
 				ZProgressHUD.getInstance(this).show();
 				ZProgressHUD.getInstance(this).dismissWithSuccess("上传成功");
-				new MyHandler(500) {
+				new MyHandler(1500) {
 					@Override
 					public void run() {
 						finish();

@@ -59,6 +59,7 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
 		addView(R.layout.activity_register);
 		initView();
 		setListener();

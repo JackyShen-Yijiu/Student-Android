@@ -18,7 +18,6 @@ import cn.sft.baseactivity.util.HttpSendUtils;
 import com.sft.adapter.AmountInCashistAdapter;
 import com.sft.adapter.CupontAdapter;
 import com.sft.adapter.IncomeListAdapter;
-import com.sft.blackcatapp.R;
 import com.sft.common.Config;
 import com.sft.dialog.BonusDialog;
 import com.sft.util.JSONUtil;
@@ -121,6 +120,11 @@ public class MyWalletActivity extends BaseActivity {
 			obtainWallet();
 		} else if (Config.MoneyType.COIN_CERTIFICATE.getValue().equals(
 				moneytype)) {
+			myCuponList = new ArrayList<MyCuponVO>();
+			if (myCuponList.size() == 0) {
+				exchangeBtn.setEnabled(false);
+				exchangeBtn.setBackgroundColor(Color.parseColor("#999999"));
+			}
 			producttype = Config.MoneyType.COIN_CERTIFICATE.getValue();
 			setTitleText(R.string.my_cupon);
 			unitTv.setText("张");
@@ -242,6 +246,7 @@ public class MyWalletActivity extends BaseActivity {
 						LogUtil.print(myCuponVO.getCreatetime());
 					}
 					myChangeTv.setText(myCuponList.size() + "");
+
 					if (cupontAdapter == null) {
 						cupontAdapter = new CupontAdapter(this, myCuponList);
 					} else {
@@ -295,8 +300,8 @@ public class MyWalletActivity extends BaseActivity {
 			startActivity(intent);
 			break;
 		case R.id.my_wallet_invite_btn:
-			BonusDialog dialog = new BonusDialog(this);
-			dialog.show();
+			Intent intent2 = new Intent(this, BonusDialog.class);
+			startActivity(intent2);
 			break;
 		case R.id.my_wallet_exchange_btn:
 			Intent intent1 = new Intent(this, MallActivity.class);
@@ -314,8 +319,8 @@ public class MyWalletActivity extends BaseActivity {
 	public void forOperResult(Intent intent) {
 		boolean invite = intent.getBooleanExtra("sendInvite", false);
 		if (invite) {
-			// Intent intent2 = new Intent(this, MyWalletInviteActivity.class);
-			// startActivity(intent2);
+			Intent intent2 = new Intent(this, MyWalletInviteActivity.class);
+			startActivity(intent2);
 		}
 	}
 }

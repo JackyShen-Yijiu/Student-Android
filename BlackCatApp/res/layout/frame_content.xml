@@ -3,7 +3,7 @@
     android:layout_height="fill_parent"
     android:clipToPadding="true"  
 	android:fitsSystemWindows="true"  
-    android:background="@drawable/star_one" >
+    android:background="@drawable/bg" >
 
     <com.baidu.mapapi.map.MapView
         android:id="@+id/main_bmapView"
@@ -34,6 +34,18 @@
             android:text="快乐学车美一步"
             android:textColor="#fefefe"
             android:textSize="18sp" />
+        <TextView
+            android:id="@+id/cur_city_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/title_tv"
+            android:layout_marginRight="15dp"
+            android:text="定位中"
+            android:textColor="#fefefe"
+            android:textSize="14sp" />
+        
     </RelativeLayout>
     <ImageView 
         android:layout_width="wrap_content"
@@ -87,8 +99,8 @@
             android:layout_weight="1"
             android:gravity="center"
             android:textSize="18sp"
-            android:textColor="#68e6ff"
-            android:text="欢迎您" />
+            android:textColor="@color/app_main_color"
+            android:text="报名" />
 
         <TextView
             android:id="@+id/main_subject_one_tv"

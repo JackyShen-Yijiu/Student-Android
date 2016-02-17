@@ -1,0 +1,56 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff" >
+
+    <com.edmodo.cropper.CropImageView
+        xmlns:custom="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cropimageview"
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp" />
+
+    <TextView
+        android:id="@+id/croptext"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:layout_below="@+id/cropimageview"
+        android:layout_marginTop="25dp"
+        android:gravity="center"
+        android:textColor="#333333" />
+
+    <cn.sft.infinitescrollviewpager.CropRoundView
+        android:id="@+id/cropImage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/croptext"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:contentDescription="@string/app_name" />
+
+    <LinearLayout 
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <Button 
+            android:id="@+id/cropimage_camera_btn"
+            style="@style/btn_style"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="@string/take_picture"
+            android:layout_marginRight="10dp"
+            />
+        <Button 
+            android:id="@+id/cropimage_pic_btn"
+            style="@style/btn_style"
+            android:layout_width="0dp"
+            android:text="@string/take_cancle"
+            android:layout_weight="1"
+            />
+    </LinearLayout>
+</RelativeLayout>

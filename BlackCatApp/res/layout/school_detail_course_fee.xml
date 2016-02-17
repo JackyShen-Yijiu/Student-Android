@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:orientation="vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp" >
+
+        <TextView
+            android:id="@+id/course_fee_title_tv"
+            style="@style/coachdetail_title_style"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/course_fee_intro_tv"
+            style="@style/coachdetail_content_style"
+            android:layout_marginTop="5dp" />
+
+        <Button
+            android:id="@+id/course_fee_enroll_btn"
+            style="@style/btn_style"
+            android:layout_width="130dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
+            android:focusable="false"
+            android:text="@string/enroll" />
+    </LinearLayout>
+
+    <ImageView
+        style="@style/coachdetail_devider_style"
+        android:layout_marginTop="10dp"
+        android:contentDescription="@string/app_name" />
+
+</LinearLayout>

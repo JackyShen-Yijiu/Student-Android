@@ -182,14 +182,14 @@ public class ScrollTimeLayout extends LinearLayout implements
 		} else {
 			selectCourseList.remove(coachCourseVO);
 		}
-		onTimeLayoutSelectedListener.TimeLayoutSelectedListener();
+		onTimeLayoutSelectedListener.TimeLayoutSelectedListener(selected);
 		isTimeBlockCon = checkTimeBlockCon();
 		if (!isTimeBlockCon) {
 			CustomDialog dialog = new CustomDialog(context,
 					CustomDialog.APPOINTMENT_TIME_ERROR);
 			dialog.show();
 			// 选择不连续，给出提示后，就取消该项选择
-			layout.setCheckBoxState(false);
+			layout.setCheckBoxState(true);
 		}
 	}
 
@@ -207,7 +207,7 @@ public class ScrollTimeLayout extends LinearLayout implements
 	}
 
 	public interface OnTimeLayoutSelectedListener {
-		void TimeLayoutSelectedListener();
+		void TimeLayoutSelectedListener(boolean selected);
 	}
 
 	private OnTimeLayoutSelectedListener onTimeLayoutSelectedListener;

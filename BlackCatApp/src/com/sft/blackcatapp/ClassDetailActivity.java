@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
-import com.sft.blackcatapp.R;
 import com.sft.util.UTC2LOC;
 import com.sft.viewutil.MultipleTextViewGroup;
 import com.sft.viewutil.MultipleTextViewGroup.MultipleTextViewVO;
@@ -52,6 +51,8 @@ public class ClassDetailActivity extends BaseActivity {
 
 	private void initView() {
 		setTitleText(R.string.class_detail);
+		showTitlebarText(BaseActivity.SHOW_RIGHT_TEXT);
+		setText(0, R.string.finish);
 
 		// schoolNameTv = (TextView)
 		// findViewById(R.id.class_detail_school_name_tv);
@@ -69,6 +70,7 @@ public class ClassDetailActivity extends BaseActivity {
 		final ViewTreeObserver vto = multipleTextViewGroup
 				.getViewTreeObserver();
 		vto.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+			@Override
 			public boolean onPreDraw() {
 				if (multipleTextViewGroupWidth <= 0) {
 					multipleTextViewGroupWidth = multipleTextViewGroup
@@ -131,6 +133,10 @@ public class ClassDetailActivity extends BaseActivity {
 		switch (v.getId()) {
 		case R.id.base_left_btn:
 			close();
+			break;
+		case R.id.base_right_tv:
+			close();
+			break;
 		}
 	}
 
