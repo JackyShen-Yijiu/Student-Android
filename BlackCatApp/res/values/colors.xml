@@ -77,5 +77,6 @@
       
       <!-- 报名 -->
       <color name="slidingtab_indicatorcolor">#FFFF00</color>
+      <color name="line_color">#cccccc</color>
     
 </resources>

@@ -29,9 +29,6 @@ import com.sft.fragment.MallFragment;
 import com.sft.fragment.StudyFragment;
 import com.sft.util.LogUtil;
 
-
-
-
 /**
  * 底部Tab
  */
@@ -77,26 +74,25 @@ public class MainScreenContainer extends LinearLayout implements
 		super(context, attrs);
 		initView();
 	}
-	
+
 	private FrameLayout temp;
 
 	private void initView() {
 		inflate(getContext(), R.layout.layout_main_screen, this);
 		setOrientation(LinearLayout.VERTICAL);
 		mContentId = R.id.fl_content;
-		
+
 		temp = (FrameLayout) findViewById(mContentId);
 		LayoutParams params = (LayoutParams) temp.getLayoutParams();
 		params.weight = 1;
 		temp.setLayoutParams(params);
-		
-		
+
 		mTabContainer = findViewById(R.id.ll_tab_container);
 		mTabs = new ArrayList<TabInfo>();
 
 		mTabs.add(getTabInfo(R.id.tab_apply, new EnrollSchoolFragament(),
 
-				MainActivity.TAB_APPLY, R.string.tab_indicator_title_apply,
+		MainActivity.TAB_APPLY, R.string.tab_indicator_title_apply,
 				R.drawable.sl_tab_icon_apply));
 		mTabs.add(getTabInfo(R.id.tab_study, new StudyFragment(),
 				MainActivity.TAB_STUDY, R.string.tab_indicator_title_study,
@@ -130,6 +126,7 @@ public class MainScreenContainer extends LinearLayout implements
 
 	@Override
 	public void onClick(View v) {
+		LogUtil.print("showTabqqqqq");
 		int type = (Integer) v.getTag();
 		showTab(type);
 	}
@@ -148,18 +145,18 @@ public class MainScreenContainer extends LinearLayout implements
 			FragmentTransaction ft = mFragmentManager.beginTransaction();
 			if (mAddedTabs.contains(mCurrentTab)) {
 				ft.show(tab.fragment);
-				LogUtil.print("show--one---show>"+tab.type);
+				LogUtil.print("show--one---show>" + tab.type);
 			} else {
 				ft.add(mContentId, tab.fragment, tab.type + "");
 				mAddedTabs.add(mCurrentTab);
-				LogUtil.print("show--one---add>"+tab.type);
+				LogUtil.print("show--one---add>" + tab.type);
 			}
-//			ft.replace(mContentId, tab.fragment, tab.type +"");
-			
-//			ft.commit();
+			// ft.replace(mContentId, tab.fragment, tab.type +"");
+
+			// ft.commit();
 			ft.commitAllowingStateLoss();
-//			if(tab.fragment!=null )
-//				LogUtil.print(temp.getHeight()+"Wdith::"+temp.getWidth()+"Type::"+tab.type+"Count::"+temp.getChildCount()+"Add::>>"+tab.fragment.isAdded()+"show--one---add>"+this.getHeight()+this.getWidth());
+			// if(tab.fragment!=null )
+			// LogUtil.print(temp.getHeight()+"Wdith::"+temp.getWidth()+"Type::"+tab.type+"Count::"+temp.getChildCount()+"Add::>>"+tab.fragment.isAdded()+"show--one---add>"+this.getHeight()+this.getWidth());
 		}
 		refreshTab(tab);
 	}
@@ -241,6 +238,7 @@ public class MainScreenContainer extends LinearLayout implements
 	}
 
 	public void refreshTab(TabInfo tab) {
+		LogUtil.print("refreshTab+++" + tab.type);
 		Fragment f = tab.fragment;
 		if (f != null && f instanceof IIndicateMainTabNotification) {
 			IIndicateMainTabNotification in = (IIndicateMainTabNotification) f;
