@@ -1216,8 +1216,8 @@ public class SchoolsFragment extends BaseFragment implements
 		schoolname = "";
 		ordertype = "";
 		obtainNearBySchool();
-		if(app.isLogin)
-			requestNotFinshOrder();
+//		if(app.isLogin)
+//			requestNotFinshOrder();
 	}
 
 	/**
