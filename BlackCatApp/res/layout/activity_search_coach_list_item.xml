@@ -29,12 +29,24 @@
         android:background="#00000000"
         android:gravity="center_vertical"
         android:orientation="horizontal" >
+        
+        <com.joooonho.SelectableRoundedImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/search_coach_headpin_im1"
+                android:layout_width="@dimen/selectcoach_headpic_widthheight"
+                android:layout_height="@dimen/selectcoach_headpic_widthheight"
+                android:layout_marginLeft="15dp"
+                android:contentDescription="@string/app_name"
+                app:sriv_border_color="#00000000"
+                app:sriv_border_width="1dip" />
+        
 
         <ImageView
             android:id="@+id/search_coach_headpin_im"
             android:layout_width="@dimen/selectcoach_headpic_widthheight"
             android:layout_height="@dimen/selectcoach_headpic_widthheight"
             android:layout_marginLeft="20dp"
+            android:visibility="gone"
             android:contentDescription="@string/app_name" />
 
         <LinearLayout

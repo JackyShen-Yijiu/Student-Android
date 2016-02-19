@@ -218,10 +218,16 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 			try {
 				loginBtn.setEnabled(true);
 				lookAroundBtn.setEnabled(true);
-				if (data != null) {
+				if (data != null  ) {
 					app.userVO = JSONUtil.toJavaBean(UserVO.class, data);
 					obtainVersionInfo();
-				} else {
+				} else if (!TextUtils.isEmpty(msg)) {
+					
+						 ZProgressHUD.getInstance(this).show();
+						 ZProgressHUD.getInstance(this).dismissWithFailure(msg, 2000);
+						return true;
+				}else{
+					
 					ZProgressHUD.getInstance(this).show();
 					ZProgressHUD.getInstance(this).dismissWithFailure("数据格式错误");
 				}

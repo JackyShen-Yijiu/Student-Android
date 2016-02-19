@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +13,7 @@ import com.sft.blackcatapp.R;
 import com.sft.util.LogUtil;
 import com.sft.view.PagerSlidingTab;
 
-/**
- * 报名 - 驾校\教练
- * @author sun  2016-2-18 上午9:29:40
- *
- */
-public class EnrollSchoolFragament extends BaseFragment{
+public class EnrollCoachFragment extends BaseFragment{
 
 	PagerSlidingTab slidingTab;
 	
@@ -29,7 +23,7 @@ public class EnrollSchoolFragament extends BaseFragment{
 	private int[] orderType = {2,3,0};
 	//评分：2  价格3  综合0
 	
-	private SchoolsFragment[] schools = null;
+	private CoachsFragment1[] schools = null;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater,
@@ -44,11 +38,12 @@ public class EnrollSchoolFragament extends BaseFragment{
 		slidingTab = (PagerSlidingTab) view.findViewById(R.id.act_student1_sliding_tab);
         viewPager = (ViewPager) view.findViewById(R.id.act_student1_view_pager);
         viewPager.setOffscreenPageLimit(2);
+        
         /**普通学员列表 0 群发短信学员列表 1*/
         int flag = getActivity().getIntent().getFlags();
-        schools = new  SchoolsFragment[3];//{StudentFragment1.getInstance(0),StudentFragment1.getInstance(1)};
+        schools = new  CoachsFragment1[3];//{StudentFragment1.getInstance(0),StudentFragment1.getInstance(1)};
         for(int i =0;i<3;i++){
-        	schools[i] =new SchoolsFragment();
+        	schools[i] =new CoachsFragment1();
             Bundle b = new Bundle();
             b.putInt("type",orderType[i]);
             schools[i].setArguments(b);
@@ -58,14 +53,12 @@ public class EnrollSchoolFragament extends BaseFragment{
         viewPager.setAdapter(adapter);
         slidingTab.setViewPager(viewPager);
 	}
-
+	
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		LogUtil.print("onActiivty---->"+resultCode);
+		LogUtil.print("onActiivty---Coach->"+resultCode);
 		super.onActivityResult(requestCode, resultCode, data);
 	}
-	
-	
 
 	
 }
