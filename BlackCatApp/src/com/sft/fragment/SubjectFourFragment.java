@@ -1,113 +1,102 @@
 package com.sft.fragment;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
-import com.sft.blackcatapp.QuestionActivity;
 import com.sft.blackcatapp.R;
-import com.sft.dialog.NoLoginDialog;
-import com.sft.util.CommonUtil;
-import com.sft.viewutil.ZProgressHUD;
+import com.sft.viewutil.StudyItemLayout;
+import com.sft.vo.SubjectForOneVO;
 
 public class SubjectFourFragment extends BaseFragment implements
 		OnClickListener {
 
-	private View view;
-	private Context mContext;
-	private ImageView courseware;
-	private ImageView errorData;
-	private ImageView questionBank;
+	// 交流
+	private StudyItemLayout communication;
+	// 我要约考
+	private StudyItemLayout appointment;
+	// 我的错题
+	private StudyItemLayout errorData;
+	// 模拟考试
+	private StudyItemLayout simulation;
+	// 题库
+	private StudyItemLayout questionBank;
+	// 官方课时
+	private TextView officalClass;
+	// 模拟考试次数
+	private TextView testTimes;
+	// 学习进度
+	private ProgressBar studyProgressBar;
 
 	@Override
-	public View onCreateView(LayoutInflater inflater,
-			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		view = inflater.inflate(R.layout.main_view_five, container, false);
-		mContext = getActivity();
-
-		initView();
-		initListener();
-		return view;
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		View rootView = inflater.inflate(R.layout.fragment_subject_four,
+				container, false);
+		initViews(rootView);
+		setListener();
+		return rootView;
 	}
 
-	private void initView() {
-		courseware = (ImageView) view
-				.findViewById(R.id.subject_four_courseware_iv);
-		errorData = (ImageView) view
-				.findViewById(R.id.subject_four_error_data_iv);
-		questionBank = (ImageView) view
-				.findViewById(R.id.subject_four_question_bank_iv);
+	private void initViews(View rootView) {
+		testTimes = (TextView) rootView.findViewById(R.id.study_test_times);
+		officalClass = (TextView) rootView
+				.findViewById(R.id.study_offical_class);
+		studyProgressBar = (ProgressBar) rootView
+				.findViewById(R.id.study_progressbar);
+
+		questionBank = (StudyItemLayout) rootView
+				.findViewById(R.id.question_banks);
+		simulation = (StudyItemLayout) rootView
+				.findViewById(R.id.simulation_test);
+		errorData = (StudyItemLayout) rootView.findViewById(R.id.my_error_data);
+		appointment = (StudyItemLayout) rootView
+				.findViewById(R.id.make_an_appointment);
+		communication = (StudyItemLayout) rootView
+				.findViewById(R.id.communication);
 	}
 
-	private void initListener() {
-		courseware.setOnClickListener(this);
-		errorData.setOnClickListener(this);
+	private void setListener() {
 		questionBank.setOnClickListener(this);
-	}
-
-	@Override
-	public void onResume() {
-		super.onResume();
+		simulation.setOnClickListener(this);
+		errorData.setOnClickListener(this);
+		appointment.setOnClickListener(this);
+		communication.setOnClickListener(this);
 	}
 
 	@Override
 	public void onClick(View v) {
-
-		if (!CommonUtil.isNetworkConnected(mContext)) {
-			ZProgressHUD.getInstance(mContext).show();
-			ZProgressHUD.getInstance(mContext).dismissWithFailure("网络异常");
-			return;
-		}
-		if (!app.isLogin) {
-			NoLoginDialog dialog = new NoLoginDialog(mContext);
-			dialog.show();
-			return;
-		}
-		Intent intent = null;
 		switch (v.getId()) {
-		case R.id.subject_four_question_bank_iv:
-			// 题库
-			if (app.questionVO != null) {
-				intent = new Intent(mContext, QuestionActivity.class);
-				intent.putExtra("url", app.questionVO.getSubjectfour()
-						.getQuestionlisturl());
-			} else {
-				ZProgressHUD.getInstance(mContext).show();
-				ZProgressHUD.getInstance(mContext).dismissWithFailure("暂无题库");
-			}
+		case R.id.question_banks:
+
 			break;
-		case R.id.subject_four_error_data_iv:
-			// 我的错题
-			if (app.questionVO != null) {
-				intent = new Intent(mContext, QuestionActivity.class);
-				intent.putExtra("url", app.questionVO.getSubjectfour()
-						.getQuestionerrorurl());
-			} else {
-				ZProgressHUD.getInstance(mContext).show();
-				ZProgressHUD.getInstance(mContext).dismissWithFailure("暂无题库");
-			}
+		case R.id.simulation_test:
+
 			break;
-		case R.id.subject_four_courseware_iv:
-			// 模拟考试
-			if (app.questionVO != null) {
-				intent = new Intent(mContext, QuestionActivity.class);
-				intent.putExtra("url", app.questionVO.getSubjectfour()
-						.getQuestiontesturl());
-			} else {
-				ZProgressHUD.getInstance(mContext).show();
-				ZProgressHUD.getInstance(mContext).dismissWithFailure("暂无题库");
-			}
+		case R.id.my_error_data:
+
 			break;
-		}
-		if (intent != null) {
-			startActivity(intent);
+		case R.id.make_an_appointment:
+
+			break;
+		case R.id.communication:
+
+			break;
+
+		default:
+			break;
 		}
 	}
 
+	public void setLearnProgressInfo(SubjectForOneVO subject) {
+		studyProgressBar.setMax(subject.getTotalcourse());
+		studyProgressBar.setProgress(subject.getFinishcourse());
+		testTimes.setText("模拟考试" + subject.getFinishcourse() + "次");
+		officalClass.setText("官方学时" + subject.getOfficialhours());
+
+	}
 }

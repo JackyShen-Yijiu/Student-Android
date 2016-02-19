@@ -1,104 +1,97 @@
 package com.sft.fragment;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.LogRecord;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import cn.sft.baseactivity.util.HttpSendUtils;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
-import com.sft.blackcatapp.ApplyActivity;
-import com.sft.blackcatapp.AppointmentCarActivity;
 import com.sft.blackcatapp.CourseActivity;
-import com.sft.blackcatapp.MyAppointmentActivity;
 import com.sft.blackcatapp.R;
-import com.sft.common.Config;
-import com.sft.common.Config.EnrollResult;
-import com.sft.common.Config.SubjectStatu;
-import com.sft.dialog.NoLoginDialog;
-import com.sft.util.JSONUtil;
-import com.sft.util.LogUtil;
-import com.sft.viewutil.ZProgressHUD;
-import com.sft.vo.UserBaseStateVO;
+import com.sft.viewutil.StudyItemLayout;
+import com.sft.vo.SubjectForOneVO;
 
 public class SubjectTwoFragment extends BaseFragment implements OnClickListener {
 
-	private static final String checkEnrollState_my = "checkEnrollStatemy";
-	private static final String checkEnrollState_car = "checkEnrollStatecar";
+	// 官方课时
+	private TextView officalClass;
+	// 规定学时
+	private TextView ruleClass;
+	// 已完成
+	private TextView finishedClass;
+	// 学习进度
+	private ProgressBar studyProgressBar;
 
-	private View view;
+	// 交流
+	private StudyItemLayout communication;
+	// 我要约考
+	private StudyItemLayout appointment;
+	// 学车秘籍
+	private StudyItemLayout learnCarCheats;
+	// 课件
+	private StudyItemLayout courseWare;
 	private Context mContext;
-	private ImageView appointmentList;
-	private ImageView appointment;
-	private ImageView coursewareImageView;
 
 	@Override
-	public View onCreateView(LayoutInflater inflater,
-			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		view = inflater.inflate(R.layout.main_view_three, container, false);
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		View rootView = inflater.inflate(R.layout.fragment_subject_two,
+				container, false);
 		mContext = getActivity();
-		initView();
-		initListener();
-		return view;
+		initViews(rootView);
+		setListener();
+		return rootView;
 	}
 
-	private void initView() {
-		coursewareImageView = (ImageView) view
-				.findViewById(R.id.subject_two_courseware_iv);
-		appointment = (ImageView) view
-				.findViewById(R.id.subject_two_appointment_iv);
-		appointmentList = (ImageView) view
-				.findViewById(R.id.subject_two_appointment_list_iv);
+	private void initViews(View rootView) {
+		finishedClass = (TextView) rootView
+				.findViewById(R.id.study_finished_class);
+		ruleClass = (TextView) rootView.findViewById(R.id.study_rule_class);
+		officalClass = (TextView) rootView
+				.findViewById(R.id.study_offical_class);
+		studyProgressBar = (ProgressBar) rootView
+				.findViewById(R.id.study_progressbar);
+
+		courseWare = (StudyItemLayout) rootView.findViewById(R.id.courseware);
+		learnCarCheats = (StudyItemLayout) rootView
+				.findViewById(R.id.learn_car_cheats);
+		appointment = (StudyItemLayout) rootView
+				.findViewById(R.id.make_an_appointment);
+		communication = (StudyItemLayout) rootView
+				.findViewById(R.id.communication);
 	}
 
-	private void initListener() {
-		coursewareImageView.setOnClickListener(this);
+	private void setListener() {
 		appointment.setOnClickListener(this);
-		appointmentList.setOnClickListener(this);
-	}
-
-	@Override
-	public void onResume() {
-		super.onResume();
+		communication.setOnClickListener(this);
+		learnCarCheats.setOnClickListener(this);
+		courseWare.setOnClickListener(this);
 	}
 
 	@Override
 	public void onClick(View v) {
-		if (!app.isLogin) {
-			NoLoginDialog dialog = new NoLoginDialog(mContext);
-			dialog.show();
-			return;
-		}
 		Intent intent = null;
 		switch (v.getId()) {
-		case R.id.subject_two_appointment_list_iv:
-			if (app.userVO.getApplystate().equals(
-					EnrollResult.SUBJECT_NONE.getValue())) {
-				intent = new Intent(mContext, ApplyActivity.class);
-			} else {
-				checkUserEnrollState(checkEnrollState_my);
-			}
-			break;
-		case R.id.subject_two_courseware_iv:
+		case R.id.courseware:
 			intent = new Intent(mContext, CourseActivity.class);
 			intent.putExtra("subjectid", "2");
-			intent.putExtra("title", "科目二课件");
+			intent.putExtra("title", "科目二");
 			break;
-		case R.id.subject_two_appointment_iv:
-			if (app.userVO.getApplystate().equals(
-					EnrollResult.SUBJECT_NONE.getValue())) {
-				intent = new Intent(mContext, ApplyActivity.class);
-			} else {
-				checkUserEnrollState(checkEnrollState_car);
-			}
+		case R.id.learn_car_cheats:
+
+			break;
+		case R.id.make_an_appointment:
+
+			break;
+		case R.id.communication:
+
+			break;
+
+		default:
 			break;
 		}
 		if (intent != null) {
@@ -106,75 +99,11 @@ public class SubjectTwoFragment extends BaseFragment implements OnClickListener 
 		}
 	}
 
-	private void checkUserEnrollState(String type) {
-		if (app.userVO.getApplystate().equals(
-				Config.EnrollResult.SUBJECT_ENROLLING.getValue())) {
-			Map<String, String> paramsMap = new HashMap<String, String>();
-			paramsMap.put("userid", app.userVO.getUserid());
-			Map<String, String> headerMap = new HashMap<String, String>();
-			headerMap.put("authorization", app.userVO.getToken());
-			HttpSendUtils.httpGetSend(type, this, Config.IP
-					+ "api/v1/userinfo/getmyapplystate", paramsMap, 10000,
-					headerMap);
-		} else {
-			runIntent(type);
-		}
+	public void setLearnProgressInfo(SubjectForOneVO subject) {
+		studyProgressBar.setMax(subject.getTotalcourse());
+		studyProgressBar.setProgress(subject.getFinishcourse());
+		finishedClass.setText("已完成" + subject.getFinishcourse());
+		ruleClass.setText("规定课时" + subject.getTotalcourse());
+		officalClass.setText("官方学时" + subject.getOfficialhours());
 	}
-
-	private void runIntent(String type) {
-		if (app.userVO.getApplystate().equals(
-				EnrollResult.SUBJECT_ENROLLING.getValue())) {
-			ZProgressHUD.getInstance(mContext).show();
-			ZProgressHUD.getInstance(mContext).dismissWithFailure(
-					"您已报名，请等待驾校审核");
-			return;
-		}
-//		LogUtil.print("subjectid--->"+app.userVO.getSubject().getSubjectid());
-		if (type.equals(checkEnrollState_my)) {
-			Intent intent = new Intent(mContext, MyAppointmentActivity.class);
-			intent.putExtra("subject", "2");
-			startActivity(intent);
-		} else if (type.equals(checkEnrollState_car)) {
-			if (app.userVO.getSubject().getSubjectid()
-					.equals(SubjectStatu.SUBJECT_TWO.getValue())) {
-				Intent intent = new Intent(mContext,
-						AppointmentCarActivity.class);
-				intent.putExtra("subject", "2");
-				startActivity(intent);
-			} else if (app.userVO.getSubject().getSubjectid()
-					.equals(SubjectStatu.SUBJECT_ONE.getValue())) {
-				ZProgressHUD.getInstance(mContext).show();
-				ZProgressHUD.getInstance(mContext).dismissWithSuccess(
-						"待学习科目二再预约");
-			} else {
-				ZProgressHUD.getInstance(mContext).show();
-				ZProgressHUD.getInstance(mContext).dismissWithSuccess(
-						"您已完成该科目,无需预约");
-			}
-		}
-	}
-
-	@Override
-	public synchronized boolean doCallBack(String type, Object jsonString) {
-		if (super.doCallBack(type, jsonString)) {
-			return true;
-		}
-		try {
-			if (type.contains("checkEnrollState")) {
-				if (data != null) {
-					UserBaseStateVO baseStateVO = JSONUtil.toJavaBean(
-							UserBaseStateVO.class, data);
-					if (!baseStateVO.getApplystate().equals(
-							app.userVO.getApplystate())) {
-						app.userVO.setApplystate(baseStateVO.getApplystate());
-					}
-					runIntent(type);
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return true;
-	}
-
 }

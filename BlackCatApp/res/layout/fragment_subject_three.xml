@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:study="http://schemas.android.com/apk/res/com.sft.blackcatapp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/line_color"
+        android:paddingTop="12sp" >
+
+        <TextView
+            android:id="@+id/study_progress_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="学习进度"
+            android:textSize="12sp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="12dp"
+            android:layout_marginLeft="15dp"
+            android:textColor="@color/text_color_light" />
+        <TextView
+            android:id="@+id/study_finished_class"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已完成0"
+            android:textSize="12sp"
+            android:layout_alignLeft="@+id/study_progressbar"
+            android:layout_alignParentTop="true"
+            android:textColor="@color/text_color_light" />
+        <TextView
+            android:id="@+id/study_rule_class"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="规定学时0"
+            android:textSize="12sp"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@+id/study_finished_class"
+            android:layout_alignParentTop="true"
+            android:textColor="@color/text_color_light" />
+        <TextView
+            android:id="@+id/study_offical_class"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="官方课时0"
+            android:textSize="12sp"
+            android:layout_toRightOf="@+id/study_rule_class"
+            android:layout_marginLeft="15dp"
+            android:layout_alignParentTop="true"
+            android:textColor="@color/text_color_light" />
+        <ProgressBar 
+        android:id="@+id/study_progressbar"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:max="100"
+        android:progress="0"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginRight="12dp"
+        android:layout_toRightOf="@+id/study_progress_tv"
+        android:layout_alignTop="@+id/study_progress_tv"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:progressDrawable="@drawable/progressbar_horizontal_color"/>
+    </RelativeLayout>
+
+    <com.sft.viewutil.StudyItemLayout
+        android:id="@+id/courseware"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        study:itemDescribe="真人实操视频教学，让君掌握"
+        study:itemIcon="@drawable/question_banks"
+        study:itemTitle="课件" >
+    </com.sft.viewutil.StudyItemLayout>
+
+    <com.sft.viewutil.StudyItemLayout
+        android:id="@+id/learn_car_cheats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        study:itemDescribe="独家学车秘籍，使君快人一步"
+        study:itemIcon="@drawable/simulation_test"
+        study:itemTitle="学车秘籍" >
+    </com.sft.viewutil.StudyItemLayout>
+
+
+    <com.sft.viewutil.StudyItemLayout
+        android:id="@+id/make_an_appointment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        study:itemDescribe="提交约考信息，足不出户轻松报考"
+        study:itemIcon="@drawable/make_an_appointment"
+        study:itemTitle="我要约考" >
+    </com.sft.viewutil.StudyItemLayout>
+
+    <com.sft.viewutil.StudyItemLayout
+        android:id="@+id/communication"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        study:itemDescribe="专项科目交流平台"
+        study:itemIcon="@drawable/communication"
+        study:itemTitle="交流" >
+    </com.sft.viewutil.StudyItemLayout>
+
+</LinearLayout>
