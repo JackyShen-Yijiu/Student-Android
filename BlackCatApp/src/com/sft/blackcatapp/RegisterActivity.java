@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
@@ -51,6 +52,14 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 	// 用户协议
 	private TextView protocol;
 
+	private TextView tv_hint_phone;
+	private TextView tv_hint_code;
+	private TextView tv_hint_paswords;
+	private TextView tv_hint_pasword;
+	private TextView tv_hint_invite;
+	private TextView tv_hint_deal;
+	private CheckBox rb_check;
+
 	// 获取验证码
 	private final static String obtainCode = "obtainCode";
 	// 注册
@@ -75,7 +84,7 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 		setTitleText(R.string.register);
 
 		protocol = (TextView) findViewById(R.id.register_protocol_tv);
-
+		rb_check = (CheckBox) findViewById(R.id.rb_check);
 		phoneEt = (EditText) findViewById(R.id.register_phone_et);
 		codeEt = (EditText) findViewById(R.id.register_authcode_et);
 		passwordEt = (EditText) findViewById(R.id.register_password_et);
@@ -84,12 +93,24 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 		sendCodeBtn = (Button) findViewById(R.id.register_code_btn);
 		registerBtn = (Button) findViewById(R.id.register_register_btn);
 
+		tv_hint_phone = (TextView) findViewById(R.id.tv_hint_phone);
+		tv_hint_code = (TextView) findViewById(R.id.tv_hint_code);
+		tv_hint_pasword = (TextView) findViewById(R.id.tv_hint_pasword);
+		tv_hint_paswords = (TextView) findViewById(R.id.tv_hint_paswords);
+		tv_hint_invite = (TextView) findViewById(R.id.tv_hint_invite);
+		tv_hint_deal = (TextView) findViewById(R.id.tv_hint_deal);
 	}
 
 	private void setListener() {
 		sendCodeBtn.setOnClickListener(this);
 		registerBtn.setOnClickListener(this);
 		protocol.setOnClickListener(this);
+
+		phoneEt.setOnClickListener(this);
+		codeEt.setOnClickListener(this);
+		passwordEt.setOnClickListener(this);
+		conpassEt.setOnClickListener(this);
+		invitationEt.setOnClickListener(this);
 	}
 
 	@Override
@@ -114,6 +135,22 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 			startActivity(intent);
 			break;
 
+		case R.id.register_phone_et:
+			tv_hint_phone.setVisibility(View.GONE);
+			break;
+		case R.id.register_authcode_et:
+			tv_hint_code.setVisibility(View.GONE);
+			break;
+		case R.id.register_password_et:
+			tv_hint_pasword.setVisibility(View.GONE);
+			break;
+		case R.id.register_conpass_et:
+
+			tv_hint_paswords.setVisibility(View.GONE);
+			break;
+		case R.id.register_invitationcode_et:
+			tv_hint_deal.setVisibility(View.GONE);
+			break;
 		}
 	}
 
@@ -121,7 +158,7 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 		String checkResult = checkInput();
 		if (checkResult == null) {
 			// 注册
-			registerBtn.setEnabled(false);
+			registerBtn.setEnabled(true);
 			Map<String, String> paramMap = new HashMap<String, String>();
 			paramMap.put("mobile", phoneEt.getText().toString());
 			paramMap.put("smscode", codeEt.getText().toString());
@@ -131,34 +168,38 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 			HttpSendUtils.httpPostSend("register", this, Config.IP
 					+ "api/v1/userinfo/signup", paramMap);
 		} else {
-			ZProgressHUD.getInstance(this).show();
-			ZProgressHUD.getInstance(this).dismissWithFailure(checkResult);
+			// ZProgressHUD.getInstance(this).show();
+			// ZProgressHUD.getInstance(this).dismissWithFailure(checkResult);
+			checkInput();
 		}
 	}
 
 	private String checkInput() {
 		String phone = phoneEt.getText().toString();
 		if (TextUtils.isEmpty(phone)) {
-			return "手机号为空";
+			tv_hint_phone.setVisibility(View.VISIBLE);
 		} else {
 			if (!CommonUtil.isMobile(phone)) {
-				return "手机号格式不正确";
+				tv_hint_phone.setVisibility(View.VISIBLE);
 			}
 		}
 		if (phone.length() != 11) {
-			return "请输入正确的手机号";
+			tv_hint_phone.setVisibility(View.VISIBLE);
 		}
 		String code = codeEt.getText().toString();
 		if (TextUtils.isEmpty(code)) {
-			return "验证码为空";
+			tv_hint_code.setVisibility(View.VISIBLE);
 		}
 		String password = passwordEt.getText().toString();
 		if (TextUtils.isEmpty(password)) {
-			return "密码为空";
+			tv_hint_pasword.setVisibility(View.VISIBLE);
 		}
 		String conPass = conpassEt.getText().toString();
 		if (!conPass.equals(password)) {
-			return "两次密码输入不一致";
+			tv_hint_paswords.setVisibility(View.VISIBLE);
+		}
+		if (rb_check.isChecked() != true) {
+			tv_hint_deal.setVisibility(View.VISIBLE);
 		}
 		return null;
 	}
@@ -170,12 +211,14 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 				HttpSendUtils.httpGetSend("obtainCode", this, Config.IP
 						+ "api/v1/code/" + phone);
 			} else {
-				ZProgressHUD.getInstance(this).show();
-				ZProgressHUD.getInstance(this).dismissWithFailure("请输入正确的手机号");
+				// ZProgressHUD.getInstance(this).show();
+				// ZProgressHUD.getInstance(this).dismissWithFailure("请输入正确的手机号");
+				tv_hint_phone.setVisibility(View.VISIBLE);
 			}
 		} else {
-			ZProgressHUD.getInstance(this).show();
-			ZProgressHUD.getInstance(this).dismissWithFailure("手机号为空");
+			// ZProgressHUD.getInstance(this).show();
+			// ZProgressHUD.getInstance(this).dismissWithFailure("手机号为空");
+			tv_hint_phone.setVisibility(View.VISIBLE);
 		}
 	}
 
@@ -200,7 +243,6 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 		if (super.doCallBack(type, jsonString)) {
 			if (type.equals(register)) {
 				registerBtn.setEnabled(true);
-
 			}
 			return true;
 		}
@@ -227,7 +269,14 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 			};
 		} else if (type.equals(register)) {
 			try {
-				app.userVO = JSONUtil.toJavaBean(UserVO.class, data);
+				if (data != null && result.equals("1")) {
+					app.userVO = JSONUtil.toJavaBean(UserVO.class, data);
+				} else if (msg.contains("验证码错误，请重新发送")) {
+					tv_hint_code.setVisibility(View.VISIBLE);
+					return true;
+				} else if (msg.contains("用户已存在请直接登录")) {
+					tv_hint_phone.setVisibility(View.VISIBLE);
+				}
 				util.saveParam(Config.LAST_LOGIN_PHONE,
 						app.userVO.getTelephone());
 				util.saveParam(Config.LAST_LOGIN_ACCOUNT, phoneEt.getText()
@@ -276,9 +325,9 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 				@Override
 				public void run() {
 					app.isLogin = true;
-					ZProgressHUD.getInstance(RegisterActivity.this).show();
-					ZProgressHUD.getInstance(RegisterActivity.this)
-							.dismissWithFailure("注册成功");
+					// ZProgressHUD.getInstance(RegisterActivity.this).show();
+					// ZProgressHUD.getInstance(RegisterActivity.this)
+					// .dismissWithFailure("注册成功");
 					new Thread(new Runnable() {
 
 						@Override

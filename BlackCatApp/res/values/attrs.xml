@@ -21,6 +21,58 @@
         <attr name="columnNum" format="integer" />
     </declare-styleable>
     
+    <declare-styleable name="PullToRefreshView">
+        <attr name="pullViewType" format="integer" />
+    </declare-styleable>
+    
+	<declare-styleable name="PullToRefreshListView">
+        <attr name="pinnedViewId" format="reference" />
+    </declare-styleable>
+    
+	<declare-styleable name="PagerSlidingTabStrip">
+        <attr name="pstsIndicatorColor" format="color" />
+        <attr name="pstsUnderlineColor" format="color" />
+        <attr name="pstsDividerColor" format="color" />
+        <attr name="pstsIndicatorHeight" format="dimension" />
+        <attr name="pstsUnderlineHeight" format="dimension" />
+        <attr name="pstsDividerPadding" format="dimension" />
+        <attr name="pstsTabPaddingLeftRight" format="dimension" />
+        <attr name="pstsScrollOffset" format="dimension" />
+        <attr name="pstsTabBackground" format="reference" />
+        <attr name="pstsShouldExpand" format="boolean" />
+        <attr name="pstsTextAllCaps" format="boolean" />
+        
+        <attr name="pstsIndicatorPaddingLeft" format="dimension" />
+        <attr name="pstsIndicatorPaddingRight" format="dimension" />
+        <attr name="pstsIndicatorPaddingBottom" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="PagerSlidingTab">
+        <attr name="indicatorColor" format="color" />
+        <attr name="underlineColor" format="color" />
+        <attr name="dividerColor" format="color" />
+        <attr name="indicatorHeight" format="dimension" />
+        <attr name="underlineHeight" format="dimension" />
+        <attr name="pst_dividerPadding" format="dimension" />
+        <attr name="tabPaddingLeftRight" format="dimension" />
+        <attr name="scrollOffset" format="dimension" />
+        <attr name="tabBackground" format="reference" />
+        <attr name="shouldExpand" format="boolean" />
+        <attr name="pst_textAllCaps" format="boolean" />
+    </declare-styleable>
+    
+	<declare-styleable name="CircleImageView">
+        <attr name="border_width" format="dimension" />
+        <attr name="border_color" format="color" />
+        <attr name="border_overlay" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="ShSwitchView">
+        <attr name="tintColor" format="reference|color" />
+        <attr name="outerStrokeWidth" format="reference|dimension" />
+        <attr name="shadowSpace" format="reference|dimension" />
+        </declare-styleable>
+        
     <declare-styleable name="StudyItemLayout">
         <attr name="itemIcon" format="reference"/>
         <attr name="itemTitle" format="string"/>

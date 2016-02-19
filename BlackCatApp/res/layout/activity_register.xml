@@ -9,9 +9,27 @@
     android:paddingLeft="@dimen/register_registerlayout_paddingleftright"
     android:paddingRight="@dimen/register_registerlayout_paddingleftright" >
 
-    <TextView android:layout_width="wrap_content"
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_marginTop="12dp"
+        android:layout_height="wrap_content">
+    <TextView 
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="手机号"/>
+    <TextView
+            android:id="@+id/tv_hint_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="您输入的信息有误"
+			android:drawablePadding="5dp"
+            android:gravity="center"
+            android:visibility="invisible"
+            android:textColor="@color/new_app_main_color"
+            android:drawableRight="@drawable/login_hint"
+            android:textSize="12sp" />
+    </RelativeLayout>
     <EditText
         android:id="@+id/register_phone_et"
         style="@style/register_et_style"
@@ -28,10 +46,27 @@
                 android:contentDescription="@string/app_name" />
 
         
-          <TextView android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+          <RelativeLayout 
+        android:layout_width="match_parent"
         android:layout_marginTop="12dp"
+        android:layout_height="wrap_content">
+    <TextView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="验证码"/>
+    <TextView
+            android:id="@+id/tv_hint_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="您输入的信息有误"
+			android:drawablePadding="5dp"
+            android:gravity="center"
+            android:visibility="invisible"
+            android:textColor="@color/new_app_main_color"
+            android:drawableRight="@drawable/login_hint"
+            android:textSize="12sp" />
+    </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/register_et_height"
@@ -69,10 +104,27 @@
                 android:background="#88e6e6e6"
                 android:layout_marginTop="5dp"
                 android:contentDescription="@string/app_name" />
-      <TextView android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+                <RelativeLayout 
+        android:layout_width="match_parent"
         android:layout_marginTop="12dp"
+        android:layout_height="wrap_content">
+    <TextView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="密码"/>
+    <TextView
+            android:id="@+id/tv_hint_pasword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="您输入的信息有误"
+			android:drawablePadding="5dp"
+            android:gravity="center"
+            android:visibility="invisible"
+            android:textColor="@color/new_app_main_color"
+            android:drawableRight="@drawable/login_hint"
+            android:textSize="12sp" />
+    </RelativeLayout>
 
     <EditText
         android:id="@+id/register_password_et"
@@ -85,10 +137,27 @@
                 android:layout_height="0.5dp"
                 android:background="#88e6e6e6"
                 android:contentDescription="@string/app_name" />
-      <TextView android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+               <RelativeLayout 
+        android:layout_width="match_parent"
         android:layout_marginTop="12dp"
+        android:layout_height="wrap_content">
+    <TextView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="确认密码"/>
+    <TextView
+            android:id="@+id/tv_hint_paswords"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="您输入的信息有误"
+			android:drawablePadding="5dp"
+            android:gravity="center"
+            android:visibility="invisible"
+            android:textColor="@color/new_app_main_color"
+            android:drawableRight="@drawable/login_hint"
+            android:textSize="12sp" />
+    </RelativeLayout>
 
     <EditText
         android:id="@+id/register_conpass_et"
@@ -101,10 +170,27 @@
                 android:layout_height="0.5dp"
                 android:background="#88e6e6e6"
                 android:contentDescription="@string/app_name" />
-      <TextView android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+      <RelativeLayout 
+        android:layout_width="match_parent"
         android:layout_marginTop="12dp"
+        android:layout_height="wrap_content">
+    <TextView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="邀请码(可选)"/>
+    <TextView
+            android:id="@+id/tv_hint_invite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="您输入的信息有误"
+			android:drawablePadding="5dp"
+            android:gravity="center"
+            android:visibility="invisible"
+            android:textColor="@color/new_app_main_color"
+            android:drawableRight="@drawable/login_hint"
+            android:textSize="12sp" />
+    </RelativeLayout>
 
     <EditText
         android:id="@+id/register_invitationcode_et"
@@ -138,6 +224,19 @@
      android:layout_marginLeft="15dp"
      android:text="@string/protocol"
      android:textSize="13dp" />
+  <TextView
+            android:id="@+id/tv_hint_deal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="您输入的信息有误"
+			android:drawablePadding="5dp"
+			android:layout_centerVertical="true"
+            android:gravity="center"
+            android:visibility="invisible"
+            android:textColor="@color/new_app_main_color"
+            android:drawableRight="@drawable/login_hint"
+            android:textSize="12sp" />
 </RelativeLayout>
 
  <Button
