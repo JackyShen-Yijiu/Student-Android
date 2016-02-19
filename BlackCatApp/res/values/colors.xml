@@ -13,9 +13,13 @@
     <color name="app_main_title_color">#fefefe</color>
     <color name="app_main_color">#ff6633</color> 
       <!-- 新加的色调 -->
+<<<<<<< HEAD
     <color name="new_app_main_color">#bd4437</color> 
     <color name="left_gray">#bdbdbd</color> 
     <color name="left_black">#212121</color> 
+=======
+    <color name="new_app_main_color">#db4437</color> 
+>>>>>>> 00cbc6d0468f8c9088d6bc5fa2d4ad3dbb3f72ee
     
     <!-- 按钮按下颜色 -->
     <color name="btn_press_color">#ff5a2b</color>
@@ -28,7 +32,7 @@
     <!-- 选择教练点选按钮未选中颜色(背景) -->
     <color name="select_coach_radiobtn_bk_noselected">#00dddddd</color>
     <!-- 选择教练点选按钮未选中颜色(字体) -->
-    <color name="select_coach_radiobtn_text_noselected">#333333</color>
+    <color name="select_coach_radiobtn_text_noselected">#eea7a0</color>
     <!-- 报名分隔线颜色(文本框和输入框) -->
     <color name="enroll_devider">#cccccc</color>
     <!-- 找回密码，验证码发送-->
@@ -80,5 +84,11 @@
       <!-- 报名 -->
       <color name="slidingtab_indicatorcolor">#FFFF00</color>
       <color name="line_color">#cccccc</color>
+      <color name="search_bg">#eeeeee</color>
+      <color name="yellow">#ffea00</color>
+      <color name="text_color_dark">#212121</color>
+      <color name="text_color_light">#757575</color>
+      <color name="study_text_normal">#bdbdbd</color>
+      <color name="study_text_selected">#ffffff</color>
     
 </resources>

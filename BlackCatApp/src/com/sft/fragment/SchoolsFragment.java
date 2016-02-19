@@ -64,6 +64,7 @@ import com.sft.util.LogUtil;
 import com.sft.util.Util;
 import com.sft.view.RefreshLayout;
 import com.sft.view.RefreshLayout.OnLoadListener;
+import com.sft.viewutil.EditTextUtils;
 import com.sft.vo.HeadLineNewsVO;
 import com.sft.vo.OpenCityVO;
 import com.sft.vo.PayOrderVO;
@@ -86,6 +87,7 @@ public class SchoolsFragment extends BaseFragment implements
 	private String licensetype = "1";
 	public String schoolname;
 	private String ordertype = "0";
+	
 
 	private final static String nearBySchool = "nearBySchool";
 	private static final String headlineNews = "headlineNews";
@@ -154,6 +156,7 @@ public class SchoolsFragment extends BaseFragment implements
 		if (fragment == null)
 			fragment = new SchoolsFragment();
 		type = t;
+		
 		LogUtil.print("type-onItemClick->" + type);
 		return fragment;
 	}
@@ -163,6 +166,7 @@ public class SchoolsFragment extends BaseFragment implements
 	}
 
 	private void initData() {
+		ordertype = "" + getArguments().getInt("type", 2);//评分
 		searchSchool.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
 		searchSchool.setOnEditorActionListener(new OnEditorActionListener() {
 
@@ -195,7 +199,7 @@ public class SchoolsFragment extends BaseFragment implements
 		public void onSuccess(int paramInt, Header[] paramArrayOfHeader,
 				byte[] paramArrayOfByte) {
 			String value = parseJson(paramArrayOfByte);
-//			LogUtil.print("nearby--onSuccess->"+ value );
+			LogUtil.print("nearby--onSuccess->"+ value );
 			
 			if (!TextUtils.isEmpty(msg)) {
 				// 加载失败，弹出失败对话框
@@ -438,6 +442,7 @@ public class SchoolsFragment extends BaseFragment implements
 		// .findViewById(R.id.enroll_school_top_defaultimage);
 		searchSchool = (EditText) headerView
 				.findViewById(R.id.enroll_school_search_et);
+		EditTextUtils.setEditTextHint(searchSchool, getString(R.string.search_school), 12);
 		//
 //		classSelect = (TextView) headerView
 //				.findViewById(R.id.enroll_school_class_select_tv);
@@ -544,11 +549,14 @@ public class SchoolsFragment extends BaseFragment implements
 				schoolList.addAll(school);
 //				adapter = new SchoolListAdapter(getActivity(), schoolList);
 //				schoolListView.setAdapter(adapter);
+				adapter.setData(schoolList);
 				adapter.notifyDataSetChanged();
 				LogUtil.print("nearby---000>"+ schoolList.size() );
 			} else {// ??? 正在刷新
 				// schoolList.addAll(school);
+				schoolList.clear();
 				schoolList = school;
+				adapter.setData(schoolList);
 				adapter.notifyDataSetChanged();
 				LogUtil.print("nearby---111>"+ schoolList.size() );
 //				adapter = new SchoolListAdapter(getActivity(), schoolList);
@@ -560,7 +568,7 @@ public class SchoolsFragment extends BaseFragment implements
 			} else {
 
 				schoolList.addAll(school);
-
+				
 				adapter.notifyDataSetChanged();
 				LogUtil.print("nearby---222>"+ schoolList.size() );
 				if (selectIndex >= 0) {
@@ -568,6 +576,8 @@ public class SchoolsFragment extends BaseFragment implements
 				}
 			}
 		}
+		
+//		swipeLayout.setl
 		// if (selectIndex >= 0) {
 		// // 将已选择的驾校放在第一位
 		// schoolList.add(0, schoolList.get(selectIndex));
@@ -594,7 +604,7 @@ public class SchoolsFragment extends BaseFragment implements
 		paramMap.put("ordertype", ordertype);
 		paramMap.put("index", index + "");
 		paramMap.put("count", "10");
-		LogUtil.print("Nearby-->"+app.latitude+"long-->"+app.longtitude);
+		LogUtil.print("Nearby-->"+app.latitude+"long-->"+app.longtitude+"orderType"+ordertype);
 		ApiHttpClient.get("searchSchool", paramMap, handler);//"searchschool"
 	}
 
@@ -1214,7 +1224,7 @@ public class SchoolsFragment extends BaseFragment implements
 		cityname = "";
 		licensetype = "";
 		schoolname = "";
-		ordertype = "";
+//		ordertype = "";
 		obtainNearBySchool();
 //		if(app.isLogin)
 //			requestNotFinshOrder();

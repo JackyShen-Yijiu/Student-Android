@@ -264,7 +264,8 @@
     <string name="press_speak">按住&#160;说话</string>
     <string name="unpress_end">松开&#160;结束</string>
     <string name="unpress_cancel">松开手指取消发送</string>
-    <string name="search_school">搜索</string>
+    <string name="search_school">请输入你想要搜索的驾校</string>
+    <string name="search_coach_hint">请输入你想要搜索的教练</string>
     <string name="c1_automatic_gear_car">C1手动档小车</string>
     <string name="c2_manual_gear_car">C2自动档小车</string>
      <string name="other">其   他</string>

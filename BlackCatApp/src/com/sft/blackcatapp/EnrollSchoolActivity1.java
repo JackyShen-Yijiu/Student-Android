@@ -106,6 +106,7 @@ public class EnrollSchoolActivity1 extends FragmentActivity implements
 		initView(type);
 		initData();
 
+		
 		if (selected == 1) {// 隐藏找教练
 			tvRight.setVisibility(View.GONE);
 		} else {

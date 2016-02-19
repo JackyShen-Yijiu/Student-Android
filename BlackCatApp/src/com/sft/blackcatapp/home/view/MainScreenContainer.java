@@ -24,7 +24,7 @@ import com.sft.blackcatapp.home.i.INewIntent;
 import com.sft.blackcatapp.home.i.IOnKeyDown;
 import com.sft.fragment.AppointmentFragment;
 import com.sft.fragment.CommunityFragment;
-import com.sft.fragment.EnrollSchoolFragament;
+import com.sft.fragment.EnrollFragment;
 import com.sft.fragment.MallFragment;
 import com.sft.fragment.StudyFragment;
 import com.sft.util.LogUtil;
@@ -76,8 +76,11 @@ public class MainScreenContainer extends LinearLayout implements
 	}
 
 	private FrameLayout temp;
+	
+	public EnrollFragment enrollFragment;
 
 	private void initView() {
+		enrollFragment = new EnrollFragment();
 		inflate(getContext(), R.layout.layout_main_screen, this);
 		setOrientation(LinearLayout.VERTICAL);
 		mContentId = R.id.fl_content;
@@ -90,7 +93,7 @@ public class MainScreenContainer extends LinearLayout implements
 		mTabContainer = findViewById(R.id.ll_tab_container);
 		mTabs = new ArrayList<TabInfo>();
 
-		mTabs.add(getTabInfo(R.id.tab_apply, new EnrollSchoolFragament(),
+		mTabs.add(getTabInfo(R.id.tab_apply, enrollFragment,
 
 		MainActivity.TAB_APPLY, R.string.tab_indicator_title_apply,
 				R.drawable.sl_tab_icon_apply));

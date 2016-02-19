@@ -14,8 +14,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.ImageView.ScaleType;
 import cn.sft.infinitescrollviewpager.BitmapManager;
 
+import com.joooonho.SelectableRoundedImageView;
 import com.sft.blackcatapp.R;
 import com.sft.util.LogUtil;
 import com.sft.vo.ClassVO;
@@ -94,8 +96,15 @@ public class SchoolDetailCoachHoriListAdapter extends BaseAdapter {
 					.findViewById(R.id.search_coach_coachname_tv);
 			holder.className = (TextView) convertView
 					.findViewById(R.id.search_coach_schoolname_tv);
-			holder.headPic = (ImageView) convertView
-					.findViewById(R.id.search_coach_headpin_im);
+//			holder.headPic = (ImageView) convertView
+//					.findViewById(R.id.search_coach_headpin_im);
+			holder.headPic1 = (SelectableRoundedImageView) convertView
+					.findViewById(R.id.search_coach_headpin_im1);
+			holder.headPic1.setScaleType(ScaleType.CENTER_CROP);
+			holder.headPic1.setImageResource(R.drawable.default_small_pic);
+			holder.headPic1.setOval(true);
+			
+			
 			holder.rateBar = (RatingBar) convertView
 					.findViewById(R.id.search_coach_ratingBar);
 			holder.shuttle = (TextView) convertView
@@ -180,14 +189,14 @@ public class SchoolDetailCoachHoriListAdapter extends BaseAdapter {
 		}
 		holder.distance.setText(distanceInt / 1000 + "km");
 
-		LinearLayout.LayoutParams headParam = (LinearLayout.LayoutParams) holder.headPic
+		LinearLayout.LayoutParams headParam = (LinearLayout.LayoutParams) holder.headPic1
 				.getLayoutParams();
 
 		String url = mData.get(position).getHeadportrait().getOriginalpic();
 		if (TextUtils.isEmpty(url)) {
-			holder.headPic.setBackgroundResource(R.drawable.default_small_pic);
+			holder.headPic1.setBackgroundResource(R.drawable.default_small_pic);
 		} else {
-			BitmapManager.INSTANCE.loadBitmap2(url, holder.headPic,
+			BitmapManager.INSTANCE.loadBitmap2(url, holder.headPic1,
 					headParam.width, headParam.height);
 		}
 		holder.price.setText("¥" + mData.get(position).getMinprice() + "起");
@@ -202,7 +211,8 @@ public class SchoolDetailCoachHoriListAdapter extends BaseAdapter {
 		public ImageView selectIm;
 		public TextView coachName;
 		public TextView className;
-		public ImageView headPic;
+//		public ImageView headPic;
+		public com.joooonho.SelectableRoundedImageView headPic1;
 		public RatingBar rateBar;
 		public TextView shuttle, general;
 		public TextView teachAge, distance, price;

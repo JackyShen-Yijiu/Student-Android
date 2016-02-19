@@ -230,6 +230,18 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 			try {
 				loginBtn.setEnabled(true);
 				lookAroundBtn.setEnabled(true);
+//<<<<<<< HEAD
+//				if (data != null  ) {
+//					app.userVO = JSONUtil.toJavaBean(UserVO.class, data);
+//					obtainVersionInfo();
+//				} else if (!TextUtils.isEmpty(msg)) {
+//					
+//						 ZProgressHUD.getInstance(this).show();
+//						 ZProgressHUD.getInstance(this).dismissWithFailure(msg, 2000);
+//						return true;
+//				}else{
+//					
+//=======
 				LogUtil.print(">>>>>>>>11111" + msg + "111");
 				if (data != null && result.equals("1")) {
 					app.userVO = JSONUtil.toJavaBean(UserVO.class, data);

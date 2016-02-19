@@ -26,12 +26,23 @@
             android:background="#00000000"
             android:gravity="center_vertical"
             android:orientation="horizontal" >
+            
+            <com.joooonho.SelectableRoundedImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/select_school_headpin_im1"
+                android:layout_width="@dimen/selectschool_headpic_height"
+                android:layout_height="@dimen/selectschool_headpic_height"
+                android:layout_marginLeft="15dp"
+                android:contentDescription="@string/app_name"
+                app:sriv_border_color="#00000000"
+                app:sriv_border_width="1dip" />
 
             <ImageView
                 android:id="@+id/select_school_headpin_im"
                 android:layout_width="@dimen/selectschool_headpic_width"
                 android:layout_height="@dimen/selectschool_headpic_height"
                 android:layout_marginLeft="15dp"
+                android:visibility="gone"
                 android:contentDescription="@string/app_name" />
 
             <LinearLayout
@@ -91,6 +102,7 @@
                         android:layout_marginTop="7dp"
                         android:singleLine="true"
                         android:textColor="#999999"
+                        android:layout_toLeftOf="@+id/select_school_distance_tv"
                         android:textSize="14dp" />
                     <TextView
                         android:id="@+id/select_school_distance_tv"
@@ -120,7 +132,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:textColor="#999999"
+                        android:textColor="#ff7f05"
                         android:textSize="12dp" />
                 </RelativeLayout>
             </LinearLayout>

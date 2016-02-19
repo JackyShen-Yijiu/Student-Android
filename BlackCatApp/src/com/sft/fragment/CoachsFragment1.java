@@ -45,6 +45,7 @@ import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
 import com.sft.view.RefreshLayout;
 import com.sft.view.RefreshLayout.OnLoadListener;
+import com.sft.viewutil.EditTextUtils;
 import com.sft.vo.CoachVO;
 import com.sft.vo.OpenCityVO;
 
@@ -262,6 +263,8 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener,
 		coachListView.addHeaderView(headerView);
 		searchCoach = (EditText) headerView
 				.findViewById(R.id.search_coach_search_et);
+		EditTextUtils.setEditTextHint(searchCoach, getString(R.string.search_coach_hint), 12);
+		
 		//
 		// carSelect = (TextView) headerView
 		// .findViewById(R.id.search_coach_car_select_tv);

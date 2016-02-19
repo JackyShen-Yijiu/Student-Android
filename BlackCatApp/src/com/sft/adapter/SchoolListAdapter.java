@@ -15,8 +15,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.ImageView.ScaleType;
 import cn.sft.infinitescrollviewpager.BitmapManager;
 
+import com.joooonho.SelectableRoundedImageView;
 import com.sft.blackcatapp.R;
 import com.sft.vo.SchoolVO;
 
@@ -91,8 +93,14 @@ public class SchoolListAdapter extends BaseAdapter {
 			holder = new ViewHolder();
 			holder.name = (TextView) convertView
 					.findViewById(R.id.select_school_coachname_tv);
-			holder.headPic = (ImageView) convertView
-					.findViewById(R.id.select_school_headpin_im);
+//			holder.headPic = (ImageView) convertView
+//					.findViewById(R.id.select_school_headpin_im);
+			holder.headPic1 = (SelectableRoundedImageView) convertView
+					.findViewById(R.id.select_school_headpin_im1);
+			holder.headPic1.setScaleType(ScaleType.CENTER_CROP);
+			holder.headPic1.setImageResource(R.drawable.default_small_pic);
+			holder.headPic1.setOval(true);
+			
 			holder.location = (TextView) convertView
 					.findViewById(R.id.select_school_location_tv);
 			holder.rate = (RatingBar) convertView
@@ -137,25 +145,25 @@ public class SchoolListAdapter extends BaseAdapter {
 		try {
 			distanceDouble = Double.parseDouble(distance);
 			DecimalFormat df = new DecimalFormat("#.00");
-			holder.distance.setText(df.format(distanceDouble / 1000) + "km");
+			holder.distance.setText("距您"+df.format(distanceDouble / 1000) + "km");
 		} catch (Exception e) {
 			holder.distance.setText(distance + "km");
 		}
 		String price = mData.get(position).getPrice();
 		holder.price.setText(price);
 
-		holder.coachAndComment.setText(mData.get(position).getCommentcount()
-				+ "条评论 | " + mData.get(position).getCoachcount() + "名认证教练");
+		holder.coachAndComment.setText( mData.get(position).getCoachcount() + "名认证教练");
+		// 评论  mData.get(position).getCommentcount()+ "条评论 | " +
 
 		String headUrl = mData.get(position).getLogoimg().getOriginalpic();
 
-		LinearLayout.LayoutParams headParams = (LinearLayout.LayoutParams) holder.headPic
+		LinearLayout.LayoutParams headParams = (LinearLayout.LayoutParams) holder.headPic1
 				.getLayoutParams();
 
 		if (TextUtils.isEmpty(headUrl)) {
-			holder.headPic.setBackgroundResource(R.drawable.default_small_pic);
+			holder.headPic1.setBackgroundResource(R.drawable.default_small_pic);
 		} else {
-			BitmapManager.INSTANCE.loadBitmap2(headUrl, holder.headPic,
+			BitmapManager.INSTANCE.loadBitmap2(headUrl, holder.headPic1,
 					headParams.width, headParams.height);
 		}
 
@@ -165,7 +173,8 @@ public class SchoolListAdapter extends BaseAdapter {
 	private class ViewHolder {
 		public ImageView selectIm;
 		public TextView name;
-		public ImageView headPic;
+//		public ImageView headPic;
+		public com.joooonho.SelectableRoundedImageView headPic1;
 		public TextView location;
 		public RatingBar rate;
 		public TextView distance;

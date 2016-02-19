@@ -8,15 +8,15 @@ public class SubjectVO extends DBVO {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int subjecyId;
+	private int subjectId;
 	private String name;
 
-	public int getSubjecyId() {
-		return subjecyId;
+	public int getSubjectId() {
+		return subjectId;
 	}
 
-	public void setSubjecyId(int subjecyId) {
-		this.subjecyId = subjecyId;
+	public void setSubjectId(int subjectId) {
+		this.subjectId = subjectId;
 	}
 
 	public String getName() {

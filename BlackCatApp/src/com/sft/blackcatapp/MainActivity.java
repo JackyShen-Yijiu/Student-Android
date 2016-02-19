@@ -335,6 +335,7 @@ public class MainActivity extends BaseMainActivity implements
 		titleLeftIv.setOnClickListener(this);
 		titleRightIv.setOnClickListener(this);
 		titleRightTv.setOnClickListener(this);
+		titleTv.setOnClickListener(this);
 	}
 
 	// 左侧菜单条目点击
@@ -412,13 +413,30 @@ public class MainActivity extends BaseMainActivity implements
 			break;
 		case R.id.title_left_iv:
 			// 切换为驾校
-			break;
+//			break;
 		case R.id.title_right_iv:
-			// 切换为教练
+//			// 切换为教练
+//			break;
+		case R.id.title_tv:
+			if(mMainContainer.getCurrentFragment().equals(mMainContainer.enrollFragment)){
+				mMainContainer.enrollFragment.switchSchoolOrCoach();
+				if(mMainContainer.enrollFragment.type == 0){
+					titleTv.setText(R.string.driving_school);
+				}else{
+					titleTv.setText(R.string.coach);
+				}
+			}
 			break;
 		default:
 			break;
 		}
+	}
+	
+	/**
+	 * 切换驾校\教练
+	 */
+	private void switchSchoolCoach(){
+		
 	}
 
 	/**
