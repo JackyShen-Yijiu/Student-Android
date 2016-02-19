@@ -202,17 +202,20 @@ public class SchoolDetailActivity extends BaseActivity implements
 	private void initTitle(){
 		titleLayout = (View) findViewById(R.id.base_titlebar_layout_bg);
 		
+		ImageButton bus = (ImageButton) findViewById(R.id.base_right_btn2);
+		bus.setImageResource(R.drawable.bus_white_icon);
 		ImageButton left = (ImageButton) findViewById(R.id.base_left_btn);
 		ImageButton phone = (ImageButton) findViewById(R.id.base_right_btn);
 		titleTV = (TextView) findViewById(R.id.base_title_tv);
 		// 中文字体加粗
 		titleTV.getPaint().setFakeBoldText(true);
-		titleTV.setText(R.string.school_detail);
+		titleTV.setText("");
 		left.setImageResource(R.drawable.base_left_btn_bkground);
 		phone.setImageResource(R.drawable.phone);
 		
 		phone.setOnClickListener(this);
 		left.setOnClickListener(this);
+		bus.setOnClickListener(this);
 	}
 
 	private void initView() {
@@ -634,6 +637,10 @@ public class SchoolDetailActivity extends BaseActivity implements
 				e.printStackTrace();
 			}
 			break;
+		case R.id.base_right_btn2://bus 路线
+			
+			
+			break;
 		// case R.id.coach_detail_enroll_btn:
 		// if (app.userVO.getApplystate().equals(
 		// EnrollResult.SUBJECT_NONE.getValue())) {
@@ -993,7 +1000,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 				titleLayout.setBackgroundResource(android.R.color.transparent);
 				addDeleteSchoolCk.setVisibility(View.VISIBLE);
 				schoolNameTv.setVisibility(View.VISIBLE);
-				titleTV.setText("驾校详情");
+				titleTV.setText("");
 				titleLayout.startAnimation(alphaOut);
 				viewTop.startAnimation(alphaOut);
 				

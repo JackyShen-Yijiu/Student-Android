@@ -46,6 +46,15 @@
             android:textColor="#fefefe"
             android:textSize="18dp"
             android:textStyle="bold" />
+        
+        <ImageButton
+            android:id="@+id/base_right_btn2"
+            android:layout_width="@dimen/base_titlebar_leftright_btn_width"
+            android:layout_height="@dimen/base_titlebar_leftright_btn_height"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/base_right_btn"
+            android:background="@null"
+            android:contentDescription="@string/app_name" />
 
         <ImageButton
             android:id="@+id/base_right_btn"
@@ -57,7 +66,7 @@
             android:contentDescription="@string/app_name" />
 
         <TextView
-            android:id="@+id/base_right_tv"
+            android:id="@+id/base_right_tv" 
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"

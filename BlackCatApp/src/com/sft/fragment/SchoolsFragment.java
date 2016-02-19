@@ -922,7 +922,9 @@ public class SchoolsFragment extends BaseFragment implements
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-
+		if(position==0){
+			return ;
+		}
 		LogUtil.print("onItemClick---" + type);
 		if (type == 0) {
 			Intent intent = new Intent(getActivity(),
