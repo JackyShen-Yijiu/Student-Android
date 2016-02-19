@@ -252,7 +252,7 @@ public class MainActivity extends BaseMainActivity implements
 		mSlidingMenu.setFadeEnabled(false);
 		mSlidingMenu.setBehindScrollScale(0.25f);
 		mSlidingMenu.setFadeDegree(0.25f);
-		mSlidingMenu.setBackgroundResource(R.drawable.left_bg);
+		mSlidingMenu.setBackgroundResource(R.drawable.left_fragment_head_bg);
 		mSlidingMenu
 				.setBehindCanvasTransformer(new SlidingMenu.CanvasTransformer() {
 					@Override

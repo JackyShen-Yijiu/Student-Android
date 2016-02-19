@@ -342,6 +342,17 @@
         <item name="android:background">@drawable/timestampe_bg</item>
     </style>
     
+      <style name="left_item_menu_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:drawablePadding">32dp</item>
+        <item name="android:gravity">center_vertical</item>
+         <item name="android:background">@drawable/left_item_selector_bg</item>
+        <item name="android:textColor">@drawable/left_item_text_color</item>
+        <item name="android:textSize">16sp</item>
+    </style>
      <style name="MyDialogStyle">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowFrame">@null</item>

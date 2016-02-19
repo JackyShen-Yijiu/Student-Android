@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
 import com.sft.adapter.TodayAppointmentAdapter;
@@ -35,6 +36,7 @@ public class TodaysAppointmentActivity extends BaseActivity implements
 	private TodayAppointmentAdapter adapter;
 	private boolean isRefreshing = false;
 	private List<MyAppointmentVO> mList = new ArrayList<MyAppointmentVO>();
+	private RelativeLayout order_ll;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,7 @@ public class TodaysAppointmentActivity extends BaseActivity implements
 	private void initView() {
 		setTitleText(R.string.today_appointment);
 		swipeLayout = (SwipeRefreshLayout) findViewById(R.id.today_appointment_swipe_container);
+		order_ll = (RelativeLayout) findViewById(R.id.order_ll);
 		swipeLayout.setOnRefreshListener(this);
 		swipeLayout.setColorScheme(android.R.color.holo_blue_bright,
 				android.R.color.holo_green_light,
@@ -116,9 +119,10 @@ public class TodaysAppointmentActivity extends BaseActivity implements
 
 					LogUtil.print(length + "预约个数：--" + list.size());
 					if (list.size() <= 0) {
-						ZProgressHUD.getInstance(this).dismissWithSuccess(
-								"您今天没有预约");
-						ZProgressHUD.getInstance(this).show();
+						// ZProgressHUD.getInstance(this).dismissWithSuccess(
+						// "您今天没有预约");
+						// ZProgressHUD.getInstance(this).show();
+						order_ll.setBackgroundResource(R.drawable.order_bg);
 					} else {
 						if (adapter == null) {
 							mList.clear();

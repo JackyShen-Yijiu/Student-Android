@@ -14,6 +14,8 @@
     <color name="app_main_color">#ff6633</color> 
       <!-- 新加的色调 -->
     <color name="new_app_main_color">#bd4437</color> 
+    <color name="left_gray">#bdbdbd</color> 
+    <color name="left_black">#212121</color> 
     
     <!-- 按钮按下颜色 -->
     <color name="btn_press_color">#ff5a2b</color>
