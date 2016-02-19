@@ -54,7 +54,7 @@ public class EnrollSubjectActivity extends BaseActivity implements
 		list = new ArrayList<SubjectVO>();
 		for (int i = 0; i < subjects.length; i++) {
 			SubjectVO subjectVO = new SubjectVO();
-			subjectVO.setSubjecyId(i + 1);
+			subjectVO.setSubjectId(i + 1);
 			subjectVO.setName(subjects[i]);
 			list.add(subjectVO);
 		}

@@ -7,8 +7,10 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.baseactivity.util.MyHandler;
 
@@ -22,7 +24,8 @@ import com.sft.viewutil.ZProgressHUD;
  * @author Administrator
  * 
  */
-public class FindPasswordActivity extends BaseActivity {
+public class FindPasswordActivity extends BaseActivity implements
+		OnClickListener {
 
 	// 获取验证码
 	private final static String obtainCode = "obtainCode";
@@ -40,6 +43,11 @@ public class FindPasswordActivity extends BaseActivity {
 	// 获取验证码间隔时间(秒)
 	private final static int codeTime = 60;
 	private MyHandler codeHandler;
+	private EditText conpassEt;
+	private TextView tv_hint_code;
+	private TextView tv_hint_phone;
+	private TextView tv_hint_pasword;
+	private TextView tv_hint_paswords;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,10 +70,12 @@ public class FindPasswordActivity extends BaseActivity {
 		phoneEt = (EditText) findViewById(R.id.findpass_phone_et);
 		codeEt = (EditText) findViewById(R.id.findpass_code_et);
 		passwordEt = (EditText) findViewById(R.id.findpass_password_et);
+		conpassEt = (EditText) findViewById(R.id.register_conpass_et);
 
-		phoneEt.setHint(setHint(R.string.phonenumber));
-		codeEt.setHint(setHint(R.string.auth_code));
-		passwordEt.setHint(R.string.new_password);
+		tv_hint_phone = (TextView) findViewById(R.id.tv_hint_phone);
+		tv_hint_code = (TextView) findViewById(R.id.tv_hint_code);
+		tv_hint_pasword = (TextView) findViewById(R.id.tv_hint_pasword);
+		tv_hint_paswords = (TextView) findViewById(R.id.tv_hint_paswords);
 
 		String phone = getIntent().getStringExtra("phone");
 		if (phone != null) {
@@ -76,6 +86,11 @@ public class FindPasswordActivity extends BaseActivity {
 	private void setListener() {
 		sendCodeBtn.setOnClickListener(this);
 		nextBtn.setOnClickListener(this);
+
+		phoneEt.setOnClickListener(this);
+		codeEt.setOnClickListener(this);
+		passwordEt.setOnClickListener(this);
+		conpassEt.setOnClickListener(this);
 	}
 
 	private void obtainCode() {
@@ -87,12 +102,14 @@ public class FindPasswordActivity extends BaseActivity {
 				HttpSendUtils.httpGetSend(obtainCode, this, Config.IP
 						+ "api/v1/code/" + phone);
 			} else {
-				ZProgressHUD.getInstance(this).show();
-				ZProgressHUD.getInstance(this).dismissWithFailure("请填写正确的手机号");
+				// ZProgressHUD.getInstance(this).show();
+				// ZProgressHUD.getInstance(this).dismissWithFailure("请填写正确的手机号");
+				tv_hint_phone.setVisibility(View.VISIBLE);
 			}
 		} else {
-			ZProgressHUD.getInstance(this).show();
-			ZProgressHUD.getInstance(this).dismissWithFailure("请填写手机号");
+			// ZProgressHUD.getInstance(this).show();
+			// ZProgressHUD.getInstance(this).dismissWithFailure("请填写手机号");
+			tv_hint_phone.setVisibility(View.VISIBLE);
 		}
 	}
 
@@ -110,22 +127,26 @@ public class FindPasswordActivity extends BaseActivity {
 	private String checkInput() {
 		String phone = phoneEt.getText().toString();
 		if (TextUtils.isEmpty(phone)) {
-			return "手机号为空";
+			tv_hint_phone.setVisibility(View.VISIBLE);
 		} else {
 			if (!CommonUtil.isMobile(phone)) {
-				return "手机号格式不正确";
+				tv_hint_phone.setVisibility(View.VISIBLE);
 			}
 		}
 		if (phone.length() != 11) {
-			return "请输入正确的手机号";
+			tv_hint_phone.setVisibility(View.VISIBLE);
 		}
 		String code = codeEt.getText().toString();
 		if (TextUtils.isEmpty(code)) {
-			return "验证码为空";
+			tv_hint_code.setVisibility(View.VISIBLE);
 		}
 		String password = passwordEt.getText().toString();
 		if (TextUtils.isEmpty(password)) {
-			return "密码为空";
+			tv_hint_pasword.setVisibility(View.VISIBLE);
+		}
+		String conPass = conpassEt.getText().toString();
+		if (!conPass.equals(password)) {
+			tv_hint_paswords.setVisibility(View.VISIBLE);
 		}
 		return null;
 	}
@@ -133,14 +154,14 @@ public class FindPasswordActivity extends BaseActivity {
 	private String checkInputs() {
 		String phone = phoneEt.getText().toString();
 		if (TextUtils.isEmpty(phone)) {
-			return "手机号为空";
+			tv_hint_phone.setVisibility(View.VISIBLE);
 		} else {
 			if (!CommonUtil.isMobile(phone)) {
-				return "手机号格式不正确";
+				tv_hint_phone.setVisibility(View.VISIBLE);
 			}
 		}
 		if (phone.length() != 11) {
-			return "请输入正确的手机号";
+			tv_hint_phone.setVisibility(View.VISIBLE);
 		}
 		return null;
 	}
@@ -171,16 +192,19 @@ public class FindPasswordActivity extends BaseActivity {
 				}
 			};
 		} else if (type.equals(changepassword)) {
-			if (dataString != null) {
-				ZProgressHUD.getInstance(this).show();
-				ZProgressHUD.getInstance(this).dismissWithSuccess("修改成功");
+			if (dataString != null && result.equals("1")) {
+				// ZProgressHUD.getInstance(this).show();
+				// ZProgressHUD.getInstance(this).dismissWithSuccess("修改成功");
 				new MyHandler(1000) {
 					@Override
 					public void run() {
 						finish();
 					}
 				};
+			} else if (msg.contains("验证码错误")) {
+				tv_hint_code.setVisibility(View.VISIBLE);
 			}
+
 		}
 		return true;
 	}
@@ -215,6 +239,18 @@ public class FindPasswordActivity extends BaseActivity {
 				ZProgressHUD.getInstance(this).dismissWithFailure(result);
 			}
 			break;
+		case R.id.findpass_phone_et:
+			tv_hint_phone.setVisibility(View.GONE);
+			break;
+		case R.id.findpass_code_et:
+			tv_hint_code.setVisibility(View.GONE);
+			break;
+		case R.id.findpass_password_et:
+			tv_hint_pasword.setVisibility(View.GONE);
+			break;
+		case R.id.register_conpass_et:
+			tv_hint_paswords.setVisibility(View.GONE);
+			break;
 		}
 	}
 
@@ -225,4 +261,5 @@ public class FindPasswordActivity extends BaseActivity {
 		}
 		super.onDestroy();
 	}
+
 }

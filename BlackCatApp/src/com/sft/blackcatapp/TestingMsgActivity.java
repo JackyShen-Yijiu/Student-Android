@@ -248,7 +248,7 @@ public class TestingMsgActivity extends BaseActivity {
 			Map<String, String> paramMap = new HashMap<String, String>();
 			paramMap.put("userid", app.userVO.getUserid());
 			paramMap.put("telephone", app.userVO.getMobile());
-			paramMap.put("subjectid", subject.getSubjecyId() + "");
+			paramMap.put("subjectid", subject.getSubjectId() + "");
 			paramMap.put("schoolid", school.getSchoolid());
 			paramMap.put("name", coach.getName());
 			paramMap.put("code", carStyle.getCode());
@@ -292,8 +292,8 @@ public class TestingMsgActivity extends BaseActivity {
 			return true;
 		}
 		if (type.equals(enroll)) {
-//			SharedPreferencesUtil.putBoolean(TestingMsgActivity.this,
-//					MainActivity.ISCLICKCONFIRM, true);
+			// SharedPreferencesUtil.putBoolean(TestingMsgActivity.this,
+			// MainActivity.ISCLICKCONFIRM, true);
 			Intent intent = new Intent(this, TestingCommit.class);
 			startActivity(intent);
 			finish();

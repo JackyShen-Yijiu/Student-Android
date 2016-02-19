@@ -61,4 +61,5 @@ public class StudyItemLayout extends RelativeLayout {
 		type.recycle();
 
 	}
+
 }

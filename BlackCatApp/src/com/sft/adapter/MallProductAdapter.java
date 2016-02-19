@@ -74,7 +74,6 @@ public class MallProductAdapter extends BaseAdapter {
 			}
 
 			ProductVO productVO = mData.get(position);
-
 			holder.jifenLayout.setVisibility(View.VISIBLE);
 			holder.cuponLayout.setVisibility(View.GONE);
 			BitmapManager.INSTANCE.loadBitmap2(productVO.getProductimg(),

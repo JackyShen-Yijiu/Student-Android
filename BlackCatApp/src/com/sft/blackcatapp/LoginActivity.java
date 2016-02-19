@@ -26,6 +26,7 @@ import com.sft.common.Config;
 import com.sft.listener.EMLoginListener;
 import com.sft.util.DownLoadService;
 import com.sft.util.JSONUtil;
+import com.sft.util.LogUtil;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.UserVO;
 import com.sft.vo.VersionVO;
@@ -51,7 +52,8 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 	private TextView forgetPassTv;
 	// 注册账号
 	private TextView registerAccountTv;
-	private TextView TextView_hint;
+	private TextView hint_passward;
+	private TextView hint_phone;
 
 	// 用户登录
 	private final static String login = "login";
@@ -84,6 +86,7 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 
 		AnalyticsConfig.setAppkey(this, Config.UMENG_APPKEY);
 		AnalyticsConfig.setChannel(Config.UMENG_CHANNELID);
+
 	}
 
 	private void obtainVersionInfo() {
@@ -112,16 +115,18 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 		passwordEt = (EditText) findViewById(R.id.login_passwd_et);
 		forgetPassTv = (TextView) findViewById(R.id.login_forget_tv);
 		registerAccountTv = (TextView) findViewById(R.id.login_register_tv);
-		TextView_hint = (TextView) findViewById(R.id.TextView_hint);
-
+		hint_passward = (TextView) findViewById(R.id.tv_hint_password);
+		hint_phone = (TextView) findViewById(R.id.tv_hint_phone);
 		// phontEt.setHint(setHint(R.string.phonenumber));
 		// passwordEt.setHint(setHint(R.string.password));
-
 		app.isLogin = false;
+
 	}
 
 	private void setListener() {
 		loginBtn.setOnClickListener(this);
+		passwordEt.setOnClickListener(this);
+		phontEt.setOnClickListener(this);
 		lookAroundBtn.setOnClickListener(this);
 		forgetPassTv.setOnClickListener(this);
 		registerAccountTv.setOnClickListener(this);
@@ -134,6 +139,12 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 		}
 		Intent intent = null;
 		switch (v.getId()) {
+		case R.id.login_phone_et:
+			hint_phone.setVisibility(View.GONE);
+			break;
+		case R.id.login_passwd_et:
+			hint_passward.setVisibility(View.GONE);
+			break;
 		case R.id.login_login_btn:
 			login();
 			break;
@@ -152,6 +163,7 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 			intent = new Intent(this, RegisterActivity.class);
 			break;
 		}
+
 		if (intent != null) {
 			startActivity(intent);
 		}
@@ -179,11 +191,11 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 	private String checkLoginInfo() {
 		String mobile = phontEt.getText().toString();
 		if (TextUtils.isEmpty(mobile)) {
-			TextView_hint.setVisibility(View.VISIBLE);
+			hint_phone.setVisibility(View.VISIBLE);
 		}
 		String password = passwordEt.getText().toString();
 		if (TextUtils.isEmpty(password)) {
-			TextView_hint.setVisibility(View.VISIBLE);
+			hint_passward.setVisibility(View.VISIBLE);
 		}
 		return null;
 	}
@@ -218,16 +230,29 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 			try {
 				loginBtn.setEnabled(true);
 				lookAroundBtn.setEnabled(true);
-				if (data != null  ) {
+//<<<<<<< HEAD
+//				if (data != null  ) {
+//					app.userVO = JSONUtil.toJavaBean(UserVO.class, data);
+//					obtainVersionInfo();
+//				} else if (!TextUtils.isEmpty(msg)) {
+//					
+//						 ZProgressHUD.getInstance(this).show();
+//						 ZProgressHUD.getInstance(this).dismissWithFailure(msg, 2000);
+//						return true;
+//				}else{
+//					
+//=======
+				LogUtil.print(">>>>>>>>11111" + msg + "111");
+				if (data != null && result.equals("1")) {
 					app.userVO = JSONUtil.toJavaBean(UserVO.class, data);
 					obtainVersionInfo();
-				} else if (!TextUtils.isEmpty(msg)) {
-					
-						 ZProgressHUD.getInstance(this).show();
-						 ZProgressHUD.getInstance(this).dismissWithFailure(msg, 2000);
-						return true;
-				}else{
-					
+				} else if (msg.contains("用户不存在")) {
+					hint_phone.setVisibility(View.VISIBLE);
+					return true;
+				} else if (msg.contains("用户名或者密码错误")) {
+					hint_passward.setVisibility(View.VISIBLE);
+				} else {
+					// hint_phone.setVisibility(View.VISIBLE);
 					ZProgressHUD.getInstance(this).show();
 					ZProgressHUD.getInstance(this).dismissWithFailure("数据格式错误");
 				}

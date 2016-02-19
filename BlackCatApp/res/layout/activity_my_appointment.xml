@@ -49,6 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
+            android:text="已约25课时"
             android:id="@+id/my_appoint_studied"
             />
         <TextView 
@@ -56,6 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginLeft="15dp"
+            android:text="已约25课时"
             android:layout_marginRight="15dp"
             android:id="@+id/my_appoint_really"
             />
@@ -65,6 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_below="@+id/my_appoint_studied"
             android:layout_marginLeft="15dp"
+            android:text="已约25课时"
             android:layout_marginRight="15dp"
             android:id="@+id/my_appoint_notsign"
             />
@@ -73,6 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_alignParentRight="true"
+            android:text="已约25课时"
             android:layout_below="@+id/my_appoint_studied"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"

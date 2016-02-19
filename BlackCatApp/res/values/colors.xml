@@ -80,5 +80,9 @@
       <color name="line_color">#cccccc</color>
       <color name="search_bg">#eeeeee</color>
       <color name="yellow">#ffea00</color>
+      <color name="text_color_dark">#212121</color>
+      <color name="text_color_light">#757575</color>
+      <color name="study_text_normal">#bdbdbd</color>
+      <color name="study_text_selected">#ffffff</color>
     
 </resources>
