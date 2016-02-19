@@ -4,17 +4,6 @@
     android:layout_height="fill_parent" 
     android:background="#fff">
 
-    <ImageView
-        android:id="@+id/login_logo_iv"
-        android:layout_width="@dimen/login_logo_width"
-        android:layout_height="@dimen/login_logo_height"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/login_logo_margintop"
-        android:background="@drawable/login_head"
-        android:clipToPadding="true"
-        android:contentDescription="@string/app_name"
-        android:fitsSystemWindows="true" />
-
           
 	<TextView 
    		 android:id="@+id/TextView_phone"
@@ -25,6 +14,19 @@
    		  android:layout_marginTop="15dp"
    		  android:textSize="12sp"
    		 android:text="手机号"/>
+	<TextView
+            android:id="@+id/tv_hint_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/login_phone_et"
+            android:layout_alignRight="@+id/login_forget_tv"
+            android:text="您输入的信息有误"
+			android:drawablePadding="5dp"
+            android:gravity="center"
+            android:visibility="invisible"
+            android:textColor="@color/new_app_main_color"
+            android:drawableRight="@drawable/login_hint"
+            android:textSize="12sp" />
             <EditText
                 android:id="@+id/login_phone_et"
                 android:layout_width="match_parent"
@@ -35,7 +37,8 @@
                 android:layout_alignLeft="@+id/TextView_phone"
                 android:layout_below="@+id/TextView_phone"
                 android:maxLength="11"
-                android:textColor="#999" />
+                
+                android:textColor="#212121" />
 
             <ImageView
                 android:id="@+id/login_deivder_im"
@@ -56,7 +59,7 @@
    		 	 android:textSize="12sp"
    			 android:text="密码"/>
             <TextView
-            android:id="@+id/TextView_hint"
+            android:id="@+id/tv_hint_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/login_passwd_et"
@@ -67,7 +70,7 @@
             android:visibility="invisible"
             android:textColor="@color/new_app_main_color"
             android:drawableRight="@drawable/login_hint"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
             <EditText
                 android:id="@+id/login_passwd_et"
                  android:layout_width="match_parent"
@@ -77,7 +80,7 @@
                 android:inputType="textPassword"
                 android:layout_marginTop="10dp"
                 android:layout_alignLeft="@+id/TextView_phone"
-                android:textColor="#999" />
+                android:textColor="#212121" />
 
             <ImageView
                 android:id="@+id/login_deivder2_im"
@@ -132,7 +135,7 @@
             android:layout_marginTop="22dp"
             android:text="@string/register_account"
              android:layout_alignLeft="@+id/TextView_phone"
-            android:textSize="14dp" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/login_forget_tv"
@@ -143,8 +146,18 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="12dp"
             android:text="@string/forget_password"
-            android:textSize="14dp" />
+            android:textSize="12sp" />
 
-        
+        <ImageView
+            android:id="@+id/login_logo_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/login_head"
+            android:clipToPadding="true"
+            android:contentDescription="@string/app_name"
+            android:fitsSystemWindows="true" />
 
 </RelativeLayout>
