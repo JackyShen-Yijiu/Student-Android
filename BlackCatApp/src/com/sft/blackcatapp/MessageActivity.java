@@ -6,35 +6,37 @@ import java.util.Comparator;
 import java.util.Hashtable;
 import java.util.List;
 
-import com.easemob.EMEventListener;
-import com.easemob.EMNotifierEvent;
-import com.easemob.chat.EMChatManager;
-import com.easemob.chat.EMConversation;
-import com.easemob.chat.EMConversation.EMConversationType;
-import com.easemob.chat.EMMessage;
-import com.sft.blackcatapp.R;
-import com.sft.common.Config;
-import com.sft.emchat.ChatAllHistoryAdapter;
-import com.sft.vo.PushInnerVO;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import cn.sft.sqlhelper.DBHelper;
 
+import com.easemob.EMEventListener;
+import com.easemob.EMNotifierEvent;
+import com.easemob.chat.EMChatManager;
+import com.easemob.chat.EMConversation;
+import com.easemob.chat.EMConversation.EMConversationType;
+import com.easemob.chat.EMMessage;
+import com.sft.common.Config;
+import com.sft.emchat.ChatAllHistoryAdapter;
+import com.sft.vo.PushInnerVO;
+
 /**
  * 消息界面
- *
+ * 
  */
-public class MessageActivity extends BaseActivity implements OnItemClickListener, EMEventListener {
+public class MessageActivity extends BaseActivity implements
+		OnItemClickListener, EMEventListener {
 
 	private ListView messageListView;
 	private ChatAllHistoryAdapter adapter;
 	private List<EMConversation> conversationList = new ArrayList<EMConversation>();
+	private LinearLayout mes_bg;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +48,12 @@ public class MessageActivity extends BaseActivity implements OnItemClickListener
 	@Override
 	protected void onResume() {
 		refresh();
-		EMChatManager.getInstance().registerEventListener(this,
-				new EMNotifierEvent.Event[] { EMNotifierEvent.Event.EventNewMessage,
-						EMNotifierEvent.Event.EventOfflineMessage, EMNotifierEvent.Event.EventDeliveryAck,
+		EMChatManager.getInstance().registerEventListener(
+				this,
+				new EMNotifierEvent.Event[] {
+						EMNotifierEvent.Event.EventNewMessage,
+						EMNotifierEvent.Event.EventOfflineMessage,
+						EMNotifierEvent.Event.EventDeliveryAck,
 						EMNotifierEvent.Event.EventReadAck });
 		register(getClass().getName());
 		super.onResume();
@@ -60,6 +65,8 @@ public class MessageActivity extends BaseActivity implements OnItemClickListener
 
 		messageListView = (ListView) findViewById(R.id.message_list);
 
+		mes_bg = (LinearLayout) findViewById(R.id.mes_bg);
+
 		messageListView.setOnItemClickListener(this);
 
 		conversationList.addAll(loadConversationsWithRecentChat());
@@ -67,6 +74,7 @@ public class MessageActivity extends BaseActivity implements OnItemClickListener
 		adapter = new ChatAllHistoryAdapter(this, conversationList);
 		// 设置adapter
 		messageListView.setAdapter(adapter);
+
 	}
 
 	@Override
@@ -101,7 +109,8 @@ public class MessageActivity extends BaseActivity implements OnItemClickListener
 	 */
 	private List<EMConversation> loadConversationsWithRecentChat() {
 		// 获取所有会话，包括陌生人
-		Hashtable<String, EMConversation> conversations = EMChatManager.getInstance().getAllConversations();
+		Hashtable<String, EMConversation> conversations = EMChatManager
+				.getInstance().getAllConversations();
 		// 过滤掉messages size为0的conversation
 		/**
 		 * 如果在排序过程中有新消息收到，lastMsgTime会发生变化 影响排序过程，Collection.sort会产生异常
@@ -111,8 +120,8 @@ public class MessageActivity extends BaseActivity implements OnItemClickListener
 		synchronized (conversations) {
 			for (EMConversation conversation : conversations.values()) {
 				if (conversation.getAllMessages().size() != 0) {
-					sortList.add(
-							new Pair<Long, EMConversation>(conversation.getLastMessage().getMsgTime(), conversation));
+					sortList.add(new Pair<Long, EMConversation>(conversation
+							.getLastMessage().getMsgTime(), conversation));
 				}
 			}
 		}
@@ -128,13 +137,18 @@ public class MessageActivity extends BaseActivity implements OnItemClickListener
 
 		PushInnerVO lastPushVO = null;
 		// 获取系统消息
-		List<PushInnerVO> systemList = DBHelper.getInstance(this).query(PushInnerVO.class, 1);
+		List<PushInnerVO> systemList = DBHelper.getInstance(this).query(
+				PushInnerVO.class, 1);
 		if (systemList != null && systemList.size() > 0) {
 			lastPushVO = systemList.get(0);
 		}
 		if (lastPushVO != null) {
-			EMConversation systemConvesation = new EMConversation(Config.SYSTEM_PUSH);
+			EMConversation systemConvesation = new EMConversation(
+					Config.SYSTEM_PUSH);
 			conversationList.add(0, systemConvesation);
+		}
+		if (list.size() <= 0) {
+			mes_bg.setBackgroundResource(R.drawable.mes_bg);
 		}
 
 		return list;
@@ -145,25 +159,29 @@ public class MessageActivity extends BaseActivity implements OnItemClickListener
 	 * 
 	 * @param usernames
 	 */
-	private void sortConversationByLastChatTime(List<Pair<Long, EMConversation>> conversationList) {
-		Collections.sort(conversationList, new Comparator<Pair<Long, EMConversation>>() {
-			@Override
-			public int compare(final Pair<Long, EMConversation> con1, final Pair<Long, EMConversation> con2) {
+	private void sortConversationByLastChatTime(
+			List<Pair<Long, EMConversation>> conversationList) {
+		Collections.sort(conversationList,
+				new Comparator<Pair<Long, EMConversation>>() {
+					@Override
+					public int compare(final Pair<Long, EMConversation> con1,
+							final Pair<Long, EMConversation> con2) {
 
-				if (con1.first == con2.first) {
-					return 0;
+						if (con1.first == con2.first) {
+							return 0;
 
-				} else if (con2.first > con1.first) {
-					return 1;
-				} else {
-					return -1;
-				}
-			}
-		});
+						} else if (con2.first > con1.first) {
+							return 1;
+						} else {
+							return -1;
+						}
+					}
+				});
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
 		EMConversation conversation = adapter.getItem(position);
 		String username = conversation.getUserName();
 		if (username.equals(Config.SYSTEM_PUSH)) {
@@ -190,18 +208,25 @@ public class MessageActivity extends BaseActivity implements OnItemClickListener
 				// it is single chat
 				EMMessage lastMessage = conversation.getLastMessage();
 				if (lastMessage.direct == EMMessage.Direct.RECEIVE) {
-					String name = lastMessage.getStringAttribute(Config.CHAT_NICK_NAME, "陌生人");
+					String name = lastMessage.getStringAttribute(
+							Config.CHAT_NICK_NAME, "陌生人");
 					intent.putExtra("chatName", name);
-					intent.putExtra("chatUrl", lastMessage.getStringAttribute(Config.CHAT_HEAD_RUL, ""));
+					intent.putExtra("chatUrl", lastMessage.getStringAttribute(
+							Config.CHAT_HEAD_RUL, ""));
 					intent.putExtra("chatId", username);
 				} else {
-					String name = lastMessage.getStringAttribute(Config.CHAT_NICK_NAME_NOANSWER, "陌生人");
+					String name = lastMessage.getStringAttribute(
+							Config.CHAT_NICK_NAME_NOANSWER, "陌生人");
 					intent.putExtra("chatName", name);
-					intent.putExtra("chatUrl", lastMessage.getStringAttribute(Config.CHAT_HEAD_RUL_NOANSWER, ""));
+					intent.putExtra("chatUrl", lastMessage.getStringAttribute(
+							Config.CHAT_HEAD_RUL_NOANSWER, ""));
 					intent.putExtra("chatId", username);
-					intent.putExtra("userIdNoAnswer", lastMessage.getStringAttribute(Config.CHAT_USERID_NOANSWER, ""));
-					intent.putExtra("userTypeNoAnswer",
-							lastMessage.getStringAttribute(Config.CHAT_USERTYPE_NOANSWER, ""));
+					intent.putExtra("userIdNoAnswer",
+							lastMessage.getStringAttribute(
+									Config.CHAT_USERID_NOANSWER, ""));
+					intent.putExtra("userTypeNoAnswer", lastMessage
+							.getStringAttribute(Config.CHAT_USERTYPE_NOANSWER,
+									""));
 				}
 			}
 			startActivity(intent);

@@ -60,6 +60,8 @@ public class RefreshLayout extends SwipeRefreshLayout implements
 	 * 是否在加载中 ( 上拉加载更多 )
 	 */
 	private boolean isLoading = false;
+	/**加载完成*/
+//	private boolean loaded = false;
 	
 	private GestureDetector gestureDetector;
 
@@ -90,6 +92,8 @@ public class RefreshLayout extends SwipeRefreshLayout implements
 		if (mListView == null) {
 			getListView();
 		}
+//		mListView.addFooterView(mListViewFooter);
+//		mListViewFooter.setVisibility(View.GONE);
 	}
 
 	/**
@@ -168,13 +172,22 @@ public class RefreshLayout extends SwipeRefreshLayout implements
 	public void setLoading(boolean loading) {
 		isLoading = loading;
 		if (isLoading) {
+//			mListViewFooter.setVisibility(View.VISIBLE);
 			mListView.addFooterView(mListViewFooter);
 		} else {
+//			mListViewFooter.setVisibility(View.GONE);
 			mListView.removeFooterView(mListViewFooter);
 			mYDown = 0;
 			mLastY = 0;
 		}
 	}
+	
+	/**
+	 * 加载完成
+	 */
+//	public void setLoaded(boolean loaded){
+//		this.loaded = loaded;
+//	}
 
 	/**
 	 * @param loadListener

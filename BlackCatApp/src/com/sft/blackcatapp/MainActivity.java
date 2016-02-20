@@ -252,7 +252,7 @@ public class MainActivity extends BaseMainActivity implements
 		mSlidingMenu.setFadeEnabled(false);
 		mSlidingMenu.setBehindScrollScale(0.25f);
 		mSlidingMenu.setFadeDegree(0.25f);
-		mSlidingMenu.setBackgroundResource(R.drawable.left_bg);
+		mSlidingMenu.setBackgroundResource(R.drawable.left_fragment_head_bg);
 		mSlidingMenu
 				.setBehindCanvasTransformer(new SlidingMenu.CanvasTransformer() {
 					@Override
@@ -335,6 +335,7 @@ public class MainActivity extends BaseMainActivity implements
 		titleLeftIv.setOnClickListener(this);
 		titleRightIv.setOnClickListener(this);
 		titleRightTv.setOnClickListener(this);
+		titleTv.setOnClickListener(this);
 	}
 
 	// 左侧菜单条目点击
@@ -435,13 +436,30 @@ public class MainActivity extends BaseMainActivity implements
 			break;
 		case R.id.title_left_iv:
 			// 切换为驾校
-			break;
+//			break;
 		case R.id.title_right_iv:
-			// 切换为教练
+//			// 切换为教练
+//			break;
+		case R.id.title_tv:
+			if(mMainContainer.getCurrentFragment().equals(mMainContainer.enrollFragment)){
+				mMainContainer.enrollFragment.switchSchoolOrCoach();
+				if(mMainContainer.enrollFragment.type == 0){
+					titleTv.setText(R.string.driving_school);
+				}else{
+					titleTv.setText(R.string.coach);
+				}
+			}
 			break;
 		default:
 			break;
 		}
+	}
+	
+	/**
+	 * 切换驾校\教练
+	 */
+	private void switchSchoolCoach(){
+		
 	}
 
 	/**
@@ -730,7 +748,11 @@ public class MainActivity extends BaseMainActivity implements
 				app.curCity = curCity;
 				util.saveParam(Config.USER_CITY, curCity);
 				stopLocation();
-				// curCityTv.setText(curCity);
+				if(mMainContainer.getCurrentTabType() == TAB_APPLY){
+					titleRightTv.setText(curCity);
+				}
+				LogUtil.print("城市::::>>>"+curCity);
+				
 			}
 		}
 	}
@@ -944,8 +966,9 @@ public class MainActivity extends BaseMainActivity implements
 			titleRightIv.setVisibility(View.VISIBLE);
 			titleRightTv.setVisibility(View.VISIBLE);
 			titleTv.setText(CommonUtil.getString(this, R.string.driving_school));
-			titleRightTv.setText(CommonUtil.getString(this,
-					R.string.locationing));
+//			util.saveParam(Config.USER_CITY, curCity);
+			titleRightTv.setText(util.readParam(Config.USER_CITY)==null?CommonUtil.getString(this,
+					R.string.locationing):util.readParam(Config.USER_CITY));
 			break;
 		case TAB_STUDY:
 			currentPage = TAB_STUDY;

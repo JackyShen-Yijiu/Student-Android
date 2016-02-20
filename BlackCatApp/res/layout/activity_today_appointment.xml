@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical" >
+    android:id="@+id/order_ll"
+    android:background="@color/white" >
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/today_appointment_swipe_container"
@@ -18,5 +18,7 @@
             android:divider="@android:color/transparent"
             android:listSelector="@drawable/listview_selector" />
     </android.support.v4.widget.SwipeRefreshLayout>
+    
+    
 
-</LinearLayout>
+</RelativeLayout>

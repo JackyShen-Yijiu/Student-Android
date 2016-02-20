@@ -12,7 +12,6 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -38,7 +37,6 @@ import com.sft.api.ApiHttpClient;
 import com.sft.blackcatapp.ActivitiesActivity;
 import com.sft.blackcatapp.EditPersonInfoActivity;
 import com.sft.blackcatapp.EnrollSchoolActivity1;
-import com.sft.blackcatapp.MallActivity;
 import com.sft.blackcatapp.MessageActivity;
 import com.sft.blackcatapp.MyWalletActivity;
 import com.sft.blackcatapp.NewActivitysActivity;
@@ -52,7 +50,6 @@ import com.sft.common.BlackCatApplication;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
 import com.sft.dialog.NoLoginDialog;
-import com.sft.util.CommonUtil;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
 import com.sft.viewutil.ZProgressHUD;
@@ -72,14 +69,14 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 	private static final String userinfo = "userinfo";
 	BlackCatApplication app;
 	private TextView username;
-	private TextView drivingSchool;
+	// private TextView drivingSchool;
 	private TextView code;
 	private Context mContext;
-	private TextView doubiNumber;
-	private TextView earnings;
-	private TextView money;
-	private TextView couponcount;
-	private TextView phone;
+	// 放到钱包
+	// private TextView earnings;
+	// private TextView money;
+	// private TextView couponcount;
+	// private TextView phone;
 	private String result;
 	private String msg;
 
@@ -110,7 +107,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 		currCity = app.curCity;
 
 		mContext = getActivity();
-		View rootView = inflater.inflate(R.layout.fragment_menu_new, null);
+		View rootView = inflater.inflate(R.layout.left_fragment_menu, null);
 		initView(rootView);
 		setRightText();
 		// setData();
@@ -153,17 +150,18 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 		// left_tv_map = (TextView) rootView.findViewById(R.id.left_tv_map);
 		username = (TextView) rootView
 				.findViewById(R.id.fragment_menu_username);
-		phone = (TextView) rootView.findViewById(R.id.fragment_menu_phone);
-		drivingSchool = (TextView) rootView
-				.findViewById(R.id.fragment_menu_driving_school);
+		// phone = (TextView) rootView.findViewById(R.id.fragment_menu_phone);
+		// drivingSchool = (TextView) rootView
+		// .findViewById(R.id.fragment_menu_driving_school);
 		code = (TextView) rootView.findViewById(R.id.fragment_menu_code);
-		doubiNumber = (TextView) rootView
-				.findViewById(R.id.fragment_menu_number);
-		earnings = (TextView) rootView
-				.findViewById(R.id.fragment_menu_integrate_earnings);
-		couponcount = (TextView) rootView
-				.findViewById(R.id.fragment_menu_mall_couponcount);
-		money = (TextView) rootView.findViewById(R.id.fragment_menu_money);
+		// doubiNumber = (TextView) rootView
+		// .findViewById(R.id.fragment_menu_number);
+		// earnings = (TextView) rootView
+		// .findViewById(R.id.fragment_menu_integrate_earnings);
+		// couponcount = (TextView) rootView
+		// .findViewById(R.id.fragment_menu_mall_couponcount);
+		// money = (TextView) rootView.findViewById(R.id.fragment_menu_money);
+
 		personIcon = (SelectableRoundedImageView) rootView
 				.findViewById(R.id.fragment_menu_headpic_im);
 
@@ -178,25 +176,25 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 
 			setPersonInfo();
 		}
-
-		rootView.findViewById(R.id.fragment_menu_content_first)
-				.setOnClickListener(this);
-		rootView.findViewById(R.id.fragment_menu_content_seccond)
-				.setOnClickListener(this);
-		rootView.findViewById(R.id.fragment_menu_content_third)
-				.setOnClickListener(this);
+		// 放到钱包
+		// rootView.findViewById(R.id.fragment_menu_content_first)
+		// .setOnClickListener(this);
+		// rootView.findViewById(R.id.fragment_menu_content_seccond)
+		// .setOnClickListener(this);
+		// rootView.findViewById(R.id.fragment_menu_content_third)
+		// .setOnClickListener(this);
 		// 定位地图点击
 		// rootView.findViewById(R.id.left_tv_map).setOnClickListener(this);
 
 		// 底部图片点击
 		// rootView.findViewById(R.id.fragment_menu_home_btn).setOnClickListener(
 		// this);
-		rootView.findViewById(R.id.fragment_menu_driving_school_btn)
-				.setOnClickListener(this);
+		// rootView.findViewById(R.id.fragment_menu_driving_school_btn)
+		// .setOnClickListener(this);
 		rootView.findViewById(R.id.fragment_menu_message_btn)
 				.setOnClickListener(this);
-		rootView.findViewById(R.id.fragment_menu_mall_btn).setOnClickListener(
-				this);
+		// rootView.findViewById(R.id.fragment_menu_mall_btn).setOnClickListener(
+		// this);
 		rootView.findViewById(R.id.fragment_menu_activity_btn)
 				.setOnClickListener(this);
 		rootView.findViewById(R.id.fragment_menu_signin_btn)
@@ -229,23 +227,26 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 
 			username.setText("未登陆");
 		} else {
-			LogUtil.print("name:::=-->"+app.userVO.getName());
-			if (app.userVO.getName() != null && app.userVO.getName().trim().length() > 0) {
+			LogUtil.print("name:::=-->" + app.userVO.getName());
+			if (app.userVO.getName() != null
+					&& app.userVO.getName().trim().length() > 0) {
 				username.setText(app.userVO.getName());
-			}else{
+			} else {
 				username.setText(app.userVO.getDisplaymobile());
 			}
-			
-//			} else {
-//				username.setText(app.userVO.getDisplaymobile());
-//			}
-		
-		if (TextUtils.isEmpty(app.userVO.getApplyschoolinfo().getName())) {
 
-			drivingSchool.setText("您未选择驾校");
-		} else {
-			drivingSchool.setText(app.userVO.getApplyschoolinfo().getName());
-		}
+			// } else {
+			// username.setText(app.userVO.getDisplaymobile());
+			// }
+
+			// if (TextUtils.isEmpty(app.userVO.getApplyschoolinfo().getName()))
+			// {
+			//
+			// drivingSchool.setText("您未选择驾校");
+			// } else {
+			// drivingSchool
+			// .setText(app.userVO.getApplyschoolinfo().getName());
+			// }
 		}
 	}
 
@@ -273,7 +274,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 	private void setListener() {
 		// listView.setOnItemClickListener(this);
 		personIcon.setOnClickListener(this);
-		phone.setOnClickListener(this);
+		// phone.setOnClickListener(this);
 
 	}
 
@@ -318,10 +319,10 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 		// case R.id.fragment_menu_home_btn:
 		// ((MainActivity) mContext).changeMenu();
 		// break;
-		case R.id.fragment_menu_driving_school_btn:// 报名
-			obtainlocationShowType();
-
-			break;
+		// case R.id.fragment_menu_driving_school_btn:// 报名
+		// obtainlocationShowType();
+		//
+		// break;
 		case R.id.fragment_menu_message_btn:
 			if (app.isLogin) {
 				intent = new Intent(mContext, MessageActivity.class);
@@ -331,15 +332,15 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 				dialog.show();
 			}
 			break;
-		case R.id.fragment_menu_mall_btn:
-			// ZProgressHUD.getInstance(mContext).show();
-			// ZProgressHUD.getInstance(mContext).dismissWithFailure("敬请期待！");
-			// 进入积分商城
-			intent = new Intent(mContext, MallActivity.class);
-			intent.putExtra("moneytype",
-					Config.MoneyType.INTEGRAL_RETURN.getValue());
-			startActivity(intent);
-			break;
+		// case R.id.fragment_menu_mall_btn:
+		// // ZProgressHUD.getInstance(mContext).show();
+		// // ZProgressHUD.getInstance(mContext).dismissWithFailure("敬请期待！");
+		// // 进入积分商城
+		// intent = new Intent(mContext, MallActivity.class);
+		// intent.putExtra("moneytype",
+		// Config.MoneyType.INTEGRAL_RETURN.getValue());
+		// startActivity(intent);
+		// break;
 		// 活动
 		case R.id.fragment_menu_activity_btn:
 			// ZProgressHUD.getInstance(mContext).show();
@@ -398,14 +399,14 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 				dialog.show();
 			}
 			break;
-
-		case R.id.fragment_menu_phone:
-			String number = CommonUtil.getString(mContext, R.string.yibu_phone);
-			// 用intent启动拨打电话
-			Intent intent1 = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"
-					+ number));
-			startActivity(intent1);
-			break;
+		//
+		// case R.id.fragment_menu_phone:
+		// String number = CommonUtil.getString(mContext, R.string.yibu_phone);
+		// // 用intent启动拨打电话
+		// Intent intent1 = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"
+		// + number));
+		// startActivity(intent1);
+		// break;
 		case R.id.fragment_menu_content_first:
 			// 积分
 			if (app.isLogin) {
@@ -564,9 +565,9 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 		//
 		// }
 		// doubiNumber.setText(myMoneyVO.getWallet());
-		earnings.setText(myMoneyVO.getWallet());
-		couponcount.setText(myMoneyVO.getCouponcount());
-		money.setText(myMoneyVO.getMoney());
+		// earnings.setText(myMoneyVO.getWallet());
+		// couponcount.setText(myMoneyVO.getCouponcount());
+		// money.setText(myMoneyVO.getMoney());
 
 	}
 

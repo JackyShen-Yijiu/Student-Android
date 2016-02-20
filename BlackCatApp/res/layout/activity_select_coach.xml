@@ -9,6 +9,7 @@
         android:id="@+id/selectcoach_radiogroup"
         android:layout_width="match_parent"
         android:layout_height="@dimen/selectcoach_radiogroup_height"
+        android:background="@color/new_app_main_color"
         android:orientation="horizontal" >
 
         <RadioButton
@@ -16,13 +17,6 @@
             style="@style/select_coach_radiobutton"
             android:checked="true"
             android:text="@string/distance" />
-
-        <ImageView
-            android:layout_width="1dp"
-            android:layout_height="@dimen/selectcoach_radiogroup_devider_height"
-            android:layout_gravity="center_vertical"
-            android:background="#dddddd"
-            android:contentDescription="@string/app_name" />
 
         <RadioButton
             android:id="@+id/selectcoach_grade_btn"

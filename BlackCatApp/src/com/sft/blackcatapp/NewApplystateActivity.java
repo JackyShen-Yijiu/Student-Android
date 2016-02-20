@@ -9,7 +9,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build.VERSION;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -62,6 +64,12 @@ public class NewApplystateActivity extends BaseActivity implements
 
 	private TextView coachNameTv;
 
+	private TextView phoneTv;
+
+	private TextView complaint_coach_show;
+
+	private TextView chCounterText;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -69,7 +77,31 @@ public class NewApplystateActivity extends BaseActivity implements
 		initView();
 		initData();
 		Listener();
+		init();
+	}
 
+	private void init() {
+
+		contentEt.addTextChangedListener(new TextWatcher() {
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+				String content = contentEt.getText().toString();
+				chCounterText.setText("投诉内容 " + content.length() + "/" + "200");
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+
+			}
+
+		});
 	}
 
 	// 初始化数据
@@ -96,12 +128,16 @@ public class NewApplystateActivity extends BaseActivity implements
 		feedbackusertypeRealName = (RadioButton) findViewById(R.id.complaint_feedbackusertype_realname);
 
 		coachNameTv = (TextView) findViewById(R.id.complaint_coach_name_tv);
-		contentEt = (EditText) findViewById(R.id.complaint_content);
 
+		complaint_coach_show = (TextView) findViewById(R.id.complaint_coach_show);
+		contentEt = (EditText) findViewById(R.id.complaint_content);
+		phoneTv = (TextView) findViewById(R.id.complaint_coach_phone_tv);
+		chCounterText = (TextView) findViewById(R.id.sdk_status_edit_text);
 		commitPicIv1 = (ImageView) findViewById(R.id.complaint_commit_pic1);
 		commitPic2Iv = (ImageView) findViewById(R.id.complaint_commit_pic2);
 		commitBtn = (Button) findViewById(R.id.button_commit);
 
+		phoneTv.setText(app.userVO.getTelephone());
 	}
 
 	private void Listener() {
@@ -242,6 +278,8 @@ public class NewApplystateActivity extends BaseActivity implements
 				CoachVO coach = (CoachVO) data.getSerializableExtra("coach");
 				if (coach != null) {
 					coachNameTv.setText(coach.getName());
+					complaint_coach_show
+							.setText("投诉 " + coach.getName() + "教练");
 				}
 			}
 		}
@@ -257,6 +295,8 @@ public class NewApplystateActivity extends BaseActivity implements
 			coachNameTv.setCompoundDrawables(null, null, null, getResources()
 					.getDrawable(R.drawable.person_center_arrow));
 			coachNameTv.setEnabled(true);
+			complaint_coach_show.setText("投诉 "
+					+ app.userVO.getApplycoachinfo().getName() + "教练");
 			feedbacktype = "1";
 			break;
 		// 投诉驾校
@@ -265,6 +305,8 @@ public class NewApplystateActivity extends BaseActivity implements
 			coachNameTv.setCompoundDrawables(null, null, null, null);
 			coachNameTv.setEnabled(false);
 			feedbacktype = "2";
+			complaint_coach_show.setText("投诉 "
+					+ app.userVO.getApplyschoolinfo().getName() + "驾校");
 			break;
 		// 匿名投诉
 		case R.id.complaint_feedbackusertype_anonymous:

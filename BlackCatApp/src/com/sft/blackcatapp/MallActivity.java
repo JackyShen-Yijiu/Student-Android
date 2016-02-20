@@ -15,10 +15,8 @@ import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.infinitescrollviewpager.BitMapURLExcepteionListner;
 
 import com.sft.adapter.MallProductAdapter;
-import com.sft.blackcatapp.R;
 import com.sft.common.Config;
 import com.sft.util.JSONUtil;
-import com.sft.util.LogUtil;
 import com.sft.vo.MallVO;
 import com.sft.vo.MyCuponVO;
 import com.sft.vo.ProductVO;
@@ -53,7 +51,6 @@ public class MallActivity extends BaseActivity implements
 		super.onCreate(savedInstanceState);
 		addView(R.layout.activity_mall);
 		cityname = app.curCity;
-		LogUtil.print(cityname);
 		producttype = getIntent().getStringExtra("moneytype");
 		myCuponVO = (MyCuponVO) getIntent().getSerializableExtra("myCupon");
 		initView();

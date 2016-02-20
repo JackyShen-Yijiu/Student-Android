@@ -289,9 +289,12 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 						app.userVO.getNickname());
 
 			} catch (Exception e) {
-				ZProgressHUD.getInstance(this).show();
-				ZProgressHUD.getInstance(this).dismissWithFailure("用户数据解析错误");
+				// ZProgressHUD.getInstance(this).show();
+				// ZProgressHUD.getInstance(this).dismissWithFailure("用户数据解析错误");
+
+				tv_hint_phone.setVisibility(View.VISIBLE);
 				e.printStackTrace();
+
 			}
 		}
 		return true;

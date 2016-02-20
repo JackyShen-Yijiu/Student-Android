@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/new_app_main_color"
+    android:orientation="vertical" >
+    
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:padding="12dp"
+        android:background="@drawable/left_fragment_head_bg"
+        android:layout_height="wrap_content">
+    <com.joooonho.SelectableRoundedImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/fragment_menu_headpic_im"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        app:sriv_border_color="#00000000"
+        app:sriv_border_width="1dip" />
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="8dp"
+        android:layout_below="@+id/fragment_menu_headpic_im"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/fragment_menu_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="未登录"
+            android:textColor="#f2f2f2"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/fragment_menu_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textColor="#f2f2f2"
+            android:textSize="14sp" />
+    </LinearLayout>
+    </RelativeLayout>
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+         android:background="@color/white"
+        android:layout_weight="1">
+        <TextView 
+            android:id="@+id/fragment_menu_message_btn"
+            style="@style/left_item_menu_style"
+            android:drawableLeft="@drawable/left_item_selector_msg"
+            android:text="我的消息"/>
+         <TextView 
+             android:id="@+id/fragment_menu_activity_btn"
+            style="@style/left_item_menu_style"
+            android:drawableLeft="@drawable/left_item_selector_activity"
+            android:text="活动"/>
+          <TextView 
+                android:id="@+id/fragment_menu_signin_btn"
+            style="@style/left_item_menu_style"
+            android:drawableLeft="@drawable/left_item_selector_order"
+            android:text="预约签到"/>
+           <TextView 
+            android:id="@+id/fragment_menu_classcar_btn"
+            style="@style/left_item_menu_style"
+            android:drawableLeft="@drawable/left_item_selector_car"
+            android:text="我的驾校班车"/>
+            <TextView 
+            style="@style/left_item_menu_style"
+            android:drawableLeft="@drawable/left_item_selector_money"
+            android:text="我的钱包"/>
+             <TextView 
+            style="@style/left_item_menu_style"
+            android:drawableLeft="@drawable/left_item_selector_friend"
+            android:text="邀请好友"/>
+              <TextView 
+            android:id="@+id/fragment_menu_complaint_btn"
+            style="@style/left_item_menu_style"
+            android:drawableLeft="@drawable/left_item_selector_phone"
+            android:text="我要投诉"/>
+                <TextView 
+                      android:id="@+id/fragment_menu_goddness_btn"
+            style="@style/left_item_menu_style"
+            android:drawableLeft="@drawable/left_item_selector_good"
+            android:text="一步优势"/>
+                  <TextView 
+            android:id="@+id/fragment_menu_setting_btn"
+            style="@style/left_item_menu_style"
+            android:drawableLeft="@drawable/left_item_selector_setting"
+            android:text="设置与帮助"/>
+    </LinearLayout>
+</LinearLayout>
