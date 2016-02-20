@@ -54,6 +54,8 @@ import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
 import com.sft.dialog.EnrollSelectConfilctDialog.OnSelectConfirmListener;
 import com.sft.dialog.NoLoginDialog;
+import com.sft.fragment.MenuFragment;
+import com.sft.util.BaseUtils;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
 import com.sft.util.Util;
@@ -84,6 +86,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 	private static final String addSchool = "addSchool";
 	private static final String deleteSchool = "deleteSchool";
 	private static final String headLineNews = "headLineNews";
+	
 	/**
 	 * 广告栏的地址
 	 */
@@ -150,6 +153,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 	private View viewTop;
 	private View viewTopStatic;
 	private View titleLayout;
+	private int hegiht; 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -164,6 +168,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_school_detail2);
 //		addView(R.layout.activity_school_detail2);
+		hegiht = BaseUtils.getScreenHeight(this);
 		initView();
 		setListener();
 		obtainEnrollSchoolDetail();
@@ -271,6 +276,10 @@ public class SchoolDetailActivity extends BaseActivity implements
 		radioGroup = (RadioGroup) findViewById(R.id.school_detail_radiogroup);
 		coachInfoRb = (RadioButton) findViewById(R.id.school_detail_coach_info_rb);
 		courseFeeRb = (RadioButton) findViewById(R.id.school_detail_course_fee_rb);
+		
+		coachInfoRbTop = (RadioButton) findViewById(R.id.school_detail_coach_info_rb_top);
+		courseFeeRbTop = (RadioButton) findViewById(R.id.school_detail_course_fee_rb_top);
+		
 		radioGroupTop = (RadioGroup) findViewById(R.id.school_detail_radiogroup_top);
 //		busMore = (TextView) findViewById(R.id.school_detail_bus_more_tv);
 
@@ -281,6 +290,8 @@ public class SchoolDetailActivity extends BaseActivity implements
 //		schoolInstructionTv.getPaint().setFakeBoldText(true);
 
 		school = (SchoolVO) getIntent().getSerializableExtra("school");
+		
+//		noCoahTv.setMinHeight("");
 
 		LogUtil.print("schoolId--id--00>"+school.getId());
 		
@@ -332,7 +343,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 			workTimeTv.setText("营业时间 "+school.getHours());
 			schoolInTv.setText(school.getIntroduction());
 			showSchoolIntro();
-
+			
 			// 动态添加训练场地的图片
 			String[] trainPicStrings = school.getPictures();
 			for (int i = 0; i < trainPicStrings.length; i++) {
@@ -387,6 +398,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 	private RadioGroup radioGroupTop;
 	private RadioButton courseFeeRb;
 	private RadioButton coachInfoRb;
+	private RadioButton courseFeeRbTop,coachInfoRbTop;
 	private TextView busMore;
 	private List<CoachVO> twoCoach;
 	private List<ClassVO> courseList;
@@ -394,6 +406,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 	// 设置驾校简介
 	private void showSchoolIntro() {
 		schoolInTv.setMaxLines(2);
+		schoolInTv.setLines(2);
 		schoolInTv.getViewTreeObserver().addOnGlobalLayoutListener(
 				new OnGlobalLayoutListener() {
 
@@ -422,6 +435,8 @@ public class SchoolDetailActivity extends BaseActivity implements
 												schoolInTv.requestLayout();
 											}
 										});
+						
+//						schoolInTv.setLines(2);
 					}
 				});
 	}
@@ -638,7 +653,10 @@ public class SchoolDetailActivity extends BaseActivity implements
 			}
 			break;
 		case R.id.base_right_btn2://bus 路线
-			
+			Intent i = new Intent(SchoolDetailActivity.this,SchoolBusRouteActivity.class);
+			i.putExtra("school_route", school);
+			i.putExtra(MenuFragment.schoolId, school.getId());
+			startActivity(i);
 			
 			break;
 		// case R.id.coach_detail_enroll_btn:
@@ -864,7 +882,9 @@ public class SchoolDetailActivity extends BaseActivity implements
 
 	@Override
 	public void onCheckedChanged(RadioGroup group, int checkedId) {
-		if (checkedId == coachInfoRb.getId() || checkedId == R.id.school_detail_coach_info_rb_top) {
+		if (checkedId == coachInfoRb.getId() || checkedId == coachInfoRbTop.getId()) {
+			coachInfoRb.setChecked(true);
+			coachInfoRbTop.setChecked(true);
 			// 教练详情
 			if (coachList != null && coachList.size() > 0) {
 				noCoahTv.setVisibility(View.GONE);
@@ -873,8 +893,12 @@ public class SchoolDetailActivity extends BaseActivity implements
 				noCoahTv.setVisibility(View.VISIBLE);
 				coachlistView.setVisibility(View.GONE);
 			}
+			
+			LogUtil.print("noCoach--->"+coachlistView.getHeight());
 			courselistView.setVisibility(View.GONE);
-		} else if (checkedId == courseFeeRb.getId() || checkedId == R.id.school_detail_course_fee_rb_top) {
+		} else if (checkedId == courseFeeRb.getId() || checkedId == courseFeeRbTop.getId()) {
+			courseFeeRb.setChecked(true);
+			courseFeeRbTop.setChecked(true);
 			// 课程费用
 			courselistView.setVisibility(View.VISIBLE);
 			noCoahTv.setVisibility(View.GONE);
@@ -986,11 +1010,14 @@ public class SchoolDetailActivity extends BaseActivity implements
 	public void onScrollChanged(int t, int oldt) {
 		int[] location = new int[2];  
 		schoolNameTv.getLocationOnScreen(location);  
-//        int x = location[0];  
         int y = location[1];  
-		// TODO Auto-generated method stub
+        
+        int[] location2 = new int[2];  
+		radioGroup.getLocationOnScreen(location2);  
+        int y1 = location2[1];  
 //		LogUtil.print(viewTop.getVisibility()+"ScrollView---onScrollChangedt::>"+(viewTopStatic.getY()+viewTopStatic.getHeight())+"Name::>>>"+y);
-		
+        
+        
 		if(topStatic ==0){//初始化
 			topStatic = viewTopStatic.getY()+viewTopStatic.getHeight();
 			topTab = radioGroupTop.getY();
@@ -1007,6 +1034,8 @@ public class SchoolDetailActivity extends BaseActivity implements
 				addDeleteSchoolCk.startAnimation(scaleBig);
 //				
 			}
+			noCoahTv.setHeight( hegiht - y1 );
+			LogUtil.print(topTab +"yyyyyyy"+y1+"TextViewHeight::::>>"+noCoahTv.getHeight());
 		}else if(topStatic>y ||topStatic == y){//已经滑动很多，
 			if(viewTop.getVisibility() != View.VISIBLE){
 				viewTop.setVisibility(View.VISIBLE);
@@ -1018,13 +1047,22 @@ public class SchoolDetailActivity extends BaseActivity implements
 				viewTop.startAnimation(alphaIn);
 				titleLayout.startAnimation(alphaIn);
 				addDeleteSchoolCk.startAnimation(scaleSmall);
-				
+				//设置 noCoach 的高度
 			}
-			int[] location2 = new int[2];  
-			radioGroup.getLocationOnScreen(location2);  
-//	        int x = location[0];  
-	        int y1 = location2[1];  
-	        LogUtil.print(viewTop.getVisibility()+"ScrollView---onScrollChangedt::>"+topTab+"Name::>>>"+y1);
+			if(topTab<y1){//还没有到 最上面
+				if(noCoahTv.getVisibility() == View.VISIBLE){
+					int height = (hegiht - y1)>noCoahTv.getHeight()?noCoahTv.getHeight():hegiht - y1;
+					noCoahTv.setHeight( height );
+					LogUtil.print(height +"yyyyyyy222>>"+y1+"TextViewHeight::::>>"+noCoahTv.getHeight());
+					
+				}else{
+					noCoahTv.setHeight( hegiht - y1 );
+				}
+				
+			}else{//已经在最上面了
+				noCoahTv.setHeight((int) (hegiht - topStatic - 180  ));
+			}
+			
 			
 			//滑动到  课程费用/教练信息
 			if(topTab > y1){//显示固定的，
@@ -1036,6 +1074,8 @@ public class SchoolDetailActivity extends BaseActivity implements
 			}
 			
 		}
+		
+		//处理 没有教练或者没有课程的信息
 		
 		
 	}
