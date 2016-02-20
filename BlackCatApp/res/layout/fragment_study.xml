@@ -52,7 +52,7 @@
 
         <View
             android:layout_width="0dp"
-            android:layout_height="3dp"
+            android:layout_height="2dp"
             android:id="@+id/line"   
             android:layout_alignParentBottom="true"
             android:background="#FFEA00" />

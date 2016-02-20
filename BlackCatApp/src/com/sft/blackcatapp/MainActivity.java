@@ -408,7 +408,30 @@ public class MainActivity extends BaseMainActivity implements
 			toggle(); // 动态判断自动关闭或开启SlidingMenu
 			break;
 		case R.id.title_right_tv:
-			obtainOpenCity();
+			switch (currentPage) {
+			case TAB_APPLY:
+				// 定位
+				LogUtil.print("定位");
+				obtainOpenCity();
+				break;
+			case TAB_APPOINTMENT:
+				// 换教练
+				LogUtil.print("换教练");
+				break;
+			case TAB_COMMUNITY:
+
+				break;
+			case TAB_MALL:
+
+				break;
+			case TAB_STUDY:
+
+				break;
+
+			default:
+				break;
+			}
+
 			break;
 		case R.id.title_left_iv:
 			// 切换为驾校
@@ -907,6 +930,8 @@ public class MainActivity extends BaseMainActivity implements
 		mMainContainer.jumpTab(tab, intent);
 	}
 
+	private int currentPage = TAB_APPLY;
+
 	@Override
 	public void onTabSelected(int index, boolean reClicked) {
 		titleLeftIv.setVisibility(View.GONE);
@@ -914,6 +939,7 @@ public class MainActivity extends BaseMainActivity implements
 		titleRightTv.setVisibility(View.GONE);
 		switch (index) {
 		case TAB_APPLY:
+			currentPage = TAB_APPLY;
 			titleLeftIv.setVisibility(View.VISIBLE);
 			titleRightIv.setVisibility(View.VISIBLE);
 			titleRightTv.setVisibility(View.VISIBLE);
@@ -922,22 +948,37 @@ public class MainActivity extends BaseMainActivity implements
 					R.string.locationing));
 			break;
 		case TAB_STUDY:
+			currentPage = TAB_STUDY;
 			titleTv.setText(CommonUtil.getString(this,
 					R.string.tab_indicator_title_study));
 			break;
 		case TAB_APPOINTMENT:
+			currentPage = TAB_APPOINTMENT;
 			titleRightTv.setVisibility(View.VISIBLE);
-			titleRightTv.setText(CommonUtil.getString(this,
-					R.string.change_coach));
 			titleTv.setText(CommonUtil.getString(this,
 					R.string.tab_indicator_title_appointment));
+			if (!app.isLogin) {
+				titleRightTv.setText(CommonUtil.getString(this,
+						R.string.add_coach));
+			} else {
+				if (app.userVO.getSubject().getSubjectid()
+						.equals(Config.SubjectStatu.SUBJECT_NONE.getValue())) {
+					titleRightTv.setText(CommonUtil.getString(this,
+							R.string.add_coach));
+				} else {
+					titleRightTv.setText(CommonUtil.getString(this,
+							R.string.change_coach));
+				}
+			}
 
 			break;
 		case TAB_MALL:
+			currentPage = TAB_MALL;
 			titleTv.setText(CommonUtil.getString(this,
 					R.string.tab_indicator_title_mall));
 			break;
 		case TAB_COMMUNITY:
+			currentPage = TAB_COMMUNITY;
 			titleTv.setText(CommonUtil.getString(this,
 					R.string.tab_indicator_title_community));
 			break;

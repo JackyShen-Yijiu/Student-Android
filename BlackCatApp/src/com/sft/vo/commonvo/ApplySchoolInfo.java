@@ -18,7 +18,7 @@ public class ApplySchoolInfo extends DBVO {
 	}
 
 	public String getName() {
-		return name;
+		return name == null ? "" : name;
 	}
 
 	public void setName(String name) {

@@ -23,9 +23,9 @@ import com.sft.blackcatapp.home.i.IIndicateMainTabNotification;
 import com.sft.blackcatapp.home.i.INewIntent;
 import com.sft.blackcatapp.home.i.IOnKeyDown;
 import com.sft.fragment.AppointmentFragment;
-import com.sft.fragment.CommunityFragment;
 import com.sft.fragment.EnrollSchoolFragament;
 import com.sft.fragment.MallFragment;
+import com.sft.fragment.OldSubjectTwoFragment;
 import com.sft.fragment.StudyFragment;
 import com.sft.util.LogUtil;
 
@@ -104,7 +104,7 @@ public class MainScreenContainer extends LinearLayout implements
 		mTabs.add(getTabInfo(R.id.tab_mall, new MallFragment(),
 				MainActivity.TAB_MALL, R.string.tab_indicator_title_mall,
 				R.drawable.sl_tab_icon_mall));
-		mTabs.add(getTabInfo(R.id.tab_community, new CommunityFragment(),
+		mTabs.add(getTabInfo(R.id.tab_community, new OldSubjectTwoFragment(),
 				MainActivity.TAB_COMMUNITY,
 				R.string.tab_indicator_title_community,
 				R.drawable.sl_tab_icon_community));

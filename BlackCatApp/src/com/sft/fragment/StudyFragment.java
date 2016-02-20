@@ -44,7 +44,9 @@ public class StudyFragment extends BaseFragment implements OnClickListener {
 				false);
 		initViews(rootView);
 		setListener();
-		obtainLearnProgress();
+		if (app.isLogin) {
+			obtainLearnProgress();
+		}
 		return rootView;
 	}
 
@@ -65,7 +67,6 @@ public class StudyFragment extends BaseFragment implements OnClickListener {
 				.findViewById(R.id.study_subject_three);
 		subjectFour = (TextView) rootView.findViewById(R.id.study_subject_four);
 		line = rootView.findViewById(R.id.line);
-
 		// ViewPropertyAnimator.animate(subjectOne).scaleX(1.2f).setDuration(0);
 		// ViewPropertyAnimator.animate(subjectTwo).scaleY(1.2f).setDuration(0);
 		// ViewPropertyAnimator.animate(subjectThree).scaleY(1.2f).setDuration(0);
@@ -84,8 +85,8 @@ public class StudyFragment extends BaseFragment implements OnClickListener {
 
 		viewPager = (ViewPager) rootView.findViewById(R.id.viewPager);
 		viewPager.setOffscreenPageLimit(3);
-		viewPager.setAdapter(new FragmentStatePagerAdapter(getActivity()
-				.getSupportFragmentManager()) {
+		viewPager.setAdapter(new FragmentStatePagerAdapter(
+				getChildFragmentManager()) {
 
 			@Override
 			public int getCount() {
