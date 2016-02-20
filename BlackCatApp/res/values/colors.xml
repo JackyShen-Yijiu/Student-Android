@@ -13,15 +13,9 @@
     <color name="app_main_title_color">#fefefe</color>
     <color name="app_main_color">#ff6633</color> 
       <!-- 新加的色调 -->
-<<<<<<< HEAD
     <color name="left_gray">#bdbdbd</color> 
     <color name="left_black">#212121</color> 
     <color name="new_app_main_color">#db4437</color> 
-=======
-    <color name="new_app_main_color">#db4437</color> 
-    <color name="left_gray">#bdbdbd</color> 
-    <color name="left_black">#212121</color> 
->>>>>>> 8d7e51dbdcb2d5cc3b84d8cfaa1d2c7d6b71774b
     
     <!-- 按钮按下颜色 -->
     <color name="btn_press_color">#ff5a2b</color>
