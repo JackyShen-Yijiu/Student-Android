@@ -51,4 +51,12 @@ public class StudentSubject extends DBVO {
 		this.reservationid = reservationid;
 	}
 
+	public int getMissingcourse() {
+		return missingcourse;
+	}
+
+	public void setMissingcourse(int missingcourse) {
+		this.missingcourse = missingcourse;
+	}
+
 }
