@@ -51,7 +51,7 @@
     <dimen name="selectcoach_headpic_widthheight">70dp</dimen>
     <dimen name="selectcoach_radiogroup_devider_height">25dp</dimen>
     <dimen name="selectcoach_radiobtn_height">2dp</dimen>
-    <dimen name="selectcoach_radiobtn_width">70dp</dimen>
+    <dimen name="selectcoach_radiobtn_width">180dp</dimen>
 
     <!-- 教练详情界面 -->
     <dimen name="coachdetail_collection_widthheight">48dp</dimen>

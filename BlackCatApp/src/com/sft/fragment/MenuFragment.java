@@ -76,7 +76,6 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 	// private TextView earnings;
 	// private TextView money;
 	// private TextView couponcount;
-
 	// private TextView phone;
 	private String result;
 	private String msg;
@@ -157,7 +156,6 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 		code = (TextView) rootView.findViewById(R.id.fragment_menu_code);
 		// doubiNumber = (TextView) rootView
 		// .findViewById(R.id.fragment_menu_number);
-
 		// earnings = (TextView) rootView
 		// .findViewById(R.id.fragment_menu_integrate_earnings);
 		// couponcount = (TextView) rootView
