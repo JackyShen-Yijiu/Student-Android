@@ -725,7 +725,11 @@ public class MainActivity extends BaseMainActivity implements
 				app.curCity = curCity;
 				util.saveParam(Config.USER_CITY, curCity);
 				stopLocation();
-				// curCityTv.setText(curCity);
+				if(mMainContainer.getCurrentTabType() == TAB_APPLY){
+					titleRightTv.setText(curCity);
+				}
+				LogUtil.print("城市::::>>>"+curCity);
+				
 			}
 		}
 	}
@@ -936,8 +940,9 @@ public class MainActivity extends BaseMainActivity implements
 			titleRightIv.setVisibility(View.VISIBLE);
 			titleRightTv.setVisibility(View.VISIBLE);
 			titleTv.setText(CommonUtil.getString(this, R.string.driving_school));
-			titleRightTv.setText(CommonUtil.getString(this,
-					R.string.locationing));
+//			util.saveParam(Config.USER_CITY, curCity);
+			titleRightTv.setText(util.readParam(Config.USER_CITY)==null?CommonUtil.getString(this,
+					R.string.locationing):util.readParam(Config.USER_CITY));
 			break;
 		case TAB_STUDY:
 			titleTv.setText(CommonUtil.getString(this,

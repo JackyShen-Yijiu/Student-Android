@@ -565,6 +565,7 @@ public class SchoolsFragment extends BaseFragment implements
 		} else {
 			if (school.size() == 0) {
 				Toast("没有更多数据了");
+//				swipeLayout.setLoading(true);
 			} else {
 
 				schoolList.addAll(school);
@@ -922,7 +923,9 @@ public class SchoolsFragment extends BaseFragment implements
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-
+		if(position==0){
+			return ;
+		}
 		LogUtil.print("onItemClick---" + type);
 		if (type == 0) {
 			Intent intent = new Intent(getActivity(),
@@ -1105,6 +1108,7 @@ public class SchoolsFragment extends BaseFragment implements
 	private void setSearchData(List<SchoolVO> school, int selectIndex) {
 		if (searchIndex == 1) {
 			schoolList.clear();
+			adapter.notifyDataSetChanged();
 			if (school.size() == 0) {
 				Toast("没有搜索到您要找的驾校");
 				return;

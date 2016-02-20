@@ -92,11 +92,12 @@ public class EnrollFragment extends BaseFragment{
 	}
 	
 	public void onActivityResult(int requestCode, int resultCode, Intent data){
-		if(type == 0){
-			schoolFragment.onActivityResult(requestCode, resultCode, data);
-		}else{
-			coachFragment.onActivityResult(requestCode, resultCode, data);
-		}
+//		if(type == 0){
+//			
+//			schoolFragment.onActivityResult(requestCode, resultCode, data);
+//		}else{
+//			coachFragment.onActivityResult(requestCode, resultCode, data);
+//		}
 	}
 
 	

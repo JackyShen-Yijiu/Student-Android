@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/background_light"
+    android:background="@color/white"
     android:clipToPadding="true"
     android:fitsSystemWindows="true" >
 
@@ -11,18 +11,19 @@
     <View
         android:id="@+id/school_detail_top_static"
         android:layout_width="match_parent"
-        android:layout_height="100dp" />
+        android:layout_height="50dp" />
 
     <com.sft.viewutil.MyScrollView
         android:id="@+id/school_detail_scrollview"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:fillViewport="true" >
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="#00000000"
+            android:background="@color/white"
             android:orientation="vertical"
             android:paddingBottom="40dp" >
 
@@ -47,15 +48,7 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/headpic_cover" />
 
-                    <View
-                        android:id="@+id/school_detail_top_ll"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_above="@+id/school_detail_name_tv"
-                        android:layout_alignParentTop="true"
-                        android:background="@color/new_app_main_color"
-                        android:visibility="gone" >
-                    </View>
+                    
 
                     <TextView
                         android:id="@+id/school_detail_name_tv"
@@ -78,6 +71,15 @@
                         android:orientation="horizontal"
                         android:visibility="gone" >
                     </LinearLayout>
+                    
+                    <View
+                        android:id="@+id/school_detail_top_ll"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentTop="true"
+                        android:background="@color/new_app_main_color"
+                        android:visibility="gone" >
+                    </View>
                 </RelativeLayout>
 
                 <CheckBox
@@ -258,6 +260,7 @@
                     android:clickable="true"
                     android:drawableLeft="@drawable/schooldetail_introduction_icon"
                     android:drawablePadding="30dp"
+                    android:ellipsize="end"
                     android:text="介绍" />
             </RelativeLayout>
 
@@ -341,6 +344,7 @@
                     android:text="@string/no_coach"
                     android:textColor="#333333"
                     android:textSize="14dp" />
+                <!-- 空白占位 -->
 
                 <com.sft.view.NoScrollListView
                     android:id="@+id/school_coach_listview"
@@ -360,6 +364,8 @@
                     android:dividerHeight="0dp"
                     android:listSelector="@android:color/transparent"
                     android:visibility="gone" />
+                
+                
             </LinearLayout>
 
             <!--
