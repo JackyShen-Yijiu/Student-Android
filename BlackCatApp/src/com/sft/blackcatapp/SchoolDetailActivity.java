@@ -153,7 +153,13 @@ public class SchoolDetailActivity extends BaseActivity implements
 	private View viewTop;
 	private View viewTopStatic;
 	private View titleLayout;
+<<<<<<< HEAD
 	private int hegiht;
+=======
+	private int hegiht; 
+	/**暂无训练场 照片*/
+	private TextView tvNoPic;
+>>>>>>> d3a28692286c57c61dd25c9aaad971a78cc8a19c
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -216,8 +222,13 @@ public class SchoolDetailActivity extends BaseActivity implements
 		titleTV.getPaint().setFakeBoldText(true);
 		titleTV.setText("");
 		left.setImageResource(R.drawable.base_left_btn_bkground);
+<<<<<<< HEAD
 		phone.setImageResource(R.drawable.phone);
 
+=======
+		phone.setImageResource(R.drawable.chat_voice_call_self);
+		
+>>>>>>> d3a28692286c57c61dd25c9aaad971a78cc8a19c
 		phone.setOnClickListener(this);
 		left.setOnClickListener(this);
 		bus.setOnClickListener(this);
@@ -243,6 +254,9 @@ public class SchoolDetailActivity extends BaseActivity implements
 		adLayout = (RelativeLayout) findViewById(R.id.school_detail_headpic_im);
 		viewPager = (InfiniteViewPager) findViewById(R.id.school_detail_viewpager);
 		dotLayout = (LinearLayout) findViewById(R.id.school_detail_dotlayout);
+		
+		tvNoPic = (TextView) findViewById(R.id.school_detail_nopic_tv);
+		
 
 		coachlistView = (ListView) findViewById(R.id.school_coach_listview);
 		courselistView = (ListView) findViewById(R.id.course_fee_listview);
@@ -351,6 +365,13 @@ public class SchoolDetailActivity extends BaseActivity implements
 
 			// 动态添加训练场地的图片
 			String[] trainPicStrings = school.getPictures();
+			if(trainPicStrings.length == 0){
+				tvNoPic.setVisibility(View.VISIBLE);
+				trainGroundLayout.setVisibility(View.GONE);
+			}else{
+				tvNoPic.setVisibility(View.GONE);
+				trainGroundLayout.setVisibility(View.VISIBLE);
+			}
 			for (int i = 0; i < trainPicStrings.length; i++) {
 				ImageView imageView = new ImageView(this);
 				LayoutParams params = new LayoutParams(dp2px(90), dp2px(60));
@@ -624,6 +645,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 					courseFeeAdapter = new SchoolDetailCourseFeeAdapter(
 							courseList, SchoolDetailActivity.this, mListener,
 							enrollState);
+					courseFeeAdapter.setName(school.getName());
 					// courseFeeAdapter.setData(twoCoach);
 					courselistView.setAdapter(courseFeeAdapter);
 					setListViewHeightBasedOnChildren(coachlistView);

@@ -10,6 +10,7 @@
     <color name="main_bg">#f7f9fb</color>
     <!-- app的主色调 -->
     <color name="app_main_title_color">#fefefe</color>
+
     <color name="app_main_color">#ff6633</color>
       <!-- 新加的色调 -->
     <color name="left_gray">#bdbdbd</color> 

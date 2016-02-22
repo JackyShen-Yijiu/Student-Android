@@ -14,6 +14,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ImageView.ScaleType;
 import cn.sft.infinitescrollviewpager.BitmapManager;
@@ -157,7 +158,7 @@ public class SchoolListAdapter extends BaseAdapter {
 
 		String headUrl = mData.get(position).getLogoimg().getOriginalpic();
 
-		LinearLayout.LayoutParams headParams = (LinearLayout.LayoutParams) holder.headPic1
+		RelativeLayout.LayoutParams headParams = (RelativeLayout.LayoutParams) holder.headPic1
 				.getLayoutParams();
 
 		if (TextUtils.isEmpty(headUrl)) {
