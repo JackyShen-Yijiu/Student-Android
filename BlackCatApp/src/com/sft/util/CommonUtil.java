@@ -1,5 +1,7 @@
 package com.sft.util;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -131,5 +133,32 @@ public class CommonUtil {
 		} catch (NameNotFoundException e) {
 			return false;
 		}
+	}
+
+	/**
+	 * 判断两个日期的大小
+	 * 
+	 * @param DATE1
+	 * @param DATE2
+	 * @return
+	 */
+	public static int compare_date(String DATE1, String DATE2) {
+
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+		try {
+			Date dt1 = df.parse(DATE1);
+			Date dt2 = df.parse(DATE2);
+			if (dt1.getTime() > dt2.getTime()) {
+				System.out.println("dt1 在dt2前");
+				return 1;
+			} else if (dt1.getTime() < dt2.getTime()) {
+				return -1;
+			} else {
+				return 0;
+			}
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
+		return 0;
 	}
 }

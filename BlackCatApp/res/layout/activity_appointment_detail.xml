@@ -1,252 +1,366 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/bg"
-    android:clipToPadding="true"  
-	android:fitsSystemWindows="true"  
+    android:background="@color/app_bg_light"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
     android:orientation="vertical" >
 
     <RelativeLayout
+        android:id="@+id/appointment_detail_title"
         android:layout_width="match_parent"
-        android:background="@color/transparent"
-        android:layout_height="50dp" >
+        android:layout_height="200dp"
+        android:background="@android:color/transparent" >
 
-        <ImageButton
-            android:id="@+id/appointment_detail_left_btn"
-            android:layout_width="@dimen/base_titlebar_leftright_btn_width"
-            android:layout_height="@dimen/base_titlebar_leftright_btn_height"
-            android:layout_centerVertical="true"
-            android:background="@drawable/base_left_btn_bkground"
-            android:contentDescription="@string/app_name" />
+        <ImageView
+            android:id="@+id/appointment_detail_school_pic_iv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/applydefault" />
 
-        <TextView
-            android:id="@+id/appointment_detail_title_tv"
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ddcccccc" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp" >
+
+            <ImageButton
+                android:id="@+id/appointment_detail_left_btn"
+                android:layout_width="@dimen/base_titlebar_leftright_btn_width"
+                android:layout_height="@dimen/base_titlebar_leftright_btn_height"
+                android:layout_centerVertical="true"
+                android:background="@drawable/base_left_btn_bkground"
+                android:contentDescription="@string/app_name" />
+
+            <ImageButton
+                android:id="@+id/appointment_detail_right_first_btn"
+                android:layout_width="@dimen/base_titlebar_leftright_btn_width"
+                android:layout_height="@dimen/base_titlebar_leftright_btn_height"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/appointment_detail_right_second_btn"
+                android:background="@drawable/calender_bkground"
+                android:contentDescription="@string/app_name"
+                android:visibility="gone" />
+
+            <ImageButton
+                android:id="@+id/appointment_detail_right_second_btn"
+                android:layout_width="@dimen/base_titlebar_leftright_btn_width"
+                android:layout_height="@dimen/base_titlebar_leftright_btn_height"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/chat_btn_bkground"
+                android:contentDescription="@string/app_name" />
+        </RelativeLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="@string/app_name"
-            android:textColor="#fff"
-            android:textSize="18dp"
-            android:textStyle="bold" />
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
 
-        <ImageButton
-            android:id="@+id/appointment_detail_right_first_btn"
-            android:layout_width="@dimen/base_titlebar_leftright_btn_width"
-            android:layout_height="@dimen/base_titlebar_leftright_btn_height"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/appointment_detail_right_second_btn"
-            android:background="@drawable/calender_bkground"
-            android:visibility="gone"
-            android:contentDescription="@string/app_name" />
+            <com.joooonho.SelectableRoundedImageView
+                android:id="@+id/appointment_detail_headpic_im"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/ic_launcher"
+                android:contentDescription="@string/app_name" />
 
-        <ImageButton
-            android:id="@+id/appointment_detail_right_second_btn"
-            android:layout_width="@dimen/base_titlebar_leftright_btn_width"
-            android:layout_height="@dimen/base_titlebar_leftright_btn_height"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:background="@drawable/chat_btn_bkground"
-            android:contentDescription="@string/app_name" />
+            <TextView
+                android:id="@+id/appointment_detail_coachname_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:text="郑容和"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <RatingBar
+                android:id="@+id/appointment_detail_coach_level_rb"
+                style="@style/roomRatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14sp"
+                android:isIndicator="true"
+                android:rating="3" />
+        </LinearLayout>
     </RelativeLayout>
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#cccccc"
-        android:contentDescription="@string/app_name" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/appointment_detail_title"
+        android:layout_marginLeft="15dp"
+        android:orientation="vertical" >
 
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="#ffffff" >
-
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_height="fill_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp" >
+
+            <ImageView
+                android:id="@+id/appointment_detail_class_name_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/ic_unchecked" />
+
+            <TextView
+                android:id="@+id/appointment_detail_class_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/appointment_detail_class_name_iv"
+                android:layout_marginLeft="30sp"
+                android:layout_toRightOf="@+id/appointment_detail_class_name_iv"
+                android:text="科目二 第二课时"
+                android:textColor="@color/txt_333"
+                android:textSize="12dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp" >
+
+            <ImageView
+                android:id="@+id/appointment_detail_class_desc_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/ic_unchecked" />
+
+            <TextView
+                android:id="@+id/appointment_detail_desc_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/appointment_detail_class_desc_iv"
+                android:layout_marginLeft="30sp"
+                android:layout_toRightOf="@+id/appointment_detail_class_desc_iv"
+                android:text="侧方停车"
+                android:textColor="@color/txt_333"
+                android:textSize="12dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp" >
+
+            <ImageView
+                android:id="@+id/appointment_detail_time_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/ic_unchecked" />
+
+            <TextView
+                android:id="@+id/appointment_detail_time_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/appointment_detail_time_iv"
+                android:layout_marginLeft="30sp"
+                android:layout_toRightOf="@+id/appointment_detail_time_iv"
+                android:text="2016年01月01日 12:00-13:00"
+                android:textColor="@color/txt_333"
+                android:textSize="12dp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/line_color" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp" >
+
+            <ImageView
+                android:id="@+id/appointment_detail_school_name_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/ic_unchecked" />
+
+            <TextView
+                android:id="@+id/appointment_detail_school_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/appointment_detail_school_name_iv"
+                android:layout_marginLeft="30sp"
+                android:layout_toRightOf="@+id/appointment_detail_school_name_iv"
+                android:text="一步互联网驾校"
+                android:textColor="@color/txt_333"
+                android:textSize="12dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp" >
+
+            <ImageView
+                android:id="@+id/appointment_detail_training_grounds_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/ic_unchecked" />
+
+            <TextView
+                android:id="@+id/appointment_detail_training_grounds_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/appointment_detail_training_grounds_iv"
+                android:layout_marginLeft="30sp"
+                android:layout_toRightOf="@+id/appointment_detail_training_grounds_iv"
+                android:text="一步互联网训练场"
+                android:textColor="@color/txt_333"
+                android:textSize="12dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp" >
+
+            <ImageView
+                android:id="@+id/appointment_detail_shuttle_address_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/ic_unchecked" />
+
+            <TextView
+                android:id="@+id/appointment_detail_shuttle_address_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/appointment_detail_shuttle_address_iv"
+                android:layout_marginLeft="30sp"
+                android:layout_toRightOf="@+id/appointment_detail_shuttle_address_iv"
+                android:text="接送地址 天通苑"
+                android:textColor="@color/txt_333"
+                android:textSize="12dp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/line_color" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/appointment_detail_coach_cancel_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true" >
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/app_bg_dark" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="93dp"
+            android:background="@color/white" >
+
+            <com.joooonho.SelectableRoundedImageView
+                android:id="@+id/appointment_detail_coach_pic_iv"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/ic_launcher"
+                android:contentDescription="@string/app_name" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/appointment_detail_coach_pic_iv"
+                android:layout_below="@+id/appointment_detail_coach_pic_iv"
+                android:layout_marginTop="8dp"
+                android:text="教练取消"
+                android:textColor="@color/app_main_color"
+                android:textSize="10sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="15dp" >
-
-                <ImageView
-                    android:id="@+id/appointment_detail_headpic_im"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:contentDescription="@string/app_name" />
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp" >
-
-                    <TextView
-                        android:id="@+id/appointment_detail_coachname_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#333333"
-                        android:textSize="16dp" />
-
-                    <TextView
-                        android:id="@+id/appointment_detail_coachschool_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/appointment_detail_coachname_tv"
-                        android:layout_marginTop="10dp"
-                        android:textColor="#999999"
-                        android:textSize="14dp" />
-                </RelativeLayout>
-            </LinearLayout>
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
                 android:layout_marginLeft="15dp"
-                android:background="#cccccc"
-                android:contentDescription="@string/app_name" />
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_toRightOf="@+id/appointment_detail_coach_pic_iv"
                 android:orientation="vertical" >
 
                 <TextView
+                    android:id="@+id/appointment_detail_coach_cancel_title_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/study_process"
-                    android:textColor="#333333"
-                    android:textSize="14dp" />
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="15dp"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:text="教练取消理由"
+                    android:textColor="@color/txt_333"
+                    android:textSize="12dp" />
 
                 <TextView
-                    android:id="@+id/appointment_detail_process_tv"
+                    android:id="@+id/appointment_detail_coach_cancel_reason_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="11dp"
-                    android:textColor="#333333"
-                    android:textSize="14dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/course_info"
-                    android:textColor="#333333"
-                    android:textSize="14dp" />
-
-                <TextView
-                    android:id="@+id/appointment_detail_time_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="11dp"
-                    android:textColor="#333333"
-                    android:textSize="14dp" />
-
-                <TextView
-                    android:id="@+id/appointment_detail_trainplace_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:textColor="#333333"
-                    android:textSize="14dp" />
-
-                <TextView
-                    android:id="@+id/appointment_detail_shuttleplace_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:textColor="#333333"
-                    android:textSize="14dp" />
-
-                <LinearLayout
-                    android:id="@+id/appointment_detail_comment_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_marginTop="24dp"
-                    android:orientation="horizontal"
-                    android:visibility="gone" >
-
-                    <Button
-                        android:id="@+id/appointment_detail_complain_btn"
-                        style="@style/btn_style"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:text="@string/complain" />
-
-                    <Button
-                        android:id="@+id/appointment_detail_comment_btn"
-                        style="@style/btn_style"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="14dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/appointment_detail_comment_btn_bkground"
-                        android:text="@string/comment" />
-                </LinearLayout>
-
-                <Button
-                    android:id="@+id/appointment_detail_confirm_btn"
-                    style="@style/btn_style"
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="24dp"
-                    android:text="@string/confirm_study"
-                    android:visibility="gone" />
-
-                <LinearLayout
-                    android:id="@+id/appointment_detail_cancel_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:visibility="gone" >
-
-                    <com.baidu.mapapi.map.MapView
-                        android:id="@+id/appointment_detail_bmapView"
-                        android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:layout_marginTop="9dp"
-                        android:clickable="true" />
-
-                    <Button
-                        android:id="@+id/appointment_detail_cancel_btn"
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_marginBottom="20dp"
-                        android:layout_marginTop="20dp"
-                        android:background="@drawable/appointment_detail_cancel_bkground"
-                        android:text="@string/cancel_appointment"
-                        android:textColor="#ffffff"
-                        android:textSize="16dp" />
-
-                    <!-- <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="#cccccc"
-                        android:contentDescription="@string/app_name" /> -->
-
-                   <!--  <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="11dp"
-                        android:layout_marginTop="13dp"
-                        android:text="@string/sametime_student"
-                        android:textColor="#333333"
-                        android:textSize="14dp" />
-
-                    <cn.sft.pull.LoadMoreView
-                        xmlns:test="http://schemas.android.com/apk/res/com.sft.blackcatapp"
-                        android:id="@+id/appointment_detail_horizon_listview"
-                        android:layout_width="match_parent"
-                        android:layout_marginBottom="10dp"
-                        android:layout_height="45dp" /> -->
-                </LinearLayout>
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="10dp"
+                    android:text="很抱歉，今天有些头痛，不好意思。"
+                    android:textColor="@color/txt_999"
+                    android:textSize="12sp" />
             </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
+        </RelativeLayout>
+    </LinearLayout>
 
-</LinearLayout>
+    <RelativeLayout
+        android:id="@+id/appointment_detail_cancel_appoint_rl"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:visibility="gone" >
+
+        <TextView
+            android:id="@+id/appointment_detail_below_time_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:text="02月01日 09:00-10:00 科目二"
+            android:textColor="@color/txt_333"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/appointment_detail_cancel_but"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/button"
+            android:text="@string/cancel_appointment"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+</RelativeLayout>

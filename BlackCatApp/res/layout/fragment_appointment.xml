@@ -12,97 +12,40 @@
         android:paddingRight="8dp"
         android:paddingTop="10dp" />
 
-    <com.sft.view.WeekViewPager
-        android:id="@+id/viewPager"
-        android:layout_width="match_parent"
-        android:layout_height="67dp" >
-    </com.sft.view.WeekViewPager>
-
+    <include layout="@layout/layout_error"/>
     <RelativeLayout
+        android:id="@+id/appointment_has_coach_rl"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="match_parent"
+         >
 
-        <TextView
-            android:id="@+id/my_appointment_subject_value_tv"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/red_point"
-            android:gravity="center"
-            android:textColor="#ffffff"
-            android:textSize="24dp" />
-
-        <LinearLayout
+        <com.sft.view.WeekViewPager
+            android:id="@+id/viewPager"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_toRightOf="@+id/my_appointment_subject_value_tv"
-            android:visibility="visible" >
+            android:layout_height="67dp" >
+        </com.sft.view.WeekViewPager>
 
-            <TextView
-                android:id="@+id/my_appointment_subject_text_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginRight="15dp"
-                android:gravity="center_vertical"
-                android:singleLine="true"
-           
-                android:textColor="@color/txt_333"
-                android:textSize="16dp" />
-            
-             <RelativeLayout
+        <me.maxwin.view.XListView
+            android:id="@+id/my_appointment_listview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-             >
-
-            <TextView
-                android:id="@+id/my_appoint_studied"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="15dp"
-                android:textColor="@color/txt_999"
-                 />
-
-            <TextView
-                android:id="@+id/my_appoint_really"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="35dp"
-                android:textColor="@color/txt_999"
-                 />
-
-            <TextView
-                android:id="@+id/my_appoint_notsign"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/my_appoint_studied"
-                android:layout_marginRight="15dp"
-                android:textColor="@color/txt_999"
-                 />
-
-            <TextView
-                android:id="@+id/my_appoint_last"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/my_appoint_studied"
-                android:layout_marginRight="35dp"
-                android:textColor="@color/txt_999"
-                 />
-        </RelativeLayout>
-        </LinearLayout>
-       
+            android:layout_height="match_parent"
+            android:background="#ffffff"
+            android:layout_below="@+id/viewPager"
+            android:cacheColorHint="#00000000"
+            android:descendantFocusability="blocksDescendants"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            android:fadingEdge="none"
+            android:listSelector="@android:color/transparent"
+            android:overScrollMode="always"
+            android:scrollbars="none" />
+        <!--
+      <cn.sft.pull.RefreshLoadMoreView
+        xmlns:test="http://schemas.android.com/apk/res/com.sft.blackcatapp"
+        android:id="@+id/my_appointment_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+        -->
     </RelativeLayout>
-    <View 
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="19dp"
-        android:background="@color/line_color"/>
 
 </LinearLayout>

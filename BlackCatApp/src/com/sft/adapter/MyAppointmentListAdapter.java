@@ -1,39 +1,46 @@
 package com.sft.adapter;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.BaseAdapter;
+import android.widget.ImageView.ScaleType;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.sft.infinitescrollviewpager.BitmapManager;
 
-import com.sft.blackcatapp.MyAppointmentActivity;
+import com.joooonho.SelectableRoundedImageView;
 import com.sft.blackcatapp.R;
 import com.sft.common.Config.AppointmentResult;
+import com.sft.util.CommonUtil;
+import com.sft.util.LogUtil;
+import com.sft.util.UTC2LOC;
 import com.sft.vo.MyAppointmentVO;
 
 @SuppressLint({ "InflateParams", "ResourceAsColor" })
-public class MyAppointmentListAdapter extends
-		RecyclerView.Adapter<MyAppointmentListAdapter.ViewHolder> {
+public class MyAppointmentListAdapter extends BaseAdapter {
 
 	private Context context;
 	private LayoutInflater mInflater;
 	private List<MyAppointmentVO> mData;
 
+	private int pos = 0; // 0：显示今天的 预约订单 ， 1：显示除今天以外的订单 ， 2：显示已完成的订单
+	private SimpleDateFormat format;
+
 	public MyAppointmentListAdapter(Context context, List<MyAppointmentVO> mData) {
 		this.mInflater = LayoutInflater.from(context);
 		this.mData = mData;
 		this.context = context;
+		format = new SimpleDateFormat("yyyy-MM-dd");
 	}
 
 	public void changeState(int position, String state) {
@@ -45,6 +52,7 @@ public class MyAppointmentListAdapter extends
 		return mData;
 	}
 
+	@Override
 	public MyAppointmentVO getItem(int arg0) {
 		return mData.get(arg0);
 	}
@@ -54,116 +62,109 @@ public class MyAppointmentListAdapter extends
 		return arg0;
 	}
 
-	class ViewHolder extends RecyclerView.ViewHolder {
+	class ViewHolder {
 
-		public ViewHolder(View itemView) {
-			super(itemView);
-			headpic = (ImageView) itemView
-					.findViewById(R.id.my_appointment_coach_headpic_im);
-			name = (TextView) itemView
-					.findViewById(R.id.my_appointment_item_name_tv);
-			time = (TextView) itemView
-					.findViewById(R.id.my_appointment_item_time_tv);
-			status = (TextView) itemView
-					.findViewById(R.id.my_appointment_item_status_tv);
-			circle = (ImageView) itemView
-					.findViewById(R.id.my_appointment_item_circle_im);
-			line = (ImageView) itemView
-					.findViewById(R.id.my_appointment_item_rightline_im);
-			layout = (RelativeLayout) itemView
-					.findViewById(R.id.my_appointment_item_layout);
-			coachinfo = (TextView) itemView
-					.findViewById(R.id.my_appointment_item_coachinfo_tv);
-		}
-
-		public ImageView headpic;
-		public ImageView circle;
-		public ImageView line;
+		public SelectableRoundedImageView headpic;
 		public RelativeLayout layout;
 		public TextView name;
 		public TextView time;
 		public TextView status;
-		public TextView coachinfo;
+		public TextView schoolinfo;
+		public TextView classInfo;
+		public View line, splitLine;
 	}
 
 	@Override
-	public int getItemCount() {
+	public int getCount() {
 		return mData.size();
 	}
 
 	@Override
-	public void onBindViewHolder(ViewHolder holder, final int position) {
-		holder.layout.setOnClickListener(new OnClickListener() {
+	public View getView(int position, View convertView, ViewGroup parent) {
 
-			@Override
-			public void onClick(View v) {
-				context.sendBroadcast(new Intent(MyAppointmentActivity.class
-						.getName()).putExtra("position", position).putExtra(
-						"isJump", true));
-			}
-		});
+		final int index = position;
+		ViewHolder holder = null;
+		if (convertView == null) {
+			holder = new ViewHolder();
+			convertView = mInflater.inflate(R.layout.my_appointment_list_item,
+					null);
+
+			holder.headpic = (SelectableRoundedImageView) convertView
+					.findViewById(R.id.my_appointment_coach_headpic_im);
+			holder.name = (TextView) convertView
+					.findViewById(R.id.my_appointment_item_name_tv);
+			holder.time = (TextView) convertView
+					.findViewById(R.id.my_appointment_item_time_tv);
+			holder.status = (TextView) convertView
+					.findViewById(R.id.my_appointment_item_status_tv);
+			holder.layout = (RelativeLayout) convertView
+					.findViewById(R.id.my_appointment_item_layout);
+			holder.schoolinfo = (TextView) convertView
+					.findViewById(R.id.my_appointment_item_schoolinfo_tv);
+			holder.classInfo = (TextView) convertView
+					.findViewById(R.id.my_appointment_item_class_tv);
+			holder.line = convertView
+					.findViewById(R.id.my_appointment_item_line_iv);
+			holder.splitLine = convertView
+					.findViewById(R.id.my_appointment_item_split_line_iv);
+			convertView.setTag(holder);
+		} else {
+
+			holder = (ViewHolder) convertView.getTag();
+		}
+		holder.headpic.setScaleType(ScaleType.CENTER_CROP);
+		holder.headpic.setImageResource(R.drawable.default_small_pic);
+		holder.headpic.setOval(true);
+		// holder.layout.setOnClickListener(new OnClickListener() {
+		//
+		// @Override
+		// public void onClick(View v) {
+		// LogUtil.print("预约详情ooo");
+		// context.sendBroadcast(new Intent(MyAppointmentActivity.class
+		// .getName()).putExtra("position", index).putExtra(
+		// "isJump", true));
+		// }
+		// });
 
 		String state = mData.get(position).getReservationstate();
 
 		if (state.equals(AppointmentResult.applyconfirm.getValue())) {
 			// 已接受
-			holder.circle.setBackgroundResource(R.drawable.finish_circle);
 			holder.status.setText("已接受");
-			holder.status.setTextColor(Color.parseColor("#26cf9a"));
-			holder.line.setBackgroundColor(Color.parseColor("#caf7e9"));
 		} else if (state.equals(AppointmentResult.unconfirmfinish.getValue())) {
 			// 待确认学完
-			holder.circle.setBackgroundResource(R.drawable.evaluate_circle);
 			holder.status.setText("待确认学完");
-			holder.status.setTextColor(Color.parseColor("#ff9333"));
-			holder.line.setBackgroundColor(Color.parseColor("#ffe9bd"));
 		} else if (state.equals(AppointmentResult.ucomments.getValue())) {
 			// 待评价
-			holder.circle.setBackgroundResource(R.drawable.evaluate_circle);
 			holder.status.setText("待评价");
-			holder.status.setTextColor(Color.parseColor("#ff9333"));
-			holder.line.setBackgroundColor(Color.parseColor("#ffe9bd"));
 		} else {
-			holder.circle.setBackgroundResource(R.drawable.appointment_circle);
 			if (state.equals(AppointmentResult.applying.getValue())) {
 				// 待接受
-				holder.status.setText("待接受");
-				holder.status.setTextColor(Color.parseColor("#ff6633"));
-				holder.line.setBackgroundColor(Color.parseColor("#ff6633"));
+				holder.status.setText("请求中");
 			} else if (state.equals(AppointmentResult.applycancel.getValue())) {
 				// 已取消
 				holder.status.setText("已取消");
 				holder.status.setTextColor(Color.parseColor("#999999"));
-				holder.line.setBackgroundColor(Color.parseColor("#999999"));
 			} else if (state.equals(AppointmentResult.applyrefuse.getValue())) {
 				// 教练取消
 				holder.status.setText("教练取消");
 				holder.status.setTextColor(Color.parseColor("#999999"));
-				holder.line.setBackgroundColor(Color.parseColor("#999999"));
 			} else if (state.equals(AppointmentResult.finish.getValue())) {
 				// 完成的订单
-				holder.status.setText("完成");
-				holder.status.setTextColor(Color.parseColor("#999999"));
-				holder.line.setBackgroundColor(Color.parseColor("#999999"));
+				holder.status.setText("已完成");
 			} else if (state.equals(AppointmentResult.systemcancel.getValue())) {
 				// 系统取消
-				holder.status.setText("系统取消");
-				holder.status.setTextColor(Color.parseColor("#999999"));
-				holder.line.setBackgroundColor(Color.parseColor("#999999"));
+				holder.status.setText("已完成");
 			} else if (state.equals(AppointmentResult.signfinish.getValue())) {
 				// 已签到
 				holder.status.setText("已签到");
-				holder.status.setTextColor(Color.parseColor("#999999"));
-				holder.line.setBackgroundColor(Color.parseColor("#999999"));
 			} else if (state.equals(AppointmentResult.missclass.getValue())) {
 				// 漏课
-				holder.status.setText("漏课");
-				holder.status.setTextColor(Color.parseColor("#999999"));
-				holder.line.setBackgroundColor(Color.parseColor("#999999"));
+				holder.status.setText("已漏课");
 			}
 		}
 
-		RelativeLayout.LayoutParams headParams = (RelativeLayout.LayoutParams) holder.headpic
+		LinearLayout.LayoutParams headParams = (LinearLayout.LayoutParams) holder.headpic
 				.getLayoutParams();
 
 		String url = mData.get(position).getCoachid().getHeadportrait()
@@ -175,22 +176,66 @@ public class MyAppointmentListAdapter extends
 					headParams.width, headParams.height);
 		}
 
-		holder.name.setText(mData.get(position).getCourseprocessdesc());
-		holder.time.setText(mData.get(position).getClassdatetimedesc());
-
 		String coachName = mData.get(position).getCoachid().getName();
+		holder.name.setText(coachName);
+
 		String schoolName = mData.get(position).getCoachid()
 				.getDriveschoolinfo().getName();
 		String trainPlace = mData.get(position).getTrainfieldlinfo()
 				.getFieldname();
 
-		holder.coachinfo.setText(coachName + ", "
-				+ (TextUtils.isEmpty(trainPlace) ? schoolName : trainPlace));
-	}
+		holder.classInfo.setText(mData.get(position).getCourseprocessdesc());
+		holder.schoolinfo.setText(schoolName + trainPlace);
 
-	@Override
-	public ViewHolder onCreateViewHolder(ViewGroup arg0, int arg1) {
-		View view = mInflater.inflate(R.layout.my_appointment_list_item, null);
-		return new ViewHolder(view);
+		// 分块显示
+
+		String todayPosition = UTC2LOC.instance.getDate(mData.get(position)
+				.getBegintime(), "yyyy-MM-dd");
+		if (CommonUtil.compare_date(format.format(new Date()), todayPosition) == 0) {
+			// 今天
+			holder.line.setVisibility(View.VISIBLE);
+			holder.splitLine.setVisibility(View.GONE);
+			holder.time.setText("今天  "
+					+ UTC2LOC.instance.getDate(mData.get(position)
+							.getBegintime(), "HH:mm")
+					+ "-"
+					+ UTC2LOC.instance.getDate(
+							mData.get(position).getEndtime(), "HH:mm"));
+
+		} else if (CommonUtil.compare_date(format.format(new Date()),
+				todayPosition) > 0) {
+			holder.time.setText(mData.get(position).getClassdatetimedesc());
+			if (pos == 0) {
+				pos++;
+				if (position > 0) {
+					LogUtil.print("position" + position);
+					holder.line.setVisibility(View.GONE);
+					holder.splitLine.setVisibility(View.VISIBLE);
+				} else {
+
+					holder.line.setVisibility(View.VISIBLE);
+					holder.splitLine.setVisibility(View.GONE);
+				}
+			} else {
+
+				holder.line.setVisibility(View.VISIBLE);
+				holder.splitLine.setVisibility(View.GONE);
+			}
+
+		} else {
+			holder.time.setText(mData.get(position).getClassdatetimedesc());
+			if (pos == 1) {
+				pos++;
+				holder.line.setVisibility(View.GONE);
+				holder.splitLine.setVisibility(View.VISIBLE);
+			} else {
+				holder.line.setVisibility(View.VISIBLE);
+				holder.splitLine.setVisibility(View.GONE);
+			}
+		}
+
+		holder.line.setVisibility(View.VISIBLE);
+
+		return convertView;
 	}
 }

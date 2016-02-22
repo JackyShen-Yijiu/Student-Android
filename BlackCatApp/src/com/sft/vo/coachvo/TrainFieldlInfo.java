@@ -12,7 +12,7 @@ public class TrainFieldlInfo extends DBVO {
 	private String[] pictures;
 
 	public String getFieldname() {
-		return fieldname;
+		return fieldname == null ? "" : fieldname;
 	}
 
 	public void setFieldname(String fieldname) {

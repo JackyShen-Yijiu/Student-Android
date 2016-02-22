@@ -156,7 +156,8 @@ public class MyAppointmentVO extends DBVO {
 	}
 
 	public TrainFieldlInfo getTrainfieldlinfo() {
-		return trainfieldlinfo == null ? new TrainFieldlInfo() : trainfieldlinfo;
+		return trainfieldlinfo == null ? new TrainFieldlInfo()
+				: trainfieldlinfo;
 	}
 
 	public void setTrainfieldlinfo(TrainFieldlInfo trainfieldlinfo) {
