@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:background="@color/search_bg"
      >
-
+<!-- search_bg -->
     <RelativeLayout
         android:id="@+id/enroll_school_top_headpic_im"
         android:layout_width="match_parent"
@@ -200,6 +200,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        android:layout_marginBottom="8dp"
         android:layout_below="@+id/enroll_school_divide_line"
         android:hint="@string/search_school"
         android:imeOptions="actionSearch"
@@ -216,6 +217,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#dddddd"
+        android:visibility="gone"
         android:layout_below="@+id/enroll_school_search_et"
         android:layout_marginTop="6dp"
         android:contentDescription="@string/app_name" />
