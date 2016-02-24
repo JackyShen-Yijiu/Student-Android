@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="95dp"
         android:background="#e6e6e6" />
 
     <LinearLayout
@@ -124,14 +124,14 @@
                     android:layout_height="wrap_content"
                     android:textColor="#999999"
                     android:singleLine="true"
-                    android:textSize="14dp" />
+                    android:textSize="@dimen/txt_size_ss" />
                 <TextView
                     android:id="@+id/search_coach_age_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                      android:layout_alignParentRight="true"
                     android:textColor="#999999"
-                    android:textSize="12dp" />
+                    android:textSize="@dimen/txt_size_ss" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -144,7 +144,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/app_main_color"
-                    android:textSize="14dp" />
+                    android:textSize="@dimen/txt_size_small" />
 
                 <TextView
                     android:id="@+id/search_coach_distance_tv"
@@ -152,7 +152,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:textColor="#999999"
-                    android:textSize="12dp" />
+                    android:visibility="gone"
+                    android:textSize="@dimen/txt_size_ss" />
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>

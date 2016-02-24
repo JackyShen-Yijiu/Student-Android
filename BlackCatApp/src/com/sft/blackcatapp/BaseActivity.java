@@ -54,7 +54,7 @@ public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity
 	// 标题栏
 	protected LinearLayout titlebarLayout;
 	// 标题栏左边按钮
-	private ImageButton leftBtn;
+	protected ImageButton leftBtn;
 	// 标题栏右边按钮
 	private ImageButton rightBtn;
 	// 标题栏左边文本
@@ -180,7 +180,6 @@ public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity
 	}
 
 	private void setListener() {
-
 		leftBtn.setOnClickListener(this);
 		rightBtn.setOnClickListener(this);
 		leftTV.setOnClickListener(this);

@@ -12,29 +12,69 @@
         android:paddingLeft="15dp"
         android:paddingRight="15dp" >
 
-        <TextView
+        
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+            <TextView
             android:id="@+id/course_fee_title_tv"
             style="@style/coachdetail_title_style"
+            android:text="title"
             android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/course_fee_price_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="20dp"
+                android:textStyle="bold"
+                android:text="￥0" />
+            
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/course_fee_intro_tv"
             style="@style/coachdetail_content_style"
+            android:text="intro"
             android:layout_marginTop="5dp" />
 
-        <Button
+        
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="15dp" >
+            
+            <TextView
+            android:id="@+id/course_fee_name_title_price_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textColor="@color/txt_333"
+            android:textSize="14sp"
+            android:text="title"
+            android:gravity="center_vertical"
+             />
+            
+            <Button
             android:id="@+id/course_fee_enroll_btn"
             style="@style/btn_style"
-            android:layout_width="130dp"
-            android:layout_height="45dp"
+            android:layout_width="90dp"
+            android:layout_height="36dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="15dp"
+            
+            android:layout_alignParentRight="true"
             android:focusable="false"
             android:text="@string/enroll" />
+            
+        </RelativeLayout>
+
     </LinearLayout>
 
     <ImageView
-        style="@style/coachdetail_devider_style"
+        style="@style/coachdetail_devider_style1"
         android:layout_marginTop="10dp"
         android:contentDescription="@string/app_name" />
 

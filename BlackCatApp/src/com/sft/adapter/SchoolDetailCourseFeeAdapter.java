@@ -23,6 +23,8 @@ public class SchoolDetailCourseFeeAdapter extends BaseAdapter {
 	private List<ClassVO> mList;
 	private MyClickListener mListener;
 	private String enrollstate;
+	
+	private String schoolName;
 
 	public SchoolDetailCourseFeeAdapter(List<ClassVO> list, Context context,
 			MyClickListener listener, String enrollstate) {
@@ -30,6 +32,10 @@ public class SchoolDetailCourseFeeAdapter extends BaseAdapter {
 		this.mList = list;
 		mListener = listener;
 		this.enrollstate = enrollstate;
+	}
+	
+	public void setName(String name){
+		schoolName = name;
 	}
 
 	@Override
@@ -56,6 +62,13 @@ public class SchoolDetailCourseFeeAdapter extends BaseAdapter {
 				.findViewById(R.id.course_fee_title_tv);
 		TextView intro = (TextView) convertView
 				.findViewById(R.id.course_fee_intro_tv);
+		TextView price = (TextView) convertView
+				.findViewById(R.id.course_fee_price_tv);
+		
+		TextView total = (TextView) convertView
+				.findViewById(R.id.course_fee_name_title_price_tv);
+		
+		
 		Button entrollBut = (Button) convertView
 				.findViewById(R.id.course_fee_enroll_btn);
 
@@ -74,27 +87,33 @@ public class SchoolDetailCourseFeeAdapter extends BaseAdapter {
 			entrollBut.setBackgroundColor(mContext.getResources().getColor(
 					R.color.txt_9));
 		}
-
+		
+		
 		entrollBut.setTag(position);
 		entrollBut.setOnClickListener(mListener);
 
 		ClassVO serverClassList = mList.get(position);
+		
+		total.setText(schoolName+" "+serverClassList.getClassname()+" "+serverClassList.getPrice());
+		
+		price.setText("￥"+ serverClassList.getOnsaleprice());
+
 		title.setText(serverClassList.getClassname());
 
-		intro.setText(serverClassList.getClassdesc() + "¥"
-				+ serverClassList.getOnsaleprice());
+		intro.setText(serverClassList.getClassdesc() );//+ "¥"
+//				+ serverClassList.getOnsaleprice()
 		SpannableStringBuilder builder = new SpannableStringBuilder(intro
 				.getText().toString());
 
 		// ForegroundColorSpan 为文字前景色，BackgroundColorSpan为文字背景色
-		ForegroundColorSpan span = new ForegroundColorSpan(mContext
-				.getResources().getColor(R.color.app_main_color));
-
-		builder.setSpan(span, serverClassList.getClassdesc().length(),
-				serverClassList.getClassdesc().length()
-						+ serverClassList.getOnsaleprice().length() + 1,
-				Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-		intro.setText(builder);
+//		ForegroundColorSpan span = new ForegroundColorSpan(mContext
+//				.getResources().getColor(R.color.app_main_color));
+//
+//		builder.setSpan(span, serverClassList.getClassdesc().length(),
+//				serverClassList.getClassdesc().length()
+//						+ serverClassList.getOnsaleprice().length() + 1,
+//				Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+//		intro.setText(builder);
 		return convertView;
 	}
 

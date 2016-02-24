@@ -2,16 +2,21 @@ package com.sft.blackcatapp;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
+import com.easemob.chat.EMChatManager;
 import com.sft.common.Config;
 import com.sft.util.CommonUtil;
 import com.sft.viewutil.ZProgressHUD;
@@ -29,6 +34,8 @@ public class SettingActivity extends BaseActivity implements
 	private CheckBox appointmentCk, messageCk;
 
 	private TextView aboutUsTv, rateTv, callbackTv;
+	private TextView helpTv;
+	private Button logoutBtn;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +57,11 @@ public class SettingActivity extends BaseActivity implements
 		appointmentCk = (CheckBox) findViewById(R.id.setting_appointment_ck);
 		messageCk = (CheckBox) findViewById(R.id.setting_newmessage_ck);
 
+		helpTv = (TextView) findViewById(R.id.setting_hlep);
 		aboutUsTv = (TextView) findViewById(R.id.setting_aboutus_tv);
 		callbackTv = (TextView) findViewById(R.id.setting_callback_tv);
+
+		logoutBtn = (Button) findViewById(R.id.person_center_logout_btn);
 
 		if (app.userVO.getUsersetting().getNewmessagereminder().equals("true")) {
 			messageCk.setChecked(true);
@@ -69,9 +79,11 @@ public class SettingActivity extends BaseActivity implements
 		aboutUsTv.setOnClickListener(this);
 		// rateTv.setOnClickListener(this);
 		callbackTv.setOnClickListener(this);
-
+		helpTv.setOnClickListener(this);
 		appointmentCk.setOnCheckedChangeListener(this);
 		messageCk.setOnCheckedChangeListener(this);
+
+		logoutBtn.setOnClickListener(this);
 	}
 
 	@Override
@@ -104,6 +116,15 @@ public class SettingActivity extends BaseActivity implements
 		case R.id.base_left_btn:
 			finish();
 			break;
+		case R.id.person_center_logout_btn:
+			ZProgressHUD.getInstance(this).setMessage("正在退出登录...");
+			ZProgressHUD.getInstance(this).show();
+			EMChatManager.getInstance().logout(null);
+			setTag();
+			break;
+		case R.id.setting_hlep:
+			intent = new Intent(this, SettingHelp.class);
+			break;
 		case R.id.setting_aboutus_tv:
 			if (!CommonUtil.isNetworkConnected(this)) {
 				ZProgressHUD.getInstance(this).show();
@@ -119,6 +140,34 @@ public class SettingActivity extends BaseActivity implements
 		if (intent != null) {
 			startActivity(intent);
 		}
+	}
+
+	private void setTag() {
+		if (app.isLogin) {
+			JPushInterface.setAlias(this, "", new MyTagAliasCallback());
+		}
+	}
+
+	private int sum = 0;
+
+	private class MyTagAliasCallback implements TagAliasCallback {
+
+		@Override
+		public void gotResult(int arg0, String arg1, Set<String> arg2) {
+			sum++;
+			if (arg0 != 0 && sum < 5) {
+				setTag();
+			} else {
+				ZProgressHUD.getInstance(SettingActivity.this).dismiss();
+				util.saveParam(Config.LAST_LOGIN_PASSWORD, "");
+				Intent intent = new Intent(SettingActivity.this,
+						LoginActivity.class);
+				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				startActivity(intent);
+			}
+		}
+
 	}
 
 	@Override

@@ -20,7 +20,7 @@
         android:orientation="vertical"
         android:paddingTop="10dp" >
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="#00000000"
@@ -33,6 +33,7 @@
                 android:layout_width="@dimen/selectschool_headpic_height"
                 android:layout_height="@dimen/selectschool_headpic_height"
                 android:layout_marginLeft="15dp"
+                android:layout_marginTop="16dp"
                 android:contentDescription="@string/app_name"
                 app:sriv_border_color="#00000000"
                 app:sriv_border_width="1dip" />
@@ -46,14 +47,16 @@
                 android:contentDescription="@string/app_name" />
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:id="@+id/ll"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/select_school_headpin_im1"
+                android:layout_marginLeft="16dp"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:paddingBottom="5dp"
-                android:paddingRight="15dp"
-                android:paddingTop="5dp" >
+                android:paddingBottom="20dp"
+                android:paddingRight="17dp"
+                android:paddingTop="6dp" >
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -66,7 +69,7 @@
                         android:layout_centerVertical="true"
                         android:singleLine="true"
                         android:textColor="#333333"
-                        android:textSize="16dp" />
+                        android:textSize="@dimen/txt_size_small" />
 
                     <!--
                          <TextView
@@ -100,18 +103,21 @@
                         android:layout_centerVertical="true"
                         android:layout_marginBottom="7dp"
                         android:layout_marginTop="7dp"
+                        android:layout_alignParentLeft="true"
                         android:singleLine="true"
                         android:textColor="#999999"
                         android:layout_toLeftOf="@+id/select_school_distance_tv"
-                        android:textSize="14dp" />
+                        android:text="坐标"
+                        android:textSize="@dimen/txt_size_ss" />
                     <TextView
                         android:id="@+id/select_school_distance_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
+                        android:text="坐标11"
                         android:textColor="#999999"
-                        android:textSize="12dp" />
+                        android:textSize="@dimen/txt_size_ss" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -124,7 +130,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:textColor="#ff7f05"
-                        android:textSize="15sp" />
+                        android:textSize="@dimen/txt_size_small" />
 
                     <TextView
                         android:id="@+id/select_school_comment_coach_tv"
@@ -133,17 +139,21 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:textColor="#ff7f05"
-                        android:textSize="12dp" />
+                        android:textSize="@dimen/txt_size_ss" />
                 </RelativeLayout>
             </LinearLayout>
-        </LinearLayout>
-
-        <ImageView
+            
+            <ImageView
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="10dp"
+            android:layout_alignLeft="@+id/ll"
+            android:layout_alignBottom="@+id/ll"
             android:background="#dddddd"
             android:contentDescription="@string/app_name" />
+        </RelativeLayout>
+
+        
     </LinearLayout>
 
 </RelativeLayout>
