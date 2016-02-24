@@ -267,22 +267,22 @@ public class Act_City extends Activity implements OnScrollListener {
 
 	@SuppressWarnings("unchecked")
 	private ArrayList<City> getCityList() {
-		DBHelper dbHelper = new DBHelper(this);
+//		DBHelper dbHelper = new DBHelper(this);
 		ArrayList<City> list = new ArrayList<City>();
-		try {
-			dbHelper.createDataBase();
-			SQLiteDatabase db = dbHelper.getWritableDatabase();
-			Cursor cursor = db.rawQuery("select * from city", null);
-			City city;
-			while (cursor.moveToNext()) {
-				city = new City(cursor.getString(1), cursor.getString(2));
-				list.add(city);
-			}
-			cursor.close();
-			db.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			dbHelper.createDataBase();
+//			SQLiteDatabase db = dbHelper.getWritableDatabase();
+//			Cursor cursor = db.rawQuery("select * from city", null);
+//			City city;
+//			while (cursor.moveToNext()) {
+//				city = new City(cursor.getString(1), cursor.getString(2));
+//				list.add(city);
+//			}
+//			cursor.close();
+//			db.close();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 		Collections.sort(list, comparator);
 		return list;
 	}

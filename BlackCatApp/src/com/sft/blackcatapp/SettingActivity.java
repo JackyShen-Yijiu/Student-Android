@@ -15,6 +15,7 @@ import android.widget.TextView;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
 import cn.sft.baseactivity.util.HttpSendUtils;
+import cn.sft.infinitescrollviewpager.MyHandler;
 
 import com.easemob.chat.EMChatManager;
 import com.sft.common.Config;
@@ -121,6 +122,7 @@ public class SettingActivity extends BaseActivity implements
 			ZProgressHUD.getInstance(this).show();
 			EMChatManager.getInstance().logout(null);
 			setTag();
+			LoginOut();
 			break;
 		case R.id.setting_hlep:
 			intent = new Intent(this, SettingHelp.class);
@@ -149,6 +151,21 @@ public class SettingActivity extends BaseActivity implements
 	}
 
 	private int sum = 0;
+	
+	private void LoginOut(){
+		new MyHandler(1000) {
+			@Override
+			public void run() {
+				ZProgressHUD.getInstance(SettingActivity.this).dismiss();
+				util.saveParam(Config.LAST_LOGIN_PASSWORD, "");
+				Intent intent = new Intent(SettingActivity.this,
+						LoginActivity.class);
+				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				startActivity(intent);
+			}
+		};
+	}
 
 	private class MyTagAliasCallback implements TagAliasCallback {
 
