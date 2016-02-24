@@ -19,11 +19,6 @@
             android:layout_height="match_parent"
             android:background="@drawable/applydefault" />
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#ddcccccc" />
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp" >
@@ -75,7 +70,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
-                android:text="郑容和"
                 android:textColor="@color/white"
                 android:textSize="14sp" />
 
@@ -86,7 +80,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14sp"
                 android:isIndicator="true"
-                android:rating="3" />
+                android:rating="0" />
         </LinearLayout>
     </RelativeLayout>
 
@@ -117,7 +111,6 @@
                 android:layout_alignTop="@+id/appointment_detail_class_name_iv"
                 android:layout_marginLeft="30sp"
                 android:layout_toRightOf="@+id/appointment_detail_class_name_iv"
-                android:text="科目二 第二课时"
                 android:textColor="@color/txt_333"
                 android:textSize="12dp" />
         </RelativeLayout>
@@ -142,7 +135,6 @@
                 android:layout_alignTop="@+id/appointment_detail_class_desc_iv"
                 android:layout_marginLeft="30sp"
                 android:layout_toRightOf="@+id/appointment_detail_class_desc_iv"
-                android:text="侧方停车"
                 android:textColor="@color/txt_333"
                 android:textSize="12dp" />
         </RelativeLayout>
@@ -167,7 +159,6 @@
                 android:layout_alignTop="@+id/appointment_detail_time_iv"
                 android:layout_marginLeft="30sp"
                 android:layout_toRightOf="@+id/appointment_detail_time_iv"
-                android:text="2016年01月01日 12:00-13:00"
                 android:textColor="@color/txt_333"
                 android:textSize="12dp" />
         </RelativeLayout>
@@ -199,7 +190,6 @@
                 android:layout_alignTop="@+id/appointment_detail_school_name_iv"
                 android:layout_marginLeft="30sp"
                 android:layout_toRightOf="@+id/appointment_detail_school_name_iv"
-                android:text="一步互联网驾校"
                 android:textColor="@color/txt_333"
                 android:textSize="12dp" />
         </RelativeLayout>
@@ -224,7 +214,6 @@
                 android:layout_alignTop="@+id/appointment_detail_training_grounds_iv"
                 android:layout_marginLeft="30sp"
                 android:layout_toRightOf="@+id/appointment_detail_training_grounds_iv"
-                android:text="一步互联网训练场"
                 android:textColor="@color/txt_333"
                 android:textSize="12dp" />
         </RelativeLayout>
@@ -249,7 +238,6 @@
                 android:layout_alignTop="@+id/appointment_detail_shuttle_address_iv"
                 android:layout_marginLeft="30sp"
                 android:layout_toRightOf="@+id/appointment_detail_shuttle_address_iv"
-                android:text="接送地址 天通苑"
                 android:textColor="@color/txt_333"
                 android:textSize="12dp" />
         </RelativeLayout>
@@ -267,6 +255,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:visibility="gone"
         android:layout_alignParentBottom="true" >
 
         <View
@@ -325,7 +314,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="15dp"
                     android:layout_marginTop="10dp"
-                    android:text="很抱歉，今天有些头痛，不好意思。"
                     android:textColor="@color/txt_999"
                     android:textSize="12sp" />
             </LinearLayout>

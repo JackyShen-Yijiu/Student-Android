@@ -6,6 +6,9 @@
     <issue id="ExportedService" severity="ignore" />
     <issue id="HardcodedText" severity="ignore" />
     <issue id="NestedWeights" severity="ignore" />
+    <issue id="SimpleDateFormat">
+        <ignore path="src/com/sft/blackcatapp/AppointmentCarActivity.java" />
+    </issue>
     <issue id="SpUsage" severity="ignore" />
     <issue id="TextFields" severity="ignore" />
     <issue id="UseCompoundDrawables" severity="ignore" />

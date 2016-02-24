@@ -11,6 +11,9 @@ public class TrainFieldlInfo extends DBVO {
 	private String phone;
 	private String[] pictures;
 
+	private String id;
+	private String name;
+
 	public String getFieldname() {
 		return fieldname == null ? "" : fieldname;
 	}
@@ -41,6 +44,22 @@ public class TrainFieldlInfo extends DBVO {
 
 	public void setPictures(String[] pictures) {
 		this.pictures = pictures;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

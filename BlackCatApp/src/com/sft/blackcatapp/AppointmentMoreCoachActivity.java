@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
@@ -17,6 +18,7 @@ import cn.sft.baseactivity.util.HttpSendUtils;
 import com.sft.adapter.CoachListAdapter;
 import com.sft.adapter.SchoolDetailCourseFeeAdapter.MyClickListener;
 import com.sft.common.Config;
+import com.sft.util.CommonUtil;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
 import com.sft.viewutil.ZProgressHUD;
@@ -47,6 +49,8 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 		addView(R.layout.activity_more_coach);
 		initView();
 		setListener();
+		ZProgressHUD.getInstance(this).setMessage("拼命加载中...");
+		ZProgressHUD.getInstance(this).show();
 		obtainSchoolCoach(moreCoachPage);
 	}
 
@@ -61,13 +65,12 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 
 		coachListView = (XListView) findViewById(R.id.more_caoch_listview);
 		layout = (RelativeLayout) findViewById(R.id.more_caoch_no_layout);
-
+		noCoachIv = (ImageView) findViewById(R.id.more_caoch_no_im);
+		noCoachTv = (TextView) findViewById(R.id.more_coach_no_tv);
 		// layout.setVisibility(View.VISIBLE);
-		ZProgressHUD.getInstance(this).setMessage("拼命加载中...");
-		ZProgressHUD.getInstance(this).show();
+
 		coachListView.setVisibility(View.GONE);
 
-		findViewById(R.id.more_caoch_devider_im).getLayoutParams().height = (int) (screenHeight * 0.2f);
 		((TextView) findViewById(R.id.more_coach_no_tv))
 				.setText(R.string.no_favourite_coach);
 	}
@@ -101,10 +104,12 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		Intent intent = new Intent();
+		Intent intent = null;
+		intent = new Intent();
 		intent.putExtra("coach", adapter.getItem(position - 1));
 		setResult(RESULT_OK, intent);
 		finish();
+
 	}
 
 	@Override
@@ -126,8 +131,14 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 						}
 						moreCoachPage++;
 					} else if (length == 0) {
-						toast.setText("没有更多数据了");
-						coachListView.setPullLoadEnable(false);
+						if (moreCoachPage == 1) {
+							coachListView.setVisibility(View.GONE);
+							layout.setVisibility(View.VISIBLE);
+						} else {
+
+							toast.setText("没有更多数据了");
+							coachListView.setPullLoadEnable(false);
+						}
 					}
 					int curLength = coachList.size();
 					for (int i = 0; i < length; i++) {
@@ -155,6 +166,25 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 	}
 
 	@Override
+	public void doException(String type, Exception e, int code) {
+		ZProgressHUD.getInstance(this).dismiss();
+		layout.setVisibility(View.VISIBLE);
+		coachListView.setVisibility(View.GONE);
+		noCoachIv.setBackgroundResource(R.drawable.app_no_wifi);
+		noCoachTv.setText(CommonUtil.getString(this, R.string.no_wifi));
+
+	}
+
+	@Override
+	public void doTimeOut(String type) {
+		ZProgressHUD.getInstance(this).dismiss();
+		layout.setVisibility(View.VISIBLE);
+		coachListView.setVisibility(View.GONE);
+		noCoachIv.setBackgroundResource(R.drawable.app_no_wifi);
+		noCoachTv.setText(CommonUtil.getString(this, R.string.no_wifi));
+	}
+
+	@Override
 	public void onRefresh() {
 
 	}
@@ -179,4 +209,6 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 			startActivity(intent);
 		}
 	};
+	private ImageView noCoachIv;
+	private TextView noCoachTv;
 }

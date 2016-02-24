@@ -10,14 +10,13 @@ import java.util.Map;
 import me.maxwin.view.XListView;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
@@ -26,13 +25,10 @@ import com.sft.adapter.MyAppointmentListAdapter;
 import com.sft.blackcatapp.AppointmentDetailActivity;
 import com.sft.blackcatapp.R;
 import com.sft.common.Config;
-import com.sft.listener.OnDateClickListener;
 import com.sft.util.CommonUtil;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
 import com.sft.util.UTC2LOC;
-import com.sft.view.WeekViewPager;
-import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.MyAppointmentVO;
 import com.sft.vo.UserVO;
 import com.sft.vo.uservo.StudentSubject;
@@ -43,7 +39,7 @@ public class AppointmentFragment extends BaseFragment implements
 	private static final String reservation = "reservation";
 	private static final String MYPROGRESS = "getmyprogress";
 
-	private WeekViewPager viewPager;
+	// private WeekViewPager viewPager;
 	private TextView subjectValueTv, subjectTextTv;
 	//
 	private StudentSubject subject = null;
@@ -54,8 +50,11 @@ public class AppointmentFragment extends BaseFragment implements
 	private XListView appointmentList;
 	//
 	private MyAppointmentListAdapter adapter;
-	private RelativeLayout noCaochErrorRl;
 	private RelativeLayout hasCaochRl;
+	private List<MyAppointmentVO> list;
+	private RelativeLayout noCaochErrorRl;
+	private ImageView noCaochErrorIv;
+	private TextView noCaochErroTv;
 
 	public AppointmentFragment() {
 	}
@@ -123,36 +122,41 @@ public class AppointmentFragment extends BaseFragment implements
 	}
 
 	private void initViews(View rootView) {
-		viewPager = (WeekViewPager) rootView.findViewById(R.id.viewPager);
-		viewPager
-				.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
-
-					@Override
-					public int getCount() {
-						return 2;
-					}
-
-					@Override
-					public Fragment getItem(int position) {
-						AppointmentWeekFragment fragment = new AppointmentWeekFragment();
-						fragment.setData(position);
-						return fragment;
-					}
-				});
-		viewPager.setOnDateClickListener(new OnDateClickListener() {
-
-			@Override
-			public void onDateClick(int day, boolean clickbale) {
-				if (clickbale) {
-					LogUtil.print("点击了" + day);
-				} else {
-					LogUtil.print("木有点击了" + day);
-
-				}
-			}
-		});
+		// viewPager = (WeekViewPager) rootView.findViewById(R.id.viewPager);
+		// viewPager
+		// .setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
+		//
+		// @Override
+		// public int getCount() {
+		// return 2;
+		// }
+		//
+		// @Override
+		// public Fragment getItem(int position) {
+		// AppointmentWeekFragment fragment = new AppointmentWeekFragment();
+		// fragment.setData(position);
+		// return fragment;
+		// }
+		// });
+		// viewPager.setOnDateClickListener(new OnDateClickListener() {
+		//
+		// @Override
+		// public void onDateClick(int day, boolean clickbale) {
+		// if (clickbale) {
+		// LogUtil.print("点击了" + day);
+		// } else {
+		// LogUtil.print("木有点击了" + day);
+		//
+		// }
+		// }
+		// });
 
 		noCaochErrorRl = (RelativeLayout) rootView.findViewById(R.id.error_rl);
+		noCaochErrorIv = (ImageView) rootView.findViewById(R.id.error_iv);
+		noCaochErroTv = (TextView) rootView.findViewById(R.id.error_tv);
+		noCaochErrorIv.setBackgroundResource(R.drawable.app_error_robot);
+		noCaochErroTv.setText(CommonUtil.getString(getActivity(),
+				R.string.no_appointment_coach_error_info));
 		hasCaochRl = (RelativeLayout) rootView
 				.findViewById(R.id.appointment_has_coach_rl);
 		appointmentList = (XListView) rootView
@@ -164,16 +168,29 @@ public class AppointmentFragment extends BaseFragment implements
 		appointmentList.addHeaderView(headerView);
 		appointmentList.setOnItemClickListener(this);
 		if (app.isLogin) {
-			noCaochErrorRl.setVisibility(View.GONE);
-			hasCaochRl.setVisibility(View.VISIBLE);
-			initCurrentProgress(headerView);
-			ZProgressHUD.getInstance(getActivity()).setMessage("拼命加载中...");
-			ZProgressHUD.getInstance(getActivity()).show();
-			obtainOppointment();
+			// 科目一和没学习时都没有预约列表
+			if (app.userVO.getSubject().getSubjectid()
+					.equals(Config.SubjectStatu.SUBJECT_NONE.getValue())
+					|| app.userVO.getSubject().getSubjectid()
+							.equals(Config.SubjectStatu.SUBJECT_ONE.getValue())) {
+				noCaochErrorRl.setVisibility(View.VISIBLE);
+				hasCaochRl.setVisibility(View.GONE);
+			} else {
+				noCaochErrorRl.setVisibility(View.GONE);
+				hasCaochRl.setVisibility(View.VISIBLE);
+				initCurrentProgress(headerView);
+				LogUtil.print("拼命加载中...");
+				// ZProgressHUD.getInstance(getActivity()).setMessage("拼命加载中...");
+				// ZProgressHUD.getInstance(getActivity()).show();
+				obtainOppointment();
+
+			}
 		} else {
 			noCaochErrorRl.setVisibility(View.VISIBLE);
 			hasCaochRl.setVisibility(View.GONE);
 		}
+
+		//
 	}
 
 	@Override
@@ -187,6 +204,7 @@ public class AppointmentFragment extends BaseFragment implements
 		paramMap.put("subjectid", app.userVO.getSubject().getSubjectid());
 		Map<String, String> headerMap = new HashMap<String, String>();
 		headerMap.put("authorization", app.userVO.getToken());
+		LogUtil.print("---" + app.userVO.getToken());
 		HttpSendUtils.httpGetSend(reservation, this, Config.IP
 				+ "api/v1/courseinfo/getmyreservation", paramMap, 10000,
 				headerMap);
@@ -213,26 +231,29 @@ public class AppointmentFragment extends BaseFragment implements
 		try {
 			if (type.equals(reservation)) {
 				if (dataArray != null) {
-					List<MyAppointmentVO> list = new ArrayList<MyAppointmentVO>();
+					list = new ArrayList<MyAppointmentVO>();
 					SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 					List<MyAppointmentVO> toadyAppointList = new ArrayList<MyAppointmentVO>();
 					List<MyAppointmentVO> otherAppointList = new ArrayList<MyAppointmentVO>();
 					List<MyAppointmentVO> finishedList = new ArrayList<MyAppointmentVO>();
 
 					int length = dataArray.length();
+					if (length == 0) {
+						noCaochErrorRl.setVisibility(View.VISIBLE);
+						hasCaochRl.setVisibility(View.GONE);
+					}
 					for (int i = 0; i < length; i++) {
 						MyAppointmentVO appointmentVO = JSONUtil.toJavaBean(
 								MyAppointmentVO.class,
 								dataArray.getJSONObject(i));
 						String date = UTC2LOC.instance.getDate(
-								appointmentVO.getReservationcreatetime(),
-								"yyyy-MM-dd");
+								appointmentVO.getBegintime(), "yyyy-MM-dd");
 						if (CommonUtil.compare_date(format.format(new Date()),
 								date) == 0) {
 							// 今天
 							toadyAppointList.add(appointmentVO);
 						} else if (CommonUtil.compare_date(
-								format.format(new Date()), date) > 0) {
+								format.format(new Date()), date) < 0) {
 							// 明天，后天...
 							otherAppointList.add(appointmentVO);
 						} else {
@@ -243,7 +264,12 @@ public class AppointmentFragment extends BaseFragment implements
 					list.addAll(toadyAppointList);
 					list.addAll(otherAppointList);
 					list.addAll(finishedList);
-					ZProgressHUD.getInstance(getActivity()).dismiss();
+					LogUtil.print("toadyAppointList--"
+							+ toadyAppointList.size());
+					LogUtil.print("otherAppointList--"
+							+ otherAppointList.size());
+					LogUtil.print("finishedList--" + finishedList.size());
+					// ZProgressHUD.getInstance(getActivity()).dismiss();
 					adapter = new MyAppointmentListAdapter(getActivity(), list);
 					appointmentList.setAdapter(adapter);
 				}
@@ -286,6 +312,27 @@ public class AppointmentFragment extends BaseFragment implements
 	}
 
 	@Override
+	public void doException(String type, Exception e, int code) {
+		// super.doException(type, e, code);
+		// ZProgressHUD.getInstance(getActivity()).dismiss();
+		noCaochErrorRl.setVisibility(View.VISIBLE);
+		hasCaochRl.setVisibility(View.GONE);
+		noCaochErrorIv.setBackgroundResource(R.drawable.app_no_wifi);
+		noCaochErroTv.setText(CommonUtil.getString(getActivity(),
+				R.string.no_wifi));
+	}
+
+	@Override
+	public void doTimeOut(String type) {
+		// ZProgressHUD.getInstance(getActivity()).dismiss();
+		noCaochErrorRl.setVisibility(View.VISIBLE);
+		hasCaochRl.setVisibility(View.GONE);
+		noCaochErrorIv.setBackgroundResource(R.drawable.app_no_wifi);
+		noCaochErroTv.setText(CommonUtil.getString(getActivity(),
+				R.string.no_wifi));
+	}
+
+	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 
@@ -295,12 +342,25 @@ public class AppointmentFragment extends BaseFragment implements
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+	public void onItemClick(AdapterView<?> arg0, View arg1, int position,
+			long arg3) {
 
 		LogUtil.print("预约详情");
+
+		if (position - 2 < 0) {
+			return;
+		}
 		Intent intent = new Intent(getActivity(),
 				AppointmentDetailActivity.class);
+		intent.putExtra("appointmentDetail", list.get(position - 2));
 		getActivity().startActivity(intent);
 	}
 
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (data != null) {
+			LogUtil.print("onActivityResult---------");
+		}
+	}
 }

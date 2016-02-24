@@ -201,6 +201,9 @@
         <activity
             android:name="com.sft.blackcatapp.CallBackActivity"
             android:screenOrientation="portrait" />
+         <activity
+            android:name="com.sft.blackcatapp.SettingHelp"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.sft.blackcatapp.AboutUsActivity"
             android:screenOrientation="portrait" />

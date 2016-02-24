@@ -3,52 +3,51 @@ package com.sft.blackcatapp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Rect;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v4.view.PagerAdapter;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
-import cn.sft.pull.AutoScrollListener;
+import cn.sft.baseactivity.util.MyHandler;
+import cn.sft.infinitescrollviewpager.BitmapManager;
 import cn.sft.pull.LoadMoreView;
 import cn.sft.pull.LoadMoreView.LoadMoreListener;
-import cn.sft.pull.OnItemClickListener;
 
-import com.sft.adapter.AppointmentCarCoachHoriListAdapter;
+import com.joooonho.SelectableRoundedImageView;
 import com.sft.adapter.AppointmentDetailStudentHoriListAdapter;
 import com.sft.common.Config;
 import com.sft.common.Config.SubjectStatu;
+import com.sft.common.Config.UserType;
 import com.sft.dialog.CustomDialog;
+import com.sft.fragment.AppointmentWeekFragment;
+import com.sft.listener.OnDateClickListener;
 import com.sft.listener.SameTimeStudentOnItemClickListener;
+import com.sft.util.CommonUtil;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
 import com.sft.util.Util;
+import com.sft.view.WeekViewPager;
 import com.sft.viewutil.ScrollTimeLayout;
 import com.sft.viewutil.ScrollTimeLayout.OnTimeLayoutSelectedListener;
 import com.sft.viewutil.ZProgressHUD;
+import com.sft.vo.AppointmentDay;
 import com.sft.vo.CoachCourseVO;
 import com.sft.vo.CoachVO;
-import com.sft.vo.MyAppointmentVO;
 import com.sft.vo.commentvo.CommentUser;
-import com.sft.vo.uservo.StudentSubject;
 
 /**
  * 预约学车
@@ -56,142 +55,126 @@ import com.sft.vo.uservo.StudentSubject;
  * @author Administrator
  * 
  */
-@SuppressLint("SimpleDateFormat")
 public class AppointmentCarActivity extends BaseActivity implements
-		OnCheckedChangeListener, OnItemClickListener, AutoScrollListener,
 		LoadMoreListener, SameTimeStudentOnItemClickListener {
 
 	private static final String coachCourse = "coachCourse";
 	private static final String appointmentCourse = "appointmentCourse";
-	private static final String favouriteCoach = "favouriteCoach";
 	private static final String sameTimeStudent = "sameTimeStudent";
-	private static final String myCoach = "myCoach";
 
-	// private static final String reservation = "reservation";
-	// 日期列表
-	private RadioGroup dateGroup;
-	// radiobtn;
-	private RadioButton firstDateBtn, secondDateBtn, threeDateBtn, fourDateBtn,
-			fiveDateBtn, sixDateBtn, sevenDateBtn;
+	private RelativeLayout noCaochErrorRl;
+	private ImageView noCaochErrorIv;
+	private TextView noCaochErroTv;
 
-	// 接送地址标题
-	private TextView shuttleTitleTv;
-
-	// 接送布局
-	private LinearLayout shuttleLayout;
-	// 接送地址
-	private TextView shuttleAddressTv;
-	//
-	private TextView curAppointmentTimeTv;
-	//
-	private TextView confirmAppointmentTimeTv;
-	// 我的预约界面教练水平列表
-	private LoadMoreView coachListView;
-	// 预约学车没有教练提示
-	private TextView noCoachTv;
-	// 提交按钮
-	private Button commitBtn;
-
-	// 同时段学员
-	private LoadMoreView studentListView;
-	//
-	private int studentPage = 1;
-	//
-	private MyAppointmentVO appointmentVO;
-	private AppointmentDetailStudentHoriListAdapter sameTimeStudentAdapter;
-	private List<CommentUser> userList = new ArrayList<CommentUser>();
-	//
-	private AppointmentCarCoachHoriListAdapter adapter;
-	// 预约学车教练列表
-	private List<CoachVO> coachList = new ArrayList<CoachVO>();
-	// 教练课程列表
-	private List<CoachCourseVO> courseList = new ArrayList<CoachCourseVO>();
-	// 用户选择的教练
-	private CoachVO selectCoach;
+	private WeekViewPager viewPager;
+	private ScrollTimeLayout timeLayout;
+	private float aspect = 360 / 225f;
 	// 用户选择的日期
 	private String selectDate;
-
-	private ScrollTimeLayout timeLayout;
-
-	private float aspect = 360 / 225f;
+	// 用户选择的教练
+	private CoachVO selectCoach;
+	// 教练课程列表
+	private List<CoachCourseVO> courseList = new ArrayList<CoachCourseVO>();
+	private TextView learnProgress1Tv;
+	private TextView learnProgress2Tv;
+	private TextView learnProgress3Tv;
+	// 同时段学员
+	private LoadMoreView studentListView;
+	private AppointmentDetailStudentHoriListAdapter sameTimeStudentAdapter;
+	private List<CommentUser> userList = new ArrayList<CommentUser>();
+	private int studentPage = 1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		addView(R.layout.activity_appointment_car);
-		initView();
-		initData();
-		initDate();
-		resizeLayout();
-		setListener();
-		// obtainSameTimeStudent(studentPage);
-	}
-
-	@Override
-	protected void onResume() {
-		register(getClass().getName());
-		super.onResume();
-	};
-
-	private void initView() {
 		setTitleText(R.string.appointment_car);
 		showTitlebarText(BaseActivity.SHOW_RIGHT_TEXT);
 		setText(0, R.string.more_coach);
+		initViews();
+		initData();
+		// resizeLayout();
+		setListener();
+	}
 
-		timeLayout = (ScrollTimeLayout) findViewById(R.id.appointment_car_time);
+	private void initViews() {
+		viewPager = (WeekViewPager) findViewById(R.id.appointment_car_weekview);
+		viewPager.setAdapter(new PagerAdapter() {
 
-		shuttleLayout = (LinearLayout) findViewById(R.id.appointment_car_shuttle_layout);
-		shuttleTitleTv = (TextView) findViewById(R.id.appointment_car_address_title_tv);
-		shuttleTitleTv.getPaint().setFakeBoldText(true);
-		shuttleAddressTv = (TextView) findViewById(R.id.appointment_car_address_content_tv);
-		curAppointmentTimeTv = (TextView) findViewById(R.id.appointment_car_appointtime_tv);
-		confirmAppointmentTimeTv = (TextView) findViewById(R.id.appointment_car_examtime_tv);
-		noCoachTv = (TextView) findViewById(R.id.appointment_car_no_coach_tv);
+			@Override
+			public boolean isViewFromObject(View paramView, Object paramObject) {
 
-		coachListView = (LoadMoreView) findViewById(R.id.appointment_car_horizon_listview);
-		coachListView.setPullLoadMoreEnable(false);
-		coachListView.setHorizontal();
-
-		commitBtn = (Button) findViewById(R.id.appointment_car_commit_btn);
-
-		dateGroup = (RadioGroup) findViewById(R.id.appointment_car_radiogroup);
-		firstDateBtn = (RadioButton) findViewById(R.id.appointment_car_first_btn);
-		secondDateBtn = (RadioButton) findViewById(R.id.appointment_car_second_btn);
-		threeDateBtn = (RadioButton) findViewById(R.id.appointment_car_three_btn);
-		fourDateBtn = (RadioButton) findViewById(R.id.appointment_car_four_btn);
-		fiveDateBtn = (RadioButton) findViewById(R.id.appointment_car_five_btn);
-		sixDateBtn = (RadioButton) findViewById(R.id.appointment_car_six_btn);
-		sevenDateBtn = (RadioButton) findViewById(R.id.appointment_car_seven_btn);
-
-		shuttleAddressTv.setText(app.userVO.getAddress());
-		setAppointmentTimeInfo();
-		shuttleLayout.setVisibility(View.GONE);
-
-		String subjectId = app.userVO.getSubject().getSubjectid();
-		StudentSubject subject = null;
-		if (subjectId.equals(Config.SubjectStatu.SUBJECT_TWO.getValue())) {
-			subject = app.userVO.getSubjecttwo();
-		} else if (subjectId.equals(Config.SubjectStatu.SUBJECT_THREE
-				.getValue())) {
-			subject = app.userVO.getSubjectthree();
-		}
-		if (subject != null) {
-			if (subject.getReservation() + subject.getFinishcourse() >= subject
-					.getTotalcourse()) {
-				commitBtn.setText(app.userVO.getSubject().getName() + "学时已约满");
-			} else {
-				commitBtn.setOnClickListener(this);
+				return paramObject == paramView;
 			}
-		}
 
+			@Override
+			public int getCount() {
+				return 2;
+			}
+
+			@Override
+			public void destroyItem(ViewGroup container, int position,
+					Object object) {
+				container.removeView((View) object);
+
+			}
+
+			@Override
+			public Object instantiateItem(ViewGroup container, int position) {
+				AppointmentWeekFragment fragment = new AppointmentWeekFragment(
+						position);
+				LogUtil.print("position---------" + position);
+				container.addView(fragment.rootview);
+				return fragment.rootview;
+			}
+		});
+		viewPager.setOnDateClickListener(new OnDateClickListener() {
+
+			@Override
+			public void onDateClick(AppointmentDay day, boolean clickbale) {
+				if (clickbale) {
+					LogUtil.print("点击了" + day);
+					selectDate = day.year + "-" + day.month + "-" + day.day;
+					LogUtil.print(selectDate);
+					obtainCaochCourse(coachId);
+				} else {
+					LogUtil.print("木有点击了" + day);
+				}
+			}
+		});
+
+		noCaochErrorRl = (RelativeLayout) findViewById(R.id.error_rl);
+		noCaochErrorIv = (ImageView) findViewById(R.id.error_iv);
+		noCaochErroTv = (TextView) findViewById(R.id.error_tv);
+		hasAppointment = (LinearLayout) findViewById(R.id.appointment_car_ll);
+		noCaochErrorIv.setBackgroundResource(R.drawable.app_error_robot);
+		noCaochErroTv.setText(CommonUtil.getString(this,
+				R.string.no_appointment_coach_error_info));
+		noCaochErrorRl.setVisibility(View.GONE);
+		hasAppointment.setVisibility(View.VISIBLE);
+		//
+		timeLayout = (ScrollTimeLayout) findViewById(R.id.appointment_car_time);
+		appointCommit = (Button) findViewById(R.id.appointment_car_commit_btn);
+
+		learnProgress1Tv = (TextView) findViewById(R.id.appointment_car_select_course1_tv);
+		learnProgress2Tv = (TextView) findViewById(R.id.appointment_car_select_course2_tv);
+		learnProgress3Tv = (TextView) findViewById(R.id.appointment_car_select_course3_tv);
+		setAppointmentTimeInfo();
+
+		//
 		studentListView = (LoadMoreView) findViewById(R.id.appointment_detail_horizon_listview);
 		studentListView.setPullLoadMoreEnable(true);
 		studentListView.setHorizontal();
 
+		coachName = (TextView) findViewById(R.id.appointment_car_coach_name_tv);
+		coachPic = (SelectableRoundedImageView) findViewById(R.id.appointment_car_coach_iv);
+		coachPic.setScaleType(ScaleType.CENTER_CROP);
+		coachPic.setImageResource(R.drawable.login_head);
+		coachPic.setOval(true);
 	}
 
 	private void setAppointmentTimeInfo() {
-		int finishTime = 0;
+		finishTime = 0;
 		int appointTime = 0;
 		if (app.userVO.getSubject().getSubjectid()
 				.equals(SubjectStatu.SUBJECT_TWO.getValue())) {
@@ -202,64 +185,16 @@ public class AppointmentCarActivity extends BaseActivity implements
 			finishTime = app.userVO.getSubjectthree().getFinishcourse();
 			appointTime = app.userVO.getSubjectthree().getReservation();
 		}
-		if (appointTime == 0) {
-			curAppointmentTimeTv.setText("当前没有预约");
-		} else {
-			int endtime = appointTime + finishTime;
-			curAppointmentTimeTv.setText("当前预约了"
-					+ app.userVO.getSubject().getName() + "第"
-					+ (finishTime + 1) + "-" + endtime + "课时");
-		}
-		confirmAppointmentTimeTv.setText("已确认练车时间为：" + finishTime + "课时");
-	}
+		String subjectName = app.userVO.getSubject().getName();
+		// if (appointTime != 0) {
+		// learnProgress2Tv.setText("第" + (finishTime + 1) + "-"
+		// + (appointTime + finishTime) + "课时 ");
+		// } else {
+		// learnProgress2Tv.setText("第" + (finishTime + 1) + "课时 ");
+		// }
+		learnProgress1Tv.setText(subjectName);
 
-	private void initData() {
-		appointmentVO = (MyAppointmentVO) getIntent().getSerializableExtra(
-				"appointment");
-		coachListView.setVisibility(View.GONE);
-		obtainFavouriteCoach();
-		// obtainOppointment();
-
-	}
-
-	private void initDate() {
-		String[] dates = new String[7];
-		SimpleDateFormat format = new SimpleDateFormat("MM" + "月" + "dd" + "日");
-		dates[0] = format.format(new Date());
-
-		Calendar c = Calendar.getInstance();
-		for (int i = 1; i < 7; i++) {
-			int mCurrentDay = c.get(Calendar.DAY_OF_MONTH);
-			c.set(Calendar.DAY_OF_MONTH, mCurrentDay + 1);
-			dates[i] = format.format(c.getTime());
-		}
-
-		firstDateBtn.setText(dates[0]);
-		secondDateBtn.setText(dates[1]);
-		threeDateBtn.setText(dates[2]);
-		fourDateBtn.setText(dates[3]);
-		fiveDateBtn.setText(dates[4]);
-		sixDateBtn.setText(dates[5]);
-		sevenDateBtn.setText(dates[6]);
-
-		int year = Calendar.getInstance().get(Calendar.YEAR);
-		String text = firstDateBtn.getText().toString();
-		selectDate = year + "-" + text.replace("月", "-").replace("日", "");
-	}
-
-	private void initCoachListData() {
-		adapter = new AppointmentCarCoachHoriListAdapter(this, coachList,
-				(int) (screenWidth - 75 * screenDensity));
-		if (selectCoach == null && coachList.size() > 0) {
-			selectCoach = coachList.get(0);
-			adapter.setSelected(0);
-			if (selectCoach.getIs_shuttle().equals("true")) {
-				shuttleLayout.setVisibility(View.VISIBLE);
-			} else {
-				shuttleLayout.setVisibility(View.GONE);
-			}
-		}
-		coachListView.setAdapter(adapter);
+		learnProgress3Tv.setText("完成" + finishTime + "课时");
 	}
 
 	private void resizeLayout() {
@@ -270,40 +205,45 @@ public class AppointmentCarActivity extends BaseActivity implements
 	}
 
 	private void setListener() {
-		shuttleLayout.setOnClickListener(this);
-		dateGroup.setOnCheckedChangeListener(this);
-		coachListView.setAutoScrollListener(this);
-		studentListView.setLoadMoreListener(this);
 		timeLayout
 				.setOnTimeLayoutSelectedListener(new MyOnTimeLayoutSelectedListener());
+		appointCommit.setOnClickListener(this);
+		studentListView.setLoadMoreListener(this);
 	}
 
-	private void obtainFavouriteCoach() {
-		Map<String, String> headerMap = new HashMap<String, String>();
-		headerMap.put("authorization", app.userVO.getToken());
-		HttpSendUtils.httpGetSend(favouriteCoach, this, Config.IP
-				+ "api/v1/userinfo/favoritecoach", null, 10000, headerMap);
-	}
+	private void initData() {
+		// 获取今天
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		selectDate = format.format(new Date());
+		selectCoach = (CoachVO) getIntent().getSerializableExtra("coachVO");
+		// 获取最近一次预约过的教练
+		if (selectCoach == null) {
+			// 获取最近预约的教练
+			List<CoachVO> appointmentCoach = Util.getAppointmentCoach(this);
+			if (appointmentCoach != null && appointmentCoach.size() != 0) {
+				selectCoach = appointmentCoach.get(0);
+			}
+		}
+		if (selectCoach != null) {
+			coachName.setText("教练" + selectCoach.getName());
+			LinearLayout.LayoutParams headParam = (LinearLayout.LayoutParams) coachPic
+					.getLayoutParams();
+			String url = selectCoach.getHeadportrait().getOriginalpic();
+			if (TextUtils.isEmpty(url)) {
+				coachPic.setBackgroundResource(R.drawable.login_head);
+			} else {
+				BitmapManager.INSTANCE.loadBitmap2(url, coachPic,
+						headParam.width, headParam.height);
+			}
+			LogUtil.print("要预约的教练---" + selectCoach.getName());
+			coachId = selectCoach.getCoachid();
+			obtainCaochCourse(coachId);
 
-	private void obtainSameTimeStudent(int page) {
-		Map<String, String> headerMap = new HashMap<String, String>();
-		headerMap.put("coachid", selectCoach.getCoachid());
-		headerMap.put("begintime", beginTimeStemp + "");
-		headerMap.put("endtime", endTimeStemp + "");
-		HttpSendUtils.httpGetSend(sameTimeStudent, this, Config.IP
-				+ "api/v1/courseinfo/sametimestudentsv2", headerMap);
+		} else {
+			noCaochErrorRl.setVisibility(View.VISIBLE);
+			hasAppointment.setVisibility(View.GONE);
+		}
 	}
-
-	// private void obtainOppointment() {
-	// Map<String, String> paramMap = new HashMap<String, String>();
-	// paramMap.put("userid", app.userVO.getUserid());
-	// paramMap.put("subjectid", getIntent().getStringExtra("subject"));
-	// Map<String, String> headerMap = new HashMap<String, String>();
-	// headerMap.put("authorization", app.userVO.getToken());
-	// HttpSendUtils.httpGetSend(reservation, this, Config.IP
-	// + "api/v1/courseinfo/getmyreservation", paramMap, 10000,
-	// headerMap);
-	// }
 
 	private void obtainCaochCourse(String coachId) {
 		if (!TextUtils.isEmpty(selectDate)) {
@@ -318,12 +258,6 @@ public class AppointmentCarActivity extends BaseActivity implements
 		}
 	}
 
-	private void obtainMyCoach(String coachId) {
-		System.out.println(coachId);
-		HttpSendUtils.httpGetSend(myCoach, this, Config.IP
-				+ "api/v1/userinfo/getuserinfo" + "/2/userid/" + coachId);
-	}
-
 	@Override
 	public void onClick(View v) {
 		if (!onClickSingleView()) {
@@ -331,15 +265,6 @@ public class AppointmentCarActivity extends BaseActivity implements
 		}
 		Intent intent = null;
 		switch (v.getId()) {
-		case R.id.base_left_btn:
-			finish();
-			break;
-		case R.id.base_right_tv:
-			intent = new Intent(this, AppointmentMoreCoachActivity.class);
-			break;
-		case R.id.appointment_car_shuttle_layout:
-			intent = new Intent(this, ShuttleAddressActivity.class);
-			break;
 		case R.id.appointment_car_commit_btn:
 			if (timeLayout.getSelectCourseList().size() == 0) {
 				ZProgressHUD.getInstance(this).show();
@@ -359,49 +284,14 @@ public class AppointmentCarActivity extends BaseActivity implements
 				dialog.show();
 			}
 			break;
+		case R.id.base_right_tv:
+			intent = new Intent(this, AppointmentMoreCoachActivity.class);
+			break;
+		default:
+			break;
 		}
 		if (intent != null) {
 			startActivityForResult(intent, v.getId());
-		}
-	}
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-		if (data != null) {
-			if (requestCode == R.id.appointment_car_shuttle_layout) {
-				String address = data.getStringExtra("address");
-				shuttleAddressTv.setText(address);
-			} else if (requestCode == R.id.base_right_tv) {
-				// 获取更多教练
-				CoachVO coach = (CoachVO) data.getSerializableExtra("coach");
-
-				coachListView.setVisibility(View.VISIBLE);
-				noCoachTv.setVisibility(View.GONE);
-				int index = -1;
-				for (int i = 0; i < coachList.size(); i++) {
-					if (coachList.get(i).getCoachid()
-							.equals(coach.getCoachid())) {
-						index = i;
-						break;
-					}
-				}
-				if (index >= 0) {
-					// 包含相同元素
-					coachList.remove(index);
-				}
-				coachList.add(0, coach);
-				adapter = new AppointmentCarCoachHoriListAdapter(this,
-						coachList, (int) (screenWidth - 75 * screenDensity));
-				adapter.setSelected(0);
-				coachListView.setAdapter(adapter);
-				if (selectCoach == null
-						|| !coach.getCoachid().equals(selectCoach.getCoachid())) {
-					selectCoach = coach;
-					timeLayout.clearData();
-					obtainCaochCourse(selectCoach.getCoachid());
-				}
-			}
 		}
 	}
 
@@ -411,7 +301,7 @@ public class AppointmentCarActivity extends BaseActivity implements
 		paramsMap.put("coachid", selectCoach.getCoachid());
 		paramsMap.put("is_shuttle",
 				selectCoach.getIs_shuttle().equals("true") ? "1" : "0");
-		paramsMap.put("address", shuttleAddressTv.getText().toString());
+		paramsMap.put("address", "");
 
 		String courselist = "";
 		List<CoachCourseVO> selectCourseList = timeLayout.getSelectCourseList();
@@ -438,39 +328,13 @@ public class AppointmentCarActivity extends BaseActivity implements
 				headerMap);
 	}
 
-	@Override
-	public void onCheckedChanged(RadioGroup group, int checkedId) {
-		int index = 0;
-		switch (checkedId) {
-		case R.id.appointment_car_first_btn:
-			index = 0;
-			break;
-		case R.id.appointment_car_second_btn:
-			index = 1;
-			break;
-		case R.id.appointment_car_three_btn:
-			index = 2;
-			break;
-		case R.id.appointment_car_four_btn:
-			index = 3;
-			break;
-		case R.id.appointment_car_five_btn:
-			index = 4;
-			break;
-		case R.id.appointment_car_six_btn:
-			index = 5;
-			break;
-		case R.id.appointment_car_seven_btn:
-			index = 6;
-			break;
-		}
-		timeLayout.clearData();
-		RadioButton btn = (RadioButton) group.getChildAt(index);
-		int year = Calendar.getInstance().get(Calendar.YEAR);
-		String text = btn.getText().toString();
-		selectDate = year + "-" + text.replace("月", "-").replace("日", "");
-		if (selectCoach != null)
-			obtainCaochCourse(selectCoach.getCoachid());
+	private void obtainSameTimeStudent(int page) {
+		Map<String, String> headerMap = new HashMap<String, String>();
+		headerMap.put("coachid", selectCoach.getCoachid());
+		headerMap.put("begintime", beginTimeStemp + "");
+		headerMap.put("endtime", endTimeStemp + "");
+		HttpSendUtils.httpGetSend(sameTimeStudent, this, Config.IP
+				+ "api/v1/courseinfo/sametimestudentsv2", headerMap);
 	}
 
 	@Override
@@ -478,71 +342,19 @@ public class AppointmentCarActivity extends BaseActivity implements
 		if (super.doCallBack(type, jsonString)) {
 			return true;
 		}
+		if (!TextUtils.isEmpty(msg)) {
+			ZProgressHUD.getInstance(this).show();
+			ZProgressHUD.getInstance(this).dismissWithFailure(msg, 2000);
+			return true;
+		}
 		try {
-			if (type.equals(myCoach)) {
-				if (data != null) {
-					CoachVO coachVO = JSONUtil.toJavaBean(CoachVO.class, data);
-					if (!coachList.contains(coachVO)) {
-						coachList.add(coachVO);
-					}
-				}
-				initCoachListData();
-				if (coachList.size() > 0) {
-					coachListView.setVisibility(View.VISIBLE);
-					noCoachTv.setVisibility(View.GONE);
-					obtainCaochCourse(selectCoach.getCoachid());
-				}
-			} else if (type.equals(favouriteCoach)) {
-				CoachVO tempCoachVO = (CoachVO) getIntent()
-						.getSerializableExtra("coach");
-				if (tempCoachVO != null)
-					if (app.userVO.getApplyschoolinfo().getId()
-							.equals(tempCoachVO.getDriveschoolinfo().getId())) {
-						coachList.add(tempCoachVO);
-					}
-				try {
-					List<CoachVO> tempList = Util.getAppointmentCoach(this);
-					if (tempList != null && tempList.size() > 0) {
-						if (tempList.contains(tempCoachVO)) {
-							tempList.remove(tempCoachVO);
-						}
-						Collections.reverse(tempList);
-						coachList.addAll(tempList);
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				if (dataArray != null) {
-					int length = dataArray.length();
-					for (int i = 0; i < length; i++) {
-						CoachVO coachVO = JSONUtil.toJavaBean(CoachVO.class,
-								dataArray.getJSONObject(i));
-						if (coachList.contains(coachVO)) {
-							continue;
-						}
-						if (app.userVO.getApplyschoolinfo().getId()
-								.equals(coachVO.getDriveschoolinfo().getId())) {
-							coachList.add(coachVO);
-						}
-					}
-				}
-				// 获取报名时填写的教练
-				String coachId = app.userVO.getApplycoachinfo().getId();
-				if (!TextUtils.isEmpty(coachId)) {
-					obtainMyCoach(coachId);
-
-				} else {
-					initCoachListData();
-					if (coachList.size() > 0) {
-						coachListView.setVisibility(View.VISIBLE);
-						noCoachTv.setVisibility(View.GONE);
-						obtainCaochCourse(selectCoach.getCoachid());
-					}
-				}
-
-			} else if (type.equals(coachCourse)) {
+			if (type.equals(coachCourse)) {
+				timeLayout.clearData();
 				courseList.clear();
+
 				if (dataArray != null) {
+					noCaochErrorRl.setVisibility(View.GONE);
+					hasAppointment.setVisibility(View.VISIBLE);
 					int length = dataArray.length();
 					for (int i = 0; i < length; i++) {
 						CoachCourseVO coachCourseVO = JSONUtil
@@ -552,9 +364,7 @@ public class AppointmentCarActivity extends BaseActivity implements
 					}
 				}
 
-				Log.d("tag", "coure--list>>>" + courseList.size());
 				for (int i = 0; i < courseList.size(); i++) {
-					// Log.d("tag","coure--list>>>"+courseList.get(i).get);
 
 				}
 				timeLayout.setData(courseList, aspect);
@@ -572,13 +382,13 @@ public class AppointmentCarActivity extends BaseActivity implements
 					Util.saveAppointmentCoach(this, selectCoach);
 					Intent intent = new Intent();
 					setResult(RESULT_OK, intent);
-					// new MyHandler(1500) {
-					// @Override
-					// public void run() {
-					// dialog.dismiss();
-					// finish();
-					// };
-					// };
+					new MyHandler(1500) {
+						@Override
+						public void run() {
+							dialog.dismiss();
+							finish();
+						};
+					};
 				}
 			} else if (sameTimeStudent.equals(type)) {
 				if (dataArray != null) {
@@ -620,66 +430,23 @@ public class AppointmentCarActivity extends BaseActivity implements
 	public void doException(String type, Exception e, int code) {
 		if (sameTimeStudent.equals(type))
 			studentListView.setLoadMoreCompleted();
-		super.doException(type, e, code);
+		// super.doException(type, e, code);
+		ZProgressHUD.getInstance(this).dismiss();
+		noCaochErrorRl.setVisibility(View.VISIBLE);
+		hasAppointment.setVisibility(View.GONE);
+		noCaochErrorIv.setBackgroundResource(R.drawable.app_no_wifi);
+		noCaochErroTv.setText(CommonUtil.getString(this, R.string.no_wifi));
 	}
 
 	@Override
 	public void doTimeOut(String type) {
 		if (sameTimeStudent.equals(type))
 			studentListView.setLoadMoreCompleted();
-		super.doTimeOut(type);
-	}
-
-	@Override
-	public void onItemClick(int position) {
-		util.print("position=" + position);
-		adapter.setSelected(position);
-		coachListView.scrollToIndex(position);
-		coachListView.setAdapter(adapter);
-		selectCoach = adapter.getItem(position);
-		if (selectCoach.getIs_shuttle().equals("true")) {
-			shuttleLayout.setVisibility(View.VISIBLE);
-		} else {
-			shuttleLayout.setVisibility(View.GONE);
-		}
-		timeLayout.clearData();
-		// 更新课程
-		obtainCaochCourse(selectCoach.getCoachid());
-	}
-
-	@Override
-	public void autoScroll(RecyclerView recyclerView) {
-		LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView
-				.getLayoutManager();
-		int firstVisibleItem = layoutManager.findFirstVisibleItemPosition();
-		int lastVisibleItem = layoutManager.findLastVisibleItemPosition();
-		View firstView = recyclerView
-				.findViewHolderForPosition(firstVisibleItem).itemView;
-		recyclerView.getChildAt(firstVisibleItem);
-		int itemWidth = firstView.getWidth();
-		Rect firstRect = new Rect();
-		firstView.getHitRect(firstRect);
-
-		int curSelect = adapter.getSelected();
-		int scorooToPosition = 0;
-		if (lastVisibleItem - firstVisibleItem <= 1) {
-			if (firstView.getRight() > itemWidth / 2) {
-				scorooToPosition = firstVisibleItem;
-			} else {
-				scorooToPosition = lastVisibleItem;
-			}
-			coachListView.scrollToIndex(scorooToPosition);
-		} else {
-			scorooToPosition = firstVisibleItem + 1;
-		}
-		if (scorooToPosition != curSelect) {
-			onItemClick(scorooToPosition);
-		}
-	}
-
-	@Override
-	public void onLoadMore() {
-		obtainSameTimeStudent(studentPage);
+		ZProgressHUD.getInstance(this).dismiss();
+		noCaochErrorRl.setVisibility(View.VISIBLE);
+		hasAppointment.setVisibility(View.GONE);
+		noCaochErrorIv.setBackgroundResource(R.drawable.app_no_wifi);
+		noCaochErroTv.setText(CommonUtil.getString(this, R.string.no_wifi));
 	}
 
 	int selectBeginTime = 24;
@@ -687,6 +454,13 @@ public class AppointmentCarActivity extends BaseActivity implements
 
 	private long beginTimeStemp;
 	private long endTimeStemp;
+
+	private String coachId;
+	private LinearLayout hasAppointment;
+	private Button appointCommit;
+	private int finishTime;
+	private TextView coachName;
+	private SelectableRoundedImageView coachPic;
 
 	class MyOnTimeLayoutSelectedListener implements
 			OnTimeLayoutSelectedListener {
@@ -696,9 +470,12 @@ public class AppointmentCarActivity extends BaseActivity implements
 			if (timeLayout.getSelectCourseList() == null) {
 				return;
 			}
-			if (timeLayout.getSelectCourseList().size() == 0) {
+			learnProgress2Tv.setText("第" + (finishTime + 1) + "-"
+					+ (timeLayout.getSelectCourseList().size() + finishTime)
+					+ "课时 ");
 
-			}
+			// learnProgressTv.setText(subjectName + " 第" + (finishTime + 1)
+			// + endtime + "课时  完成" + finishTime + "课时");
 			// if (!selected) {
 			// return;
 			// }
@@ -743,11 +520,80 @@ public class AppointmentCarActivity extends BaseActivity implements
 	}
 
 	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (data != null) {
+			if (requestCode == R.id.base_right_tv) {
+				// 获取更多教练
+				CoachVO coach = (CoachVO) data.getSerializableExtra("coach");
+				//
+				// for (int i = 0; i < coachList.size(); i++) {
+				// if (coachList.get(i).getCoachid()
+				// .equals(coach.getCoachid())) {
+				// index = i;
+				// break;
+				// }
+				// }
+				// if (index >= 0) {
+				// // 包含相同元素
+				// coachList.remove(index);
+				// }
+				// coachList.add(0, coach);
+				// adapter = new AppointmentCarCoachHoriListAdapter(this,
+				// coachList, (int) (screenWidth - 75 * screenDensity));
+				// adapter.setSelected(0);
+				// coachListView.setAdapter(adapter);
+				if (selectCoach == null
+						|| !coach.getCoachid().equals(selectCoach.getCoachid())) {
+
+					coachName.setText("教练" + selectCoach.getName());
+					LinearLayout.LayoutParams headParam = (LinearLayout.LayoutParams) coachPic
+							.getLayoutParams();
+					String url = selectCoach.getHeadportrait().getOriginalpic();
+					if (TextUtils.isEmpty(url)) {
+						coachPic.setBackgroundResource(R.drawable.login_head);
+					} else {
+						BitmapManager.INSTANCE.loadBitmap2(url, coachPic,
+								headParam.width, headParam.height);
+					}
+
+					selectCoach = coach;
+					coachId = selectCoach.getCoachid();
+					timeLayout.clearData();
+					obtainCaochCourse(selectCoach.getCoachid());
+				}
+			}
+		}
+	}
+
+	@Override
+	public void onLoadMore() {
+		obtainSameTimeStudent(studentPage);
+	}
+
+	@Override
 	public void onSameTimeStudentItemClick(int position) {
 
-		Intent intent = new Intent(this, StudentInfoActivity.class);
-		intent.putExtra("studentId", sameTimeStudentAdapter.getItem(position)
-				.get_id());
-		startActivity(intent);
+		// Intent intent = new Intent(this, StudentInfoActivity.class);
+		// intent.putExtra("studentId", sameTimeStudentAdapter.getItem(position)
+		// .get_id());
+		// startActivity(intent);
+
+		// 进入聊天界面
+		CommentUser commentUser = sameTimeStudentAdapter.getItem(position);
+		String chatId = commentUser.get_id();
+		Intent intent = null;
+		if (!TextUtils.isEmpty(chatId)) {
+			intent = new Intent(this, ChatActivity.class);
+			intent.putExtra("chatId", chatId);
+			intent.putExtra("chatName", commentUser.getName());
+			intent.putExtra("chatUrl", commentUser.getHeadportrait()
+					.getOriginalpic());
+			intent.putExtra("userTypeNoAnswer", UserType.USER.getValue());
+			startActivity(intent);
+		} else {
+			ZProgressHUD.getInstance(this).show();
+			ZProgressHUD.getInstance(this).dismissWithFailure("无法获取对方信息");
+		}
 	}
 }

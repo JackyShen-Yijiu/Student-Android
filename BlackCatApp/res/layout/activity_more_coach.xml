@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#fff" >
+    android:background="@color/app_bg_light" >
 
     <me.maxwin.view.XListView
         android:id="@+id/more_caoch_listview"
@@ -16,27 +16,22 @@
         android:fadingEdge="none"
         android:listSelector="@android:color/transparent"
         android:overScrollMode="always"
-        android:scrollbars="none" />
+        android:scrollbars="none"
+        android:visibility="gone" />
 
     <RelativeLayout
         android:id="@+id/more_caoch_no_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:background="@color/app_bg_dark"
         android:visibility="gone" >
-
-        <ImageView
-            android:id="@+id/more_caoch_devider_im"
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/app_name" />
 
         <ImageView
             android:id="@+id/more_caoch_no_im"
             android:layout_width="110dp"
             android:layout_height="110dp"
-            android:layout_below="@+id/more_caoch_devider_im"
-            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
             android:background="@drawable/no_favourite" />
 
         <TextView
@@ -44,11 +39,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/more_caoch_no_im"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="19dp"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="10dp"
             android:text="@string/nocoach"
-            android:textColor="#333333"
-            android:textSize="16dp" />
+            android:textColor="@color/text_color_light"
+            android:textSize="14dp" />
     </RelativeLayout>
 
 </RelativeLayout>

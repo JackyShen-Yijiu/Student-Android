@@ -35,7 +35,6 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.sft.api.ApiHttpClient;
 import com.sft.blackcatapp.ActivitiesActivity;
-import com.sft.blackcatapp.EditPersonInfoActivity;
 import com.sft.blackcatapp.EnrollSchoolActivity1;
 import com.sft.blackcatapp.MessageActivity;
 import com.sft.blackcatapp.MyWalletActivity;
@@ -44,6 +43,7 @@ import com.sft.blackcatapp.NewApplystateActivity;
 import com.sft.blackcatapp.PersonCenterActivity;
 import com.sft.blackcatapp.R;
 import com.sft.blackcatapp.SchoolBusRouteActivity;
+import com.sft.blackcatapp.SettingActivity;
 import com.sft.blackcatapp.TodaysAppointmentActivity;
 import com.sft.blackcatapp.YiBuIntroduceActivity;
 import com.sft.common.BlackCatApplication;
@@ -304,7 +304,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 		switch (v.getId()) {
 		case R.id.fragment_menu_headpic_im:
 			if (app.isLogin) {
-				intent = new Intent(getActivity(), EditPersonInfoActivity.class);
+				intent = new Intent(getActivity(), PersonCenterActivity.class);
 				startActivity(intent);
 
 			} else {
@@ -370,7 +370,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 		case R.id.fragment_menu_setting_btn:
 
 			if (app.isLogin) {
-				intent = new Intent(getActivity(), PersonCenterActivity.class);
+				intent = new Intent(getActivity(), SettingActivity.class);
 				startActivity(intent);
 
 			} else {

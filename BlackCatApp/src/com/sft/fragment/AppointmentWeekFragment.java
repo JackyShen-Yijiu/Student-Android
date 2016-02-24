@@ -1,48 +1,29 @@
 package com.sft.fragment;
 
-import java.util.List;
-
 import android.graphics.Color;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
+import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 
+import com.sft.common.BlackCatApplication;
 import com.sft.view.WeekView;
 
-public class AppointmentWeekFragment extends BaseHomeFragment {
+public class AppointmentWeekFragment {
 
-	private List<Integer> list;
-	private int pagePosition;
+	public LinearLayout rootview;
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		LinearLayout ret = new LinearLayout(getActivity());
-		ret.setBackgroundColor(Color.parseColor("#eeeeee"));
-		ret.setLayoutParams(new LinearLayout.LayoutParams(
+	public AppointmentWeekFragment(int pagePosition) {
+		rootview = new LinearLayout(BlackCatApplication.getInstance());
+		rootview.setBackgroundColor(Color.parseColor("#eeeeee"));
+		LayoutParams params = new LinearLayout.LayoutParams(
 				ViewGroup.LayoutParams.MATCH_PARENT,
-				ViewGroup.LayoutParams.WRAP_CONTENT));
-		WeekView weekView = new WeekView(getActivity());
+				ViewGroup.LayoutParams.WRAP_CONTENT);
+		params.gravity = Gravity.CENTER;
+		rootview.setLayoutParams(params);
+		WeekView weekView = new WeekView(BlackCatApplication.getInstance());
 		weekView.initMonthAdapter(pagePosition);
-		ret.addView(weekView);
-		return ret;
+		rootview.addView(weekView, params);
 	}
 
-	@Override
-	public void onDestroyView() {
-		super.onDestroyView();
-		// EventBus.getDefault().unregister(this);
-	}
-
-	@Override
-	public void onResume() {
-		super.onResume();
-	}
-
-	public void setData(int position) {
-		pagePosition = position;
-
-	}
 }

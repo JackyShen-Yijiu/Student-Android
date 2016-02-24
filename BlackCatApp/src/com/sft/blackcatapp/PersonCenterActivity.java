@@ -1,8 +1,6 @@
 package com.sft.blackcatapp;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -14,10 +12,10 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
+import android.view.View.OnClickListener;
+import android.widget.ImageView.ScaleType;
+import android.widget.RelativeLayout;
+import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
@@ -25,14 +23,14 @@ import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.infinitescrollviewpager.BitmapManager;
 import cn.sft.infinitescrollviewpager.MyHandler;
 
-import com.easemob.chat.EMChatManager;
+import com.joooonho.SelectableRoundedImageView;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
-import com.sft.util.SharedPreferencesUtil;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.CarModelVO;
+import com.sft.vo.ClassVO;
 import com.sft.vo.PayOrderVO;
 import com.sft.vo.SchoolVO;
 
@@ -42,31 +40,30 @@ import com.sft.vo.SchoolVO;
  * @author Administrator
  * 
  */
-public class PersonCenterActivity extends BaseActivity {
+public class PersonCenterActivity extends BaseActivity implements
+		OnClickListener {
 
-	private LinearLayout layout;
-	private ImageView headPicIm;
-	private TextView phoneTv, idTv;
-	private TextView schoolTv, carStyleTv, favouriteTv, coachTv, settingTv,
-			enrollDetailTv;
+	private RelativeLayout layout;
+	private TextView schoolTv, carStyleTv;
 	private TextView schoolValueTv, carStyleValueTv;
 
-	private Button logoutBtn;
-	private TextView testingDetailTV;
-	
 	private final static String PAY_STATE = "pay_state";
-	
+
 	private boolean first = true;
+	private TextView classValueTv;
+	private SelectableRoundedImageView headPicIm;
+	private RelativeLayout enrollDetailTv;
+	private RelativeLayout favouriteTv;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		addView(R.layout.activity_person_center);
+		addView(R.layout.new_activity_person_center);
 		initView();
 		initData();
-		resizeDrawalbeLeftSize();
+		// resizeDrawalbeLeftSize();
 		setListener();
-		//请求 订单状态
+		// 请求 订单状态
 		isApplyOk();
 		requestNotFinshOrder();
 	}
@@ -81,22 +78,29 @@ public class PersonCenterActivity extends BaseActivity {
 	private void initView() {
 		setTitleText(R.string.person_center);
 
-		layout = (LinearLayout) findViewById(R.id.person_center_layout);
-		headPicIm = (ImageView) findViewById(R.id.person_center_headpic_im);
-		phoneTv = (TextView) findViewById(R.id.person_center_phone_tv);
-		idTv = (TextView) findViewById(R.id.person_center_id_tv);
+		layout = (RelativeLayout) findViewById(R.id.person_center_layout);
+		// 圆形头像
+		headPicIm = (SelectableRoundedImageView) findViewById(R.id.person_center_headpic_im);
+		headPicIm.setScaleType(ScaleType.CENTER_CROP);
+		headPicIm.setImageResource(R.drawable.default_small_pic);
+		headPicIm.setOval(true);
+
+		// phoneTv = (TextView) findViewById(R.id.person_center_phone_tv);
+		// idTv = (TextView) findViewById(R.id.person_center_id_tv);
 
 		schoolTv = (TextView) findViewById(R.id.person_center_school_tv);
 		carStyleTv = (TextView) findViewById(R.id.person_center_carstyle_tv);
-		favouriteTv = (TextView) findViewById(R.id.person_center_favourite_tv);
-		coachTv = (TextView) findViewById(R.id.person_center_coach_tv);
-		settingTv = (TextView) findViewById(R.id.person_center_setting_tv);
-		enrollDetailTv = (TextView) findViewById(R.id.person_center_enroll_detail_tv);
+		favouriteTv = (RelativeLayout) findViewById(R.id.person_center_favourite_tv);
+
+		// 我的教练
+		// coachTv = (TextView) findViewById(R.id.person_center_coach_tv);
+		enrollDetailTv = (RelativeLayout) findViewById(R.id.person_center_enroll_detail_tv);
 		schoolValueTv = (TextView) findViewById(R.id.person_center_school_value_tv);
 		carStyleValueTv = (TextView) findViewById(R.id.person_center_carstyle_value_tv);
-		testingDetailTV = (TextView) findViewById(R.id.person_center_testing_detail_tv);
+		classValueTv = (TextView) findViewById(R.id.person_center_classtyle_value_tv);
 
-		logoutBtn = (Button) findViewById(R.id.person_center_logout_btn);
+		// testingDetailTV = (TextView)
+		// findViewById(R.id.person_center_testing_detail_tv);
 
 		// if (app.userVO.getApplystate().equals(
 		// EnrollResult.SUBJECT_NONE.getValue())) {
@@ -117,13 +121,17 @@ public class PersonCenterActivity extends BaseActivity {
 	}
 
 	private void initData() {
-		phoneTv.setText(app.userVO.getDisplaymobile());
-		idTv.setText(app.userVO.getDisplayuserid());
+		// phoneTv.setText(app.userVO.getDisplaymobile());
+		//
+		// idTv.setText(app.userVO.getDisplayuserid());
 
-		LinearLayout.LayoutParams headpicParam = (LayoutParams) headPicIm
+		RelativeLayout.LayoutParams headpicParam = (LayoutParams) headPicIm
 				.getLayoutParams();
 
+		LogUtil.print("<<<<111111"
+				+ app.userVO.getHeadportrait().getOriginalpic());
 		String url = app.userVO.getHeadportrait().getOriginalpic();
+
 		if (TextUtils.isEmpty(url)) {
 			headPicIm.setBackgroundResource(R.drawable.default_small_pic);
 		} else {
@@ -132,6 +140,7 @@ public class PersonCenterActivity extends BaseActivity {
 		}
 
 		schoolValueTv.setText(app.userVO.getApplyschoolinfo().getName());
+		classValueTv.setText(app.userVO.getApplyclasstypeinfo().getName());
 		carStyleValueTv.setText(app.userVO.getCarmodel().getName());
 
 		// 使用欢迎页面 请求到的数据
@@ -153,6 +162,7 @@ public class PersonCenterActivity extends BaseActivity {
 		schoolValueTv.setText(app.userVO.getApplyschoolinfo().getName());
 		carStyleValueTv.setText(app.userVO.getCarmodel().getCode()
 				+ app.userVO.getCarmodel().getName());
+		classValueTv.setText(app.userVO.getApplyclasstypeinfo().getName());
 
 	}
 
@@ -179,17 +189,12 @@ public class PersonCenterActivity extends BaseActivity {
 		carstyle.setBounds(0, 0, size, size);
 		carStyleTv.setCompoundDrawables(carstyle, null, null, null);// 设置左图标
 
-		Drawable favourite = r.getDrawable(R.drawable.person_center_favourite);
-		favourite.setBounds(0, 0, size, size);
-		favouriteTv.setCompoundDrawables(favourite, null, arrow, null);// 设置左图标
-
 		Drawable coach = r.getDrawable(R.drawable.person_center_coach);
 		coach.setBounds(0, 0, size, size);
-		coachTv.setCompoundDrawables(coach, null, arrow, null);// 设置左图标
+		// coachTv.setCompoundDrawables(coach, null, arrow, null);// 设置左图标
 
 		Drawable setting = r.getDrawable(R.drawable.person_center_setting);
 		setting.setBounds(0, 0, size, size);
-		settingTv.setCompoundDrawables(setting, null, arrow, null);// 设置左图标
 		//
 		// Drawable enroll = r.getDrawable(R.drawable.person_center_setting);
 		// setting.setBounds(0, 0, size, size);
@@ -199,15 +204,10 @@ public class PersonCenterActivity extends BaseActivity {
 
 	private void setListener() {
 		layout.setOnClickListener(this);
-		schoolTv.setOnClickListener(this);
-		carStyleTv.setOnClickListener(this);
 		favouriteTv.setOnClickListener(this);
-		coachTv.setOnClickListener(this);
-		settingTv.setOnClickListener(this);
-		enrollDetailTv.setOnClickListener(this);
-		testingDetailTV.setOnClickListener(this);
 
-		logoutBtn.setOnClickListener(this);
+		enrollDetailTv.setOnClickListener(this);
+
 		if (app.userVO.getApplystate().equals(
 				EnrollResult.SUBJECT_NONE.getValue())) {
 			schoolValueTv.setOnClickListener(this);
@@ -231,10 +231,11 @@ public class PersonCenterActivity extends BaseActivity {
 			break;
 		case R.id.person_center_carstyle_tv:
 			break;
-		case R.id.person_center_coach_tv:
-			intent = new Intent(this, MyCoachActivity.class);
-			startActivity(intent);
-			break;
+		// 我的教练
+		// case R.id.person_center_coach_tv:
+		// intent = new Intent(this, MyCoachActivity.class);
+		// startActivity(intent);
+		// break;
 		// case R.id.person_center_school_value_tv:
 		// intent = new Intent(this, EnrollSchoolActivity.class);
 		// SchoolVO school = Util.getEnrollUserSelectedSchool(this);
@@ -264,73 +265,70 @@ public class PersonCenterActivity extends BaseActivity {
 			break;
 		case R.id.person_center_school_tv:
 			break;
-		case R.id.person_center_setting_tv:
-			intent = new Intent(this, SettingActivity.class);
-			startActivity(intent);
-			break;
 		// 报名详情
 		case R.id.person_center_enroll_detail_tv:
-			
-			if(applystate <0){//尚未请求，获取数据
+
+			if (applystate < 0) {// 尚未请求，获取数据
 				isApplyOk();
 				return;
-			}else{
-				doAppResult(applystate+"",paytype);
-			}
-			
-			
-			
-			break;
-		// 验证报名信息
-		case R.id.person_center_testing_detail_tv:
-			Intent intent1 = null;
-			String applystates = app.userVO.getApplystate();
-			if (EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue().equals(
-					applystates)) {
-				ZProgressHUD.getInstance(this).show();
-				ZProgressHUD.getInstance(this).dismissWithSuccess("您已报名成功");
-			} else if (EnrollResult.SUBJECT_ENROLLING.getValue().equals(
-					applystates)) {
-				ZProgressHUD.getInstance(this).show();
-				ZProgressHUD.getInstance(this).dismissWithSuccess("您已报名，请等待审核");
 			} else {
-				boolean isclickconfirm = SharedPreferencesUtil.getBoolean(this,
-						MainActivity.ISCLICKCONFIRM, false);
-//				Log.
-				if (isclickconfirm) {
-					intent1 = new Intent(PersonCenterActivity.this,
-							TestingPhoneActivity.class);
-//					startActivity(intent1);
-					startActivityForResult(intent1, 8);
-				} else {
-					intent1 = new Intent(PersonCenterActivity.this,
-							EnrollSchoolActivity1.class);
-					startActivity(intent1);
-					
-				}
+				doAppResult(applystate + "", paytype);
 			}
 
 			break;
+		// 验证报名信息
+		// case R.id.person_center_testing_detail_tv:
+		// Intent intent1 = null;
+		// String applystates = app.userVO.getApplystate();
+		// if (EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue().equals(
+		// applystates)) {
+		// ZProgressHUD.getInstance(this).show();
+		// ZProgressHUD.getInstance(this).dismissWithSuccess("您已报名成功");
+		// } else if (EnrollResult.SUBJECT_ENROLLING.getValue().equals(
+		// applystates)) {
+		// ZProgressHUD.getInstance(this).show();
+		// ZProgressHUD.getInstance(this).dismissWithSuccess("您已报名，请等待审核");
+		// } else {
+		// boolean isclickconfirm = SharedPreferencesUtil.getBoolean(this,
+		// MainActivity.ISCLICKCONFIRM, false);
+		// // Log.
+		// if (isclickconfirm) {
+		// intent1 = new Intent(PersonCenterActivity.this,
+		// TestingPhoneActivity.class);
+		// // startActivity(intent1);
+		// startActivityForResult(intent1, 8);
+		// } else {
+		// intent1 = new Intent(PersonCenterActivity.this,
+		// EnrollSchoolActivity1.class);
+		// startActivity(intent1);
+		//
+		// }
+		// }
+		//
+		// break;
 		}
 	}
-	
+
 	/**
 	 * 是否报名，线上支付1 提示，已报名，请等待审核，线下支付,进入二维码页面
+	 * 
 	 * @return
 	 */
-	private void isApplyOk(){
+	private void isApplyOk() {
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("userid", app.userVO.getUserid());
-//		LogUtil.print("subject---Id==>"+app.userVO.getSubject().getSubjectid());
-//		paramMap.put("subjectid",app.userVO.getSubject().getSubjectid());//订单的状态 // 0 订单生成 2 支付成功 3 支付失败 4 订单取消 -1 全部(未支付的订单)
-		
+		// LogUtil.print("subject---Id==>"+app.userVO.getSubject().getSubjectid());
+		// paramMap.put("subjectid",app.userVO.getSubject().getSubjectid());//订单的状态
+		// // 0 订单生成 2 支付成功 3 支付失败 4 订单取消 -1 全部(未支付的订单)
+
 		Map<String, String> headerMap = new HashMap<String, String>();
 		headerMap.put("authorization", app.userVO.getToken());
-		HttpSendUtils.httpGetSend(PAY_STATE, this, Config.IP
-				+ "api/v1/userinfo/getmyapplystate", paramMap, 10000,
-				headerMap);
+		HttpSendUtils
+				.httpGetSend(PAY_STATE, this, Config.IP
+						+ "api/v1/userinfo/getmyapplystate", paramMap, 10000,
+						headerMap);
 	}
-	
+
 	/**
 	 * 获取未完成订单
 	 */
@@ -347,13 +345,12 @@ public class PersonCenterActivity extends BaseActivity {
 
 	}
 
-	
 	/**
 	 * 处理结果
 	 */
-	private void doAppResult(String applyState,int payType){
-//		String applystate = app.userVO.getApplystate();
-		LogUtil.print("state-->"+applyState+"type::"+payType);
+	private void doAppResult(String applyState, int payType) {
+		// String applystate = app.userVO.getApplystate();
+		LogUtil.print("state-->" + applyState + "type::" + payType);
 		if (EnrollResult.SUBJECT_NONE.getValue().equals(applyState)) {
 			ZProgressHUD.getInstance(this).show();
 			ZProgressHUD.getInstance(this).dismissWithFailure("您还没有报名");
@@ -367,8 +364,8 @@ public class PersonCenterActivity extends BaseActivity {
 					// finish();
 				}
 			};
-		}else if (hasNotPay) {//线上支付,存在未支付订单
-			
+		} else if (hasNotPay) {// 线上支付,存在未支付订单
+
 			ZProgressHUD.getInstance(this).show();
 			ZProgressHUD.getInstance(this).dismissWithSuccess("存在未支付订单，请支付");
 			new MyHandler(1000) {
@@ -380,14 +377,14 @@ public class PersonCenterActivity extends BaseActivity {
 					// finish();
 				}
 			};
-		}else if (EnrollResult.SUBJECT_ENROLLING.getValue().equals(
-				applyState) && payType == 2) {//线上支付
-			
+		} else if (EnrollResult.SUBJECT_ENROLLING.getValue().equals(applyState)
+				&& payType == 2) {// 线上支付
+
 			ZProgressHUD.getInstance(this).show();
 			ZProgressHUD.getInstance(this).dismissWithSuccess("您已报名,正在等待审核");
-			
-		}  else if (EnrollResult.SUBJECT_ENROLLING.getValue().equals(
-				applyState) && payType == 1) {//线下支付 跳转到  二维码页面
+
+		} else if (EnrollResult.SUBJECT_ENROLLING.getValue().equals(applyState)
+				&& payType == 1) {// 线下支付 跳转到 二维码页面
 			Intent intent1 = new Intent(PersonCenterActivity.this,
 					EnrollSuccessActivity.class);
 			startActivity(intent1);
@@ -400,50 +397,54 @@ public class PersonCenterActivity extends BaseActivity {
 			ZProgressHUD.getInstance(this).dismissWithSuccess("您已报名");
 		}
 	}
-	
+
 	int applystate = -2;
 	int paytypestatus = -2;
 	int paytype = -2;
 	boolean hasNotPay = false;
-	
+
 	@Override
 	public synchronized boolean doCallBack(String type, Object jsonString) {
 		if (super.doCallBack(type, jsonString)) {
-			
+
 			return true;
 		}
-		if(type.equals(PAY_STATE)){
-			LogUtil.print(type+"---"+jsonString);
+		if (type.equals(PAY_STATE)) {
+			LogUtil.print(type + "---" + jsonString);
 			try {
-				applystate = data.getInt("applystate");//申请状态  0 未报名 1 申请中 2 申请成功 
-				paytypestatus = data.getInt("paytypestatus");//0 未支付 20支付成功(等待验证) 30 支付失败 
+				applystate = data.getInt("applystate");// 申请状态 0 未报名 1 申请中 2
+														// 申请成功
+				paytypestatus = data.getInt("paytypestatus");// 0 未支付
+																// 20支付成功(等待验证)
+																// 30 支付失败
 				paytype = data.getInt("paytype");// 1 线下支付， 2 线上支付
-				
-				app.userVO.setApplystate(applystate+"");
-				if(!first)
-					doAppResult(applystate+"",paytype);
+
+				app.userVO.setApplystate(applystate + "");
+				if (!first)
+					doAppResult(applystate + "", paytype);
 				first = false;
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-			
-			
-		}else if(type.equals("notPay")){
+
+		} else if (type.equals("notPay")) {
 			int length = dataArray.length();
 			for (int i = 0; i < length; i++) {
 				PayOrderVO pay;
 				try {
 					pay = JSONUtil.toJavaBean(PayOrderVO.class,
 							dataArray.getJSONObject(i));
-					if(pay.userpaystate.equals("0") ||pay.userpaystate.equals("3")){//订单刚生成，支付失败
-						
-						//存在未支付订单
-						app.userVO.setApplystate(EnrollResult.SUBJECT_NONE.getValue());
-						
+					if (pay.userpaystate.equals("0")
+							|| pay.userpaystate.equals("3")) {// 订单刚生成，支付失败
+
+						// 存在未支付订单
+						app.userVO.setApplystate(EnrollResult.SUBJECT_NONE
+								.getValue());
+
 						app.isEnrollAgain = true;
 						hasNotPay = true;
 						break;
-					}else{
+					} else {
 						hasNotPay = false;
 					}
 				} catch (JSONException e) {
@@ -451,21 +452,21 @@ public class PersonCenterActivity extends BaseActivity {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				
+
 			}
 		}
-		
+
 		return false;
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode,
 			final Intent data) {
-		if(requestCode == 8){//验证报名信息，，
+		if (requestCode == 8) {// 验证报名信息，，
 			first = true;
 			isApplyOk();
 		}
-		
+
 		if (data != null) {
 			if (requestCode == R.id.person_center_carstyle_value_tv) {
 				// 更新
@@ -480,6 +481,12 @@ public class PersonCenterActivity extends BaseActivity {
 				SchoolVO school = (SchoolVO) data
 						.getSerializableExtra("school");
 				schoolValueTv.setText(school.getName());
+				return;
+			}
+			if (requestCode == R.id.person_center_classtyle_value_tv) {
+				// 更新选择的班级
+				ClassVO classs = (ClassVO) data.getSerializableExtra("class");
+				classValueTv.setText(classs.getName());
 				return;
 			}
 			new MyHandler(200) {

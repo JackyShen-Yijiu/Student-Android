@@ -221,11 +221,14 @@ public class SchoolDetailActivity extends BaseActivity implements
 		// 中文字体加粗
 		titleTV.getPaint().setFakeBoldText(true);
 		titleTV.setText("");
+
 		bus.setImageResource(R.drawable.bus_white_icon);
 		left.setBackgroundResource(R.drawable.base_left_btn_bkground);
 		phone.setImageResource(R.drawable.phone_white_icon);
 		bus.setVisibility(View.VISIBLE);
 		
+
+
 		phone.setOnClickListener(this);
 		left.setOnClickListener(this);
 		bus.setOnClickListener(this);
@@ -251,9 +254,8 @@ public class SchoolDetailActivity extends BaseActivity implements
 		adLayout = (RelativeLayout) findViewById(R.id.school_detail_headpic_im);
 		viewPager = (InfiniteViewPager) findViewById(R.id.school_detail_viewpager);
 		dotLayout = (LinearLayout) findViewById(R.id.school_detail_dotlayout);
-		
+
 		tvNoPic = (TextView) findViewById(R.id.school_detail_nopic_tv);
-		
 
 		coachlistView = (ListView) findViewById(R.id.school_coach_listview);
 		courselistView = (ListView) findViewById(R.id.course_fee_listview);
@@ -362,10 +364,10 @@ public class SchoolDetailActivity extends BaseActivity implements
 
 			// 动态添加训练场地的图片
 			String[] trainPicStrings = school.getPictures();
-			if(trainPicStrings.length == 0){
+			if (trainPicStrings.length == 0) {
 				tvNoPic.setVisibility(View.VISIBLE);
 				trainGroundLayout.setVisibility(View.GONE);
-			}else{
+			} else {
 				tvNoPic.setVisibility(View.GONE);
 				trainGroundLayout.setVisibility(View.VISIBLE);
 			}

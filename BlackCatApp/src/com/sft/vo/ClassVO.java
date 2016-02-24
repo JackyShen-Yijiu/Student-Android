@@ -3,6 +3,7 @@ package com.sft.vo;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.text.TextUtils;
 import cn.sft.sqlhelper.DBVO;
 
 import com.sft.vo.uservo.VipServerListVO;
@@ -76,6 +77,13 @@ public class ClassVO extends DBVO {
 
 	public void setSchoolinfo(SchoolVO schoolinfo) {
 		this.schoolinfo = schoolinfo;
+	}
+
+	public String getName() {
+		if (classname == null) {
+			return "班级不详";
+		}
+		return TextUtils.isEmpty(classname) ? "null" : classname;
 	}
 
 	public String getClassname() {

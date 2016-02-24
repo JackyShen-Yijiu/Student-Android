@@ -6,7 +6,6 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +21,6 @@ import com.joooonho.SelectableRoundedImageView;
 import com.sft.blackcatapp.R;
 import com.sft.common.Config.AppointmentResult;
 import com.sft.util.CommonUtil;
-import com.sft.util.LogUtil;
 import com.sft.util.UTC2LOC;
 import com.sft.vo.MyAppointmentVO;
 
@@ -144,11 +142,9 @@ public class MyAppointmentListAdapter extends BaseAdapter {
 			} else if (state.equals(AppointmentResult.applycancel.getValue())) {
 				// 已取消
 				holder.status.setText("已取消");
-				holder.status.setTextColor(Color.parseColor("#999999"));
 			} else if (state.equals(AppointmentResult.applyrefuse.getValue())) {
 				// 教练取消
 				holder.status.setText("教练取消");
-				holder.status.setTextColor(Color.parseColor("#999999"));
 			} else if (state.equals(AppointmentResult.finish.getValue())) {
 				// 完成的订单
 				holder.status.setText("已完成");
@@ -170,7 +166,7 @@ public class MyAppointmentListAdapter extends BaseAdapter {
 		String url = mData.get(position).getCoachid().getHeadportrait()
 				.getOriginalpic();
 		if (TextUtils.isEmpty(url)) {
-			holder.headpic.setBackgroundResource(R.drawable.default_small_pic);
+			holder.headpic.setImageResource(R.drawable.default_small_pic);
 		} else {
 			BitmapManager.INSTANCE.loadBitmap2(url, holder.headpic,
 					headParams.width, headParams.height);
@@ -191,47 +187,49 @@ public class MyAppointmentListAdapter extends BaseAdapter {
 
 		String todayPosition = UTC2LOC.instance.getDate(mData.get(position)
 				.getBegintime(), "yyyy-MM-dd");
-		if (CommonUtil.compare_date(format.format(new Date()), todayPosition) == 0) {
-			// 今天
+		String nextPosition = null;
+		if (position == mData.size() - 1) {
 			holder.line.setVisibility(View.VISIBLE);
 			holder.splitLine.setVisibility(View.GONE);
+			nextPosition = UTC2LOC.instance.getDate(mData.get(position)
+					.getBegintime(), "yyyy-MM-dd");
+		} else {
+			nextPosition = UTC2LOC.instance.getDate(mData.get(position + 1)
+					.getBegintime(), "yyyy-MM-dd");
+		}
+		if (CommonUtil.compare_date(format.format(new Date()), todayPosition) == 0) {
 			holder.time.setText("今天  "
 					+ UTC2LOC.instance.getDate(mData.get(position)
 							.getBegintime(), "HH:mm")
 					+ "-"
 					+ UTC2LOC.instance.getDate(
 							mData.get(position).getEndtime(), "HH:mm"));
-
-		} else if (CommonUtil.compare_date(format.format(new Date()),
-				todayPosition) > 0) {
-			holder.time.setText(mData.get(position).getClassdatetimedesc());
-			if (pos == 0) {
-				pos++;
-				if (position > 0) {
-					LogUtil.print("position" + position);
-					holder.line.setVisibility(View.GONE);
-					holder.splitLine.setVisibility(View.VISIBLE);
-				} else {
-
-					holder.line.setVisibility(View.VISIBLE);
-					holder.splitLine.setVisibility(View.GONE);
-				}
-			} else {
-
+			if (CommonUtil.compare_date(nextPosition, todayPosition) == 0) {
+				// 今天
 				holder.line.setVisibility(View.VISIBLE);
 				holder.splitLine.setVisibility(View.GONE);
+
+			} else {
+				holder.line.setVisibility(View.GONE);
+				holder.splitLine.setVisibility(View.VISIBLE);
+			}
+
+		} else if (CommonUtil.compare_date(format.format(new Date()),
+				todayPosition) < 0) {
+			holder.time.setText(mData.get(position).getClassdatetimedesc());
+			if (CommonUtil
+					.compare_date(format.format(new Date()), nextPosition) < 0) {
+				holder.line.setVisibility(View.VISIBLE);
+				holder.splitLine.setVisibility(View.GONE);
+			} else {
+				holder.line.setVisibility(View.GONE);
+				holder.splitLine.setVisibility(View.VISIBLE);
 			}
 
 		} else {
 			holder.time.setText(mData.get(position).getClassdatetimedesc());
-			if (pos == 1) {
-				pos++;
-				holder.line.setVisibility(View.GONE);
-				holder.splitLine.setVisibility(View.VISIBLE);
-			} else {
-				holder.line.setVisibility(View.VISIBLE);
-				holder.splitLine.setVisibility(View.GONE);
-			}
+			holder.line.setVisibility(View.VISIBLE);
+			holder.splitLine.setVisibility(View.GONE);
 		}
 
 		holder.line.setVisibility(View.VISIBLE);
