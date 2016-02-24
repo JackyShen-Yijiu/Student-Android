@@ -30,6 +30,7 @@ import cn.jpush.android.api.JPushInterface;
 import cn.sft.listener.ICallBack;
 
 import com.sft.common.BlackCatApplication;
+import com.sft.util.LogUtil;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.CarModelVO;
 import com.sft.vo.ClassVO;
@@ -179,6 +180,7 @@ public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity
 	}
 
 	private void setListener() {
+
 		leftBtn.setOnClickListener(this);
 		rightBtn.setOnClickListener(this);
 		leftTV.setOnClickListener(this);
@@ -240,6 +242,7 @@ public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity
 
 	// 解决系统改变字体大小的时候导致的界面布局混乱的问题
 
+	@Override
 	public Resources getResources() {
 		Resources res = super.getResources();
 		Configuration config = new Configuration();
@@ -306,12 +309,13 @@ public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity
 
 	@Override
 	public void onClick(View v) {
-
+		LogUtil.print("nnnnnnnn");
 	}
 
 	@Override
 	public synchronized boolean doCallBack(String type, Object jsonString) {
 		try {
+			ZProgressHUD.getInstance(BaseActivity.this).dismiss();
 			util.print("json=" + jsonString + " type= " + type);
 
 			jsonObject = new JSONObject(jsonString.toString());

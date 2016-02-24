@@ -288,5 +288,8 @@
     <string name="driving_school">驾校</string>
     <string name="locationing">定位中</string>
     <string name="no_appointment_coach_error_info">小步没有找到您的预约信息，点击右上角添加教练\n开始您愉快的学车之旅吧</string>
+    <string name="no_wifi">网络问题，请您检查手机的网络连接</string>
+    <string name="cancel_appointment_intro">取消预约说明0/200</string>
+    <string name="enrolling">您的报名正在审核中，请耐心等待</string>
 
 </resources>

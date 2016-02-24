@@ -5,17 +5,21 @@ import java.util.Map;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.infinitescrollviewpager.MyHandler;
 
 import com.sft.common.Config;
+import com.sft.util.CommonUtil;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.MyAppointmentVO;
 
@@ -35,6 +39,7 @@ public class CancelAppointmentActivity extends BaseActivity implements
 	private Button cancelBtn;
 
 	private String cancelReason = "";
+	private TextView cancelIntroTv;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,19 +57,50 @@ public class CancelAppointmentActivity extends BaseActivity implements
 
 	private void initView() {
 		setTitleText(R.string.cancel_appointment);
-
+		cancelReason = CommonUtil.getString(this, R.string.cancel_1);
 		radioGroup = (RadioGroup) findViewById(R.id.cancel_appiontment_radiogroup);
 		cancelBtn = (Button) findViewById(R.id.cancel_appointment_btn);
 		cancelEt = (EditText) findViewById(R.id.cancel_appointment_et);
-
-		cancelEt.setHint(setHint(R.string.cancel_appointment_instro));
+		cancelIntroTv = (TextView) findViewById(R.id.cancel_appointment_intro);
+		// cancelEt.setHint(setHint(R.string.cancel_appointment_instro));
 	}
 
 	private void setListener() {
 		cancelBtn.setOnClickListener(this);
 		radioGroup.setOnCheckedChangeListener(this);
+		cancelEt.addTextChangedListener(new TextWatcher() {
+			private CharSequence temp;
+			private int selectionStart;
+			private int selectionEnd;
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+				temp = s;
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				cancelIntroTv.setText("取消预约说明" + s.length() + "/200");
+				selectionStart = cancelEt.getSelectionStart();
+				selectionEnd = cancelEt.getSelectionEnd();
+				if (temp.length() > 200) {
+					s.delete(selectionStart - 1, selectionEnd);
+					int tempSelection = selectionEnd;
+					cancelEt.setText(s);
+					cancelEt.setSelection(tempSelection);// 设置光标在最后
+				}
+			}
+		});
 	}
 
+	@Override
 	public void onClick(View v) {
 		if (!onClickSingleView()) {
 			return;
@@ -86,13 +122,13 @@ public class CancelAppointmentActivity extends BaseActivity implements
 			return;
 		}
 		MyAppointmentVO appointmentVO = (MyAppointmentVO) getIntent()
-				.getSerializableExtra("appointmentVO");
+				.getSerializableExtra("appointment");
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("userid", app.userVO.getUserid());
 		paramMap.put("reservationid", appointmentVO.get_id());
 		paramMap.put("cancelreason", cancelReason);
 		String cancelContent = cancelEt.getText().toString();
-		paramMap.put("cancelcontent", TextUtils.isEmpty(cancelContent) ? " "
+		paramMap.put("cancelcontent", TextUtils.isEmpty(cancelContent) ? ""
 				: cancelContent);
 
 		util.print("reservationid=" + appointmentVO.get_id() + " userid="

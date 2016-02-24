@@ -25,6 +25,7 @@ public class MyAppointmentVO extends DBVO {
 	private Subject subject;
 	private String courseprocessdesc;
 	private String classdatetimedesc;
+	private String learningcontent;
 	private TrainFieldlInfo trainfieldlinfo;
 
 	public String getCoursehour() {
@@ -162,6 +163,14 @@ public class MyAppointmentVO extends DBVO {
 
 	public void setTrainfieldlinfo(TrainFieldlInfo trainfieldlinfo) {
 		this.trainfieldlinfo = trainfieldlinfo;
+	}
+
+	public String getLearningcontent() {
+		return learningcontent;
+	}
+
+	public void setLearningcontent(String learningcontent) {
+		this.learningcontent = learningcontent;
 	}
 
 }

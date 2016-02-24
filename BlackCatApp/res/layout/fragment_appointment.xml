@@ -5,12 +5,12 @@
     android:orientation="vertical"
     tools:context="com.blackcat.coach.fragments.ProfileFragment" >
 
-    <com.sft.view.WeekColumnView
+   <!--  <com.sft.view.WeekColumnView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="6dp"
         android:paddingRight="8dp"
-        android:paddingTop="10dp" />
+        android:paddingTop="10dp" /> -->
 
     <include layout="@layout/layout_error"/>
     <RelativeLayout
@@ -19,11 +19,11 @@
         android:layout_height="match_parent"
          >
 
-        <com.sft.view.WeekViewPager
+        <!-- <com.sft.view.WeekViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="67dp" >
-        </com.sft.view.WeekViewPager>
+        </com.sft.view.WeekViewPager> -->
 
         <me.maxwin.view.XListView
             android:id="@+id/my_appointment_listview"

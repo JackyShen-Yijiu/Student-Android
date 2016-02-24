@@ -59,6 +59,7 @@ public class CoachVO extends DBVO {
 	private List<TagsList> tagslist;
 	private List<ClassVO> serverclasslist;
 	private String cartype;
+	private String schoolimage;
 
 	public List<ClassVO> getServerclasslist() {
 		return serverclasslist;
@@ -416,6 +417,14 @@ public class CoachVO extends DBVO {
 
 	public void setWorktimespace(WorkTimeSpace worktimespace) {
 		this.worktimespace = worktimespace;
+	}
+
+	public String getSchoolimage() {
+		return schoolimage;
+	}
+
+	public void setSchoolimage(String schoolimage) {
+		this.schoolimage = schoolimage;
 	}
 
 }

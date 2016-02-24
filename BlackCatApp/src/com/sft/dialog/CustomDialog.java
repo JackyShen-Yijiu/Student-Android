@@ -27,6 +27,7 @@ public class CustomDialog extends Dialog implements
 	public static final int APPLY_EXAM = 5;
 	public static final int APPOINTMENT_COMPLAIN = 6;
 	public static final int ERROR_COACH = 7;
+	public static final int ENROLLING = 8;// 报名审核中
 
 	private Context context;
 	private ImageView image;
@@ -104,6 +105,11 @@ public class CustomDialog extends Dialog implements
 			image.setBackgroundResource(R.drawable.appointment_time_error);
 			title.setText(R.string.driveing_school_error);
 			content.setText(R.string.select_right_driveing_school);
+			break;
+		case ENROLLING:
+			image.setBackgroundResource(R.drawable.appointment_time_error);
+			title.setText(R.string.enrolling);
+			content.setText("");
 			break;
 		}
 	}

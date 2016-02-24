@@ -1,10 +1,14 @@
 package com.sft.blackcatapp;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -12,18 +16,26 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.infinitescrollviewpager.BitmapManager;
-import cn.sft.pull.OnItemClickListener;
 
+import com.joooonho.SelectableRoundedImageView;
 import com.sft.adapter.AppointmentDetailStudentHoriListAdapter;
+import com.sft.common.Config;
+import com.sft.common.Config.AppointmentResult;
 import com.sft.common.Config.UserType;
+import com.sft.util.CommonUtil;
+import com.sft.util.JSONUtil;
+import com.sft.util.UTC2LOC;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.MyAppointmentVO;
 import com.sft.vo.commentvo.CommentUser;
+import com.squareup.picasso.Picasso;
 
 /**
  * 预约详情
@@ -33,10 +45,11 @@ import com.sft.vo.commentvo.CommentUser;
  */
 @SuppressLint("ClickableViewAccessibility")
 public class AppointmentDetailActivity extends BaseActivity implements
-		OnClickListener, OnItemClickListener {
+		OnClickListener {
 
+	private static final String appointmentDetail = "appointmentDetail";
 	// 头像
-	private ImageView headPicIm;
+	private SelectableRoundedImageView headPicIm;
 	//
 	private MyAppointmentVO appointmentVO;
 	//
@@ -67,28 +80,24 @@ public class AppointmentDetailActivity extends BaseActivity implements
 
 	private RelativeLayout cancelAppointRl;
 	private TextView belowTimeTv;
-	private Button cancelBut;
+	private Button cancelBtn;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_appointment_detail);
 		initView();
-		initData();
-		// setListener();
-		// initMap();
-		// obtainSameTimeStudent(studentPage);
+		appointmentVO = (MyAppointmentVO) getIntent().getSerializableExtra(
+				"appointmentDetail");
+
+		setData(appointmentVO);
+		setListener();
+		obtainAppointmentDetail();
 	}
 
 	@Override
 	protected void onResume() {
-		register(getClass().getName());
 		super.onResume();
-	}
-
-	@Override
-	public void onItemClick(int position) {
-
 	}
 
 	private void initView() {
@@ -97,10 +106,12 @@ public class AppointmentDetailActivity extends BaseActivity implements
 		returnBtn = (ImageButton) findViewById(R.id.appointment_detail_left_btn);
 		calenderBtn = (ImageButton) findViewById(R.id.appointment_detail_right_first_btn);
 		chatBtn = (ImageButton) findViewById(R.id.appointment_detail_right_second_btn);
-		headPicIm = (ImageView) findViewById(R.id.appointment_detail_headpic_im);
+		headPicIm = (SelectableRoundedImageView) findViewById(R.id.appointment_detail_headpic_im);
 		coachNameTv = (TextView) findViewById(R.id.appointment_detail_coachname_tv);
 		coachLevelRb = (RatingBar) findViewById(R.id.appointment_detail_coach_level_rb);
-
+		headPicIm.setScaleType(ScaleType.CENTER_CROP);
+		headPicIm.setImageResource(R.drawable.default_small_pic);
+		headPicIm.setOval(true);
 		//
 		classNameTv = (TextView) findViewById(R.id.appointment_detail_class_name_tv);
 		classDetailTv = (TextView) findViewById(R.id.appointment_detail_desc_tv);
@@ -118,12 +129,28 @@ public class AppointmentDetailActivity extends BaseActivity implements
 		//
 		cancelAppointRl = (RelativeLayout) findViewById(R.id.appointment_detail_cancel_appoint_rl);
 		belowTimeTv = (TextView) findViewById(R.id.appointment_detail_below_time_tv);
-		cancelBut = (Button) findViewById(R.id.appointment_detail_cancel_but);
+		cancelBtn = (Button) findViewById(R.id.appointment_detail_cancel_but);
 	}
 
-	private void initData() {
-		appointmentVO = (MyAppointmentVO) getIntent().getSerializableExtra(
-				"appointment");
+	private void setData(MyAppointmentVO appointmentVO) {
+
+		if (appointmentVO == null) {
+			return;
+		}
+		String schoolPicUrl = appointmentVO.getCoachid().getSchoolimage();
+		if (TextUtils.isEmpty(schoolPicUrl)) {
+			schoolPicIm.setBackgroundResource(R.drawable.applydefault);
+		} else {
+			// 图片高斯模糊
+			try {
+				Bitmap bitmap = Picasso.with(getApplicationContext())
+						.load(schoolPicUrl).get();
+				schoolPicIm.setBackgroundDrawable(CommonUtil
+						.BoxBlurFilter(bitmap));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 
 		LinearLayout.LayoutParams headpicParams = (LinearLayout.LayoutParams) headPicIm
 				.getLayoutParams();
@@ -131,47 +158,80 @@ public class AppointmentDetailActivity extends BaseActivity implements
 		String url = appointmentVO.getCoachid().getHeadportrait()
 				.getOriginalpic();
 		if (TextUtils.isEmpty(url)) {
-			headPicIm.setBackgroundResource(R.drawable.login_head);
+			headPicIm.setImageResource(R.drawable.login_head);
 		} else {
 			BitmapManager.INSTANCE.loadBitmap2(url, headPicIm,
 					headpicParams.width, headpicParams.height);
+
 		}
 		coachNameTv.setText(appointmentVO.getCoachid().getName());
-		// schoolTv.setText(appointmentVO.getCoachid().getDriveschoolinfo()
-		// .getName());
+		if (!TextUtils.isEmpty(appointmentVO.getCoachid().getStarlevel())) {
+			coachLevelRb.setRating(Integer.parseInt(appointmentVO.getCoachid()
+					.getStarlevel()));
+		}
+
 		//
-		// timeTv.setText(appointmentVO.getClassdatetimedesc());
-		// shuttleTv.setText("接送地点:" + appointmentVO.getShuttleaddress());
-		// studyProcessTv.setText(appointmentVO.getCourseprocessdesc());
-		//
-		// String trainPlace =
-		// appointmentVO.getTrainfieldlinfo().getFieldname();
-		// if (TextUtils.isEmpty(trainPlace)) {
-		// trainPlace = appointmentVO.getCoachid().getDriveschoolinfo()
-		// .getName();
-		// if (TextUtils.isEmpty(trainPlace)) {
-		// trainPlace = "暂无";
-		// }
-		// }
-		// trainPlaceTv.setText("训练场地: " + trainPlace);
-		//
-		// String state = appointmentVO.getReservationstate();
-		// if (state.equals(AppointmentResult.applying.getValue())
-		// || state.equals(AppointmentResult.applyconfirm.getValue())) {
-		// cancelLayout.setVisibility(View.VISIBLE);
-		// } else if
-		// (state.equals(AppointmentResult.unconfirmfinish.getValue())) {
-		// confirmStudyBtn.setVisibility(View.VISIBLE);
-		// } else if (state.equals(AppointmentResult.applyrefuse.getValue())
-		// || state.equals(AppointmentResult.ucomments.getValue())) {
-		// commentLayout.setVisibility(View.VISIBLE);
-		// }
+		classNameTv.setText(appointmentVO.getCourseprocessdesc());
+		timeTv.setText(appointmentVO.getClassdatetimedesc());
+		classDetailTv.setText(appointmentVO.getLearningcontent());
+		schoolNameTv.setText(appointmentVO.getCoachid().getDriveschoolinfo()
+				.getName());
+		if (!TextUtils.isEmpty(appointmentVO.getTrainfieldlinfo().getName())) {
+			trainingGroundsTv.setText(appointmentVO.getTrainfieldlinfo()
+					.getName());
+		}
+		shuttleAddressTv.setText(appointmentVO.getShuttleaddress());
+
+		String state = appointmentVO.getReservationstate();
+		// 底部预约显示
+		if (!TextUtils.isEmpty(state)) {
+
+			if (state.equals(AppointmentResult.applyconfirm.getValue())
+					|| state.equals(AppointmentResult.applying.getValue())) {
+				// 预约中
+				cancelAppointRl.setVisibility(View.VISIBLE);
+				coachCancelLl.setVisibility(View.GONE);
+				String belowTime = UTC2LOC.instance.getDate(
+						appointmentVO.getBegintime(), "MM月dd日")
+						+ " "
+						+ UTC2LOC.instance.getDate(
+								appointmentVO.getBegintime(), "hh:mm")
+						+ "-"
+						+ UTC2LOC.instance.getDate(appointmentVO.getEndtime(),
+								"hh:mm")
+						+ " "
+						+ appointmentVO.getSubject().getName();
+
+				belowTimeTv.setText(belowTime);
+			} else if (state.equals(AppointmentResult.applyrefuse.getValue())) {
+				// 教练取消
+				cancelAppointRl.setVisibility(View.GONE);
+				coachCancelLl.setVisibility(View.VISIBLE);
+
+			} else {
+				// 已完成
+				cancelAppointRl.setVisibility(View.GONE);
+				coachCancelLl.setVisibility(View.GONE);
+
+			}
+		}
+	}
+
+	private void obtainAppointmentDetail() {
+		if (!TextUtils.isEmpty(appointmentVO.get_id()) && app.userVO != null) {
+			Map<String, String> headerMap = new HashMap<String, String>();
+			headerMap.put("authorization", app.userVO.getToken());
+			HttpSendUtils.httpGetSend(appointmentDetail, this,
+					Config.IP + "api/v1/courseinfo/userreservationinfo/"
+							+ appointmentVO.get_id(), null, 10000, headerMap);
+		}
 	}
 
 	private void setListener() {
 		returnBtn.setOnClickListener(this);
 		calenderBtn.setOnClickListener(this);
 		chatBtn.setOnClickListener(this);
+		cancelBtn.setOnClickListener(this);
 	}
 
 	@Override
@@ -196,126 +256,40 @@ public class AppointmentDetailActivity extends BaseActivity implements
 				intent.putExtra("chatUrl", appointmentVO.getCoachid()
 						.getHeadportrait().getOriginalpic());
 				intent.putExtra("userTypeNoAnswer", UserType.COACH.getValue());
-				startActivity(intent);
 			} else {
 				ZProgressHUD.getInstance(this).show();
 				ZProgressHUD.getInstance(this).dismissWithFailure("无法获取对方信息");
 			}
 			break;
+		case R.id.appointment_detail_cancel_but:
+			// 取消预约
+			intent = new Intent(this, CancelAppointmentActivity.class);
+			intent.putExtra("appointment", appointmentVO);
+			break;
 
 		}
-		//
-		// @Override
-		// public synchronized boolean doCallBack(String type, Object
-		// jsonString) {
-		// if (super.doCallBack(type, jsonString)) {
-		// return true;
-		// }
-		// try {
-		// if (sameTimeStudent.equals(type)) {
-		// if (dataArray != null) {
-		// int length = dataArray.length();
-		// if (length > 0)
-		// studentPage++;
-		// for (int i = 0; i < length; i++) {
-		// CommentUser commentUser = JSONUtil.toJavaBean(
-		// CommentUser.class, dataArray.getJSONObject(i)
-		// .getJSONObject("userid"));
-		// if (!commentUser.get_id()
-		// .equals(app.userVO.getUserid()))
-		// userList.add(commentUser);
-		// }
-		// }
-		// if (adapter == null) {
-		// adapter = new AppointmentDetailStudentHoriListAdapter(this,
-		// userList);
-		// } else {
-		// adapter.setData(userList);
-		// }
-		// // studentListView.setAdapter(adapter);
-		// // studentListView.setLoadMoreCompleted();
-		// }
-		// } catch (Exception e) {
-		// e.printStackTrace();
-		// }
-		// return true;
-		// }
-		//
-		// @Override
-		// public void doException(String type, Exception e, int code) {
-		// if (sameTimeStudent.equals(type))
-		// // studentListView.setLoadMoreCompleted();
-		// super.doException(type, e, code);
-		// }
-		//
-		// @Override
-		// public void doTimeOut(String type) {
-		// if (sameTimeStudent.equals(type))
-		// // studentListView.setLoadMoreCompleted();
-		// super.doTimeOut(type);
-		// }
-		//
-		// @Override
-		// public void onMapDoubleClick(LatLng arg0) {
-		//
-		// }
-		//
-		// @Override
-		// protected void onActivityResult(int requestCode, int resultCode,
-		// Intent
-		// data) {
-		// if (data == null) {
-		// return;
-		// }
-		// Intent intent = new Intent(MyAppointmentActivity.class.getName());
-		// intent.putExtra("refreshState", true);
-		// intent.putExtra("position", getIntent().getIntExtra("position", 0));
-		//
-		// switch (requestCode) {
-		// case R.id.appointment_detail_cancel_btn:
-		// intent.putExtra("state", AppointmentResult.applycancel.getValue());
-		// sendBroadcast(intent);
-		// delayFinish();
-		// break;
-		// case R.id.appointment_detail_comment_btn:
-		// if (resultCode == RESULT_OK) {
-		// intent.putExtra("state", AppointmentResult.finish.getValue());
-		// sendBroadcast(intent);
-		// delayFinish();
-		// }
-		// break;
-		// case R.id.appointment_detail_confirm_btn:
-		// if (resultCode == RESULT_OK) {
-		// intent.putExtra("state", AppointmentResult.finish.getValue());
-		// sendBroadcast(intent);
-		// }
-		// delayFinish();
-		// break;
-		// case R.id.appointment_detail_complain_btn:
-		// delayFinish();
-		// break;
-		// }
-		// }
-		//
-		// private void delayFinish() {
-		// new MyHandler(200) {
-		// @Override
-		// public void run() {
-		// finish();
-		// }
-		// };
-		// }
-		//
-		// @Override
-		// public void onItemClick(int position) {
-		// Intent intent = new Intent(this, StudentInfoActivity.class);
-		// intent.putExtra("studentId", adapter.getItem(position).get_id());
-		// startActivity(intent);
-		// }
-		//
-		// // @Override
-		// // public void onLoadMore() {
-		// // obtainSameTimeStudent(studentPage);
-		// // }
+		if (intent != null) {
+			startActivity(intent);
+		}
 	}
+
+	@Override
+	public synchronized boolean doCallBack(String type, Object jsonString) {
+		if (super.doCallBack(type, jsonString)) {
+			return true;
+		}
+		try {
+			if (type.equals(appointmentDetail)) {
+				if (data != null) {
+					MyAppointmentVO appointmentVO = JSONUtil.toJavaBean(
+							MyAppointmentVO.class, data);
+					setData(appointmentVO);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
+
 }

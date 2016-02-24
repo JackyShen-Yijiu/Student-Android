@@ -35,7 +35,7 @@ public class WeekColumnView extends LinearLayout {
 	}
 
 	private void initParams() {
-		backgroundColor = Color.rgb(189, 68, 55);
+		backgroundColor = Color.rgb(219, 68, 55);
 		startendTextColor = Color.LTGRAY;
 		midTextColor = Color.LTGRAY;
 	}

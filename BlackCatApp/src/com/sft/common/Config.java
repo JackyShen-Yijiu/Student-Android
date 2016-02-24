@@ -70,6 +70,11 @@ public class Config {
 	 */
 	public static final String APKPATH = path + "apk";
 
+	/**
+	 * 最近一次预约过的教练id
+	 */
+	public static final String LAST_APPOINTMENT_COACH = "last_appointment_coach";
+
 	public enum AppointmentResult {
 
 		// 预约中
