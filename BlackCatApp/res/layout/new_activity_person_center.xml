@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#fff"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/person_center_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp" >
+            <com.joooonho.SelectableRoundedImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/person_center_headpic_im"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center_vertical"
+        app:sriv_border_color="#00000000"
+        app:sriv_border_width="1dip" />
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/person_center_arrow" />
+
+    </RelativeLayout>
+      <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="15dp"
+        android:background="#bdbdbd" />
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="报考驾校"
+          android:layout_marginLeft="15dp"
+          android:layout_marginTop="12dp"
+          android:textSize="12sp" />
+
+      <TextView
+          android:id="@+id/person_center_school_value_tv"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+              android:layout_marginLeft="15dp"
+          android:layout_marginTop="12dp"
+          android:textColor="@color/left_black"
+          android:textSize="14sp"
+          android:text="" />
+      <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="12dp"
+        android:background="#bdbdbd" />
+          <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="报考班型"
+          android:layout_marginLeft="15dp"
+          android:layout_marginTop="12dp"
+          android:textSize="12sp" />
+
+      <TextView
+          android:id="@+id/person_center_classtyle_value_tv"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+              android:layout_marginLeft="15dp"
+          android:layout_marginTop="12dp"
+          android:textColor="@color/left_black"
+          android:textSize="14sp"
+          android:text="" />
+      <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="12dp"
+        android:background="#bdbdbd" />
+          <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="报考车型"
+          android:layout_marginLeft="15dp"
+          android:layout_marginTop="12dp"
+          android:textSize="12sp" />
+
+      <TextView
+          android:id="@+id/person_center_carstyle_value_tv"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+              android:layout_marginLeft="15dp"
+          android:layout_marginTop="12dp"
+          android:textColor="@color/left_black"
+          android:textSize="14sp"
+          android:text="" />
+      <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="12dp"
+        android:background="#bdbdbd" />
+    <RelativeLayout 
+        android:id="@+id/person_center_favourite_tv"
+            android:layout_marginLeft="15dp"
+        android:layout_marginTop="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="49dp">
+
+           <TextView
+               android:id="@+id/tv_mylove"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_alignParentLeft="true"
+               android:layout_centerVertical="true"
+               android:textSize="14sp"
+               android:text="我的喜欢" />
+
+           <ImageView
+               android:layout_width="18dp"
+               android:layout_height="18dp"
+               android:layout_alignBottom="@+id/tv_mylove"
+               android:layout_alignParentRight="true"
+               android:layout_marginRight="16dp"
+               android:background="@drawable/person_center_arrow" />
+
+    </RelativeLayout>
+      <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="12dp"
+        android:background="#bdbdbd" />
+       <RelativeLayout 
+              android:id="@+id/person_center_enroll_detail_tv"
+            android:layout_marginLeft="15dp"
+        android:layout_marginTop="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="49dp">
+
+           <TextView
+               android:id="@+id/tv_order"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_alignParentLeft="true"
+               android:layout_centerVertical="true"
+               android:textSize="14sp"
+               android:text="报名详情" />
+
+           <ImageView
+               android:layout_width="18dp"
+               android:layout_height="18dp"
+               android:layout_alignBottom="@+id/tv_order"
+               android:layout_alignParentRight="true"
+               android:layout_marginRight="16dp"
+               android:background="@drawable/person_center_arrow" />
+
+    </RelativeLayout>
+      <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="12dp"
+        android:background="#bdbdbd" />
+</LinearLayout>

@@ -3,9 +3,6 @@ package com.sft.blackcatapp;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.sft.blackcatapp.R;
-import com.sft.common.Config;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -15,13 +12,16 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.infinitescrollviewpager.BitmapManager;
+
+import com.joooonho.SelectableRoundedImageView;
+import com.sft.common.Config;
 
 /**
  * 编辑个人信息
@@ -32,7 +32,6 @@ import cn.sft.infinitescrollviewpager.BitmapManager;
 public class EditPersonInfoActivity extends BaseActivity {
 
 	private LinearLayout layout;
-	private ImageView headPic;
 
 	private TextView genderTv, signTv, addressTv, phoneTv, nameTv, nickNameTv;
 
@@ -45,10 +44,12 @@ public class EditPersonInfoActivity extends BaseActivity {
 
 	private LinearLayout.LayoutParams headParam;
 
+	private SelectableRoundedImageView headPic;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		addView(R.layout.activity_edit_person_info);
+		addView(R.layout.new_activity_edit_person);
 		initView();
 		setListener();
 	}
@@ -64,7 +65,6 @@ public class EditPersonInfoActivity extends BaseActivity {
 		array = getResources().getTextArray(R.array.gender);
 
 		layout = (LinearLayout) findViewById(R.id.edit_person_info_layout);
-		headPic = (ImageView) findViewById(R.id.edit_person_info_headpic_im);
 		genderTv = (TextView) findViewById(R.id.edit_person_info_gender_tv);
 		signTv = (TextView) findViewById(R.id.edit_person_info_sign_tv);
 		signLayout = (RelativeLayout) findViewById(R.id.edit_person_info_sign_tv_layout);
@@ -72,6 +72,12 @@ public class EditPersonInfoActivity extends BaseActivity {
 		phoneTv = (TextView) findViewById(R.id.edit_person_info_phone_tv);
 		nameTv = (TextView) findViewById(R.id.edit_person_info_name_tv);
 		nickNameTv = (TextView) findViewById(R.id.edit_person_info_nickname_tv);
+
+		// 圆形头像
+		headPic = (SelectableRoundedImageView) findViewById(R.id.edit_person_info_headpic_im);
+		headPic.setScaleType(ScaleType.CENTER_CROP);
+		headPic.setImageResource(R.drawable.default_small_pic);
+		headPic.setOval(true);
 
 		// 显示箭头
 		Resources r = getResources();
@@ -91,7 +97,8 @@ public class EditPersonInfoActivity extends BaseActivity {
 		if (TextUtils.isEmpty(url)) {
 			headPic.setBackgroundResource(R.drawable.default_small_pic);
 		} else {
-			BitmapManager.INSTANCE.loadBitmap2(url, headPic, headParam.width, headParam.height);
+			BitmapManager.INSTANCE.loadBitmap2(url, headPic, headParam.width,
+					headParam.height);
 		}
 		genderTv.setText(app.userVO.getGender());
 		signTv.setText(app.userVO.getSignature());
@@ -163,15 +170,16 @@ public class EditPersonInfoActivity extends BaseActivity {
 	private void showGender(int index) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle("选择性别");
-		builder.setSingleChoiceItems(array, index, new DialogInterface.OnClickListener() {
+		builder.setSingleChoiceItems(array, index,
+				new DialogInterface.OnClickListener() {
 
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				selectGenderIndex = which;
-				changeGender();
-				dialog.dismiss();
-			}
-		});
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						selectGenderIndex = which;
+						changeGender();
+						dialog.dismiss();
+					}
+				});
 		Dialog dialog = builder.create();
 		dialog.show();
 	}
@@ -183,8 +191,8 @@ public class EditPersonInfoActivity extends BaseActivity {
 
 		Map<String, String> headerMap = new HashMap<String, String>();
 		headerMap.put("authorization", app.userVO.getToken());
-		HttpSendUtils.httpPostSend(chageGender, this, Config.IP + "api/v1/userinfo/updateuserinfo", paramMap, 10000,
-				headerMap);
+		HttpSendUtils.httpPostSend(chageGender, this, Config.IP
+				+ "api/v1/userinfo/updateuserinfo", paramMap, 10000, headerMap);
 	}
 
 	@Override

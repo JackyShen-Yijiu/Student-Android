@@ -10,30 +10,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:gravity="center"
         android:padding="15dp" >
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:text="@string/headpic"
-            android:textColor="#333333"
-            android:textSize="14dp" />
 
         <ImageView
             android:id="@+id/edit_person_info_headpic_im"
             android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_gravity="center_vertical"
-            android:contentDescription="@string/app_name" />
+            android:layout_height="60dp"/>
 
-        <ImageView
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/person_center_arrow"
-            android:contentDescription="@string/app_name" />
     </LinearLayout>
 
     <ImageView
