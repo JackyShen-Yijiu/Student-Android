@@ -24,6 +24,7 @@ import com.sft.api.ApiHttpClient;
 import com.sft.blackcatapp.CropImageActivity;
 import com.sft.blackcatapp.NewCropImageActivity;
 import com.sft.library.DemoHXSDKHelper;
+import com.sft.util.LogUtil;
 import com.sft.vo.CarModelVO;
 import com.sft.vo.ClassVO;
 import com.sft.vo.CoachVO;
@@ -76,8 +77,10 @@ public class BlackCatApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		SDKInitializer.initialize(this);
+		LogUtil.print("jpush---init");
 		JPushInterface.init(this);
+		SDKInitializer.initialize(this);
+		
 		uploadManager = new UploadManager();
 		app = this;
 

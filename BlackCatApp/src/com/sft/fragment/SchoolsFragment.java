@@ -1071,7 +1071,12 @@ public class SchoolsFragment extends BaseFragment implements
 						app.isEnrollAgain = true;
 					if (pay.userpaystate.equals("0")
 							|| pay.userpaystate.equals("3")) {// 订单刚生成，支付失败
-						HasOrder(pay);
+						LogUtil.print("notFinish---->"+i);
+						if(!hasNotFinishDialog){
+							HasOrder(pay);
+							hasNotFinishDialog = true;
+						}
+						
 						break;
 					}
 					payList.add(pay);
@@ -1104,6 +1109,9 @@ public class SchoolsFragment extends BaseFragment implements
 
 		return true;
 	}
+	
+	/**是否存在未完成订单*/
+	public static boolean hasNotFinishDialog = false;
 
 	private void setSearchData(List<SchoolVO> school, int selectIndex) {
 		if (searchIndex == 1) {
@@ -1230,8 +1238,8 @@ public class SchoolsFragment extends BaseFragment implements
 		schoolname = "";
 //		ordertype = "";
 		obtainNearBySchool();
-//		if(app.isLogin)
-//			requestNotFinshOrder();
+		if(app.isLogin)
+			requestNotFinshOrder();
 	}
 
 	/**
@@ -1266,7 +1274,7 @@ public class SchoolsFragment extends BaseFragment implements
 				i.putExtra("repay", true);// 再次支付
 				i.putExtra("bean", pay);
 				startActivity(i);
-
+				hasNotFinishDialog = false;
 			}
 		});
 		dialog.show();

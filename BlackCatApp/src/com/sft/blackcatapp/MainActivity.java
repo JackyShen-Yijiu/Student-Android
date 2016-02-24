@@ -55,6 +55,7 @@ import com.sft.adapter.OpenCityAdapter;
 import com.sft.api.ApiHttpClient;
 import com.sft.blackcatapp.home.view.MainScreenContainer;
 import com.sft.blackcatapp.home.view.MainScreenContainer.OnTabLisener;
+import com.sft.city.Act_City;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
 import com.sft.dialog.CheckApplyDialog;
@@ -216,8 +217,12 @@ public class MainActivity extends BaseMainActivity implements
 
 	private void setTag() {
 		if (app.isLogin) {
-			JPushInterface.setAlias(this, app.userVO.getUserid(),
-					new MyTagAliasCallback());
+//			app.userVO.getUserid()
+			LogUtil.print("jpush---userId--->"+app.userVO.getUserid());
+			JPushInterface.setAliasAndTags(this,app.userVO.getUserid(), null, new MyTagAliasCallback());
+//			JPushInterface.setAlias(this,app.userVO.getUserid(),
+//					new MyTagAliasCallback());
+			LogUtil.print("jpush---userId---end>"+app.userVO.getUserid());
 		}
 	}
 
@@ -225,11 +230,14 @@ public class MainActivity extends BaseMainActivity implements
 
 		@Override
 		public void gotResult(int arg0, String arg1, Set<String> arg2) {
+			LogUtil.print("jpush--->MainActivity---->"+arg1);
 			sum++;
 			if (arg0 != 0 && sum < 5) {
 				setTag();
 			}
 		}
+
+		
 
 	}
 
@@ -414,6 +422,7 @@ public class MainActivity extends BaseMainActivity implements
 				// 定位
 				LogUtil.print("定位");
 				obtainOpenCity();
+				startActivity(new Intent(MainActivity.this,Act_City.class));
 				break;
 			case TAB_APPOINTMENT:
 				// 换教练

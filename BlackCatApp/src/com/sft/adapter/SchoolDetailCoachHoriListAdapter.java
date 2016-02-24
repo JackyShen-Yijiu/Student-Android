@@ -136,16 +136,17 @@ public class SchoolDetailCoachHoriListAdapter extends BaseAdapter {
 		} else {
 			holder.selectIm.setBackgroundResource(android.R.color.transparent);
 		}
-		if (mData.get(position).getIs_shuttle().equals("true")) {
-			holder.shuttle.setVisibility(View.VISIBLE);
-		} else {
-			holder.shuttle.setVisibility(View.GONE);
-		}
-		if (mData.get(position).isGeneral()) {
-			holder.general.setVisibility(View.VISIBLE);
-		} else {
-			holder.general.setVisibility(View.GONE);
-		}
+//		if (mData.get(position).getIs_shuttle().equals("true")) {
+//			holder.shuttle.setVisibility(View.VISIBLE);
+//		} else {
+//			holder.shuttle.setVisibility(View.GONE);
+//		}
+//		if (mData.get(position).isGeneral()) {
+//			holder.general.setVisibility(View.VISIBLE);
+//		} else {
+//			holder.general.setVisibility(View.GONE);
+//		}
+		 
 		String coachName = mData.get(position).getName();
 		holder.coachName.setText(coachName);
 		if (isShowSchool) {
@@ -179,15 +180,16 @@ public class SchoolDetailCoachHoriListAdapter extends BaseAdapter {
 		} catch (Exception e) {
 			holder.rateBar.setRating(0f);
 		}
-		String age = mData.get(position).getSeniority();
-		holder.teachAge.setText("教龄:" + age + "年");
+////		String age = mData.get(position).getSeniority();
+//		String distance = mData.get(position).getDistance();
+//		holder.teachAge.setText("距您:" + age + "km");
 		String distance = mData.get(position).getDistance();
-		int distanceInt = 0;
+		float distanceInt = 0;
 		try {
-			distanceInt = Integer.parseInt(distance);
+			distanceInt = Float.parseFloat(distance);
 		} catch (NumberFormatException e) {
 		}
-		holder.distance.setText(distanceInt / 1000 + "km");
+		holder.teachAge.setText("距您"+distanceInt / 1000f + "km");
 
 		LinearLayout.LayoutParams headParam = (LinearLayout.LayoutParams) holder.headPic1
 				.getLayoutParams();

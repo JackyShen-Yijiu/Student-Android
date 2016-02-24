@@ -179,7 +179,7 @@ public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity
 	}
 
 	private void setListener() {
-		Toast("setListener"+getClass());
+//		Toast("setListener"+getClass());
 		leftBtn.setOnClickListener(this);
 		rightBtn.setOnClickListener(this);
 		leftTV.setOnClickListener(this);

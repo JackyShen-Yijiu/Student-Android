@@ -236,6 +236,7 @@ public class EnrollActivity extends BaseActivity {
 
 	private String checkEnrollInfo() {
 		if (carStyle == null) {
+			
 			return "车型为空";
 		}
 		if (school == null) {

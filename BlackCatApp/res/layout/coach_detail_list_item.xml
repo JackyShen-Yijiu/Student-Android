@@ -22,6 +22,7 @@
             style="@style/coachdetail_title_style"
             android:layout_alignTop="@+id/coach_detail_comment_headpic_im"
             android:layout_marginLeft="8dp"
+            android:text="comment_name"
             android:layout_toRightOf="@+id/coach_detail_comment_headpic_im"
             />
 
@@ -30,6 +31,7 @@
             style="@style/coachdetail_title_style"
             android:layout_alignBottom="@+id/coach_detail_comment_headpic_im"
             android:layout_marginLeft="8dp"
+            android:text="classtype"
             android:layout_toRightOf="@+id/coach_detail_comment_headpic_im"
             android:textColor="#999" />
     </RelativeLayout>
@@ -45,6 +47,7 @@
             style="@style/coachdetail_content_style"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="comment_content"
              />
         <TextView
             android:id="@+id/coach_detail_comment_time_tv"
@@ -55,6 +58,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginRight="10dp"
             android:textColor="#999999"
+            android:text="comment_time"
             android:textSize="12dp" />
     </RelativeLayout>
 

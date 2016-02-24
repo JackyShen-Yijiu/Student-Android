@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -153,15 +154,11 @@ public class SchoolDetailActivity extends BaseActivity implements
 	private View viewTop;
 	private View viewTopStatic;
 	private View titleLayout;
-<<<<<<< HEAD
 	private int hegiht;
-=======
-	private int hegiht; 
 	/**暂无训练场 照片*/
 	private TextView tvNoPic;
->>>>>>> d3a28692286c57c61dd25c9aaad971a78cc8a19c
 
-	@Override
+	@TargetApi(Build.VERSION_CODES.KITKAT) @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 			// 透明状态栏
@@ -173,7 +170,8 @@ public class SchoolDetailActivity extends BaseActivity implements
 		}
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_school_detail2);
-		// addView(R.layout.activity_school_detail2);
+		// addView(R.layout.
+
 		hegiht = BaseUtils.getScreenHeight(this);
 		initView();
 		setListener();
@@ -197,6 +195,8 @@ public class SchoolDetailActivity extends BaseActivity implements
 	@Override
 	protected void onResume() {
 		register(getClass().getName());
+		LogUtil.print("state——--》"+app.userVO.getApplystate());
+//		app.userVO.
 		if (app.userVO == null
 				|| app.userVO.getApplystate().equals(
 						EnrollResult.SUBJECT_NONE.getValue())) {
@@ -214,21 +214,18 @@ public class SchoolDetailActivity extends BaseActivity implements
 		titleLayout = (View) findViewById(R.id.base_titlebar_layout_bg);
 
 		ImageButton bus = (ImageButton) findViewById(R.id.base_right_btn2);
-		bus.setImageResource(R.drawable.bus_white_icon);
+		
 		ImageButton left = (ImageButton) findViewById(R.id.base_left_btn);
 		ImageButton phone = (ImageButton) findViewById(R.id.base_right_btn);
 		titleTV = (TextView) findViewById(R.id.base_title_tv);
 		// 中文字体加粗
 		titleTV.getPaint().setFakeBoldText(true);
 		titleTV.setText("");
-		left.setImageResource(R.drawable.base_left_btn_bkground);
-<<<<<<< HEAD
-		phone.setImageResource(R.drawable.phone);
-
-=======
-		phone.setImageResource(R.drawable.chat_voice_call_self);
+		bus.setImageResource(R.drawable.bus_white_icon);
+		left.setBackgroundResource(R.drawable.base_left_btn_bkground);
+		phone.setImageResource(R.drawable.phone_white_icon);
+		bus.setVisibility(View.VISIBLE);
 		
->>>>>>> d3a28692286c57c61dd25c9aaad971a78cc8a19c
 		phone.setOnClickListener(this);
 		left.setOnClickListener(this);
 		bus.setOnClickListener(this);
@@ -1000,6 +997,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 
 	private void toPay(int po) {
 		ClassVO classe = courseFeeAdapter.getItem(po);
+		LogUtil.print("initdata-->"+app.userVO);
 		Intent i = new Intent(SchoolDetailActivity.this, ApplyActivity.class);
 		i.putExtra("school", school);
 		i.putExtra("schoolId", school.getSchoolid());

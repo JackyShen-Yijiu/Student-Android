@@ -384,9 +384,11 @@
            <activity
                android:name=".CheckDiscodeAct"
                android:screenOrientation="portrait"></activity>
+           <!-- 选择城市 -->
            
-           
-           
+           <activity
+               android:name="com.sft.city.Act_City"
+               android:screenOrientation="portrait"></activity>
            
         <activity
             android:name="com.sft.blackcatapp.SchoolAllCoachActivity"
