@@ -128,7 +128,9 @@
             android:name="com.sft.blackcatapp.SchoolDetailActivity"
             android:screenOrientation="portrait" />
         
-        
+            <activity
+            android:name="com.sft.blackcatapp.NewEditPersonInfo"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.sft.blackcatapp.EnrollSchoolActivity"
             android:screenOrientation="portrait" />
@@ -160,6 +162,9 @@
             android:name="com.sft.blackcatapp.EnrollClassActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name="com.sft.blackcatapp.IndentDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="com.sft.blackcatapp.EnrollCarStyleActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -189,6 +194,10 @@
         <activity
             android:name="com.sft.blackcatapp.CropImageActivity"
             android:screenOrientation="portrait" />
+          <activity
+            android:name="com.sft.blackcatapp.ApplyDetailActivity"
+            android:screenOrientation="portrait" />
+        
         <activity
             android:name="com.sft.blackcatapp.ChangeAddressActivity"
             android:screenOrientation="portrait" />

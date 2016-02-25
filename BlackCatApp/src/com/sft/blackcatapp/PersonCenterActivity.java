@@ -82,7 +82,7 @@ public class PersonCenterActivity extends BaseActivity implements
 		// 圆形头像
 		headPicIm = (SelectableRoundedImageView) findViewById(R.id.person_center_headpic_im);
 		headPicIm.setScaleType(ScaleType.CENTER_CROP);
-		headPicIm.setImageResource(R.drawable.default_small_pic);
+		headPicIm.setImageResource(R.drawable.login_head);
 		headPicIm.setOval(true);
 
 		// phoneTv = (TextView) findViewById(R.id.person_center_phone_tv);
@@ -133,7 +133,7 @@ public class PersonCenterActivity extends BaseActivity implements
 		String url = app.userVO.getHeadportrait().getOriginalpic();
 
 		if (TextUtils.isEmpty(url)) {
-			headPicIm.setBackgroundResource(R.drawable.default_small_pic);
+			headPicIm.setBackgroundResource(R.drawable.login_head);
 		} else {
 			BitmapManager.INSTANCE.loadBitmap2(url, headPicIm,
 					headpicParam.width, headpicParam.height);
@@ -226,7 +226,7 @@ public class PersonCenterActivity extends BaseActivity implements
 			finish();
 			break;
 		case R.id.person_center_layout:
-			intent = new Intent(this, EditPersonInfoActivity.class);
+			intent = new Intent(this, NewEditPersonInfo.class);
 			startActivity(intent);
 			break;
 		case R.id.person_center_carstyle_tv:
@@ -370,25 +370,27 @@ public class PersonCenterActivity extends BaseActivity implements
 					// finish();
 				}
 			};
-		} else if (EnrollResult.SUBJECT_ENROLLING.getValue().equals(applyState)
-				&& payType == 2) {// 线上支付
-
-			ZProgressHUD.getInstance(this).show();
-			ZProgressHUD.getInstance(this).dismissWithSuccess("您已报名,正在等待审核");
-
-		} else if (EnrollResult.SUBJECT_ENROLLING.getValue().equals(applyState)
-				&& payType == 1) {// 线下支付 跳转到 二维码页面
-			Intent intent1 = new Intent(PersonCenterActivity.this,
-					EnrollSuccessActivity.class);
-			startActivity(intent1);
-		} else if (EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue().equals(
-				applyState)) {
-			// Intent intent1 = new Intent(PersonCenterActivity.this,
-			// EnrollSuccessActivity.class);
-			// startActivity(intent1);
-			ZProgressHUD.getInstance(this).show();
-			ZProgressHUD.getInstance(this).dismissWithSuccess("您已报名");
 		}
+		// else if (EnrollResult.SUBJECT_ENROLLING.getValue().equals(applyState)
+		// && payType == 2) {// 线上支付
+		//
+		// ZProgressHUD.getInstance(this).show();
+		// ZProgressHUD.getInstance(this).dismissWithSuccess("您已报名,正在等待审核");
+		//
+		// } else if
+		// (EnrollResult.SUBJECT_ENROLLING.getValue().equals(applyState)
+		// && payType == 1) {// 线下支付 跳转到 二维码页面
+		// Intent intent1 = new Intent(PersonCenterActivity.this,
+		// EnrollSuccessActivity.class);
+		// startActivity(intent1);
+		// } else if (EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue().equals(
+		// applyState)) {
+		// // Intent intent1 = new Intent(PersonCenterActivity.this,
+		// // EnrollSuccessActivity.class);
+		// // startActivity(intent1);
+		// ZProgressHUD.getInstance(this).show();
+		// ZProgressHUD.getInstance(this).dismissWithSuccess("您已报名");
+		// }
 	}
 
 	int applystate = -2;
