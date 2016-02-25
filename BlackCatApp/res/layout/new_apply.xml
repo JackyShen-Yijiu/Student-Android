@@ -1,11 +1,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/enroll_rootlayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@color/app_bg_dark" >
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/new_apply_next_rl"
         android:fillViewport="true" >
 
         <RelativeLayout
@@ -28,132 +30,221 @@
                 layout="@layout/line" />
             <!-- 1 -->
 
-            <RelativeLayout
-                android:id="@+id/enroll_carstyle_rl"
+            <LinearLayout
+                android:id="@+id/top_infor"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/rl_height"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/line1"
-                android:paddingRight="15dp"
-                android:background="@color/white" >
-
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="17dp"
-                    android:text="班级类型:"
-                    android:textSize="@dimen/txt_size_middle"
-                    android:textColor="@color/txt_9" />
-
-                <TextView
-                    android:id="@+id/apply_license_type_c1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"
-                    android:layout_toRightOf="@+id/textView3"
-                    android:textColor="#333" />
-
-                <TextView
-                    android:id="@+id/apply_license_type_c2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="25dp"
-                    android:layout_toRightOf="@+id/apply_license_type_c1"
-                    android:textColor="#333" />
-                <TextView
-                    android:id="@+id/apply_license_type"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="25dp"
-                    android:layout_alignParentRight="true"
-                    android:text=""
-                    android:textSize="@dimen/txt_size_middle"
-                    android:textColor="@color/txt_9" />
-            </RelativeLayout>
-
-            <include
-                android:id="@+id/line2"
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_below="@+id/enroll_carstyle_rl"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                layout="@layout/line" />
-
-            <!-- 2 -->
-
-            <RelativeLayout
-                android:id="@+id/enroll_school_rl"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/rl_height"
-                android:layout_below="@+id/line2"
-                android:paddingRight="15dp"
-                android:background="@color/white" >
-
-                <TextView
-                    android:id="@+id/apply_textview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="17dp"
-                    android:text="报考驾校:"
-                    android:textColor="@color/txt_9" />
-
-                <TextView
-                    android:id="@+id/enroll_school_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:textColor="@color/txt_9"
-                    android:textSize="14sp" />
-            </RelativeLayout>
-
-            <include
-                android:id="@+id/line3"
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_below="@+id/enroll_school_rl"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                layout="@layout/line" />
-
-            <!-- 3 -->
-
-            <RelativeLayout
-                android:id="@+id/enroll_class_rl"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/rl_height"
-                android:layout_below="@+id/line3"
                 android:background="@color/white"
-                android:visibility="gone" >
+                android:orientation="vertical"
+                android:paddingLeft="17dp" >
 
                 <TextView
-                    android:id="@+id/apply_apply_class_type_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginLeft="17dp"
-                    android:layout_marginTop="10dp"
-                    android:text="报考班型:"
-                    android:textColor="#333" />
+                    android:layout_marginTop="17dp"
+                    android:text="班级类型"
+                    android:textColor="@color/txt_999"
+                    android:textSize="@dimen/txt_size_ss" />
 
-                <com.sft.view.ApplyClassTypeLayout
-                    android:id="@+id/apply_class_type_ll"
+                <TextView
+                    android:id="@+id/new_apply_classtype"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/apply_apply_class_type_tv"
-                    android:layout_marginLeft="10dp"
-                    android:layout_toRightOf="@+id/apply_apply_class_type_tv"
-                    android:orientation="vertical" >
-                </com.sft.view.ApplyClassTypeLayout>
-            </RelativeLayout>
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="15dp"
+                    android:text="班级类型11"
+                    android:textColor="@color/txt_333"
+                    android:textSize="@dimen/txt_size_middle" />
+
+                <include layout="@layout/line" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="17dp"
+                    android:text="报考驾校"
+                    android:textColor="@color/txt_999"
+                    android:textSize="@dimen/txt_size_ss" />
+
+                <TextView
+                    android:id="@+id/new_apply_school"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="15dp"
+                    android:text="一步互联"
+                    android:textColor="@color/txt_333"
+                    android:textSize="@dimen/txt_size_middle" />
+
+                <include layout="@layout/line" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="17dp"
+                    android:text="报考教练"
+                    android:textColor="@color/txt_999"
+                    android:textSize="@dimen/txt_size_ss" />
+
+                <TextView
+                    android:id="@+id/new_apply_coach"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="15dp"
+                    android:text="智能匹配"
+                    android:textColor="@color/txt_333"
+                    android:textSize="@dimen/txt_size_middle" />
+
+                <include layout="@layout/line" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="17dp"
+                        android:text="真实姓名"
+                        android:textColor="@color/txt_999"
+                        android:textSize="@dimen/txt_size_ss" />
+
+                    <TextView
+                        android:id="@+id/new_apply_name_error"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="17dp"
+                        android:drawablePadding="3dp"
+                        android:drawableRight="@drawable/login_hint"
+                        android:gravity="center_vertical"
+                        android:text="真实姓名不能为空"
+                        android:textColor="@color/new_app_main_color"
+                        android:textSize="@dimen/txt_size_ss"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+                <EditText
+                    android:id="@+id/enroll_name_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@null"
+                    android:hint="请输入真实姓名"
+                    android:text=""
+                    android:textColor="@color/txt_333"
+                    android:textSize="@dimen/txt_size_middle" >
+                </EditText>
+
+                <include layout="@layout/line" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="17dp"
+                        android:text="联系电话"
+                        android:textColor="@color/txt_999"
+                        android:textSize="@dimen/txt_size_ss" />
+
+                    <TextView
+                        android:id="@+id/new_apply_phone_error"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="17dp"
+                        android:drawablePadding="3dp"
+                        android:drawableRight="@drawable/login_hint"
+                        android:gravity="center_vertical"
+                        android:text="真实姓名"
+                        android:textColor="@color/new_app_main_color"
+                        android:textSize="@dimen/txt_size_ss"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+                <EditText
+                    android:id="@+id/enroll_contact_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@null"
+                    android:hint="请输入手机号"
+                    android:text=""
+                    android:textColor="@color/txt_333"
+                    android:textSize="@dimen/txt_size_middle" />
+
+                <include layout="@layout/line" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="17dp"
+                        android:text="一步Y码(折扣券)"
+                        android:textColor="@color/txt_999"
+                        android:textSize="@dimen/txt_size_ss" />
+                </RelativeLayout>
+
+                <EditText
+                    android:id="@+id/enroll_ycode_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@null"
+                    android:hint="请输入Y码"
+                    android:text=""
+                    android:textColor="@color/txt_333"
+                    android:textSize="@dimen/txt_size_middle" />
+
+                <include layout="@layout/line" />
+
+                <RadioGroup
+                    android:id="@+id/pay_type_gp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="20dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingTop="24dp" >
+
+                    <RadioButton
+                        android:id="@+id/radio1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:button="@drawable/radio_button_bg"
+                        android:checked="true"
+                        android:paddingLeft="3dp"
+                        android:text="线上支付"
+                        android:textColor="@color/txt_333" />
+
+                    <RadioButton
+                        android:id="@+id/radio2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:button="@drawable/radio_button_bg"
+                        android:paddingLeft="3dp"
+                        android:text="线下支付"
+                        android:textColor="@color/txt_333" />
+                </RadioGroup>
+            </LinearLayout>
 
             <!-- 4 -->
 
@@ -340,41 +431,6 @@
                 android:contentDescription="@string/app_name"
                 android:visibility="gone" />
 
-            <RelativeLayout
-                android:id="@+id/enroll_coach_rl"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/rl_height"
-                android:layout_below="@+id/imageView_devide"
-                android:paddingRight="15dp"
-                android:background="@color/white" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="17dp"
-                    android:text="报考教练"
-                    android:textColor="@color/txt_9" />
-
-                <TextView
-                    android:id="@+id/enroll_coach_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:text="智能分配"
-                    android:textColor="#999"
-                    android:textSize="14sp" />
-            </RelativeLayout>
-
-            <include
-                android:id="@+id/line31"
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_below="@+id/enroll_coach_rl"
-                layout="@layout/line" />
-
             <LinearLayout
                 android:id="@+id/ll_title_one"
                 android:layout_width="match_parent"
@@ -391,139 +447,29 @@
                 android:layout_below="@+id/ll_title_one"
                 layout="@layout/line" />
 
-            <RelativeLayout
-                android:id="@+id/rl_msg_one"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/rl_height"
-                android:layout_below="@+id/line4"
-                android:background="@color/white" >
-
-                <EditText
-                    android:id="@+id/enroll_name_et"
-                    style="@style/enroll_et_style"
-                    android:hint="真实姓名"
-                    android:maxLength="6" />
-            </RelativeLayout>
-
             <include
                 android:id="@+id/line5"
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:layout_below="@+id/rl_msg_one"
+                android:layout_below="@+id/line4"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 layout="@layout/line" />
 
-            <RelativeLayout
-                android:id="@+id/rl_msg_two"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/rl_height"
-                android:layout_below="@+id/line5"
-                android:background="@color/white" >
-
-                <EditText
-                    android:id="@+id/enroll_contact_et"
-                    style="@style/enroll_et_style"
-                    android:hint="联系电话"
-                    android:maxLength="11"
-                    android:inputType="number" />
-            </RelativeLayout>
-
-            <include
-                android:id="@+id/line6"
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_below="@+id/rl_msg_two"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                layout="@layout/line" />
-
-            <RelativeLayout
-                android:id="@+id/rl_msg_three"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/rl_height"
-                android:layout_below="@+id/line6"
-                android:background="@color/white" >
-
-                <EditText
-                    android:id="@+id/enroll_idcard_et"
-                    style="@style/enroll_et_style"
-                    android:digits="1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQISTUVWXYZ"
-                    android:hint="Y码"
-                    android:maxLength="18" />
-            </RelativeLayout>
-
-            <include
-                android:id="@+id/line7"
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_below="@+id/rl_msg_three"
-                layout="@layout/line" />
-
-            <include
-                android:id="@+id/line8"
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_below="@+id/line7"
-                android:layout_marginTop="10dp"
-                layout="@layout/line" />
-
-            <RadioGroup
-                android:id="@+id/pay_type_gp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/line8"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:orientation="horizontal" >
-
-                <RadioButton
-                    android:id="@+id/radio1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:checked="true"
-                    android:text="线上支付"
-                    android:background="@android:color/transparent"
-                    android:button="@drawable/radio_button_bg"
-                    android:paddingLeft="3dp"
-                    android:textColor="@color/txt_333" />
-
-                <RadioButton
-                    android:id="@+id/radio2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:button="@drawable/radio_button_bg"
-                    android:paddingLeft="3dp"
-                    android:text="线下支付"
-                    android:textColor="@color/txt_333" />
-            </RadioGroup>
-
-            <include
+            <View
                 android:id="@+id/line9"
                 android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_below="@+id/pay_type_gp"
-                layout="@layout/line" />
-
-            <include
-                android:id="@+id/line10"
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_below="@+id/line9"
-                android:layout_marginTop="10dp"
-                layout="@layout/line" />
+                android:layout_height="2dp"
+                android:layout_below="@+id/top_infor"
+                android:background="#c4c4c4" />
 
             <RelativeLayout
                 android:id="@+id/relativeLayout1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_below="@+id/line10"
+                android:layout_below="@+id/line9"
+                android:background="@color/app_bg_dark"
                 android:padding="15dp" >
 
                 <TextView
@@ -545,46 +491,40 @@
                     android:text="     请认真填写以上信息，您填写的信息将作为报名信息录入车考驾照系统内，如果信息错误，将影响你的报名流程。"
                     android:textSize="12sp" />
             </RelativeLayout>
-            
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/relativeLayout1"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="20dp" >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="实际支付"
-                    android:textColor="@color/txt_333"
-                    android:textSize="16sp" />
-                <TextView
-                    android:id="@+id/tv_pay_money"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:text="3288元"
-                    android:textColor="@color/txt_333"
-                    android:textSize="16sp" />
-                
-                
-            </RelativeLayout>
-
-            <Button
-                android:id="@+id/enroll_commit_btn"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_alignParentBottom="true"
-                android:background="#ff6633"
-                android:text="报名"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-
-            
         </RelativeLayout>
-
     </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/new_apply_next_rl"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white" >
+        <include layout="@layout/line"/>
+
+        <TextView
+            android:id="@+id/new_apply_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/enroll_commit_btn"
+            android:layout_alignBottom="@+id/enroll_commit_btn"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="17dp"
+            android:text="需支付  3228元"
+            android:textColor="@color/txt_333"
+            android:textSize="@dimen/txt_size_large" />
+
+        <Button
+            android:id="@+id/enroll_commit_btn"
+            android:layout_width="88dp"
+            android:layout_height="37dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="14dp"
+            android:background="@color/new_app_main_color"
+            android:text="下一步"
+            android:textColor="@color/white"
+            android:textSize="@dimen/txt_size_large" />
+    </RelativeLayout>
 
 </RelativeLayout>

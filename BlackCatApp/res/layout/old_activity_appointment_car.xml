@@ -90,7 +90,7 @@
     <ScrollView
         android:id="@+id/appointment_car_time_layout"
         android:layout_width="match_parent"
-        android:layout_height="150dp" >
+        android:layout_height="15dp" >
 
         <com.sft.viewutil.ScrollTimeLayout
             android:id="@+id/appointment_car_time"

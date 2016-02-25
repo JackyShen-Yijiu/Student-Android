@@ -40,6 +40,7 @@ import android.widget.Toast;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
 import cn.sft.baseactivity.util.HttpSendUtils;
+import cn.sft.infinitescrollviewpager.MyHandler;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -55,9 +56,13 @@ import com.sft.adapter.OpenCityAdapter;
 import com.sft.api.ApiHttpClient;
 import com.sft.blackcatapp.home.view.MainScreenContainer;
 import com.sft.blackcatapp.home.view.MainScreenContainer.OnTabLisener;
+import com.sft.city.Act_City;
+import com.sft.city.City;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
+import com.sft.common.Config.SubjectStatu;
 import com.sft.dialog.CheckApplyDialog;
+import com.sft.dialog.CustomDialog;
 import com.sft.dialog.NoCommentDialog;
 import com.sft.dialog.NoLoginDialog;
 import com.sft.fragment.MenuFragment;
@@ -143,12 +148,12 @@ public class MainActivity extends BaseMainActivity implements
 		}
 	};
 
-	@SuppressLint("NewApi")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.frame_content);
+		// EventBus.getDefault().register(this);
 		init();
 		initView();
 		initData(savedInstanceState);
@@ -212,12 +217,35 @@ public class MainActivity extends BaseMainActivity implements
 
 	}
 
+	/**
+	 * 弹出前去报名的对话框
+	 */
+	private void gotoApplyDialog() {
+		final CheckApplyDialog dialog = new CheckApplyDialog(this);
+		dialog.setTextAndImage("前去报名", "您还没有报名，请前去报名", "再看看",
+				R.drawable.appointment_time_error);
+		dialog.setListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				mMainContainer.showTab(TAB_APPLY);
+				dialog.dismiss();
+			}
+		});
+		dialog.show();
+
+	}
+
 	private int sum = 0;
 
 	private void setTag() {
 		if (app.isLogin) {
-			JPushInterface.setAlias(this, app.userVO.getUserid(),
-					new MyTagAliasCallback());
+//			app.userVO.getUserid()
+			LogUtil.print("jpush---userId--->"+app.userVO.getUserid());
+			JPushInterface.setAliasAndTags(this,app.userVO.getUserid(), null, new MyTagAliasCallback());
+//			JPushInterface.setAlias(this,app.userVO.getUserid(),
+//					new MyTagAliasCallback());
+			LogUtil.print("jpush---userId---end>"+app.userVO.getUserid());
 		}
 	}
 
@@ -225,11 +253,14 @@ public class MainActivity extends BaseMainActivity implements
 
 		@Override
 		public void gotResult(int arg0, String arg1, Set<String> arg2) {
+			LogUtil.print("jpush--->MainActivity---->"+arg1);
 			sum++;
 			if (arg0 != 0 && sum < 5) {
 				setTag();
 			}
 		}
+
+		
 
 	}
 
@@ -245,6 +276,7 @@ public class MainActivity extends BaseMainActivity implements
 		titleTv = (TextView) findViewById(R.id.title_tv);
 		titleRightIv = (ImageView) findViewById(R.id.title_right_iv);
 		titleRightTv = (TextView) findViewById(R.id.title_right_tv);
+		titleFarRightIv = (ImageView) findViewById(R.id.title_far_right_iv);
 		// customize the SlidingMenu
 		mSlidingMenu = getSlidingMenu();
 
@@ -336,6 +368,7 @@ public class MainActivity extends BaseMainActivity implements
 		titleRightIv.setOnClickListener(this);
 		titleRightTv.setOnClickListener(this);
 		titleTv.setOnClickListener(this);
+		titleFarRightIv.setOnClickListener(this);
 	}
 
 	// 左侧菜单条目点击
@@ -389,18 +422,33 @@ public class MainActivity extends BaseMainActivity implements
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		switch (requestCode) {
-		// case CHANNELREQUEST:
-		// if (resultCode == CHANNELRESULT) {
-		// setChangelView();
-		// }
-		// break;
-
-		default:
+		LogUtil.print(resultCode+"onActivityResult--》"+data);
+		switch (currentPage) {
+		case TAB_APPLY:
+			if(mMainContainer.enrollFragment.type == 0){//驾校
+				if(resultCode == 9){//城市
+					City city = (City) data.getSerializableExtra("city");
+					app.curCity = city.name;
+					mMainContainer.enrollFragment.schoolFragment.requestByCity(city.name);
+					titleRightTv.setText(app.curCity);
+				}
+//				mMainContainer.enrollFragment.schoolFragment.onActivityResult(requestCode, resultCode, data);
+			}else{//教练
+				if(resultCode == 9){//城市
+					City city = (City) data.getSerializableExtra("city");
+					app.curCity = city.name;
+					mMainContainer.enrollFragment.coachFragment.requestByCity(city.name);
+					titleRightTv.setText(app.curCity);
+				}
+//				mMainContainer.enrollFragment.coachFragment.onActivityResult(requestCode, resultCode, data);
+			}
+//			MainScreenTab.
 			break;
 		}
-		super.onActivityResult(requestCode, resultCode, data);
+		
 	}
+
+	private boolean hasAppointment = true;
 
 	@Override
 	public void onClick(View v) {
@@ -408,16 +456,60 @@ public class MainActivity extends BaseMainActivity implements
 		case R.id.home_btn:
 			toggle(); // 动态判断自动关闭或开启SlidingMenu
 			break;
+		case R.id.title_far_right_iv:
 		case R.id.title_right_tv:
 			switch (currentPage) {
 			case TAB_APPLY:
 				// 定位
 				LogUtil.print("定位");
 				obtainOpenCity();
+				startActivityForResult(new Intent(MainActivity.this,Act_City.class),2);
 				break;
 			case TAB_APPOINTMENT:
 				// 换教练
+				Intent intent = null;
 				LogUtil.print("换教练");
+				if (app.isLogin) {
+					LogUtil.print(app.userVO.getSubject().getSubjectid());
+					if (app.userVO.getApplystate().equals(
+							EnrollResult.SUBJECT_NONE.getValue())) {
+						// 还没有报名
+						gotoApplyDialog();
+
+					} else if (app.userVO.getApplystate().equals(
+							EnrollResult.SUBJECT_ENROLLING.getValue())) {
+						final CustomDialog dialog = new CustomDialog(this,
+								CustomDialog.ENROLLING);
+						dialog.show();
+						new MyHandler(1000) {
+							@Override
+							public void run() {
+								dialog.dismiss();
+							}
+						};
+					} else {
+
+						if (app.userVO.getSubject().getSubjectid()
+								.equals(SubjectStatu.SUBJECT_ONE.getValue())) {
+							ZProgressHUD.getInstance(this).show();
+							ZProgressHUD.getInstance(this).dismissWithSuccess(
+									"待学习科目二再预约");
+						} else {
+							intent = new Intent(this,
+									AppointmentCarActivity.class);
+							intent.putExtra("subject", app.userVO.getSubject()
+									.getSubjectid());
+						}
+
+					}
+
+				} else {
+					NoLoginDialog dialog = new NoLoginDialog(this);
+					dialog.show();
+				}
+				if (intent != null) {
+					startActivityForResult(intent, TAB_APPOINTMENT);
+				}
 				break;
 			case TAB_COMMUNITY:
 
@@ -436,16 +528,17 @@ public class MainActivity extends BaseMainActivity implements
 			break;
 		case R.id.title_left_iv:
 			// 切换为驾校
-//			break;
+			// break;
 		case R.id.title_right_iv:
-//			// 切换为教练
-//			break;
+			// // 切换为教练
+			// break;
 		case R.id.title_tv:
-			if(mMainContainer.getCurrentFragment().equals(mMainContainer.enrollFragment)){
+			if (mMainContainer.getCurrentFragment().equals(
+					mMainContainer.enrollFragment)) {
 				mMainContainer.enrollFragment.switchSchoolOrCoach();
-				if(mMainContainer.enrollFragment.type == 0){
+				if (mMainContainer.enrollFragment.type == 0) {
 					titleTv.setText(R.string.driving_school);
-				}else{
+				} else {
 					titleTv.setText(R.string.coach);
 				}
 			}
@@ -454,12 +547,12 @@ public class MainActivity extends BaseMainActivity implements
 			break;
 		}
 	}
-	
+
 	/**
 	 * 切换驾校\教练
 	 */
-	private void switchSchoolCoach(){
-		
+	private void switchSchoolCoach() {
+
 	}
 
 	/**
@@ -748,11 +841,11 @@ public class MainActivity extends BaseMainActivity implements
 				app.curCity = curCity;
 				util.saveParam(Config.USER_CITY, curCity);
 				stopLocation();
-				if(mMainContainer.getCurrentTabType() == TAB_APPLY){
+				if (mMainContainer.getCurrentTabType() == TAB_APPLY) {
 					titleRightTv.setText(curCity);
 				}
-				LogUtil.print("城市::::>>>"+curCity);
-				
+				LogUtil.print("城市::::>>>" + curCity);
+
 			}
 		}
 	}
@@ -792,6 +885,8 @@ public class MainActivity extends BaseMainActivity implements
 	private TextView titleRightTv;
 	private ImageView titleRightIv;
 	private ImageView titleLeftIv;
+	// 最右边的imagview
+	private ImageView titleFarRightIv;
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -959,6 +1054,7 @@ public class MainActivity extends BaseMainActivity implements
 		titleLeftIv.setVisibility(View.GONE);
 		titleRightIv.setVisibility(View.GONE);
 		titleRightTv.setVisibility(View.GONE);
+		titleFarRightIv.setVisibility(View.GONE);
 		switch (index) {
 		case TAB_APPLY:
 			currentPage = TAB_APPLY;
@@ -966,9 +1062,11 @@ public class MainActivity extends BaseMainActivity implements
 			titleRightIv.setVisibility(View.VISIBLE);
 			titleRightTv.setVisibility(View.VISIBLE);
 			titleTv.setText(CommonUtil.getString(this, R.string.driving_school));
-//			util.saveParam(Config.USER_CITY, curCity);
-			titleRightTv.setText(util.readParam(Config.USER_CITY)==null?CommonUtil.getString(this,
-					R.string.locationing):util.readParam(Config.USER_CITY));
+			// util.saveParam(Config.USER_CITY, curCity);
+			titleRightTv
+					.setText(util.readParam(Config.USER_CITY) == null ? CommonUtil
+							.getString(this, R.string.locationing) : util
+							.readParam(Config.USER_CITY));
 			break;
 		case TAB_STUDY:
 			currentPage = TAB_STUDY;
@@ -977,21 +1075,17 @@ public class MainActivity extends BaseMainActivity implements
 			break;
 		case TAB_APPOINTMENT:
 			currentPage = TAB_APPOINTMENT;
-			titleRightTv.setVisibility(View.VISIBLE);
+
 			titleTv.setText(CommonUtil.getString(this,
-					R.string.tab_indicator_title_appointment));
-			if (!app.isLogin) {
-				titleRightTv.setText(CommonUtil.getString(this,
-						R.string.add_coach));
+					R.string.tab_indicator_title_appointment) + "列表");
+			if (app.isLogin) {
+				titleFarRightIv.setVisibility(View.VISIBLE);
+				titleRightTv.setVisibility(View.GONE);
+				// titleRightTv.setText(CommonUtil.getString(this,
+				// R.string.add_coach));
 			} else {
-				if (app.userVO.getSubject().getSubjectid()
-						.equals(Config.SubjectStatu.SUBJECT_NONE.getValue())) {
-					titleRightTv.setText(CommonUtil.getString(this,
-							R.string.add_coach));
-				} else {
-					titleRightTv.setText(CommonUtil.getString(this,
-							R.string.change_coach));
-				}
+				NoLoginDialog dialog = new NoLoginDialog(this);
+				dialog.show();
 			}
 
 			break;
@@ -1045,5 +1139,11 @@ public class MainActivity extends BaseMainActivity implements
 				mMainContainer != null ? mMainContainer.getCurrentTabType()
 						: MainActivity.TAB_APPLY);
 		// outState.putBoolean(Constant.LOGIN_STATE_CONFLICT, isConflict());
+	}
+
+	public void showAddCoach() {
+		titleFarRightIv.setVisibility(View.GONE);
+		titleRightTv.setVisibility(View.VISIBLE);
+		titleRightTv.setText(CommonUtil.getString(this, R.string.add_coach));
 	}
 }

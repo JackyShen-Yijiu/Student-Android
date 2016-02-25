@@ -256,6 +256,13 @@ public class PersonCenterActivity extends BaseActivity implements
 			intent = new Intent(this, MyFavouriteActiviy.class);
 			startActivityForResult(intent, R.id.person_center_favourite_tv);
 			break;
+		case R.id.person_center_logout_btn:
+			ZProgressHUD.getInstance(this).setMessage("正在退出登录...");
+			ZProgressHUD.getInstance(this).show();
+			LogUtil.print("isLogin--->"+app.isLogin);
+//			EMChatManager.getInstance().logout(null);
+			setTag();
+			break;
 		case R.id.person_center_school_tv:
 			break;
 		// 报名详情
@@ -506,6 +513,8 @@ public class PersonCenterActivity extends BaseActivity implements
 
 		@Override
 		public void gotResult(int arg0, String arg1, Set<String> arg2) {
+			Toast("callback");
+			LogUtil.print("MyTagCallback---->"+arg1);
 			sum++;
 			if (arg0 != 0 && sum < 5) {
 				setTag();
@@ -519,6 +528,8 @@ public class PersonCenterActivity extends BaseActivity implements
 				startActivity(intent);
 			}
 		}
+		
+		
 
 	}
 }

@@ -28,10 +28,10 @@ import com.sft.vo.UserVO;
 public class ConfirmOrderActivity extends BaseActivity implements
 		OnClickListener {
 
-	private TextView tv_coupon_show, tvGoodName, tvGoodPrice, tvYcode;
-
-	private TextView tvShoudPay, tvReallyPay;
-	
+	private TextView  tvGoodName, tvGoodPrice;//tv_coupon_show
+	/***最终支付金额*/
+	private TextView  tvReallyPay;
+	/**负数*/
 	private TextView tvDiscodeBottom;
 
 	private ClassVO classe;
@@ -61,7 +61,6 @@ public class ConfirmOrderActivity extends BaseActivity implements
 
 		addView(R.layout.activity_confirm_order);
 		setBg(getResources().getColor(R.color.white));
-		
 		initView();
 		Listenner();
 	}
@@ -76,15 +75,15 @@ public class ConfirmOrderActivity extends BaseActivity implements
 	private void initView() {
 		repay = getIntent().getBooleanExtra("repay", false);
 		
-		tv_coupon_show = (TextView) findViewById(R.id.tv_coupon_show);
-		tvGoodName = (TextView) findViewById(R.id.tv_goods_show);
-		tvGoodPrice = (TextView) findViewById(R.id.tv_goods_money_show);
+//		tv_coupon_show = (TextView) findViewById(R.id.tv_coupon_show);
+		tvGoodName = (TextView) findViewById(R.id.confirm_order_good_name);
+		tvGoodPrice = (TextView) findViewById(R.id.confirm_order_price);
 		// tvDiscode = (TextView) findViewById(R.id.tv_goods_show);
-		tvYcode = (TextView) findViewById(R.id.tv_discount_show);
-		tvShoudPay = (TextView) findViewById(R.id.textView_money_should);
-		tvReallyPay = (TextView) findViewById(R.id.textView_money_cale);
+//		tvYcode = (TextView) findViewById(R.id.confirm_order_ycode);
+//		tvShoudPay = (TextView) findViewById(R.id.textView_money_should);
+		tvReallyPay = (TextView) findViewById(R.id.confirm_order_money_pay);
 		
-		tvDiscodeBottom = (TextView) findViewById(R.id.textView_discode_bottom);
+		tvDiscodeBottom = (TextView) findViewById(R.id.confirm_order_discode);
 		
 		if(repay){//重新支付
 			doRepay();
@@ -102,8 +101,8 @@ public class ConfirmOrderActivity extends BaseActivity implements
 				productName = classe.getClassname();
 				productDetail = classe.getClassname() +onSalePrice;
 				
-				tvReallyPay.setText(onSalePrice + "元");
-				tvShoudPay.setText(price + "元(" + schoolName + ")");
+//				tvReallyPay.setText(onSalePrice + "元");
+				tvReallyPay.setText(price + "元(" + schoolName + ")");
 			}
 			
 			doRepay();
@@ -133,23 +132,23 @@ public class ConfirmOrderActivity extends BaseActivity implements
 		phone = app.userVO.getMobile();
 		schoolName = bean.applyschoolinfo.getName();
 //		LogUtil.print("repay--->"+coupCode+"price-->"+bean.applyclasstypeinfo.price );
-		if((coupCode==null || coupCode.length()==0)){//请选择
-			tv_coupon_show.setText("请选择");
-		}else{
-			tv_coupon_show.setText(coupCode);
-			tv_coupon_show.setClickable(false);
-			tv_coupon_show.setEnabled(false);
-		}
+//		if((coupCode==null || coupCode.length()==0)){//请选择
+//			tv_coupon_show.setText("请选择");
+//		}else{
+//			tv_coupon_show.setText(coupCode);
+//			tv_coupon_show.setClickable(false);
+//			tv_coupon_show.setEnabled(false);
+//		}
 		
 		tvGoodPrice.setText(bean.applyclasstypeinfo.price + "元");
 		tvGoodName.setText(bean.applyclasstypeinfo.name+"元");
 		
-		tvReallyPay.setText(bean.applyclasstypeinfo.onsaleprice + "元");
-		tvShoudPay.setText(bean.applyclasstypeinfo.price + "元(" + bean.applyschoolinfo.getName() + ")");
+//		tvReallyPay.setText(bean.applyclasstypeinfo.onsaleprice + "元");
+		tvReallyPay.setText(bean.applyclasstypeinfo.price + "元(" + bean.applyschoolinfo.getName() + ")");
 	}
 
 	private void Listenner() {
-		tv_coupon_show.setOnClickListener(this);
+//		tv_coupon_show.setOnClickListener(this);
 	}
 	
 //	private String en
@@ -216,7 +215,7 @@ public class ConfirmOrderActivity extends BaseActivity implements
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.tv_coupon_show:
+		case R.id.confirm_order_discode_rl:
 			Intent intent = new Intent(ConfirmOrderActivity.this,
 					CheckDiscodeAct.class);
 			intent.putExtra("phone", phone);
@@ -308,10 +307,10 @@ public class ConfirmOrderActivity extends BaseActivity implements
 //			data.getStringExtra("money");
 			couponId = data.getStringExtra("id");
 			coupCode = data.getStringExtra("name");
-			tv_coupon_show.setText(coupCode);
-			tvYcode.setText("￥-"+data.getStringExtra("money"));
+//			tv_coupon_show.setText(coupCode);
+//			tvYcode.setText("￥-"+data.getStringExtra("money"));
 			String m = data.getStringExtra("money");
-			tvShoudPay.setText(price + "元(" + schoolName + ")");
+			tvReallyPay.setText(price + "元(" + schoolName + ")");
 			
 			//最终付款价格
 			paymoney = getPrice(onSalePrice,m)+"";

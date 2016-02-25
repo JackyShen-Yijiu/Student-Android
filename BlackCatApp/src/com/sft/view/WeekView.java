@@ -8,10 +8,11 @@ import android.widget.GridView;
 
 import com.sft.adapter.WeekAdapter;
 import com.sft.util.WeekDataUtil;
+import com.sft.vo.AppointmentDay;
 
 public class WeekView extends GridView {
 
-	private List<Integer> list;
+	private List<AppointmentDay> list;
 	private WeekAdapter adapter;
 
 	public WeekView(Context context) {
@@ -32,7 +33,6 @@ public class WeekView extends GridView {
 		} else if (pagePosition == 1) {
 			this.list = WeekDataUtil.getNextWeek();
 		}
-
 		adapter = new WeekAdapter(getContext(), 1, this.list);
 		this.setAdapter(adapter);
 	}

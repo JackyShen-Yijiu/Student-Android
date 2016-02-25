@@ -67,7 +67,6 @@ public class SchoolAllCoachActivity extends BaseActivity implements
 		ZProgressHUD.getInstance(this).show();
 		coachListView.setVisibility(View.GONE);
 
-		findViewById(R.id.more_caoch_devider_im).getLayoutParams().height = (int) (screenHeight * 0.2f);
 		((TextView) findViewById(R.id.more_coach_no_tv))
 				.setText(R.string.no_favourite_coach);
 	}

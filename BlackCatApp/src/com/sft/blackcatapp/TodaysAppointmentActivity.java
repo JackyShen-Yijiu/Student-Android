@@ -149,9 +149,10 @@ public class TodaysAppointmentActivity extends BaseActivity implements
 
 	@Override
 	public void onClick(View v) {
-		if (!onClickSingleView()) {
-			return;
-		}
+		// if (!onClickSingleView()) {
+		// return;
+		// }
+		LogUtil.print("sssssssssssssssssss");
 		switch (v.getId()) {
 		case R.id.base_left_btn:
 			finish();

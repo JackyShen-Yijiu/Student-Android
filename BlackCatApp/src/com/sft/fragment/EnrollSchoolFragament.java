@@ -29,6 +29,8 @@ public class EnrollSchoolFragament extends BaseFragment{
 	private int[] orderType = {2,3,0};
 	//评分：2  价格3  综合0
 	
+//	public String cityname = "北京";
+	
 	private SchoolsFragment[] schools = null;
 	
 	@Override
@@ -45,7 +47,7 @@ public class EnrollSchoolFragament extends BaseFragment{
         viewPager = (ViewPager) view.findViewById(R.id.act_student1_view_pager);
         viewPager.setOffscreenPageLimit(2);
         /**普通学员列表 0 群发短信学员列表 1*/
-        int flag = getActivity().getIntent().getFlags();
+        int flag = getActivity().getIntent().getFlags();                
         schools = new  SchoolsFragment[3];//{StudentFragment1.getInstance(0),StudentFragment1.getInstance(1)};
         for(int i =0;i<3;i++){
         	schools[i] =new SchoolsFragment();
@@ -58,10 +60,21 @@ public class EnrollSchoolFragament extends BaseFragment{
         viewPager.setAdapter(adapter);
         slidingTab.setViewPager(viewPager);
 	}
+	
+	public void requestByCity(String name){
+		for(int i=0;i<3;i++){
+			schools[i].getSchoolByCity(name);//viewPager.getCurrentItem()
+		}
+	}
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		LogUtil.print("onActiivty---->"+resultCode);
+		LogUtil.print("onActiivty---->666"+resultCode);
+//		if(data!=null){
+//			if(resultCode == 9){//选择城市
+//				
+//			}
+//		}
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 	

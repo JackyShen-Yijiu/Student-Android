@@ -100,6 +100,9 @@ public class CheckDiscodeAct extends BaseActivity{
 				
 				// 干掉界面
 				
+			}else{
+				if(msg!=null)
+					Toast(msg);
 			}
 		}
 		return false;

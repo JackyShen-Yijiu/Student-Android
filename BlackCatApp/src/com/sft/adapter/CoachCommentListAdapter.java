@@ -12,6 +12,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.sft.infinitescrollviewpager.BitmapManager;
@@ -58,7 +59,7 @@ public class CoachCommentListAdapter extends BaseAdapter {
 
 		ViewHolder holder = null;
 		if (convertView == null) {
-			convertView = mInflater.inflate(R.layout.coach_detail_list_item,
+			convertView = mInflater.inflate(R.layout.coach_detail_list_item2,
 					null);
 			holder = new ViewHolder();
 			holder.name = (TextView) convertView
@@ -71,6 +72,8 @@ public class CoachCommentListAdapter extends BaseAdapter {
 					.findViewById(R.id.coach_detail_comment_content_tv);
 			holder.classType = (TextView) convertView
 					.findViewById(R.id.coach_detail_comment_classtype_tv);
+			holder.rb = (RatingBar) convertView
+					.findViewById(R.id.coach_detail_comment_rb);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -111,6 +114,8 @@ public class CoachCommentListAdapter extends BaseAdapter {
 						"showStudentInfo", true));
 			}
 		});
+//		mData.get(position).
+		
 		return convertView;
 	}
 
@@ -120,6 +125,7 @@ public class CoachCommentListAdapter extends BaseAdapter {
 		public TextView time;
 		public TextView content;
 		public TextView classType;
+		public RatingBar rb;
 
 	}
 }

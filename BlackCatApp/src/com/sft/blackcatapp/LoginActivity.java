@@ -245,6 +245,7 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 				LogUtil.print(">>>>>>>>11111" + msg + "111");
 				if (data != null && result.equals("1")) {
 					app.userVO = JSONUtil.toJavaBean(UserVO.class, data);
+					LogUtil.print("initData-login->"+app.userVO);
 					obtainVersionInfo();
 				} else if (msg.contains("用户不存在")) {
 					hint_phone.setVisibility(View.VISIBLE);

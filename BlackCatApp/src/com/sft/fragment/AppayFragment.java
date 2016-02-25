@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.sft.blackcatapp.R;
 
-public class AppayFragment extends BaseHomeFragment implements OnClickListener {
+public class AppayFragment extends BaseFragment implements OnClickListener {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,

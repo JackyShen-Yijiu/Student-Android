@@ -11,15 +11,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.ImageView.ScaleType;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.sft.infinitescrollviewpager.BitmapManager;
 
+import com.joooonho.SelectableRoundedImageView;
 import com.sft.adapter.SchoolDetailCourseFeeAdapter.MyClickListener;
 import com.sft.blackcatapp.R;
 import com.sft.util.LogUtil;
 import com.sft.vo.CoachVO;
+import com.sft.vo.commonvo.Subject;
 
 @SuppressLint("InflateParams")
 public class CoachListAdapter extends BaseAdapter {
@@ -106,25 +109,27 @@ public class CoachListAdapter extends BaseAdapter {
 			holder = new ViewHolder();
 			holder.coachName = (TextView) convertView
 					.findViewById(R.id.select_coach_coachname_tv);
-			holder.sex = (TextView) convertView
-					.findViewById(R.id.select_coach_sex_tv);
-			holder.headPic = (ImageView) convertView
+			holder.subjects = (TextView) convertView
+					.findViewById(R.id.select_coach_subjects_tv);
+			holder.headPic = (SelectableRoundedImageView) convertView
 					.findViewById(R.id.select_coach_headpin_im);
 			holder.rateBar = (RatingBar) convertView
 					.findViewById(R.id.select_coach_ratingBar);
-			holder.shuttle = (TextView) convertView
-					.findViewById(R.id.select_coach_shuttle);
-			holder.general = (TextView) convertView
-					.findViewById(R.id.select_coach_general);
+			holder.comment = (TextView) convertView
+					.findViewById(R.id.select_coach_comment_tv);
 			holder.teachAge = (TextView) convertView
-					.findViewById(R.id.select_coach_teachage_tv);
+					.findViewById(R.id.select_coach_teacherage_tv);
+			holder.passRate = (TextView) convertView
+					.findViewById(R.id.select_coach_passrate_tv);
 			holder.selectIm = (ImageView) convertView
 					.findViewById(R.id.select_coach_im);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-
+		holder.headPic.setScaleType(ScaleType.CENTER_CROP);
+		holder.headPic.setImageResource(R.drawable.default_small_pic);
+		holder.headPic.setOval(true);
 		// if (position >= isSelected.length) {
 		// return convertView;
 		// }
@@ -137,35 +142,40 @@ public class CoachListAdapter extends BaseAdapter {
 		} else {
 			holder.selectIm.setBackgroundResource(android.R.color.transparent);
 		}
-		if (mData.get(position).getIs_shuttle().equals("true")) {
-			holder.shuttle.setVisibility(View.VISIBLE);
-		} else {
-			holder.shuttle.setVisibility(View.GONE);
-		}
-		if (mData.get(position).isGeneral()) {
-			holder.general.setVisibility(View.VISIBLE);
-		} else {
-			holder.general.setVisibility(View.GONE);
-		}
+		// if (mData.get(position).getIs_shuttle().equals("true")) {
+		// holder.shuttle.setVisibility(View.VISIBLE);
+		// } else {
+		// holder.shuttle.setVisibility(View.GONE);
+		// }
+		// if (mData.get(position).isGeneral()) {
+		// holder.general.setVisibility(View.VISIBLE);
+		// } else {
+		// holder.general.setVisibility(View.GONE);
+		// }
 		String coachName = mData.get(position).getName();
 		holder.coachName.setText(coachName);
-		holder.sex.setText("性别：" + mData.get(position).getGender());
 		String rateBar = mData.get(position).getStarlevel();
 		try {
 			holder.rateBar.setRating(Float.parseFloat(rateBar));
 		} catch (Exception e) {
 			holder.rateBar.setRating(0f);
 		}
+		String subjectString = "";
+		for (Subject subject : mData.get(position).getSubject()) {
+			subjectString = subject.getName() + " ";
+		}
+		holder.subjects.setText(subjectString);
+		holder.passRate
+				.setText("通过率" + mData.get(position).getPassrate() + "%");
+		holder.comment.setText(mData.get(position).getCommentcount() + "条评论");
+		holder.teachAge.setText(mData.get(position).getSeniority() + "年教龄");
 
-		holder.teachAge.setText("教龄：" + mData.get(position).getSeniority()
-				+ "年");
-
-		LinearLayout.LayoutParams headParam = (LinearLayout.LayoutParams) holder.headPic
+		RelativeLayout.LayoutParams headParam = (RelativeLayout.LayoutParams) holder.headPic
 				.getLayoutParams();
 
 		String url = mData.get(position).getHeadportrait().getOriginalpic();
 		if (TextUtils.isEmpty(url)) {
-			holder.headPic.setBackgroundResource(R.drawable.default_small_pic);
+			holder.headPic.setBackgroundResource(R.drawable.login_head);
 		} else {
 			BitmapManager.INSTANCE.loadBitmap2(url, holder.headPic,
 					headParam.width, headParam.height);
@@ -182,11 +192,12 @@ public class CoachListAdapter extends BaseAdapter {
 
 	private class ViewHolder {
 		public ImageView selectIm;
+		public SelectableRoundedImageView headPic;
 		public TextView coachName;
-		public TextView sex;
-		public ImageView headPic;
 		public RatingBar rateBar;
-		public TextView shuttle, general;
+		public TextView subjects;
+		public TextView passRate;
+		public TextView comment;
 		public TextView teachAge;
 	}
 }

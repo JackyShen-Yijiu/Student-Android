@@ -5,12 +5,12 @@
     android:layout_gravity="center"
     android:orientation="vertical" >
 
-    <RelativeLayout
+   <!--  <RelativeLayout
         android:id="@+id/calender_ll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:orientation="vertical" >
+        android:orientation="vertical" > -->
 
         <TextView
             android:id="@+id/solar"
@@ -22,27 +22,28 @@
             android:textColor="@color/text_color_dark"
             android:textSize="14sp" />
 
-        <ImageView
+     <!--    <ImageView
             android:id="@+id/has_order"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/solar"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="18dp"
+            android:visibility="gone"
             android:background="@drawable/red_point" />
 
         <TextView
             android:id="@+id/rest"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            
+            android:visibility="gone"
             android:layout_below="@+id/solar"
             android:layout_centerHorizontal="true"
             android:gravity="center"
             android:text="休"
             android:layout_marginTop="10dp"
             android:textColor="@color/text_color_light"
-            android:textSize="12sp" />
-    </RelativeLayout>
+            android:textSize="12sp" /> 
+    </RelativeLayout>-->
 
 </RelativeLayout>
