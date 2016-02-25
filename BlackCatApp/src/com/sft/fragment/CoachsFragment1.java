@@ -72,7 +72,7 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener,
 
 	private boolean isCarSelected = false;
 
-	private String cityname;
+//	private String cityname;
 	private String licensetype;
 	public String coachname;
 	private String ordertype;
@@ -98,7 +98,7 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener,
 
 	public void order(String cityName) {
 		index = 1;
-		cityname = cityName;
+//		cityname = cityName;
 		coachname = "";
 		ordertype = "0";
 		// setSelectState(2);
@@ -178,7 +178,7 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener,
 		initView(v);
 		initData();
 		setListener();
-		cityname = "";
+//		cityname = "";
 		licensetype = "";
 		coachname = "";
 		ordertype = "0";
@@ -308,13 +308,18 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener,
 
 		});
 	}
+	
+	public void getCoachByCity(String cityName){
+//		cityname = cityName;
+		obtainCaoch();
+	}
 
 	private void obtainCaoch() {
 		RequestParams paramMap = new RequestParams();
 		paramMap.put("latitude", app.latitude);
 		paramMap.put("longitude", app.longtitude);
 		paramMap.put("radius", "10000");
-		paramMap.put("cityname", cityname);
+		paramMap.put("cityname", app.curCity);
 		paramMap.put("licensetype", licensetype);
 		paramMap.put("coachname", coachname);
 		paramMap.put("ordertype", ordertype);

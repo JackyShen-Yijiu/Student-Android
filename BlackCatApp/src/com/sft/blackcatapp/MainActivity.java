@@ -57,6 +57,7 @@ import com.sft.api.ApiHttpClient;
 import com.sft.blackcatapp.home.view.MainScreenContainer;
 import com.sft.blackcatapp.home.view.MainScreenContainer.OnTabLisener;
 import com.sft.city.Act_City;
+import com.sft.city.City;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
 import com.sft.common.Config.SubjectStatu;
@@ -421,7 +422,30 @@ public class MainActivity extends BaseMainActivity implements
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+		LogUtil.print(resultCode+"onActivityResult--》"+data);
+		switch (currentPage) {
+		case TAB_APPLY:
+			if(mMainContainer.enrollFragment.type == 0){//驾校
+				if(resultCode == 9){//城市
+					City city = (City) data.getSerializableExtra("city");
+					app.curCity = city.name;
+					mMainContainer.enrollFragment.schoolFragment.requestByCity(city.name);
+					titleRightTv.setText(app.curCity);
+				}
+//				mMainContainer.enrollFragment.schoolFragment.onActivityResult(requestCode, resultCode, data);
+			}else{//教练
+				if(resultCode == 9){//城市
+					City city = (City) data.getSerializableExtra("city");
+					app.curCity = city.name;
+					mMainContainer.enrollFragment.coachFragment.requestByCity(city.name);
+					titleRightTv.setText(app.curCity);
+				}
+//				mMainContainer.enrollFragment.coachFragment.onActivityResult(requestCode, resultCode, data);
+			}
+//			MainScreenTab.
+			break;
+		}
+		
 	}
 
 	private boolean hasAppointment = true;
@@ -439,7 +463,7 @@ public class MainActivity extends BaseMainActivity implements
 				// 定位
 				LogUtil.print("定位");
 				obtainOpenCity();
-				startActivity(new Intent(MainActivity.this,Act_City.class));
+				startActivityForResult(new Intent(MainActivity.this,Act_City.class),2);
 				break;
 			case TAB_APPOINTMENT:
 				// 换教练

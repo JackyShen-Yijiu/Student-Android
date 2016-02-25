@@ -6,18 +6,23 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
+import org.json.JSONException;
+
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -30,21 +35,27 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
+import android.widget.PopupWindow.OnDismissListener;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import cn.sft.baseactivity.util.HttpSendUtils;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.sft.blackcatapp.BaseActivity;
 import com.sft.blackcatapp.R;
 import com.sft.city.MyLetterListView.OnTouchingLetterChangedListener;
+import com.sft.common.Config;
+import com.sft.util.JSONUtil;
+import com.sft.util.LogUtil;
 
-public class Act_City extends Activity implements OnScrollListener {
-	private BaseAdapter adapter;
+public class Act_City extends BaseActivity implements OnScrollListener {
+	private ListAdapter adapter;
 	private ResultListAdapter resultListAdapter;
 	private ListView personList;
 	private ListView resultList;
@@ -54,12 +65,12 @@ public class Act_City extends Activity implements OnScrollListener {
 	private String[] sections;// ��Ŵ��ڵĺ���ƴ������ĸ
 	private Handler handler;
 	private OverlayThread overlayThread; // ��ʾ����ĸ�Ի���
-	private ArrayList<City> allCity_lists; // ���г����б�
-	private ArrayList<City> city_lists;// �����б�
-	private ArrayList<City> city_hot;
+	private List<City> allCity_lists; // ���г����б�
+	private List<City> city_lists;// �����б�
+	private List<City> city_hot;
 	private ArrayList<City> city_result;
 	private ArrayList<String> city_history;
-//	private EditText sh;
+	// private EditText sh;
 	private TextView tv_noresult;
 
 	private LocationClient mLocationClient;
@@ -69,12 +80,12 @@ public class Act_City extends Activity implements OnScrollListener {
 	private int locateProcess = 1; // ��¼��ǰ��λ��״̬ ���ڶ�λ-��λ�ɹ�-��λʧ��
 	private boolean isNeedFresh;
 
-//	private DatabaseHelper helper;
+	// private DatabaseHelper helper;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.act_city);
+		addView(R.layout.act_city);
 		letterListView = (MyLetterListView) findViewById(R.id.MyLetterListView01);
 		letterListView.setVisibility(View.GONE);
 		personList = (ListView) findViewById(R.id.list_view);
@@ -83,46 +94,47 @@ public class Act_City extends Activity implements OnScrollListener {
 		city_hot = new ArrayList<City>();
 		city_result = new ArrayList<City>();
 		city_history = new ArrayList<String>();
+
 		resultList = (ListView) findViewById(R.id.search_result);
-//		sh = (EditText) findViewById(R.id.sh);
+		// sh = (EditText) findViewById(R.id.sh);
 		tv_noresult = (TextView) findViewById(R.id.tv_noresult);
-//		helper = new DatabaseHelper(this);
-//		sh.addTextChangedListener(new TextWatcher() {
-//
-//			@Override
-//			public void onTextChanged(CharSequence s, int start, int before,
-//					int count) {
-//				if (s.toString() == null || "".equals(s.toString())) {
-//					// letterListView.setVisibility(View.VISIBLE);
-//					personList.setVisibility(View.VISIBLE);
-//					resultList.setVisibility(View.GONE);
-//					tv_noresult.setVisibility(View.GONE);
-//				} else {
-//					city_result.clear();
-//					letterListView.setVisibility(View.GONE);
-//					personList.setVisibility(View.GONE);
-//					getResultCityList(s.toString());
-//					if (city_result.size() <= 0) {
-//						tv_noresult.setVisibility(View.VISIBLE);
-//						resultList.setVisibility(View.GONE);
-//					} else {
-//						tv_noresult.setVisibility(View.GONE);
-//						resultList.setVisibility(View.VISIBLE);
-//						resultListAdapter.notifyDataSetChanged();
-//					}
-//				}
-//			}
-//
-//			@Override
-//			public void beforeTextChanged(CharSequence s, int start, int count,
-//					int after) {
-//			}
-//
-//			@Override
-//			public void afterTextChanged(Editable s) {
-//
-//			}
-//		});
+		// helper = new DatabaseHelper(this);
+		// sh.addTextChangedListener(new TextWatcher() {
+		//
+		// @Override
+		// public void onTextChanged(CharSequence s, int start, int before,
+		// int count) {
+		// if (s.toString() == null || "".equals(s.toString())) {
+		// // letterListView.setVisibility(View.VISIBLE);
+		// personList.setVisibility(View.VISIBLE);
+		// resultList.setVisibility(View.GONE);
+		// tv_noresult.setVisibility(View.GONE);
+		// } else {
+		// city_result.clear();
+		// letterListView.setVisibility(View.GONE);
+		// personList.setVisibility(View.GONE);
+		// getResultCityList(s.toString());
+		// if (city_result.size() <= 0) {
+		// tv_noresult.setVisibility(View.VISIBLE);
+		// resultList.setVisibility(View.GONE);
+		// } else {
+		// tv_noresult.setVisibility(View.GONE);
+		// resultList.setVisibility(View.VISIBLE);
+		// resultListAdapter.notifyDataSetChanged();
+		// }
+		// }
+		// }
+		//
+		// @Override
+		// public void beforeTextChanged(CharSequence s, int start, int count,
+		// int after) {
+		// }
+		//
+		// @Override
+		// public void afterTextChanged(Editable s) {
+		//
+		// }
+		// });
 		letterListView
 				.setOnTouchingLetterChangedListener(new LetterListViewListener());
 
@@ -135,7 +147,7 @@ public class Act_City extends Activity implements OnScrollListener {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				if (position >= 4) {
+				if (position >= 2) {
 
 					Toast.makeText(getApplicationContext(),
 							allCity_lists.get(position).getName(),
@@ -159,7 +171,7 @@ public class Act_City extends Activity implements OnScrollListener {
 			}
 		});
 		// initOverlay();
-		cityInit();
+		cityInit(city_lists);
 		// allCityInit();
 		hotCityInit();
 		// hisCityInit();
@@ -170,19 +182,29 @@ public class Act_City extends Activity implements OnScrollListener {
 		mLocationClient.registerLocationListener(mMyLocationListener);
 		InitLocation();
 		mLocationClient.start();
+		initData();
 	}
 
-//	public void InsertCity(String name) {
-//		SQLiteDatabase db = helper.getReadableDatabase();
-//		Cursor cursor = db.rawQuery("select * from recentcity where name = '"
-//				+ name + "'", null);
-//		if (cursor.getCount() > 0) { //
-//			db.delete("recentcity", "name = ?", new String[] { name });
-//		}
-//		db.execSQL("insert into recentcity(name, date) values('" + name + "', "
-//				+ System.currentTimeMillis() + ")");
-//		db.close();
-//	}
+	private void initData() {
+		// listhot = new ArrayList<City>();
+		// listAll = new ArrayList<City>();
+		listChild = new ArrayList<City>();
+
+		request(ALL);
+		request(HOT);
+	}
+
+	// public void InsertCity(String name) {
+	// SQLiteDatabase db = helper.getReadableDatabase();
+	// Cursor cursor = db.rawQuery("select * from recentcity where name = '"
+	// + name + "'", null);
+	// if (cursor.getCount() > 0) { //
+	// db.delete("recentcity", "name = ?", new String[] { name });
+	// }
+	// db.execSQL("insert into recentcity(name, date) values('" + name + "', "
+	// + System.currentTimeMillis() + ")");
+	// db.close();
+	// }
 
 	private void InitLocation() {
 		// ���ö�λ����
@@ -192,30 +214,31 @@ public class Act_City extends Activity implements OnScrollListener {
 		// ��Ҫ��ַ��Ϣ������Ϊ�����κ�ֵ��string���ͣ��Ҳ���Ϊnull��ʱ������ʾ�޵�ַ��Ϣ��
 		option.setAddrType("all");
 		// �����Ƿ񷵻�POI�ĵ绰�͵�ַ����ϸ��Ϣ��Ĭ��ֵΪfalse����������POI�ĵ绰�͵�ַ��Ϣ��
-//		option.setPoiExtraInfo(true);
+		// option.setPoiExtraInfo(true);
 		// ���ò�Ʒ�����ơ�ǿ�ҽ�����ʹ���Զ���Ĳ�Ʒ�����ƣ����������Ժ�Ϊ���ṩ����Ч׼ȷ�Ķ�λ����
 		option.setProdName("ͨ��GPS��λ�ҵ�ǰ��λ��");
 		// �������û��涨λ����
 		option.disableCache(true);
 		// �������ɷ��ص�POI������Ĭ��ֵΪ3������POI��ѯ�ȽϺķ�������������෵�ص�POI�������Ա��ʡ������
-//		option.setPoiNumber(3);
+		// option.setPoiNumber(3);
 		// ���ö�λ��ʽ�����ȼ���
 		// ��gps���ã����һ�ȡ�˶�λ���ʱ�����ٷ�����������ֱ�ӷ��ظ��û����ꡣ���ѡ���ʺ�ϣ���õ�׼ȷ����λ�õ��û������gps�����ã��ٷ����������󣬽��ж�λ��
 		option.setPriority(LocationClientOption.GpsFirst);
 		mLocationClient.setLocOption(option);
 	}
 
-	private void cityInit() {
-		City city = new City("��λ", "0"); // ��ǰ��λ����
+	private void cityInit(List<City> city_lists) {
+		allCity_lists.clear();
+		City city = new City("定位", "0"); // 当前定位城市
 		allCity_lists.add(city);
-		city = new City("���", "1"); // ������ʵĳ���
+		// city = new City("最近", "1"); // 最近访问的城市
+		// allCity_lists.add(city);
+		city = new City("热门", "1"); // 热门城市
 		allCity_lists.add(city);
-		city = new City("����", "2"); // ���ų���
-		allCity_lists.add(city);
-		city = new City("ȫ��", "3"); // ȫ������
-		allCity_lists.add(city);
-		// ���ݿ�
-		city_lists = getCityList();
+		// city = new City("全部", "2"); // 全部城市
+		// allCity_lists.add(city);
+		// 数据库
+		// city_lists = getCityList();
 		allCity_lists.addAll(city_lists);
 	}
 
@@ -255,34 +278,34 @@ public class Act_City extends Activity implements OnScrollListener {
 	}
 
 	private void hisCityInit() {
-//		SQLiteDatabase db = helper.getReadableDatabase();
-//		Cursor cursor = db.rawQuery(
-//				"select * from recentcity order by date desc limit 0, 3", null);
-//		while (cursor.moveToNext()) {
-//			city_history.add(cursor.getString(1));
-//		}
-//		cursor.close();
-//		db.close();
+		// SQLiteDatabase db = helper.getReadableDatabase();
+		// Cursor cursor = db.rawQuery(
+		// "select * from recentcity order by date desc limit 0, 3", null);
+		// while (cursor.moveToNext()) {
+		// city_history.add(cursor.getString(1));
+		// }
+		// cursor.close();
+		// db.close();
 	}
 
 	@SuppressWarnings("unchecked")
 	private ArrayList<City> getCityList() {
-//		DBHelper dbHelper = new DBHelper(this);
+		// DBHelper dbHelper = new DBHelper(this);
 		ArrayList<City> list = new ArrayList<City>();
-//		try {
-//			dbHelper.createDataBase();
-//			SQLiteDatabase db = dbHelper.getWritableDatabase();
-//			Cursor cursor = db.rawQuery("select * from city", null);
-//			City city;
-//			while (cursor.moveToNext()) {
-//				city = new City(cursor.getString(1), cursor.getString(2));
-//				list.add(city);
-//			}
-//			cursor.close();
-//			db.close();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
+		// try {
+		// dbHelper.createDataBase();
+		// SQLiteDatabase db = dbHelper.getWritableDatabase();
+		// Cursor cursor = db.rawQuery("select * from city", null);
+		// City city;
+		// while (cursor.moveToNext()) {
+		// city = new City(cursor.getString(1), cursor.getString(2));
+		// list.add(city);
+		// }
+		// cursor.close();
+		// db.close();
+		// } catch (IOException e) {
+		// e.printStackTrace();
+		// }
 		Collections.sort(list, comparator);
 		return list;
 	}
@@ -317,6 +340,9 @@ public class Act_City extends Activity implements OnScrollListener {
 	Comparator comparator = new Comparator<City>() {
 		@Override
 		public int compare(City lhs, City rhs) {
+			if (lhs.getPinyi() == null) {
+				return 0;
+			}
 			String a = lhs.getPinyi().substring(0, 1);
 			String b = rhs.getPinyi().substring(0, 1);
 			int flag = a.compareTo(b);
@@ -359,10 +385,10 @@ public class Act_City extends Activity implements OnScrollListener {
 			adapter.notifyDataSetChanged();
 		}
 
-//		@Override
-//		public void onReceivePoi(BDLocation arg0) {
-//
-//		}
+		// @Override
+		// public void onReceivePoi(BDLocation arg0) {
+		//
+		// }
 	}
 
 	private class ResultListAdapter extends BaseAdapter {
@@ -441,6 +467,16 @@ public class Act_City extends Activity implements OnScrollListener {
 			}
 		}
 
+		public void setAll(List<City> l) {
+			this.list = l;
+			notifyDataSetChanged();
+		}
+
+		public void setHot(List<City> l) {
+			this.hotList = l;
+			notifyDataSetChanged();
+		}
+
 		@Override
 		public int getViewTypeCount() {
 			return VIEW_TYPE;
@@ -448,7 +484,7 @@ public class Act_City extends Activity implements OnScrollListener {
 
 		@Override
 		public int getItemViewType(int position) {
-			return position < 4 ? position : 4;
+			return position < 2 ? position : 2;
 		}
 
 		@Override
@@ -499,48 +535,54 @@ public class Act_City extends Activity implements OnScrollListener {
 				});
 				ProgressBar pbLocate = (ProgressBar) convertView
 						.findViewById(R.id.pbLocate);
-				if (locateProcess == 1) { // ���ڶ�λ
-					locateHint.setText("���ڶ�λ");
+				if (locateProcess == 1) { // 正在定位
+					locateHint.setText("正在定位");
 					city.setVisibility(View.GONE);
 					pbLocate.setVisibility(View.VISIBLE);
-				} else if (locateProcess == 2) { // ��λ�ɹ�
-					locateHint.setText("��ǰ��λ����");
+				} else if (locateProcess == 2) { // 定位成功
+					locateHint.setText("当前定位城市");
 					city.setVisibility(View.VISIBLE);
 					city.setText(currentCity);
 					mLocationClient.stop();
 					pbLocate.setVisibility(View.GONE);
 				} else if (locateProcess == 3) {
-					locateHint.setText("δ��λ������,��ѡ��");
+					locateHint.setText("未定位到城市,请选择");
 					city.setVisibility(View.VISIBLE);
-					city.setText("����ѡ��");
+					city.setText("重新选择");
 					pbLocate.setVisibility(View.GONE);
 				}
-			} else if (viewType == 1) { // ������ʳ���
-				convertView = inflater.inflate(R.layout.item_city_recenty, null);
-				LinearLayout recent_citys = (LinearLayout) convertView
-						.findViewById(R.id.recent_citys);
-				GridView rencentCity = (GridView) convertView
-						.findViewById(R.id.recent_city);
-				rencentCity
-						.setAdapter(new HitCityAdapter(context, this.hisCity));
-				rencentCity.setOnItemClickListener(new OnItemClickListener() {
-
-					@Override
-					public void onItemClick(AdapterView<?> parent, View view,
-							int position, long id) {
-
-						Toast.makeText(getApplicationContext(),
-								city_history.get(position), Toast.LENGTH_SHORT)
-								.show();
-
-					}
-				});
-				// TextView recentHint = (TextView) convertView
-				// .findViewById(R.id.recentHint);
-				// recentHint.setText("������ʵĳ���");
-				recent_citys.setVisibility(View.GONE);
-			} else if (viewType == 2) {
-				convertView = inflater.inflate(R.layout.item_city_recenty, null);
+			}
+			// else if (viewType == 1) { // ������ʳ���
+			// convertView = inflater.inflate(R.layout.item_city_recenty, null);
+			// convertView.setBackgroundColor(Color.BLUE);
+			// // convertView.setVisibility(View.GONE);
+			// LinearLayout recent_citys = (LinearLayout) convertView
+			// .findViewById(R.id.recent_citys);
+			// GridView rencentCity = (GridView) convertView
+			// .findViewById(R.id.recent_city);
+			// rencentCity
+			// .setAdapter(new HitCityAdapter(context, this.hisCity));
+			// rencentCity.setOnItemClickListener(new OnItemClickListener() {
+			//
+			// @Override
+			// public void onItemClick(AdapterView<?> parent, View view,
+			// int position, long id) {
+			//
+			// Toast.makeText(getApplicationContext(),
+			// city_history.get(position), Toast.LENGTH_SHORT)
+			// .show();
+			//
+			// }
+			// });
+			// // TextView recentHint = (TextView) convertView
+			// // .findViewById(R.id.recentHint);
+			// // recentHint.setText("������ʵĳ���");
+			// recent_citys.setVisibility(View.GONE);
+			// }
+			else if (viewType == 1) {
+				convertView = inflater
+						.inflate(R.layout.item_city_recenty, null);
+				// convertView.setBackgroundColor(Color.GREEN);
 				GridView hotCity = (GridView) convertView
 						.findViewById(R.id.recent_city);
 				hotCity.setOnItemClickListener(new OnItemClickListener() {
@@ -548,22 +590,24 @@ public class Act_City extends Activity implements OnScrollListener {
 					@Override
 					public void onItemClick(AdapterView<?> parent, View view,
 							int position, long id) {
-
-						Toast.makeText(getApplicationContext(),
-								city_hot.get(position).getName(),
-								Toast.LENGTH_SHORT).show();
-
+						
+						
+						showChildCity(city_hot.get(position));
+						
 					}
 				});
 				hotCity.setAdapter(new HotCityAdapter(context, this.hotList));
 				TextView hotHint = (TextView) convertView
 						.findViewById(R.id.recentHint);
-				hotHint.setText("���ų���");
-			} else if (viewType == 3) {
-				convertView = inflater.inflate(R.layout.item_city_total, null);
-			} else {
+				hotHint.setText("热门城市");
+			}
+			// else if (viewType == 2) {
+			// convertView = inflater.inflate(R.layout.item_city_total, null);
+			// }
+			else {
 				if (convertView == null) {
-					convertView = inflater.inflate(R.layout.item_city_list, null);
+					convertView = inflater.inflate(R.layout.item_city_list,
+							null);
 					holder = new ViewHolder();
 					holder.alpha = (TextView) convertView
 							.findViewById(R.id.alpha);
@@ -573,6 +617,8 @@ public class Act_City extends Activity implements OnScrollListener {
 				} else {
 					holder = (ViewHolder) convertView.getTag();
 				}
+				LogUtil.print(position + "city--adapter-->"
+						+ list.get(position).getName());
 				if (position >= 1) {
 					holder.name.setText(list.get(position).getName());
 					String currentStr = getAlpha(list.get(position).getPinyi());
@@ -627,14 +673,15 @@ public class Act_City extends Activity implements OnScrollListener {
 			return position;
 		}
 
-		@SuppressLint("ViewHolder") @Override
+		@SuppressLint("ViewHolder")
+		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			convertView = inflater.inflate(R.layout.item_city_list, null);
+			convertView = inflater.inflate(R.layout.item_city, null);
 			TextView city = (TextView) convertView.findViewById(R.id.city);
 
 			city.setText(hotCitys.get(position).getName());
 			city.setTextColor(Color.WHITE);
-//			city.setBackgroundResource(R.drawable.text_selector);
+			// city.setBackgroundResource(R.drawable.text_selector);
 			return convertView;
 		}
 	}
@@ -667,7 +714,7 @@ public class Act_City extends Activity implements OnScrollListener {
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			convertView = inflater.inflate(R.layout.item_city_list, null);
+			convertView = inflater.inflate(R.layout.item_city, null);
 			TextView city = (TextView) convertView.findViewById(R.id.city);
 			city.setText(hotCitys.get(position));
 			return convertView;
@@ -721,7 +768,7 @@ public class Act_City extends Activity implements OnScrollListener {
 		}
 	}
 
-	// ��ú���ƴ������ĸ
+	// 获得汉语拼音首字母
 	private String getAlpha(String str) {
 		if (str == null) {
 			return "#";
@@ -730,18 +777,18 @@ public class Act_City extends Activity implements OnScrollListener {
 			return "#";
 		}
 		char c = str.trim().substring(0, 1).charAt(0);
-		// ������ʽ���ж�����ĸ�Ƿ���Ӣ����ĸ
+		// 正则表达式，判断首字母是否是英文字母
 		Pattern pattern = Pattern.compile("^[A-Za-z]+$");
 		if (pattern.matcher(c + "").matches()) {
 			return (c + "").toUpperCase();
 		} else if (str.equals("0")) {
-			return "��λ";
+			return "定位";
 		} else if (str.equals("1")) {
-			return "���";
+			return "最近";
 		} else if (str.equals("2")) {
-			return "����";
+			return "热门";
 		} else if (str.equals("3")) {
-			return "ȫ��";
+			return "全部";
 		} else {
 			return "#";
 		}
@@ -779,4 +826,177 @@ public class Act_City extends Activity implements OnScrollListener {
 			handler.postDelayed(overlayThread, 1000);
 		}
 	}
+	
+	
+
+	@Override
+	public void onClick(View v) {
+		switch(v.getId()){
+		case R.id.base_left_btn:
+			finish();
+			break;
+		}
+		super.onClick(v);
+	}
+
+	private void request(String type) {
+		HttpSendUtils.httpGetSend(type, this, Config.IP
+				+ "api/v1/getopencity?searchtype=" + type);
+	}
+
+	private final String ALL = "0";
+	private final String HOT = "1";
+	private final String DETAIL = "detail";
+
+	private void requestDetail(String cityId) {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("cityid", cityId);
+		HttpSendUtils.httpGetSend(DETAIL, this, Config.IP
+				+ "api/v1/getchildopencity", params);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public synchronized boolean doCallBack(String type, Object jsonString) {
+		if (super.doCallBack(type, jsonString)) {
+			return true;
+		}
+		if (type.equals(ALL)) {// 所有城市
+			if (null != dataArray) {
+
+			}
+			try {
+				city_lists = parseList();
+				city_lists = getPinYin(city_lists);
+				Collections.sort(city_lists, comparator);
+				cityInit(city_lists);
+				adapter.setAll(allCity_lists);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			LogUtil.print("city--All>" + allCity_lists.size());
+		} else if (type.equals(HOT)) {// 热门城市
+			try {
+				city_hot = parseList();
+				adapter.setHot(city_hot);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			LogUtil.print("city--HOT>" + jsonString);
+		} else if (type.equals(DETAIL)) {// 子城市
+			LogUtil.print("city--DETAIL>" + jsonString);
+			try {
+				listChild .addAll(parseList());
+				
+				showChildCity(lastCity);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		return super.doCallBack(type, jsonString);
+	}
+
+	private List<City> listChild;
+
+//	private String lastCityId;
+	
+	private City lastCity;
+
+	private List<City> parseList() throws JSONException, Exception {
+		List<City> list = new ArrayList<City>();
+		int length = dataArray.length();
+		for (int i = 0; i < length; i++) {
+			City city = JSONUtil.toJavaBean(City.class,
+					dataArray.getJSONObject(i));
+			list.add(city);
+		}
+		return list;
+	}
+
+	/**
+	 * 添加拼音
+	 * 
+	 * @param list
+	 * @return
+	 */
+	private List<City> getPinYin(List<City> list) {
+		PinYinHelper helper = new PinYinHelper();
+		for (int i = 0; i < list.size(); i++) {
+			list.get(i).pinyi = helper.cn2py(list.get(i).name);
+		}
+		return list;
+	}
+
+	private void showChildCity(City city) {
+		LogUtil.print("name-->"+lastCity);
+		for(int i=0;i<listChild.size();i++){
+			LogUtil.print("name-->"+listChild.get(i).name);
+		}
+		if (lastCity == null || !lastCity.equals(city)) {// 不一致，请求数据
+			requestDetail(city.id);
+			lastCity = city;
+			listChild.clear();
+			listChild.add(city);
+		} else if (listChild.size() <= 1) {
+//			Toast("无子城市");
+			clickBack(city);
+		} else {
+			PopupWindow pop = new PopupWindow(500, 400);
+			pop.setFocusable(true);
+			pop.setBackgroundDrawable(new BitmapDrawable());
+
+			View convertView = View.inflate(this, R.layout.item_city_recenty,
+					null);
+			View line = convertView.findViewById(R.id.item_city_recenty_line);
+			line.setVisibility(View.GONE);
+			convertView.setBackgroundColor(Color.WHITE);
+			GridView hotCity = (GridView) convertView
+					.findViewById(R.id.recent_city);
+			hotCity.setNumColumns(2);
+			hotCity.setOnItemClickListener(new OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view,
+						int position, long id) {
+
+//					Toast.makeText(getApplicationContext(),
+//							city_hot.get(position).getName(),
+//							Toast.LENGTH_SHORT).show();
+					clickBack(listChild.get(position));
+				}
+			});
+			
+			hotCity.setAdapter(new HotCityAdapter(this, listChild));
+			pop.setContentView(convertView);
+			pop.showAtLocation(getWindow().getDecorView(), Gravity.CENTER, 0, 0);
+			setActAlpha(0.7f);
+			pop.setOnDismissListener(new OnDismissListener() {
+				
+				@Override
+				public void onDismiss() {
+					setActAlpha(1.0f);
+				}
+			});
+		}
+
+	}
+
+	/**
+	 * 点击返回 上一页面
+	 */
+	private void clickBack(City city) {
+		Intent i = getIntent().putExtra("city", city);
+		setResult(9, i);
+		finish();
+	}
+
+	private void setActAlpha(float f) {
+		WindowManager.LayoutParams params = getWindow().getAttributes();
+		params.alpha = f;
+		getWindow().setAttributes(params);
+	}
+
 }

@@ -9,26 +9,11 @@
         android:id="@+id/locateHint"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:layout_marginLeft="10dip"
+        android:layout_marginLeft="20dip"
         android:gravity="center_vertical"
         android:text="当前定位城市"
-        android:textColor="#000000"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/lng_city"
-        android:layout_width="80dp"
-        android:layout_height="40dp"
-        android:layout_alignParentRight="true"
-        android:layout_gravity="center"
-        android:layout_marginRight="40dip"
-        
-        android:clickable="true"
-        android:focusable="false"
-        android:gravity="center"
-        android:text="武汉"
-        android:textColor="#ffffff"
-        android:textSize="16sp" />
+        android:textColor="@color/txt_999"
+        android:textSize="@dimen/txt_size_ss" />
 
     <ProgressBar
         android:id="@+id/pbLocate"
@@ -40,12 +25,26 @@
         android:layout_marginRight="64dip"
         android:layout_marginTop="13dp" />
 
+     <TextView
+        android:id="@+id/lng_city"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/locateHint"
+        android:layout_marginLeft="20dip"
+        android:clickable="true"
+        android:focusable="false"
+        android:gravity="center"
+        android:text="武汉"
+        android:background="@color/new_app_main_color"
+        android:textColor="#ffffff"
+        android:textSize="16sp" />
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginTop="50dp"
-        android:background="#E2E2E2" />
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="90dp"
+        android:background="@color/line_color" />
+
+   
 
 </RelativeLayout>
