@@ -268,12 +268,14 @@ public class PersonCenterActivity extends BaseActivity implements
 		// 报名详情
 		case R.id.person_center_enroll_detail_tv:
 
-			if (applystate < 0) {// 尚未请求，获取数据
-				isApplyOk();
-				return;
-			} else {
-				doAppResult(applystate + "", paytype);
-			}
+			startActivity(new Intent(PersonCenterActivity.this,MyOrderAct.class));
+			
+//			if (applystate < 0) {// 尚未请求，获取数据
+//				isApplyOk();
+//				return;
+//			} else {
+//				doAppResult(applystate + "", paytype);
+//			}
 
 			break;
 		// 验证报名信息

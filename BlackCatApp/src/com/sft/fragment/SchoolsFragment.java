@@ -149,6 +149,9 @@ public class SchoolsFragment extends BaseFragment implements
 	static SchoolsFragment fragment = null;
 
 	private static int type;
+	
+	private RelativeLayout errorRl;
+	private TextView errorTv;
 
 	public static SchoolsFragment getInstance(int t) {
 		if (fragment == null)
@@ -333,7 +336,8 @@ public class SchoolsFragment extends BaseFragment implements
 
 	private void initViewA(View rootView) {
 		// setTitleText(R.string.select_school);
-
+		errorRl = (RelativeLayout) rootView.findViewById(R.id.error_rl);
+		errorTv = (TextView) rootView.findViewById(R.id.error_tv);
 		swipeLayout = (RefreshLayout) rootView
 				.findViewById(R.id.enroll_school_swipe_container);
 		swipeLayout.setOnRefreshListener(this);
@@ -566,6 +570,7 @@ public class SchoolsFragment extends BaseFragment implements
 				// adapter = new SchoolListAdapter(getActivity(), schoolList);
 				// schoolListView.setAdapter(adapter);
 			}
+			noData(schoolList.size());
 		} else {
 			if (school.size() == 0) {
 				Toast("没有更多数据了");
@@ -596,6 +601,18 @@ public class SchoolsFragment extends BaseFragment implements
 			swipeLayout.setLoading(false);
 			isLoadingMore = false;
 		}
+	}
+	
+	private void noData(int size){
+		if(size == 0){
+			errorRl.setVisibility(View.VISIBLE);
+			errorTv.setText(R.string.no_school);
+		}else{
+			errorRl.setVisibility(View.GONE);
+		}
+		
+		
+		
 	}
 
 	/**
@@ -1233,6 +1250,8 @@ public class SchoolsFragment extends BaseFragment implements
 		initView(v);
 		return v;
 	}
+	
+	
 
 	private void initView(View v) {
 		LogUtil.print("schooll--initView");
@@ -1240,7 +1259,7 @@ public class SchoolsFragment extends BaseFragment implements
 		// addView(R.layout.activity_enroll_school);
 
 		// isFromMenu = getIntent().getBooleanExtra("isFromMenu", false);
-
+		
 		currCity = app.curCity;
 		isSearchSchool = false;
 		// initView();

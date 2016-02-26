@@ -411,6 +411,21 @@
                android:name="com.sft.city.Act_City"
                android:screenOrientation="portrait"></activity>
            
+           <activity
+               android:name=".MyOrderAct"
+               android:screenOrientation="portrait"></activity>
+           
+           <activity
+               android:name=".OrderApplyAct"
+               android:screenOrientation="portrait"></activity>
+           
+           <activity
+               android:name=".OrderExchangeGoodAct"
+               android:screenOrientation="portrait"></activity>
+           
+           
+           
+           
         <activity
             android:name="com.sft.blackcatapp.SchoolAllCoachActivity"
             android:screenOrientation="portrait" />
