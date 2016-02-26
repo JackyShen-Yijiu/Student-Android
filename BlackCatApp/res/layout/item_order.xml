@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="17dp"
+         >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="11dp"
+            android:src="@drawable/applydefault" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="17dp"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/item_order_title"
+                style="@style/text_black_title"
+                android:text="TextView" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingRight="20dp"
+                 >
+                
+                <TextView 
+                    android:id="@+id/item_order_left1"
+                    style="@style/text_gray_small"
+                    android:text="兑换金额"
+                    />
+
+                <TextView
+                    android:id="@+id/item_order_right10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:textColor="@color/orange_pay"
+                    android:textSize="@dimen/txt_size_middle"
+                    android:text="TextView" />
+
+                <TextView
+                    android:id="@+id/item_order_right11"
+                    style="@style/text_gray_small"
+                    android:layout_alignParentTop="true"
+                    android:layout_toLeftOf="@+id/item_order_right10"
+                    android:text="TextView111" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingRight="20dp"
+                android:layout_marginBottom="10dp"
+                 >
+
+                <TextView
+                    android:id="@+id/item_order_left2"
+                    style="@style/text_gray_small"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:text="TextView" />
+
+                <TextView
+                    android:id="@+id/item_order_right2"
+                    style="@style/text_gray_small"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:text="TextView" />
+
+            </RelativeLayout>
+            
+            <include layout="@layout/line"/>
+            
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+         <Button
+             android:id="@+id/item_order_button1"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentRight="true"
+             android:layout_alignParentTop="true"
+             android:text="Button" />
+
+         <Button
+             android:id="@+id/item_order_button2"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentTop="true"
+             android:layout_toLeftOf="@+id/item_order_button1"
+             android:text="Button" />
+        
+    </RelativeLayout>
+
+</LinearLayout>

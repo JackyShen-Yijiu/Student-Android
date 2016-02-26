@@ -16,7 +16,7 @@ public class PayOrderVO implements Serializable{
 	public String _id;
 	public String paymoney;//最终支付价格，
 	public String payendtime;
-	public String createtime;
+	public String creattime;
 	public String userid;
 	public String __v;
 	public String discountmoney;//折扣减免xx(元)

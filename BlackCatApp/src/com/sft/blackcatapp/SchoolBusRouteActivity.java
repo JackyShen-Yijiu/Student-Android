@@ -96,7 +96,6 @@ public class SchoolBusRouteActivity extends BaseActivity implements
 
 	@Override
 	public void onClick(View v) {
-		Toast("onclick--Back");
 		switch (v.getId()) {
 		case R.id.base_left_btn:
 			finish();

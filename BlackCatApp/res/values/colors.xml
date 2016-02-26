@@ -83,4 +83,7 @@
       <color name="search_bg">#eeeeee</color>
       <color name="yellow">#ffea00</color>
     
+      <!-- 支付 金额 橘黄色 -->
+      <color name="orange_pay">#ff7445</color>
+    
 </resources>

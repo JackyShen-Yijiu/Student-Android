@@ -19,6 +19,9 @@ public class SuccessVO implements Serializable {
 	public applyclasstypeinfo applyclasstypeinfo;
 	public Applyschoolinfo applyschoolinfo;
 	public Applycoachinfo applycoachinfo;
+	public String paytype;
+	public int paytypestatus;//0 未支付  20 支付成功 30 支付失败
+	public String schoollogoimg;
 
 	public Carmodel carmodel;
 
@@ -33,6 +36,8 @@ public class SuccessVO implements Serializable {
 		public String id;
 		public String name;
 		public String price;
+		public String onsaleprice;
+		
 	}
 
 	public class Applycoachinfo {

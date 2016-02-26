@@ -13,6 +13,8 @@ public class UserBaseStateVO extends DBVO {
 	private String applystate;
 
 	private ApplyInfoVO applyinfo;
+	
+	public String paytype; 
 
 	public String get_id() {
 		return _id;

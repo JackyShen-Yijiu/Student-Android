@@ -282,6 +282,23 @@
         <item name="android:drawablePadding">12dp</item>
         <item name="android:paddingLeft">15dp</item>
     </style>
+    
+    <style name="text_black_title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/txt_333</item>
+        <item name="android:textSize">@dimen/txt_size_middle</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+    
+    <style name="text_gray_small">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/txt_999</item>
+        <item name="android:textSize">@dimen/txt_size_small</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+    
     <!-- 验证报名信息 -->
      <style name="testing_person_center_text_style">
         <item name="android:layout_width">match_parent</item>
@@ -355,7 +372,6 @@
         <item name="android:gravity">center_vertical</item>
         <item name="android:padding">12dp</item>
         <item name="android:drawablePadding">32dp</item>
-        <item name="android:gravity">center_vertical</item>
          <item name="android:background">@drawable/left_item_selector_bg</item>
         <item name="android:textColor">@drawable/left_item_text_color</item>
         <item name="android:textSize">16sp</item>
