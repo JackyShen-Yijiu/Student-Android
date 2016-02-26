@@ -47,6 +47,7 @@ public class UserVO extends DBVO {
 	private StudentSubject subjectthree;
 	private UserSettingVO usersetting;
 	private List<VipServerListVO> vipserverlist;
+
 	private PayOrderVO payOrderVO;
 
 	public void setHeadPortrait(HeadPortrait headPortrait) {

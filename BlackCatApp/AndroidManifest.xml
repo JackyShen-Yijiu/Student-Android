@@ -253,9 +253,14 @@
         <activity
             android:name="com.sft.blackcatapp.CourseActivity"
             android:screenOrientation="portrait" />
+        <!-- 钱包 -->
         <activity
             android:name="com.sft.blackcatapp.MyWalletActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="com.sft.blackcatapp.Walletintegral"
+            android:screenOrientation="portrait" />
+        
         <activity
             android:name="com.sft.blackcatapp.SubjectOneActivity"
             android:screenOrientation="portrait" />
@@ -388,6 +393,10 @@
            <!-- 确认订单 -->
            <activity
                android:name=".ConfirmOrderActivity"
+               android:screenOrientation="portrait"></activity>
+              <!-- 钱包 -->
+           <activity
+               android:name=".WalletActivity"
                android:screenOrientation="portrait"></activity>
             <activity
                android:name=".WebViewActivitys"

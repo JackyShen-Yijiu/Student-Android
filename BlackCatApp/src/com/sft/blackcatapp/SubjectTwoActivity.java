@@ -11,7 +11,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
-import com.sft.blackcatapp.R;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
 import com.sft.common.Config.SubjectStatu;
@@ -21,7 +20,7 @@ import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.UserBaseStateVO;
 
 /**
- * 科目一
+ * 科目二
  * 
  * @author Administrator
  * 

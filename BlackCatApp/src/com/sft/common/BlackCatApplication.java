@@ -53,6 +53,7 @@ public class BlackCatApplication extends Application {
 	public List<CoachVO> favouriteCoach;
 	// 我喜欢的驾校
 	public List<SchoolVO> favouriteSchool;
+
 	public boolean isLogin = false;
 	public boolean isEnrollAgain = false;
 	// 科目二内容
@@ -80,7 +81,7 @@ public class BlackCatApplication extends Application {
 		LogUtil.print("jpush---init");
 		JPushInterface.init(this);
 		SDKInitializer.initialize(this);
-		
+
 		uploadManager = new UploadManager();
 		app = this;
 

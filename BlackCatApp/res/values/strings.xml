@@ -26,6 +26,11 @@
     <string name="coach">教练</string>
     <string name="distance">距离</string>
     <string name="grade">评分</string>
+    
+    <string name="wallet_coupons">报名兑换劵</string>
+    <string name="wallet_integral">奖励积分</string>
+    <string name="wallet_money">可取现金金额</string>
+    
     <string name="coach_list">教练列表</string>
     <string name="coach_detail">教练详情</string>
     <string name="select_school">附近驾校</string>

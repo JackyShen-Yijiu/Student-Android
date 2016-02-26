@@ -72,6 +72,7 @@
             android:drawableLeft="@drawable/left_item_selector_car"
             android:text="我的驾校班车"/>
             <TextView 
+                android:id="@+id/fragment_menu_wallet_btn"
             style="@style/left_item_menu_style"
             android:drawableLeft="@drawable/left_item_selector_money"
             android:text="我的钱包"/>
