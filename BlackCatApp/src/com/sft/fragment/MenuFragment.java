@@ -367,17 +367,22 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 		// dialog.show();
 		// }
 		// break;
+		// 设置
+		// case R.id.fragment_menu_setting_btn:
+		//
+		// if (app.isLogin) {
+		// intent = new Intent(getActivity(), SettingActivity.class);
+		// startActivity(intent);
+		//
+		// } else {
+		// NoLoginDialog dialog = new NoLoginDialog(getActivity());
+		// dialog.show();
+		// }
+		//
+		// break;
 		case R.id.fragment_menu_setting_btn:
-
-			if (app.isLogin) {
-				intent = new Intent(getActivity(), SettingActivity.class);
-				startActivity(intent);
-
-			} else {
-				NoLoginDialog dialog = new NoLoginDialog(getActivity());
-				dialog.show();
-			}
-
+			intent = new Intent(getActivity(), SettingActivity.class);
+			startActivity(intent);
 			break;
 		// 投诉
 		case R.id.fragment_menu_complaint_btn:

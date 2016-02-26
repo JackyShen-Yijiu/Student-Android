@@ -119,6 +119,7 @@
     <string name="testing_detail">验证报名信息</string>
     <string name="logout">退出登录</string>
     <string name="person_center">个人中心</string>
+    <string name="indent_detail">订单详情</string>
     <string name="testing_person_center">验证报名信息</string>
     <string name="eidt_info">编辑信息</string>
     <string name="headpic">头像</string>
@@ -181,6 +182,7 @@
     <string name="my_change">YB</string>
     <string name="invite_friends">分享好友</string>
     <string name="share">分享</string>
+    <string name="save">保存</string>
     <string name="exchange">兑换券兑换</string>
     <string name="deal_detail">交易详情</string>
     <string name="share_income">分享收益</string>
