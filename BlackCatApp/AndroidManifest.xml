@@ -260,6 +260,12 @@
         <activity
             android:name="com.sft.blackcatapp.Walletintegral"
             android:screenOrientation="portrait" />
+          <activity
+            android:name="com.sft.blackcatapp.Walletcoupons"
+            android:screenOrientation="portrait" />
+            <activity
+            android:name="com.sft.blackcatapp.Walletmoney"
+            android:screenOrientation="portrait" />
         
         <activity
             android:name="com.sft.blackcatapp.SubjectOneActivity"

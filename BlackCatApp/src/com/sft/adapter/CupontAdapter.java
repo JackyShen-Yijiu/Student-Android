@@ -17,10 +17,13 @@ public class CupontAdapter extends BaseAdapter {
 
 	private LayoutInflater mInflater;
 	private List<MyCuponVO> mData;
+	private String producttype;
 
-	public CupontAdapter(Context context, List<MyCuponVO> mData) {
+	public CupontAdapter(Context context, List<MyCuponVO> mData,
+			String producttype) {
 		this.mInflater = LayoutInflater.from(context);
 		this.mData = mData;
+		this.producttype = producttype;
 	}
 
 	public void setData(List<MyCuponVO> mData) {

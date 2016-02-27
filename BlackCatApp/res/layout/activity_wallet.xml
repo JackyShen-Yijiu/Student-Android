@@ -14,10 +14,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:text="报名兑换劵"
+            android:layout_marginTop="20dp"
+            android:text="奖励积分"
             android:textColor="@color/white"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
         <TextView
             android:id="@+id/tv_code"
             android:layout_below="@+id/tv_name"
@@ -25,9 +25,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
          	android:layout_centerHorizontal="true"
-            android:text="1张"
+            android:text=""
             android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:textSize="24sp" />
 
  </RelativeLayout>
 

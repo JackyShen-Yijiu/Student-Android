@@ -7,16 +7,16 @@ import cn.sft.sqlhelper.DBVO;
 public class AmountInCashVO extends DBVO {
 
 	private static final long serialVersionUID = 1L;
-	private int money;
+	private String money;
 	private String userid;
 	private String fcode;
 	private List<MoneyListVO> moneylist;
 
-	public int getMoney() {
+	public String getMoney() {
 		return money;
 	}
 
-	public void setMoney(int money) {
+	public void setMoney(String money) {
 		this.money = money;
 	}
 

@@ -4,17 +4,60 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
-<me.maxwin.view.XListView
-        android:id="@+id/list_walletintegral"
+  <ListView
+        android:id="@+id/my_wallet_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ffffff"
-        android:cacheColorHint="#00000000"
+        android:layout_weight="1"
+        android:background="#f7f9fb"
+        android:cacheColorHint="#ffffff"
         android:descendantFocusability="blocksDescendants"
-        android:divider="@null"
-        android:dividerHeight="2dp"
+        android:divider="#cccccc"
+        android:dividerHeight="0.5dp"
         android:fadingEdge="none"
         android:listSelector="@android:color/transparent"
         android:overScrollMode="always"
         android:scrollbars="none" />
+  
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="70dp"
+      android:background="@color/white"
+      android:padding="8dp" >
+
+      <TextView
+          android:id="@+id/my_wallet_invit_code_tv"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentLeft="true"
+          android:layout_centerVertical="true"
+          android:text=""
+          android:textColor="@color/left_black"
+          android:textSize="14sp" />
+
+      <Button
+        android:id="@+id/my_wallet_invite_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/my_wallet_change_btn"
+        android:layout_marginRight="15dp"
+         android:layout_centerVertical="true"
+        android:background="@drawable/btn_bg"
+        android:padding="15dp"
+        android:text="邀请好友"
+        android:textColor="@color/white" />
+
+            <Button
+        android:id="@+id/my_wallet_change_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/btn_bg"
+        android:padding="15dp"
+        android:text="积分兑换"
+        android:textColor="@color/white" />
+
+  </RelativeLayout>
+
 </LinearLayout>

@@ -70,6 +70,11 @@ public class BlackCatApplication extends Application {
 	public ClassVO selectEnrollClass;
 	// 我的豆币
 	public String currency;
+	// 我的兑换劵
+	public int coupons;
+
+	// 我的现金
+	public String money;
 
 	public static BlackCatApplication getInstance() {
 		return app;

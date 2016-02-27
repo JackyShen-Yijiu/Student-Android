@@ -41,6 +41,7 @@ public class MyWalletActivity extends BaseActivity {
 	private final static String myCoinCertificate = "myCoinCertificate";
 	// 现金额
 	private final static String myAmountInCash = "myAmountInCash";
+
 	private LinearLayout containOneBtnLl;
 	private LinearLayout containTwoBtnLl;
 	// 收益列表
@@ -248,7 +249,8 @@ public class MyWalletActivity extends BaseActivity {
 					myChangeTv.setText(myCuponList.size() + "");
 
 					if (cupontAdapter == null) {
-						cupontAdapter = new CupontAdapter(this, myCuponList);
+						cupontAdapter = new CupontAdapter(this, myCuponList,
+								producttype);
 					} else {
 						cupontAdapter.setData(myCuponList);
 					}

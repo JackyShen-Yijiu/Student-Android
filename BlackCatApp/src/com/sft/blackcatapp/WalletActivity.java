@@ -16,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.TextView;
+import cn.sft.infinitescrollviewpager.MyHandler;
 
 import com.sft.listener.AdapterRefreshListener;
 
@@ -27,6 +29,8 @@ public class WalletActivity extends BaseActivity {
 	private RadioGroup radioGroup;
 
 	private LocalActivityManager activityManager = null;
+	private TextView tv_name;
+	public TextView tv_code;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +76,9 @@ public class WalletActivity extends BaseActivity {
 		viewPager = (ViewPager) findViewById(R.id.wallet_viewpager);
 		radioGroup = (RadioGroup) findViewById(R.id.wallet_radiogroup);
 
+		tv_name = (TextView) findViewById(R.id.tv_name);
+		tv_code = (TextView) findViewById(R.id.tv_code);
+
 	}
 
 	private void setListener() {
@@ -113,16 +120,42 @@ public class WalletActivity extends BaseActivity {
 		}
 	}
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode,
+			final Intent data) {
+		if (data != null) {
+			if (resultCode == R.id.base_left_btn) {
+				return;
+			}
+			new MyHandler(200) {
+				@Override
+				public void run() {
+					setResult(RESULT_OK, data);
+					finish();
+				}
+			};
+		}
+	}
+
 	private class MyOnCheckedChangeListener implements OnCheckedChangeListener {
 		@Override
 		public void onCheckedChanged(RadioGroup group, int checkedId) {
 			viewPager.setOnPageChangeListener(null);
-			if (checkedId == R.id.selectcoach_distance_btn) {
+			if (checkedId == R.id.wallet_integral_btn) {
 				viewPager.setCurrentItem(0);
 				setTabBkground(0);
-			} else {
+				tv_name.setText("奖励积分");
+				tv_code.setText(app.currency + "积分");
+			} else if (checkedId == R.id.wallet_coupons_btn) {
 				viewPager.setCurrentItem(1);
 				setTabBkground(1);
+				tv_name.setText("报名兑换劵");
+				tv_code.setText(app.coupons + "张");
+			} else {
+				viewPager.setCurrentItem(2);
+				setTabBkground(2);
+				tv_name.setText("可取现金额");
+				tv_code.setText(app.money + "元");
 			}
 			viewPager.setOnPageChangeListener(new MyPageChangeListener());
 		}
@@ -136,8 +169,22 @@ public class WalletActivity extends BaseActivity {
 		@Override
 		public void onPageSelected(int position) {
 			radioGroup.setOnCheckedChangeListener(null);
-			radioGroup.check(position == 0 ? R.id.selectcoach_distance_btn
-					: R.id.selectcoach_grade_btn);
+
+			if (position == 0) {
+				radioGroup.check(R.id.wallet_integral_btn);
+				tv_name.setText("奖励积分");
+				tv_code.setText(app.currency + "积分");
+			}
+			if (position == 1) {
+				radioGroup.check(R.id.wallet_coupons_btn);
+				tv_name.setText("报名兑换劵");
+				tv_code.setText(app.coupons + "张");
+			}
+			if (position == 2) {
+				radioGroup.check(R.id.wallet_money_btn);
+				tv_name.setText("可取现金额");
+				tv_code.setText(app.money + "元");
+			}
 			radioGroup
 					.setOnCheckedChangeListener(new MyOnCheckedChangeListener());
 			setTabBkground(position);
@@ -200,4 +247,5 @@ public class WalletActivity extends BaseActivity {
 		public void startUpdate(View arg0) {
 		}
 	}
+
 }
