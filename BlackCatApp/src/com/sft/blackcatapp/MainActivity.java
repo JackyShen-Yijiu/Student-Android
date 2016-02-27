@@ -64,6 +64,7 @@ import com.sft.common.Config.SubjectStatu;
 import com.sft.dialog.CheckApplyDialog;
 import com.sft.dialog.CustomDialog;
 import com.sft.dialog.NoCommentDialog;
+import com.sft.dialog.NoCommentDialog.ClickListenerInterface;
 import com.sft.dialog.NoLoginDialog;
 import com.sft.fragment.MenuFragment;
 import com.sft.fragment.MenuFragment.SLMenuListOnItemClickListener;
@@ -75,6 +76,7 @@ import com.sft.util.Util;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.ActivitiesVO;
 import com.sft.vo.CoachVO;
+import com.sft.vo.MyAppointmentVO;
 import com.sft.vo.OpenCityVO;
 import com.sft.vo.QuestionVO;
 import com.sft.vo.SchoolVO;
@@ -87,6 +89,7 @@ public class MainActivity extends BaseMainActivity implements
 	private static final String coach = "coach";
 	private static final String school = "school";
 	private static final String NOT_COMMENT = "nocomment";
+	private static final String comment = "comment";
 
 	private static final String questionaddress = "questionaddress";
 	private static final String TODAY_IS_OPEN_ACTIVITIES = "today_is_open_activities";
@@ -178,6 +181,7 @@ public class MainActivity extends BaseMainActivity implements
 			// 获取未评论列表
 
 		}
+
 		setTag();
 		if (app != null && app.isLogin) {
 			util.print("userid=" + app.userVO.getUserid());
@@ -240,12 +244,13 @@ public class MainActivity extends BaseMainActivity implements
 
 	private void setTag() {
 		if (app.isLogin) {
-//			app.userVO.getUserid()
-			LogUtil.print("jpush---userId--->"+app.userVO.getUserid());
-			JPushInterface.setAliasAndTags(this,app.userVO.getUserid(), null, new MyTagAliasCallback());
-//			JPushInterface.setAlias(this,app.userVO.getUserid(),
-//					new MyTagAliasCallback());
-			LogUtil.print("jpush---userId---end>"+app.userVO.getUserid());
+			// app.userVO.getUserid()
+			LogUtil.print("jpush---userId--->" + app.userVO.getUserid());
+			JPushInterface.setAliasAndTags(this, app.userVO.getUserid(), null,
+					new MyTagAliasCallback());
+			// JPushInterface.setAlias(this,app.userVO.getUserid(),
+			// new MyTagAliasCallback());
+			LogUtil.print("jpush---userId---end>" + app.userVO.getUserid());
 		}
 	}
 
@@ -253,14 +258,13 @@ public class MainActivity extends BaseMainActivity implements
 
 		@Override
 		public void gotResult(int arg0, String arg1, Set<String> arg2) {
-			LogUtil.print("jpush--->MainActivity---->"+arg1);
+			LogUtil.print("----------TagAliasCallback============");
+			LogUtil.print("jpush--->MainActivity---->" + arg1);
 			sum++;
 			if (arg0 != 0 && sum < 5) {
 				setTag();
 			}
 		}
-
-		
 
 	}
 
@@ -357,7 +361,7 @@ public class MainActivity extends BaseMainActivity implements
 		// .getDecorView());
 		//
 		// viewPager.setAdapter(new MyPageAdapter(listViews));
-
+		refreshUI();
 		app.curCity = util.readParam(Config.USER_CITY);
 		initMyLocation();
 	}
@@ -422,30 +426,34 @@ public class MainActivity extends BaseMainActivity implements
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		LogUtil.print(resultCode+"onActivityResult--》"+data);
+		LogUtil.print(resultCode + "onActivityResult--》" + data);
 		switch (currentPage) {
 		case TAB_APPLY:
-			if(mMainContainer.enrollFragment.type == 0){//驾校
-				if(resultCode == 9){//城市
+			if (mMainContainer.enrollFragment.type == 0) {// 驾校
+				if (resultCode == 9) {// 城市
 					City city = (City) data.getSerializableExtra("city");
 					app.curCity = city.name;
-					mMainContainer.enrollFragment.schoolFragment.requestByCity(city.name);
+					mMainContainer.enrollFragment.schoolFragment
+							.requestByCity(city.name);
 					titleRightTv.setText(app.curCity);
 				}
-//				mMainContainer.enrollFragment.schoolFragment.onActivityResult(requestCode, resultCode, data);
-			}else{//教练
-				if(resultCode == 9){//城市
+				// mMainContainer.enrollFragment.schoolFragment.onActivityResult(requestCode,
+				// resultCode, data);
+			} else {// 教练
+				if (resultCode == 9) {// 城市
 					City city = (City) data.getSerializableExtra("city");
 					app.curCity = city.name;
-					mMainContainer.enrollFragment.coachFragment.requestByCity(city.name);
+					mMainContainer.enrollFragment.coachFragment
+							.requestByCity(city.name);
 					titleRightTv.setText(app.curCity);
 				}
-//				mMainContainer.enrollFragment.coachFragment.onActivityResult(requestCode, resultCode, data);
+				// mMainContainer.enrollFragment.coachFragment.onActivityResult(requestCode,
+				// resultCode, data);
 			}
-//			MainScreenTab.
+			// MainScreenTab.
 			break;
 		}
-		
+
 	}
 
 	private boolean hasAppointment = true;
@@ -463,7 +471,8 @@ public class MainActivity extends BaseMainActivity implements
 				// 定位
 				LogUtil.print("定位");
 				obtainOpenCity();
-				startActivityForResult(new Intent(MainActivity.this,Act_City.class),2);
+				startActivityForResult(new Intent(MainActivity.this,
+						Act_City.class), 2);
 				break;
 			case TAB_APPOINTMENT:
 				// 换教练
@@ -616,6 +625,22 @@ public class MainActivity extends BaseMainActivity implements
 		}
 	}
 
+	private void comment(String reservationId, String starLevel, String content) {
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("userid", app.userVO.getUserid());
+		paramMap.put("reservationid", reservationId);
+		paramMap.put("starlevel", starLevel);
+		paramMap.put("attitudelevel", starLevel);
+		paramMap.put("timelevel", starLevel);
+		paramMap.put("abilitylevel", starLevel);
+		paramMap.put("commentcontent", content);
+
+		Map<String, String> headerMap = new HashMap<String, String>();
+		headerMap.put("authorization", app.userVO.getToken());
+		HttpSendUtils.httpPostSend(comment, this, Config.IP
+				+ "api/v1/courseinfo/usercomment", paramMap, 10000, headerMap);
+	}
+
 	@Override
 	public synchronized boolean doCallBack(String type, Object jsonString) {
 		if (super.doCallBack(type, jsonString)) {
@@ -697,12 +722,24 @@ public class MainActivity extends BaseMainActivity implements
 					if (commentDialog != null && commentDialog.isShowing()) {
 						return true;
 					}
+					try {
+						myAppointmentVO = JSONUtil.toJavaBean(
+								MyAppointmentVO.class,
+								dataArray.getJSONObject(0));
+					} catch (Exception e) {
+						e.printStackTrace();
+
+					}
+					if (myAppointmentVO == null) {
+						return true;
+					}
 					commentDialog = new NoCommentDialog(this);
-					commentDialog.setTextAndImage("去评价",
-							"您有未评价订单\n给您的教练一个好评吧！", "去投诉",
-							R.drawable.appointment_time_error);
 					commentDialog.setCancelable(false);
+					commentDialog.setImage(myAppointmentVO.getCoachid()
+							.getHeadportrait().getOriginalpic());
 					commentDialog.setCanceledOnTouchOutside(false);
+					commentDialog
+							.setClicklistener(new NoCommentDialogClickListener());
 					commentDialog.show();
 
 					// List<MyAppointmentVO> list = new
@@ -740,6 +777,20 @@ public class MainActivity extends BaseMainActivity implements
 						openCityList.add(0, curCityVO);
 						// showOpenCityPopupWindow(curCityTv);
 					}
+				}
+			} else if (type.equals(comment)) {
+				if (dataString != null) {
+					ZProgressHUD.getInstance(this).show();
+					ZProgressHUD.getInstance(this).dismissWithSuccess("评论成功");
+					commentDialog.dismiss();
+					// new MyHandler(1000) {
+					// @Override
+					// public void run() {
+					// Intent intent = new Intent();
+					// setResult(RESULT_OK, intent);
+					// finish();
+					// }
+					// };
 				}
 			}
 		} catch (Exception e) {
@@ -1034,7 +1085,7 @@ public class MainActivity extends BaseMainActivity implements
 
 			@Override
 			public void run() {
-				selectTabByIntent(getIntent());
+				// selectTabByIntent(getIntent());
 			}
 		});
 	}
@@ -1048,6 +1099,7 @@ public class MainActivity extends BaseMainActivity implements
 	}
 
 	private int currentPage = TAB_APPLY;
+	private MyAppointmentVO myAppointmentVO;
 
 	@Override
 	public void onTabSelected(int index, boolean reClicked) {
@@ -1113,7 +1165,7 @@ public class MainActivity extends BaseMainActivity implements
 	protected void onResume() {
 		super.onResume();
 		refreshView();
-		refreshUI();
+
 		if (app.userVO != null && !app.userVO.getApplystate().equals("0")) {
 			// 获取未评论列表
 			obtainNotComments();
@@ -1122,7 +1174,31 @@ public class MainActivity extends BaseMainActivity implements
 
 	private void refreshUI() {
 		// 刷新当前页面
-
+		// 根据状态选择首次进入的页面
+		if (app.userVO != null) {
+			if (app.userVO.getSubject().getSubjectid()
+					.equals(Config.SubjectStatu.SUBJECT_ONE.getValue())
+					|| app.userVO
+							.getSubject()
+							.getSubjectid()
+							.equals(Config.SubjectStatu.SUBJECT_FOUR.getValue())) {
+				// 进入学习
+				mMainContainer.showTab(TAB_STUDY);
+			} else if (app.userVO.getSubject().getSubjectid()
+					.equals(Config.SubjectStatu.SUBJECT_TWO.getValue())
+					|| app.userVO
+							.getSubject()
+							.getSubjectid()
+							.equals(Config.SubjectStatu.SUBJECT_THREE
+									.getValue())) {
+				// 进入预约
+				mMainContainer.showTab(TAB_APPOINTMENT);
+				LogUtil.print("app.userVO.getSubject().getSubjectid()--"
+						+ app.userVO.getSubject().getSubjectid());
+			} else {
+				mMainContainer.showTab(TAB_APPLY);
+			}
+		}
 	}
 
 	@Override
@@ -1145,5 +1221,32 @@ public class MainActivity extends BaseMainActivity implements
 		titleFarRightIv.setVisibility(View.GONE);
 		titleRightTv.setVisibility(View.VISIBLE);
 		titleRightTv.setText(CommonUtil.getString(this, R.string.add_coach));
+	}
+
+	class NoCommentDialogClickListener implements ClickListenerInterface {
+
+		@Override
+		public void getMoreClick() {
+			// 跳转到评论页面
+			Intent intent = new Intent(MainActivity.this, CommentActivity.class);
+			intent.putExtra("appointmentVO", myAppointmentVO);
+			intent.putExtra("position", getIntent().getIntExtra("position", 0));
+			startActivityForResult(intent, 0);
+			commentDialog.dismiss();
+		}
+
+		@Override
+		public void commintClick() {
+			int rating = (int) commentDialog.getRatingBar().getRating();
+			String content = commentDialog.getEditText().getText().toString();
+			LogUtil.print(rating + content);
+
+			if (TextUtils.isEmpty(content.trim())) {
+				commentDialog.showErrorHint(true);
+			} else {
+				commentDialog.showErrorHint(false);
+				comment(myAppointmentVO.get_id(), rating + "", content);
+			}
+		}
 	}
 }

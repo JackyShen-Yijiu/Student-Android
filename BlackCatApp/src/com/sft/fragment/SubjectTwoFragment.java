@@ -10,8 +10,11 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.sft.blackcatapp.AppointmentExamActivity;
 import com.sft.blackcatapp.CourseActivity;
+import com.sft.blackcatapp.LearnCarCheatsActivity;
 import com.sft.blackcatapp.R;
+import com.sft.dialog.NoLoginDialog;
 import com.sft.viewutil.StudyItemLayout;
 import com.sft.vo.SubjectForOneVO;
 
@@ -82,9 +85,18 @@ public class SubjectTwoFragment extends BaseFragment implements OnClickListener 
 			intent.putExtra("title", "科目二");
 			break;
 		case R.id.learn_car_cheats:
-
+			intent = new Intent(mContext, LearnCarCheatsActivity.class);
+			intent.putExtra("subjectid", "2");
 			break;
 		case R.id.make_an_appointment:
+			if (app.isLogin) {
+				intent = new Intent(mContext, AppointmentExamActivity.class);
+				intent.putExtra("subjectid", "2");
+
+			} else {
+				NoLoginDialog dialog = new NoLoginDialog(getActivity());
+				dialog.show();
+			}
 
 			break;
 		case R.id.communication:

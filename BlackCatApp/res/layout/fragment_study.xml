@@ -7,7 +7,7 @@
 
        <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="50dp"
         android:background="@color/new_app_main_color" >
 
         <LinearLayout
@@ -19,7 +19,7 @@
                 android:layout_weight="1"
                 android:text="科目一"
                 android:gravity="center"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 android:id="@+id/study_subject_one"
                 android:textColor="@color/study_text_selected"
                 android:layout_height="match_parent"/>
@@ -29,7 +29,7 @@
                 android:text="科目二"
                 android:id="@+id/study_subject_two"
                 android:gravity="center"
-                android:textSize="15sp"
+                android:textSize="14sp"
                android:textColor="@color/study_text_normal"
                 android:layout_height="match_parent"/>
              <TextView android:layout_width="0dp"
@@ -37,7 +37,7 @@
                 android:text="科目三"
                 android:id="@+id/study_subject_three"
                 android:gravity="center"
-                android:textSize="15sp"
+                android:textSize="14sp"
                android:textColor="@color/study_text_normal"
                 android:layout_height="match_parent"/>
              <TextView android:layout_width="0dp"
@@ -45,7 +45,7 @@
                 android:text="科目四"
                 android:id="@+id/study_subject_four"
                 android:gravity="center"
-                android:textSize="15sp"
+                android:textSize="14sp"
                android:textColor="@color/study_text_normal"
                 android:layout_height="match_parent"/>
         </LinearLayout>

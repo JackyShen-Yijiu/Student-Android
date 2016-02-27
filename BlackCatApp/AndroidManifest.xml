@@ -411,6 +411,15 @@
            <activity
                android:name=".CheckDiscodeAct"
                android:screenOrientation="portrait"></activity>
+           <!-- 学车秘籍 -->
+           <activity
+               android:name=".LearnCarCheatsActivity"
+               android:screenOrientation="portrait"></activity>
+           <!-- 我要约考 -->
+           <activity
+               android:name=".AppointmentExamActivity"
+               android:screenOrientation="portrait"
+               android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
            <!-- 选择城市 -->
            
            <activity

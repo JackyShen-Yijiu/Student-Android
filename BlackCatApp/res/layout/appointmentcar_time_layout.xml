@@ -59,7 +59,7 @@
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:background="@drawable/appointment_car_ck_bkground"
+        
         android:button="@null" />
-
+<!-- android:background="@drawable/appointment_car_ck_bkground" -->
 </RelativeLayout>

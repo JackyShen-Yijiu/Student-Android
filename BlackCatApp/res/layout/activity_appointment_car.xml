@@ -83,7 +83,7 @@
                         xmlns:test="http://schemas.android.com/apk/res/com.sft.blackcatapp"
                         android:id="@+id/appointment_detail_horizon_listview"
                         android:layout_width="match_parent"
-                        
+                        android:fadingEdge="none"
                         android:layout_height="45dp"
                         android:layout_marginBottom="20dp" />
                 </LinearLayout>
@@ -158,11 +158,12 @@
                 style="@style/btn_style"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="15dp"
+                android:layout_marginRight="12dp"
                 android:background="@drawable/button"
                 android:text="@string/commit" />
+
         </RelativeLayout>
     </LinearLayout>
 
