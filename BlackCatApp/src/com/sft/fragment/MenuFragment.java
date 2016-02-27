@@ -45,6 +45,7 @@ import com.sft.blackcatapp.R;
 import com.sft.blackcatapp.SchoolBusRouteActivity;
 import com.sft.blackcatapp.SettingActivity;
 import com.sft.blackcatapp.TodaysAppointmentActivity;
+import com.sft.blackcatapp.WalletActivity;
 import com.sft.blackcatapp.YiBuIntroduceActivity;
 import com.sft.common.BlackCatApplication;
 import com.sft.common.Config;
@@ -200,6 +201,8 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 		rootView.findViewById(R.id.fragment_menu_signin_btn)
 				.setOnClickListener(this);
 		rootView.findViewById(R.id.fragment_menu_setting_btn)
+				.setOnClickListener(this);
+		rootView.findViewById(R.id.fragment_menu_wallet_btn)
 				.setOnClickListener(this);
 
 		rootView.findViewById(R.id.fragment_menu_complaint_btn)
@@ -384,6 +387,13 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 			intent = new Intent(getActivity(), SettingActivity.class);
 			startActivity(intent);
 			break;
+
+		// 钱包
+		case R.id.fragment_menu_wallet_btn:
+			intent = new Intent(getActivity(), WalletActivity.class);
+			startActivity(intent);
+			break;
+
 		// 投诉
 		case R.id.fragment_menu_complaint_btn:
 			if (app.isLogin) {

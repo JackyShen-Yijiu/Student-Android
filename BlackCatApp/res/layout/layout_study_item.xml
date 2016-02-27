@@ -30,16 +30,16 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:text="题库"
-            android:textSize="16sp"
-            android:textColor="#212121" />
+            android:textSize="14sp"
+            android:textColor="@color/text_color_dark" />
         <TextView
             android:id="@+id/study_item_describe"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:text="800多道海量题库，任君挑选"
-            android:textSize="14sp"
-            android:textColor="#757575" />
+            android:textSize="12sp"
+            android:textColor="@color/text_color_light" />
         <ImageView
         android:layout_width="match_parent"
         android:layout_height="1dp"

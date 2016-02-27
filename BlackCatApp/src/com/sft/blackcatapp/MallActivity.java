@@ -49,7 +49,7 @@ public class MallActivity extends BaseActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		addView(R.layout.activity_mall);
+		setContentView(R.layout.activity_mall);
 		cityname = app.curCity;
 		producttype = getIntent().getStringExtra("moneytype");
 		myCuponVO = (MyCuponVO) getIntent().getSerializableExtra("myCupon");
@@ -65,14 +65,15 @@ public class MallActivity extends BaseActivity implements
 
 	private void initView() {
 
-		if (Config.MoneyType.INTEGRAL_RETURN.getValue().equals(producttype)) {
-
-			setTitleText("积分商城");
-		} else if (Config.MoneyType.COIN_CERTIFICATE.getValue().equals(
-				producttype)) {
-
-			setTitleText("兑换商城");
-		}
+		// if (Config.MoneyType.INTEGRAL_RETURN.getValue().equals(producttype))
+		// {
+		//
+		// setTitleText("积分商城");
+		// } else if (Config.MoneyType.COIN_CERTIFICATE.getValue().equals(
+		// producttype)) {
+		//
+		// setTitleText("兑换商城");
+		// }
 
 		// adLayout = (RelativeLayout) findViewById(R.id.mall_top_headpic_im);
 		// topViewPager = (InfiniteViewPager)

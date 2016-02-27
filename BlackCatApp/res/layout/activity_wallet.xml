@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/new_app_main_color">
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="奖励积分"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+        <TextView
+            android:id="@+id/tv_code"
+            android:layout_below="@+id/tv_name"
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+         	android:layout_centerHorizontal="true"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="24sp" />
+
+ </RelativeLayout>
+
+       <RadioGroup
+        android:id="@+id/wallet_radiogroup"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/selectcoach_radiogroup_height"
+        android:background="@color/new_app_main_color"
+        android:orientation="horizontal" >
+        <RadioButton
+            android:id="@+id/wallet_integral_btn"
+            style="@style/select_coach_radiobutton"
+            android:checked="true"
+            android:text="@string/wallet_integral" />
+        <RadioButton
+            android:id="@+id/wallet_coupons_btn"
+            style="@style/select_coach_radiobutton"
+            android:text="@string/wallet_coupons" />
+         <RadioButton
+            android:id="@+id/wallet_money_btn"
+            style="@style/select_coach_radiobutton"
+            android:text="@string/wallet_money" />
+    </RadioGroup>
+ <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#cccccc"
+        android:contentDescription="@string/app_name" />
+   
+     <android.support.v4.view.ViewPager
+        android:id="@+id/wallet_viewpager"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#fff"
+        android:overScrollMode="never" />
+</LinearLayout>

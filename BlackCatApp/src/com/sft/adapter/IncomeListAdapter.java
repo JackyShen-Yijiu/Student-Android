@@ -55,7 +55,7 @@ public class IncomeListAdapter extends BaseAdapter {
 		ViewHolder holder = null;
 		if (convertView == null) {
 			holder = new ViewHolder();
-			convertView = mInflater.inflate(R.layout.mywallet_list_item, null);
+			convertView = mInflater.inflate(R.layout.integral_list_item, null);
 			holder.date = (TextView) convertView
 					.findViewById(R.id.mywallet_item_date_tv);
 			holder.name = (TextView) convertView
@@ -75,7 +75,7 @@ public class IncomeListAdapter extends BaseAdapter {
 		}
 		holder.date.setText(UTC2LOC.instance.getDate(mData.get(position)
 				.getCreatetime(), "yyyy/MM/dd"));
-		holder.income.setText(mData.get(position).getAmount() + "YB");
+		holder.income.setText(mData.get(position).getAmount() + "积分");
 		return convertView;
 	}
 

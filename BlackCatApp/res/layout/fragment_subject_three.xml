@@ -99,7 +99,8 @@
         android:layout_height="wrap_content"
         study:itemDescribe="专项科目交流平台"
         study:itemIcon="@drawable/communication"
-        study:itemTitle="交流" >
+        study:itemTitle="交流" 
+        android:visibility="gone">
     </com.sft.viewutil.StudyItemLayout>
 
 </LinearLayout>

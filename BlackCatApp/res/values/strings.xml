@@ -26,6 +26,11 @@
     <string name="coach">教练</string>
     <string name="distance">距离</string>
     <string name="grade">评分</string>
+    
+    <string name="wallet_coupons">报名兑换劵</string>
+    <string name="wallet_integral">奖励积分</string>
+    <string name="wallet_money">可取现金金额</string>
+    
     <string name="coach_list">教练列表</string>
     <string name="coach_detail">教练详情</string>
     <string name="select_school">附近驾校</string>
@@ -159,7 +164,7 @@
     <string name="complain_4">其他</string>
     <string name="requirements">报考</string>
     <string name="cancel_appointment_instro">取消预约说明</string>
-    <string name="write_comment">写点评论吧，对其他小伙伴有很大帮助哦</string>
+    <string name="write_comment">写点评论吧</string>
     <string name="student_car">学车信息</string>
     <string name="enroll_school_colon">报考驾校:</string>
     <string name="car_style_colon">车        型:</string>
@@ -293,6 +298,9 @@
     <string name="no_wifi">网络问题，请您检查手机的网络连接</string>
     <string name="cancel_appointment_intro">取消预约说明0/200</string>
     <string name="enrolling">您的报名正在审核中，请耐心等待</string>
+    <string name="learn_car_cheats">学车秘籍</string>
+
+    <string name="driving_school_appointment_exam">驾校约考</string>
     
     <string name="no_school">没有符合条件的驾校</string>
 	<string name="no_coach_error">没有符合条件的教练</string>

@@ -334,7 +334,6 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
-            android:text="02月01日 09:00-10:00 科目二"
             android:textColor="@color/txt_333"
             android:textSize="14sp" />
 

@@ -2,21 +2,26 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#00000000"
+    android:background="@color/new_app_main_color"
     android:orientation="vertical" >
 
     <WebView
         android:id="@+id/question_webview"
         android:layout_width="fill_parent"
-        android:layout_height="match_parent"/>
-    
-    <ImageView 
+        android:layout_height="match_parent" />
+
+    <ImageView
         android:id="@+id/base_left_btn11"
         android:layout_width="@dimen/base_titlebar_leftright_btn_width"
         android:layout_height="@dimen/base_titlebar_leftright_btn_height"
-        android:onClick="onClick"
         android:layout_marginTop="20dp"
-        android:src="@drawable/left_btn_press"
-        />
+        android:onClick="onClick"
+        android:src="@drawable/left_btn_press" />
+
+    <ProgressBar
+        android:id="@+id/question_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
 
 </FrameLayout>

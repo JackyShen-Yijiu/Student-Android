@@ -253,9 +253,20 @@
         <activity
             android:name="com.sft.blackcatapp.CourseActivity"
             android:screenOrientation="portrait" />
+        <!-- 钱包 -->
         <activity
             android:name="com.sft.blackcatapp.MyWalletActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="com.sft.blackcatapp.Walletintegral"
+            android:screenOrientation="portrait" />
+          <activity
+            android:name="com.sft.blackcatapp.Walletcoupons"
+            android:screenOrientation="portrait" />
+            <activity
+            android:name="com.sft.blackcatapp.Walletmoney"
+            android:screenOrientation="portrait" />
+        
         <activity
             android:name="com.sft.blackcatapp.SubjectOneActivity"
             android:screenOrientation="portrait" />
@@ -389,6 +400,10 @@
            <activity
                android:name=".ConfirmOrderActivity"
                android:screenOrientation="portrait"></activity>
+              <!-- 钱包 -->
+           <activity
+               android:name=".WalletActivity"
+               android:screenOrientation="portrait"></activity>
             <activity
                android:name=".WebViewActivitys"
                android:screenOrientation="portrait"></activity>
@@ -396,6 +411,15 @@
            <activity
                android:name=".CheckDiscodeAct"
                android:screenOrientation="portrait"></activity>
+           <!-- 学车秘籍 -->
+           <activity
+               android:name=".LearnCarCheatsActivity"
+               android:screenOrientation="portrait"></activity>
+           <!-- 我要约考 -->
+           <activity
+               android:name=".AppointmentExamActivity"
+               android:screenOrientation="portrait"
+               android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
            <!-- 选择城市 -->
            
            <activity

@@ -9,8 +9,8 @@ import android.webkit.WebSettings;
 import android.webkit.WebSettings.PluginState;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 
-import com.sft.blackcatapp.R;
 import com.sft.vo.VideoVO;
 
 /**
@@ -23,12 +23,15 @@ public class AudioPlayHtmlActivity extends BaseActivity {
 
 	private WebView webView;
 	private VideoVO videoVO;
+	private ProgressBar progressBar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		addView(R.layout.activity_question);
 		webView = (WebView) findViewById(R.id.question_webview);
+		progressBar = (ProgressBar) findViewById(R.id.question_progress);
+		findViewById(R.id.base_left_btn11).setVisibility(View.GONE);
 		initData();
 	}
 
@@ -49,17 +52,23 @@ public class AudioPlayHtmlActivity extends BaseActivity {
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
 				return false;
 			}
+
+			@Override
+			public void onPageFinished(WebView view, String url) {
+				super.onPageFinished(view, url);
+				progressBar.setVisibility(View.GONE);
+			}
 		});
-		
+
 		webSettings.setJavaScriptEnabled(true);
-		webSettings.setPluginState(PluginState.ON);		
+		webSettings.setPluginState(PluginState.ON);
 		webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
 		webSettings.setAllowFileAccess(true);
 		webSettings.setDefaultTextEncodingName("UTF-8");
 		webSettings.setLoadWithOverviewMode(true);
 		webSettings.setUseWideViewPort(true);
-		
-		webView.setWebChromeClient(new WebChromeClient()); 
+
+		webView.setWebChromeClient(new WebChromeClient());
 		String url = videoVO.getVideourl();
 		webView.loadUrl(url);
 	}
@@ -81,7 +90,8 @@ public class AudioPlayHtmlActivity extends BaseActivity {
 		webView.onPause();
 		super.onPause();
 	}
-	
+
+	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()) {
 			webView.goBack();
