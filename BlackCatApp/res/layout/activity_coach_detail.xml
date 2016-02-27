@@ -3,6 +3,11 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#fff" >
+    
+    <!-- 
+    
+    
+     
 
     <ScrollView
         android:id="@+id/coach_detail_scrollview"
@@ -282,14 +287,15 @@
                     android:overScrollMode="always"
                     android:scrollbars="none" />
             </RelativeLayout>
-
-           <!--  <Button
+				
+				<
+             <Button
                 android:id="@+id/coach_detail_enroll_btn"
                 style="@style/btn_style"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:text="@string/enroll" /> -->
+                android:text="@string/enroll" /> >
         </LinearLayout>
     </ScrollView>
-
+-->
 </RelativeLayout>

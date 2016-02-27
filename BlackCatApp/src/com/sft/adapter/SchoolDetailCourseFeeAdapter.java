@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.sft.blackcatapp.R;
 import com.sft.common.Config.EnrollResult;
+import com.sft.util.LogUtil;
 import com.sft.vo.ClassVO;
 
 public class SchoolDetailCourseFeeAdapter extends BaseAdapter {
@@ -71,10 +72,11 @@ public class SchoolDetailCourseFeeAdapter extends BaseAdapter {
 		
 		Button entrollBut = (Button) convertView
 				.findViewById(R.id.course_fee_enroll_btn);
-
+		
 		if (EnrollResult.SUBJECT_NONE.getValue().equals(enrollstate)) {
 			entrollBut.setText("报名");
-		} else if (EnrollResult.SUBJECT_ENROLLING.getValue()
+		} 
+		else if (EnrollResult.SUBJECT_ENROLLING.getValue()
 				.equals(enrollstate)) {
 			entrollBut.setText("报名审核中");
 			entrollBut.setEnabled(false);

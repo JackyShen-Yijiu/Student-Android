@@ -20,7 +20,7 @@ public class UserVO extends DBVO {
 	private String mobile;
 	private String name;
 	private String nickname;
-	private String createtime;
+	private String creattime;
 	private String email;
 	private HeadPortrait headportrait;
 	private CarModel carmodel;
@@ -34,6 +34,7 @@ public class UserVO extends DBVO {
 	private String telephone;
 	private ApplyCoachInfo applycoachinfo;
 	private ApplyClassTypeInfo applyclasstypeinfo;
+
 	private String[] addresslist;
 	private String address;
 	private String token;
@@ -46,6 +47,8 @@ public class UserVO extends DBVO {
 	private StudentSubject subjectthree;
 	private UserSettingVO usersetting;
 	private List<VipServerListVO> vipserverlist;
+
+	private PayOrderVO payOrderVO;
 
 	public void setHeadPortrait(HeadPortrait headPortrait) {
 		this.headportrait = headPortrait;
@@ -105,11 +108,11 @@ public class UserVO extends DBVO {
 	}
 
 	public String getCreatetime() {
-		return createtime;
+		return creattime;
 	}
 
 	public void setCreatetime(String createtime) {
-		this.createtime = createtime;
+		this.creattime = createtime;
 	}
 
 	public String getEmail() {
@@ -279,6 +282,14 @@ public class UserVO extends DBVO {
 
 	public void setVipserverlist(List<VipServerListVO> vipserverlist) {
 		this.vipserverlist = vipserverlist;
+	}
+
+	public PayOrderVO getPayOrderVO() {
+		return payOrderVO;
+	}
+
+	public void setPayOrderVO(PayOrderVO payOrderVO) {
+		this.payOrderVO = payOrderVO;
 	}
 
 }

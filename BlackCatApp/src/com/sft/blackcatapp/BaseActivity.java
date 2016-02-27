@@ -172,7 +172,6 @@ public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity
 	 * @param color
 	 */
 	public void setBg(int color) {
-		// Toast("白色"+contentLayout);
 		if (contentLayout != null) {
 			contentLayout.setBackgroundColor(color);
 		}
@@ -180,6 +179,7 @@ public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity
 	}
 
 	private void setListener() {
+
 		leftBtn.setOnClickListener(this);
 		rightBtn.setOnClickListener(this);
 		leftTV.setOnClickListener(this);

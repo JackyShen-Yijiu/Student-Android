@@ -26,6 +26,11 @@
     <string name="coach">教练</string>
     <string name="distance">距离</string>
     <string name="grade">评分</string>
+    
+    <string name="wallet_coupons">报名兑换劵</string>
+    <string name="wallet_integral">奖励积分</string>
+    <string name="wallet_money">可取现金金额</string>
+    
     <string name="coach_list">教练列表</string>
     <string name="coach_detail">教练详情</string>
     <string name="select_school">附近驾校</string>
@@ -119,6 +124,7 @@
     <string name="testing_detail">验证报名信息</string>
     <string name="logout">退出登录</string>
     <string name="person_center">个人中心</string>
+    <string name="indent_detail">订单详情</string>
     <string name="testing_person_center">验证报名信息</string>
     <string name="eidt_info">编辑信息</string>
     <string name="headpic">头像</string>
@@ -181,6 +187,7 @@
     <string name="my_change">YB</string>
     <string name="invite_friends">分享好友</string>
     <string name="share">分享</string>
+    <string name="save">保存</string>
     <string name="exchange">兑换券兑换</string>
     <string name="deal_detail">交易详情</string>
     <string name="share_income">分享收益</string>
@@ -294,4 +301,12 @@
     <string name="learn_car_cheats">学车秘籍</string>
 
     <string name="driving_school_appointment_exam">驾校约考</string>
+    
+    <string name="no_school">没有符合条件的驾校</string>
+	<string name="no_coach_error">没有符合条件的教练</string>
+	<string name="order_apply">报名订单</string>
+	<string name="order_exchange_good">兑换商品订单</string>
+	<string name="my_order">我的订单</string>
+	
+    
 </resources>

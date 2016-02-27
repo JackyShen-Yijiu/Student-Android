@@ -116,9 +116,11 @@
     <string name="my_coach">我的教练</string>
     <string name="setting">设置</string>
     <string name="enroll_detail">报名详情</string>
+    <string name="indent_detail">订单详情</string>
     <string name="testing_detail">验证报名信息</string>
     <string name="logout">退出登录</string>
     <string name="person_center">个人中心</string>
+    <string name="indent_detail">订单详情</string>
     <string name="testing_person_center">验证报名信息</string>
     <string name="eidt_info">编辑信息</string>
     <string name="headpic">头像</string>

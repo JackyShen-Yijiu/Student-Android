@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.infinitescrollviewpager.BitmapManager;
@@ -33,9 +32,7 @@ public class EditPersonInfoActivity extends BaseActivity {
 
 	private LinearLayout layout;
 
-	private TextView genderTv, signTv, addressTv, phoneTv, nameTv, nickNameTv;
-
-	private RelativeLayout signLayout;
+	private TextView genderTv, addressTv, phoneTv, nameTv, nickNameTv;
 
 	private static final String chageGender = "changeGender";
 
@@ -66,8 +63,7 @@ public class EditPersonInfoActivity extends BaseActivity {
 
 		layout = (LinearLayout) findViewById(R.id.edit_person_info_layout);
 		genderTv = (TextView) findViewById(R.id.edit_person_info_gender_tv);
-		signTv = (TextView) findViewById(R.id.edit_person_info_sign_tv);
-		signLayout = (RelativeLayout) findViewById(R.id.edit_person_info_sign_tv_layout);
+
 		addressTv = (TextView) findViewById(R.id.edit_person_info_address_tv);
 		phoneTv = (TextView) findViewById(R.id.edit_person_info_phone_tv);
 		nameTv = (TextView) findViewById(R.id.edit_person_info_name_tv);
@@ -84,10 +80,6 @@ public class EditPersonInfoActivity extends BaseActivity {
 		int size = (int) (18 * screenDensity);
 		Drawable arrow = r.getDrawable(R.drawable.person_center_arrow);
 		arrow.setBounds(0, 0, size, size);
-		genderTv.setCompoundDrawables(null, null, arrow, null);
-		signTv.setCompoundDrawables(null, null, arrow, null);
-		addressTv.setCompoundDrawables(null, null, arrow, null);
-		phoneTv.setCompoundDrawables(null, null, arrow, null);
 		headParam = (LayoutParams) headPic.getLayoutParams();
 
 	}
@@ -95,13 +87,12 @@ public class EditPersonInfoActivity extends BaseActivity {
 	private void initData() {
 		String url = app.userVO.getHeadportrait().getOriginalpic();
 		if (TextUtils.isEmpty(url)) {
-			headPic.setBackgroundResource(R.drawable.default_small_pic);
+			headPic.setBackgroundResource(R.drawable.login_head);
 		} else {
 			BitmapManager.INSTANCE.loadBitmap2(url, headPic, headParam.width,
 					headParam.height);
 		}
 		genderTv.setText(app.userVO.getGender());
-		signTv.setText(app.userVO.getSignature());
 		addressTv.setText(app.userVO.getAddress());
 		phoneTv.setText(app.userVO.getDisplaymobile());
 		nameTv.setText(app.userVO.getName());
@@ -111,7 +102,6 @@ public class EditPersonInfoActivity extends BaseActivity {
 	private void setListener() {
 		layout.setOnClickListener(this);
 		genderTv.setOnClickListener(this);
-		signLayout.setOnClickListener(this);
 		addressTv.setOnClickListener(this);
 		phoneTv.setOnClickListener(this);
 		nameTv.setOnClickListener(this);
@@ -148,10 +138,6 @@ public class EditPersonInfoActivity extends BaseActivity {
 			break;
 		case R.id.edit_person_info_phone_tv:
 			intent = new Intent(this, ChangePhoneActivity.class);
-			break;
-		case R.id.edit_person_info_sign_tv_layout:
-			intent = new Intent(this, ChangeSignActivity.class);
-			intent.putExtra("type", "sign");
 			break;
 		case R.id.edit_person_info_name_tv:
 			intent = new Intent(this, ChangeSignActivity.class);

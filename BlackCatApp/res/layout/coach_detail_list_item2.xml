@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#00000000"
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingTop="25dp" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/coach_detail_comment_headpic_im"
+            android:layout_width="@dimen/coachdetail_comment_headpic_widthheight"
+            android:layout_height="@dimen/coachdetail_comment_headpic_widthheight" >
+        </ImageView>
+
+        <TextView
+            android:id="@+id/coach_detail_comment_name_tv"
+            style="@style/coachdetail_title_style"
+            android:layout_alignTop="@+id/coach_detail_comment_headpic_im"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@+id/coach_detail_comment_headpic_im"
+            android:text="comment_name" />
+
+        <TextView
+            android:id="@+id/coach_detail_comment_classtype_tv"
+            style="@style/coachdetail_title_style"
+            android:layout_alignBottom="@+id/coach_detail_comment_headpic_im"
+            android:layout_marginLeft="7dp"
+            android:layout_toRightOf="@+id/coach_detail_comment_headpic_im"
+            android:text="classtype"
+            android:textColor="#999" />
+
+        <TextView
+            android:id="@+id/coach_detail_comment_time_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/coach_detail_comment_classtype_tv"
+            android:text="comment_time"
+            android:textColor="#999999"
+            android:textSize="12dp" />
+
+        <RatingBar
+            android:id="@+id/coach_detail_comment_rb"
+            style="@style/roomRatingBar_30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true" />
+
+        <TextView
+            android:id="@+id/coach_detail_comment_content_tv"
+            style="@style/coachdetail_content_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/coach_detail_comment_classtype_tv"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/coach_detail_comment_classtype_tv"
+            android:layout_marginTop="15dp"
+            android:text="comment_content" />
+
+        <ImageView
+            style="@style/coachdetail_devider_style1"
+            android:layout_height="1dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/coach_detail_comment_content_tv"
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@+id/coach_detail_comment_headpic_im"
+            android:contentDescription="@string/app_name" />
+
+    </RelativeLayout>
+
+   
+
+</LinearLayout>

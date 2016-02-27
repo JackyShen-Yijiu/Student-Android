@@ -54,6 +54,13 @@ public class EnrollCoachFragment extends BaseFragment{
         slidingTab.setViewPager(viewPager);
 	}
 	
+	public void requestByCity(String name){
+		for(int i=0;i<3;i++){
+			schools[i].getCoachByCity(name);//viewPager.getCurrentItem()
+		}
+		
+	}
+	
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		LogUtil.print("onActiivty---Coach->"+resultCode);

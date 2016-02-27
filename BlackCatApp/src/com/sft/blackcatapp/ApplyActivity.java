@@ -16,7 +16,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewTreeObserver;
@@ -60,7 +62,7 @@ import com.sft.vo.UserVO;
 public class ApplyActivity extends BaseActivity implements
 		OnClassTypeSelectedListener, OnSelectConfirmListener {
 
-	private ApplyClassTypeLayout applyClassTypeLayout;
+//	private ApplyClassTypeLayout applyClassTypeLayout;
 	private static final String realName = "realName";
 	private static final String contact = "contact";
 	private static final String enroll = "enroll";
@@ -127,6 +129,7 @@ public class ApplyActivity extends BaseActivity implements
 	 * 0：驾校详情 1：教练详情 2.活动详情 ，，待定
 	 */
 	private int from;
+	private TextView tvNameError,tvPhoneError;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -135,9 +138,9 @@ public class ApplyActivity extends BaseActivity implements
 		addView(R.layout.new_apply);
 
 		initView();
-		initData();
+//		initData();
 		setListener();
-		obtainEnrollCarStyle();
+//		obtainEnrollCarStyle();
 		initApplyData();
 		// View v;
 		// v.setBackgroundColor(Color.)
@@ -243,7 +246,7 @@ public class ApplyActivity extends BaseActivity implements
 		schoolTv.setText(schoolName);
 		licenseType.setText(classe.getClassname() + "￥"
 				+ classe.getOnsaleprice());
-		tvOnSale.setText(classe.getOnsaleprice() + "元");
+		tvOnSale.setText("需支付  "+classe.getOnsaleprice() + "元");
 	}
 
 	private void obtainSchoolById(String schoolId) {
@@ -289,24 +292,24 @@ public class ApplyActivity extends BaseActivity implements
 		enroll_rootlayout.setFocusableInTouchMode(true);
 		enroll_rootlayout.requestFocus();
 
-		applyClassTypeLayout = (ApplyClassTypeLayout) findViewById(R.id.apply_class_type_ll);
-
-		schoolTv = (TextView) findViewById(R.id.enroll_school_tv);
+//		applyClassTypeLayout = (ApplyClassTypeLayout) findViewById(R.id.apply_class_type_ll);
+		tvNameError = (TextView) findViewById(R.id.new_apply_name_error);
+		schoolTv = (TextView) findViewById(R.id.new_apply_school);
 		schoolRl = (RelativeLayout) findViewById(R.id.enroll_school_rl);
-		coachTv = (TextView) findViewById(R.id.enroll_coach_tv);
+		coachTv = (TextView) findViewById(R.id.new_apply_coach);
 		coachRl = (RelativeLayout) findViewById(R.id.enroll_coach_rl);
 		// carStyleTv = (TextView) findViewById(R.id.enroll_carstyle_tv);
 		nameEt = (EditText) findViewById(R.id.enroll_name_et);
 		contactEt = (EditText) findViewById(R.id.enroll_contact_et);
 
-		etYCodeCard = (EditText) findViewById(R.id.enroll_idcard_et);
+		etYCodeCard = (EditText) findViewById(R.id.enroll_ycode_et);
 		// yCodeEt = (EditText) findViewById(R.id.enroll_ycode_et);
 
 		commitBtn = (Button) findViewById(R.id.enroll_commit_btn);
 
-		licenseTypeC1 = (TextView) findViewById(R.id.apply_license_type_c1);
-		licenseTypeC2 = (TextView) findViewById(R.id.apply_license_type_c2);
-		licenseType = (TextView) findViewById(R.id.apply_license_type);
+//		licenseTypeC1 = (TextView) findViewById(R.id.apply_license_type_c1);
+//		licenseTypeC2 = (TextView) findViewById(R.id.apply_license_type_c2);
+		licenseType = (TextView) findViewById(R.id.new_apply_classtype);
 
 		classTypeLayout = (RelativeLayout) findViewById(R.id.enroll_class_rl);
 		classDetailLayout = (RelativeLayout) findViewById(R.id.apply_class_detail);
@@ -325,7 +328,7 @@ public class ApplyActivity extends BaseActivity implements
 		introductionTv = (TextView) findViewById(R.id.class_detail_introduction_content_tv);
 		multipleTextViewGroup = (MultipleTextViewGroup) findViewById(R.id.class_detail_multiple_tv);
 
-		tvOnSale = (TextView) findViewById(R.id.tv_pay_money);
+		tvOnSale = (TextView) findViewById(R.id.new_apply_money);
 
 		radioOnLine = (RadioButton) findViewById(R.id.radio1);
 		radioOffLine = (RadioButton) findViewById(R.id.radio2);
@@ -343,10 +346,37 @@ public class ApplyActivity extends BaseActivity implements
 				return true;
 			}
 		});
+		
+		nameEt.addTextChangedListener(new TextWatcher() {
+			
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				// TODO Auto-generated method stub
+				if(s.length()>0){
+					tvNameError.setVisibility(View.GONE);
+				}else{
+					tvNameError.setVisibility(View.VISIBLE);
+				}
+			}
+			
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 
 	}
 
 	private void initData() {
+		LogUtil.print("initData-->"+app.userVO);
 		enrollState = app.userVO.getApplystate();
 
 		if (EnrollResult.SUBJECT_ENROLLING.getValue().equals(enrollState)) {
@@ -429,27 +459,27 @@ public class ApplyActivity extends BaseActivity implements
 
 	private void setListener() {
 		commitBtn.setOnClickListener(this);
-		schoolRl.setOnClickListener(this);
+//		schoolRl.setOnClickListener(this);
 		// carStyleTv.setOnClickListener(this);
-		coachRl.setOnClickListener(this);
+//		coachRl.setOnClickListener(this);
 		// classTv.setOnClickListener(this);
 
 		// nameEt.addTextChangedListener(new MyEditChangedListener(realName));
 		// contactEt.addTextChangedListener(new MyEditChangedListener(contact));
 
-		licenseTypeC1.setOnClickListener(this);
-		licenseTypeC2.setOnClickListener(this);
-		applyClassTypeLayout.setOnClassTypeSelectedListener(this);
-		classTypeLayout.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View paramView) {
-				if (isExtend) {
-
-					closeClassDetail();
-				}
-			}
-		});
+//		licenseTypeC1.setOnClickListener(this);
+//		licenseTypeC2.setOnClickListener(this);
+//		applyClassTypeLayout.setOnClassTypeSelectedListener(this);
+//		classTypeLayout.setOnClickListener(new OnClickListener() {
+//
+//			@Override
+//			public void onClick(View paramView) {
+//				if (isExtend) {
+//
+//					closeClassDetail();
+//				}
+//			}
+//		});
 	}
 
 	@Override
@@ -517,7 +547,6 @@ public class ApplyActivity extends BaseActivity implements
 				ZProgressHUD.getInstance(this).show();
 				ZProgressHUD.getInstance(this)
 						.dismissWithFailure(checkResult);
-//				Toast();
 			}else{
 				// 验证Y码
 				if (null == etYCodeCard.getText().toString()
@@ -681,39 +710,25 @@ public class ApplyActivity extends BaseActivity implements
 	}
 
 	private String checkEnrollInfo() {
-//		if (carStyle == null) {
-//			return "车型为空";
-//		}
-//		if (school == null) {
-//			return "驾校为空";
-//		}
-//		if (classId == null) {
-//			return "班型为空";
-//		}
 
 		String name = nameEt.getText().toString();
 		if (TextUtils.isEmpty(name)) {
+//			nameEt.setError("姓名不能为空");
+			tvNameError.setVisibility(View.VISIBLE);
 			return "姓名为空";
 		}
-		// else {
-		// if (!CommonUtil.isRightName(name)) {
-		// return "姓名不能包含特殊字符";
-		// }
-		// }
+		
 
 		String phone = contactEt.getText().toString();
 		if (TextUtils.isEmpty(phone)) {
+//			contactEt.setError("手机号不能为空");
 			return "手机号为空";
 		} else {
 			if (!CommonUtil.isMobile(phone)) {
+//				contactEt.setError("手机号格式不正确");
 				return "手机号格式不正确";
 			}
 		}
-		// if(TextUtils.isEmpty(etYCodeCard.getText().toString())){
-		// return "身份证号为空";
-		// }else if(!CommonUtil.isIdCardOk(etIdCard.getText().toString())){
-		// return "身份证号不正确";
-		// }
 
 		return null;
 	}
@@ -864,8 +879,8 @@ public class ApplyActivity extends BaseActivity implements
 						list.add(classVO);
 					}
 					// setclassName(list);
-					applyClassTypeLayout.clearData();
-					applyClassTypeLayout.setData(list);
+//					applyClassTypeLayout.clearData();
+//					applyClassTypeLayout.setData(list);
 				}
 				// {"type":1,"msg":"","data":"success","extra":{"__v":0,"paymoney":4680,"payendtime":"2016-02-04T15:46:52.002Z",
 				// "creattime":"2016-02-01T15:46:52.002Z","userid":"56a74ca04cc338e971ca226a",

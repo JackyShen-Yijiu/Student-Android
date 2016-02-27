@@ -18,9 +18,9 @@ import com.sft.blackcatapp.R;
  */
 public class EnrollFragment extends BaseFragment{
 	
-	private EnrollCoachFragment coachFragment = null;
+	public EnrollCoachFragment coachFragment = null;
 	
-	private EnrollSchoolFragament schoolFragment = null;
+	public EnrollSchoolFragament schoolFragment = null;
 	
 	public int type = 0;
 
@@ -28,6 +28,8 @@ public class EnrollFragment extends BaseFragment{
 	public View onCreateView(LayoutInflater inflater,
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.frag_enroll_base, null);
+		coachFragment = new EnrollCoachFragment();
+		schoolFragment = new EnrollSchoolFragament();
 		showSchool();
 //		initView(view);
 		return view;

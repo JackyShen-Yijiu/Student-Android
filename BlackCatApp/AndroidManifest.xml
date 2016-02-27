@@ -128,7 +128,9 @@
             android:name="com.sft.blackcatapp.SchoolDetailActivity"
             android:screenOrientation="portrait" />
         
-        
+            <activity
+            android:name="com.sft.blackcatapp.NewEditPersonInfo"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.sft.blackcatapp.EnrollSchoolActivity"
             android:screenOrientation="portrait" />
@@ -160,6 +162,9 @@
             android:name="com.sft.blackcatapp.EnrollClassActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name="com.sft.blackcatapp.IndentDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="com.sft.blackcatapp.EnrollCarStyleActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -189,6 +194,10 @@
         <activity
             android:name="com.sft.blackcatapp.CropImageActivity"
             android:screenOrientation="portrait" />
+          <activity
+            android:name="com.sft.blackcatapp.ApplyDetailActivity"
+            android:screenOrientation="portrait" />
+        
         <activity
             android:name="com.sft.blackcatapp.ChangeAddressActivity"
             android:screenOrientation="portrait" />
@@ -244,9 +253,14 @@
         <activity
             android:name="com.sft.blackcatapp.CourseActivity"
             android:screenOrientation="portrait" />
+        <!-- 钱包 -->
         <activity
             android:name="com.sft.blackcatapp.MyWalletActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="com.sft.blackcatapp.Walletintegral"
+            android:screenOrientation="portrait" />
+        
         <activity
             android:name="com.sft.blackcatapp.SubjectOneActivity"
             android:screenOrientation="portrait" />
@@ -380,6 +394,10 @@
            <activity
                android:name=".ConfirmOrderActivity"
                android:screenOrientation="portrait"></activity>
+              <!-- 钱包 -->
+           <activity
+               android:name=".WalletActivity"
+               android:screenOrientation="portrait"></activity>
             <activity
                android:name=".WebViewActivitys"
                android:screenOrientation="portrait"></activity>
@@ -396,6 +414,23 @@
                android:name=".AppointmentExamActivity"
                android:screenOrientation="portrait"
                android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
+           <!-- 选择城市 -->
+           
+           <activity
+               android:name="com.sft.city.Act_City"
+               android:screenOrientation="portrait"></activity>
+           
+           <activity
+               android:name=".MyOrderAct"
+               android:screenOrientation="portrait"></activity>
+           
+           <activity
+               android:name=".OrderApplyAct"
+               android:screenOrientation="portrait"></activity>
+           
+           <activity
+               android:name=".OrderExchangeGoodAct"
+               android:screenOrientation="portrait"></activity>
            
            
            

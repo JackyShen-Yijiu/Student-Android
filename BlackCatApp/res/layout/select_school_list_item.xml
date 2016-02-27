@@ -33,7 +33,7 @@
                 android:layout_width="@dimen/selectschool_headpic_height"
                 android:layout_height="@dimen/selectschool_headpic_height"
                 android:layout_marginLeft="15dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="6dp"
                 android:contentDescription="@string/app_name"
                 app:sriv_border_color="#00000000"
                 app:sriv_border_width="1dip" />
@@ -52,7 +52,6 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/select_school_headpin_im1"
                 android:layout_marginLeft="16dp"
-                android:layout_weight="1"
                 android:orientation="vertical"
                 android:paddingBottom="20dp"
                 android:paddingRight="17dp"

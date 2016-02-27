@@ -27,6 +27,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import cn.sft.baseactivity.util.HttpSendUtils;
@@ -72,7 +73,7 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener,
 
 	private boolean isCarSelected = false;
 
-	private String cityname;
+//	private String cityname;
 	private String licensetype;
 	public String coachname;
 	private String ordertype;
@@ -89,6 +90,9 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener,
 	static CoachsFragment1 frag;
 
 	private int lastId;
+	
+	private RelativeLayout errorRl;
+	private TextView errorTv;
 
 	public static CoachsFragment1 getInstance() {
 		if (frag == null)
@@ -98,7 +102,7 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener,
 
 	public void order(String cityName) {
 		index = 1;
-		cityname = cityName;
+//		cityname = cityName;
 		coachname = "";
 		ordertype = "0";
 		// setSelectState(2);
@@ -178,7 +182,7 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener,
 		initView(v);
 		initData();
 		setListener();
-		cityname = "";
+//		cityname = "";
 		licensetype = "";
 		coachname = "";
 		ordertype = "0";
@@ -209,6 +213,11 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener,
 	@SuppressWarnings("deprecation")
 	private void initView(View rootView) {
 		// setTitleText(R.string.search_coach);
+		
+		errorRl = (RelativeLayout) rootView
+				.findViewById(R.id.error_rl);
+		errorTv = (TextView) rootView
+				.findViewById(R.id.error_tv);
 
 		swipeLayout = (RefreshLayout) rootView
 				.findViewById(R.id.enroll_school_swipe_container);
@@ -308,13 +317,18 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener,
 
 		});
 	}
+	
+	public void getCoachByCity(String cityName){
+//		cityname = cityName;
+		obtainCaoch();
+	}
 
 	private void obtainCaoch() {
 		RequestParams paramMap = new RequestParams();
 		paramMap.put("latitude", app.latitude);
 		paramMap.put("longitude", app.longtitude);
 		paramMap.put("radius", "10000");
-		paramMap.put("cityname", cityname);
+		paramMap.put("cityname", app.curCity);
 		paramMap.put("licensetype", licensetype);
 		paramMap.put("coachname", coachname);
 		paramMap.put("ordertype", ordertype);
@@ -345,6 +359,15 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener,
 
 		}
 	};
+	
+	private void noData(int size){
+		if(size == 0){
+			errorRl.setVisibility(View.VISIBLE);
+			errorTv.setText(R.string.no_coach_error);
+		}else{
+			errorRl.setVisibility(View.GONE);
+		}
+	}
 
 	private String parseJson(byte[] responseBody) {
 		String value = null;
@@ -441,9 +464,11 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener,
 						adapter.notifyDataSetChanged();
 						// Toast("refresh--222>"+adapter.getCount());
 					}
-					if (coach.size() == 0) {
-						Toast("该选项下没有数据");
-					}
+					
+					noData(coachList.size());
+//					if (coach.size() == 0) {
+//						Toast("该选项下没有数据");
+//					}
 				} else {
 					if (coach.size() == 0) {
 						Toast("没有更多数据了");
