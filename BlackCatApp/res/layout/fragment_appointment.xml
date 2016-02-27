@@ -3,49 +3,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.blackcat.coach.fragments.ProfileFragment" >
+     >
 
-   <!--  <com.sft.view.WeekColumnView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="6dp"
-        android:paddingRight="8dp"
-        android:paddingTop="10dp" /> -->
 
-    <include layout="@layout/layout_error"/>
+    <include layout="@layout/layout_error" />
+
     <RelativeLayout
         android:id="@+id/appointment_has_coach_rl"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-         >
+        android:layout_height="match_parent" >
 
-        <!-- <com.sft.view.WeekViewPager
-            android:id="@+id/viewPager"
-            android:layout_width="match_parent"
-            android:layout_height="67dp" >
-        </com.sft.view.WeekViewPager> -->
 
-        <me.maxwin.view.XListView
-            android:id="@+id/my_appointment_listview"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/fragment_appointment_swipe_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#ffffff"
-            android:layout_below="@+id/viewPager"
-            android:cacheColorHint="#00000000"
-            android:descendantFocusability="blocksDescendants"
-            android:divider="@null"
-            android:dividerHeight="0dp"
-            android:fadingEdge="none"
-            android:listSelector="@android:color/transparent"
-            android:overScrollMode="always"
-            android:scrollbars="none" />
-        <!--
-      <cn.sft.pull.RefreshLoadMoreView
-        xmlns:test="http://schemas.android.com/apk/res/com.sft.blackcatapp"
-        android:id="@+id/my_appointment_listview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-        -->
+            android:layout_height="match_parent" >
+
+            <ListView
+                android:id="@+id/fragment_appointment_listview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ffffff"
+                android:cacheColorHint="#00000000"
+                android:descendantFocusability="blocksDescendants"
+                android:divider="@null"
+                android:dividerHeight="0dp"
+                android:fadingEdge="none"
+                android:listSelector="@android:color/transparent"
+                android:overScrollMode="always"
+                android:scrollbars="none" />
+        </android.support.v4.widget.SwipeRefreshLayout>
     </RelativeLayout>
 
 </LinearLayout>

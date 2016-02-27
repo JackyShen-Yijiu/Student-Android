@@ -193,7 +193,7 @@ public class CommonUtil {
 		return drawable;
 	}
 
-	public static void blur(int[] in, int[] out, int width, int height,
+	private static void blur(int[] in, int[] out, int width, int height,
 			float radius) {
 		int widthMinus1 = width - 1;
 		int r = (int) radius;
@@ -240,7 +240,7 @@ public class CommonUtil {
 		}
 	}
 
-	public static void blurFractional(int[] in, int[] out, int width,
+	private static void blurFractional(int[] in, int[] out, int width,
 			int height, float radius) {
 		radius -= (int) radius;
 		float f = 1.0f / (1 + 2 * radius);
@@ -285,7 +285,7 @@ public class CommonUtil {
 		}
 	}
 
-	public static int clamp(int x, int a, int b) {
+	private static int clamp(int x, int a, int b) {
 		return (x < a) ? a : (x > b) ? b : x;
 	}
 }

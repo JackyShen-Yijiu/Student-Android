@@ -7,9 +7,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import me.maxwin.view.XListView;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
@@ -25,6 +27,7 @@ import com.sft.adapter.MyAppointmentListAdapter;
 import com.sft.blackcatapp.AppointmentDetailActivity;
 import com.sft.blackcatapp.R;
 import com.sft.common.Config;
+import com.sft.event.AppointmentSuccessEvent;
 import com.sft.util.CommonUtil;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
@@ -33,8 +36,10 @@ import com.sft.vo.MyAppointmentVO;
 import com.sft.vo.UserVO;
 import com.sft.vo.uservo.StudentSubject;
 
+import de.greenrobot.event.EventBus;
+
 public class AppointmentFragment extends BaseFragment implements
-		OnClickListener, OnItemClickListener {
+		OnClickListener, OnItemClickListener, OnRefreshListener {
 
 	private static final String reservation = "reservation";
 	private static final String MYPROGRESS = "getmyprogress";
@@ -47,7 +52,7 @@ public class AppointmentFragment extends BaseFragment implements
 	private TextView tvLeft1, tvRight1, tvLeft2, tvRight2;
 
 	//
-	private XListView appointmentList;
+	private SwipeRefreshLayout appointmentSwipeLaout;
 	//
 	private MyAppointmentListAdapter adapter;
 	private RelativeLayout hasCaochRl;
@@ -55,6 +60,8 @@ public class AppointmentFragment extends BaseFragment implements
 	private RelativeLayout noCaochErrorRl;
 	private ImageView noCaochErrorIv;
 	private TextView noCaochErroTv;
+	private ListView mListView;
+	private boolean isRefreshing = false;
 
 	public AppointmentFragment() {
 	}
@@ -159,14 +166,19 @@ public class AppointmentFragment extends BaseFragment implements
 				R.string.no_appointment_coach_error_info));
 		hasCaochRl = (RelativeLayout) rootView
 				.findViewById(R.id.appointment_has_coach_rl);
-		appointmentList = (XListView) rootView
-				.findViewById(R.id.my_appointment_listview);
-		appointmentList.setPullLoadEnable(false);
-		appointmentList.setPullRefreshEnable(false);
+		appointmentSwipeLaout = (SwipeRefreshLayout) rootView
+				.findViewById(R.id.fragment_appointment_swipe_container);
+		mListView = (ListView) rootView
+				.findViewById(R.id.fragment_appointment_listview);
+		appointmentSwipeLaout.setOnRefreshListener(this);
+		appointmentSwipeLaout.setColorScheme(android.R.color.holo_blue_bright,
+				android.R.color.holo_green_light,
+				android.R.color.holo_orange_light,
+				android.R.color.holo_red_light);
 		View headerView = View.inflate(getActivity(), R.layout.learn_progress,
 				null);
-		appointmentList.addHeaderView(headerView);
-		appointmentList.setOnItemClickListener(this);
+		mListView.addHeaderView(headerView);
+		mListView.setOnItemClickListener(this);
 		if (app.isLogin) {
 			// 科目一和没学习时都没有预约列表
 			if (app.userVO.getSubject().getSubjectid()
@@ -231,7 +243,11 @@ public class AppointmentFragment extends BaseFragment implements
 		try {
 			if (type.equals(reservation)) {
 				if (dataArray != null) {
-					list = new ArrayList<MyAppointmentVO>();
+					if (list == null) {
+						list = new ArrayList<MyAppointmentVO>();
+					} else {
+						list.clear();
+					}
 					SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 					List<MyAppointmentVO> toadyAppointList = new ArrayList<MyAppointmentVO>();
 					List<MyAppointmentVO> otherAppointList = new ArrayList<MyAppointmentVO>();
@@ -264,14 +280,17 @@ public class AppointmentFragment extends BaseFragment implements
 					list.addAll(toadyAppointList);
 					list.addAll(otherAppointList);
 					list.addAll(finishedList);
-					LogUtil.print("toadyAppointList--"
-							+ toadyAppointList.size());
-					LogUtil.print("otherAppointList--"
-							+ otherAppointList.size());
-					LogUtil.print("finishedList--" + finishedList.size());
 					// ZProgressHUD.getInstance(getActivity()).dismiss();
-					adapter = new MyAppointmentListAdapter(getActivity(), list);
-					appointmentList.setAdapter(adapter);
+					if (adapter == null) {
+						adapter = new MyAppointmentListAdapter(getActivity(),
+								list);
+						mListView.setAdapter(adapter);
+					}
+
+					if (isRefreshing) {
+						appointmentSwipeLaout.setRefreshing(false);
+						isRefreshing = false;
+					}
 				}
 			} else if (type.equals(MYPROGRESS)) {
 				if (null != data) {
@@ -360,7 +379,31 @@ public class AppointmentFragment extends BaseFragment implements
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (data != null) {
-			LogUtil.print("onActivityResult---------");
+
 		}
 	}
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		EventBus.getDefault().register(this);
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		EventBus.getDefault().unregister(this);
+	}
+
+	public void onEvent(AppointmentSuccessEvent event) {
+		LogUtil.print("onActivityResult---------");
+		obtainOppointment();
+	}
+
+	@Override
+	public void onRefresh() {
+		isRefreshing = true;
+		obtainOppointment();
+	}
+
 }

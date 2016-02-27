@@ -1,5 +1,7 @@
 package com.sft.fragment;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,8 +10,13 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.sft.blackcatapp.AppointmentExamActivity;
+import com.sft.blackcatapp.QuestionActivity;
 import com.sft.blackcatapp.R;
+import com.sft.dialog.NoLoginDialog;
+import com.sft.util.CommonUtil;
 import com.sft.viewutil.StudyItemLayout;
+import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.SubjectForOneVO;
 
 public class SubjectFourFragment extends BaseFragment implements
@@ -31,12 +38,14 @@ public class SubjectFourFragment extends BaseFragment implements
 	private TextView testTimes;
 	// 学习进度
 	private ProgressBar studyProgressBar;
+	private Context mContext;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_subject_four,
 				container, false);
+		mContext = getActivity();
 		initViews(rootView);
 		setListener();
 		return rootView;
@@ -70,18 +79,60 @@ public class SubjectFourFragment extends BaseFragment implements
 
 	@Override
 	public void onClick(View v) {
+		if (!CommonUtil.isNetworkConnected(mContext)) {
+			ZProgressHUD.getInstance(mContext).show();
+			ZProgressHUD.getInstance(mContext).dismissWithFailure("网络异常");
+			return;
+		}
+		if (!app.isLogin) {
+			NoLoginDialog dialog = new NoLoginDialog(mContext);
+			dialog.show();
+			return;
+		}
+		Intent intent = null;
 		switch (v.getId()) {
 		case R.id.question_banks:
-
+			// 题库
+			if (app.questionVO != null) {
+				intent = new Intent(mContext, QuestionActivity.class);
+				intent.putExtra("url", app.questionVO.getSubjectfour()
+						.getQuestionlisturl());
+			} else {
+				ZProgressHUD.getInstance(mContext).show();
+				ZProgressHUD.getInstance(mContext).dismissWithFailure("暂无题库");
+			}
 			break;
 		case R.id.simulation_test:
-
+			// 模拟考试
+			if (app.questionVO != null) {
+				intent = new Intent(mContext, QuestionActivity.class);
+				intent.putExtra("url", app.questionVO.getSubjectfour()
+						.getQuestiontesturl());
+			} else {
+				ZProgressHUD.getInstance(mContext).show();
+				ZProgressHUD.getInstance(mContext).dismissWithFailure("暂无题库");
+			}
 			break;
 		case R.id.my_error_data:
-
+			// 我的错题
+			if (app.questionVO != null) {
+				intent = new Intent(mContext, QuestionActivity.class);
+				intent.putExtra("url", app.questionVO.getSubjectfour()
+						.getQuestionerrorurl());
+			} else {
+				ZProgressHUD.getInstance(mContext).show();
+				ZProgressHUD.getInstance(mContext).dismissWithFailure("暂无题库");
+			}
 			break;
 		case R.id.make_an_appointment:
+			if (app.isLogin) {
+				intent = new Intent(mContext, AppointmentExamActivity.class);
+				intent.putExtra("subjectid", "4");
 
+			} else {
+				NoLoginDialog dialog = new NoLoginDialog(getActivity());
+				dialog.show();
+			}
 			break;
 		case R.id.communication:
 
@@ -89,6 +140,9 @@ public class SubjectFourFragment extends BaseFragment implements
 
 		default:
 			break;
+		}
+		if (intent != null) {
+			startActivity(intent);
 		}
 	}
 

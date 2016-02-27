@@ -11,7 +11,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebSettings.PluginState;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import com.sft.blackcatapp.R;
+import android.widget.ProgressBar;
 
 /**
  * 试题
@@ -22,12 +22,14 @@ import com.sft.blackcatapp.R;
 public class QuestionActivity extends BaseActivity {
 
 	private WebView webView;
+	private ProgressBar progress;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_question);
 		webView = (WebView) findViewById(R.id.question_webview);
+		progress = (ProgressBar) findViewById(R.id.question_progress);
 		// setTitleBarVisible(View.GONE);
 		showTitlebarBtn(1);
 		setTitleText("");
@@ -44,6 +46,13 @@ public class QuestionActivity extends BaseActivity {
 	private void initData() {
 		WebSettings webSettings = webView.getSettings();
 		webView.setWebViewClient(new WebViewClient() {
+			@Override
+			public void onPageFinished(WebView view, String url) {
+				// 页面加载完成时，回调
+				progress.setVisibility(View.GONE);
+				super.onPageFinished(view, url);
+			}
+
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
 				return false;
@@ -79,7 +88,7 @@ public class QuestionActivity extends BaseActivity {
 
 	@Override
 	public void onClick(View v) {
-		if(v.getId() == R.id.base_left_btn11){
+		if (v.getId() == R.id.base_left_btn11) {
 			finish();
 		}
 		if (v.getId() == R.id.base_left_btn)

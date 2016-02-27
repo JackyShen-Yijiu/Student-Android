@@ -195,10 +195,10 @@ public class AppointmentDetailActivity extends BaseActivity implements
 						appointmentVO.getBegintime(), "MM月dd日")
 						+ " "
 						+ UTC2LOC.instance.getDate(
-								appointmentVO.getBegintime(), "hh:mm")
+								appointmentVO.getBegintime(), "HH:mm")
 						+ "-"
 						+ UTC2LOC.instance.getDate(appointmentVO.getEndtime(),
-								"hh:mm")
+								"HH:mm")
 						+ " "
 						+ appointmentVO.getSubject().getName();
 

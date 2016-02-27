@@ -40,6 +40,7 @@ public class CancelAppointmentActivity extends BaseActivity implements
 
 	private String cancelReason = "";
 	private TextView cancelIntroTv;
+	private boolean isSelectLast = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -120,6 +121,13 @@ public class CancelAppointmentActivity extends BaseActivity implements
 			ZProgressHUD.getInstance(this).show();
 			ZProgressHUD.getInstance(this).dismissWithFailure("请选择取消原因");
 			return;
+		} else {
+			if (isSelectLast
+					&& TextUtils.isEmpty(cancelEt.getText().toString())) {
+				ZProgressHUD.getInstance(this).show();
+				ZProgressHUD.getInstance(this).dismissWithFailure("请填写取消原因");
+				return;
+			}
 		}
 		MyAppointmentVO appointmentVO = (MyAppointmentVO) getIntent()
 				.getSerializableExtra("appointment");
@@ -151,6 +159,7 @@ public class CancelAppointmentActivity extends BaseActivity implements
 		case R.id.cancel_appointment_three_btn:
 			break;
 		case R.id.cancel_appointment_foue_btn:
+			isSelectLast = true;
 			break;
 		}
 		RadioButton button = (RadioButton) findViewById(checkedId);

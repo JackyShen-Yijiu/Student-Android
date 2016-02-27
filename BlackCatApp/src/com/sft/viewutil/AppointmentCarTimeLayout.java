@@ -157,11 +157,14 @@ public class AppointmentCarTimeLayout extends LinearLayout implements
 	private void setTextColor(int style, int reason) {
 		if (style == over) {
 			if (reason == has) {
-				startTimeTv.setTextColor(Color.parseColor("#ff6633"));
-				endTimeTv.setTextColor(Color.parseColor("#ff6633"));
-				endTv.setTextColor(Color.parseColor("#ff6633"));
+				startTimeTv.setTextColor(getResources().getColorStateList(
+						R.color.new_app_main_color));
+				endTimeTv.setTextColor(getResources().getColorStateList(
+						R.color.new_app_main_color));
+				endTv.setTextColor(getResources().getColorStateList(
+						R.color.new_app_main_color));
 				countTv.setTextColor(getResources().getColor(
-						R.color.app_main_color));
+						R.color.new_app_main_color));
 			} else {
 				startTimeTv.setTextColor(Color.parseColor("#cccccc"));
 				endTimeTv.setTextColor(Color.parseColor("#cccccc"));
@@ -170,13 +173,13 @@ public class AppointmentCarTimeLayout extends LinearLayout implements
 			}
 		} else if (style == selected) {
 			startTimeTv.setTextColor(getResources().getColorStateList(
-					R.color.app_main_color));
+					R.color.new_app_main_color));
 			endTimeTv.setTextColor(getResources().getColorStateList(
-					R.color.app_main_color));
+					R.color.new_app_main_color));
 			endTv.setTextColor(getResources().getColorStateList(
-					R.color.app_main_color));
+					R.color.new_app_main_color));
 			countTv.setTextColor(getResources().getColorStateList(
-					R.color.app_main_color));
+					R.color.new_app_main_color));
 		} else if (style == noSelected) {
 			startTimeTv.setTextColor(Color.parseColor("#333333"));
 			endTimeTv.setTextColor(Color.parseColor("#333333"));
@@ -200,4 +203,5 @@ public class AppointmentCarTimeLayout extends LinearLayout implements
 		ck.setChecked(isChecked);
 		setTextColor(noSelected, other);
 	}
+
 }

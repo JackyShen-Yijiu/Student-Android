@@ -7,7 +7,9 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
+import android.webkit.WebSettings.PluginState;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
@@ -57,7 +59,8 @@ public class YiBuIntroduceActivity extends BaseActivity {
 
 	}
 
-	@SuppressLint("SetJavaScriptEnabled") private void initData() {
+	@SuppressLint("SetJavaScriptEnabled")
+	private void initData() {
 		int typeId = getIntent().getIntExtra("typeId", 0);
 		switch (typeId) {
 		case R.id.introduce_student_know:
@@ -91,10 +94,12 @@ public class YiBuIntroduceActivity extends BaseActivity {
 		});
 
 		settings = webview.getSettings();
+		settings.setPluginState(PluginState.ON);
+		settings.setAllowContentAccess(true);
 		settings.setBuiltInZoomControls(true);
 		settings.setUseWideViewPort(true);
 		settings.setJavaScriptEnabled(true);
-
+		webview.setWebChromeClient(new WebChromeClient());
 		webview.loadUrl(url);
 	}
 

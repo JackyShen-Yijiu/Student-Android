@@ -22,7 +22,6 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
-import cn.sft.baseactivity.util.MyHandler;
 import cn.sft.infinitescrollviewpager.BitmapManager;
 import cn.sft.pull.LoadMoreView;
 import cn.sft.pull.LoadMoreView.LoadMoreListener;
@@ -33,6 +32,7 @@ import com.sft.common.Config;
 import com.sft.common.Config.SubjectStatu;
 import com.sft.common.Config.UserType;
 import com.sft.dialog.CustomDialog;
+import com.sft.event.AppointmentSuccessEvent;
 import com.sft.fragment.AppointmentWeekFragment;
 import com.sft.listener.OnDateClickListener;
 import com.sft.listener.SameTimeStudentOnItemClickListener;
@@ -48,6 +48,8 @@ import com.sft.vo.AppointmentDay;
 import com.sft.vo.CoachCourseVO;
 import com.sft.vo.CoachVO;
 import com.sft.vo.commentvo.CommentUser;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * 预约学车
@@ -83,6 +85,12 @@ public class AppointmentCarActivity extends BaseActivity implements
 	private AppointmentDetailStudentHoriListAdapter sameTimeStudentAdapter;
 	private List<CommentUser> userList = new ArrayList<CommentUser>();
 	private int studentPage = 1;
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -287,6 +295,9 @@ public class AppointmentCarActivity extends BaseActivity implements
 		case R.id.base_right_tv:
 			intent = new Intent(this, AppointmentMoreCoachActivity.class);
 			break;
+		case R.id.base_left_btn:
+			finish();
+			break;
 		default:
 			break;
 		}
@@ -343,8 +354,10 @@ public class AppointmentCarActivity extends BaseActivity implements
 			return true;
 		}
 		if (!TextUtils.isEmpty(msg)) {
+			// 清空时间表
+			timeLayout.clearData();
 			ZProgressHUD.getInstance(this).show();
-			ZProgressHUD.getInstance(this).dismissWithFailure(msg, 2000);
+			ZProgressHUD.getInstance(this).dismissWithFailure(msg, 1000);
 			return true;
 		}
 		try {
@@ -380,15 +393,16 @@ public class AppointmentCarActivity extends BaseActivity implements
 
 					// 预约成功，保存当前的教练，以备下次预约
 					Util.saveAppointmentCoach(this, selectCoach);
+					EventBus.getDefault().post(new AppointmentSuccessEvent());
 					Intent intent = new Intent();
 					setResult(RESULT_OK, intent);
-					new MyHandler(1500) {
-						@Override
-						public void run() {
-							dialog.dismiss();
-							finish();
-						};
-					};
+					// new MyHandler(1500) {
+					// @Override
+					// public void run() {
+					// dialog.dismiss();
+					// finish();
+					// };
+					// };
 				}
 			} else if (sameTimeStudent.equals(type)) {
 				if (dataArray != null) {
@@ -470,6 +484,7 @@ public class AppointmentCarActivity extends BaseActivity implements
 			if (timeLayout.getSelectCourseList() == null) {
 				return;
 			}
+			LogUtil.print("========" + timeLayout.getSelectCourseList().size());
 			learnProgress2Tv.setText("第" + (finishTime + 1) + "-"
 					+ (timeLayout.getSelectCourseList().size() + finishTime)
 					+ "课时 ");
@@ -484,8 +499,6 @@ public class AppointmentCarActivity extends BaseActivity implements
 			for (CoachCourseVO coachCourseVO : timeLayout.getSelectCourseList()) {
 				String begintime = coachCourseVO.getCoursetime().getBegintime();
 				String endtime = coachCourseVO.getCoursetime().getEndtime();
-				LogUtil.print(begintime);
-				LogUtil.print(endtime);
 				if (selectBeginTime > Integer.parseInt(begintime.split(":")[0])) {
 					selectBeginTime = Integer.parseInt(begintime.split(":")[0]);
 				}
@@ -512,9 +525,6 @@ public class AppointmentCarActivity extends BaseActivity implements
 				beginTimeStemp = begindate.getTime() / 1000;
 				endTimeStemp = enddate.getTime() / 1000;
 			}
-			LogUtil.print("时间戳" + beginTimeStemp);
-			LogUtil.print(selectDate + " " + selectBeginTime);
-			LogUtil.print(selectDate + " " + selectEndTime);
 			obtainSameTimeStudent(studentPage);
 		}
 	}
@@ -543,9 +553,10 @@ public class AppointmentCarActivity extends BaseActivity implements
 				// coachList, (int) (screenWidth - 75 * screenDensity));
 				// adapter.setSelected(0);
 				// coachListView.setAdapter(adapter);
-				if (selectCoach == null
-						|| !coach.getCoachid().equals(selectCoach.getCoachid())) {
+				if (coach != null) {
 
+					selectCoach = coach;
+					coachId = selectCoach.getCoachid();
 					coachName.setText("教练" + selectCoach.getName());
 					LinearLayout.LayoutParams headParam = (LinearLayout.LayoutParams) coachPic
 							.getLayoutParams();
@@ -556,9 +567,6 @@ public class AppointmentCarActivity extends BaseActivity implements
 						BitmapManager.INSTANCE.loadBitmap2(url, coachPic,
 								headParam.width, headParam.height);
 					}
-
-					selectCoach = coach;
-					coachId = selectCoach.getCoachid();
 					timeLayout.clearData();
 					obtainCaochCourse(selectCoach.getCoachid());
 				}
