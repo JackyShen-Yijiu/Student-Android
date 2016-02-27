@@ -5,10 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
@@ -39,6 +41,8 @@ public class OrderApplyAct extends BaseActivity {
 	private PayOrderVO pay;
 	/**线上支付 线下支付*/
 	private UserBaseStateVO baseStateVO;
+	
+	private LinearLayout llTop;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +55,7 @@ public class OrderApplyAct extends BaseActivity {
 	}
 
 	private void initView() {
+		llTop = (LinearLayout) findViewById(R.id.item_order_top_ll);
 		tvTitle = (TextView) findViewById(R.id.item_order_title);
 		tvOrderName = (TextView) findViewById(R.id.item_order_left1);
 		tvPay1 = (TextView) findViewById(R.id.item_order_right10);
@@ -62,7 +67,7 @@ public class OrderApplyAct extends BaseActivity {
 		btn1.setText("立即支付");
 		btn2.setText("重新报名");
 		
-		
+		llTop.setOnClickListener(this);
 		btn1.setOnClickListener(this);
 		btn2.setOnClickListener(this);
 		
@@ -70,10 +75,10 @@ public class OrderApplyAct extends BaseActivity {
 	
 	private void setData(PayOrderVO pay) {
 		
-		tvOrderName.setText(pay.applyclasstypeinfo.name);
-		tvPayMoney.setText("实付款:");
-		tvPay1.setText("￥"+pay.paymoney);
-		tvTime.setText("报名时间:"+UTC2LOC.instance.getDate(pay.creattime, "yyyy-MM-dd HH:mm:ss"));
+//		tvOrderName.setText(pay.applyclasstypeinfo.name);
+//		tvPayMoney.setText("实付款:");
+//		tvPay1.setText("￥"+pay.paymoney);
+//		tvTime.setText("报名时间:"+UTC2LOC.instance.getDate(pay.creattime, "yyyy-MM-dd HH:mm:ss"));
 		
 		
 		if(pay.userpaystate.equals("2")){
@@ -146,8 +151,6 @@ public class OrderApplyAct extends BaseActivity {
 			tvTitle.setText(successVO.applyschoolinfo.name +"(线上)");
 		}
 		
-		
-		
 		if(successVO.paytypestatus==20){//申请成功
 			tvState.setText("报名成功");
 			btn2.setVisibility(View.GONE);
@@ -171,19 +174,46 @@ public class OrderApplyAct extends BaseActivity {
 	@Override
 	public void onClick(View v) {
 		switch(v.getId()){
-		case R.id.item_order_button1://立即支付
+		case R.id.item_order_button1://立即支付,右面
+			if(successVO.paytype.equals("1")){//线下支付，重新报名
+				reEnroll();
+			}else{//立即支付
+				
+			}
 			break;
 		case R.id.item_order_button2://重新报名
+			reEnroll();
+			break;
+		case R.id.item_order_top_ll://订单详情
+			if(successVO!=null){
+				if(successVO.paytype.equals("1")){//线下
+					
+					startActivity(new Intent(OrderApplyAct.this,EnrollSuccessActivity.class));
+				}else{//线上支付
+					Intent i = new Intent(OrderApplyAct.this,OrderDetailActivity.class);
+					i.putExtra("bean", successVO);
+					startActivity(i);
+				}
+				
+			}
+			
 			
 			break;
 		}
 		super.onClick(v);
 	}
+	/**
+	 * 重新报名
+	 */
+	private void reEnroll(){
+		setResult(9);
+		finish();
+	}
 
 	private void request() {
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("userid", app.userVO.getUserid());
-		paramMap.put("orderstate", "0");// 订单的状态 // 0 订单生成 2 支付成功 3 支付失败 4 订单取消
+		paramMap.put("orderstate", "-1");// 订单的状态 // 0 订单生成 2 支付成功 3 支付失败 4 订单取消
 										// -1 全部(未支付的订单)
 
 		Map<String, String> headerMap = new HashMap<String, String>();
@@ -222,19 +252,15 @@ public class OrderApplyAct extends BaseActivity {
 		}
 		try {
 			if (type.equals("notPay")) {// 未支付的订单
-				// {"type":1,"msg":"","data":[{"_id":"56af11ce9ba0d4530524b6cb","userpaystate":0,"creattime":
-				// "2016-02-01T08:05:34.823Z","payendtime":"2016-02-04T08:05:34.823Z","paychannel":0,
-				// "applyschoolinfo":{"id":"562dcc3ccb90f25c3bde40da","name":"一步互联网驾校"},
-				// "applyclasstypeinfo":{"id":"56a9ba41fe60f807363001c9","name":"新春特惠班","price":
-				// 4980,"onsaleprice":4680},"discountmoney":0,"paymoney":4680,"activitycoupon":"","couponcode":""}]}
-				// type= notPay
 
 				int length = dataArray.length();
 				List<PayOrderVO> payList = new ArrayList<PayOrderVO>();
 				for (int i = 0; i < length; i++) {
 					PayOrderVO pay = JSONUtil.toJavaBean(PayOrderVO.class,
 							dataArray.getJSONObject(i));
-					payList.add(pay);
+					if(!pay.userpaystate.equals("4")){//不是取消
+						payList.add(pay);
+					}
 				}
 				if(payList.size()>0){
 					pay = payList.get(0);
@@ -260,7 +286,7 @@ public class OrderApplyAct extends BaseActivity {
 			}else if(type.equals("applySchoolInfor")){//报名信息，，目的 获取线下报名的内容
 				LogUtil.print("applySchoolinfor-->"+jsonString);
 				if (data != null) {
-					SuccessVO successVO = JSONUtil.toJavaBean(SuccessVO.class,
+					successVO = JSONUtil.toJavaBean(SuccessVO.class,
 							data);
 					setOffLine(successVO);
 				}
@@ -273,6 +299,6 @@ public class OrderApplyAct extends BaseActivity {
 		return super.doCallBack(type, jsonString);
 	}
 
-	
+	SuccessVO successVO ;
 
 }

@@ -299,6 +299,14 @@
 	<string name="order_apply">报名订单</string>
 	<string name="order_exchange_good">兑换商品订单</string>
 	<string name="my_order">我的订单</string>
-	
+	<string name="good_name">商品名称</string>
+	<string name="exchange_jifen">兑换积分</string>
+    <string name="exchange_express">配送方式</string>
+    <string name="exchange_address">邮寄地址</string>
+    <string name="exchange_receiver_name">收货人姓名</string>
+    <string name="exchange_phone">联系电话</string>
+    <string name="exchange_time">下单时间</string>
+    <string name="exchange_type">兑换方式</string>
+    <string name="exchange_money">兑换金额</string>
     
 </resources>

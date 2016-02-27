@@ -25,14 +25,14 @@ public class SuccessVO implements Serializable {
 
 	public Carmodel carmodel;
 
-	public class Carmodel {
+	public class Carmodel  implements Serializable{
 
 		public String code;
 		public String name;
 		public int modelsid;
 	}
 
-	public class applyclasstypeinfo {
+	public class applyclasstypeinfo  implements Serializable{
 		public String id;
 		public String name;
 		public String price;
@@ -40,13 +40,13 @@ public class SuccessVO implements Serializable {
 		
 	}
 
-	public class Applycoachinfo {
+	public class Applycoachinfo  implements Serializable{
 
 		public String name;
 		public String id;
 	}
 
-	public class Applyschoolinfo {
+	public class Applyschoolinfo  implements Serializable{
 
 		public String name;
 		public String id;

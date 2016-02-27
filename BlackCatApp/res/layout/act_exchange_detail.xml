@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+         xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="15dp"
+            android:orientation="vertical" >
+
+            
+
+            <TextView
+                android:id="@+id/textView1"
+                style="@style/text_gray_small"
+                android:layout_marginTop="15dp"
+                android:text="@string/good_name" />
+            
+            <TextView
+                android:id="@+id/act_exchange_detail_product"
+                style="@style/text_black_title"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp"
+                android:text="TextView" />
+            
+            <include layout="@layout/line"/>
+            
+            <TextView
+                style="@style/text_gray_small"
+                android:layout_marginTop="15dp"
+                android:text="@string/exchange_jifen" />
+            
+            <TextView
+                android:id="@+id/act_exchange_detail_jifen"
+                style="@style/text_black_title"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/orange_pay"
+                android:text="TextView" />
+            
+            <include layout="@layout/line"/>
+            
+            <TextView
+                style="@style/text_gray_small"
+                android:layout_marginTop="15dp"
+                android:text="@string/exchange_express" />
+            
+            <TextView
+                android:id="@+id/act_exchange_detail_express"
+                style="@style/text_black_title"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp"
+                android:text="TextView" />
+            
+            <include layout="@layout/line"/>
+            <TextView
+                style="@style/text_gray_small"
+                android:layout_marginTop="15dp"
+                android:text="@string/exchange_address" />
+            
+            <TextView
+                android:id="@+id/act_exchange_detail_address"
+                style="@style/text_black_title"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp"
+                android:text="TextView" />
+            
+            <include layout="@layout/line"/>
+            <TextView
+                style="@style/text_gray_small"
+                android:layout_marginTop="15dp"
+                android:text="@string/exchange_receiver_name" />
+            
+            <TextView
+                android:id="@+id/act_exchange_detail_receivername"
+                style="@style/text_black_title"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp"
+                android:text="TextView" />
+            
+            <include layout="@layout/line"/>
+            <TextView
+                style="@style/text_gray_small"
+                android:layout_marginTop="15dp"
+                android:text="@string/exchange_phone" />
+            
+            <TextView
+                android:id="@+id/act_exchange_detail_phone"
+                style="@style/text_black_title"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp"
+                android:text="TextView" />
+            
+            <include layout="@layout/line"/>
+            <TextView
+                style="@style/text_gray_small"
+                android:layout_marginTop="15dp"
+                android:text="@string/exchange_time" />
+            
+            <TextView
+                android:id="@+id/act_exchange_detail_time"
+                style="@style/text_black_title"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp"
+                android:text="TextView" />
+            
+            <include layout="@layout/line"/>
+            <TextView
+                style="@style/text_gray_small"
+                android:layout_marginTop="15dp"
+                android:text="@string/exchange_type" />
+            
+            <TextView
+                android:id="@+id/act_exchange_detail_type"
+                style="@style/text_black_title"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp"
+                android:text="TextView" />
+            
+            <include layout="@layout/line"/>
+             <TextView
+                style="@style/text_gray_small"
+                android:layout_marginTop="15dp"
+                android:text="@string/exchange_money" />
+            
+            <TextView
+                android:id="@+id/act_exchange_detail_yb"
+                style="@style/text_black_title"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp"
+                android:text="TextView" />
+            
+            <include layout="@layout/line"/>
+        </LinearLayout>
+</ScrollView>

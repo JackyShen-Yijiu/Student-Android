@@ -162,7 +162,7 @@
             android:name="com.sft.blackcatapp.EnrollClassActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.sft.blackcatapp.IndentDetailActivity"
+            android:name="com.sft.blackcatapp.OrderDetailActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.sft.blackcatapp.EnrollCarStyleActivity"

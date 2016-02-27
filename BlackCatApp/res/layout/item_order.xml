@@ -5,13 +5,14 @@
     android:orientation="vertical" >
 
     <LinearLayout
+        android:id="@+id/item_order_top_ll"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginTop="17dp"
          >
 
         <ImageView
-            android:id="@+id/imageView1"
+            android:id="@+id/item_order_img"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="11dp"
@@ -108,7 +109,8 @@
              android:layout_height="wrap_content"
              android:layout_alignParentTop="true"
              android:layout_toLeftOf="@+id/item_order_button1"
-             android:text="Button" />
+             android:focusable="false"
+             android:text="Button2" />
         
     </RelativeLayout>
 

@@ -32,6 +32,7 @@ public class EnrollSuccessActivity extends BaseActivity {
 	private static final String applySuccess = "applySuccess";
 	private Button button_sus;
 	private TextView tv_qrcode;
+	private TextView tvEndTime;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +72,7 @@ public class EnrollSuccessActivity extends BaseActivity {
 		qrcode = (ImageView) findViewById(R.id.apply_commit_qrcode);
 		tv_qrcode = (TextView) findViewById(R.id.tv_qrcode);
 		carryData = (TextView) findViewById(R.id.apply_commit_carry_data);
+		tvEndTime = (TextView) findViewById(R.id.act_apply_suuccess_endtime);
 	}
 
 	private void setListener() {
@@ -168,6 +170,8 @@ public class EnrollSuccessActivity extends BaseActivity {
 						if (successVO.applynotes != null) {
 							carryData.setText(successVO.applynotes);
 						}
+						
+						tvEndTime.setText("请您于 "+successVO.endtime+" 前携带资料前往您所报名的驾校确认报名信息，并支付报名费用。");
 					}
 				}
 			} else if (type.equals(checkEnrollState)) {

@@ -268,7 +268,7 @@ public class PersonCenterActivity extends BaseActivity implements
 		// 报名详情
 		case R.id.person_center_enroll_detail_tv:
 
-			startActivity(new Intent(PersonCenterActivity.this,MyOrderAct.class));
+			startActivityForResult(new Intent(PersonCenterActivity.this,MyOrderAct.class),9);
 			
 //			if (applystate < 0) {// 尚未请求，获取数据
 //				isApplyOk();
@@ -410,7 +410,6 @@ public class PersonCenterActivity extends BaseActivity implements
 	@Override
 	public synchronized boolean doCallBack(String type, Object jsonString) {
 		if (super.doCallBack(type, jsonString)) {
-
 			return true;
 		}
 		if (type.equals(PAY_STATE)) {
@@ -466,11 +465,13 @@ public class PersonCenterActivity extends BaseActivity implements
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode,
 			final Intent data) {
+//		Toast("onactivityResult");
 		if (requestCode == 8) {// 验证报名信息，，
 			first = true;
 			isApplyOk();
 		}
-
+//		LogUtil.print(data+"onActivityResult--personal-center-->"+resultCode);
+		
 		if (data != null) {
 			if (requestCode == R.id.person_center_carstyle_value_tv) {
 				// 更新
@@ -501,6 +502,16 @@ public class PersonCenterActivity extends BaseActivity implements
 				}
 			};
 		}
+		if(requestCode == 9){//结束当前页面
+			new MyHandler(200) {
+				@Override
+				public void run() {
+					setResult(RESULT_OK, data);
+					finish();
+				}
+			};
+		}
+		
 	}
 
 	private void setTag() {

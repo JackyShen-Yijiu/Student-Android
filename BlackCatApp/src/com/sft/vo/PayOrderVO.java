@@ -29,7 +29,7 @@ public class PayOrderVO extends DBVO implements Serializable {
 	public String userpaystate;
 
 	public SchoolVO applyschoolinfo;
-	public PayOrderClassVO applyclasstypeinfo;// name id 错误
+	public OrderExchangeVO applyclasstypeinfo;// name id 错误
 
 	public String activitycoupon;
 

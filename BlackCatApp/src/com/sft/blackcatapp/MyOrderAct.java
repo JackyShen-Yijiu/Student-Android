@@ -143,6 +143,7 @@ public class MyOrderAct extends BaseActivity{
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode,
 			final Intent data) {
+		Toast("onactivityResult===Myorder");
 		if (data != null) {
 			if (resultCode == R.id.base_left_btn) {
 				// int currentItem = viewPager.getCurrentItem();
