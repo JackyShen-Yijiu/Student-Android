@@ -694,9 +694,9 @@ public class ApplyActivity extends BaseActivity implements
 				paramMap.put("fcode", etYCodeCard.getText().toString());
 			}
 			LogUtil.print("重复报名:--->	" + app.isEnrollAgain);
-			if (app.isEnrollAgain) {
-				paramMap.put("applyagain", "1");
-			}
+//			if (app.isEnrollAgain) {
+				paramMap.put("applyagain", 1+"");
+//			}
 
 			Map<String, String> headerMap = new HashMap<String, String>();
 			headerMap.put("authorization", app.userVO.getToken());

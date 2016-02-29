@@ -6,12 +6,14 @@
 
     <ImageView
         android:layout_width="match_parent"
+        android:visibility="gone"
         android:layout_height="102dp" />
 
     <ImageView
         android:id="@+id/search_coach_im"
         android:layout_width="match_parent"
         android:layout_height="100dp"
+        android:visibility="gone"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp" />
 
@@ -19,6 +21,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
+        android:layout_marginTop="5dp"
         android:background="#00000000"
         android:gravity="center_vertical"
         android:orientation="horizontal" >
@@ -31,7 +34,7 @@
                 android:layout_marginLeft="15dp"
                 android:contentDescription="@string/app_name"
                 android:layout_gravity="top"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="6dp"
                 app:sriv_border_color="#00000000"
                 app:sriv_border_width="1dip" />
         
@@ -47,9 +50,8 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="16dp"
             android:layout_marginRight="20dp"
-            
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:orientation="vertical" >
@@ -58,7 +60,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:layout_marginTop="10dp"
                 android:orientation="horizontal" >
 
                 <TextView
@@ -66,7 +67,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#333333"
-                    android:textSize="@dimen/txt_size_small" />
+                    android:textSize="@dimen/txt_size_middle" />
 
                 <TextView
                     android:id="@+id/search_coach_shuttle"
@@ -99,7 +100,7 @@
 
                     <RatingBar
                         android:id="@+id/search_coach_ratingBar"
-                        style="@style/roomRatingBar_26"
+                        style="@style/roomRatingBar_28"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -114,8 +115,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="7dp" >
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="3dp" >
 
                 <TextView
                     android:id="@+id/search_coach_schoolname_tv"
@@ -123,14 +124,14 @@
                     android:layout_height="wrap_content"
                     android:textColor="#999999"
                     android:singleLine="true"
-                    android:textSize="@dimen/txt_size_ss" />
+                    android:textSize="@dimen/txt_size_small" />
                 <TextView
                     android:id="@+id/search_coach_age_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                      android:layout_alignParentRight="true"
                     android:textColor="#999999"
-                    android:textSize="@dimen/txt_size_ss" />
+                    android:textSize="@dimen/txt_size_small" />
             </RelativeLayout>
 
             
@@ -138,14 +139,14 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="7dp" >
+                android:layout_marginTop="1dp" >
 
                 <TextView
                     android:id="@+id/search_coach_price_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/app_main_color"
-                    android:textSize="@dimen/txt_size_small" />
+                    android:textSize="@dimen/txt_size_middle" />
 
                 <TextView
                     android:id="@+id/search_coach_distance_tv"
@@ -154,15 +155,15 @@
                     android:layout_alignParentRight="true"
                     android:textColor="#999999"
                     android:visibility="gone"
-                    android:textSize="@dimen/txt_size_ss" />
+                    android:textSize="@dimen/txt_size_small" />
             </RelativeLayout>
             
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="20dp"
+                android:layout_height="1px"
+                android:layout_marginTop="8dp"
                 android:layout_marginLeft="1dp"
-                android:background="#e6e6e6" />
+                android:background="#dddddd" />
         </LinearLayout>
     </LinearLayout>
 

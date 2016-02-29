@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
 import com.sft.adapter.ExchangeGoodOrderAdapter;
@@ -29,6 +31,8 @@ public class OrderExchangeGoodAct extends BaseActivity implements OnItemClickLis
 	private ExchangeGoodOrderAdapter adapter;
 	
 	ExchangeGoodOrderVO bean ;
+	private RelativeLayout errorRl;
+	private TextView errorTv;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +43,9 @@ public class OrderExchangeGoodAct extends BaseActivity implements OnItemClickLis
 	}
 
 	private void initView() {
+		errorRl= (RelativeLayout) findViewById(R.id.error_rl);
+		errorTv = (TextView) findViewById(R.id.error_tv);
+		errorTv.setText(R.string.no_exchange_order);
 		lv = (ListView) findViewById(R.id.enroll_select_school_listview);
 		bean = new ExchangeGoodOrderVO();
 		adapter = new ExchangeGoodOrderAdapter(this, bean);
@@ -68,6 +75,9 @@ public class OrderExchangeGoodAct extends BaseActivity implements OnItemClickLis
 			try {
 				bean =JSONUtil.toJavaBean(ExchangeGoodOrderVO.class, data);
 				adapter.setData(bean);
+				if(bean.ordrelist.size()==0){
+					errorRl.setVisibility(View.VISIBLE);
+				}
 //				adapter.notifyDataSetChanged();
 				
 				LogUtil.print("result--size::"+bean.ordrelist.size());

@@ -50,8 +50,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:alpha="0.5"
             android:layout_toRightOf="@+id/title_tv"
+            android:alpha="0.5"
             android:background="@drawable/right_arrow" />
 
         <TextView
@@ -64,6 +64,7 @@
             android:layout_marginRight="15dp"
             android:textColor="#fefefe"
             android:textSize="14sp" />
+
         <ImageView
             android:id="@+id/title_far_right_iv"
             android:layout_width="wrap_content"
@@ -72,8 +73,35 @@
             android:layout_alignTop="@+id/title_tv"
             android:layout_centerHorizontal="true"
             android:layout_marginRight="15dp"
-            android:background="@drawable/add_appointment"
-            />
+            android:background="@drawable/add_appointment" />
+
+      <RadioGroup
+          android:id="@+id/title_gp"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_centerInParent="true"
+          android:visibility="gone"
+          android:orientation="horizontal"
+           >
+
+          <RadioButton
+              android:id="@+id/radio0"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:checked="true"
+              style="@style/title_school_coach_left"
+              android:text="驾校" />
+
+          <RadioButton
+              android:id="@+id/radio1"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              style="@style/title_school_coach_right"
+              android:text="教练" />
+
+         
+      </RadioGroup>
+
     </RelativeLayout>
 
     <com.sft.blackcatapp.home.view.MainScreenContainer
