@@ -192,6 +192,8 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 		lookAroundBtn.setEnabled(false);
 		String checkResult = checkLoginInfo();
 		if (checkResult == null) {
+			ZProgressHUD.getInstance(this).setMessage("正在登录...");
+			ZProgressHUD.getInstance(this).show();
 			Map<String, String> paramMap = new HashMap<String, String>();
 			paramMap.put("mobile", phontEt.getText().toString());
 			paramMap.put("usertype", "1");
@@ -236,6 +238,7 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 			loginBtn.setEnabled(true);
 			lookAroundBtn.setEnabled(true);
 		}
+		ZProgressHUD.getInstance(this).dismiss();
 	}
 
 	@Override
@@ -243,6 +246,7 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 		super.doException(type, e, code);
 		loginBtn.setEnabled(true);
 		lookAroundBtn.setEnabled(true);
+		ZProgressHUD.getInstance(this).dismiss();
 	}
 
 	@Override
@@ -259,6 +263,22 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 			try {
 				loginBtn.setEnabled(true);
 				lookAroundBtn.setEnabled(true);
+<<<<<<< HEAD
+=======
+				// <<<<<<< HEAD
+				// if (data != null ) {
+				// app.userVO = JSONUtil.toJavaBean(UserVO.class, data);
+				// obtainVersionInfo();
+				// } else if (!TextUtils.isEmpty(msg)) {
+				//
+				// ZProgressHUD.getInstance(this).show();
+				// ZProgressHUD.getInstance(this).dismissWithFailure(msg, 2000);
+				// return true;
+				// }else{
+				//
+				// =======
+				ZProgressHUD.getInstance(this).dismiss();
+>>>>>>> 513ff270e6b953588176e2d2c538c957e04b26d1
 				LogUtil.print(">>>>>>>>11111" + msg + "111");
 				if (data != null && result.equals("1")) {
 					app.userVO = JSONUtil.toJavaBean(UserVO.class, data);
@@ -266,6 +286,7 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 					obtainVersionInfo();
 					checkLoginInfo();
 				} else if (msg.contains("用户不存在")) {
+
 					hint_phone.setVisibility(View.VISIBLE);
 					hint_phone.setText("该号码尚未注册");
 					return true;
@@ -327,6 +348,7 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 					.toString());
 
 			if (isMyServiceRunning()) {
+				// ZProgressHUD.getInstance(this).dismiss();
 				app.isLogin = true;
 				Intent intent = new Intent(this, MainActivity.class);
 				startActivity(intent);

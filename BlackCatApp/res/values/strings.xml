@@ -327,5 +327,13 @@
     <string name="exchange_time">下单时间</string>
     <string name="exchange_type">兑换方式</string>
     <string name="exchange_money">兑换金额</string>
+    <string name="redeem_now">立即兑换</string>
+    
+    <string name="cheats_backing">科目二 “倒车入库” 技巧大揭秘</string>
+    <string name="cheats_parking">科目二 “侧方停车” 技巧大揭秘</string>
+    <string name="cheats_start">科目二 “半坡起步” 技巧大揭秘</string>
+    <string name="cheats_turn_corner">科目二 “直接转弯” 技巧大揭秘</string>
+    <string name="cheats_s_curve">科目二 “S弯道” 技巧大揭秘</string>
+    <string name="three_exam_formula">科目三考试技巧口诀大揭秘</string>
     
 </resources>

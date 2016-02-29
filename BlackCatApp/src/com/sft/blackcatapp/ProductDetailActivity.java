@@ -10,8 +10,8 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.TextView;
 
-import com.sft.blackcatapp.R;
 import com.sft.util.LogUtil;
 import com.sft.vo.MyCuponVO;
 import com.sft.vo.ProductVO;
@@ -29,6 +29,8 @@ public class ProductDetailActivity extends BaseActivity {
 	// private TextView currencyTv;
 	private Button buyBtn;
 
+	private TextView productName;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -37,7 +39,7 @@ public class ProductDetailActivity extends BaseActivity {
 		// currencyTv = (TextView)
 		// findViewById(R.id.product_detail_currentcy_tv);
 		buyBtn = (Button) findViewById(R.id.product_detail_buy_btn);
-
+		productName = (TextView) findViewById(R.id.product_detail_product_name);
 		buyBtn.setOnClickListener(this);
 		initData();
 	}
@@ -72,6 +74,7 @@ public class ProductDetailActivity extends BaseActivity {
 
 		if (!isCupon) {
 
+			productName.setText("需要消费积分：" + productVO.getProductprice() + "YB");
 			try {
 				LogUtil.print(productVO.getProductprice() + "------"
 						+ app.currency);
@@ -90,6 +93,7 @@ public class ProductDetailActivity extends BaseActivity {
 			}
 		} else {
 			buyBtn.setText("立即兑换");
+			productName.setText("需要消费兑换券1张");
 			if (myCupon != null) {
 
 				if ("1".equals(myCupon.getState())) {
@@ -122,6 +126,8 @@ public class ProductDetailActivity extends BaseActivity {
 					getIntent().getSerializableExtra("product"));
 			intent.putExtra("myCupon",
 					getIntent().getSerializableExtra("myCupon"));
+			intent.putExtra("isCupon",
+					getIntent().getBooleanExtra("isCupon", false));
 			startActivity(intent);
 		}
 	}

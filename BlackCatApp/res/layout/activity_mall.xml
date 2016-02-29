@@ -2,12 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#00000000"
+    android:background="@color/app_bg_dark"
     android:orientation="vertical" >
 
     <!-- 高度动态控制 -->
 
-    <!-- <RelativeLayout
+
+    <!--
+    <RelativeLayout
         android:id="@+id/mall_top_headpic_im"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -34,20 +36,27 @@
             android:layout_height="match_parent"
             android:background="@drawable/defaultimage"
             android:contentDescription="@string/app_name" />
-    </RelativeLayout> -->
+    </RelativeLayout>
+    -->      
 
-    <ListView
-        android:id="@+id/mall_listview"
+    <com.sft.view.RefreshLayout
+        android:id="@+id/mall_swipe_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#ffffff"
-        android:cacheColorHint="#00000000"
-        android:descendantFocusability="blocksDescendants"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="10dp"
-        android:fadingEdge="none"
-        android:listSelector="@android:color/transparent"
-        android:overScrollMode="always"
-        android:scrollbars="none" />
+        android:layout_height="match_parent" >
+
+        <ListView
+            android:id="@+id/mall_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/app_bg_dark"
+            android:cacheColorHint="#00000000"
+            android:descendantFocusability="blocksDescendants"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0dp"
+            android:fadingEdge="none"
+            android:listSelector="@android:color/transparent"
+            android:overScrollMode="always"
+            android:scrollbars="none" />
+    </com.sft.view.RefreshLayout>
 
 </LinearLayout>

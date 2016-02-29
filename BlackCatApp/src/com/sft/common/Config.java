@@ -205,4 +205,29 @@ public class Config {
 		}
 		return null;
 	}
+
+	/**
+	 * 科目二 “倒车入库” 技巧大揭秘
+	 */
+	public static final String CHEATS_BACKING = "http://mp.weixin.qq.com/s?__biz=MzIxNTEyNzY4OA==&mid=402027666&idx=2&sn=cd027f28f9395328dca99cddccd941c8&scene=1&srcid=0227PsJt9MhhtlC1UxbNK8rd#wechat_redirect";
+	/**
+	 * 科目二 “侧方停车” 技巧大揭秘
+	 */
+	public static final String CHEATS_PARKING = "http://mp.weixin.qq.com/s?__biz=MzIxNTEyNzY4OA==&mid=402027666&idx=3&sn=8a37868cd4abdc99102e5431701a99b4&scene=1&srcid=0227gf0yphhGiI2xvu54Is8r#wechat_redirect";
+	/**
+	 * 科目二 “半坡起步” 技巧大揭秘
+	 */
+	public static final String CHEATS_START = "http://mp.weixin.qq.com/s?__biz=MzIxNTEyNzY4OA==&mid=402027666&idx=4&sn=88035999123229b82a72f672c11b93e8&scene=1&srcid=0227vPi1F8jMEiLYGHhrbf7X#wechat_redirect";
+	/**
+	 * 科目二 “直接转弯” 技巧大揭秘
+	 */
+	public static final String CHEATS_TURN_CORNER = "http://mp.weixin.qq.com/s?__biz=MzIxNTEyNzY4OA==&mid=402027666&idx=5&sn=02a10d6b03795ec3d725e9e22b7aa541&scene=1&srcid=02276riS53LAdoeiPiksDwFT#wechat_redirect";
+	/**
+	 * 科目二 “S弯道” 技巧大揭秘
+	 */
+	public static final String CHEATS_S_CURVE = "http://mp.weixin.qq.com/s?__biz=MzIxNTEyNzY4OA==&mid=402027666&idx=6&sn=1730ae458c88cee6572f9df4b2a01aa4&scene=1&srcid=0227SBzpyLCZnVA86vePxpB8#wechat_redirect";
+	/**
+	 * 科目三考试技巧口诀大揭秘
+	 */
+	public static final String THREE_EXAM_FORMULA = "http://mp.weixin.qq.com/s?__biz=MzIxNTEyNzY4OA==&mid=402027666&idx=7&sn=a476a88c0fe6d016840f9a6b2e38e3a0&scene=1&srcid=0227yDo5HLeoi5N8HXWQ6ha7#wechat_redirect";
 }

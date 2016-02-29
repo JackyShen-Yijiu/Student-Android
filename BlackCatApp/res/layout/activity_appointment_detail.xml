@@ -102,7 +102,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/ic_unchecked" />
+                android:background="@drawable/ic_teach_ages" />
 
             <TextView
                 android:id="@+id/appointment_detail_class_name_tv"
@@ -126,7 +126,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:background="@drawable/ic_unchecked" />
+                android:background="@drawable/ic_type" />
 
             <TextView
                 android:id="@+id/appointment_detail_desc_tv"
@@ -150,7 +150,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/ic_unchecked" />
+                android:background="@drawable/ic_suject" />
 
             <TextView
                 android:id="@+id/appointment_detail_time_tv"
@@ -181,7 +181,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:background="@drawable/ic_unchecked" />
+                android:background="@drawable/ic_school" />
 
             <TextView
                 android:id="@+id/appointment_detail_school_name_tv"
@@ -205,7 +205,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:background="@drawable/ic_unchecked" />
+                android:background="@drawable/ic_training" />
 
             <TextView
                 android:id="@+id/appointment_detail_training_grounds_tv"
@@ -229,7 +229,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:background="@drawable/ic_unchecked" />
+                android:background="@drawable/schooldetail_trainingground_icon" />
 
             <TextView
                 android:id="@+id/appointment_detail_shuttle_address_tv"
