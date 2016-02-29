@@ -172,7 +172,7 @@ public class AppointmentExamActivity extends BaseActivity implements
 
 			Map<String, String> headerMap = new HashMap<String, String>();
 			headerMap.put("authorization", app.userVO.getToken());
-			LogUtil.print(paramsMap.toString());
+//			LogUtil.print(paramsMap.toString());
 			HttpSendUtils.httpPostSend(applyexam, this, Config.IP
 					+ "api/v1/userinfo/applyexamination", paramsMap, 10000,
 					headerMap);

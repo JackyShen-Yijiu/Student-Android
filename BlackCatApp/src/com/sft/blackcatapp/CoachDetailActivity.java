@@ -9,6 +9,8 @@ import me.maxwin.view.XListView;
 import me.maxwin.view.XListView.IXListViewListener;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -56,6 +58,7 @@ import com.sft.dialog.EnrollSelectConfilctDialog.OnSelectConfirmListener;
 import com.sft.dialog.NoLoginDialog;
 import com.sft.fragment.MenuFragment;
 import com.sft.util.BaseUtils;
+import com.sft.util.FastBlur;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
 import com.sft.util.Util;
@@ -164,6 +167,8 @@ public class CoachDetailActivity extends BaseActivity implements
 	
 	private TextView tvNoTrain;
 	
+	private ImageView imgHeadBg;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -229,7 +234,7 @@ public class CoachDetailActivity extends BaseActivity implements
 		viewTop = (View) findViewById(R.id.coach_detail_top_ll);
 		viewTopStatic = (View) findViewById(R.id.coach_detail_top_static);
 		
-		
+		imgHeadBg = (ImageView) findViewById(R.id.coach_detail_headicon_bg);
 		
 		schoolId = getIntent().getStringExtra("schoolId");
 
@@ -383,20 +388,24 @@ public class CoachDetailActivity extends BaseActivity implements
 	}
 
 	private void setData() {
-		LogUtil.print("setData-->"+coachVO);
+//		LogUtil.print("setData-->"+coachVO);
 		
 		if (coachVO != null) {
 			LinearLayout.LayoutParams headParam = (LinearLayout.LayoutParams) coachHeadPicIm
 					.getLayoutParams();
 
 			String url = coachVO.getHeadportrait().getOriginalpic();
-			LogUtil.print("headIcon-->"+url);
+//			LogUtil.print("headIcon-->"+url);
 			if (TextUtils.isEmpty(url)) {
 				coachHeadPicIm
 						.setBackgroundResource(R.drawable.default_small_pic);
 			} else {
 				BitmapManager.INSTANCE.loadBitmap2(url, coachHeadPicIm,
 						headParam.width, headParam.height);
+//				Bitmap b = BitmapManager.INSTANCE.downloadBitmap2(url, 360, 240);
+//				LogUtil.print("bitmap>>>>"+b);
+//				Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.ic_alipay);
+//				imgHeadBg.setImageBitmap(FastBlur.doBlur(b, 3, true));
 			}
 			
 			coachNameTv.setText(coachVO.getName());
@@ -423,7 +432,7 @@ public class CoachDetailActivity extends BaseActivity implements
 
 			// courseTv.setText(subject);
 			seniorityTv.setText("教龄:" + coachVO.getSeniority() + "年");
-			LogUtil.print("DriveSchool---->>>"+coachVO.getDriveschoolinfo());
+//			LogUtil.print("DriveSchool---->>>"+coachVO.getDriveschoolinfo());
 			if(coachVO.getDriveschoolinfo()!=null)
 				placeTv.setText(coachVO.getDriveschoolinfo().getName());
 			schoolTv.setText(coachVO.getTrainfieldlinfo().getFieldname());
@@ -482,7 +491,7 @@ public class CoachDetailActivity extends BaseActivity implements
 				}
 					
 				setListViewHeightBasedOnChildren(courseFeeListView);
-				LogUtil.print("setdata-->>课程费用-->"+coachVO.getServerclasslist().size()+"评论--->"+courseFeeAdapter.getCount());
+//				LogUtil.print("setdata-->>课程费用-->"+coachVO.getServerclasslist().size()+"评论--->"+courseFeeAdapter.getCount());
 			}else{
 				noCommentTv.setText("暂无课程");
 				noCommentTv.setVisibility(View.GONE);
@@ -501,6 +510,9 @@ public class CoachDetailActivity extends BaseActivity implements
 			// 添加个性标签
 			addTags();
 		}
+		
+		
+		
 	}
 
 	/**
@@ -524,7 +536,7 @@ public class CoachDetailActivity extends BaseActivity implements
 					EnrollResult.SUBJECT_NONE.getValue())) {
 
 				String checkResult = Util.isConfilctEnroll(coachVO);
-				LogUtil.print("check--->" + checkResult);
+//				LogUtil.print("check--->" + checkResult);
 				if (checkResult == null) {
 
 					toPay(position);
@@ -890,8 +902,15 @@ public class CoachDetailActivity extends BaseActivity implements
 
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		if(!app.isLogin)
+		if (!app.isLogin) {
+			NoLoginDialog dialog = new NoLoginDialog(
+					CoachDetailActivity.this);
+			dialog.show();
+			collectCk.setChecked(false);
 			return;
+		}
+//		if(!app.isLogin)
+//			return;
 		Map<String, String> headerMap = new HashMap<String, String>();
 		headerMap.put("authorization", app.userVO.getToken());
 

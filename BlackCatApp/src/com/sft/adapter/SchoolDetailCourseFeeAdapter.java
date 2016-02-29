@@ -81,7 +81,7 @@ public class SchoolDetailCourseFeeAdapter extends BaseAdapter {
 		
 		Button entrollBut = (Button) convertView
 				.findViewById(R.id.course_fee_enroll_btn);
-		LogUtil.print(enrollstate+"classID-->"+serverClassList.getCalssid()+"App::>"+app.userVO.getApplyclasstypeinfo().getId());
+//		LogUtil.print(enrollstate+"classID-->"+serverClassList.getCalssid()+"App::>"+app.userVO.getApplyclasstypeinfo().getId());
 		
 		if (app.userVO != null
 				&& app.userVO.getApplyclasstypeinfo() != null && serverClassList.getCalssid()!=null

@@ -92,7 +92,7 @@
         <item name="android:button">@null</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">16dp</item>
-        <item name="android:textColor">@drawable/select_coach_radiobtn_textcolor</item>
+        <item name="android:textColor">@drawable/select_title_radiobtn_textcolor</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_weight">1</item>
         <item name="android:paddingTop">5dp</item>
@@ -111,7 +111,7 @@
         <item name="android:paddingBottom">5dp</item>
         <item name="android:paddingLeft">10dp</item>
         <item name="android:paddingRight">10dp</item>
-        <item name="android:textColor">@drawable/select_coach_radiobtn_textcolor</item>
+        <item name="android:textColor">@drawable/select_title_radiobtn_textcolor</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_weight">1</item>
         <item name="android:layout_height">@dimen/selectcoach_radiogroup_height</item>

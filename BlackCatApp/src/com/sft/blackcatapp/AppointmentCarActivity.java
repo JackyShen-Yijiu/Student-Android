@@ -131,7 +131,7 @@ public class AppointmentCarActivity extends BaseActivity implements
 			public Object instantiateItem(ViewGroup container, int position) {
 				AppointmentWeekFragment fragment = new AppointmentWeekFragment(
 						position);
-				LogUtil.print("position---------" + position);
+//				LogUtil.print("position---------" + position);
 				container.addView(fragment.rootview);
 				return fragment.rootview;
 			}
@@ -141,12 +141,12 @@ public class AppointmentCarActivity extends BaseActivity implements
 			@Override
 			public void onDateClick(AppointmentDay day, boolean clickbale) {
 				if (clickbale) {
-					LogUtil.print("点击了" + day);
+//					LogUtil.print("点击了" + day);
 					selectDate = day.year + "-" + day.month + "-" + day.day;
-					LogUtil.print(selectDate);
+//					LogUtil.print(selectDate);
 					obtainCaochCourse(coachId);
 				} else {
-					LogUtil.print("木有点击了" + day);
+//					LogUtil.print("木有点击了" + day);
 				}
 			}
 		});
@@ -243,7 +243,7 @@ public class AppointmentCarActivity extends BaseActivity implements
 				BitmapManager.INSTANCE.loadBitmap2(url, coachPic,
 						headParam.width, headParam.height);
 			}
-			LogUtil.print("要预约的教练---" + selectCoach.getName());
+//			LogUtil.print("要预约的教练---" + selectCoach.getName());
 			coachId = selectCoach.getCoachid();
 			obtainCaochCourse(coachId);
 
@@ -353,11 +353,14 @@ public class AppointmentCarActivity extends BaseActivity implements
 		if (super.doCallBack(type, jsonString)) {
 			return true;
 		}
+		LogUtil.print("callBack-->"+jsonString);
 		if (!TextUtils.isEmpty(msg)) {
+			
 			// 清空时间表
 			timeLayout.clearData();
 			ZProgressHUD.getInstance(this).show();
 			ZProgressHUD.getInstance(this).dismissWithFailure(msg, 1000);
+			LogUtil.print(ZProgressHUD.getInstance(this).isShowing()+"callBack--1111>"+jsonString);
 			return true;
 		}
 		try {
@@ -484,7 +487,7 @@ public class AppointmentCarActivity extends BaseActivity implements
 			if (timeLayout.getSelectCourseList() == null) {
 				return;
 			}
-			LogUtil.print("========" + timeLayout.getSelectCourseList().size());
+//			LogUtil.print("========" + timeLayout.getSelectCourseList().size());
 			learnProgress2Tv.setText("第" + (finishTime + 1) + "-"
 					+ (timeLayout.getSelectCourseList().size() + finishTime)
 					+ "课时 ");

@@ -181,8 +181,8 @@ public class CoachListAdapter extends BaseAdapter {
 					headParam.width, headParam.height);
 		}
 		// if (position == mData.size() - 1) {
-		LogUtil.print(mData.size() + "ssssssd===="
-				+ mData.get(position).getName() + position);
+//		LogUtil.print(mData.size() + "ssssssd===="
+//				+ mData.get(position).getName() + position);
 		// }
 
 		holder.headPic.setTag(position);

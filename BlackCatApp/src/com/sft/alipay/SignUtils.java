@@ -26,7 +26,7 @@ public class SignUtils {
 
 			signature.initSign(priKey);
 			signature.update(content.getBytes(DEFAULT_CHARSET));
-			LogUtil.print("sign----》》》"+signature);
+//			LogUtil.print("sign----》》》"+signature);
 			byte[] signed = signature.sign();
 
 			return Base64.encode(signed);
