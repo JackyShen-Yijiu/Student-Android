@@ -56,7 +56,6 @@ public class YiBuIntroduceActivity extends BaseActivity {
 	}
 
 	private void setListener() {
-		// button_sus.setOnClickListener(this);
 
 	}
 
@@ -71,7 +70,7 @@ public class YiBuIntroduceActivity extends BaseActivity {
 			switch (typeId) {
 			case R.id.introduce_student_know:
 				url = Config.STUDENT_KNOW;
-				setTitleText(R.string.yibu_student_know);
+				setTitleText(R.string.yibu_superiority);
 				break;
 			case R.id.introduce_procedure:
 

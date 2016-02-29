@@ -7,8 +7,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.InputType;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -124,6 +125,8 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 		show_password.setOnClickListener(this);
 	}
 
+	boolean isClick = true;
+
 	@Override
 	public void onClick(View v) {
 		if (!onClickSingleView()) {
@@ -142,8 +145,20 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 			invitationEt.setText("");
 			break;
 		case R.id.show_password:
-			passwordEt
-					.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+			if (isClick) {
+				passwordEt
+						.setTransformationMethod(HideReturnsTransformationMethod
+								.getInstance());
+			} else {
+				passwordEt.setText(passwordEt.getText());
+				passwordEt.setTransformationMethod(PasswordTransformationMethod
+						.getInstance());
+
+			}
+			isClick = !isClick;
+
+			if (isClick) {
+			}
 			break;
 		case R.id.register_register_btn:
 			register();

@@ -13,8 +13,9 @@ import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.InputType;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -143,6 +144,8 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 		delet_iv.setOnClickListener(this);
 	}
 
+	boolean isClick = true;
+
 	@Override
 	public void onClick(View v) {
 		if (!onClickSingleView()) {
@@ -157,8 +160,20 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 			hint_passward.setVisibility(View.GONE);
 			break;
 		case R.id.show_password:
-			passwordEt
-					.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+			if (isClick) {
+				passwordEt
+						.setTransformationMethod(HideReturnsTransformationMethod
+								.getInstance());
+			} else {
+				passwordEt.setText(passwordEt.getText());
+				passwordEt.setTransformationMethod(PasswordTransformationMethod
+						.getInstance());
+
+			}
+			isClick = !isClick;
+
+			if (isClick) {
+			}
 			break;
 		case R.id.delet_iv:
 			phontEt.setText("");
@@ -263,7 +278,6 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 			try {
 				loginBtn.setEnabled(true);
 				lookAroundBtn.setEnabled(true);
-
 				// <<<<<<< HEAD
 				// if (data != null ) {
 				// app.userVO = JSONUtil.toJavaBean(UserVO.class, data);

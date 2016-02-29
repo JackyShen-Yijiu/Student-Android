@@ -5,8 +5,9 @@ import java.util.Map;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.InputType;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -220,6 +221,8 @@ public class FindPasswordActivity extends BaseActivity implements
 		return true;
 	}
 
+	boolean isClick = true;
+
 	@Override
 	public void onClick(View v) {
 		if (!onClickSingleView()) {
@@ -235,8 +238,20 @@ public class FindPasswordActivity extends BaseActivity implements
 			phoneEt.setText("");
 			break;
 		case R.id.show_password:
-			passwordEt
-					.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+			if (isClick) {
+				passwordEt
+						.setTransformationMethod(HideReturnsTransformationMethod
+								.getInstance());
+			} else {
+				passwordEt.setText(passwordEt.getText());
+				passwordEt.setTransformationMethod(PasswordTransformationMethod
+						.getInstance());
+
+			}
+			isClick = !isClick;
+
+			if (isClick) {
+			}
 			break;
 		case R.id.findpass_code_btn:
 			String result1 = checkInputs();

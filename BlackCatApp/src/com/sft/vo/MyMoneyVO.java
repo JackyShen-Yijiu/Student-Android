@@ -32,7 +32,7 @@ public class MyMoneyVO {
 	}
 
 	public String getFcode() {
-		return TextUtils.isEmpty(fcode) ? "" : "您的Y码:" + fcode;
+		return TextUtils.isEmpty(fcode) ? "我的Y码：暂无" : "我的Y码:" + fcode;
 	}
 
 	public void setFcode(String fcode) {

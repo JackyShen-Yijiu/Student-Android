@@ -2,13 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/new_app_main_color"
     android:orientation="vertical" >
     
     <RelativeLayout 
         android:layout_width="match_parent"
         android:padding="12dp"
-        android:background="@drawable/left_fragment_head_bg"
         android:layout_height="wrap_content">
     <com.joooonho.SelectableRoundedImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -40,6 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:textColor="#f2f2f2"
+            android:text="我的Y码："
             android:textSize="14sp" />
     </LinearLayout>
     </RelativeLayout>
@@ -47,50 +46,51 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
-         android:background="@color/white"
         android:layout_weight="1">
+       
+       
+       <TextView
+            android:id="@+id/fragment_menu_activity_btn"
+            style="@style/left_item_menu_style"
+            android:drawableLeft="@drawable/left_item_activity"
+            android:text="优惠活动" />
+       
+         <TextView 
+                android:id="@+id/fragment_menu_wallet_btn"
+            style="@style/left_item_menu_style"
+            android:drawableLeft="@drawable/left_item_money"
+            android:text="我的钱包"/>
         <TextView 
             android:id="@+id/fragment_menu_message_btn"
             style="@style/left_item_menu_style"
-            android:drawableLeft="@drawable/left_item_selector_msg"
+            android:drawableLeft="@drawable/left_item_msg"
             android:text="我的消息"/>
 
-        <TextView
-            android:id="@+id/fragment_menu_activity_btn"
+        <TextView 
+            android:id="@+id/fragment_menu_classcar_btn"
             style="@style/left_item_menu_style"
-            android:drawableLeft="@drawable/left_item_selector_activity"
-            android:text="活动" />
+            android:drawableLeft="@drawable/left_item_car"
+            android:text="班车接送"/>
 
           <TextView 
                 android:id="@+id/fragment_menu_signin_btn"
             style="@style/left_item_menu_style"
-            android:drawableLeft="@drawable/left_item_selector_order"
+            android:drawableLeft="@drawable/left_item_order"
             android:text="预约签到"/>
-           <TextView 
-            android:id="@+id/fragment_menu_classcar_btn"
-            style="@style/left_item_menu_style"
-            android:drawableLeft="@drawable/left_item_selector_car"
-            android:text="我的驾校班车"/>
-            <TextView 
-                android:id="@+id/fragment_menu_wallet_btn"
-            style="@style/left_item_menu_style"
-            android:drawableLeft="@drawable/left_item_selector_money"
-            android:text="我的钱包"/>
-             
               <TextView 
             android:id="@+id/fragment_menu_complaint_btn"
             style="@style/left_item_menu_style"
-            android:drawableLeft="@drawable/left_item_selector_phone"
-            android:text="我要投诉"/>
+            android:drawableLeft="@drawable/left_item_phone"
+            android:text="评论投诉"/>
                 <TextView 
                       android:id="@+id/fragment_menu_goddness_btn"
             style="@style/left_item_menu_style"
-            android:drawableLeft="@drawable/left_item_selector_good"
+            android:drawableLeft="@drawable/left_item_good"
             android:text="一步优势"/>
                   <TextView 
             android:id="@+id/fragment_menu_setting_btn"
             style="@style/left_item_menu_style"
-            android:drawableLeft="@drawable/left_item_selector_setting"
+            android:drawableLeft="@drawable/left_item_setting"
             android:text="设置与帮助"/>
     </LinearLayout>
 </LinearLayout>
