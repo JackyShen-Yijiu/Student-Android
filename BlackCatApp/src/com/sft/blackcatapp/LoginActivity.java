@@ -13,11 +13,13 @@ import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
@@ -54,6 +56,8 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 	private TextView registerAccountTv;
 	private TextView hint_passward;
 	private TextView hint_phone;
+	private ImageView show_password;
+	private ImageView delet_iv;
 
 	// 用户登录
 	private final static String login = "login";
@@ -119,6 +123,9 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 		hint_phone = (TextView) findViewById(R.id.tv_hint_phone);
 		// phontEt.setHint(setHint(R.string.phonenumber));
 		// passwordEt.setHint(setHint(R.string.password));
+
+		show_password = (ImageView) findViewById(R.id.show_password);
+		delet_iv = (ImageView) findViewById(R.id.delet_iv);
 		app.isLogin = false;
 
 	}
@@ -130,6 +137,8 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 		lookAroundBtn.setOnClickListener(this);
 		forgetPassTv.setOnClickListener(this);
 		registerAccountTv.setOnClickListener(this);
+		show_password.setOnClickListener(this);
+		delet_iv.setOnClickListener(this);
 	}
 
 	@Override
@@ -144,6 +153,13 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 			break;
 		case R.id.login_passwd_et:
 			hint_passward.setVisibility(View.GONE);
+			break;
+		case R.id.show_password:
+			passwordEt
+					.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+			break;
+		case R.id.delet_iv:
+			phontEt.setText("");
 			break;
 		case R.id.login_login_btn:
 			login();
@@ -230,22 +246,22 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 			try {
 				loginBtn.setEnabled(true);
 				lookAroundBtn.setEnabled(true);
-//<<<<<<< HEAD
-//				if (data != null  ) {
-//					app.userVO = JSONUtil.toJavaBean(UserVO.class, data);
-//					obtainVersionInfo();
-//				} else if (!TextUtils.isEmpty(msg)) {
-//					
-//						 ZProgressHUD.getInstance(this).show();
-//						 ZProgressHUD.getInstance(this).dismissWithFailure(msg, 2000);
-//						return true;
-//				}else{
-//					
-//=======
+				// <<<<<<< HEAD
+				// if (data != null ) {
+				// app.userVO = JSONUtil.toJavaBean(UserVO.class, data);
+				// obtainVersionInfo();
+				// } else if (!TextUtils.isEmpty(msg)) {
+				//
+				// ZProgressHUD.getInstance(this).show();
+				// ZProgressHUD.getInstance(this).dismissWithFailure(msg, 2000);
+				// return true;
+				// }else{
+				//
+				// =======
 				LogUtil.print(">>>>>>>>11111" + msg + "111");
 				if (data != null && result.equals("1")) {
 					app.userVO = JSONUtil.toJavaBean(UserVO.class, data);
-					LogUtil.print("initData-login->"+app.userVO);
+					LogUtil.print("initData-login->" + app.userVO);
 					obtainVersionInfo();
 				} else if (msg.contains("用户不存在")) {
 					hint_phone.setVisibility(View.VISIBLE);

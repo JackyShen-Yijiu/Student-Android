@@ -437,6 +437,19 @@
            <activity
                android:name=".OrderExchangeGoodAct"
                android:screenOrientation="portrait"></activity>
+           <!-- 设置帮助 -->
+            <activity
+               android:name=".HelpGuideActivity"
+               android:screenOrientation="portrait"></activity>
+             <activity
+               android:name=".HelpExamActivity"
+               android:screenOrientation="portrait"></activity>
+              <activity
+               android:name=".HelpNewcomerActivity"
+               android:screenOrientation="portrait"></activity>
+               <activity
+               android:name=".HelpProblemActivity"
+               android:screenOrientation="portrait"></activity>
            
            
            

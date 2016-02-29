@@ -5,11 +5,13 @@ import java.util.Map;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.baseactivity.util.MyHandler;
@@ -43,11 +45,11 @@ public class FindPasswordActivity extends BaseActivity implements
 	// 获取验证码间隔时间(秒)
 	private final static int codeTime = 60;
 	private MyHandler codeHandler;
-	private EditText conpassEt;
 	private TextView tv_hint_code;
 	private TextView tv_hint_phone;
 	private TextView tv_hint_pasword;
-	private TextView tv_hint_paswords;
+	private ImageView show_password;
+	private ImageView delet_iv;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,17 +67,18 @@ public class FindPasswordActivity extends BaseActivity implements
 	private void initView() {
 		setTitleText(R.string.find_password);
 
+		show_password = (ImageView) findViewById(R.id.show_password);
+		delet_iv = (ImageView) findViewById(R.id.delet_iv);
+
 		sendCodeBtn = (Button) findViewById(R.id.findpass_code_btn);
 		nextBtn = (Button) findViewById(R.id.findpass_finish_btn);
 		phoneEt = (EditText) findViewById(R.id.findpass_phone_et);
 		codeEt = (EditText) findViewById(R.id.findpass_code_et);
 		passwordEt = (EditText) findViewById(R.id.findpass_password_et);
-		conpassEt = (EditText) findViewById(R.id.register_conpass_et);
 
 		tv_hint_phone = (TextView) findViewById(R.id.tv_hint_phone);
 		tv_hint_code = (TextView) findViewById(R.id.tv_hint_code);
 		tv_hint_pasword = (TextView) findViewById(R.id.tv_hint_pasword);
-		tv_hint_paswords = (TextView) findViewById(R.id.tv_hint_paswords);
 
 		String phone = getIntent().getStringExtra("phone");
 		if (phone != null) {
@@ -90,7 +93,9 @@ public class FindPasswordActivity extends BaseActivity implements
 		phoneEt.setOnClickListener(this);
 		codeEt.setOnClickListener(this);
 		passwordEt.setOnClickListener(this);
-		conpassEt.setOnClickListener(this);
+
+		show_password.setOnClickListener(this);
+		delet_iv.setOnClickListener(this);
 	}
 
 	private void obtainCode() {
@@ -143,10 +148,6 @@ public class FindPasswordActivity extends BaseActivity implements
 		String password = passwordEt.getText().toString();
 		if (TextUtils.isEmpty(password)) {
 			tv_hint_pasword.setVisibility(View.VISIBLE);
-		}
-		String conPass = conpassEt.getText().toString();
-		if (!conPass.equals(password)) {
-			tv_hint_paswords.setVisibility(View.VISIBLE);
 		}
 		return null;
 	}
@@ -220,6 +221,13 @@ public class FindPasswordActivity extends BaseActivity implements
 			break;
 		case R.id.base_right_btn:
 			break;
+		case R.id.delet_iv:
+			phoneEt.setText("");
+			break;
+		case R.id.show_password:
+			passwordEt
+					.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+			break;
 		case R.id.findpass_code_btn:
 			String result1 = checkInputs();
 			if (result1 == null) {
@@ -247,9 +255,6 @@ public class FindPasswordActivity extends BaseActivity implements
 			break;
 		case R.id.findpass_password_et:
 			tv_hint_pasword.setVisibility(View.GONE);
-			break;
-		case R.id.register_conpass_et:
-			tv_hint_paswords.setVisibility(View.GONE);
 			break;
 		}
 	}

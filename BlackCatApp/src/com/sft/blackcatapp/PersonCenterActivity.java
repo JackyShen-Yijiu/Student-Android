@@ -127,9 +127,6 @@ public class PersonCenterActivity extends BaseActivity implements
 
 		RelativeLayout.LayoutParams headpicParam = (LayoutParams) headPicIm
 				.getLayoutParams();
-
-		LogUtil.print("<<<<111111"
-				+ app.userVO.getHeadportrait().getOriginalpic());
 		String url = app.userVO.getHeadportrait().getOriginalpic();
 
 		if (TextUtils.isEmpty(url)) {
@@ -259,8 +256,8 @@ public class PersonCenterActivity extends BaseActivity implements
 		case R.id.person_center_logout_btn:
 			ZProgressHUD.getInstance(this).setMessage("正在退出登录...");
 			ZProgressHUD.getInstance(this).show();
-			LogUtil.print("isLogin--->"+app.isLogin);
-//			EMChatManager.getInstance().logout(null);
+			LogUtil.print("isLogin--->" + app.isLogin);
+			// EMChatManager.getInstance().logout(null);
 			setTag();
 			break;
 		case R.id.person_center_school_tv:
@@ -268,14 +265,15 @@ public class PersonCenterActivity extends BaseActivity implements
 		// 报名详情
 		case R.id.person_center_enroll_detail_tv:
 
-			startActivityForResult(new Intent(PersonCenterActivity.this,MyOrderAct.class),9);
-			
-//			if (applystate < 0) {// 尚未请求，获取数据
-//				isApplyOk();
-//				return;
-//			} else {
-//				doAppResult(applystate + "", paytype);
-//			}
+			startActivityForResult(new Intent(PersonCenterActivity.this,
+					MyOrderAct.class), 9);
+
+			// if (applystate < 0) {// 尚未请求，获取数据
+			// isApplyOk();
+			// return;
+			// } else {
+			// doAppResult(applystate + "", paytype);
+			// }
 
 			break;
 		// 验证报名信息
@@ -465,13 +463,13 @@ public class PersonCenterActivity extends BaseActivity implements
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode,
 			final Intent data) {
-//		Toast("onactivityResult");
+		// Toast("onactivityResult");
 		if (requestCode == 8) {// 验证报名信息，，
 			first = true;
 			isApplyOk();
 		}
-//		LogUtil.print(data+"onActivityResult--personal-center-->"+resultCode);
-		
+		// LogUtil.print(data+"onActivityResult--personal-center-->"+resultCode);
+
 		if (data != null) {
 			if (requestCode == R.id.person_center_carstyle_value_tv) {
 				// 更新
@@ -502,7 +500,7 @@ public class PersonCenterActivity extends BaseActivity implements
 				}
 			};
 		}
-		if(requestCode == 9){//结束当前页面
+		if (requestCode == 9) {// 结束当前页面
 			new MyHandler(200) {
 				@Override
 				public void run() {
@@ -511,7 +509,7 @@ public class PersonCenterActivity extends BaseActivity implements
 				}
 			};
 		}
-		
+
 	}
 
 	private void setTag() {
@@ -527,7 +525,7 @@ public class PersonCenterActivity extends BaseActivity implements
 		@Override
 		public void gotResult(int arg0, String arg1, Set<String> arg2) {
 			Toast("callback");
-			LogUtil.print("MyTagCallback---->"+arg1);
+			LogUtil.print("MyTagCallback---->" + arg1);
 			sum++;
 			if (arg0 != 0 && sum < 5) {
 				setTag();
@@ -541,8 +539,6 @@ public class PersonCenterActivity extends BaseActivity implements
 				startActivity(intent);
 			}
 		}
-		
-		
 
 	}
 }

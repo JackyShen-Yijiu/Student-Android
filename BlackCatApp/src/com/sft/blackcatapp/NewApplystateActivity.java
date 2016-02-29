@@ -217,7 +217,7 @@ public class NewApplystateActivity extends BaseActivity implements
 
 		} else {
 			ZProgressHUD.getInstance(this).show();
-			ZProgressHUD.getInstance(this).dismissWithFailure("评论内容不能为空");
+			ZProgressHUD.getInstance(this).dismissWithFailure("投诉内容不能为空");
 		}
 	}
 
@@ -242,12 +242,11 @@ public class NewApplystateActivity extends BaseActivity implements
 		if (super.doCallBack(type, jsonString)) {
 			return true;
 		}
-		LogUtil.print("2222" + jsonString);
 
 		if (type.equals(complaint)) {
 			if (dataString != null) {
 				ZProgressHUD.getInstance(this).show();
-				ZProgressHUD.getInstance(this).dismissWithSuccess("反馈成功");
+				ZProgressHUD.getInstance(this).dismissWithSuccess("投诉成功");
 				new MyHandler(1000) {
 					@Override
 					public void run() {

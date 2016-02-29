@@ -7,11 +7,13 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.baseactivity.util.MyHandler;
@@ -42,7 +44,7 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 	// 密码输入框
 	private EditText passwordEt;
 	// 确认密码输入框
-	private EditText conpassEt;
+	// private EditText conpassEt;
 	// 邀请码输入框
 	private EditText invitationEt;
 	// 发送验证码按钮
@@ -54,11 +56,13 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 
 	private TextView tv_hint_phone;
 	private TextView tv_hint_code;
-	private TextView tv_hint_paswords;
 	private TextView tv_hint_pasword;
 	private TextView tv_hint_invite;
 	private TextView tv_hint_deal;
 	private CheckBox rb_check;
+	private ImageView delet_phone;
+	private ImageView delet_init;
+	private ImageView show_password;
 
 	// 获取验证码
 	private final static String obtainCode = "obtainCode";
@@ -88,7 +92,7 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 		phoneEt = (EditText) findViewById(R.id.register_phone_et);
 		codeEt = (EditText) findViewById(R.id.register_authcode_et);
 		passwordEt = (EditText) findViewById(R.id.register_password_et);
-		conpassEt = (EditText) findViewById(R.id.register_conpass_et);
+		// conpassEt = (EditText) findViewById(R.id.register_conpass_et);
 		invitationEt = (EditText) findViewById(R.id.register_invitationcode_et);
 		sendCodeBtn = (Button) findViewById(R.id.register_code_btn);
 		registerBtn = (Button) findViewById(R.id.register_register_btn);
@@ -96,9 +100,12 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 		tv_hint_phone = (TextView) findViewById(R.id.tv_hint_phone);
 		tv_hint_code = (TextView) findViewById(R.id.tv_hint_code);
 		tv_hint_pasword = (TextView) findViewById(R.id.tv_hint_pasword);
-		tv_hint_paswords = (TextView) findViewById(R.id.tv_hint_paswords);
 		tv_hint_invite = (TextView) findViewById(R.id.tv_hint_invite);
 		tv_hint_deal = (TextView) findViewById(R.id.tv_hint_deal);
+
+		delet_phone = (ImageView) findViewById(R.id.delet_phone);
+		delet_init = (ImageView) findViewById(R.id.delet_init);
+		show_password = (ImageView) findViewById(R.id.show_password);
 	}
 
 	private void setListener() {
@@ -109,8 +116,12 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 		phoneEt.setOnClickListener(this);
 		codeEt.setOnClickListener(this);
 		passwordEt.setOnClickListener(this);
-		conpassEt.setOnClickListener(this);
+		// conpassEt.setOnClickListener(this);
 		invitationEt.setOnClickListener(this);
+
+		delet_phone.setOnClickListener(this);
+		delet_init.setOnClickListener(this);
+		show_password.setOnClickListener(this);
 	}
 
 	@Override
@@ -123,6 +134,16 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 			finish();
 			break;
 		case R.id.base_right_btn:
+			break;
+		case R.id.delet_phone:
+			phoneEt.setText("");
+			break;
+		case R.id.delet_init:
+			invitationEt.setText("");
+			break;
+		case R.id.show_password:
+			passwordEt
+					.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
 			break;
 		case R.id.register_register_btn:
 			register();
@@ -144,10 +165,10 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 		case R.id.register_password_et:
 			tv_hint_pasword.setVisibility(View.GONE);
 			break;
-		case R.id.register_conpass_et:
-
-			tv_hint_paswords.setVisibility(View.GONE);
-			break;
+		// case R.id.register_conpass_et:
+		//
+		// tv_hint_paswords.setVisibility(View.GONE);
+		// break;
 		case R.id.register_invitationcode_et:
 			tv_hint_deal.setVisibility(View.GONE);
 			break;
@@ -194,10 +215,10 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 		if (TextUtils.isEmpty(password)) {
 			tv_hint_pasword.setVisibility(View.VISIBLE);
 		}
-		String conPass = conpassEt.getText().toString();
-		if (!conPass.equals(password)) {
-			tv_hint_paswords.setVisibility(View.VISIBLE);
-		}
+		// String conPass = conpassEt.getText().toString();
+		// if (!conPass.equals(password)) {
+		// tv_hint_paswords.setVisibility(View.VISIBLE);
+		// }
 		if (rb_check.isChecked() != true) {
 			tv_hint_deal.setVisibility(View.VISIBLE);
 		}

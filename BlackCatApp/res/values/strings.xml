@@ -119,7 +119,14 @@
     <string name="end">结束</string>
     <string name="my_favourite">我的喜欢</string>
     <string name="my_coach">我的教练</string>
+    
     <string name="setting">设置</string>
+    <string name="setting_help">使用帮助</string>
+    <string name="help_guide">使用指南</string>
+    <string name="help_exam">理论考试</string>
+    <string name="help_newcomer">新手上路</string>
+    <string name="help_problem">常见问题</string>
+    
     <string name="enroll_detail">报名详情</string>
     <string name="testing_detail">验证报名信息</string>
     <string name="logout">退出登录</string>
@@ -133,8 +140,8 @@
     <string name="tie_phone">绑定手机</string>
     <string name="change_tie_phone">修改绑定手机</string>
     <string name="new_phonenumber">新手机号</string>
-    <string name="no_favourite_coach">还未添加喜欢的教练</string>
-    <string name="no_favourite_school">还未添加喜欢的驾校</string>
+    <string name="no_favourite_coach">小布还没有找到您喜欢的教练</string>
+    <string name="no_favourite_school">小布还没有找到您喜欢的驾校</string>
     <string name="appointment_tip">预约提醒</string>
     <string name="new_message_tip">新消息提醒</string>
     <string name="about_us">关于我们</string>

@@ -26059,6 +26059,42 @@ com.google.zxing.qrcode.encoder.QRCode: void setNumECBytes(int)
 com.google.zxing.qrcode.encoder.QRCode: void setNumRSBlocks(int)
 com.google.zxing.qrcode.encoder.QRCode: void setMatrix(com.google.zxing.qrcode.encoder.ByteMatrix)
 com.google.zxing.qrcode.encoder.QRCode: boolean isValidMaskPattern(int)
+com.hp.hpl.sparta.DOMException
+com.hp.hpl.sparta.DOMException: short code
+com.hp.hpl.sparta.DOMException: short DOMSTRING_SIZE_ERR
+com.hp.hpl.sparta.DOMException: short HIERARCHY_REQUEST_ERR
+com.hp.hpl.sparta.DOMException: short NOT_FOUND_ERR
+com.hp.hpl.sparta.DOMException: DOMException(short,java.lang.String)
+com.hp.hpl.sparta.EncodingMismatchException
+com.hp.hpl.sparta.EncodingMismatchException: java.lang.String declaredEncoding_
+com.hp.hpl.sparta.EncodingMismatchException: EncodingMismatchException(java.lang.String,java.lang.String,java.lang.String)
+com.hp.hpl.sparta.EncodingMismatchException: java.lang.String getDeclaredEncoding()
+com.hp.hpl.sparta.ParseException
+com.hp.hpl.sparta.ParseException: int lineNumber_
+com.hp.hpl.sparta.ParseException: java.lang.Throwable cause_
+com.hp.hpl.sparta.ParseException: ParseException(java.lang.String)
+com.hp.hpl.sparta.ParseException: ParseException(java.lang.String,java.lang.Throwable)
+com.hp.hpl.sparta.ParseException: ParseException(java.lang.String,int,int,java.lang.String,java.lang.String)
+com.hp.hpl.sparta.ParseException: ParseException(com.hp.hpl.sparta.ParseLog,java.lang.String,int,int,java.lang.String,java.lang.String)
+com.hp.hpl.sparta.ParseException: ParseException(com.hp.hpl.sparta.ParseCharStream,java.lang.String)
+com.hp.hpl.sparta.ParseException: ParseException(com.hp.hpl.sparta.ParseCharStream,char,char)
+com.hp.hpl.sparta.ParseException: ParseException(com.hp.hpl.sparta.ParseCharStream,char,char[])
+com.hp.hpl.sparta.ParseException: ParseException(com.hp.hpl.sparta.ParseCharStream,char,java.lang.String)
+com.hp.hpl.sparta.ParseException: ParseException(com.hp.hpl.sparta.ParseCharStream,java.lang.String,java.lang.String)
+com.hp.hpl.sparta.ParseException: java.lang.String toString(char[])
+com.hp.hpl.sparta.ParseException: ParseException(com.hp.hpl.sparta.ParseCharStream,java.lang.String,char[])
+com.hp.hpl.sparta.ParseException: int getLineNumber()
+com.hp.hpl.sparta.ParseException: java.lang.Throwable getCause()
+com.hp.hpl.sparta.ParseException: java.lang.String toMessage(java.lang.String,int,int,java.lang.String,java.lang.String)
+com.hp.hpl.sparta.ParseException: java.lang.String charRepr(int)
+com.hp.hpl.sparta.xpath.XPathException
+com.hp.hpl.sparta.xpath.XPathException: java.lang.Throwable cause_
+com.hp.hpl.sparta.xpath.XPathException: XPathException(com.hp.hpl.sparta.xpath.XPath,java.lang.String)
+com.hp.hpl.sparta.xpath.XPathException: XPathException(com.hp.hpl.sparta.xpath.XPath,java.lang.String,com.hp.hpl.sparta.xpath.SimpleStreamTokenizer,java.lang.String)
+com.hp.hpl.sparta.xpath.XPathException: XPathException(com.hp.hpl.sparta.xpath.XPath,java.lang.Exception)
+com.hp.hpl.sparta.xpath.XPathException: java.lang.Throwable getCause()
+com.hp.hpl.sparta.xpath.XPathException: java.lang.String toString(com.hp.hpl.sparta.xpath.SimpleStreamTokenizer)
+com.hp.hpl.sparta.xpath.XPathException: java.lang.String tokenToString(com.hp.hpl.sparta.xpath.SimpleStreamTokenizer)
 com.jeremyfeinstein.slidingmenu.lib.CustomViewAbove
 com.jeremyfeinstein.slidingmenu.lib.CustomViewAbove: CustomViewAbove(android.content.Context,android.util.AttributeSet)
 com.jeremyfeinstein.slidingmenu.lib.CustomViewBehind
@@ -26148,8 +26184,8 @@ com.nineoldandroids.view.ViewPropertyAnimatorPreHC$PropertyBundle: boolean cance
 com.sft.adapter.AppointmentCarCoachHoriListAdapter$1: void onClick(android.view.View)
 com.sft.adapter.AppointmentDetailStudentHoriListAdapter$1: void onClick(android.view.View)
 com.sft.adapter.CoachCommentListAdapter$1: void onClick(android.view.View)
-com.sft.adapter.MyAppointmentListAdapter$1: void onClick(android.view.View)
 com.sft.adapter.SchoolDetailCourseFeeAdapter$MyClickListener: void onClick(android.view.View)
+com.sft.adapter.WeekAdapter$1: void onClick(android.view.View)
 com.sft.alipay.ExternalFragment
 com.sft.alipay.ExternalFragment: ExternalFragment()
 com.sft.alipay.H5PayDemoActivity$1: void onClick(android.content.DialogInterface,int)
@@ -26193,13 +26229,15 @@ com.sft.blackcatapp.ApplyActivity
 com.sft.blackcatapp.ApplyActivity: ApplyActivity()
 com.sft.blackcatapp.ApplyActivity: void onClick(android.view.View)
 com.sft.blackcatapp.ApplyActivity: boolean check()
-com.sft.blackcatapp.ApplyActivity$2: void onClick(android.view.View)
 com.sft.blackcatapp.AppointmentCarActivity
 com.sft.blackcatapp.AppointmentCarActivity: AppointmentCarActivity()
 com.sft.blackcatapp.AppointmentCarActivity: void onClick(android.view.View)
 com.sft.blackcatapp.AppointmentDetailActivity
 com.sft.blackcatapp.AppointmentDetailActivity: AppointmentDetailActivity()
 com.sft.blackcatapp.AppointmentDetailActivity: void onClick(android.view.View)
+com.sft.blackcatapp.AppointmentExamActivity
+com.sft.blackcatapp.AppointmentExamActivity: AppointmentExamActivity()
+com.sft.blackcatapp.AppointmentExamActivity: void onClick(android.view.View)
 com.sft.blackcatapp.AppointmentMoreCoachActivity
 com.sft.blackcatapp.AppointmentMoreCoachActivity: AppointmentMoreCoachActivity()
 com.sft.blackcatapp.AppointmentMoreCoachActivity: void onClick(android.view.View)
@@ -26232,6 +26270,7 @@ com.sft.blackcatapp.ChangeSignActivity: void onClick(android.view.View)
 com.sft.blackcatapp.ChatActivity
 com.sft.blackcatapp.ChatActivity: ChatActivity()
 com.sft.blackcatapp.ChatActivity: void onClick(android.view.View)
+com.sft.blackcatapp.ChatActivity: void onEvent(com.easemob.EMNotifierEvent)
 com.sft.blackcatapp.CheckDiscodeAct
 com.sft.blackcatapp.CheckDiscodeAct: CheckDiscodeAct()
 com.sft.blackcatapp.CheckDiscodeAct: void onClick(android.view.View)
@@ -26294,6 +26333,7 @@ com.sft.blackcatapp.EnrollSuccessActivity: void onClick(android.view.View)
 com.sft.blackcatapp.EnrollVerifyActivity
 com.sft.blackcatapp.EnrollVerifyActivity: EnrollVerifyActivity()
 com.sft.blackcatapp.EnrollVerifyActivity: void onClick(android.view.View)
+com.sft.blackcatapp.ExchangeDetailAct: void onClick(android.view.View)
 com.sft.blackcatapp.FavouriteCoachActivity
 com.sft.blackcatapp.FavouriteCoachActivity: FavouriteCoachActivity()
 com.sft.blackcatapp.FavouriteCoachActivity: void onClick(android.view.View)
@@ -26306,6 +26346,9 @@ com.sft.blackcatapp.FindPasswordActivity: void onClick(android.view.View)
 com.sft.blackcatapp.GuideActivity
 com.sft.blackcatapp.GuideActivity: GuideActivity()
 com.sft.blackcatapp.GuideActivity$1: void onClick(android.view.View)
+com.sft.blackcatapp.LearnCarCheatsActivity
+com.sft.blackcatapp.LearnCarCheatsActivity: LearnCarCheatsActivity()
+com.sft.blackcatapp.LearnCarCheatsActivity: void onClick(android.view.View)
 com.sft.blackcatapp.LoginActivity
 com.sft.blackcatapp.LoginActivity: LoginActivity()
 com.sft.blackcatapp.LoginActivity: void onClick(android.view.View)
@@ -26314,7 +26357,8 @@ com.sft.blackcatapp.LoginActivity$3: void onClick(android.content.DialogInterfac
 com.sft.blackcatapp.MainActivity
 com.sft.blackcatapp.MainActivity: MainActivity()
 com.sft.blackcatapp.MainActivity: void onClick(android.view.View)
-com.sft.blackcatapp.MainActivity$1: void onClick(android.view.View)
+com.sft.blackcatapp.MainActivity$2: void onClick(android.view.View)
+com.sft.blackcatapp.MainActivity$3: void onClick(android.view.View)
 com.sft.blackcatapp.MallActivity
 com.sft.blackcatapp.MallActivity: MallActivity()
 com.sft.blackcatapp.MallActivity: void onClick(android.view.View)
@@ -26324,6 +26368,7 @@ com.sft.blackcatapp.MapActivity: void onClick(android.view.View)
 com.sft.blackcatapp.MessageActivity
 com.sft.blackcatapp.MessageActivity: MessageActivity()
 com.sft.blackcatapp.MessageActivity: void onClick(android.view.View)
+com.sft.blackcatapp.MessageActivity: void onEvent(com.easemob.EMNotifierEvent)
 com.sft.blackcatapp.MyAppointmentActivity
 com.sft.blackcatapp.MyAppointmentActivity: MyAppointmentActivity()
 com.sft.blackcatapp.MyAppointmentActivity: void onClick(android.view.View)
@@ -26333,6 +26378,9 @@ com.sft.blackcatapp.MyCoachActivity: void onClick(android.view.View)
 com.sft.blackcatapp.MyFavouriteActiviy
 com.sft.blackcatapp.MyFavouriteActiviy: MyFavouriteActiviy()
 com.sft.blackcatapp.MyFavouriteActiviy: void onClick(android.view.View)
+com.sft.blackcatapp.MyOrderAct
+com.sft.blackcatapp.MyOrderAct: MyOrderAct()
+com.sft.blackcatapp.MyOrderAct: void onClick(android.view.View)
 com.sft.blackcatapp.MyWalletActivity
 com.sft.blackcatapp.MyWalletActivity: MyWalletActivity()
 com.sft.blackcatapp.MyWalletActivity: void onClick(android.view.View)
@@ -26348,8 +26396,22 @@ com.sft.blackcatapp.NewApplystateActivity: void onClick(android.view.View)
 com.sft.blackcatapp.NewCropImageActivity
 com.sft.blackcatapp.NewCropImageActivity: NewCropImageActivity()
 com.sft.blackcatapp.NewCropImageActivity: void onClick(android.view.View)
+com.sft.blackcatapp.NewEditPersonInfo
+com.sft.blackcatapp.NewEditPersonInfo: NewEditPersonInfo()
+com.sft.blackcatapp.NewEditPersonInfo: void onClick(android.view.View)
+com.sft.blackcatapp.OldAppointmentCarActivity: void onClick(android.view.View)
 com.sft.blackcatapp.OldMainActivity
 com.sft.blackcatapp.OldMainActivity: OldMainActivity()
+com.sft.blackcatapp.OldMainActivity: void onClick(android.view.View)
+com.sft.blackcatapp.OldMainActivity$1: void onClick(android.view.View)
+com.sft.blackcatapp.OrderApplyAct
+com.sft.blackcatapp.OrderApplyAct: OrderApplyAct()
+com.sft.blackcatapp.OrderApplyAct: void onClick(android.view.View)
+com.sft.blackcatapp.OrderDetailActivity
+com.sft.blackcatapp.OrderDetailActivity: OrderDetailActivity()
+com.sft.blackcatapp.OrderDetailActivity: void onClick(android.view.View)
+com.sft.blackcatapp.OrderExchangeGoodAct
+com.sft.blackcatapp.OrderExchangeGoodAct: OrderExchangeGoodAct()
 com.sft.blackcatapp.PersonCenterActivity
 com.sft.blackcatapp.PersonCenterActivity: PersonCenterActivity()
 com.sft.blackcatapp.PersonCenterActivity: void onClick(android.view.View)
@@ -26386,6 +26448,9 @@ com.sft.blackcatapp.SearchCoachActivity: void onClick(android.view.View)
 com.sft.blackcatapp.SettingActivity
 com.sft.blackcatapp.SettingActivity: SettingActivity()
 com.sft.blackcatapp.SettingActivity: void onClick(android.view.View)
+com.sft.blackcatapp.SettingHelp
+com.sft.blackcatapp.SettingHelp: SettingHelp()
+com.sft.blackcatapp.SettingHelp: void onClick(android.view.View)
 com.sft.blackcatapp.ShuttleAddressActivity
 com.sft.blackcatapp.ShuttleAddressActivity: ShuttleAddressActivity()
 com.sft.blackcatapp.ShuttleAddressActivity: void onClick(android.view.View)
@@ -26431,6 +26496,18 @@ com.sft.blackcatapp.TodaysAppointmentActivity: TodaysAppointmentActivity()
 com.sft.blackcatapp.TodaysAppointmentActivity: void onClick(android.view.View)
 com.sft.blackcatapp.WBShareActivity
 com.sft.blackcatapp.WBShareActivity: WBShareActivity()
+com.sft.blackcatapp.WalletActivity
+com.sft.blackcatapp.WalletActivity: WalletActivity()
+com.sft.blackcatapp.WalletActivity: void onClick(android.view.View)
+com.sft.blackcatapp.Walletcoupons
+com.sft.blackcatapp.Walletcoupons: Walletcoupons()
+com.sft.blackcatapp.Walletcoupons: void onClick(android.view.View)
+com.sft.blackcatapp.Walletintegral
+com.sft.blackcatapp.Walletintegral: Walletintegral()
+com.sft.blackcatapp.Walletintegral: void onClick(android.view.View)
+com.sft.blackcatapp.Walletmoney
+com.sft.blackcatapp.Walletmoney: Walletmoney()
+com.sft.blackcatapp.Walletmoney: void onClick(android.view.View)
 com.sft.blackcatapp.WebViewActivitys
 com.sft.blackcatapp.WebViewActivitys: WebViewActivitys()
 com.sft.blackcatapp.WebViewActivitys: void onClick(android.view.View)
@@ -26441,8 +26518,35 @@ com.sft.blackcatapp.WelcomeActivity$11: void onClick(android.content.DialogInter
 com.sft.blackcatapp.YiBuIntroduceActivity
 com.sft.blackcatapp.YiBuIntroduceActivity: YiBuIntroduceActivity()
 com.sft.blackcatapp.YiBuIntroduceActivity: void onClick(android.view.View)
+com.sft.blackcatapp.home.view.MainScreenContainer
+com.sft.blackcatapp.home.view.MainScreenContainer: MainScreenContainer(android.content.Context)
+com.sft.blackcatapp.home.view.MainScreenContainer: MainScreenContainer(android.content.Context,android.util.AttributeSet)
+com.sft.blackcatapp.home.view.MainScreenContainer: void onClick(android.view.View)
+com.sft.blackcatapp.home.view.MainScreenTab
+com.sft.blackcatapp.home.view.MainScreenTab: MainScreenTab(android.content.Context)
+com.sft.blackcatapp.home.view.MainScreenTab: MainScreenTab(android.content.Context,android.util.AttributeSet)
 com.sft.blackcatapp.wxapi.WXEntryActivity
 com.sft.blackcatapp.wxapi.WXEntryActivity: WXEntryActivity()
+com.sft.city.Act_City
+com.sft.city.Act_City: Act_City()
+com.sft.city.Act_City: void onClick(android.view.View)
+com.sft.city.Act_City$ListAdapter$1: void onClick(android.view.View)
+com.sft.city.City
+com.sft.city.City: java.lang.String id
+com.sft.city.City: java.lang.String name
+com.sft.city.City: java.lang.String pinyi
+com.sft.city.City: City(java.lang.String,java.lang.String)
+com.sft.city.City: City()
+com.sft.city.City: java.lang.String getName()
+com.sft.city.City: void setName(java.lang.String)
+com.sft.city.City: java.lang.String getPinyi()
+com.sft.city.City: void setPinyi(java.lang.String)
+com.sft.city.MyGridView
+com.sft.city.MyGridView: MyGridView(android.content.Context,android.util.AttributeSet)
+com.sft.city.MyLetterListView
+com.sft.city.MyLetterListView: MyLetterListView(android.content.Context,android.util.AttributeSet,int)
+com.sft.city.MyLetterListView: MyLetterListView(android.content.Context,android.util.AttributeSet)
+com.sft.city.MyLetterListView: MyLetterListView(android.content.Context)
 com.sft.common.BlackCatApplication
 com.sft.common.BlackCatApplication: BlackCatApplication()
 com.sft.common.Config$AppointmentResult
@@ -26541,7 +26645,7 @@ com.sft.dialog.BonusDialog$MyOnClickListener: void onClick(android.view.View)
 com.sft.dialog.CheckApplyDialog: void onClick(android.view.View)
 com.sft.dialog.CustomDialog: void onClick(android.view.View)
 com.sft.dialog.EnrollSelectConfilctDialog: void onClick(android.view.View)
-com.sft.dialog.NoCommentDialog: void onClick(android.view.View)
+com.sft.dialog.NoCommentDialog$clickListener: void onClick(android.view.View)
 com.sft.dialog.NoLoginDialog: void onClick(android.view.View)
 com.sft.domain.InviteMessage$InviteMesageStatus
 com.sft.domain.InviteMessage$InviteMesageStatus: com.sft.domain.InviteMessage$InviteMesageStatus BEINVITEED
@@ -26592,16 +26696,28 @@ com.sft.emchat.ShowNormalFileActivity: ShowNormalFileActivity()
 com.sft.emchat.ShowVideoActivity
 com.sft.emchat.ShowVideoActivity: ShowVideoActivity()
 com.sft.emchat.VoicePlayClickListener: void onClick(android.view.View)
+com.sft.fragment.AppayFragment: void onClick(android.view.View)
+com.sft.fragment.AppointmentFragment: void onClick(android.view.View)
+com.sft.fragment.AppointmentFragment: void onEvent(com.sft.event.AppointmentSuccessEvent)
 com.sft.fragment.CoachsFragment: void onClick(android.view.View)
 com.sft.fragment.CoachsFragment1: void onClick(android.view.View)
+com.sft.fragment.CommunityFragment: void onClick(android.view.View)
 com.sft.fragment.IntroducesFragment: void onClick(android.view.View)
+com.sft.fragment.MallFragment: void onClick(android.view.View)
 com.sft.fragment.MenuFragment: void onClick(android.view.View)
+com.sft.fragment.OldSubjectFourFragment: void onClick(android.view.View)
+com.sft.fragment.OldSubjectOneFragment: void onClick(android.view.View)
+com.sft.fragment.OldSubjectThreeFragment: void onClick(android.view.View)
+com.sft.fragment.OldSubjectTwoFragment: void onClick(android.view.View)
 com.sft.fragment.SchoolsFragment: void onClick(android.view.View)
-com.sft.fragment.SchoolsFragment$7: void onClick(android.view.View)
+com.sft.fragment.SchoolsFragment$6: void onClick(android.view.View)
+com.sft.fragment.StudyFragment: void onClick(android.view.View)
 com.sft.fragment.SubjectFourFragment: void onClick(android.view.View)
 com.sft.fragment.SubjectOneFragment: void onClick(android.view.View)
 com.sft.fragment.SubjectThreeFragment: void onClick(android.view.View)
 com.sft.fragment.SubjectTwoFragment: void onClick(android.view.View)
+com.sft.fragment.WalletFragment: void onClick(android.view.View)
+com.sft.library.DemoHXSDKHelper$1: void onEvent(com.easemob.EMNotifierEvent)
 com.sft.model.DefaultHXSDKModel$Key: com.sft.model.DefaultHXSDKModel$Key VibrateAndPlayToneOn
 com.sft.model.DefaultHXSDKModel$Key: com.sft.model.DefaultHXSDKModel$Key VibrateOn
 com.sft.model.DefaultHXSDKModel$Key: com.sft.model.DefaultHXSDKModel$Key PlayToneOn
@@ -26624,7 +26740,6 @@ com.sft.video.VolumnView: VolumnView(android.content.Context,android.util.Attrib
 com.sft.video.VolumnView: VolumnView(android.content.Context,android.util.AttributeSet)
 com.sft.video.VolumnView: VolumnView(android.content.Context)
 com.sft.view.ApplyClassTypeLayout
-com.sft.view.ApplyClassTypeLayout: ApplyClassTypeLayout(android.content.Context)
 com.sft.view.ApplyClassTypeLayout: ApplyClassTypeLayout(android.content.Context,android.util.AttributeSet,int)
 com.sft.view.ApplyClassTypeLayout: ApplyClassTypeLayout(android.content.Context,android.util.AttributeSet)
 com.sft.view.ApplyClassTypeRowLayout
@@ -26646,9 +26761,25 @@ com.sft.view.NoScrollListView: NoScrollListView(android.content.Context,android.
 com.sft.view.NoScrollListView: NoScrollListView(android.content.Context)
 com.sft.view.NoScrollViewPager
 com.sft.view.NoScrollViewPager: NoScrollViewPager(android.content.Context,android.util.AttributeSet)
+com.sft.view.PagerSlidingTab
+com.sft.view.PagerSlidingTab: PagerSlidingTab(android.content.Context)
+com.sft.view.PagerSlidingTab: PagerSlidingTab(android.content.Context,android.util.AttributeSet)
+com.sft.view.PagerSlidingTab: PagerSlidingTab(android.content.Context,android.util.AttributeSet,int)
+com.sft.view.PagerSlidingTab$2: void onClick(android.view.View)
+com.sft.view.PagerSlidingTab$3: void onClick(android.view.View)
+com.sft.view.PagerSlidingTab$SavedState
+com.sft.view.PagerSlidingTab$SavedState: android.os.Parcelable$Creator CREATOR
 com.sft.view.RefreshLayout
 com.sft.view.RefreshLayout: RefreshLayout(android.content.Context)
 com.sft.view.RefreshLayout: RefreshLayout(android.content.Context,android.util.AttributeSet)
+com.sft.view.WeekColumnView
+com.sft.view.WeekColumnView: WeekColumnView(android.content.Context)
+com.sft.view.WeekColumnView: WeekColumnView(android.content.Context,android.util.AttributeSet)
+com.sft.view.WeekView
+com.sft.view.WeekView: WeekView(android.content.Context,android.util.AttributeSet)
+com.sft.view.WeekViewPager
+com.sft.view.WeekViewPager: WeekViewPager(android.content.Context)
+com.sft.view.WeekViewPager: WeekViewPager(android.content.Context,android.util.AttributeSet)
 com.sft.view.WordWrapView
 com.sft.view.WordWrapView: WordWrapView(android.content.Context)
 com.sft.view.WordWrapView: WordWrapView(android.content.Context,android.util.AttributeSet,int)
@@ -26679,6 +26810,11 @@ com.sft.viewutil.StudyContentLayout
 com.sft.viewutil.StudyContentLayout: StudyContentLayout(android.content.Context)
 com.sft.viewutil.StudyContentLayout: StudyContentLayout(android.content.Context,android.util.AttributeSet)
 com.sft.viewutil.StudyContentLayout: StudyContentLayout(android.content.Context,android.util.AttributeSet,int)
+com.sft.viewutil.StudyItemLayout
+com.sft.viewutil.StudyItemLayout: StudyItemLayout(android.content.Context,android.util.AttributeSet,int,int)
+com.sft.viewutil.StudyItemLayout: StudyItemLayout(android.content.Context,android.util.AttributeSet,int)
+com.sft.viewutil.StudyItemLayout: StudyItemLayout(android.content.Context,android.util.AttributeSet)
+com.sft.viewutil.StudyItemLayout: StudyItemLayout(android.content.Context)
 com.sft.vo.ActivitiesVO
 com.sft.vo.ActivitiesVO: java.lang.String ENROLL_USER_SELECTED
 com.sft.vo.ActivitiesVO: java.lang.String APPOINTMENT_COACH
@@ -26711,13 +26847,13 @@ com.sft.vo.ActivitiesVO: java.lang.String getEnrollUserSelected()
 com.sft.vo.ActivitiesVO: java.lang.String getAppointmentCoach()
 com.sft.vo.AmountInCashVO
 com.sft.vo.AmountInCashVO: long serialVersionUID
-com.sft.vo.AmountInCashVO: int money
+com.sft.vo.AmountInCashVO: java.lang.String money
 com.sft.vo.AmountInCashVO: java.lang.String userid
 com.sft.vo.AmountInCashVO: java.lang.String fcode
 com.sft.vo.AmountInCashVO: java.util.List moneylist
 com.sft.vo.AmountInCashVO: AmountInCashVO()
-com.sft.vo.AmountInCashVO: int getMoney()
-com.sft.vo.AmountInCashVO: void setMoney(int)
+com.sft.vo.AmountInCashVO: java.lang.String getMoney()
+com.sft.vo.AmountInCashVO: void setMoney(java.lang.String)
 com.sft.vo.AmountInCashVO: java.lang.String getUserid()
 com.sft.vo.AmountInCashVO: void setUserid(java.lang.String)
 com.sft.vo.AmountInCashVO: java.lang.String getFcode()
@@ -26725,6 +26861,11 @@ com.sft.vo.AmountInCashVO: void setFcode(java.lang.String)
 com.sft.vo.AmountInCashVO: java.util.List getMoneylist()
 com.sft.vo.AmountInCashVO: void setMoneylist(java.util.List)
 com.sft.vo.AmountInCashVO: long getSerialversionuid()
+com.sft.vo.AppointmentDay
+com.sft.vo.AppointmentDay: int year
+com.sft.vo.AppointmentDay: int month
+com.sft.vo.AppointmentDay: int day
+com.sft.vo.AppointmentDay: AppointmentDay()
 com.sft.vo.CarModelVO
 com.sft.vo.CarModelVO: java.lang.String ENROLL_USER_SELECTED
 com.sft.vo.CarModelVO: long serialVersionUID
@@ -26790,6 +26931,7 @@ com.sft.vo.ClassVO: java.lang.String getCalssid()
 com.sft.vo.ClassVO: void setCalssid(java.lang.String)
 com.sft.vo.ClassVO: com.sft.vo.SchoolVO getSchoolinfo()
 com.sft.vo.ClassVO: void setSchoolinfo(com.sft.vo.SchoolVO)
+com.sft.vo.ClassVO: java.lang.String getName()
 com.sft.vo.ClassVO: java.lang.String getClassname()
 com.sft.vo.ClassVO: void setClassname(java.lang.String)
 com.sft.vo.ClassVO: java.lang.String getBegindate()
@@ -26906,6 +27048,7 @@ com.sft.vo.CoachVO: com.sft.vo.coachvo.WorkTimeSpace worktimespace
 com.sft.vo.CoachVO: java.util.List tagslist
 com.sft.vo.CoachVO: java.util.List serverclasslist
 com.sft.vo.CoachVO: java.lang.String cartype
+com.sft.vo.CoachVO: java.lang.String schoolimage
 com.sft.vo.CoachVO: java.lang.String maxprice
 com.sft.vo.CoachVO: java.lang.String minprice
 com.sft.vo.CoachVO: CoachVO()
@@ -26995,6 +27138,8 @@ com.sft.vo.CoachVO: java.lang.String[] getWorkweek()
 com.sft.vo.CoachVO: void setWorkweek(java.lang.String[])
 com.sft.vo.CoachVO: com.sft.vo.coachvo.WorkTimeSpace getWorktimespace()
 com.sft.vo.CoachVO: void setWorktimespace(com.sft.vo.coachvo.WorkTimeSpace)
+com.sft.vo.CoachVO: java.lang.String getSchoolimage()
+com.sft.vo.CoachVO: void setSchoolimage(java.lang.String)
 com.sft.vo.EnrollVertifyVO
 com.sft.vo.EnrollVertifyVO: long serialVersionUID
 com.sft.vo.EnrollVertifyVO: java.lang.String studentNumber
@@ -27025,6 +27170,29 @@ com.sft.vo.EnrollVertifyVO: java.lang.String getSchoolid()
 com.sft.vo.EnrollVertifyVO: void setSchoolid(java.lang.String)
 com.sft.vo.EnrollVertifyVO: java.lang.String getUserid()
 com.sft.vo.EnrollVertifyVO: void setUserid(java.lang.String)
+com.sft.vo.ExchangeGoodOrderVO
+com.sft.vo.ExchangeGoodOrderVO: java.util.List ordrelist
+com.sft.vo.ExchangeGoodOrderVO: com.sft.vo.UserVO userdata
+com.sft.vo.ExchangeGoodOrderVO: ExchangeGoodOrderVO()
+com.sft.vo.ExchangeOrderItemVO
+com.sft.vo.ExchangeOrderItemVO: java.lang.String orderid
+com.sft.vo.ExchangeOrderItemVO: java.lang.String createtime
+com.sft.vo.ExchangeOrderItemVO: java.lang.String endtime
+com.sft.vo.ExchangeOrderItemVO: java.lang.String orderstate
+com.sft.vo.ExchangeOrderItemVO: java.lang.String receivername
+com.sft.vo.ExchangeOrderItemVO: java.lang.String mobile
+com.sft.vo.ExchangeOrderItemVO: java.lang.String address
+com.sft.vo.ExchangeOrderItemVO: java.lang.String orderscanaduiturl
+com.sft.vo.ExchangeOrderItemVO: boolean is_confirmbyscan
+com.sft.vo.ExchangeOrderItemVO: java.lang.String productid
+com.sft.vo.ExchangeOrderItemVO: java.lang.String productname
+com.sft.vo.ExchangeOrderItemVO: int productprice
+com.sft.vo.ExchangeOrderItemVO: java.lang.String productimg
+com.sft.vo.ExchangeOrderItemVO: java.lang.String merchantid
+com.sft.vo.ExchangeOrderItemVO: java.lang.String merchantname
+com.sft.vo.ExchangeOrderItemVO: java.lang.String merchantmobile
+com.sft.vo.ExchangeOrderItemVO: java.lang.String merchantaddress
+com.sft.vo.ExchangeOrderItemVO: ExchangeOrderItemVO()
 com.sft.vo.HeadLineNewsVO
 com.sft.vo.HeadLineNewsVO: long serialVersionUID
 com.sft.vo.HeadLineNewsVO: java.lang.String newtype
@@ -27067,6 +27235,27 @@ com.sft.vo.IncomeVO: java.lang.String getType()
 com.sft.vo.IncomeVO: void setType(java.lang.String)
 com.sft.vo.IncomeVO: java.lang.String getSeqindex()
 com.sft.vo.IncomeVO: void setSeqindex(java.lang.String)
+com.sft.vo.LearnProgressVO
+com.sft.vo.LearnProgressVO: long serialVersionUID
+com.sft.vo.LearnProgressVO: java.lang.String _id
+com.sft.vo.LearnProgressVO: com.sft.vo.SubjectVO subject
+com.sft.vo.LearnProgressVO: com.sft.vo.SubjectForOneVO subjectone
+com.sft.vo.LearnProgressVO: com.sft.vo.SubjectForOneVO subjectthree
+com.sft.vo.LearnProgressVO: com.sft.vo.SubjectForOneVO subjecttwo
+com.sft.vo.LearnProgressVO: com.sft.vo.SubjectForOneVO subjectfour
+com.sft.vo.LearnProgressVO: LearnProgressVO()
+com.sft.vo.LearnProgressVO: java.lang.String get_id()
+com.sft.vo.LearnProgressVO: void set_id(java.lang.String)
+com.sft.vo.LearnProgressVO: com.sft.vo.SubjectVO getSubject()
+com.sft.vo.LearnProgressVO: void setSubject(com.sft.vo.SubjectVO)
+com.sft.vo.LearnProgressVO: com.sft.vo.SubjectForOneVO getSubjectone()
+com.sft.vo.LearnProgressVO: void setSubjectone(com.sft.vo.SubjectForOneVO)
+com.sft.vo.LearnProgressVO: com.sft.vo.SubjectForOneVO getSubjectthree()
+com.sft.vo.LearnProgressVO: void setSubjectthree(com.sft.vo.SubjectForOneVO)
+com.sft.vo.LearnProgressVO: com.sft.vo.SubjectForOneVO getSubjecttwo()
+com.sft.vo.LearnProgressVO: void setSubjecttwo(com.sft.vo.SubjectForOneVO)
+com.sft.vo.LearnProgressVO: com.sft.vo.SubjectForOneVO getSubjectfour()
+com.sft.vo.LearnProgressVO: void setSubjectfour(com.sft.vo.SubjectForOneVO)
 com.sft.vo.LocationShowTypeVO
 com.sft.vo.LocationShowTypeVO: java.lang.String ENROLL_USER_SELECTED
 com.sft.vo.LocationShowTypeVO: java.lang.String APPOINTMENT_COACH
@@ -27115,6 +27304,7 @@ com.sft.vo.MyAppointmentVO: java.lang.String reservationstate
 com.sft.vo.MyAppointmentVO: com.sft.vo.commonvo.Subject subject
 com.sft.vo.MyAppointmentVO: java.lang.String courseprocessdesc
 com.sft.vo.MyAppointmentVO: java.lang.String classdatetimedesc
+com.sft.vo.MyAppointmentVO: java.lang.String learningcontent
 com.sft.vo.MyAppointmentVO: com.sft.vo.coachvo.TrainFieldlInfo trainfieldlinfo
 com.sft.vo.MyAppointmentVO: MyAppointmentVO()
 com.sft.vo.MyAppointmentVO: java.lang.String getCoursehour()
@@ -27151,6 +27341,8 @@ com.sft.vo.MyAppointmentVO: java.lang.String getClassdatetimedesc()
 com.sft.vo.MyAppointmentVO: void setClassdatetimedesc(java.lang.String)
 com.sft.vo.MyAppointmentVO: com.sft.vo.coachvo.TrainFieldlInfo getTrainfieldlinfo()
 com.sft.vo.MyAppointmentVO: void setTrainfieldlinfo(com.sft.vo.coachvo.TrainFieldlInfo)
+com.sft.vo.MyAppointmentVO: java.lang.String getLearningcontent()
+com.sft.vo.MyAppointmentVO: void setLearningcontent(java.lang.String)
 com.sft.vo.MyCuponVO
 com.sft.vo.MyCuponVO: long serialVersionUID
 com.sft.vo.MyCuponVO: java.lang.String _id
@@ -27207,25 +27399,25 @@ com.sft.vo.OpenCityVO: java.lang.String getId()
 com.sft.vo.OpenCityVO: void setId(java.lang.String)
 com.sft.vo.OpenCityVO: java.lang.String getName()
 com.sft.vo.OpenCityVO: void setName(java.lang.String)
-com.sft.vo.PayOrderClassVO
-com.sft.vo.PayOrderClassVO: java.lang.String onsaleprice
-com.sft.vo.PayOrderClassVO: java.lang.String price
-com.sft.vo.PayOrderClassVO: java.lang.String name
-com.sft.vo.PayOrderClassVO: java.lang.String id
-com.sft.vo.PayOrderClassVO: PayOrderClassVO()
+com.sft.vo.OrderExchangeVO
+com.sft.vo.OrderExchangeVO: java.lang.String orderid
+com.sft.vo.OrderExchangeVO: java.lang.String price
+com.sft.vo.OrderExchangeVO: java.lang.String name
+com.sft.vo.OrderExchangeVO: java.lang.String onsaleprice
+com.sft.vo.OrderExchangeVO: OrderExchangeVO()
 com.sft.vo.PayOrderVO
 com.sft.vo.PayOrderVO: long serialVersionUID
 com.sft.vo.PayOrderVO: java.lang.String _id
 com.sft.vo.PayOrderVO: java.lang.String paymoney
 com.sft.vo.PayOrderVO: java.lang.String payendtime
-com.sft.vo.PayOrderVO: java.lang.String createtime
+com.sft.vo.PayOrderVO: java.lang.String creattime
 com.sft.vo.PayOrderVO: java.lang.String userid
 com.sft.vo.PayOrderVO: java.lang.String __v
 com.sft.vo.PayOrderVO: java.lang.String discountmoney
 com.sft.vo.PayOrderVO: java.lang.String paychannel
 com.sft.vo.PayOrderVO: java.lang.String userpaystate
 com.sft.vo.PayOrderVO: com.sft.vo.SchoolVO applyschoolinfo
-com.sft.vo.PayOrderVO: com.sft.vo.PayOrderClassVO applyclasstypeinfo
+com.sft.vo.PayOrderVO: com.sft.vo.OrderExchangeVO applyclasstypeinfo
 com.sft.vo.PayOrderVO: java.lang.String activitycoupon
 com.sft.vo.PayOrderVO: java.lang.String couponcode
 com.sft.vo.PayOrderVO: PayOrderVO()
@@ -27476,13 +27668,34 @@ com.sft.vo.SchoolVO: java.lang.String getMinprice()
 com.sft.vo.SchoolVO: void setMinprice(java.lang.String)
 com.sft.vo.SchoolVO: java.lang.String getDistance()
 com.sft.vo.SchoolVO: void setDistance(java.lang.String)
+com.sft.vo.SubjectForOneVO
+com.sft.vo.SubjectForOneVO: long serialVersionUID
+com.sft.vo.SubjectForOneVO: int finishcourse
+com.sft.vo.SubjectForOneVO: int missingcourse
+com.sft.vo.SubjectForOneVO: int officialhours
+com.sft.vo.SubjectForOneVO: int reservation
+com.sft.vo.SubjectForOneVO: int totalcourse
+com.sft.vo.SubjectForOneVO: java.lang.String progress
+com.sft.vo.SubjectForOneVO: SubjectForOneVO()
+com.sft.vo.SubjectForOneVO: int getFinishcourse()
+com.sft.vo.SubjectForOneVO: void setFinishcourse(int)
+com.sft.vo.SubjectForOneVO: int getMissingcourse()
+com.sft.vo.SubjectForOneVO: void setMissingcourse(int)
+com.sft.vo.SubjectForOneVO: int getOfficialhours()
+com.sft.vo.SubjectForOneVO: void setOfficialhours(int)
+com.sft.vo.SubjectForOneVO: int getReservation()
+com.sft.vo.SubjectForOneVO: void setReservation(int)
+com.sft.vo.SubjectForOneVO: int getTotalcourse()
+com.sft.vo.SubjectForOneVO: void setTotalcourse(int)
+com.sft.vo.SubjectForOneVO: java.lang.String getProgress()
+com.sft.vo.SubjectForOneVO: void setProgress(java.lang.String)
 com.sft.vo.SubjectVO
 com.sft.vo.SubjectVO: long serialVersionUID
-com.sft.vo.SubjectVO: int subjecyId
+com.sft.vo.SubjectVO: int subjectId
 com.sft.vo.SubjectVO: java.lang.String name
 com.sft.vo.SubjectVO: SubjectVO()
-com.sft.vo.SubjectVO: int getSubjecyId()
-com.sft.vo.SubjectVO: void setSubjecyId(int)
+com.sft.vo.SubjectVO: int getSubjectId()
+com.sft.vo.SubjectVO: void setSubjectId(int)
 com.sft.vo.SubjectVO: java.lang.String getName()
 com.sft.vo.SubjectVO: void setName(java.lang.String)
 com.sft.vo.SuccessVO
@@ -27498,6 +27711,9 @@ com.sft.vo.SuccessVO: java.lang.String applytime
 com.sft.vo.SuccessVO: com.sft.vo.SuccessVO$applyclasstypeinfo applyclasstypeinfo
 com.sft.vo.SuccessVO: com.sft.vo.SuccessVO$Applyschoolinfo applyschoolinfo
 com.sft.vo.SuccessVO: com.sft.vo.SuccessVO$Applycoachinfo applycoachinfo
+com.sft.vo.SuccessVO: java.lang.String paytype
+com.sft.vo.SuccessVO: int paytypestatus
+com.sft.vo.SuccessVO: java.lang.String schoollogoimg
 com.sft.vo.SuccessVO: com.sft.vo.SuccessVO$Carmodel carmodel
 com.sft.vo.SuccessVO: SuccessVO()
 com.sft.vo.SuccessVO$Applycoachinfo
@@ -27520,6 +27736,7 @@ com.sft.vo.SuccessVO$applyclasstypeinfo
 com.sft.vo.SuccessVO$applyclasstypeinfo: java.lang.String id
 com.sft.vo.SuccessVO$applyclasstypeinfo: java.lang.String name
 com.sft.vo.SuccessVO$applyclasstypeinfo: java.lang.String price
+com.sft.vo.SuccessVO$applyclasstypeinfo: java.lang.String onsaleprice
 com.sft.vo.SuccessVO$applyclasstypeinfo: com.sft.vo.SuccessVO this$0
 com.sft.vo.SuccessVO$applyclasstypeinfo: SuccessVO$applyclasstypeinfo(com.sft.vo.SuccessVO)
 com.sft.vo.TagsList
@@ -27542,6 +27759,7 @@ com.sft.vo.UserBaseStateVO: long serialVersionUID
 com.sft.vo.UserBaseStateVO: java.lang.String _id
 com.sft.vo.UserBaseStateVO: java.lang.String applystate
 com.sft.vo.UserBaseStateVO: com.sft.vo.basestatevo.ApplyInfoVO applyinfo
+com.sft.vo.UserBaseStateVO: java.lang.String paytype
 com.sft.vo.UserBaseStateVO: UserBaseStateVO()
 com.sft.vo.UserBaseStateVO: java.lang.String get_id()
 com.sft.vo.UserBaseStateVO: void set_id(java.lang.String)
@@ -27554,7 +27772,7 @@ com.sft.vo.UserVO: long serialVersionUID
 com.sft.vo.UserVO: java.lang.String mobile
 com.sft.vo.UserVO: java.lang.String name
 com.sft.vo.UserVO: java.lang.String nickname
-com.sft.vo.UserVO: java.lang.String createtime
+com.sft.vo.UserVO: java.lang.String creattime
 com.sft.vo.UserVO: java.lang.String email
 com.sft.vo.UserVO: com.sft.vo.commonvo.HeadPortrait headportrait
 com.sft.vo.UserVO: com.sft.vo.commonvo.CarModel carmodel
@@ -27580,6 +27798,7 @@ com.sft.vo.UserVO: com.sft.vo.uservo.StudentSubject subjecttwo
 com.sft.vo.UserVO: com.sft.vo.uservo.StudentSubject subjectthree
 com.sft.vo.UserVO: com.sft.vo.uservo.UserSettingVO usersetting
 com.sft.vo.UserVO: java.util.List vipserverlist
+com.sft.vo.UserVO: com.sft.vo.PayOrderVO payOrderVO
 com.sft.vo.UserVO: UserVO()
 com.sft.vo.UserVO: void setHeadPortrait(com.sft.vo.commonvo.HeadPortrait)
 com.sft.vo.UserVO: com.sft.vo.commonvo.HeadPortrait getHeadportrait()
@@ -27639,6 +27858,8 @@ com.sft.vo.UserVO: com.sft.vo.uservo.UserSettingVO getUsersetting()
 com.sft.vo.UserVO: void setUsersetting(com.sft.vo.uservo.UserSettingVO)
 com.sft.vo.UserVO: java.util.List getVipserverlist()
 com.sft.vo.UserVO: void setVipserverlist(java.util.List)
+com.sft.vo.UserVO: com.sft.vo.PayOrderVO getPayOrderVO()
+com.sft.vo.UserVO: void setPayOrderVO(com.sft.vo.PayOrderVO)
 com.sft.vo.VersionVO
 com.sft.vo.VersionVO: long serialVersionUID
 com.sft.vo.VersionVO: java.lang.String versionCode
@@ -27708,6 +27929,8 @@ com.sft.vo.coachvo.TrainFieldlInfo: java.lang.String fieldname
 com.sft.vo.coachvo.TrainFieldlInfo: java.lang.String _id
 com.sft.vo.coachvo.TrainFieldlInfo: java.lang.String phone
 com.sft.vo.coachvo.TrainFieldlInfo: java.lang.String[] pictures
+com.sft.vo.coachvo.TrainFieldlInfo: java.lang.String id
+com.sft.vo.coachvo.TrainFieldlInfo: java.lang.String name
 com.sft.vo.coachvo.TrainFieldlInfo: TrainFieldlInfo()
 com.sft.vo.coachvo.TrainFieldlInfo: java.lang.String getFieldname()
 com.sft.vo.coachvo.TrainFieldlInfo: void setFieldname(java.lang.String)
@@ -27717,6 +27940,10 @@ com.sft.vo.coachvo.TrainFieldlInfo: java.lang.String getPhone()
 com.sft.vo.coachvo.TrainFieldlInfo: void setPhone(java.lang.String)
 com.sft.vo.coachvo.TrainFieldlInfo: java.lang.String[] getPictures()
 com.sft.vo.coachvo.TrainFieldlInfo: void setPictures(java.lang.String[])
+com.sft.vo.coachvo.TrainFieldlInfo: java.lang.String getId()
+com.sft.vo.coachvo.TrainFieldlInfo: void setId(java.lang.String)
+com.sft.vo.coachvo.TrainFieldlInfo: java.lang.String getName()
+com.sft.vo.coachvo.TrainFieldlInfo: void setName(java.lang.String)
 com.sft.vo.coachvo.WorkTimeSpace
 com.sft.vo.coachvo.WorkTimeSpace: long serialVersionUID
 com.sft.vo.coachvo.WorkTimeSpace: java.lang.String endtimeint
@@ -27864,6 +28091,8 @@ com.sft.vo.uservo.StudentSubject: java.lang.String getProgress()
 com.sft.vo.uservo.StudentSubject: void setProgress(java.lang.String)
 com.sft.vo.uservo.StudentSubject: java.lang.String getReservationid()
 com.sft.vo.uservo.StudentSubject: void setReservationid(java.lang.String)
+com.sft.vo.uservo.StudentSubject: int getMissingcourse()
+com.sft.vo.uservo.StudentSubject: void setMissingcourse(int)
 com.sft.vo.uservo.UserSettingVO
 com.sft.vo.uservo.UserSettingVO: long serialVersionUID
 com.sft.vo.uservo.UserSettingVO: java.lang.String reservationreminder
@@ -27891,6 +28120,30 @@ com.sft.vo.uservo.VipServerListVO: java.lang.String get_id()
 com.sft.vo.uservo.VipServerListVO: void set_id(java.lang.String)
 com.sft.vo.uservo.VipServerListVO: java.lang.String getCoclor()
 com.sft.vo.uservo.VipServerListVO: void setCoclor(java.lang.String)
+com.sft.vo.walletvo.IntegralVO
+com.sft.vo.walletvo.IntegralVO: long serialVersionUID
+com.sft.vo.walletvo.IntegralVO: java.lang.String wallet
+com.sft.vo.walletvo.IntegralVO: java.util.List list
+com.sft.vo.walletvo.IntegralVO: IntegralVO()
+com.sft.vo.walletvo.IntegralVO: java.lang.String getWallet()
+com.sft.vo.walletvo.IntegralVO: void setWallet(java.lang.String)
+com.sft.vo.walletvo.IntegralVO: java.util.List getList()
+com.sft.vo.walletvo.IntegralVO: void setList(java.util.List)
+com.sft.vo.walletvo.Integrallist
+com.sft.vo.walletvo.Integrallist: long serialVersionUID
+com.sft.vo.walletvo.Integrallist: java.lang.String amount
+com.sft.vo.walletvo.Integrallist: java.lang.String createtime
+com.sft.vo.walletvo.Integrallist: java.lang.String seqindex
+com.sft.vo.walletvo.Integrallist: java.lang.String type
+com.sft.vo.walletvo.Integrallist: Integrallist()
+com.sft.vo.walletvo.Integrallist: java.lang.String getAmount()
+com.sft.vo.walletvo.Integrallist: void setAmount(java.lang.String)
+com.sft.vo.walletvo.Integrallist: java.lang.String getCreatetime()
+com.sft.vo.walletvo.Integrallist: void setCreatetime(java.lang.String)
+com.sft.vo.walletvo.Integrallist: java.lang.String getSeqindex()
+com.sft.vo.walletvo.Integrallist: void setSeqindex(java.lang.String)
+com.sft.vo.walletvo.Integrallist: java.lang.String getType()
+com.sft.vo.walletvo.Integrallist: void setType(java.lang.String)
 com.sina.sso.RemoteSSO
 com.sina.sso.RemoteSSO: java.lang.String getPackageName()
 com.sina.sso.RemoteSSO: java.lang.String getActivityName()
@@ -36212,6 +36465,328 @@ com.umeng.socialize.utils.ShareBoardlistener
 com.umeng.socialize.view.UMFriendListener
 com.umeng.socialize.view.b: void onClick(android.view.View)
 com.umeng.socialize.weixin.view.WXCallbackActivity: WXCallbackActivity()
+de.greenrobot.event.AsyncPoster
+de.greenrobot.event.AsyncPoster: de.greenrobot.event.PendingPostQueue queue
+de.greenrobot.event.AsyncPoster: de.greenrobot.event.EventBus eventBus
+de.greenrobot.event.AsyncPoster: AsyncPoster(de.greenrobot.event.EventBus)
+de.greenrobot.event.AsyncPoster: void enqueue(de.greenrobot.event.Subscription,java.lang.Object)
+de.greenrobot.event.AsyncPoster: void run()
+de.greenrobot.event.BackgroundPoster
+de.greenrobot.event.BackgroundPoster: de.greenrobot.event.PendingPostQueue queue
+de.greenrobot.event.BackgroundPoster: de.greenrobot.event.EventBus eventBus
+de.greenrobot.event.BackgroundPoster: boolean executorRunning
+de.greenrobot.event.BackgroundPoster: BackgroundPoster(de.greenrobot.event.EventBus)
+de.greenrobot.event.BackgroundPoster: void enqueue(de.greenrobot.event.Subscription,java.lang.Object)
+de.greenrobot.event.BackgroundPoster: void run()
+de.greenrobot.event.EventBus
+de.greenrobot.event.EventBus: java.lang.String TAG
+de.greenrobot.event.EventBus: de.greenrobot.event.EventBus defaultInstance
+de.greenrobot.event.EventBus: de.greenrobot.event.EventBusBuilder DEFAULT_BUILDER
+de.greenrobot.event.EventBus: java.util.Map eventTypesCache
+de.greenrobot.event.EventBus: java.util.Map subscriptionsByEventType
+de.greenrobot.event.EventBus: java.util.Map typesBySubscriber
+de.greenrobot.event.EventBus: java.util.Map stickyEvents
+de.greenrobot.event.EventBus: java.lang.ThreadLocal currentPostingThreadState
+de.greenrobot.event.EventBus: de.greenrobot.event.HandlerPoster mainThreadPoster
+de.greenrobot.event.EventBus: de.greenrobot.event.BackgroundPoster backgroundPoster
+de.greenrobot.event.EventBus: de.greenrobot.event.AsyncPoster asyncPoster
+de.greenrobot.event.EventBus: de.greenrobot.event.SubscriberMethodFinder subscriberMethodFinder
+de.greenrobot.event.EventBus: java.util.concurrent.ExecutorService executorService
+de.greenrobot.event.EventBus: boolean throwSubscriberException
+de.greenrobot.event.EventBus: boolean logSubscriberExceptions
+de.greenrobot.event.EventBus: boolean logNoSubscriberMessages
+de.greenrobot.event.EventBus: boolean sendSubscriberExceptionEvent
+de.greenrobot.event.EventBus: boolean sendNoSubscriberEvent
+de.greenrobot.event.EventBus: boolean eventInheritance
+de.greenrobot.event.EventBus: de.greenrobot.event.EventBus getDefault()
+de.greenrobot.event.EventBus: de.greenrobot.event.EventBusBuilder builder()
+de.greenrobot.event.EventBus: void clearCaches()
+de.greenrobot.event.EventBus: EventBus()
+de.greenrobot.event.EventBus: EventBus(de.greenrobot.event.EventBusBuilder)
+de.greenrobot.event.EventBus: void register(java.lang.Object)
+de.greenrobot.event.EventBus: void register(java.lang.Object,int)
+de.greenrobot.event.EventBus: void registerSticky(java.lang.Object)
+de.greenrobot.event.EventBus: void registerSticky(java.lang.Object,int)
+de.greenrobot.event.EventBus: void register(java.lang.Object,boolean,int)
+de.greenrobot.event.EventBus: void subscribe(java.lang.Object,de.greenrobot.event.SubscriberMethod,boolean,int)
+de.greenrobot.event.EventBus: boolean isRegistered(java.lang.Object)
+de.greenrobot.event.EventBus: void unubscribeByEventType(java.lang.Object,java.lang.Class)
+de.greenrobot.event.EventBus: void unregister(java.lang.Object)
+de.greenrobot.event.EventBus: void post(java.lang.Object)
+de.greenrobot.event.EventBus: void cancelEventDelivery(java.lang.Object)
+de.greenrobot.event.EventBus: void postSticky(java.lang.Object)
+de.greenrobot.event.EventBus: java.lang.Object getStickyEvent(java.lang.Class)
+de.greenrobot.event.EventBus: java.lang.Object removeStickyEvent(java.lang.Class)
+de.greenrobot.event.EventBus: boolean removeStickyEvent(java.lang.Object)
+de.greenrobot.event.EventBus: void removeAllStickyEvents()
+de.greenrobot.event.EventBus: boolean hasSubscriberForEvent(java.lang.Class)
+de.greenrobot.event.EventBus: void postSingleEvent(java.lang.Object,de.greenrobot.event.EventBus$PostingThreadState)
+de.greenrobot.event.EventBus: boolean postSingleEventForEventType(java.lang.Object,de.greenrobot.event.EventBus$PostingThreadState,java.lang.Class)
+de.greenrobot.event.EventBus: void postToSubscription(de.greenrobot.event.Subscription,java.lang.Object,boolean)
+de.greenrobot.event.EventBus: java.util.List lookupAllEventTypes(java.lang.Class)
+de.greenrobot.event.EventBus: void addInterfaces(java.util.List,java.lang.Class[])
+de.greenrobot.event.EventBus: void invokeSubscriber(de.greenrobot.event.PendingPost)
+de.greenrobot.event.EventBus: void invokeSubscriber(de.greenrobot.event.Subscription,java.lang.Object)
+de.greenrobot.event.EventBus: void handleSubscriberException(de.greenrobot.event.Subscription,java.lang.Object,java.lang.Throwable)
+de.greenrobot.event.EventBus: java.util.concurrent.ExecutorService getExecutorService()
+de.greenrobot.event.EventBus: void <clinit>()
+de.greenrobot.event.EventBus$1
+de.greenrobot.event.EventBus$1: de.greenrobot.event.EventBus this$0
+de.greenrobot.event.EventBus$1: EventBus$1(de.greenrobot.event.EventBus)
+de.greenrobot.event.EventBus$1: de.greenrobot.event.EventBus$PostingThreadState initialValue()
+de.greenrobot.event.EventBus$1: java.lang.Object initialValue()
+de.greenrobot.event.EventBus$2
+de.greenrobot.event.EventBus$2: int[] $SwitchMap$de$greenrobot$event$ThreadMode
+de.greenrobot.event.EventBus$2: void <clinit>()
+de.greenrobot.event.EventBus$PostCallback
+de.greenrobot.event.EventBus$PostCallback: void onPostCompleted(java.util.List)
+de.greenrobot.event.EventBus$PostingThreadState
+de.greenrobot.event.EventBus$PostingThreadState: java.util.List eventQueue
+de.greenrobot.event.EventBus$PostingThreadState: boolean isPosting
+de.greenrobot.event.EventBus$PostingThreadState: boolean isMainThread
+de.greenrobot.event.EventBus$PostingThreadState: de.greenrobot.event.Subscription subscription
+de.greenrobot.event.EventBus$PostingThreadState: java.lang.Object event
+de.greenrobot.event.EventBus$PostingThreadState: boolean canceled
+de.greenrobot.event.EventBus$PostingThreadState: EventBus$PostingThreadState()
+de.greenrobot.event.EventBusBuilder
+de.greenrobot.event.EventBusBuilder: java.util.concurrent.ExecutorService DEFAULT_EXECUTOR_SERVICE
+de.greenrobot.event.EventBusBuilder: boolean logSubscriberExceptions
+de.greenrobot.event.EventBusBuilder: boolean logNoSubscriberMessages
+de.greenrobot.event.EventBusBuilder: boolean sendSubscriberExceptionEvent
+de.greenrobot.event.EventBusBuilder: boolean sendNoSubscriberEvent
+de.greenrobot.event.EventBusBuilder: boolean throwSubscriberException
+de.greenrobot.event.EventBusBuilder: boolean eventInheritance
+de.greenrobot.event.EventBusBuilder: java.util.concurrent.ExecutorService executorService
+de.greenrobot.event.EventBusBuilder: java.util.List skipMethodVerificationForClasses
+de.greenrobot.event.EventBusBuilder: EventBusBuilder()
+de.greenrobot.event.EventBusBuilder: de.greenrobot.event.EventBusBuilder logSubscriberExceptions(boolean)
+de.greenrobot.event.EventBusBuilder: de.greenrobot.event.EventBusBuilder logNoSubscriberMessages(boolean)
+de.greenrobot.event.EventBusBuilder: de.greenrobot.event.EventBusBuilder sendSubscriberExceptionEvent(boolean)
+de.greenrobot.event.EventBusBuilder: de.greenrobot.event.EventBusBuilder sendNoSubscriberEvent(boolean)
+de.greenrobot.event.EventBusBuilder: de.greenrobot.event.EventBusBuilder throwSubscriberException(boolean)
+de.greenrobot.event.EventBusBuilder: de.greenrobot.event.EventBusBuilder eventInheritance(boolean)
+de.greenrobot.event.EventBusBuilder: de.greenrobot.event.EventBusBuilder executorService(java.util.concurrent.ExecutorService)
+de.greenrobot.event.EventBusBuilder: de.greenrobot.event.EventBusBuilder skipMethodVerificationFor(java.lang.Class)
+de.greenrobot.event.EventBusBuilder: de.greenrobot.event.EventBus installDefaultEventBus()
+de.greenrobot.event.EventBusBuilder: de.greenrobot.event.EventBus build()
+de.greenrobot.event.EventBusBuilder: void <clinit>()
+de.greenrobot.event.EventBusException
+de.greenrobot.event.EventBusException: long serialVersionUID
+de.greenrobot.event.EventBusException: EventBusException(java.lang.String)
+de.greenrobot.event.EventBusException: EventBusException(java.lang.Throwable)
+de.greenrobot.event.EventBusException: EventBusException(java.lang.String,java.lang.Throwable)
+de.greenrobot.event.HandlerPoster
+de.greenrobot.event.HandlerPoster: de.greenrobot.event.PendingPostQueue queue
+de.greenrobot.event.HandlerPoster: int maxMillisInsideHandleMessage
+de.greenrobot.event.HandlerPoster: de.greenrobot.event.EventBus eventBus
+de.greenrobot.event.HandlerPoster: boolean handlerActive
+de.greenrobot.event.HandlerPoster: HandlerPoster(de.greenrobot.event.EventBus,android.os.Looper,int)
+de.greenrobot.event.HandlerPoster: void enqueue(de.greenrobot.event.Subscription,java.lang.Object)
+de.greenrobot.event.HandlerPoster: void handleMessage(android.os.Message)
+de.greenrobot.event.NoSubscriberEvent
+de.greenrobot.event.NoSubscriberEvent: de.greenrobot.event.EventBus eventBus
+de.greenrobot.event.NoSubscriberEvent: java.lang.Object originalEvent
+de.greenrobot.event.NoSubscriberEvent: NoSubscriberEvent(de.greenrobot.event.EventBus,java.lang.Object)
+de.greenrobot.event.PendingPost
+de.greenrobot.event.PendingPost: java.util.List pendingPostPool
+de.greenrobot.event.PendingPost: java.lang.Object event
+de.greenrobot.event.PendingPost: de.greenrobot.event.Subscription subscription
+de.greenrobot.event.PendingPost: de.greenrobot.event.PendingPost next
+de.greenrobot.event.PendingPost: PendingPost(java.lang.Object,de.greenrobot.event.Subscription)
+de.greenrobot.event.PendingPost: de.greenrobot.event.PendingPost obtainPendingPost(de.greenrobot.event.Subscription,java.lang.Object)
+de.greenrobot.event.PendingPost: void releasePendingPost(de.greenrobot.event.PendingPost)
+de.greenrobot.event.PendingPost: void <clinit>()
+de.greenrobot.event.PendingPostQueue
+de.greenrobot.event.PendingPostQueue: de.greenrobot.event.PendingPost head
+de.greenrobot.event.PendingPostQueue: de.greenrobot.event.PendingPost tail
+de.greenrobot.event.PendingPostQueue: PendingPostQueue()
+de.greenrobot.event.PendingPostQueue: void enqueue(de.greenrobot.event.PendingPost)
+de.greenrobot.event.PendingPostQueue: de.greenrobot.event.PendingPost poll()
+de.greenrobot.event.PendingPostQueue: de.greenrobot.event.PendingPost poll(int)
+de.greenrobot.event.SubscriberExceptionEvent
+de.greenrobot.event.SubscriberExceptionEvent: de.greenrobot.event.EventBus eventBus
+de.greenrobot.event.SubscriberExceptionEvent: java.lang.Throwable throwable
+de.greenrobot.event.SubscriberExceptionEvent: java.lang.Object causingEvent
+de.greenrobot.event.SubscriberExceptionEvent: java.lang.Object causingSubscriber
+de.greenrobot.event.SubscriberExceptionEvent: SubscriberExceptionEvent(de.greenrobot.event.EventBus,java.lang.Throwable,java.lang.Object,java.lang.Object)
+de.greenrobot.event.SubscriberMethod
+de.greenrobot.event.SubscriberMethod: java.lang.reflect.Method method
+de.greenrobot.event.SubscriberMethod: de.greenrobot.event.ThreadMode threadMode
+de.greenrobot.event.SubscriberMethod: java.lang.Class eventType
+de.greenrobot.event.SubscriberMethod: java.lang.String methodString
+de.greenrobot.event.SubscriberMethod: SubscriberMethod(java.lang.reflect.Method,de.greenrobot.event.ThreadMode,java.lang.Class)
+de.greenrobot.event.SubscriberMethod: boolean equals(java.lang.Object)
+de.greenrobot.event.SubscriberMethod: void checkMethodString()
+de.greenrobot.event.SubscriberMethod: int hashCode()
+de.greenrobot.event.SubscriberMethodFinder
+de.greenrobot.event.SubscriberMethodFinder: java.lang.String ON_EVENT_METHOD_NAME
+de.greenrobot.event.SubscriberMethodFinder: int BRIDGE
+de.greenrobot.event.SubscriberMethodFinder: int SYNTHETIC
+de.greenrobot.event.SubscriberMethodFinder: int MODIFIERS_IGNORE
+de.greenrobot.event.SubscriberMethodFinder: java.util.Map methodCache
+de.greenrobot.event.SubscriberMethodFinder: java.util.Map skipMethodVerificationForClasses
+de.greenrobot.event.SubscriberMethodFinder: SubscriberMethodFinder(java.util.List)
+de.greenrobot.event.SubscriberMethodFinder: java.util.List findSubscriberMethods(java.lang.Class)
+de.greenrobot.event.SubscriberMethodFinder: void clearCaches()
+de.greenrobot.event.SubscriberMethodFinder: void <clinit>()
+de.greenrobot.event.Subscription
+de.greenrobot.event.Subscription: java.lang.Object subscriber
+de.greenrobot.event.Subscription: de.greenrobot.event.SubscriberMethod subscriberMethod
+de.greenrobot.event.Subscription: int priority
+de.greenrobot.event.Subscription: boolean active
+de.greenrobot.event.Subscription: Subscription(java.lang.Object,de.greenrobot.event.SubscriberMethod,int)
+de.greenrobot.event.Subscription: boolean equals(java.lang.Object)
+de.greenrobot.event.Subscription: int hashCode()
+de.greenrobot.event.ThreadMode
+de.greenrobot.event.ThreadMode: de.greenrobot.event.ThreadMode PostThread
+de.greenrobot.event.ThreadMode: de.greenrobot.event.ThreadMode MainThread
+de.greenrobot.event.ThreadMode: de.greenrobot.event.ThreadMode BackgroundThread
+de.greenrobot.event.ThreadMode: de.greenrobot.event.ThreadMode Async
+de.greenrobot.event.ThreadMode: de.greenrobot.event.ThreadMode[] $VALUES
+de.greenrobot.event.ThreadMode: de.greenrobot.event.ThreadMode[] values()
+de.greenrobot.event.ThreadMode: de.greenrobot.event.ThreadMode valueOf(java.lang.String)
+de.greenrobot.event.ThreadMode: ThreadMode(java.lang.String,int)
+de.greenrobot.event.ThreadMode: void <clinit>()
+de.greenrobot.event.util.AsyncExecutor
+de.greenrobot.event.util.AsyncExecutor: java.util.concurrent.Executor threadPool
+de.greenrobot.event.util.AsyncExecutor: java.lang.reflect.Constructor failureEventConstructor
+de.greenrobot.event.util.AsyncExecutor: de.greenrobot.event.EventBus eventBus
+de.greenrobot.event.util.AsyncExecutor: java.lang.Object scope
+de.greenrobot.event.util.AsyncExecutor: de.greenrobot.event.util.AsyncExecutor$Builder builder()
+de.greenrobot.event.util.AsyncExecutor: de.greenrobot.event.util.AsyncExecutor create()
+de.greenrobot.event.util.AsyncExecutor: AsyncExecutor(java.util.concurrent.Executor,de.greenrobot.event.EventBus,java.lang.Class,java.lang.Object)
+de.greenrobot.event.util.AsyncExecutor: void execute(de.greenrobot.event.util.AsyncExecutor$RunnableEx)
+de.greenrobot.event.util.AsyncExecutor: AsyncExecutor(java.util.concurrent.Executor,de.greenrobot.event.EventBus,java.lang.Class,java.lang.Object,de.greenrobot.event.util.AsyncExecutor$1)
+de.greenrobot.event.util.AsyncExecutor: java.lang.reflect.Constructor access$200(de.greenrobot.event.util.AsyncExecutor)
+de.greenrobot.event.util.AsyncExecutor: java.lang.Object access$300(de.greenrobot.event.util.AsyncExecutor)
+de.greenrobot.event.util.AsyncExecutor: de.greenrobot.event.EventBus access$400(de.greenrobot.event.util.AsyncExecutor)
+de.greenrobot.event.util.AsyncExecutor$1
+de.greenrobot.event.util.AsyncExecutor$1: de.greenrobot.event.util.AsyncExecutor$RunnableEx val$runnable
+de.greenrobot.event.util.AsyncExecutor$1: de.greenrobot.event.util.AsyncExecutor this$0
+de.greenrobot.event.util.AsyncExecutor$1: AsyncExecutor$1(de.greenrobot.event.util.AsyncExecutor,de.greenrobot.event.util.AsyncExecutor$RunnableEx)
+de.greenrobot.event.util.AsyncExecutor$1: void run()
+de.greenrobot.event.util.AsyncExecutor$Builder
+de.greenrobot.event.util.AsyncExecutor$Builder: java.util.concurrent.Executor threadPool
+de.greenrobot.event.util.AsyncExecutor$Builder: java.lang.Class failureEventType
+de.greenrobot.event.util.AsyncExecutor$Builder: de.greenrobot.event.EventBus eventBus
+de.greenrobot.event.util.AsyncExecutor$Builder: AsyncExecutor$Builder()
+de.greenrobot.event.util.AsyncExecutor$Builder: de.greenrobot.event.util.AsyncExecutor$Builder threadPool(java.util.concurrent.Executor)
+de.greenrobot.event.util.AsyncExecutor$Builder: de.greenrobot.event.util.AsyncExecutor$Builder failureEventType(java.lang.Class)
+de.greenrobot.event.util.AsyncExecutor$Builder: de.greenrobot.event.util.AsyncExecutor$Builder eventBus(de.greenrobot.event.EventBus)
+de.greenrobot.event.util.AsyncExecutor$Builder: de.greenrobot.event.util.AsyncExecutor build()
+de.greenrobot.event.util.AsyncExecutor$Builder: de.greenrobot.event.util.AsyncExecutor buildForActivityScope(android.app.Activity)
+de.greenrobot.event.util.AsyncExecutor$Builder: de.greenrobot.event.util.AsyncExecutor buildForScope(java.lang.Object)
+de.greenrobot.event.util.AsyncExecutor$Builder: AsyncExecutor$Builder(de.greenrobot.event.util.AsyncExecutor$1)
+de.greenrobot.event.util.AsyncExecutor$RunnableEx
+de.greenrobot.event.util.AsyncExecutor$RunnableEx: void run()
+de.greenrobot.event.util.ErrorDialogConfig
+de.greenrobot.event.util.ErrorDialogConfig: android.content.res.Resources resources
+de.greenrobot.event.util.ErrorDialogConfig: int defaultTitleId
+de.greenrobot.event.util.ErrorDialogConfig: int defaultErrorMsgId
+de.greenrobot.event.util.ErrorDialogConfig: de.greenrobot.event.util.ExceptionToResourceMapping mapping
+de.greenrobot.event.util.ErrorDialogConfig: de.greenrobot.event.EventBus eventBus
+de.greenrobot.event.util.ErrorDialogConfig: boolean logExceptions
+de.greenrobot.event.util.ErrorDialogConfig: java.lang.String tagForLoggingExceptions
+de.greenrobot.event.util.ErrorDialogConfig: int defaultDialogIconId
+de.greenrobot.event.util.ErrorDialogConfig: java.lang.Class defaultEventTypeOnDialogClosed
+de.greenrobot.event.util.ErrorDialogConfig: ErrorDialogConfig(android.content.res.Resources,int,int)
+de.greenrobot.event.util.ErrorDialogConfig: de.greenrobot.event.util.ErrorDialogConfig addMapping(java.lang.Class,int)
+de.greenrobot.event.util.ErrorDialogConfig: int getMessageIdForThrowable(java.lang.Throwable)
+de.greenrobot.event.util.ErrorDialogConfig: void setDefaultDialogIconId(int)
+de.greenrobot.event.util.ErrorDialogConfig: void setDefaultEventTypeOnDialogClosed(java.lang.Class)
+de.greenrobot.event.util.ErrorDialogConfig: void disableExceptionLogging()
+de.greenrobot.event.util.ErrorDialogConfig: void setTagForLoggingExceptions(java.lang.String)
+de.greenrobot.event.util.ErrorDialogConfig: void setEventBus(de.greenrobot.event.EventBus)
+de.greenrobot.event.util.ErrorDialogConfig: de.greenrobot.event.EventBus getEventBus()
+de.greenrobot.event.util.ErrorDialogFragmentFactory
+de.greenrobot.event.util.ErrorDialogFragmentFactory: de.greenrobot.event.util.ErrorDialogConfig config
+de.greenrobot.event.util.ErrorDialogFragmentFactory: ErrorDialogFragmentFactory(de.greenrobot.event.util.ErrorDialogConfig)
+de.greenrobot.event.util.ErrorDialogFragmentFactory: java.lang.Object prepareErrorFragment(de.greenrobot.event.util.ThrowableFailureEvent,boolean,android.os.Bundle)
+de.greenrobot.event.util.ErrorDialogFragmentFactory: java.lang.Object createErrorFragment(de.greenrobot.event.util.ThrowableFailureEvent,android.os.Bundle)
+de.greenrobot.event.util.ErrorDialogFragmentFactory: java.lang.String getTitleFor(de.greenrobot.event.util.ThrowableFailureEvent,android.os.Bundle)
+de.greenrobot.event.util.ErrorDialogFragmentFactory: java.lang.String getMessageFor(de.greenrobot.event.util.ThrowableFailureEvent,android.os.Bundle)
+de.greenrobot.event.util.ErrorDialogFragmentFactory$Honeycomb
+de.greenrobot.event.util.ErrorDialogFragmentFactory$Honeycomb: ErrorDialogFragmentFactory$Honeycomb(de.greenrobot.event.util.ErrorDialogConfig)
+de.greenrobot.event.util.ErrorDialogFragmentFactory$Honeycomb: android.app.Fragment createErrorFragment(de.greenrobot.event.util.ThrowableFailureEvent,android.os.Bundle)
+de.greenrobot.event.util.ErrorDialogFragmentFactory$Honeycomb: java.lang.Object createErrorFragment(de.greenrobot.event.util.ThrowableFailureEvent,android.os.Bundle)
+de.greenrobot.event.util.ErrorDialogFragmentFactory$Support
+de.greenrobot.event.util.ErrorDialogFragmentFactory$Support: ErrorDialogFragmentFactory$Support(de.greenrobot.event.util.ErrorDialogConfig)
+de.greenrobot.event.util.ErrorDialogFragmentFactory$Support: android.support.v4.app.Fragment createErrorFragment(de.greenrobot.event.util.ThrowableFailureEvent,android.os.Bundle)
+de.greenrobot.event.util.ErrorDialogFragmentFactory$Support: java.lang.Object createErrorFragment(de.greenrobot.event.util.ThrowableFailureEvent,android.os.Bundle)
+de.greenrobot.event.util.ErrorDialogFragments
+de.greenrobot.event.util.ErrorDialogFragments: int ERROR_DIALOG_ICON
+de.greenrobot.event.util.ErrorDialogFragments: java.lang.Class EVENT_TYPE_ON_CLICK
+de.greenrobot.event.util.ErrorDialogFragments: ErrorDialogFragments()
+de.greenrobot.event.util.ErrorDialogFragments: android.app.Dialog createDialog(android.content.Context,android.os.Bundle,android.content.DialogInterface$OnClickListener)
+de.greenrobot.event.util.ErrorDialogFragments: void handleOnClick(android.content.DialogInterface,int,android.app.Activity,android.os.Bundle)
+de.greenrobot.event.util.ErrorDialogFragments: void <clinit>()
+de.greenrobot.event.util.ErrorDialogFragments$Honeycomb
+de.greenrobot.event.util.ErrorDialogFragments$Honeycomb: ErrorDialogFragments$Honeycomb()
+de.greenrobot.event.util.ErrorDialogFragments$Honeycomb: android.app.Dialog onCreateDialog(android.os.Bundle)
+de.greenrobot.event.util.ErrorDialogFragments$Honeycomb: void onClick(android.content.DialogInterface,int)
+de.greenrobot.event.util.ErrorDialogFragments$Support
+de.greenrobot.event.util.ErrorDialogFragments$Support: ErrorDialogFragments$Support()
+de.greenrobot.event.util.ErrorDialogFragments$Support: android.app.Dialog onCreateDialog(android.os.Bundle)
+de.greenrobot.event.util.ErrorDialogFragments$Support: void onClick(android.content.DialogInterface,int)
+de.greenrobot.event.util.ErrorDialogManager
+de.greenrobot.event.util.ErrorDialogManager: de.greenrobot.event.util.ErrorDialogFragmentFactory factory
+de.greenrobot.event.util.ErrorDialogManager: java.lang.String TAG_ERROR_DIALOG
+de.greenrobot.event.util.ErrorDialogManager: java.lang.String TAG_ERROR_DIALOG_MANAGER
+de.greenrobot.event.util.ErrorDialogManager: java.lang.String KEY_TITLE
+de.greenrobot.event.util.ErrorDialogManager: java.lang.String KEY_MESSAGE
+de.greenrobot.event.util.ErrorDialogManager: java.lang.String KEY_FINISH_AFTER_DIALOG
+de.greenrobot.event.util.ErrorDialogManager: java.lang.String KEY_ICON_ID
+de.greenrobot.event.util.ErrorDialogManager: java.lang.String KEY_EVENT_TYPE_ON_CLOSE
+de.greenrobot.event.util.ErrorDialogManager: ErrorDialogManager()
+de.greenrobot.event.util.ErrorDialogManager: void attachTo(android.app.Activity)
+de.greenrobot.event.util.ErrorDialogManager: void attachTo(android.app.Activity,boolean)
+de.greenrobot.event.util.ErrorDialogManager: void attachTo(android.app.Activity,boolean,android.os.Bundle)
+de.greenrobot.event.util.ErrorDialogManager: void attachTo(android.app.Activity,java.lang.Object,boolean,android.os.Bundle)
+de.greenrobot.event.util.ErrorDialogManager: boolean isSupportActivity(android.app.Activity)
+de.greenrobot.event.util.ErrorDialogManager: void checkLogException(de.greenrobot.event.util.ThrowableFailureEvent)
+de.greenrobot.event.util.ErrorDialogManager: boolean isInExecutionScope(java.lang.Object,de.greenrobot.event.util.ThrowableFailureEvent)
+de.greenrobot.event.util.ErrorDialogManager: boolean access$000(java.lang.Object,de.greenrobot.event.util.ThrowableFailureEvent)
+de.greenrobot.event.util.ErrorDialogManager$HoneycombManagerFragment
+de.greenrobot.event.util.ErrorDialogManager$HoneycombManagerFragment: boolean finishAfterDialog
+de.greenrobot.event.util.ErrorDialogManager$HoneycombManagerFragment: android.os.Bundle argumentsForErrorDialog
+de.greenrobot.event.util.ErrorDialogManager$HoneycombManagerFragment: de.greenrobot.event.EventBus eventBus
+de.greenrobot.event.util.ErrorDialogManager$HoneycombManagerFragment: java.lang.Object executionScope
+de.greenrobot.event.util.ErrorDialogManager$HoneycombManagerFragment: ErrorDialogManager$HoneycombManagerFragment()
+de.greenrobot.event.util.ErrorDialogManager$HoneycombManagerFragment: void onResume()
+de.greenrobot.event.util.ErrorDialogManager$HoneycombManagerFragment: void onPause()
+de.greenrobot.event.util.ErrorDialogManager$HoneycombManagerFragment: void onEventMainThread(de.greenrobot.event.util.ThrowableFailureEvent)
+de.greenrobot.event.util.ErrorDialogManager$HoneycombManagerFragment: void attachTo(android.app.Activity,java.lang.Object,boolean,android.os.Bundle)
+de.greenrobot.event.util.ErrorDialogManager$SupportManagerFragment
+de.greenrobot.event.util.ErrorDialogManager$SupportManagerFragment: boolean finishAfterDialog
+de.greenrobot.event.util.ErrorDialogManager$SupportManagerFragment: android.os.Bundle argumentsForErrorDialog
+de.greenrobot.event.util.ErrorDialogManager$SupportManagerFragment: de.greenrobot.event.EventBus eventBus
+de.greenrobot.event.util.ErrorDialogManager$SupportManagerFragment: boolean skipRegisterOnNextResume
+de.greenrobot.event.util.ErrorDialogManager$SupportManagerFragment: java.lang.Object executionScope
+de.greenrobot.event.util.ErrorDialogManager$SupportManagerFragment: ErrorDialogManager$SupportManagerFragment()
+de.greenrobot.event.util.ErrorDialogManager$SupportManagerFragment: void onCreate(android.os.Bundle)
+de.greenrobot.event.util.ErrorDialogManager$SupportManagerFragment: void onResume()
+de.greenrobot.event.util.ErrorDialogManager$SupportManagerFragment: void onPause()
+de.greenrobot.event.util.ErrorDialogManager$SupportManagerFragment: void onEventMainThread(de.greenrobot.event.util.ThrowableFailureEvent)
+de.greenrobot.event.util.ErrorDialogManager$SupportManagerFragment: void attachTo(android.app.Activity,java.lang.Object,boolean,android.os.Bundle)
+de.greenrobot.event.util.ExceptionToResourceMapping
+de.greenrobot.event.util.ExceptionToResourceMapping: java.util.Map throwableToMsgIdMap
+de.greenrobot.event.util.ExceptionToResourceMapping: ExceptionToResourceMapping()
+de.greenrobot.event.util.ExceptionToResourceMapping: java.lang.Integer mapThrowable(java.lang.Throwable)
+de.greenrobot.event.util.ExceptionToResourceMapping: java.lang.Integer mapThrowableFlat(java.lang.Throwable)
+de.greenrobot.event.util.ExceptionToResourceMapping: de.greenrobot.event.util.ExceptionToResourceMapping addMapping(java.lang.Class,int)
+de.greenrobot.event.util.HasExecutionScope
+de.greenrobot.event.util.HasExecutionScope: java.lang.Object getExecutionScope()
+de.greenrobot.event.util.HasExecutionScope: void setExecutionScope(java.lang.Object)
+de.greenrobot.event.util.ThrowableFailureEvent
+de.greenrobot.event.util.ThrowableFailureEvent: java.lang.Throwable throwable
+de.greenrobot.event.util.ThrowableFailureEvent: boolean suppressErrorUi
+de.greenrobot.event.util.ThrowableFailureEvent: java.lang.Object executionContext
+de.greenrobot.event.util.ThrowableFailureEvent: ThrowableFailureEvent(java.lang.Throwable)
+de.greenrobot.event.util.ThrowableFailureEvent: ThrowableFailureEvent(java.lang.Throwable,boolean)
+de.greenrobot.event.util.ThrowableFailureEvent: java.lang.Throwable getThrowable()
+de.greenrobot.event.util.ThrowableFailureEvent: boolean isSuppressErrorUi()
+de.greenrobot.event.util.ThrowableFailureEvent: java.lang.Object getExecutionScope()
+de.greenrobot.event.util.ThrowableFailureEvent: void setExecutionScope(java.lang.Object)
 internal.org.apache.http.entity.mime.HttpMultipartMode
 internal.org.apache.http.entity.mime.HttpMultipartMode: internal.org.apache.http.entity.mime.HttpMultipartMode STRICT
 internal.org.apache.http.entity.mime.HttpMultipartMode: internal.org.apache.http.entity.mime.HttpMultipartMode BROWSER_COMPATIBLE
@@ -36251,6 +36826,9 @@ me.maxwin.view.XListViewFooter
 me.maxwin.view.XListViewFooter: XListViewFooter(android.content.Context,android.util.AttributeSet)
 me.maxwin.view.XListViewHeader
 me.maxwin.view.XListViewHeader: XListViewHeader(android.content.Context,android.util.AttributeSet)
+net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination
+net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination: long serialVersionUID
+net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination: BadHanyuPinyinOutputFormatCombination(java.lang.String)
 org.apache.harmony.javax.security.auth.AuthPermission
 org.apache.harmony.javax.security.auth.AuthPermission: long serialVersionUID
 org.apache.harmony.javax.security.auth.AuthPermission: java.lang.String CREATE_LOGIN_CONTEXT

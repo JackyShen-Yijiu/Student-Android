@@ -3,7 +3,6 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#fff" >
-
     <me.maxwin.view.XListView
         android:id="@+id/select_coach_distance_listview"
         android:layout_width="match_parent"
@@ -16,13 +15,15 @@
         android:fadingEdge="none"
         android:listSelector="@android:color/transparent"
         android:overScrollMode="always"
-        android:scrollbars="none" />
+        android:scrollbars="none" /> 
 
-    <RelativeLayout
+    
+   <RelativeLayout
         android:id="@+id/select_coach_distance_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone" >
+        android:visibility="gone"
+         >
 
         <ImageView
             android:id="@+id/select_coach_distance_devider_im"
@@ -31,14 +32,14 @@
             android:background="@android:color/transparent"
             android:contentDescription="@string/app_name" />
 
-        <ImageView
-            android:id="@+id/select_coach_distance_no_im"
-            android:layout_width="110dp"
-            android:layout_height="110dp"
-            android:layout_below="@+id/select_coach_distance_devider_im"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/no_favourite" />
-
+    <ImageView 
+        android:id="@+id/select_coach_distance_no_im"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/select_coach_distance_devider_im"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/app_error_robot"
+        />
         <TextView
             android:id="@+id/select_coach_distance_no_tv"
             android:layout_width="wrap_content"
@@ -47,8 +48,8 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="19dp"
             android:text="@string/nocoach"
-            android:textColor="#333333"
-            android:textSize="16dp" />
-    </RelativeLayout>
+            android:textColor="@color/left_gray"
+            android:textSize="14sp" />
+    </RelativeLayout> 
 
 </RelativeLayout>
