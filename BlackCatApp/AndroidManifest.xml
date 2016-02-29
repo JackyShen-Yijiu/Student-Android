@@ -575,6 +575,7 @@
 
 
         <!-- 设置环信应用的appkey black-cat#yibuxuecheprod black-cat#yibuxuechetest -->
+        <!-- black-cat#jizhijaifu -->
         <meta-data
             android:name="EASEMOB_APPKEY"
             android:value="black-cat#yibuxuecheprod" />
