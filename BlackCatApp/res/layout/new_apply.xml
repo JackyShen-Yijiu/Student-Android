@@ -516,12 +516,11 @@
 
         <Button
             android:id="@+id/enroll_commit_btn"
-            android:layout_width="88dp"
-            android:layout_height="37dp"
+           
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="14dp"
-            android:background="@color/new_app_main_color"
+            style="@style/btn_style_red"
             android:text="下一步"
             android:textColor="@color/white"
             android:textSize="@dimen/txt_size_large" />

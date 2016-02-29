@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+    
 
     <LinearLayout
         android:id="@+id/item_order_top_ll"
@@ -95,20 +96,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
-         <Button
+         <TextView
              android:id="@+id/item_order_button1"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:layout_alignParentRight="true"
              android:layout_alignParentTop="true"
+             android:padding="5dp"
+             android:layout_marginRight="9dp"
+             android:layout_marginLeft="5dp"
+             android:textColor="@color/new_app_main_color"
+             android:background="@drawable/shape_red_outline"
+             android:clickable="true"
              android:text="Button" />
 
-         <Button
+         <TextView
              android:id="@+id/item_order_button2"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:layout_alignParentTop="true"
              android:layout_toLeftOf="@+id/item_order_button1"
+             android:padding="5dp"
+             android:textColor="@color/txt_999"
+             android:background="@drawable/shape_gray_outline"
+             android:clickable="true"
              android:focusable="false"
              android:text="Button2" />
         

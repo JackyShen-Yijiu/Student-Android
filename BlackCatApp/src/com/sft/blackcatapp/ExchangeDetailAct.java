@@ -38,15 +38,18 @@ public class ExchangeDetailAct extends BaseActivity{
 		ExchangeOrderItemVO item = (ExchangeOrderItemVO) getIntent().getSerializableExtra("bean");
 //		int po = getIntent().getIntExtra("po", 0);
 //		ExchangeOrderItemVO item = bean.ordrelist.get(po);
-		tvGoodName.setText(item.productname);
-		tvJifen.setText(item.productprice);
-		tvExpress.setText("未知");
-		tvAddress.setText(item.merchantaddress);
-		tvReceiver.setText(item.receivername);
-		tvPhone.setText(item.mobile);
-		tvTime.setText(item.createtime);
-		tvType.setText("积分兑换？");
-		tvMoney.setText(item.productprice+"YB");
+		if(item!=null){
+			tvGoodName.setText(item.productname);
+			tvJifen.setText("￥"+item.productprice+"YB");
+			tvExpress.setText("未知");
+			tvAddress.setText(item.merchantaddress);
+			tvReceiver.setText(item.receivername);
+			tvPhone.setText(item.mobile);
+			tvTime.setText(item.createtime);
+			tvType.setText("积分兑换？");
+			tvMoney.setText(item.productprice+"YB");
+		}
+		
 	}
 
 	@Override

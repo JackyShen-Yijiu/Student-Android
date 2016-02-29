@@ -85,5 +85,5 @@
     
       <!-- 支付 金额 橘黄色 -->
       <color name="orange_pay">#ff7445</color>
-    
+    <color name="btn_gray">#e3e3e3</color>
 </resources>

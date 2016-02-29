@@ -97,6 +97,7 @@ public class MyOrderAct extends BaseActivity{
 		}
 		switch (v.getId()) {
 		case R.id.base_left_btn:
+			setResult(1);
 			finish();
 			break;
 		case R.id.base_right_btn:

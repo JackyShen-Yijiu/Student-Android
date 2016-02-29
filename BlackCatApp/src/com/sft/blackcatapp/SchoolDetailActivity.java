@@ -195,7 +195,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 	@Override
 	protected void onResume() {
 		register(getClass().getName());
-		LogUtil.print("state——--》"+app.userVO.getApplystate());
+//		LogUtil.print("state——--》"+app.userVO);
 //		app.userVO.
 		if (app.userVO == null
 				|| app.userVO.getApplystate().equals(
@@ -567,6 +567,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 					obtainHeadLineNews();
 					setData();
 					obtainEnrollClass();
+					
 				}
 			} else if (type.equals(coach)) {
 				if (dataArray != null) {

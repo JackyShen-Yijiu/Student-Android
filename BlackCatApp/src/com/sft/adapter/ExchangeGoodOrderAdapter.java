@@ -1,12 +1,18 @@
 package com.sft.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import cn.sft.infinitescrollviewpager.BitmapManager;
 
 import com.sft.blackcatapp.R;
 import com.sft.vo.ExchangeGoodOrderVO;
@@ -20,9 +26,9 @@ public class ExchangeGoodOrderAdapter extends BaseAdapter{
 
 	private ExchangeGoodOrderVO bean;
 	
-	private Context c;
+	private Activity c;
 	
-	public ExchangeGoodOrderAdapter(Context context,ExchangeGoodOrderVO bean){
+	public ExchangeGoodOrderAdapter(Activity context,ExchangeGoodOrderVO bean){
 		this.bean = bean;
 		c = context;
 	}
@@ -50,6 +56,7 @@ public class ExchangeGoodOrderAdapter extends BaseAdapter{
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder = null;
+//		LinearLayout.LayoutParams headParams = null;
 		if (convertView == null) {
 			convertView = View.inflate(c,R.layout.item_order, null);
 			holder = new ViewHolder();
@@ -60,9 +67,12 @@ public class ExchangeGoodOrderAdapter extends BaseAdapter{
 			holder.right10 = (TextView) convertView.findViewById(R.id.item_order_right10);
 			holder.right11 = (TextView) convertView.findViewById(R.id.item_order_right11);
 			holder.right2 = (TextView) convertView.findViewById(R.id.item_order_right2);
-			holder.btn2 = (Button) convertView.findViewById(R.id.item_order_button1);
+			holder.btn2 = (TextView) convertView.findViewById(R.id.item_order_button1);
+			holder.btn2.setText("再次兑换");
+//			holder.btn2.setVisibility(View.GONE);
 			convertView.findViewById(R.id.item_order_button2).setVisibility(View.GONE);
 			holder.right11.setText("实付金额:");
+			
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -77,6 +87,24 @@ public class ExchangeGoodOrderAdapter extends BaseAdapter{
 		}else{
 			holder.right2.setText("兑换失败");
 		}
+		
+
+		if (TextUtils.isEmpty(b.productimg)) {
+			holder.img.setBackgroundResource(R.drawable.default_small_pic);
+		} else {
+			LinearLayout.LayoutParams  headParams = (LinearLayout.LayoutParams) holder.img
+					.getLayoutParams();
+			BitmapManager.INSTANCE.loadBitmap2(b.productimg, holder.img,
+					headParams.width, headParams.height);
+		}
+		holder.btn2.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				c.setResult(9);
+				c.finish();
+			}
+		});
 		return convertView;
 	}
 
@@ -88,7 +116,7 @@ public class ExchangeGoodOrderAdapter extends BaseAdapter{
 		public TextView right10;
 		public TextView right11;
 		public TextView right2;
-		public Button btn2;
+		public TextView btn2;
 		
 	}
 	

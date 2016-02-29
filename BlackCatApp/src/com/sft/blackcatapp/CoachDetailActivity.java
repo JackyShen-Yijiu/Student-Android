@@ -143,7 +143,7 @@ public class CoachDetailActivity extends BaseActivity implements
 //	private WordWrapView personLabel;
 
 	// 课程费用
-	private ListView courseFeeListView;
+	private XListView courseFeeListView;
 	private SchoolDetailCourseFeeAdapter courseFeeAdapter;
 
 	private String schoolId = "";
@@ -161,6 +161,8 @@ public class CoachDetailActivity extends BaseActivity implements
 	private View viewTop;
 	private View viewTopStatic;
 	private View titleLayout;
+	
+	private TextView tvNoTrain;
 	
 
 	@Override
@@ -275,9 +277,11 @@ public class CoachDetailActivity extends BaseActivity implements
 		trainPicLayout = (LinearLayout) findViewById(R.id.coach_detail_train_pic_ll);
 //		personLabel = (WordWrapView) findViewById(R.id.coach_detail_personality_labels);
 //		personLabel.showColor(true);
-		courseFeeListView = (ListView) findViewById(R.id.coach_detail_classes_listview);
+		courseFeeListView = (XListView) findViewById(R.id.coach_detail_classes_listview);
 		courseFeeListView.setFocusable(false);
 		tagTv = (TextView) findViewById(R.id.coach_detail_tag_tv);
+		
+		tvNoTrain = (TextView) findViewById(R.id.coach_detail_nopic_tv);
 		
 		// 如果是预约时更多教练放入教练详情，此处不显示
 //		courseFeeIm = (ImageView) findViewById(R.id.caoch_detail_course_fee_im);
@@ -382,6 +386,7 @@ public class CoachDetailActivity extends BaseActivity implements
 					.getLayoutParams();
 
 			String url = coachVO.getHeadportrait().getOriginalpic();
+			LogUtil.print("headIcon-->"+url);
 			if (TextUtils.isEmpty(url)) {
 				coachHeadPicIm
 						.setBackgroundResource(R.drawable.default_small_pic);
@@ -439,18 +444,23 @@ public class CoachDetailActivity extends BaseActivity implements
 			// 动态添加训练场地的图片
 			String[] trainPicStrings = coachVO.getTrainfieldlinfo()
 					.getPictures();
-			for (int i = 0; i < trainPicStrings.length; i++) {
-				ImageView imageView = new ImageView(this);
-				LayoutParams params = (LayoutParams) imageView
-						.getLayoutParams();
-				imageView.setScaleType(ScaleType.CENTER_CROP);
-				if (i != 0) {
-					params.leftMargin = dp2px(15);
+			if(trainPicStrings.length>0){
+				for (int i = 0; i < trainPicStrings.length; i++) {
+					ImageView imageView = new ImageView(this);
+					LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+					imageView.setScaleType(ScaleType.CENTER_CROP);
+					if (i != 0) {
+						params.leftMargin = dp2px(15);
+					}
+					BitmapManager.INSTANCE.loadBitmap2(trainPicStrings[i],
+							imageView, dp2px(90), dp2px(60));
+					trainPicLayout.addView(imageView, params);
 				}
-				BitmapManager.INSTANCE.loadBitmap2(trainPicStrings[i],
-						imageView, dp2px(90), dp2px(60));
-				trainPicLayout.addView(imageView, params);
+				tvNoTrain.setVisibility(View.GONE);
+			}else{
+				tvNoTrain.setVisibility(View.VISIBLE);
 			}
+			
 			// 设置课程费用
 			if (coachVO.getServerclasslist() != null) {
 
@@ -458,8 +468,15 @@ public class CoachDetailActivity extends BaseActivity implements
 						coachVO.getServerclasslist(), this, mListener,
 						enrollState);
 				courseFeeListView.setAdapter(courseFeeAdapter);
+				courseFeeListView.setVisibility(View.VISIBLE);
+				commentList.setVisibility(View.GONE);
+				setListViewHeightBasedOnChildren(courseFeeListView);
+				LogUtil.print("setdata-->>课程费用-->"+coachVO.getServerclasslist().size()+"评论--->"+courseFeeAdapter.getCount());
+			}else{
+				noCommentTv.setText("暂无课程");
+				noCommentTv.setVisibility(View.GONE);
 			}
-			LogUtil.print("setdata-->>introduction-->"+coachVO.getIntroduction());
+			
 			if(null == coachVO.getIntroduction()){
 				// 设置个人说明信息
 				selfEvaluationTv.setText("这个教练很懒，什么也没留下");
@@ -786,7 +803,7 @@ public class CoachDetailActivity extends BaseActivity implements
 					if (length > 0) {
 						commentPage++;
 						try {
-							commentList.setVisibility(View.VISIBLE);
+//							commentList.setVisibility(View.VISIBLE);
 							noCommentTv.setVisibility(View.GONE);
 							// 动态设置高度
 							RelativeLayout.LayoutParams listParams = (RelativeLayout.LayoutParams) commentList
@@ -953,6 +970,8 @@ public class CoachDetailActivity extends BaseActivity implements
 		switch(checkedId){
 		case R.id.coach_detail_course_fee_rb:
 		case R.id.coach_detail_course_fee_rb_top://课程费用
+			courseFeeListView.setVisibility(View.VISIBLE);
+			commentList.setVisibility(View.GONE);
 			rbCourse.setChecked(true);
 			rbCourseTop.setChecked(true);
 //			Toast("onChecket"+coachVO.getServerclasslist());
@@ -973,6 +992,9 @@ public class CoachDetailActivity extends BaseActivity implements
 			break;
 		case R.id.coach_detail_coach_info_rb:
 		case R.id.coach_detail_coach_info_rb_top://评论
+			Toast("评论--->"+courseFeeListView.getVisibility());
+			courseFeeListView.setVisibility(View.GONE);
+			commentList.setVisibility(View.VISIBLE);
 			rbComment.setChecked(true);
 			rbCommentTop.setChecked(true);
 			if(commentVoList!=null){

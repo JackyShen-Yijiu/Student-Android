@@ -11,7 +11,7 @@
         android:layout_height="40dp"
         android:layout_marginLeft="20dip"
         android:gravity="center_vertical"
-        android:text="当前定位城市"
+        android:text="定位城市"
         android:textColor="@color/txt_999"
         android:textSize="@dimen/txt_size_ss" />
 
@@ -27,17 +27,15 @@
 
      <TextView
         android:id="@+id/lng_city"
-        android:layout_width="80dp"
-        android:layout_height="40dp"
         android:layout_below="@+id/locateHint"
         android:layout_marginLeft="20dip"
         android:clickable="true"
         android:focusable="false"
         android:gravity="center"
         android:text="武汉"
-        android:background="@color/new_app_main_color"
+        style="@style/btn_style_red"
         android:textColor="#ffffff"
-        android:textSize="16sp" />
+        android:textSize="@dimen/txt_size_middle" />
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"

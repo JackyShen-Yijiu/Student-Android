@@ -419,8 +419,8 @@ public class PersonCenterActivity extends BaseActivity implements
 																// 20支付成功(等待验证)
 																// 30 支付失败
 				paytype = data.getInt("paytype");// 1 线下支付， 2 线上支付
-
-				app.userVO.setApplystate(applystate + "");
+				if (app.userVO != null)
+					app.userVO.setApplystate(applystate + "");
 				if (!first)
 					doAppResult(applystate + "", paytype);
 				first = false;
@@ -468,8 +468,6 @@ public class PersonCenterActivity extends BaseActivity implements
 			first = true;
 			isApplyOk();
 		}
-		// LogUtil.print(data+"onActivityResult--personal-center-->"+resultCode);
-
 		if (data != null) {
 			if (requestCode == R.id.person_center_carstyle_value_tv) {
 				// 更新
@@ -500,7 +498,7 @@ public class PersonCenterActivity extends BaseActivity implements
 				}
 			};
 		}
-		if (requestCode == 9) {// 结束当前页面
+		if (requestCode == 9 && resultCode == 0) {// 结束当前页面
 			new MyHandler(200) {
 				@Override
 				public void run() {

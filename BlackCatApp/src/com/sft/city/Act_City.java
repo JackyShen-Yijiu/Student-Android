@@ -51,6 +51,7 @@ import com.sft.blackcatapp.BaseActivity;
 import com.sft.blackcatapp.R;
 import com.sft.city.MyLetterListView.OnTouchingLetterChangedListener;
 import com.sft.common.Config;
+import com.sft.util.CommonUtil;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
 
@@ -148,10 +149,10 @@ public class Act_City extends BaseActivity implements OnScrollListener {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				if (position >= 2) {
-
-					Toast.makeText(getApplicationContext(),
-							allCity_lists.get(position).getName(),
-							Toast.LENGTH_SHORT).show();
+					clickBack(allCity_lists.get(position));
+//					Toast.makeText(getApplicationContext(),
+//							allCity_lists.get(position).getName(),
+//							Toast.LENGTH_SHORT).show();
 				}
 			}
 		});
@@ -246,27 +247,27 @@ public class Act_City extends BaseActivity implements OnScrollListener {
 	 * ���ų���
 	 */
 	public void hotCityInit() {
-		City city = new City("�Ϻ�", "2");
+		City city = new City("暂无", "2");
 		city_hot.add(city);
-		city = new City("����", "2");
-		city_hot.add(city);
-		city = new City("����", "2");
-		city_hot.add(city);
-		city = new City("����", "2");
-		city_hot.add(city);
-		city = new City("�人", "2");
-		city_hot.add(city);
-		city = new City("���", "2");
-		city_hot.add(city);
-		city = new City("����", "2");
-		city_hot.add(city);
-		city = new City("�Ͼ�", "2");
-		city_hot.add(city);
-		city = new City("����", "2");
-		city_hot.add(city);
-		city = new City("�ɶ�", "2");
-		city_hot.add(city);
-		city = new City("����", "2");
+//		city = new City("����", "2");
+//		city_hot.add(city);
+//		city = new City("����", "2");
+//		city_hot.add(city);
+//		city = new City("����", "2");
+//		city_hot.add(city);
+//		city = new City("�人", "2");
+//		city_hot.add(city);
+//		city = new City("���", "2");
+//		city_hot.add(city);
+//		city = new City("����", "2");
+//		city_hot.add(city);
+//		city = new City("�Ͼ�", "2");
+//		city_hot.add(city);
+//		city = new City("����", "2");
+//		city_hot.add(city);
+//		city = new City("�ɶ�", "2");
+//		city_hot.add(city);
+//		city = new City("����", "2");
 		city_hot.add(city);
 
 	}
@@ -517,10 +518,11 @@ public class Act_City extends BaseActivity implements OnScrollListener {
 					@Override
 					public void onClick(View v) {
 						if (locateProcess == 2) {
-
-							Toast.makeText(getApplicationContext(),
-									city.getText().toString(),
-									Toast.LENGTH_SHORT).show();
+							
+							clickBack(new City(city.getText().toString(),""));
+//							Toast.makeText(getApplicationContext(),
+//									city.getText().toString(),
+//									Toast.LENGTH_SHORT).show();
 						} else if (locateProcess == 3) {
 							locateProcess = 1;
 							personList.setAdapter(adapter);
@@ -590,10 +592,7 @@ public class Act_City extends BaseActivity implements OnScrollListener {
 					@Override
 					public void onItemClick(AdapterView<?> parent, View view,
 							int position, long id) {
-						
-						
 						showChildCity(city_hot.get(position));
-						
 					}
 				});
 				hotCity.setAdapter(new HotCityAdapter(context, this.hotList));
@@ -944,7 +943,7 @@ public class Act_City extends BaseActivity implements OnScrollListener {
 //			Toast("无子城市");
 			clickBack(city);
 		} else {
-			PopupWindow pop = new PopupWindow(500, 400);
+			PopupWindow pop = new PopupWindow((int) (CommonUtil.getWindowsWidth(this)*0.8), (int) (CommonUtil.getWindowsWidth(this)*0.6));
 			pop.setFocusable(true);
 			pop.setBackgroundDrawable(new BitmapDrawable());
 

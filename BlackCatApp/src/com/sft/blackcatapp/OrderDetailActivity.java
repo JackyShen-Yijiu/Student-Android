@@ -8,14 +8,21 @@ import java.util.Map;
 import org.json.JSONException;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
+import com.sft.alipay.PayResult;
+import com.sft.alipay.PayUtils;
 import com.sft.common.Config;
+import com.sft.common.Config.EnrollResult;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
 import com.sft.vo.PayOrderVO;
@@ -50,6 +57,7 @@ public class OrderDetailActivity extends BaseActivity implements
 
 	private void initData() {
 		bean = (SuccessVO) getIntent().getSerializableExtra("bean");
+		pay = (PayOrderVO) getIntent().getSerializableExtra("pay");
 		indent_school.setText(bean.applyschoolinfo.name);
 		indent_class.setText(bean.applyclasstypeinfo.name);
 		indent_time.setText(bean.applytime);
@@ -122,7 +130,7 @@ public class OrderDetailActivity extends BaseActivity implements
 			finish();
 			break;
 		case R.id.button_commit://立即支付
-			
+			pay();
 			break;
 		}
 	}
@@ -160,6 +168,79 @@ public class OrderDetailActivity extends BaseActivity implements
 		}
 		return true;
 	}
+	
+	private void pay(){
+		if(pay!=null){
+			String orderId = pay._id;
+			String productName = pay.applyclasstypeinfo.name;
+			String productDetail = pay.applyschoolinfo.getName();
+//					+ pay.applyclasstypeinfo.name
+//					+ pay.applyclasstypeinfo.price;
+			
+			String paymoney = pay.paymoney;
+			PayUtils pay = new PayUtils();
+			pay.setTradeNo(orderId);
+//			paymoney = "0.01";
+			LogUtil.print("id::>"+orderId+"name:"+productName+"detail"+productDetail+"Money::>>"+paymoney);
+			pay.pay(this,mHandler,productName,productDetail,paymoney);
+		}
+	}
+	
+	private static final int SDK_PAY_FLAG = 1;
+	private static final int SDK_CHECK_FLAG = 2;
+
+	
+	private Handler mHandler = new Handler() {
+		public void handleMessage(Message msg) {
+//			ConfirmOrderActivity.this.setResult(9,getIntent());
+//			ConfirmOrderActivity.this.finish();
+			
+			LogUtil.print("msg;::::>>>"+msg.obj);
+			switch (msg.what) {
+			case SDK_PAY_FLAG: {
+				PayResult payResult = new PayResult((String) msg.obj);
+				/**
+				 * 同步返回的结果必须放置到服务端进行验证（验证的规则请看https://doc.open.alipay.com/doc2/
+				 * detail.htm?spm=0.0.0.0.xdvAU6&treeId=59&articleId=103665&
+				 * docType=1) 建议商户依赖异步通知
+				 */
+				String resultInfo = payResult.getResult();// 同步返回需要验证的信息
+
+				String resultStatus = payResult.getResultStatus();
+				// 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
+				if (TextUtils.equals(resultStatus, "9000")) {
+					app.userVO.setApplystate(EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue());
+					Toast.makeText(OrderDetailActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
+					button_commit.setEnabled(false);
+//					OrderDetailActivity.this.setResult(9,getIntent());
+//					OrderDetailActivity.this.finish();
+					
+//					reLogin();
+				} else {
+					app.userVO.setApplystate(EnrollResult.SUBJECT_NONE.getValue());
+					
+					// 判断resultStatus 为非"9000"则代表可能支付失败
+					// "8000"代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
+					if (TextUtils.equals(resultStatus, "8000")) {
+						Toast.makeText(OrderDetailActivity.this, "支付结果确认中", Toast.LENGTH_SHORT).show();
+
+					} else {
+						// 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
+						Toast.makeText(OrderDetailActivity.this, "支付失败", Toast.LENGTH_SHORT).show();
+
+					}
+				}
+				break;
+			}
+			case SDK_CHECK_FLAG: {
+				Toast.makeText(OrderDetailActivity.this, "检查结果为：" + msg.obj, Toast.LENGTH_SHORT).show();
+				break;
+			}
+			default:
+				break;
+			}
+		};
+	};
 
 	
 }

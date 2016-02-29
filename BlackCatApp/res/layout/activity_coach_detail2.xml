@@ -399,16 +399,7 @@
                     android:textColor="#333333"
                     android:textSize="14dp" />
                 <!-- 空白占位 -->
-
-                <me.maxwin.view.XListView
-                    android:id="@+id/coach_detail_classes_listview"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:cacheColorHint="@null"
-                    android:divider="@null"
-                    android:dividerHeight="0dp"
-                    android:listSelector="@android:color/transparent" />
-
+                
                 <me.maxwin.view.XListView
                     android:id="@+id/coach_detail_comments_listview"
                     android:layout_width="match_parent"
@@ -418,6 +409,18 @@
                     android:dividerHeight="0dp"
                     android:listSelector="@android:color/transparent"
                     android:visibility="gone" />
+
+                <me.maxwin.view.XListView
+                    android:id="@+id/coach_detail_classes_listview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:cacheColorHint="@null"
+                    android:divider="@null"
+                    android:dividerHeight="0dp"
+                    android:background="@color/orange"
+                    android:listSelector="@android:color/transparent" />
+
+                
             </LinearLayout>
 
            
