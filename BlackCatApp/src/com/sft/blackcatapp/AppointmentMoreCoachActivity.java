@@ -205,7 +205,7 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 			intent.putExtra("coach", coachList.get(position));
 			intent.putExtra("where",
 					AppointmentMoreCoachActivity.class.getName());
-			LogUtil.print(AppointmentMoreCoachActivity.class.getName() + "---");
+//			LogUtil.print(AppointmentMoreCoachActivity.class.getName() + "---");
 			startActivity(intent);
 		}
 	};

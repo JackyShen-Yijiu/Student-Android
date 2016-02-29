@@ -79,6 +79,8 @@
     <color name="text_color_light">#757575</color>
     <color name="study_text_normal">#eea7a0</color>
     <color name="study_text_selected">#ffffff</color>
+    
+    <color name="text_radio_selected">#f1b9b4</color>
       <!-- 报名 -->
       <color name="search_bg">#eeeeee</color>
       <color name="yellow">#ffea00</color>

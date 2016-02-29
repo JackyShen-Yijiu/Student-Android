@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sft.blackcatapp.R;
+import com.sft.util.LogUtil;
 
 public class ZProgressHUD extends Dialog {
 
@@ -24,9 +25,20 @@ public class ZProgressHUD extends Dialog {
 	ImageView ivFailure;
 	ImageView ivProgressSpinner;
 	AnimationDrawable adProgressSpinner;
-	Context mContext;
+	static Context mContext = null;
 
 	public static ZProgressHUD getInstance(Context context) {
+		if(mContext!=null && !mContext.equals(context)){
+				
+				synchronized (ZProgressHUD.class) {
+					if(instance!=null && instance.isShowing()){
+						instance.dismiss();
+					}
+//					if (instance == null) {
+						instance = new ZProgressHUD(context);
+//					}
+				}
+		}
 		if (instance == null) {
 			synchronized (ZProgressHUD.class) {
 				if (instance == null) {
@@ -75,6 +87,7 @@ public class ZProgressHUD extends Dialog {
 
 	@Override
 	public void show() {
+		LogUtil.print(mContext+"callBack--finish>"+((Activity) mContext).isFinishing());
 		if (!((Activity) mContext).isFinishing()) {
 			super.show();
 		} else {

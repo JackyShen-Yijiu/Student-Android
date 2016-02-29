@@ -59,12 +59,12 @@ public class PayUtils {
 		//
 		String orderInfo = getOrderInfo(payName, payDetail, money);
 
-		LogUtil.print("sign--0000---->" + orderInfo);
+//		LogUtil.print("sign--0000---->" + orderInfo);
 		/**
 		 * 特别注意，这里的签名逻辑需要放在服务端，切勿将私钥泄露在代码中！
 		 */
 		String sign = sign(orderInfo);
-		LogUtil.print("sign------>" + sign);
+//		LogUtil.print("sign------>" + sign);
 		try {
 			/**
 			 * 仅需对sign 做URL编码
