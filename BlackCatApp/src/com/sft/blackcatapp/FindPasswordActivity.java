@@ -18,7 +18,6 @@ import cn.sft.baseactivity.util.MyHandler;
 
 import com.sft.common.Config;
 import com.sft.util.CommonUtil;
-import com.sft.viewutil.ZProgressHUD;
 
 /**
  * 找回密码界面
@@ -133,21 +132,28 @@ public class FindPasswordActivity extends BaseActivity implements
 		String phone = phoneEt.getText().toString();
 		if (TextUtils.isEmpty(phone)) {
 			tv_hint_phone.setVisibility(View.VISIBLE);
-		} else {
-			if (!CommonUtil.isMobile(phone)) {
-				tv_hint_phone.setVisibility(View.VISIBLE);
-			}
-		}
-		if (phone.length() != 11) {
+			tv_hint_phone.setText("手机号不能为空");
+			return "手机号不能为空";
+		} else if (!CommonUtil.isMobile(phone)) {
 			tv_hint_phone.setVisibility(View.VISIBLE);
+			tv_hint_phone.setText("手机号格式不正确");
+			return "手机号格式不正确";
+		} else if (phone.length() != 11) {
+			tv_hint_phone.setVisibility(View.VISIBLE);
+			tv_hint_phone.setText("请输入正确的手机号");
+			return "请输入正确的手机号";
 		}
 		String code = codeEt.getText().toString();
 		if (TextUtils.isEmpty(code)) {
 			tv_hint_code.setVisibility(View.VISIBLE);
+			tv_hint_code.setText("验证码不能为空");
+			return "验证码不能为空";
 		}
 		String password = passwordEt.getText().toString();
 		if (TextUtils.isEmpty(password)) {
 			tv_hint_pasword.setVisibility(View.VISIBLE);
+			tv_hint_pasword.setText("密码不能为空");
+			return "密码不能为空";
 		}
 		return null;
 	}
@@ -156,13 +162,16 @@ public class FindPasswordActivity extends BaseActivity implements
 		String phone = phoneEt.getText().toString();
 		if (TextUtils.isEmpty(phone)) {
 			tv_hint_phone.setVisibility(View.VISIBLE);
-		} else {
-			if (!CommonUtil.isMobile(phone)) {
-				tv_hint_phone.setVisibility(View.VISIBLE);
-			}
-		}
-		if (phone.length() != 11) {
+			tv_hint_phone.setText("手机号不能为空");
+			return "手机号不能为空";
+		} else if (!CommonUtil.isMobile(phone)) {
 			tv_hint_phone.setVisibility(View.VISIBLE);
+			tv_hint_phone.setText("手机号格式不正确");
+			return "手机号格式不正确";
+		} else if (phone.length() != 11) {
+			tv_hint_phone.setVisibility(View.VISIBLE);
+			tv_hint_phone.setText("请输入正确的手机号");
+			return "请输入正确的手机号";
 		}
 		return null;
 	}
@@ -204,6 +213,7 @@ public class FindPasswordActivity extends BaseActivity implements
 				};
 			} else if (msg.contains("验证码错误")) {
 				tv_hint_code.setVisibility(View.VISIBLE);
+				tv_hint_code.setText("验证码错误，请重新发送");
 			}
 
 		}
@@ -233,8 +243,8 @@ public class FindPasswordActivity extends BaseActivity implements
 			if (result1 == null) {
 				obtainCode();
 			} else {
-				ZProgressHUD.getInstance(this).show();
-				ZProgressHUD.getInstance(this).dismissWithFailure(result1);
+				// ZProgressHUD.getInstance(this).show();
+				// ZProgressHUD.getInstance(this).dismissWithFailure(result1);
 			}
 
 			break;
@@ -243,8 +253,8 @@ public class FindPasswordActivity extends BaseActivity implements
 			if (result == null) {
 				changePassword();
 			} else {
-				ZProgressHUD.getInstance(this).show();
-				ZProgressHUD.getInstance(this).dismissWithFailure(result);
+				// ZProgressHUD.getInstance(this).show();
+				// ZProgressHUD.getInstance(this).dismissWithFailure(result);
 			}
 			break;
 		case R.id.findpass_phone_et:

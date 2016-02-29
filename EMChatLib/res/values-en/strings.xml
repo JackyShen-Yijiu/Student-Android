@@ -289,7 +289,7 @@
     
     
     <string name="sign_in_notice_title">签到须知:</string>
-    <string name="sign_in_notice">\t\t签到开放的时间为，预定学车开始前的15分钟至学车结束，请您及时签到。如不签到，可能会影响您的学识记录以及教练的工时记录。\n如有疑问，请拨打400-626-9255</string>
+    <string name="sign_in_notice">\t\t签到开放的时间为，预定学车开始前的15分钟至学车结束，请您及时签到。如不签到，可能会影响您的学时记录以及教练的工时记录。\n如有疑问，请拨打400-626-9255</string>
     <string name="sign_in_sweep">扫一扫上面的二维码图案，立即签到</string>
 
     <string name="finish">完成</string>
