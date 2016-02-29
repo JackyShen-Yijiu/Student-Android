@@ -388,8 +388,14 @@ public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity
 
 	}
 
+	private Toast mToast;
+
 	public void Toast(String str) {
-		Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
+		if (mToast == null) {
+			mToast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
+		}
+		mToast.setText(msg);
+		mToast.show();
 	}
 
 	@Override

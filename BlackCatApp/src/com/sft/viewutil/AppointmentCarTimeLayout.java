@@ -94,6 +94,9 @@ public class AppointmentCarTimeLayout extends LinearLayout implements
 		endTime = endTime.substring(0, endTime.lastIndexOf(":"));
 		endTimeTv.setText(endTime);
 
+		if (BlackCatApplication.getInstance().userVO == null) {
+			return;
+		}
 		if (Arrays.asList(coachCourseVO.getCourseuser()).contains(
 				BlackCatApplication.getInstance().userVO.getUserid())) {
 			// 此预约是否已经预约

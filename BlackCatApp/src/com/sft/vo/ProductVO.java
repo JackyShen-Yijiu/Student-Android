@@ -13,7 +13,7 @@ public class ProductVO extends DBVO {
 	private String productdesc;
 	private String detailurl;
 	private String viewcount;
-	private String buycount;
+	private int buycount;
 	private String detailsimg;
 	private String address;
 	private String cityname;
@@ -21,7 +21,7 @@ public class ProductVO extends DBVO {
 	private int distinct;
 	private String is_scanconsumption;
 	private String merchantid;
-	private String productcount;
+	private int productcount;
 
 	public String getProductid() {
 		return productid;
@@ -79,11 +79,11 @@ public class ProductVO extends DBVO {
 		this.viewcount = viewcount;
 	}
 
-	public String getBuycount() {
+	public int getBuycount() {
 		return buycount;
 	}
 
-	public void setBuycount(String buycount) {
+	public void setBuycount(int buycount) {
 		this.buycount = buycount;
 	}
 
@@ -144,15 +144,11 @@ public class ProductVO extends DBVO {
 		this.merchantid = merchantid;
 	}
 
-	public String getProductcount() {
+	public int getProductcount() {
 		return productcount;
 	}
 
-	public String getCount() {
-		return buycount + "人已兑换" + "|剩余" + productcount + "份";
-	}
-
-	public void setProductcount(String productcount) {
+	public void setProductcount(int productcount) {
 		this.productcount = productcount;
 	}
 

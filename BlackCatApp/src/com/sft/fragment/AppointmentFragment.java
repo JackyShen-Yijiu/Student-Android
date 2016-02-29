@@ -32,6 +32,7 @@ import com.sft.util.CommonUtil;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
 import com.sft.util.UTC2LOC;
+import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.MyAppointmentVO;
 import com.sft.vo.UserVO;
 import com.sft.vo.uservo.StudentSubject;
@@ -192,8 +193,8 @@ public class AppointmentFragment extends BaseFragment implements
 				hasCaochRl.setVisibility(View.VISIBLE);
 				initCurrentProgress(headerView);
 				LogUtil.print("拼命加载中...");
-				// ZProgressHUD.getInstance(getActivity()).setMessage("拼命加载中...");
-				// ZProgressHUD.getInstance(getActivity()).show();
+				ZProgressHUD.getInstance(getActivity()).setMessage("拼命加载中...");
+				ZProgressHUD.getInstance(getActivity()).show();
 				obtainOppointment();
 
 			}
@@ -280,7 +281,7 @@ public class AppointmentFragment extends BaseFragment implements
 					list.addAll(toadyAppointList);
 					list.addAll(otherAppointList);
 					list.addAll(finishedList);
-					// ZProgressHUD.getInstance(getActivity()).dismiss();
+					ZProgressHUD.getInstance(getActivity()).dismiss();
 					if (adapter == null) {
 						adapter = new MyAppointmentListAdapter(getActivity(),
 								list);
@@ -333,7 +334,7 @@ public class AppointmentFragment extends BaseFragment implements
 	@Override
 	public void doException(String type, Exception e, int code) {
 		// super.doException(type, e, code);
-		// ZProgressHUD.getInstance(getActivity()).dismiss();
+		ZProgressHUD.getInstance(getActivity()).dismiss();
 		noCaochErrorRl.setVisibility(View.VISIBLE);
 		hasCaochRl.setVisibility(View.GONE);
 		noCaochErrorIv.setBackgroundResource(R.drawable.app_no_wifi);
@@ -343,7 +344,7 @@ public class AppointmentFragment extends BaseFragment implements
 
 	@Override
 	public void doTimeOut(String type) {
-		// ZProgressHUD.getInstance(getActivity()).dismiss();
+		ZProgressHUD.getInstance(getActivity()).dismiss();
 		noCaochErrorRl.setVisibility(View.VISIBLE);
 		hasCaochRl.setVisibility(View.GONE);
 		noCaochErrorIv.setBackgroundResource(R.drawable.app_no_wifi);
@@ -366,12 +367,12 @@ public class AppointmentFragment extends BaseFragment implements
 
 		LogUtil.print("预约详情");
 
-		if (position - 2 < 0) {
+		if (position - 1 < 0) {
 			return;
 		}
 		Intent intent = new Intent(getActivity(),
 				AppointmentDetailActivity.class);
-		intent.putExtra("appointmentDetail", list.get(position - 2));
+		intent.putExtra("appointmentDetail", list.get(position - 1));
 		getActivity().startActivity(intent);
 	}
 

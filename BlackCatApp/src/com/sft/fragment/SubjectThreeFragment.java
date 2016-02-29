@@ -13,7 +13,10 @@ import android.widget.TextView;
 import com.sft.blackcatapp.AppointmentExamActivity;
 import com.sft.blackcatapp.CourseActivity;
 import com.sft.blackcatapp.R;
+import com.sft.blackcatapp.YiBuIntroduceActivity;
+import com.sft.common.Config;
 import com.sft.dialog.NoLoginDialog;
+import com.sft.util.CommonUtil;
 import com.sft.util.LogUtil;
 import com.sft.viewutil.StudyItemLayout;
 import com.sft.vo.SubjectForOneVO;
@@ -88,7 +91,10 @@ public class SubjectThreeFragment extends BaseFragment implements
 			intent.putExtra("title", "科目三");
 			break;
 		case R.id.learn_car_cheats:
-
+			intent = new Intent(mContext, YiBuIntroduceActivity.class);
+			intent.putExtra("url", Config.THREE_EXAM_FORMULA);
+			intent.putExtra("cheatname",
+					CommonUtil.getString(mContext, R.string.three_exam_formula));
 			break;
 		case R.id.make_an_appointment:
 			if (app.isLogin) {

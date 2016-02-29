@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:text="科目二 “倒车入库” 技巧大揭秘"
+            android:text="@string/cheats_backing"
             android:textColor="@color/text_color_light"
             android:textSize="14sp" />
 
@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:text="科目二 “侧方停车” 技巧大揭秘"
+            android:text="@string/cheats_parking"
             android:textColor="@color/text_color_light"
             android:textSize="14sp" />
 
@@ -78,7 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:text="科目二 “半坡起步” 技巧大揭秘"
+            android:text="@string/cheats_start"
             android:textColor="@color/text_color_light"
             android:textSize="14sp" />
 
@@ -108,7 +108,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:text="科目二 “直接转弯” 技巧大揭秘"
+            android:text="@string/cheats_turn_corner"
             android:textColor="@color/text_color_light"
             android:textSize="14sp" />
 
@@ -138,7 +138,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:text="科目二 “S弯道” 技巧大揭秘"
+            android:text="@string/cheats_s_curve"
             android:textColor="@color/text_color_light"
             android:textSize="14sp" />
 

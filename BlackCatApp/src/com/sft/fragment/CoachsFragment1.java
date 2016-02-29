@@ -73,7 +73,7 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener,
 
 	private boolean isCarSelected = false;
 
-//	private String cityname;
+	// private String cityname;
 	private String licensetype;
 	public String coachname;
 	private String ordertype;
@@ -90,7 +90,7 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener,
 	static CoachsFragment1 frag;
 
 	private int lastId;
-	
+
 	private RelativeLayout errorRl;
 	private TextView errorTv;
 
@@ -102,7 +102,7 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener,
 
 	public void order(String cityName) {
 		index = 1;
-//		cityname = cityName;
+		// cityname = cityName;
 		coachname = "";
 		ordertype = "0";
 		// setSelectState(2);
@@ -156,7 +156,7 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener,
 			}
 			break;
 		case R.id.pop_window_three:
-			
+
 			isCarSelected = true;
 			index = 1;
 			licensetype = "3";
@@ -182,7 +182,7 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener,
 		initView(v);
 		initData();
 		setListener();
-//		cityname = "";
+		// cityname = "";
 		licensetype = "";
 		coachname = "";
 		ordertype = "0";
@@ -213,11 +213,9 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener,
 	@SuppressWarnings("deprecation")
 	private void initView(View rootView) {
 		// setTitleText(R.string.search_coach);
-		
-		errorRl = (RelativeLayout) rootView
-				.findViewById(R.id.error_rl);
-		errorTv = (TextView) rootView
-				.findViewById(R.id.error_tv);
+
+		errorRl = (RelativeLayout) rootView.findViewById(R.id.error_rl);
+		errorTv = (TextView) rootView.findViewById(R.id.error_tv);
 
 		swipeLayout = (RefreshLayout) rootView
 				.findViewById(R.id.enroll_school_swipe_container);
@@ -272,8 +270,9 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener,
 		coachListView.addHeaderView(headerView);
 		searchCoach = (EditText) headerView
 				.findViewById(R.id.search_coach_search_et);
-		EditTextUtils.setEditTextHint(searchCoach, getString(R.string.search_coach_hint), 12);
-		
+		EditTextUtils.setEditTextHint(searchCoach,
+				getString(R.string.search_coach_hint), 12);
+
 		//
 		// carSelect = (TextView) headerView
 		// .findViewById(R.id.search_coach_car_select_tv);
@@ -317,9 +316,9 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener,
 
 		});
 	}
-	
-	public void getCoachByCity(String cityName){
-//		cityname = cityName;
+
+	public void getCoachByCity(String cityName) {
+		// cityname = cityName;
 		obtainCaoch();
 	}
 
@@ -359,12 +358,12 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener,
 
 		}
 	};
-	
-	private void noData(int size){
-		if(size == 0){
+
+	private void noData(int size) {
+		if (size == 0) {
 			errorRl.setVisibility(View.VISIBLE);
 			errorTv.setText(R.string.no_coach_error);
-		}else{
+		} else {
 			errorRl.setVisibility(View.GONE);
 		}
 	}
@@ -464,11 +463,11 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener,
 						adapter.notifyDataSetChanged();
 						// Toast("refresh--222>"+adapter.getCount());
 					}
-					
+
 					noData(coachList.size());
-//					if (coach.size() == 0) {
-//						Toast("该选项下没有数据");
-//					}
+					// if (coach.size() == 0) {
+					// Toast("该选项下没有数据");
+					// }
 				} else {
 					if (coach.size() == 0) {
 						Toast("没有更多数据了");
@@ -708,8 +707,8 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener,
 			long id) {
 		LogUtil.print("position===" + position);
 		LogUtil.print("index===" + index);
-		
-		if(position == 0){
+
+		if (position == 0) {
 			return;
 		}
 

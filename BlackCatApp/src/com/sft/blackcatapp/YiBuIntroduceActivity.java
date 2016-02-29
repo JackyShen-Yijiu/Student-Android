@@ -6,6 +6,7 @@ import java.util.Map;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -61,27 +62,33 @@ public class YiBuIntroduceActivity extends BaseActivity {
 
 	@SuppressLint("SetJavaScriptEnabled")
 	private void initData() {
-		int typeId = getIntent().getIntExtra("typeId", 0);
-		switch (typeId) {
-		case R.id.introduce_student_know:
-			url = Config.STUDENT_KNOW;
-			setTitleText(R.string.yibu_student_know);
-			break;
-		case R.id.introduce_procedure:
+		String cheatname = getIntent().getStringExtra("cheatname");
+		if (!TextUtils.isEmpty(cheatname)) {
+			setTitleText(cheatname);
+			url = getIntent().getStringExtra("url");
+		} else {
+			int typeId = getIntent().getIntExtra("typeId", 0);
+			switch (typeId) {
+			case R.id.introduce_student_know:
+				url = Config.STUDENT_KNOW;
+				setTitleText(R.string.yibu_student_know);
+				break;
+			case R.id.introduce_procedure:
 
-			setTitleText(R.string.activitys);
-			Intent intent1 = new Intent(this, NewActivitysActivity.class);
-			startActivity(intent1);
-			finish();
-			break;
-		case R.id.introduce_favourable_class:
-			setTitleText(R.string.yibu_procedure);
-			Intent intent = new Intent(this, EnrollSchoolActivity1.class);
-			intent.putExtra("isFromMenu", true);
-			startActivityForResult(intent, 1);
-			finish();
-			break;
+				setTitleText(R.string.activitys);
+				Intent intent1 = new Intent(this, NewActivitysActivity.class);
+				startActivity(intent1);
+				finish();
+				break;
+			case R.id.introduce_favourable_class:
+				setTitleText(R.string.yibu_procedure);
+				Intent intent = new Intent(this, EnrollSchoolActivity1.class);
+				intent.putExtra("isFromMenu", true);
+				startActivityForResult(intent, 1);
+				finish();
+				break;
 
+			}
 		}
 
 		webview.setWebViewClient(new WebViewClient() {

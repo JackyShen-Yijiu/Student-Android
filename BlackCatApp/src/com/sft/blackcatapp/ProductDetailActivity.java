@@ -10,8 +10,8 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.TextView;
 
-import com.sft.blackcatapp.R;
 import com.sft.util.LogUtil;
 import com.sft.vo.MyCuponVO;
 import com.sft.vo.ProductVO;
@@ -29,6 +29,8 @@ public class ProductDetailActivity extends BaseActivity {
 	// private TextView currencyTv;
 	private Button buyBtn;
 
+	private TextView productName;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -37,7 +39,7 @@ public class ProductDetailActivity extends BaseActivity {
 		// currencyTv = (TextView)
 		// findViewById(R.id.product_detail_currentcy_tv);
 		buyBtn = (Button) findViewById(R.id.product_detail_buy_btn);
-
+		productName = (TextView) findViewById(R.id.product_detail_product_name);
 		buyBtn.setOnClickListener(this);
 		initData();
 	}

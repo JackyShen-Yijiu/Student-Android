@@ -4,12 +4,11 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.sft.infinitescrollviewpager.BitmapManager;
 
@@ -53,99 +52,63 @@ public class MallProductAdapter extends BaseAdapter {
 	public View getView(final int position, View convertView, ViewGroup parent) {
 
 		ViewHolder holder = null;
-		if ("0".equals(producttype)) {
-			if (convertView == null) {
-				convertView = View.inflate(context, R.layout.mall_item, null);
-				holder = new ViewHolder();
-				holder.cuponLayout = (LinearLayout) convertView
-						.findViewById(R.id.mall_item_cupon);
-				holder.jifenLayout = (RelativeLayout) convertView
-						.findViewById(R.id.mall_item_jifen);
 
-				holder.image = (ImageView) convertView
-						.findViewById(R.id.mall_item_img);
-				holder.name = (TextView) convertView
-						.findViewById(R.id.mall_item_name);
-				holder.price = (TextView) convertView
-						.findViewById(R.id.mall_item_price);
-				convertView.setTag(holder);
-			} else {
-				holder = (ViewHolder) convertView.getTag();
-			}
-
-			ProductVO productVO = mData.get(position);
-			holder.jifenLayout.setVisibility(View.VISIBLE);
-			holder.cuponLayout.setVisibility(View.GONE);
-			BitmapManager.INSTANCE.loadBitmap2(productVO.getProductimg(),
-					holder.image, width, heigth);
-			holder.name.setText(productVO.getProductname());
-			holder.price.setText(productVO.getProductprice() + "YB");
-
+		if (convertView == null) {
+			// LinearLayout layout = new LinearLayout(context);
+			// ImageView image = new ImageView(context);
+			// LinearLayout.LayoutParams params = new LayoutParams(width,
+			// heigth);
+			// layout.addView(image, params);
+			//
+			// convertView = layout;
+			convertView = View.inflate(context, R.layout.mall_item, null);
+			holder = new ViewHolder();
+			holder.productImage = (ImageView) convertView
+					.findViewById(R.id.mall_item_product_img);
+			holder.productName = (TextView) convertView
+					.findViewById(R.id.mall_item_product_name);
+			holder.couponNum = (TextView) convertView
+					.findViewById(R.id.mall_item_coupon_num);
+			holder.productAddress = (TextView) convertView
+					.findViewById(R.id.mall_item_address);
+			holder.couponUsed = (TextView) convertView
+					.findViewById(R.id.mall_item_used_coupon_nums);
+			holder.couponPurplus = (TextView) convertView
+					.findViewById(R.id.mall_item_surplus_coupon_nums);
+			convertView.setTag(holder);
 		} else {
 
-			if (convertView == null) {
-				// LinearLayout layout = new LinearLayout(context);
-				// ImageView image = new ImageView(context);
-				// LinearLayout.LayoutParams params = new LayoutParams(width,
-				// heigth);
-				// layout.addView(image, params);
-				//
-				// convertView = layout;
-				convertView = View.inflate(context, R.layout.mall_item, null);
-				holder = new ViewHolder();
-				holder.cuponLayout = (LinearLayout) convertView
-						.findViewById(R.id.mall_item_cupon);
-				holder.jifenLayout = (RelativeLayout) convertView
-						.findViewById(R.id.mall_item_jifen);
-				holder.image = (ImageView) convertView
-						.findViewById(R.id.mall_item_img);
-				holder.cuponName = (TextView) convertView
-						.findViewById(R.id.mall_item_cupon_name);
-				holder.county = (TextView) convertView
-						.findViewById(R.id.mall_item_cupon_county);
-				holder.address = (TextView) convertView
-						.findViewById(R.id.mall_item_address);
-				holder.distinct = (TextView) convertView
-						.findViewById(R.id.mall_item_distinct);
-				holder.desc = (TextView) convertView
-						.findViewById(R.id.mall_item_desc);
-				holder.count = (TextView) convertView
-						.findViewById(R.id.mall_item_count);
-				convertView.setTag(holder);
-			} else {
-
-				holder = (ViewHolder) convertView.getTag();
-			}
-			ProductVO productVO = mData.get(position);
-
-			holder.jifenLayout.setVisibility(View.GONE);
-			holder.cuponLayout.setVisibility(View.VISIBLE);
-			BitmapManager.INSTANCE.loadBitmap2(productVO.getProductimg(),
-					holder.image, width, heigth);
-			holder.cuponName.setText(productVO.getProductname());
-			holder.county.setText(productVO.getCounty());
-			holder.address.setText(productVO.getAddress());
-			holder.distinct.setText(productVO.getDistinct());
-			holder.desc.setText(productVO.getProductdesc());
-			holder.count.setText(productVO.getCount());
+			holder = (ViewHolder) convertView.getTag();
 		}
+		ProductVO productVO = mData.get(position);
 
+		if (TextUtils.isEmpty(productVO.getProductimg())) {
+			holder.productImage.setBackgroundResource(R.drawable.defaultimage);
+		} else {
+
+			BitmapManager.INSTANCE.loadBitmap2(productVO.getProductimg(),
+					holder.productImage, width, heigth);
+		}
+		holder.productName.setText("价值" + productVO.getProductprice() + "元"
+				+ productVO.getProductname());
+		holder.couponNum.setText("兑换券：1张");
+		holder.productAddress.setText("地址：" + productVO.getAddress());
+		holder.couponUsed.setText("已有" + productVO.getBuycount() + "人兑换");
+		holder.couponPurplus
+				.setText("剩余"
+						+ (productVO.getProductcount() - productVO
+								.getBuycount()) + "份");
 		return convertView;
 	}
 
 	private class ViewHolder {
-		public ImageView image;
+		public ImageView productImage;
 
-		public RelativeLayout jifenLayout;
-		public TextView name;
-		public TextView price;
+		public TextView productName;
+		public TextView couponNum;
 
-		public LinearLayout cuponLayout;
-		public TextView cuponName;
-		public TextView county;
-		public TextView address;
-		public TextView distinct;
-		public TextView desc;
-		public TextView count;
+		public TextView productAddress;
+		public TextView couponUsed;
+		public TextView couponPurplus;
 	}
 }
