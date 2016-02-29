@@ -76,7 +76,7 @@ public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity
 	protected JSONArray dataArray = null;
 	protected String dataString = null;
 	protected JSONObject jsonObject;
-	
+
 	protected RelativeLayout errorRl;
 	protected TextView errorTv;
 
@@ -152,10 +152,10 @@ public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity
 		leftTV = (TextView) findViewById(R.id.base_left_tv);
 		rightTV = (TextView) findViewById(R.id.base_right_tv);
 		titleTV = (TextView) findViewById(R.id.base_title_tv);
-		
+
 		errorRl = (RelativeLayout) findViewById(R.id.error_rl);
 		errorTv = (TextView) findViewById(R.id.error_tv);
-		
+
 		// 中文字体加粗
 		titleTV.getPaint().setFakeBoldText(true);
 
@@ -401,7 +401,7 @@ public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity
 		if (mToast == null) {
 			mToast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
 		}
-		mToast.setText(msg);
+		mToast.setText(str);
 		mToast.show();
 	}
 

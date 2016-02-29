@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
-            android:textColor="@color/txt_333"
+            android:textColor="@color/new_app_main_color"
             android:textSize="14sp" />
 
         <Button

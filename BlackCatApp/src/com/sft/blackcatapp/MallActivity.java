@@ -232,6 +232,7 @@ public class MallActivity extends BaseActivity implements
 				} else {
 					if (mallVO.getMainlist().size() == 0) {
 						Toast("没有更多数据了");
+						LogUtil.print("没有更多数据了");
 					} else {
 						mainList.addAll(mallVO.getMainlist());
 						adapter.notifyDataSetChanged();

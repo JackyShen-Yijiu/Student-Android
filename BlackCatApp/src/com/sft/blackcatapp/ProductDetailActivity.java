@@ -74,6 +74,7 @@ public class ProductDetailActivity extends BaseActivity {
 
 		if (!isCupon) {
 
+			productName.setText("需要消费积分：" + productVO.getProductprice() + "YB");
 			try {
 				LogUtil.print(productVO.getProductprice() + "------"
 						+ app.currency);
@@ -92,6 +93,7 @@ public class ProductDetailActivity extends BaseActivity {
 			}
 		} else {
 			buyBtn.setText("立即兑换");
+			productName.setText("需要消费兑换券1张");
 			if (myCupon != null) {
 
 				if ("1".equals(myCupon.getState())) {
@@ -124,6 +126,8 @@ public class ProductDetailActivity extends BaseActivity {
 					getIntent().getSerializableExtra("product"));
 			intent.putExtra("myCupon",
 					getIntent().getSerializableExtra("myCupon"));
+			intent.putExtra("isCupon",
+					getIntent().getBooleanExtra("isCupon", false));
 			startActivity(intent);
 		}
 	}

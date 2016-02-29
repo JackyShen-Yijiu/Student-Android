@@ -84,7 +84,8 @@ import com.sft.vo.QuestionVO;
 import com.sft.vo.SchoolVO;
 
 public class MainActivity extends BaseMainActivity implements
-		SLMenuListOnItemClickListener, OnClickListener, OnTabLisener, OnCheckedChangeListener {
+		SLMenuListOnItemClickListener, OnClickListener, OnTabLisener,
+		OnCheckedChangeListener {
 
 	//
 	private static final String subjectContent = "subjectContent";
@@ -1118,7 +1119,8 @@ public class MainActivity extends BaseMainActivity implements
 			titleLeftIv.setVisibility(View.GONE);
 			titleRightIv.setVisibility(View.GONE);
 			titleRightTv.setVisibility(View.VISIBLE);
-			titleTv.setText("");//CommonUtil.getString(this, R.string.driving_school)
+			titleTv.setText("");// CommonUtil.getString(this,
+								// R.string.driving_school)
 			// util.saveParam(Config.USER_CITY, curCity);
 			titleRightTv
 					.setText(util.readParam(Config.USER_CITY) == null ? CommonUtil
@@ -1137,15 +1139,15 @@ public class MainActivity extends BaseMainActivity implements
 
 			titleTv.setText(CommonUtil.getString(this,
 					R.string.tab_indicator_title_appointment) + "列表");
-			if (app.isLogin) {
-				titleFarRightIv.setVisibility(View.VISIBLE);
-				titleRightTv.setVisibility(View.GONE);
-				// titleRightTv.setText(CommonUtil.getString(this,
-				// R.string.add_coach));
-			} else {
-				NoLoginDialog dialog = new NoLoginDialog(this);
-				dialog.show();
-			}
+			// if (app.isLogin) {
+			titleFarRightIv.setVisibility(View.VISIBLE);
+			titleRightTv.setVisibility(View.GONE);
+			// titleRightTv.setText(CommonUtil.getString(this,
+			// R.string.add_coach));
+			// } else {
+			// NoLoginDialog dialog = new NoLoginDialog(this);
+			// dialog.show();
+			// }
 			rg.setVisibility(View.GONE);
 			break;
 		case TAB_MALL:
@@ -1207,6 +1209,8 @@ public class MainActivity extends BaseMainActivity implements
 			} else {
 				mMainContainer.showTab(TAB_APPLY);
 			}
+		} else {
+			mMainContainer.showTab(TAB_APPLY);
 		}
 	}
 
@@ -1264,20 +1268,20 @@ public class MainActivity extends BaseMainActivity implements
 		if (mMainContainer.getCurrentFragment().equals(
 				mMainContainer.enrollFragment)) {
 			mMainContainer.enrollFragment.switchSchoolOrCoach();
-//			if (mMainContainer.enrollFragment.type == 0) {
-//				titleTv.setText(R.string.driving_school);
-//			} else {
-//				titleTv.setText(R.string.coach);
-//			}
+			// if (mMainContainer.enrollFragment.type == 0) {
+			// titleTv.setText(R.string.driving_school);
+			// } else {
+			// titleTv.setText(R.string.coach);
+			// }
 		}
-//		switch(checkedId){
-//		case R.id.radio0://驾校
-//			
-//			break;
-//		case R.id.radio1://教练
-//			
-//			break;
-//		}
-		
+		// switch(checkedId){
+		// case R.id.radio0://驾校
+		//
+		// break;
+		// case R.id.radio1://教练
+		//
+		// break;
+		// }
+
 	}
 }

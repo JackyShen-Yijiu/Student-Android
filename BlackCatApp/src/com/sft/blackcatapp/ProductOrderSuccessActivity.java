@@ -9,7 +9,6 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ProgressBar;
 
-import com.sft.blackcatapp.R;
 import com.sft.common.Config;
 
 /**
@@ -43,8 +42,8 @@ public class ProductOrderSuccessActivity extends BaseActivity {
 		setTitleText("兑换优惠券");
 
 		showTitlebarBtn(1);
-		showTitlebarText(BaseActivity.SHOW_RIGHT_TEXT);
-		setText(0, R.string.go_and_see);
+		// showTitlebarText(BaseActivity.SHOW_RIGHT_TEXT);
+		// setText(0, R.string.go_and_see);
 
 		// button_sus = (Button) findViewById(R.id.button_sus);
 
@@ -62,10 +61,11 @@ public class ProductOrderSuccessActivity extends BaseActivity {
 		});
 
 		settings = webview.getSettings();
-		settings.setBuiltInZoomControls(true);
+		settings.setBuiltInZoomControls(false);
 		settings.setUseWideViewPort(true);
 		settings.setJavaScriptEnabled(true);
-
+		webview.setHorizontalScrollBarEnabled(false);
+		webview.setVerticalScrollBarEnabled(false);
 		String finishorderurl = getIntent().getStringExtra("finishorderurl");
 		if (finishorderurl != null) {
 

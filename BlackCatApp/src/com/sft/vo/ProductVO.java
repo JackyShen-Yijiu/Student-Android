@@ -22,6 +22,15 @@ public class ProductVO extends DBVO {
 	private String is_scanconsumption;
 	private String merchantid;
 	private int productcount;
+	private String enddate;
+
+	public String getEnddate() {
+		return enddate;
+	}
+
+	public void setEnddate(String enddate) {
+		this.enddate = enddate;
+	}
 
 	public String getProductid() {
 		return productid;

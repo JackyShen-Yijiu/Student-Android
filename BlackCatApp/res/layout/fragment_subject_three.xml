@@ -70,7 +70,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         study:itemDescribe="真人实操视频教学，让君掌握"
-        study:itemIcon="@drawable/question_banks"
+        study:itemIcon="@drawable/courseware"
         study:itemTitle="课件" >
     </com.sft.viewutil.StudyItemLayout>
 
@@ -79,7 +79,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         study:itemDescribe="独家学车秘籍，使君快人一步"
-        study:itemIcon="@drawable/simulation_test"
+        study:itemIcon="@drawable/cheats"
         study:itemTitle="学车秘籍" >
     </com.sft.viewutil.StudyItemLayout>
 

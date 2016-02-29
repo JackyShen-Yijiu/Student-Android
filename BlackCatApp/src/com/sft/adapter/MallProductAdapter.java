@@ -13,6 +13,8 @@ import android.widget.TextView;
 import cn.sft.infinitescrollviewpager.BitmapManager;
 
 import com.sft.blackcatapp.R;
+import com.sft.common.Config;
+import com.sft.util.UTC2LOC;
 import com.sft.vo.ProductVO;
 
 @SuppressLint({ "InflateParams", "ResourceAsColor" })
@@ -91,13 +93,24 @@ public class MallProductAdapter extends BaseAdapter {
 		}
 		holder.productName.setText("价值" + productVO.getProductprice() + "元"
 				+ productVO.getProductname());
-		holder.couponNum.setText("兑换券：1张");
-		holder.productAddress.setText("地址：" + productVO.getAddress());
+
 		holder.couponUsed.setText("已有" + productVO.getBuycount() + "人兑换");
 		holder.couponPurplus
 				.setText("剩余"
 						+ (productVO.getProductcount() - productVO
 								.getBuycount()) + "份");
+
+		if (Config.MoneyType.INTEGRAL_RETURN.getValue().equals(producttype)) {
+
+			holder.productAddress.setText("截止日期："
+					+ UTC2LOC.instance.getDate(productVO.getEnddate(),
+							"yyyy-MM-dd"));
+			holder.couponNum.setText("兑换积分：" + productVO.getProductprice());
+		} else if (Config.MoneyType.COIN_CERTIFICATE.getValue().equals(
+				producttype)) {
+			holder.productAddress.setText("地址：" + productVO.getAddress());
+			holder.couponNum.setText("兑换券：1张");
+		}
 		return convertView;
 	}
 
