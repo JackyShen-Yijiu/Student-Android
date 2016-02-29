@@ -566,7 +566,7 @@
         <meta-data
             android:name="JPUSH_CHANNEL"
             android:value="developer-default" />
-        <!-- 设置推送应用的appkey d9f9dc8db6bc3dd2c913ced0 test:a9d3780a093c23df7e3e2402 -->
+        <!-- 设置推送应用的appkey d9f9dc8db6bc3dd2c913ced0 test:a9d3780a093c23df7e3e2402 new:3ed0386d38153e3768ef0f26-->
         <meta-data
             android:name="JPUSH_APPKEY"
             android:value="d9f9dc8db6bc3dd2c913ced0" />
@@ -606,6 +606,7 @@
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="56a60db667e58e2df700043f" >
+            <!--new:56d269df67e58ef73900068a  -->
         </meta-data>
         <!-- 微信 -->
 
