@@ -161,8 +161,11 @@ public class Walletintegral extends BaseActivity {
 			finish();
 			break;
 		case R.id.my_wallet_change_btn:
-			Intent intent = new Intent(this, MallActivity.class);
-			startActivity(intent);
+			
+			MainActivity.TARGET_TAB = MainActivity.TAB_MALL;
+			finish();
+//			Intent intent = new Intent(this, MallActivity.class);
+//			startActivity(intent);
 			break;
 		case R.id.my_wallet_invite_btn:
 			Intent intent2 = new Intent(this, BonusDialog.class);

@@ -306,6 +306,7 @@ public class MyWalletActivity extends BaseActivity {
 			startActivity(intent2);
 			break;
 		case R.id.my_wallet_exchange_btn:
+			
 			Intent intent1 = new Intent(this, MallActivity.class);
 			intent1.putExtra("moneytype", moneytype);
 			if (myCuponList != null && myCuponList.size() > 0) {

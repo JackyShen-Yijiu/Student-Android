@@ -118,6 +118,9 @@ public class MainActivity extends BaseMainActivity implements
 	public final static int CHANNELRESULT = 10;
 
 	SimpleDateFormat df;
+	
+	/**目标 页*/
+	public static int TARGET_TAB = 0;
 
 	/**
 	 * 框架
@@ -1171,12 +1174,18 @@ public class MainActivity extends BaseMainActivity implements
 	private void refreshView() {
 		mMainContainer.refreshTab();
 	}
+	
+	
 
 	@Override
 	protected void onResume() {
 		super.onResume();
 		refreshView();
-
+		if(MainActivity.TARGET_TAB > 0){//跳转到 指定的页面， 隐藏左侧
+			mMainContainer.showTab(MainActivity.TARGET_TAB);
+			changeMenu();
+		}
+		MainActivity.TARGET_TAB = 0;
 		if (app.userVO != null && !app.userVO.getApplystate().equals("0")) {
 			// 获取未评论列表
 			obtainNotComments();
@@ -1208,9 +1217,11 @@ public class MainActivity extends BaseMainActivity implements
 						+ app.userVO.getSubject().getSubjectid());
 			} else {
 				mMainContainer.showTab(TAB_APPLY);
+				
 			}
 		} else {
 			mMainContainer.showTab(TAB_APPLY);
+			
 		}
 	}
 

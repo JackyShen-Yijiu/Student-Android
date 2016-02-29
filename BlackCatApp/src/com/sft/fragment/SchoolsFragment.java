@@ -266,6 +266,7 @@ public class SchoolsFragment extends BaseFragment implements
 		if (!isSearchSchool){
 			searchSchool.setVisibility(View.GONE);
 			imgDelete.setVisibility(View.GONE);
+			headerView.setVisibility(View.GONE);
 		}
 //			headerView.setVisibility(View.GONE);
 			
@@ -352,9 +353,17 @@ public class SchoolsFragment extends BaseFragment implements
 				android.R.color.holo_orange_light,
 				android.R.color.holo_red_light);
 
+		headerView = View.inflate(getActivity(),
+				R.layout.enroll_school_header, null);
+		
+		//
+		
 		schoolListView = (ListView) rootView
 				.findViewById(R.id.enroll_select_school_listview);
+		
+		schoolListView.addHeaderView(headerView);
 		adapter = new SchoolListAdapter(getActivity(), schoolList);
+		
 		schoolListView.setAdapter(adapter);
 
 		swipeLayout.setChildScroll(new MOnScrollListener() {
@@ -406,6 +415,7 @@ public class SchoolsFragment extends BaseFragment implements
 				if (lastId == 0) {
 					searchSchool.setVisibility(View.VISIBLE);
 					imgDelete.setVisibility(View.VISIBLE);
+					headerView.setVisibility(View.VISIBLE);
 					// ((EnrollSchoolActivity1)getActivity()).etSearch.setVisibility(View.VISIBLE);
 					LogUtil.print("scrolling---2222>"
 							+ schoolListView.getPivotX());
@@ -437,11 +447,7 @@ public class SchoolsFragment extends BaseFragment implements
 		// }
 		// }
 
-		headerView = View.inflate(getActivity(),
-				R.layout.enroll_school_header, null);
 		
-		//
-		schoolListView.addHeaderView(headerView);
 		//
 		// // 查找搜索框
 		// llSearch = (LinearLayout) headerView
@@ -737,7 +743,8 @@ public class SchoolsFragment extends BaseFragment implements
 			break;
 		case R.id.header_delete://删除 输入框 ，从新刷新请求数据
 			searchSchool.setText("");
-			onRefresh();
+			schoolname = "";
+			searchSchool(true);
 			break;
 		}
 	}

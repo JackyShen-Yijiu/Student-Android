@@ -59,6 +59,8 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener,
 	private List<OpenCityVO> openCityList;
 	private Context mContext;
 	private String currCity = null;
+	
+	private View headerView;
 	private EditText searchCoach;
 	private ImageView imgDelete;
 	private TextView carSelect;
@@ -254,6 +256,7 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener,
 				if (lastId == 0) {
 					searchCoach.setVisibility(View.VISIBLE);
 					imgDelete.setVisibility(View.VISIBLE);
+					headerView.setVisibility(View.VISIBLE);
 					// ((EnrollSchoolActivity1)getActivity()).etSearch.setVisibility(View.VISIBLE);
 				}
 
@@ -267,7 +270,7 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener,
 		//
 		// }
 
-		View headerView = View.inflate(getActivity(),
+		headerView = View.inflate(getActivity(),
 				R.layout.search_coach_header, null);
 		//
 		coachListView.addHeaderView(headerView);
@@ -413,6 +416,7 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener,
 		if (!isSearchCoach) {
 			searchCoach.setVisibility(View.GONE);
 			imgDelete.setVisibility(View.GONE);
+			headerView.setVisibility(View.GONE);
 		}
 
 		// ((EnrollSchoolActivity1)getActivity()).etSearch.setVisibility(View.GONE);
@@ -585,6 +589,12 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener,
 			if (popupWindow != null) {
 				popupWindow.dismiss();
 			}
+			
+			break;
+		case R.id.header_delete:
+			searchCoach.setText("");
+			coachname = "";
+			searchcoach(true);
 			break;
 		}
 
