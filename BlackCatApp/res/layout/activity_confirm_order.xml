@@ -197,7 +197,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="如有疑问请拨打客服400-6288-7255"
+                    android:text="@string/please_call_400"
                     android:textColor="#bfbfbf"
                     android:textSize="@dimen/txt_size_ss" />
 
@@ -206,7 +206,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="最终解释权归北京一步科技有限公司"
+                    android:text="@string/all_right_reserve_by_yibu"
                     android:textColor="#bfbfbf"
                     android:textSize="@dimen/txt_size_ss" />
             </LinearLayout>

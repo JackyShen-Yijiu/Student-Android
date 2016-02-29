@@ -417,7 +417,6 @@
                     android:cacheColorHint="@null"
                     android:divider="@null"
                     android:dividerHeight="0dp"
-                    android:background="@color/orange"
                     android:listSelector="@android:color/transparent" />
 
                 

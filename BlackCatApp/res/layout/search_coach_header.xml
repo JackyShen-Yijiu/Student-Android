@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/search_bg"
+    android:padding="8dp"
      >
     
     <!-- 
@@ -132,10 +133,8 @@
        android:id="@+id/search_coach_search_et"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
         android:hint="@string/search_school"
         android:imeOptions="actionSearch"
         android:drawableLeft="@drawable/shuttle_address_find"

@@ -11,21 +11,21 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ImageView.ScaleType;
 import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.infinitescrollviewpager.BitmapManager;
 
+import com.joooonho.SelectableRoundedImageView;
 import com.sft.alipay.PayResult;
 import com.sft.alipay.PayUtils;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
-import com.sft.util.UTC2LOC;
 import com.sft.vo.PayOrderVO;
 import com.sft.vo.SuccessVO;
 import com.sft.vo.UserBaseStateVO;
@@ -38,7 +38,7 @@ import com.sft.vo.UserBaseStateVO;
  */
 public class OrderApplyAct extends BaseActivity {
 
-	private ImageView img;
+	private SelectableRoundedImageView img;
 
 	private TextView tvTitle, tvOrderName, tvPay1, tvPayMoney, tvTime, tvState;
 	
@@ -51,6 +51,11 @@ public class OrderApplyAct extends BaseActivity {
 	private UserBaseStateVO baseStateVO;
 	
 	private LinearLayout llTop;
+	
+	private LinearLayout ll;
+	
+	private RelativeLayout errorRl;
+	private TextView errorTv;
 	
 
 	@Override
@@ -65,8 +70,15 @@ public class OrderApplyAct extends BaseActivity {
 
 	private void initView() {
 		llTop = (LinearLayout) findViewById(R.id.item_order_top_ll);
+		ll = (LinearLayout) findViewById(R.id.item_order);
+		errorRl = (RelativeLayout) findViewById(R.id.error_rl);
+		errorTv = (TextView) findViewById(R.id.error_tv);
 		
-		img = (ImageView) findViewById(R.id.item_order_img);
+		img = (SelectableRoundedImageView) findViewById(R.id.item_order_img);
+		img.setScaleType(ScaleType.CENTER_CROP);
+		img.setImageResource(R.drawable.default_small_pic);
+		img.setOval(true);
+		
 		tvTitle = (TextView) findViewById(R.id.item_order_title);
 		tvOrderName = (TextView) findViewById(R.id.item_order_left1);
 		tvPay1 = (TextView) findViewById(R.id.item_order_right10);
@@ -270,6 +282,7 @@ public class OrderApplyAct extends BaseActivity {
 	 * 重新报名
 	 */
 	private void reEnroll(){
+		MainActivity.TARGET_TAB = MainActivity.TAB_APPLY;
 		setResult(9);
 		finish();
 	}
@@ -333,6 +346,14 @@ public class OrderApplyAct extends BaseActivity {
 					successVO = JSONUtil.toJavaBean(SuccessVO.class,
 							data);
 					setOffLine(successVO);
+				}
+				if(result.equals("0")){//没有数据
+					errorRl.setVisibility(View.VISIBLE);
+					errorTv.setText(msg);
+					ll.setVisibility(View.GONE);
+				}else{
+					errorRl.setVisibility(View.GONE);
+					ll.setVisibility(View.VISIBLE);
 				}
 			}
 		} catch (Exception e) {

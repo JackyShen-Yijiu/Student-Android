@@ -84,7 +84,7 @@ public class SchoolDetailCourseFeeAdapter extends BaseAdapter {
 		LogUtil.print(enrollstate+"classID-->"+serverClassList.getCalssid()+"App::>"+app.userVO.getApplyclasstypeinfo().getId());
 		
 		if (app.userVO != null
-				&& app.userVO.getApplyclasstypeinfo() != null
+				&& app.userVO.getApplyclasstypeinfo() != null && serverClassList.getCalssid()!=null
 				&& serverClassList.getCalssid().equals(
 						app.userVO.getApplyclasstypeinfo().getId())) {// 如果相同
 																		// 则显示

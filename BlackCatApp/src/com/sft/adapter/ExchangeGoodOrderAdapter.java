@@ -11,9 +11,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.ImageView.ScaleType;
 
 import cn.sft.infinitescrollviewpager.BitmapManager;
 
+import com.joooonho.SelectableRoundedImageView;
 import com.sft.blackcatapp.R;
 import com.sft.vo.ExchangeGoodOrderVO;
 import com.sft.vo.ExchangeOrderItemVO;
@@ -60,7 +62,7 @@ public class ExchangeGoodOrderAdapter extends BaseAdapter{
 		if (convertView == null) {
 			convertView = View.inflate(c,R.layout.item_order, null);
 			holder = new ViewHolder();
-			holder.img = (ImageView) convertView.findViewById(R.id.item_order_img);
+			holder.img = (SelectableRoundedImageView) convertView.findViewById(R.id.item_order_img);
 			holder.title = (TextView) convertView.findViewById(R.id.item_order_title);
 			holder.left1 = (TextView) convertView.findViewById(R.id.item_order_left1);
 			holder.left2 = (TextView) convertView.findViewById(R.id.item_order_left2);
@@ -72,6 +74,10 @@ public class ExchangeGoodOrderAdapter extends BaseAdapter{
 //			holder.btn2.setVisibility(View.GONE);
 			convertView.findViewById(R.id.item_order_button2).setVisibility(View.GONE);
 			holder.right11.setText("实付金额:");
+			
+			holder.img.setScaleType(ScaleType.CENTER_CROP);
+			holder.img.setImageResource(R.drawable.default_small_pic);
+			holder.img.setOval(true);
 			
 			convertView.setTag(holder);
 		} else {
@@ -109,7 +115,7 @@ public class ExchangeGoodOrderAdapter extends BaseAdapter{
 	}
 
 	private class ViewHolder {
-		public ImageView img;
+		public SelectableRoundedImageView img;
 		public TextView title;
 		public TextView left1;
 		public TextView left2;
