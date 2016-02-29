@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:background="@color/white">
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingBottom="18dp"
+        android:orientation="vertical">
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+	<TextView 
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="APP使用指南"
+	    android:textSize="16sp"
+	    android:layout_marginTop="10dp"
+	    android:layout_centerHorizontal="true"
+	    android:textColor="@color/left_black"/>
+	</RelativeLayout>
+	<ImageView
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:src="@drawable/title_bg" />
+
+	<TextView
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_marginLeft="15dp"
+	    android:text="1、注册报名："
+	    android:textColor="@color/left_black"
+	    android:textSize="14sp" />
+		<TextView
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_marginTop="8dp"
+	    android:text="    APP下载安装完成后，按照流程填写验证手机号进行注册，注册完成后点击“报名”，在页面中通过筛选驾校和教练选择自己满意的驾校并进行报名。"
+	    android:textColor="@color/text_color_light"
+	    android:textSize="12sp" />
+	
+			<TextView
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_marginLeft="15dp"
+	    android:layout_marginTop="18dp"
+	    android:text="2、预约练车："
+	    android:textColor="@color/left_black"
+	    android:textSize="14sp" />
+		<TextView
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_marginTop="8dp"
+	    android:text="    进入一步学车APP“预约”页面，选择报名时的教练或驾校分配的教练进行预约（如果不知道教练可以致电所报驾校和一步客服为您查询）。最早可以提前预约一周的课程，并根据所报驾校的最少预约时间单位预约课程（理论最小预约时间为1小时），预约时间必须连续。学员预约课程后，需按时间到达练车场地并与教练签到后方可练车。"
+	    android:textColor="@color/text_color_light"
+	    android:textSize="12sp" />
+			<TextView
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_marginLeft="15dp"
+	    android:layout_marginTop="18dp"
+	    android:text="3、教练评价："
+	    android:textColor="@color/left_black"
+	    android:textSize="14sp" />
+		<TextView
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_marginTop="8dp"
+	    android:text="    学时结束后，根据教练的表现，必须通过一步学车APP对驾校和教练进行评价。如果本节课程没有评价，用户在下次启动APP、预约、签到时都会弹出评价界面。如过学员在学车过程中发现不满意可投诉驾校和教练，同时一步学车客服中心将根据学员投诉，为学员营造快乐的学车之旅。"
+	    android:textColor="@color/text_color_light"
+	    android:textSize="12sp" />
+			<TextView
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_marginLeft="15dp"
+	    android:layout_marginTop="18dp"
+	    android:text="4、取消预约："
+	    android:textColor="@color/left_black"
+	    android:textSize="14sp" />
+		<TextView
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_marginTop="8dp"
+	    android:text="    根据驾校的取消预约时间规定，学员可以进入一步学车APP“预约”中查看已经预约的学时，如需要取消预约，点击预约订单在详情中取消预约并填写取消原因即可。需要注意取消预约截止的时间依据驾校规定。"
+	    android:textColor="@color/text_color_light"
+	    android:textSize="12sp" />
+			<TextView
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_marginLeft="15dp"
+	    android:layout_marginTop="18dp"
+	    android:text="5、报名缴费："
+	    android:textColor="@color/left_black"
+	    android:textSize="14sp" />
+		<TextView
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_marginTop="8dp"
+	    android:text="    线上支付：注册报名费用可通过APP利用支付宝和微信支付直接缴费。
+    线下支付：需要用户报名成功后，凭订单二维码至当地驾校办公室进行现金缴费。"
+	    android:textColor="@color/text_color_light"
+	    android:textSize="12sp" />
+		
+		<TextView
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_marginLeft="15dp"
+	    android:layout_marginTop="28dp"
+	    android:text="客服电话：400-626-9855"
+	    android:textColor="@color/left_black"
+	    android:textSize="14sp" />
+		<TextView
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_marginLeft="15dp"
+	    android:layout_marginTop="8dp"
+	    android:text="地址：北京市海淀区中关村E世界财富广场"
+	    android:textColor="@color/left_black"
+	    android:textSize="14sp" />
+		
+</LinearLayout>
+</ScrollView>

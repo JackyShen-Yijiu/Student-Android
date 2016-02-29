@@ -19,6 +19,6 @@
             android:listSelector="@drawable/listview_selector" />
     </android.support.v4.widget.SwipeRefreshLayout>
     
-    
+    <include layout="@layout/layout_error"/>
 
 </RelativeLayout>

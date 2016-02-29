@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/mes_bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/common_bg"
-    android:orientation="vertical" >
+    android:background="@color/app_bg_light"
+     >
 
+    <include layout="@layout/layout_error"/>
     <ListView
         android:id="@+id/message_list"
         android:layout_width="match_parent"
@@ -13,5 +14,6 @@
         android:background="@android:color/transparent"
         android:cacheColorHint="#00000000"
         android:divider="@null" />
+    
 
-</LinearLayout>
+</RelativeLayout>

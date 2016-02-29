@@ -167,7 +167,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 				.findViewById(R.id.fragment_menu_headpic_im);
 
 		personIcon.setScaleType(ScaleType.CENTER_CROP);
-		personIcon.setImageResource(R.drawable.default_small_pic);
+		personIcon.setImageResource(R.drawable.login_head);
 		personIcon.setOval(true);
 		// listView.setCacheColorHint(android.R.color.transparent);
 		// listView.setDividerHeight(0);
@@ -221,7 +221,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 				.getLayoutParams();
 		String url = app.userVO.getHeadportrait().getOriginalpic();
 		if (TextUtils.isEmpty(url)) {
-			personIcon.setImageResource(R.drawable.default_small_pic);
+			personIcon.setImageResource(R.drawable.login_head);
 		} else {
 			BitmapManager.INSTANCE.loadBitmap2(url, personIcon,
 					headpicParam.width, headpicParam.height);
@@ -397,7 +397,6 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 		// 投诉
 		case R.id.fragment_menu_complaint_btn:
 			if (app.isLogin) {
-
 				if (app.userVO.getApplystate().equals(
 						EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue())) {
 

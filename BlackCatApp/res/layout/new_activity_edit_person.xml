@@ -34,6 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="44dp" 
         android:layout_marginLeft="15dp"
+        android:maxLength="6"
         android:textColor="@color/left_black"
         android:background="@null">
     </EditText>

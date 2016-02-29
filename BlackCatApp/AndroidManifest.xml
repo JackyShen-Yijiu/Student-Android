@@ -383,6 +383,23 @@
         <activity
             android:name="com.sft.blackcatapp.EnrollSubjectActivity"
             android:screenOrientation="portrait" />
+           <!-- 设置帮助 -->
+            <activity
+               android:name=".HelpGuideActivity"
+               android:screenOrientation="portrait"></activity>
+             <activity
+               android:name=".HelpExamActivity"
+               android:screenOrientation="portrait"></activity>
+              <activity
+               android:name=".HelpNewcomerActivity"
+               android:screenOrientation="portrait"></activity>
+               <activity
+               android:name=".HelpProblemActivity"
+               android:screenOrientation="portrait"></activity>
+           
+           
+           
+           
         <!-- 确认订单 -->
         <activity
             android:name=".ConfirmOrderActivity"
@@ -436,6 +453,7 @@
             android:name=".ExchangeDetailAct"
             android:screenOrientation="portrait" >
         </activity>
+>>>>>>> 41b70e3bf146533b65249ce1b8ecbd5e5097651c
         <activity
             android:name="com.sft.blackcatapp.SchoolAllCoachActivity"
             android:screenOrientation="portrait" />

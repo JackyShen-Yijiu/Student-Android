@@ -12,8 +12,9 @@ import android.util.Pair;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import cn.sft.sqlhelper.DBHelper;
 
 import com.easemob.EMEventListener;
@@ -36,7 +37,9 @@ public class MessageActivity extends BaseActivity implements
 	private ListView messageListView;
 	private ChatAllHistoryAdapter adapter;
 	private List<EMConversation> conversationList = new ArrayList<EMConversation>();
-	private LinearLayout mes_bg;
+	private RelativeLayout mes_bg;
+	private RelativeLayout error_rl;
+	private TextView error_tv;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +68,11 @@ public class MessageActivity extends BaseActivity implements
 
 		messageListView = (ListView) findViewById(R.id.message_list);
 
-		mes_bg = (LinearLayout) findViewById(R.id.mes_bg);
-
+		mes_bg = (RelativeLayout) findViewById(R.id.mes_bg);
+		error_rl = (RelativeLayout) findViewById(R.id.error_rl);
+		error_tv = (TextView) findViewById(R.id.error_tv);
+		error_rl.setVisibility(View.GONE);
+		messageListView.setVisibility(View.VISIBLE);
 		messageListView.setOnItemClickListener(this);
 
 		conversationList.addAll(loadConversationsWithRecentChat());
@@ -148,7 +154,10 @@ public class MessageActivity extends BaseActivity implements
 			conversationList.add(0, systemConvesation);
 		}
 		if (list.size() <= 0) {
-			mes_bg.setBackgroundResource(R.drawable.mes_bg);
+			// mes_bg.setBackgroundResource(R.drawable.mes_bg);
+			error_rl.setVisibility(View.VISIBLE);
+			messageListView.setVisibility(View.GONE);
+			error_tv.setText("小布还没有找到与您的聊天消息");
 		}
 
 		return list;

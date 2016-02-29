@@ -90,7 +90,7 @@ public class NewEditPersonInfo extends BaseActivity implements
 		// 圆形头像
 		headPic = (SelectableRoundedImageView) findViewById(R.id.edit_person_info_headpic_im);
 		headPic.setScaleType(ScaleType.CENTER_CROP);
-		headPic.setImageResource(R.drawable.default_small_pic);
+		headPic.setImageResource(R.drawable.login_head);
 		headPic.setOval(true);
 
 		// 显示箭头
@@ -114,11 +114,6 @@ public class NewEditPersonInfo extends BaseActivity implements
 		phoneTv.setText(app.userVO.getDisplaymobile());
 		nameTv.setText(app.userVO.getName());
 		nickNameTv.setText(app.userVO.getNickname());
-		if (app.userVO.getGender().equals("男")) {
-			nan.isChecked();
-		} else {
-			nv.isChecked();
-		}
 
 	}
 

@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
 import com.sft.adapter.TodayAppointmentAdapter;
@@ -44,6 +45,8 @@ public class TodaysAppointmentActivity extends BaseActivity implements
 	private RelativeLayout order_ll;
 	private NoCommentDialog commentDialog;
 	private MyAppointmentVO myAppointmentVO;
+	private RelativeLayout error_rl;
+	private TextView error_tv;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +62,10 @@ public class TodaysAppointmentActivity extends BaseActivity implements
 
 	private void initView() {
 		setTitleText(R.string.today_appointment);
+
+		error_rl = (RelativeLayout) findViewById(R.id.error_rl);
+		error_tv = (TextView) findViewById(R.id.error_tv);
+
 		swipeLayout = (SwipeRefreshLayout) findViewById(R.id.today_appointment_swipe_container);
 		order_ll = (RelativeLayout) findViewById(R.id.order_ll);
 		swipeLayout.setOnRefreshListener(this);
@@ -158,10 +165,10 @@ public class TodaysAppointmentActivity extends BaseActivity implements
 
 					LogUtil.print(length + "预约个数：--" + list.size());
 					if (list.size() <= 0) {
-						// ZProgressHUD.getInstance(this).dismissWithSuccess(
-						// "您今天没有预约");
-						// ZProgressHUD.getInstance(this).show();
 						order_ll.setBackgroundResource(R.drawable.order_bg);
+						error_rl.setVisibility(View.VISIBLE);
+						error_tv.setText("小布还没有找到您的预约信息");
+
 					} else {
 						if (adapter == null) {
 							mList.clear();
