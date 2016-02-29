@@ -453,7 +453,6 @@
             android:name=".ExchangeDetailAct"
             android:screenOrientation="portrait" >
         </activity>
->>>>>>> 41b70e3bf146533b65249ce1b8ecbd5e5097651c
         <activity
             android:name="com.sft.blackcatapp.SchoolAllCoachActivity"
             android:screenOrientation="portrait" />
