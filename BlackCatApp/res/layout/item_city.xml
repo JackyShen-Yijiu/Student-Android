@@ -11,8 +11,8 @@
         android:layout_height="46dp"
         android:gravity="center"
         android:text="北京"
-        android:background="@color/new_app_main_color"
+        style="@style/btn_style_red"
         android:textColor="@color/white"
-        android:textSize="16sp" />
+        android:textSize="14sp" />
 
 </LinearLayout>

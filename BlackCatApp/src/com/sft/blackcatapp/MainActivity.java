@@ -35,6 +35,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 import cn.jpush.android.api.JPushInterface;
@@ -82,7 +84,7 @@ import com.sft.vo.QuestionVO;
 import com.sft.vo.SchoolVO;
 
 public class MainActivity extends BaseMainActivity implements
-		SLMenuListOnItemClickListener, OnClickListener, OnTabLisener {
+		SLMenuListOnItemClickListener, OnClickListener, OnTabLisener, OnCheckedChangeListener {
 
 	//
 	private static final String subjectContent = "subjectContent";
@@ -278,6 +280,8 @@ public class MainActivity extends BaseMainActivity implements
 		home_btn = (ImageView) findViewById(R.id.home_btn);
 		titleLeftIv = (ImageView) findViewById(R.id.title_left_iv);
 		titleTv = (TextView) findViewById(R.id.title_tv);
+		rg = (RadioGroup) findViewById(R.id.title_gp);
+		rg.setOnCheckedChangeListener(this);
 		titleRightIv = (ImageView) findViewById(R.id.title_right_iv);
 		titleRightTv = (TextView) findViewById(R.id.title_right_tv);
 		titleFarRightIv = (ImageView) findViewById(R.id.title_far_right_iv);
@@ -933,6 +937,7 @@ public class MainActivity extends BaseMainActivity implements
 
 	private long firstTime;
 	private TextView titleTv;
+	private RadioGroup rg;
 	private TextView titleRightTv;
 	private ImageView titleRightIv;
 	private ImageView titleLeftIv;
@@ -1110,20 +1115,22 @@ public class MainActivity extends BaseMainActivity implements
 		switch (index) {
 		case TAB_APPLY:
 			currentPage = TAB_APPLY;
-			titleLeftIv.setVisibility(View.VISIBLE);
-			titleRightIv.setVisibility(View.VISIBLE);
+			titleLeftIv.setVisibility(View.GONE);
+			titleRightIv.setVisibility(View.GONE);
 			titleRightTv.setVisibility(View.VISIBLE);
-			titleTv.setText(CommonUtil.getString(this, R.string.driving_school));
+			titleTv.setText("");//CommonUtil.getString(this, R.string.driving_school)
 			// util.saveParam(Config.USER_CITY, curCity);
 			titleRightTv
 					.setText(util.readParam(Config.USER_CITY) == null ? CommonUtil
 							.getString(this, R.string.locationing) : util
 							.readParam(Config.USER_CITY));
+			rg.setVisibility(View.VISIBLE);
 			break;
 		case TAB_STUDY:
 			currentPage = TAB_STUDY;
 			titleTv.setText(CommonUtil.getString(this,
 					R.string.tab_indicator_title_study));
+			rg.setVisibility(View.GONE);
 			break;
 		case TAB_APPOINTMENT:
 			currentPage = TAB_APPOINTMENT;
@@ -1139,17 +1146,19 @@ public class MainActivity extends BaseMainActivity implements
 				NoLoginDialog dialog = new NoLoginDialog(this);
 				dialog.show();
 			}
-
+			rg.setVisibility(View.GONE);
 			break;
 		case TAB_MALL:
 			currentPage = TAB_MALL;
 			titleTv.setText(CommonUtil.getString(this,
 					R.string.tab_indicator_title_mall));
+			rg.setVisibility(View.GONE);
 			break;
 		case TAB_COMMUNITY:
 			currentPage = TAB_COMMUNITY;
 			titleTv.setText(CommonUtil.getString(this,
 					R.string.tab_indicator_title_community));
+			rg.setVisibility(View.GONE);
 			break;
 
 		default:
@@ -1248,5 +1257,27 @@ public class MainActivity extends BaseMainActivity implements
 				comment(myAppointmentVO.get_id(), rating + "", content);
 			}
 		}
+	}
+
+	@Override
+	public void onCheckedChanged(RadioGroup group, int checkedId) {
+		if (mMainContainer.getCurrentFragment().equals(
+				mMainContainer.enrollFragment)) {
+			mMainContainer.enrollFragment.switchSchoolOrCoach();
+//			if (mMainContainer.enrollFragment.type == 0) {
+//				titleTv.setText(R.string.driving_school);
+//			} else {
+//				titleTv.setText(R.string.coach);
+//			}
+		}
+//		switch(checkedId){
+//		case R.id.radio0://驾校
+//			
+//			break;
+//		case R.id.radio1://教练
+//			
+//			break;
+//		}
+		
 	}
 }

@@ -17,6 +17,7 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -51,7 +52,7 @@ import com.sft.vo.CoachVO;
 import com.sft.vo.OpenCityVO;
 
 public class CoachsFragment1 extends BaseFragment implements OnRefreshListener,
-		OnItemClickListener, OnLoadListener {
+		OnItemClickListener, OnLoadListener, OnClickListener {
 
 	public static final String from_searchCoach_enroll = "from_searchCoach_enroll";
 	private final static String openCity = "openCity";
@@ -59,6 +60,7 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener,
 	private Context mContext;
 	private String currCity = null;
 	private EditText searchCoach;
+	private ImageView imgDelete;
 	private TextView carSelect;
 	private TextView distanceSelect;
 	private TextView commentSelect;
@@ -251,6 +253,7 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener,
 			public void downPull() {
 				if (lastId == 0) {
 					searchCoach.setVisibility(View.VISIBLE);
+					imgDelete.setVisibility(View.VISIBLE);
 					// ((EnrollSchoolActivity1)getActivity()).etSearch.setVisibility(View.VISIBLE);
 				}
 
@@ -270,6 +273,8 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener,
 		coachListView.addHeaderView(headerView);
 		searchCoach = (EditText) headerView
 				.findViewById(R.id.search_coach_search_et);
+		imgDelete = (ImageView) headerView.findViewById(R.id.header_delete);
+		imgDelete.setOnClickListener(this);
 		EditTextUtils.setEditTextHint(searchCoach,
 				getString(R.string.search_coach_hint), 12);
 
@@ -405,8 +410,11 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener,
 
 	// 搜索成功
 	protected void processSuccess(String value) {
-		if (!isSearchCoach)
+		if (!isSearchCoach) {
 			searchCoach.setVisibility(View.GONE);
+			imgDelete.setVisibility(View.GONE);
+		}
+
 		// ((EnrollSchoolActivity1)getActivity()).etSearch.setVisibility(View.GONE);
 
 		if (value != null) {
@@ -521,6 +529,7 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener,
 		// commentSelect.setOnClickListener(this);
 	}
 
+	@Override
 	public void onClick(View v) {
 		// if (!onClickSingleView()) {
 		// return;

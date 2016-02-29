@@ -130,6 +130,8 @@ public class SchoolsFragment extends BaseFragment implements
 	private int viewPagerHeight;
 	private RelativeLayout adLayout;
 	private EditText searchSchool;
+	private View headerView;
+	private ImageView imgDelete;
 	private RefreshLayout swipeLayout;
 	// private LinearLayout llSearch;
 
@@ -261,8 +263,12 @@ public class SchoolsFragment extends BaseFragment implements
 	// 搜索成功
 	protected void processSuccess(String value) {
 
-		if (!isSearchSchool)
+		if (!isSearchSchool){
 			searchSchool.setVisibility(View.GONE);
+			imgDelete.setVisibility(View.GONE);
+		}
+//			headerView.setVisibility(View.GONE);
+			
 		// ((EnrollSchoolActivity1)getActivity()).etSearch.setVisibility(View.GONE);
 		// searchSchool.setVisibility(View.GONE);
 		if (value != null) {
@@ -399,6 +405,7 @@ public class SchoolsFragment extends BaseFragment implements
 			public void downPull() {
 				if (lastId == 0) {
 					searchSchool.setVisibility(View.VISIBLE);
+					imgDelete.setVisibility(View.VISIBLE);
 					// ((EnrollSchoolActivity1)getActivity()).etSearch.setVisibility(View.VISIBLE);
 					LogUtil.print("scrolling---2222>"
 							+ schoolListView.getPivotX());
@@ -430,8 +437,9 @@ public class SchoolsFragment extends BaseFragment implements
 		// }
 		// }
 
-		View headerView = View.inflate(getActivity(),
+		headerView = View.inflate(getActivity(),
 				R.layout.enroll_school_header, null);
+		
 		//
 		schoolListView.addHeaderView(headerView);
 		//
@@ -449,6 +457,9 @@ public class SchoolsFragment extends BaseFragment implements
 		// .findViewById(R.id.enroll_school_top_defaultimage);
 		searchSchool = (EditText) headerView
 				.findViewById(R.id.enroll_school_search_et);
+		imgDelete = (ImageView) headerView
+				.findViewById(R.id.header_delete);
+		imgDelete.setOnClickListener(this);
 		EditTextUtils.setEditTextHint(searchSchool,
 				getString(R.string.search_school), 12);
 		//
@@ -723,6 +734,10 @@ public class SchoolsFragment extends BaseFragment implements
 			if (popupWindow != null) {
 				popupWindow.dismiss();
 			}
+			break;
+		case R.id.header_delete://删除 输入框 ，从新刷新请求数据
+			searchSchool.setText("");
+			onRefresh();
 			break;
 		}
 	}
@@ -1093,6 +1108,7 @@ public class SchoolsFragment extends BaseFragment implements
 					PayOrderVO pay;
 					pay = JSONUtil.toJavaBean(PayOrderVO.class,
 							dataArray.getJSONObject(i));
+					LogUtil.print("state-->"+pay.userpaystate);
 					if (pay.userpaystate.equals("0")
 							|| pay.userpaystate.equals("3")) {// 订单刚生成，支付失败
 
@@ -1101,16 +1117,16 @@ public class SchoolsFragment extends BaseFragment implements
 								.getValue());
 
 						app.isEnrollAgain = true;
-						if (pay.userpaystate.equals("0")
-								|| pay.userpaystate.equals("3")) {// 订单刚生成，支付失败
-							LogUtil.print("notFinish---->" + i);
-							if (!hasNotFinishDialog) {
-								HasOrder(pay);
-								hasNotFinishDialog = true;
-							}
-
-							break;
-						}
+//						if (pay.userpaystate.equals("0")
+//								|| pay.userpaystate.equals("3")) {// 订单刚生成，支付失败
+//							LogUtil.print("notFinish---->" + i);
+//							if (!hasNotFinishDialog) {
+//								HasOrder(pay);
+//								hasNotFinishDialog = true;
+//							}
+//
+//							break;
+//						}
 						payList.add(pay);
 					}
 
@@ -1233,6 +1249,7 @@ public class SchoolsFragment extends BaseFragment implements
 	// 下拉加载
 	@Override
 	public void onLoad() {
+		LogUtil.print("more--->"+index);
 		isLoadingMore = true;
 		if (isSearchSchool) {
 			searchIndex++;

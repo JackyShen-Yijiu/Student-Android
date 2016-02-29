@@ -132,6 +132,7 @@
        android:id="@+id/search_coach_search_et"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
@@ -145,11 +146,22 @@
         android:paddingLeft="8dp"
        android:background="@drawable/change_shuttle_addess_bkground"
         />
+    
+    <ImageView
+         android:id="@+id/header_delete"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentRight="true"
+         android:layout_centerVertical="true"
+         android:visibility="gone"
+         android:layout_marginRight="36dp"
+         android:src="@drawable/search_del" />
      <ImageView
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#dddddd"
         android:layout_below="@+id/search_coach_search_et"
         android:layout_marginTop="6dp"
+        android:visibility="gone"
         android:contentDescription="@string/app_name" />
 </RelativeLayout>

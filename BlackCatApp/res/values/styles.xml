@@ -86,6 +86,36 @@
         <item name="android:layout_weight">1</item>
         <item name="android:layout_height">@dimen/selectcoach_radiogroup_height</item>
     </style>
+    
+     <style name="title_school_coach_right">
+        <item name="android:background">@drawable/selector_title_right</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:textColor">@drawable/select_coach_radiobtn_textcolor</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:layout_height">@dimen/selectcoach_radiogroup_height</item>
+    </style>
+    
+     <style name="title_school_coach_left">
+        <item name="android:background">@drawable/selector_title_left</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:textColor">@drawable/select_coach_radiobtn_textcolor</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">@dimen/selectcoach_radiogroup_height</item>
+    </style>
 
     <style name="enroll_et_style">
         <item name="android:textColor">#999999</item>
@@ -140,6 +170,15 @@
         <item name="android:background">@drawable/btn_bkground</item>
     </style>
     
+    <style name="btn_style_red">
+        <item name="android:textSize">@dimen/txt_size_middle</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <!--<item name="android:textColor">@drawable/selector_red_gray</item>  -->
+        
+        <item name="android:background">@drawable/selector_red_btn</item>
+    </style>
+    
     <style name="btn_style_white">
         <item name="android:textColor">@color/app_main_color</item>
         <item name="android:textSize">16dp</item>
@@ -153,6 +192,18 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:minHeight">26dp</item>
         <item name="android:maxHeight">26dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fadingEdge">none</item>
+        <item name="android:isIndicator">true</item>
+        <item name="android:listSelector">@android:color/transparent</item>
+        <item name="android:numStars">5</item>
+    </style>
+    
+    <style name="roomRatingBar_28" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/ratingbar_bkground_28</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:minHeight">18dp</item>
+        <item name="android:maxHeight">18dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:fadingEdge">none</item>
         <item name="android:isIndicator">true</item>

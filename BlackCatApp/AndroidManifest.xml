@@ -46,10 +46,9 @@
     <permission
         android:name="com.sft.blackcatapp.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />
-<!-- 
-<uses-permission android:name="com.sft.blackcatapp.permission.JPUSH_MESSAGE" />
- -->
-    
+<!-- <uses-permission android:name="com.sft.blackcatapp.permission.JPUSH_MESSAGE" /> -->
+
+
     <!-- 官方定义的权限，允许应用接收JPUSH内部代码发送的广播消息。 -->
     <uses-permission android:name="RECEIVE_USER_PRESENT" />
     <!-- 允许应用可以接收点亮屏幕或解锁广播。 -->
@@ -91,15 +90,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
+
         <!-- 支付測試 -->
         <activity android:name="com.sft.alipay.PayDemoActivity" >
-            
-            
-            
         </activity>
-        
-        
         <activity
             android:name="com.sft.blackcatapp.GuideActivity"
             android:screenOrientation="portrait" />
@@ -127,23 +121,20 @@
         <activity
             android:name="com.sft.blackcatapp.SchoolDetailActivity"
             android:screenOrientation="portrait" />
-        
-            <activity
+        <activity
             android:name="com.sft.blackcatapp.NewEditPersonInfo"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.sft.blackcatapp.EnrollSchoolActivity"
             android:screenOrientation="portrait" />
-        <!--  搜索驾校 -->
+        <!-- 搜索驾校 -->
         <activity
             android:name="com.sft.blackcatapp.EnrollSchoolActivity1"
             android:screenOrientation="portrait" />
-        
         <activity
             android:name="com.sft.blackcatapp.EnrollActivity"
             android:screenOrientation="portrait" />
-        
-        
+
         <!-- 新增 -->
         <activity
             android:name="com.sft.blackcatapp.EnrollNextActivity"
@@ -194,10 +185,9 @@
         <activity
             android:name="com.sft.blackcatapp.CropImageActivity"
             android:screenOrientation="portrait" />
-          <activity
+        <activity
             android:name="com.sft.blackcatapp.ApplyDetailActivity"
             android:screenOrientation="portrait" />
-        
         <activity
             android:name="com.sft.blackcatapp.ChangeAddressActivity"
             android:screenOrientation="portrait" />
@@ -210,7 +200,7 @@
         <activity
             android:name="com.sft.blackcatapp.CallBackActivity"
             android:screenOrientation="portrait" />
-         <activity
+        <activity
             android:name="com.sft.blackcatapp.SettingHelp"
             android:screenOrientation="portrait" />
         <activity
@@ -260,13 +250,12 @@
         <activity
             android:name="com.sft.blackcatapp.Walletintegral"
             android:screenOrientation="portrait" />
-          <activity
+        <activity
             android:name="com.sft.blackcatapp.Walletcoupons"
             android:screenOrientation="portrait" />
-            <activity
+        <activity
             android:name="com.sft.blackcatapp.Walletmoney"
             android:screenOrientation="portrait" />
-        
         <activity
             android:name="com.sft.blackcatapp.SubjectOneActivity"
             android:screenOrientation="portrait" />
@@ -371,76 +360,82 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.sft.blackcatapp.NewApplystateActivity"
-            android:windowSoftInputMode="adjustPan|stateVisible"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateVisible" />
         <activity
             android:name="com.sft.blackcatapp.QRCodeCreateActivity"
             android:screenOrientation="portrait" />
-          <activity
+        <activity
             android:name="com.sft.blackcatapp.PhotographActivity"
             android:screenOrientation="portrait" />
-          
-           <activity
+        <activity
             android:name="com.sft.blackcatapp.NewCropImageActivity"
             android:screenOrientation="portrait" />
-              <activity
+        <activity
             android:name="com.sft.blackcatapp.TestingApplyActivity"
             android:screenOrientation="portrait" />
-              <activity
+        <activity
             android:name="com.sft.blackcatapp.SchoolBusRouteActivity"
             android:screenOrientation="portrait" />
-           
-              <activity
+        <activity
             android:name="com.sft.blackcatapp.NewActivitysActivity"
             android:screenOrientation="portrait" />
-              <activity
+        <activity
             android:name="com.sft.blackcatapp.EnrollSubjectActivity"
             android:screenOrientation="portrait" />
-           <!-- 确认订单 -->
-           <activity
-               android:name=".ConfirmOrderActivity"
-               android:screenOrientation="portrait"></activity>
-              <!-- 钱包 -->
-           <activity
-               android:name=".WalletActivity"
-               android:screenOrientation="portrait"></activity>
-            <activity
-               android:name=".WebViewActivitys"
-               android:screenOrientation="portrait"></activity>
-           <!-- 折扣券 验证 -->
-           <activity
-               android:name=".CheckDiscodeAct"
-               android:screenOrientation="portrait"></activity>
-           <!-- 学车秘籍 -->
-           <activity
-               android:name=".LearnCarCheatsActivity"
-               android:screenOrientation="portrait"></activity>
-           <!-- 我要约考 -->
-           <activity
-               android:name=".AppointmentExamActivity"
-               android:screenOrientation="portrait"
-               android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
-           <!-- 选择城市 -->
-           
-           <activity
-               android:name="com.sft.city.Act_City"
-               android:screenOrientation="portrait"></activity>
-           
-           <activity
-               android:name=".MyOrderAct"
-               android:screenOrientation="portrait"></activity>
-           
-           <activity
-               android:name=".OrderApplyAct"
-               android:screenOrientation="portrait"></activity>
-           
-           <activity
-               android:name=".OrderExchangeGoodAct"
-               android:screenOrientation="portrait"></activity>
-           
-           
-           
-           
+        <!-- 确认订单 -->
+        <activity
+            android:name=".ConfirmOrderActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <!-- 钱包 -->
+        <activity
+            android:name=".WalletActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".WebViewActivitys"
+            android:screenOrientation="portrait" >
+        </activity>
+        <!-- 折扣券 验证 -->
+        <activity
+            android:name=".CheckDiscodeAct"
+            android:screenOrientation="portrait" >
+        </activity>
+        <!-- 学车秘籍 -->
+        <activity
+            android:name=".LearnCarCheatsActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <!-- 我要约考 -->
+        <activity
+            android:name=".AppointmentExamActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+        </activity>
+        <!-- 选择城市 -->
+
+        <activity
+            android:name="com.sft.city.Act_City"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".MyOrderAct"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".OrderApplyAct"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".OrderExchangeGoodAct"
+            android:screenOrientation="portrait" >
+        </activity>
+        <!-- 兑换商品订单详情 -->
+        <activity
+            android:name=".ExchangeDetailAct"
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
             android:name="com.sft.blackcatapp.SchoolAllCoachActivity"
             android:screenOrientation="portrait" />
@@ -450,7 +445,23 @@
             android:theme="@style/Theme.BonueDialog" />
 
         <service android:name="com.sft.util.DownLoadService" />
-    
+
+        <!-- 阿里支付 -->
+        <!-- 支付宝支付 Web版本============================================================ -->
+        
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
+        <activity
+            android:name="com.alipay.sdk.auth.AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind" >
+        </activity>
 
         <!-- 极光推送 ======================================================================== -->
         <!-- Required SDK核心功能 -->
@@ -579,7 +590,7 @@
             android:value="56a60db667e58e2df700043f" >
         </meta-data>
         <!-- 微信 -->
-     
+
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"

@@ -2,6 +2,7 @@ package com.sft.adapter;
 
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.sft.blackcatapp.R;
+import com.sft.common.BlackCatApplication;
 import com.sft.common.Config.EnrollResult;
 import com.sft.util.LogUtil;
 import com.sft.vo.ClassVO;
@@ -26,6 +28,8 @@ public class SchoolDetailCourseFeeAdapter extends BaseAdapter {
 	private String enrollstate;
 	
 	private String schoolName;
+	
+	private BlackCatApplication app;
 
 	public SchoolDetailCourseFeeAdapter(List<ClassVO> list, Context context,
 			MyClickListener listener, String enrollstate) {
@@ -33,6 +37,9 @@ public class SchoolDetailCourseFeeAdapter extends BaseAdapter {
 		this.mList = list;
 		mListener = listener;
 		this.enrollstate = enrollstate;
+		if (app == null) {
+			app = BlackCatApplication.getInstance();
+		}
 	}
 	
 	public void setName(String name){
@@ -54,9 +61,11 @@ public class SchoolDetailCourseFeeAdapter extends BaseAdapter {
 		return position;
 	}
 
-	@Override
+	@SuppressLint("ViewHolder") @Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-
+		
+		LogUtil.print("course--adapter--00>"+position);
+		ClassVO serverClassList = mList.get(position);
 		convertView = View.inflate(mContext, R.layout.school_detail_course_fee,
 				null);
 		TextView title = (TextView) convertView
@@ -72,29 +81,51 @@ public class SchoolDetailCourseFeeAdapter extends BaseAdapter {
 		
 		Button entrollBut = (Button) convertView
 				.findViewById(R.id.course_fee_enroll_btn);
+		LogUtil.print(enrollstate+"classID-->"+serverClassList.getCalssid()+"App::>"+app.userVO.getApplyclasstypeinfo().getId());
 		
-		if (EnrollResult.SUBJECT_NONE.getValue().equals(enrollstate)) {
-			entrollBut.setText("报名");
-		} 
-		else if (EnrollResult.SUBJECT_ENROLLING.getValue()
-				.equals(enrollstate)) {
-			entrollBut.setText("报名审核中");
-			entrollBut.setEnabled(false);
-			entrollBut.setBackgroundColor(mContext.getResources().getColor(
-					R.color.txt_9));
+		if (app.userVO != null
+				&& app.userVO.getApplyclasstypeinfo() != null
+				&& serverClassList.getCalssid().equals(
+						app.userVO.getApplyclasstypeinfo().getId())) {// 如果相同
+																		// 则显示
+			if (EnrollResult.SUBJECT_NONE.getValue().equals(enrollstate)) {
+				entrollBut.setText("报名");
+				entrollBut.setTextColor(mContext.getResources().getColor(R.color.white));
+			} else if (EnrollResult.SUBJECT_ENROLLING.getValue().equals(
+					enrollstate)) {
+				entrollBut.setText("报名审核中");
+				entrollBut.setEnabled(false);
+				entrollBut.setTextColor(mContext.getResources().getColor(R.color.text_color_light));
+				
+//				entrollBut.setBackgroundColor(mContext.getResources().getColor(
+//						R.color.txt_9));
 
-		} else {
-			entrollBut.setText("已报名");
-			entrollBut.setEnabled(false);
-			entrollBut.setBackgroundColor(mContext.getResources().getColor(
-					R.color.txt_9));
+			} else {
+				entrollBut.setText("已报名");
+				entrollBut.setEnabled(false);
+				entrollBut.setTextColor(mContext.getResources().getColor(R.color.text_color_light));
+//				entrollBut.setBackgroundColor(mContext.getResources().getColor(
+//						R.color.txt_9));
+			}
+		}else{
+			
+			if (EnrollResult.SUBJECT_NONE.getValue().equals(enrollstate)) {
+				entrollBut.setText("报名");
+				entrollBut.setTextColor(mContext.getResources().getColor(R.color.white));
+			}  else {
+				entrollBut.setVisibility(View.GONE);
+			}
+			
+	
 		}
+		
+		
 		
 		
 		entrollBut.setTag(position);
 		entrollBut.setOnClickListener(mListener);
 
-		ClassVO serverClassList = mList.get(position);
+		
 		
 		total.setText(schoolName+" "+serverClassList.getClassname()+" "+serverClassList.getPrice());
 		
@@ -116,6 +147,7 @@ public class SchoolDetailCourseFeeAdapter extends BaseAdapter {
 //						+ serverClassList.getOnsaleprice().length() + 1,
 //				Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 //		intro.setText(builder);
+		LogUtil.print("course--adapter-->"+position);
 		return convertView;
 	}
 

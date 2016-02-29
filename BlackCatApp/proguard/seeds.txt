@@ -26698,7 +26698,10 @@ com.sft.emchat.ShowVideoActivity: ShowVideoActivity()
 com.sft.emchat.VoicePlayClickListener: void onClick(android.view.View)
 com.sft.fragment.AppayFragment: void onClick(android.view.View)
 com.sft.fragment.AppointmentFragment: void onClick(android.view.View)
+<<<<<<< HEAD
 com.sft.fragment.AppointmentFragment: void onEvent(com.sft.event.AppointmentSuccessEvent)
+=======
+>>>>>>> 41b70e3bf146533b65249ce1b8ecbd5e5097651c
 com.sft.fragment.CoachsFragment: void onClick(android.view.View)
 com.sft.fragment.CoachsFragment1: void onClick(android.view.View)
 com.sft.fragment.CommunityFragment: void onClick(android.view.View)
@@ -26717,7 +26720,10 @@ com.sft.fragment.SubjectOneFragment: void onClick(android.view.View)
 com.sft.fragment.SubjectThreeFragment: void onClick(android.view.View)
 com.sft.fragment.SubjectTwoFragment: void onClick(android.view.View)
 com.sft.fragment.WalletFragment: void onClick(android.view.View)
+<<<<<<< HEAD
 com.sft.library.DemoHXSDKHelper$1: void onEvent(com.easemob.EMNotifierEvent)
+=======
+>>>>>>> 41b70e3bf146533b65249ce1b8ecbd5e5097651c
 com.sft.model.DefaultHXSDKModel$Key: com.sft.model.DefaultHXSDKModel$Key VibrateAndPlayToneOn
 com.sft.model.DefaultHXSDKModel$Key: com.sft.model.DefaultHXSDKModel$Key VibrateOn
 com.sft.model.DefaultHXSDKModel$Key: com.sft.model.DefaultHXSDKModel$Key PlayToneOn
@@ -36482,8 +36488,11 @@ de.greenrobot.event.ThreadMode: ThreadMode(java.lang.String,int)
 de.greenrobot.event.ThreadMode: void <clinit>()
 de.greenrobot.event.util.ErrorDialogFragments$Honeycomb: void onClick(android.content.DialogInterface,int)
 de.greenrobot.event.util.ErrorDialogFragments$Support: void onClick(android.content.DialogInterface,int)
+<<<<<<< HEAD
 de.greenrobot.event.util.ErrorDialogManager$HoneycombManagerFragment: void onEventMainThread(de.greenrobot.event.util.ThrowableFailureEvent)
 de.greenrobot.event.util.ErrorDialogManager$SupportManagerFragment: void onEventMainThread(de.greenrobot.event.util.ThrowableFailureEvent)
+=======
+>>>>>>> 41b70e3bf146533b65249ce1b8ecbd5e5097651c
 internal.org.apache.http.entity.mime.HttpMultipartMode
 internal.org.apache.http.entity.mime.HttpMultipartMode: internal.org.apache.http.entity.mime.HttpMultipartMode STRICT
 internal.org.apache.http.entity.mime.HttpMultipartMode: internal.org.apache.http.entity.mime.HttpMultipartMode BROWSER_COMPATIBLE

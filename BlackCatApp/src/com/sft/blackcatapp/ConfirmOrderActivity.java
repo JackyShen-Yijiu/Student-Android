@@ -35,7 +35,6 @@ public class ConfirmOrderActivity extends BaseActivity implements
 	private TextView tvDiscodeBottom;
 
 	private ClassVO classe;
-
 	/**
 	 * 填写的 phone 号码
 	 */
@@ -361,6 +360,8 @@ public class ConfirmOrderActivity extends BaseActivity implements
 			return classe.getClassname()+"￥"+classe.getOnsaleprice();
 		return null;
 	}
+	
+
 	
 	
 

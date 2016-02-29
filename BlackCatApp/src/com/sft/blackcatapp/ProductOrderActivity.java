@@ -1,8 +1,5 @@
 package com.sft.blackcatapp;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.json.JSONObject;
 
 import android.content.Intent;
@@ -15,15 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import cn.sft.baseactivity.util.HttpSendUtils;
 
-import com.sft.blackcatapp.R;
-import com.sft.common.Config;
 import com.sft.util.JSONUtil;
-import com.sft.viewutil.ZProgressHUD;
-import com.sft.vo.MyCuponVO;
 import com.sft.vo.ProductBuySuccessVO;
-import com.sft.vo.ProductVO;
 
 /**
  * 订单信息
@@ -61,16 +52,18 @@ public class ProductOrderActivity extends BaseActivity implements
 
 		setTitleText("订单确认");
 
-		nameEt = (EditText) findViewById(R.id.product_order_nameet);
-		phoneEt = (EditText) findViewById(R.id.product_order_phoneet);
-		addressEt = (EditText) findViewById(R.id.product_order_addresset);
-
-		nameLayout = (LinearLayout) findViewById(R.id.product_namelayout);
-		phoneLayout = (LinearLayout) findViewById(R.id.product_phonelayout);
-		addressLayout = (LinearLayout) findViewById(R.id.product_addresslayout);
-
-		currencyTv = (TextView) findViewById(R.id.product_order_currentcy_tv);
-		buyBtn = (Button) findViewById(R.id.product_order_buy_btn);
+		// nameEt = (EditText) findViewById(R.id.product_order_nameet);
+		// phoneEt = (EditText) findViewById(R.id.product_order_phoneet);
+		// addressEt = (EditText) findViewById(R.id.product_order_addresset);
+		//
+		// nameLayout = (LinearLayout) findViewById(R.id.product_namelayout);
+		// phoneLayout = (LinearLayout) findViewById(R.id.product_phonelayout);
+		// addressLayout = (LinearLayout)
+		// findViewById(R.id.product_addresslayout);
+		//
+		// currencyTv = (TextView)
+		// findViewById(R.id.product_order_currentcy_tv);
+		// buyBtn = (Button) findViewById(R.id.product_order_buy_btn);
 
 		currencyTv.setText(app.currency);
 	}
@@ -93,39 +86,39 @@ public class ProductOrderActivity extends BaseActivity implements
 		case R.id.base_left_btn:
 			finish();
 			break;
-		case R.id.product_order_buy_btn:
-
-			String result = checkOrder();
-			if (result != null) {
-				ZProgressHUD.getInstance(this).show();
-				ZProgressHUD.getInstance(this).dismissWithFailure(result);
-				return;
-			}
-			ProductVO productVO = (ProductVO) getIntent().getSerializableExtra(
-					"product");
-			MyCuponVO myCuponVO = (MyCuponVO) getIntent().getSerializableExtra(
-					"myCupon");
-
-			Map<String, String> paramsMap = new HashMap<String, String>();
-			paramsMap.put("usertype", "1");
-			paramsMap.put("userid", app.userVO.getUserid());
-			paramsMap.put("productid", productVO.getProductid());
-			paramsMap.put("name", nameEt.getText().toString());
-			paramsMap.put("mobile", phoneEt.getText().toString());
-			paramsMap.put("address", addressEt.getText().toString());
-			if (myCuponVO != null) {
-
-				paramsMap.put("couponid", myCuponVO.get_id());
-			}
-
-			Map<String, String> headerMap = new HashMap<String, String>();
-			headerMap.put("authorization", app.userVO.getToken());
-
-			HttpSendUtils
-					.httpPostSend(buy, this, Config.IP
-							+ "api/v1/userinfo/buyproduct", paramsMap, 10000,
-							headerMap);
-			break;
+		// case R.id.product_order_buy_btn:
+		//
+		// String result = checkOrder();
+		// if (result != null) {
+		// ZProgressHUD.getInstance(this).show();
+		// ZProgressHUD.getInstance(this).dismissWithFailure(result);
+		// return;
+		// }
+		// ProductVO productVO = (ProductVO) getIntent().getSerializableExtra(
+		// "product");
+		// MyCuponVO myCuponVO = (MyCuponVO) getIntent().getSerializableExtra(
+		// "myCupon");
+		//
+		// Map<String, String> paramsMap = new HashMap<String, String>();
+		// paramsMap.put("usertype", "1");
+		// paramsMap.put("userid", app.userVO.getUserid());
+		// paramsMap.put("productid", productVO.getProductid());
+		// paramsMap.put("name", nameEt.getText().toString());
+		// paramsMap.put("mobile", phoneEt.getText().toString());
+		// paramsMap.put("address", addressEt.getText().toString());
+		// if (myCuponVO != null) {
+		//
+		// paramsMap.put("couponid", myCuponVO.get_id());
+		// }
+		//
+		// Map<String, String> headerMap = new HashMap<String, String>();
+		// headerMap.put("authorization", app.userVO.getToken());
+		//
+		// HttpSendUtils
+		// .httpPostSend(buy, this, Config.IP
+		// + "api/v1/userinfo/buyproduct", paramsMap, 10000,
+		// headerMap);
+		// break;
 		}
 	}
 
@@ -151,15 +144,15 @@ public class ProductOrderActivity extends BaseActivity implements
 		phoneLayout.setBackgroundColor(normalColor);
 		addressLayout.setBackgroundColor(normalColor);
 		switch (v.getId()) {
-		case R.id.product_order_nameet:
-			nameLayout.setBackgroundColor(selectColor);
-			break;
-		case R.id.product_order_phoneet:
-			phoneLayout.setBackgroundColor(selectColor);
-			break;
-		case R.id.product_order_addresset:
-			addressLayout.setBackgroundColor(selectColor);
-			break;
+		// case R.id.product_order_nameet:
+		// nameLayout.setBackgroundColor(selectColor);
+		// break;
+		// case R.id.product_order_phoneet:
+		// phoneLayout.setBackgroundColor(selectColor);
+		// break;
+		// case R.id.product_order_addresset:
+		// addressLayout.setBackgroundColor(selectColor);
+		// break;
 		}
 	}
 
