@@ -172,6 +172,11 @@ public class CancelAppointmentActivity extends BaseActivity implements
 			return true;
 		}
 		if (type.equals(cancelAppointment)) {
+			if (!TextUtils.isEmpty(msg)) {
+				ZProgressHUD.getInstance(this).show();
+				ZProgressHUD.getInstance(this).dismissWithFailure(msg, 1000);
+				return false;
+			}
 			if (dataString != null) {
 				ZProgressHUD.getInstance(this).show();
 				ZProgressHUD.getInstance(this).dismissWithSuccess("已取消");

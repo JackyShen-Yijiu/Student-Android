@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sft.blackcatapp.R;
+import com.sft.event.AppointmentSuccessEvent;
 import com.umeng.socialize.Config;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareAPI;
@@ -25,6 +26,8 @@ import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.shareboard.SnsPlatform;
 import com.umeng.socialize.utils.Log;
 import com.umeng.socialize.utils.ShareBoardlistener;
+
+import de.greenrobot.event.EventBus;
 
 @SuppressLint("InflateParams")
 public class BonusDialog extends Activity {
@@ -179,12 +182,14 @@ public class BonusDialog extends Activity {
 			Toast.makeText(BonusDialog.this, " 分享成功啦", Toast.LENGTH_SHORT)
 					.show();
 			BonusDialog.this.finish();
+			EventBus.getDefault().post(new AppointmentSuccessEvent());
 		}
 
 		@Override
 		public void onError(SHARE_MEDIA platform, Throwable t) {
 			Toast.makeText(BonusDialog.this, " 分享失败啦", Toast.LENGTH_SHORT)
 					.show();
+			EventBus.getDefault().post(new AppointmentSuccessEvent());
 		}
 
 		@Override

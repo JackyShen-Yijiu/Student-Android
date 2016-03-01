@@ -89,7 +89,7 @@ public class AppointmentCarActivity extends BaseActivity implements
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-
+		EventBus.getDefault().unregister(this);
 	}
 
 	@Override
@@ -103,6 +103,7 @@ public class AppointmentCarActivity extends BaseActivity implements
 		initData();
 		// resizeLayout();
 		setListener();
+		EventBus.getDefault().register(this);
 	}
 
 	private void initViews() {
@@ -155,11 +156,13 @@ public class AppointmentCarActivity extends BaseActivity implements
 		noCaochErrorIv = (ImageView) findViewById(R.id.error_iv);
 		noCaochErroTv = (TextView) findViewById(R.id.error_tv);
 		hasAppointment = (LinearLayout) findViewById(R.id.appointment_car_ll);
+		belowLayout = (RelativeLayout) findViewById(R.id.appointment_car_below_rl);
 		noCaochErrorIv.setBackgroundResource(R.drawable.app_error_robot);
 		noCaochErroTv.setText(CommonUtil.getString(this,
 				R.string.no_appointment_coach_error_info));
 		noCaochErrorRl.setVisibility(View.GONE);
 		hasAppointment.setVisibility(View.VISIBLE);
+		belowLayout.setVisibility(View.VISIBLE);
 		//
 		timeLayout = (ScrollTimeLayout) findViewById(R.id.appointment_car_time);
 		appointCommit = (Button) findViewById(R.id.appointment_car_commit_btn);
@@ -250,6 +253,7 @@ public class AppointmentCarActivity extends BaseActivity implements
 		} else {
 			noCaochErrorRl.setVisibility(View.VISIBLE);
 			hasAppointment.setVisibility(View.GONE);
+			belowLayout.setVisibility(View.GONE);
 		}
 	}
 
@@ -257,7 +261,7 @@ public class AppointmentCarActivity extends BaseActivity implements
 		if (!TextUtils.isEmpty(selectDate)) {
 			// 先清空上个教练的课程
 			courseList.clear();
-
+			LogUtil.print(coachId + "----" + selectDate + "selectDate");
 			Map<String, String> paramMap = new HashMap<String, String>();
 			paramMap.put("coachid", coachId);
 			paramMap.put("date", selectDate);
@@ -368,6 +372,7 @@ public class AppointmentCarActivity extends BaseActivity implements
 				if (dataArray != null) {
 					noCaochErrorRl.setVisibility(View.GONE);
 					hasAppointment.setVisibility(View.VISIBLE);
+					belowLayout.setVisibility(View.VISIBLE);
 					int length = dataArray.length();
 					for (int i = 0; i < length; i++) {
 						CoachCourseVO coachCourseVO = JSONUtil
@@ -380,6 +385,7 @@ public class AppointmentCarActivity extends BaseActivity implements
 				for (int i = 0; i < courseList.size(); i++) {
 
 				}
+				LogUtil.print("1111111----===" + courseList.size());
 				timeLayout.setData(courseList, aspect);
 			} else if (type.equals(appointmentCourse)) {
 				if (dataString != null) {
@@ -393,9 +399,11 @@ public class AppointmentCarActivity extends BaseActivity implements
 
 					// 预约成功，保存当前的教练，以备下次预约
 					Util.saveAppointmentCoach(this, selectCoach);
-					EventBus.getDefault().post(new AppointmentSuccessEvent());
+					// EventBus.getDefault().post(new
+					// AppointmentSuccessEvent());
 					Intent intent = new Intent();
 					setResult(RESULT_OK, intent);
+
 					// new MyHandler(1500) {
 					// @Override
 					// public void run() {
@@ -448,6 +456,7 @@ public class AppointmentCarActivity extends BaseActivity implements
 		ZProgressHUD.getInstance(this).dismiss();
 		noCaochErrorRl.setVisibility(View.VISIBLE);
 		hasAppointment.setVisibility(View.GONE);
+		belowLayout.setVisibility(View.GONE);
 		noCaochErrorIv.setBackgroundResource(R.drawable.app_no_wifi);
 		noCaochErroTv.setText(CommonUtil.getString(this, R.string.no_wifi));
 	}
@@ -459,6 +468,7 @@ public class AppointmentCarActivity extends BaseActivity implements
 		ZProgressHUD.getInstance(this).dismiss();
 		noCaochErrorRl.setVisibility(View.VISIBLE);
 		hasAppointment.setVisibility(View.GONE);
+		belowLayout.setVisibility(View.GONE);
 		noCaochErrorIv.setBackgroundResource(R.drawable.app_no_wifi);
 		noCaochErroTv.setText(CommonUtil.getString(this, R.string.no_wifi));
 	}
@@ -475,6 +485,7 @@ public class AppointmentCarActivity extends BaseActivity implements
 	private int finishTime;
 	private TextView coachName;
 	private SelectableRoundedImageView coachPic;
+	private RelativeLayout belowLayout;
 
 	class MyOnTimeLayoutSelectedListener implements
 			OnTimeLayoutSelectedListener {
@@ -485,9 +496,16 @@ public class AppointmentCarActivity extends BaseActivity implements
 				return;
 			}
 			LogUtil.print("========" + timeLayout.getSelectCourseList().size());
-			learnProgress2Tv.setText("第" + (finishTime + 1) + "-"
-					+ (timeLayout.getSelectCourseList().size() + finishTime)
-					+ "课时 ");
+			if (timeLayout.getSelectCourseList().size() == 1) {
+				learnProgress2Tv.setText("第" + (finishTime + 1) + "课时 ");
+			} else {
+				learnProgress2Tv
+						.setText("第"
+								+ (finishTime + 1)
+								+ "-"
+								+ (timeLayout.getSelectCourseList().size() + finishTime)
+								+ "课时 ");
+			}
 
 			// learnProgressTv.setText(subjectName + " 第" + (finishTime + 1)
 			// + endtime + "课时  完成" + finishTime + "课时");
@@ -603,5 +621,9 @@ public class AppointmentCarActivity extends BaseActivity implements
 			ZProgressHUD.getInstance(this).show();
 			ZProgressHUD.getInstance(this).dismissWithFailure("无法获取对方信息");
 		}
+	}
+
+	public void onEvent(AppointmentSuccessEvent event) {
+		this.finish();
 	}
 }

@@ -15,7 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
-import com.sft.adapter.CoachListAdapter;
+import com.sft.adapter.SchoolDetailCoachHoriListAdapter;
 import com.sft.common.Config;
 import com.sft.listener.AdapterRefreshListener;
 import com.sft.listener.OnTabActivityResultListener;
@@ -35,7 +35,7 @@ public class FavouriteCoachActivity extends BaseActivity implements
 	private static final String coach = "coach";
 	private XListView listView;
 	private RelativeLayout layout;
-	private CoachListAdapter adapter;
+	private SchoolDetailCoachHoriListAdapter adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -84,15 +84,16 @@ public class FavouriteCoachActivity extends BaseActivity implements
 					List<CoachVO> list = new ArrayList<CoachVO>();
 					int length = dataArray.length();
 					for (int i = 0; i < length; i++) {
-						CoachVO coachVO = (CoachVO) JSONUtil.toJavaBean(
-								CoachVO.class, dataArray.getJSONObject(i));
+						CoachVO coachVO = JSONUtil.toJavaBean(CoachVO.class,
+								dataArray.getJSONObject(i));
 						list.add(coachVO);
 					}
 					app.favouriteCoach = list;
 					if (list.size() > 0) {
 						layout.setVisibility(View.GONE);
 						listView.setVisibility(View.VISIBLE);
-						adapter = new CoachListAdapter(this, app.favouriteCoach);
+						adapter = new SchoolDetailCoachHoriListAdapter(this,
+								app.favouriteCoach);
 						listView.setAdapter(adapter);
 					} else {
 						layout.setVisibility(View.VISIBLE);

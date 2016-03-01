@@ -3,15 +3,15 @@
     xmlns:widget="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/app_bg_light" >
+    android:background="@color/app_bg_dark" >
 
     <include layout="@layout/layout_error" />
 
     <LinearLayout
         android:id="@+id/appointment_car_ll"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="@color/app_bg_light"
+        android:layout_height="wrap_content"
+        android:background="@color/app_bg_dark"
         android:orientation="vertical" >
 
         <com.sft.view.WeekColumnView
@@ -35,136 +35,143 @@
         <ScrollView
             android:id="@+id/appointment_car_time_layout"
             android:layout_width="match_parent"
-            android:layout_height="360dp" >
-
-            <com.sft.viewutil.ScrollTimeLayout
-                android:id="@+id/appointment_car_time"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" >
-            </com.sft.viewutil.ScrollTimeLayout>
-        </ScrollView>
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#cccccc"
-            android:contentDescription="@string/app_name" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="92dp"
-            android:background="@color/app_bg_dark" >
+            android:layout_height="wrap_content" 
+            android:layout_marginBottom="50dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" >
+                android:minHeight="400dp"
+                android:orientation="vertical" >
 
-                <LinearLayout
-                    android:id="@+id/ppointment_same_time_student"
-                    android:layout_width="0dp"
+                <com.sft.viewutil.ScrollTimeLayout
+                    android:id="@+id/appointment_car_time"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:paddingLeft="15dp" >
+                    android:orientation="vertical" >
+                </com.sft.viewutil.ScrollTimeLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="11dp"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/sametime_student"
-                        android:textColor="@color/text_color_dark"
-                        android:textSize="12dp" />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#cccccc"
+                    android:contentDescription="@string/app_name" />
 
-                    <cn.sft.pull.LoadMoreView
-                        xmlns:test="http://schemas.android.com/apk/res/com.sft.blackcatapp"
-                        android:id="@+id/appointment_detail_horizon_listview"
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="92dp"
+                    android:background="@color/app_bg_dark" >
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:fadingEdge="none"
-                        android:layout_height="45dp"
-                        android:layout_marginBottom="20dp" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="90dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:orientation="vertical"
-                    android:layout_marginRight="15dp"
-                   android:gravity="center"
-                    android:paddingLeft="15dp" >
-
-                    <TextView
-                        android:id="@+id/appointment_car_coach_name_tv"
-                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="11dp"
-                        android:layout_marginTop="10dp"
-                        android:text="教练"
-                        android:textColor="@color/text_color_dark"
-                        android:textSize="12dp" />
+                        android:orientation="horizontal" >
 
-                    <com.joooonho.SelectableRoundedImageView
-                        android:id="@+id/appointment_car_coach_iv"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:background="@drawable/login_head"
-                        android:contentDescription="@string/app_name" />
+                        <LinearLayout
+                            android:id="@+id/ppointment_same_time_student"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:paddingLeft="15dp" >
 
-                </LinearLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="11dp"
+                                android:layout_marginTop="10dp"
+                                android:text="@string/sametime_student"
+                                android:textColor="@color/text_color_dark"
+                                android:textSize="12dp" />
+
+                            <cn.sft.pull.LoadMoreView
+                                xmlns:test="http://schemas.android.com/apk/res/com.sft.blackcatapp"
+                                android:id="@+id/appointment_detail_horizon_listview"
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:layout_marginBottom="20dp"
+                                android:fadingEdge="none" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginTop="6dp"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:paddingLeft="15dp" >
+
+                            <TextView
+                                android:id="@+id/appointment_car_coach_name_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="11dp"
+                                android:layout_marginTop="10dp"
+                                android:text="教练"
+                                android:textColor="@color/text_color_dark"
+                                android:textSize="12dp" />
+
+                            <com.joooonho.SelectableRoundedImageView
+                                android:id="@+id/appointment_car_coach_iv"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:background="@drawable/login_head"
+                                android:contentDescription="@string/app_name" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </RelativeLayout>
             </LinearLayout>
-
-            
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="#ffffff"
-            android:paddingLeft="15dp" >
-
-            <TextView
-                android:id="@+id/appointment_car_select_course1_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:textColor="#333333"
-                android:textSize="14dp" />
-
-            <TextView
-                android:id="@+id/appointment_car_select_course2_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="2dp"
-                android:layout_toRightOf="@+id/appointment_car_select_course1_tv"
-                android:textColor="#333333"
-                android:textSize="14dp" />
-
-            <TextView
-                android:id="@+id/appointment_car_select_course3_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="2dp"
-                android:layout_toRightOf="@+id/appointment_car_select_course2_tv"
-                android:textColor="#333333"
-                android:textSize="14dp" />
-
-            <Button
-                android:id="@+id/appointment_car_commit_btn"
-                style="@style/btn_style"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="12dp"
-                android:background="@drawable/button"
-                android:text="@string/commit" />
-
-        </RelativeLayout>
+        </ScrollView>
     </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/appointment_car_below_rl"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="#ffffff"
+        android:paddingLeft="15dp" >
+
+        <TextView
+            android:id="@+id/appointment_car_select_course1_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textColor="#333333"
+            android:textSize="14dp" />
+
+        <TextView
+            android:id="@+id/appointment_car_select_course2_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="2dp"
+            android:layout_toRightOf="@+id/appointment_car_select_course1_tv"
+            android:textColor="#333333"
+            android:textSize="14dp" />
+
+        <TextView
+            android:id="@+id/appointment_car_select_course3_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="2dp"
+            android:layout_toRightOf="@+id/appointment_car_select_course2_tv"
+            android:textColor="#333333"
+            android:textSize="14dp" />
+
+        <Button
+            android:id="@+id/appointment_car_commit_btn"
+            style="@style/btn_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="12dp"
+            android:background="@drawable/button"
+            android:text="@string/commit" />
+    </RelativeLayout>
 
 </RelativeLayout>

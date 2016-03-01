@@ -334,6 +334,7 @@ public class AppointmentFragment extends BaseFragment implements
 	@Override
 	public void doException(String type, Exception e, int code) {
 		// super.doException(type, e, code);
+		// LogUtil.print("");
 		ZProgressHUD.getInstance(getActivity()).dismiss();
 		noCaochErrorRl.setVisibility(View.VISIBLE);
 		hasCaochRl.setVisibility(View.GONE);
@@ -380,7 +381,10 @@ public class AppointmentFragment extends BaseFragment implements
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (data != null) {
+			if (requestCode == 0) {
+				obtainOppointment();
 
+			}
 		}
 	}
 

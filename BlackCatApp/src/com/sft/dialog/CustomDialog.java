@@ -15,6 +15,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sft.blackcatapp.R;
+import com.sft.event.AppointmentSuccessEvent;
+
+import de.greenrobot.event.EventBus;
 
 @SuppressLint("InflateParams")
 public class CustomDialog extends Dialog implements
@@ -64,7 +67,10 @@ public class CustomDialog extends Dialog implements
 		setCanceledOnTouchOutside(true);// 设置点击Dialog外部任意区域关闭Dialog
 	}
 
+	private int style;
+
 	private void setTextAndImage(int style) {
+		this.style = style;
 		switch (style) {
 		case APPOINTMENT_TIME_ERROR:
 			image.setBackgroundResource(R.drawable.appointment_time_error);
@@ -121,9 +127,15 @@ public class CustomDialog extends Dialog implements
 			Intent intent = new Intent(context, BonusDialog.class);
 			context.startActivity(intent);
 			dismiss();
+			// if (style == APPOINTMENT_TIME_SUCCESS) {
+			// EventBus.getDefault().post(new AppointmentSuccessEvent());
+			// }
 			break;
 		case R.id.dialog_cancel_btn:
 			dismiss();
+			if (style == APPOINTMENT_TIME_SUCCESS) {
+				EventBus.getDefault().post(new AppointmentSuccessEvent());
+			}
 			break;
 
 		default:

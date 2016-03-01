@@ -269,7 +269,7 @@ public class AppointmentDetailActivity extends BaseActivity implements
 
 		}
 		if (intent != null) {
-			startActivity(intent);
+			startActivityForResult(intent, 0);
 		}
 	}
 
@@ -292,4 +292,15 @@ public class AppointmentDetailActivity extends BaseActivity implements
 		return true;
 	}
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (data != null) {
+			// if(requestCode == R.id.appointment_detail_cancel_but){
+			//
+			// }
+			obtainAppointmentDetail();
+		}
+
+	}
 }
