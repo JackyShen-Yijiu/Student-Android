@@ -294,27 +294,27 @@ public class MainActivity extends BaseMainActivity implements
 
 		mSlidingMenu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
 		mSlidingMenu.setFadeEnabled(false);
-		mSlidingMenu.setBehindScrollScale(0.25f);
-		mSlidingMenu.setFadeDegree(0.25f);
+//		mSlidingMenu.setBehindScrollScale(0.25f);
+//		mSlidingMenu.setFadeDegree(0.25f);
 		mSlidingMenu.setBackgroundResource(R.drawable.left_menu_bg);
-		mSlidingMenu
-				.setBehindCanvasTransformer(new SlidingMenu.CanvasTransformer() {
-					@Override
-					public void transformCanvas(Canvas canvas, float percentOpen) {
-						float scale = (float) (percentOpen * 0.25 + 0.75);
-						canvas.scale(scale, scale, -canvas.getWidth() / 2,
-								canvas.getHeight() / 2);
-					}
-				});
-
-		mSlidingMenu
-				.setAboveCanvasTransformer(new SlidingMenu.CanvasTransformer() {
-					@Override
-					public void transformCanvas(Canvas canvas, float percentOpen) {
-						float scale = (float) (1 - percentOpen * 0.25);
-						canvas.scale(scale, scale, 0, canvas.getHeight() / 2);
-					}
-				});
+//		mSlidingMenu
+//				.setBehindCanvasTransformer(new SlidingMenu.CanvasTransformer() {
+//					@Override
+//					public void transformCanvas(Canvas canvas, float percentOpen) {
+//						float scale = (float) (percentOpen * 0.25 + 0.75);
+//						canvas.scale(scale, scale, -canvas.getWidth() / 2,
+//								canvas.getHeight() / 2);
+//					}
+//				});
+//
+//		mSlidingMenu
+//				.setAboveCanvasTransformer(new SlidingMenu.CanvasTransformer() {
+//					@Override
+//					public void transformCanvas(Canvas canvas, float percentOpen) {
+//						float scale = (float) (1 - percentOpen * 0.25);
+//						canvas.scale(scale, scale, 0, canvas.getHeight() / 2);
+//					}
+//				});
 
 		// 设置 SlidingMenu 内容
 		FragmentTransaction fragmentTransaction = getSupportFragmentManager()

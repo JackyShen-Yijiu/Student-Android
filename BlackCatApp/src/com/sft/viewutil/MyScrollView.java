@@ -1,8 +1,5 @@
 package com.sft.viewutil;
 
-import com.sft.util.LogUtil;
-
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
