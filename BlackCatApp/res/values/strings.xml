@@ -332,11 +332,11 @@
     <string name="all_right_reserve_by_yibu">最终解释权归北京一步科技有限公司</string>
     
     
-    <string name="cheats_backing">科目二 “倒车入库” 技巧大揭秘</string>
-    <string name="cheats_parking">科目二 “侧方停车” 技巧大揭秘</string>
-    <string name="cheats_start">科目二 “半坡起步” 技巧大揭秘</string>
-    <string name="cheats_turn_corner">科目二 “直接转弯” 技巧大揭秘</string>
-    <string name="cheats_s_curve">科目二 “S弯道” 技巧大揭秘</string>
+    <string name="cheats_backing">倒车入库</string>
+    <string name="cheats_parking">侧方停车</string>
+    <string name="cheats_start">半坡起步</string>
+    <string name="cheats_turn_corner">直接转弯</string>
+    <string name="cheats_s_curve">S弯道</string>
     <string name="three_exam_formula">科目三考试技巧口诀大揭秘</string>
     
 </resources>
