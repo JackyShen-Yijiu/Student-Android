@@ -107,10 +107,10 @@ public class MainScreenContainer extends LinearLayout implements
 		mTabs.add(getTabInfo(R.id.tab_mall, new MallFragment(),
 				MainActivity.TAB_MALL, R.string.tab_indicator_title_mall,
 				R.drawable.sl_tab_icon_mall));
-		mTabs.add(getTabInfo(R.id.tab_community, new OldSubjectTwoFragment(),
-				MainActivity.TAB_COMMUNITY,
-				R.string.tab_indicator_title_community,
-				R.drawable.sl_tab_icon_community));
+//		mTabs.add(getTabInfo(R.id.tab_community, new OldSubjectTwoFragment(),
+//				MainActivity.TAB_COMMUNITY,
+//				R.string.tab_indicator_title_community,
+//				R.drawable.sl_tab_icon_community));
 	}
 
 	private TabInfo getTabInfo(int viewID, Fragment fragment, int type,

@@ -187,11 +187,11 @@ public class ApplyActivity extends BaseActivity implements
 
 			
 			schoolName = classe.getSchoolinfo().getName();
-			LogUtil.print("school--id:" + enSchoolId + "id::" + school.getId());
+//			LogUtil.print("school--id:" + enSchoolId + "id::" + school.getId());
 			enCoachId = "";// 智能分配
 			enclassTypeId = classe.getCalssid();
 			encarmodel = classe.getCarmodel().toString();
-			LogUtil.print("classTypeId---000>"+enclassTypeId);
+//			LogUtil.print("classTypeId---000>"+enclassTypeId);
 			// coachId 智能分配
 			break;
 		case 1:// 教练详情
@@ -204,7 +204,7 @@ public class ApplyActivity extends BaseActivity implements
 			enCoachId = coach.getCoachid();// 智能分配
 			
 			enclassTypeId = classe.get_id();
-			LogUtil.print("classTypeId--->"+enclassTypeId);
+//			LogUtil.print("classTypeId--->"+enclassTypeId);
 			encarmodel = classe.getCarmodel().toString();
 			break;
 		case 2:// 活动详情
@@ -376,7 +376,7 @@ public class ApplyActivity extends BaseActivity implements
 	}
 
 	private void initData() {
-		LogUtil.print("initData-->"+app.userVO);
+//		LogUtil.print("initData-->"+app.userVO);
 		enrollState = app.userVO.getApplystate();
 
 		if (EnrollResult.SUBJECT_ENROLLING.getValue().equals(enrollState)) {
@@ -542,7 +542,7 @@ public class ApplyActivity extends BaseActivity implements
 		// break;
 		case R.id.enroll_commit_btn:
 			String checkResult = checkEnrollInfo();
-			LogUtil.print("checkResult---->"+checkResult);
+//			LogUtil.print("checkResult---->"+checkResult);
 			if(null != checkResult){
 				ZProgressHUD.getInstance(this).show();
 				ZProgressHUD.getInstance(this)
@@ -675,8 +675,8 @@ public class ApplyActivity extends BaseActivity implements
 			paramMap.put("telephone", contactEt.getText().toString());
 			paramMap.put("userid", app.userVO.getUserid());
 
-			LogUtil.print("enrollll--->" + coachId + "schoolId;:>" + SchoolId
-					+ "classType:>" + classTypeId + "CarModel-->" + carModel);
+//			LogUtil.print("enrollll--->" + coachId + "schoolId;:>" + SchoolId
+//					+ "classType:>" + classTypeId + "CarModel-->" + carModel);
 
 			paramMap.put("coachid", coachId);
 			paramMap.put("schoolid", SchoolId);// school.getSchoolid()
@@ -693,7 +693,7 @@ public class ApplyActivity extends BaseActivity implements
 			} else {
 				paramMap.put("fcode", etYCodeCard.getText().toString());
 			}
-			LogUtil.print("重复报名:--->	" + app.isEnrollAgain);
+//			LogUtil.print("重复报名:--->	" + app.isEnrollAgain);
 //			if (app.isEnrollAgain) {
 				paramMap.put("applyagain", 1+"");
 //			}
@@ -897,7 +897,7 @@ public class ApplyActivity extends BaseActivity implements
 					SharedPreferencesUtil.putString(this,
 							contact + app.userVO.getUserid(), contactEt
 									.getText().toString());
-					LogUtil.print("success--->" + jsonString);
+//					LogUtil.print("success--->" + jsonString);
 
 					app.isEnrollAgain = true;
 					if (radioOnLine.isChecked()) {// 线上支付

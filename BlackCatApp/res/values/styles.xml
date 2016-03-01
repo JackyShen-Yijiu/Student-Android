@@ -92,7 +92,7 @@
         <item name="android:button">@null</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">16dp</item>
-        <item name="android:textColor">@drawable/select_coach_radiobtn_textcolor</item>
+        <item name="android:textColor">@drawable/select_title_radiobtn_textcolor</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_weight">1</item>
         <item name="android:paddingTop">5dp</item>
@@ -111,7 +111,7 @@
         <item name="android:paddingBottom">5dp</item>
         <item name="android:paddingLeft">10dp</item>
         <item name="android:paddingRight">10dp</item>
-        <item name="android:textColor">@drawable/select_coach_radiobtn_textcolor</item>
+        <item name="android:textColor">@drawable/select_title_radiobtn_textcolor</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_weight">1</item>
         <item name="android:layout_height">@dimen/selectcoach_radiogroup_height</item>
@@ -164,7 +164,7 @@
 
     <style name="btn_style">
         <item name="android:textColor">#ffffff</item>
-        <item name="android:textSize">16dp</item>
+        <item name="android:textSize">14dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">44dp</item>
         <item name="android:background">@drawable/btn_bkground</item>
@@ -423,8 +423,7 @@
         <item name="android:gravity">center_vertical</item>
         <item name="android:padding">12dp</item>
         <item name="android:drawablePadding">32dp</item>
-         <item name="android:background">@drawable/left_item_selector_bg</item>
-        <item name="android:textColor">@drawable/left_item_text_color</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:textSize">16sp</item>
     </style>
      <style name="MyDialogStyle">

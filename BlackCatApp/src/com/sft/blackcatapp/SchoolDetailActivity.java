@@ -835,9 +835,13 @@ public class SchoolDetailActivity extends BaseActivity implements
 
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-		if (!app.isLogin)
+		if (!app.isLogin) {
+			NoLoginDialog dialog = new NoLoginDialog(
+					SchoolDetailActivity.this);
+			dialog.show();
+			addDeleteSchoolCk.setChecked(false);
 			return;
+		}
 		Map<String, String> headerMap = new HashMap<String, String>();
 		headerMap.put("authorization", app.userVO.getToken());
 

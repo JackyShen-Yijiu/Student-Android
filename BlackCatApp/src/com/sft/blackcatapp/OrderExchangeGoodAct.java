@@ -43,6 +43,8 @@ public class OrderExchangeGoodAct extends BaseActivity implements OnItemClickLis
 	}
 
 	private void initView() {
+		
+		
 		errorRl= (RelativeLayout) findViewById(R.id.error_rl);
 		errorTv = (TextView) findViewById(R.id.error_tv);
 		errorTv.setText(R.string.no_exchange_order);
@@ -76,6 +78,8 @@ public class OrderExchangeGoodAct extends BaseActivity implements OnItemClickLis
 				bean =JSONUtil.toJavaBean(ExchangeGoodOrderVO.class, data);
 				adapter.setData(bean);
 				if(bean.ordrelist.size()==0){
+					errorRl.setVisibility(View.VISIBLE);
+				}else{
 					errorRl.setVisibility(View.VISIBLE);
 				}
 //				adapter.notifyDataSetChanged();

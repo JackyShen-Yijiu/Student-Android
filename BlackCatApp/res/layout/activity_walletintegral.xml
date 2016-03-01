@@ -21,9 +21,9 @@
   
   <RelativeLayout
       android:layout_width="match_parent"
-      android:layout_height="70dp"
+      android:layout_height="50dp"
       android:background="@color/white"
-      android:padding="8dp" >
+      >
 
       <TextView
           android:id="@+id/my_wallet_invit_code_tv"
@@ -37,26 +37,29 @@
 
       <Button
         android:id="@+id/my_wallet_invite_btn"
+        style="@style/btn_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@+id/my_wallet_change_btn"
         android:layout_marginRight="15dp"
-         android:layout_centerVertical="true"
-        android:background="@drawable/btn_bg"
-        android:padding="15dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/button"
         android:text="邀请好友"
         android:textColor="@color/white" />
+           
+      
+      <Button
+            android:id="@+id/my_wallet_change_btn"
+            style="@style/btn_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/button"
+            android:text="积分兑换"
+            android:textColor="@color/white" />
 
-            <Button
-        android:id="@+id/my_wallet_change_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:background="@drawable/btn_bg"
-        android:padding="15dp"
-        android:text="积分兑换"
-        android:textColor="@color/white" />
 
   </RelativeLayout>
 

@@ -37,7 +37,7 @@
 
         <TextView
             android:id="@+id/course_fee_intro_tv"
-            style="@style/coachdetail_content_style"
+            style="@style/text_gray_small"
             android:text="intro"
             android:layout_marginTop="5dp" />
 

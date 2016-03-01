@@ -103,7 +103,7 @@ public class ActivityAdapter extends BaseAdapter {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		LogUtil.print("state--->" + activitiesVO.getActivitystate());
+//		LogUtil.print("state--->" + activitiesVO.getActivitystate());
 		if (activitiesVO.getActivitystate().equals("0")) {
 			if (po1 == -1) {// 显示
 				holder.stateTop.setVisibility(View.VISIBLE);

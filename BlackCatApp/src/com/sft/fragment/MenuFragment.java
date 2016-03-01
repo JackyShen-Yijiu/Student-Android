@@ -465,7 +465,6 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 			break;
 		case R.id.fragment_menu_classcar_btn:
 			// 班车
-
 			if (app != null && app.userVO != null
 					&& app.userVO.getApplyschoolinfo() != null) {
 				intent = new Intent(mContext, SchoolBusRouteActivity.class);

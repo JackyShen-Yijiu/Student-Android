@@ -41,14 +41,16 @@
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/coach_detail_comment_classtype_tv"
             android:text="comment_time"
+            android:layout_marginRight="15dp"
             android:textColor="#999999"
             android:textSize="12dp" />
 
         <RatingBar
             android:id="@+id/coach_detail_comment_rb"
-            style="@style/roomRatingBar_30"
+            style="@style/roomRatingBar_28"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true" />
 

@@ -13,8 +13,9 @@ import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.InputType;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -26,6 +27,7 @@ import cn.sft.baseactivity.util.HttpSendUtils;
 import com.sft.api.UserLogin;
 import com.sft.common.Config;
 import com.sft.listener.EMLoginListener;
+import com.sft.util.CommonUtil;
 import com.sft.util.DownLoadService;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
@@ -119,6 +121,7 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 		passwordEt = (EditText) findViewById(R.id.login_passwd_et);
 		forgetPassTv = (TextView) findViewById(R.id.login_forget_tv);
 		registerAccountTv = (TextView) findViewById(R.id.login_register_tv);
+
 		hint_passward = (TextView) findViewById(R.id.tv_hint_password);
 		hint_phone = (TextView) findViewById(R.id.tv_hint_phone);
 		// phontEt.setHint(setHint(R.string.phonenumber));
@@ -141,6 +144,8 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 		delet_iv.setOnClickListener(this);
 	}
 
+	boolean isClick = true;
+
 	@Override
 	public void onClick(View v) {
 		if (!onClickSingleView()) {
@@ -155,8 +160,20 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 			hint_passward.setVisibility(View.GONE);
 			break;
 		case R.id.show_password:
-			passwordEt
-					.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+			if (isClick) {
+				passwordEt
+						.setTransformationMethod(HideReturnsTransformationMethod
+								.getInstance());
+			} else {
+				passwordEt.setText(passwordEt.getText());
+				passwordEt.setTransformationMethod(PasswordTransformationMethod
+						.getInstance());
+
+			}
+			isClick = !isClick;
+
+			if (isClick) {
+			}
 			break;
 		case R.id.delet_iv:
 			phontEt.setText("");
@@ -202,7 +219,6 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 			loginBtn.setEnabled(true);
 			// ZProgressHUD.getInstance(this).show();
 			// ZProgressHUD.getInstance(this).dismissWithFailure(checkResult);
-			checkLoginInfo();
 		}
 	}
 
@@ -210,10 +226,22 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 		String mobile = phontEt.getText().toString();
 		if (TextUtils.isEmpty(mobile)) {
 			hint_phone.setVisibility(View.VISIBLE);
+			hint_phone.setText("手机号不能为空");
+			return "手机号不能为空";
+		} else if (!CommonUtil.isMobile(mobile)) {
+			hint_phone.setVisibility(View.VISIBLE);
+			hint_phone.setText("手机号格式不正确");
+			return "手机号格式不正确";
+		} else if (mobile.length() != 11) {
+			hint_phone.setVisibility(View.VISIBLE);
+			hint_phone.setText("请输入正确的手机号");
+			return "请输入正确的手机号";
 		}
 		String password = passwordEt.getText().toString();
 		if (TextUtils.isEmpty(password)) {
 			hint_passward.setVisibility(View.VISIBLE);
+			hint_passward.setText("密码不能为空");
+			return "密码不能为空";
 		}
 		return null;
 	}
@@ -263,17 +291,21 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 				//
 				// =======
 				ZProgressHUD.getInstance(this).dismiss();
+
 				LogUtil.print(">>>>>>>>11111" + msg + "111");
 				if (data != null && result.equals("1")) {
 					app.userVO = JSONUtil.toJavaBean(UserVO.class, data);
 					LogUtil.print("initData-login->" + app.userVO);
 					obtainVersionInfo();
+					checkLoginInfo();
 				} else if (msg.contains("用户不存在")) {
 
 					hint_phone.setVisibility(View.VISIBLE);
+					hint_phone.setText("该号码尚未注册");
 					return true;
 				} else if (msg.contains("用户名或者密码错误")) {
 					hint_passward.setVisibility(View.VISIBLE);
+					hint_passward.setText("密码错误");
 				} else {
 					// hint_phone.setVisibility(View.VISIBLE);
 					ZProgressHUD.getInstance(this).show();

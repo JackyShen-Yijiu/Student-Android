@@ -328,6 +328,9 @@
     <string name="exchange_type">兑换方式</string>
     <string name="exchange_money">兑换金额</string>
     <string name="redeem_now">立即兑换</string>
+    <string name="please_call_400">如有疑问请拨打客服400-101-6669</string>
+    <string name="all_right_reserve_by_yibu">最终解释权归北京一步科技有限公司</string>
+    
     
     <string name="cheats_backing">科目二 “倒车入库” 技巧大揭秘</string>
     <string name="cheats_parking">科目二 “侧方停车” 技巧大揭秘</string>

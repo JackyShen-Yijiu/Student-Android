@@ -7,8 +7,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.InputType;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -124,6 +125,8 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 		show_password.setOnClickListener(this);
 	}
 
+	boolean isClick = true;
+
 	@Override
 	public void onClick(View v) {
 		if (!onClickSingleView()) {
@@ -142,8 +145,20 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 			invitationEt.setText("");
 			break;
 		case R.id.show_password:
-			passwordEt
-					.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+			if (isClick) {
+				passwordEt
+						.setTransformationMethod(HideReturnsTransformationMethod
+								.getInstance());
+			} else {
+				passwordEt.setText(passwordEt.getText());
+				passwordEt.setTransformationMethod(PasswordTransformationMethod
+						.getInstance());
+
+			}
+			isClick = !isClick;
+
+			if (isClick) {
+			}
 			break;
 		case R.id.register_register_btn:
 			register();
@@ -191,7 +206,6 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 		} else {
 			// ZProgressHUD.getInstance(this).show();
 			// ZProgressHUD.getInstance(this).dismissWithFailure(checkResult);
-			checkInput();
 		}
 	}
 
@@ -199,28 +213,44 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 		String phone = phoneEt.getText().toString();
 		if (TextUtils.isEmpty(phone)) {
 			tv_hint_phone.setVisibility(View.VISIBLE);
-		} else {
-			if (!CommonUtil.isMobile(phone)) {
-				tv_hint_phone.setVisibility(View.VISIBLE);
-			}
-		}
-		if (phone.length() != 11) {
+			tv_hint_phone.setText("手机号不能为空");
+			return "手机号不能为空";
+		} else if (!CommonUtil.isMobile(phone)) {
 			tv_hint_phone.setVisibility(View.VISIBLE);
+			tv_hint_phone.setText("手机号格式不正确");
+			return "手机号格式不正确";
+		} else if (phone.length() != 11) {
+			tv_hint_phone.setVisibility(View.VISIBLE);
+			tv_hint_phone.setText("请输入正确的手机号");
+			return "请输入正确的手机号";
 		}
 		String code = codeEt.getText().toString();
 		if (TextUtils.isEmpty(code)) {
 			tv_hint_code.setVisibility(View.VISIBLE);
+			tv_hint_code.setText("验证码不能为空");
+			return "验证码不能为空";
 		}
 		String password = passwordEt.getText().toString();
 		if (TextUtils.isEmpty(password)) {
 			tv_hint_pasword.setVisibility(View.VISIBLE);
+			tv_hint_pasword.setText("密码不能为空");
+			return "密码不能为空";
 		}
-		// String conPass = conpassEt.getText().toString();
-		// if (!conPass.equals(password)) {
-		// tv_hint_paswords.setVisibility(View.VISIBLE);
+
+		// String invite = invitationEt.getText().toString();
+		// if (!CommonUtil.isMobile(invite)) {
+		// tv_hint_invite.setVisibility(View.VISIBLE);
+		// tv_hint_invite.setText("手机号格式不正确");
+		// return "手机号格式不正确";
+		// } else if (invite.length() != 11) {
+		// tv_hint_invite.setVisibility(View.VISIBLE);
+		// tv_hint_invite.setText("请输入正确的手机号");
+		// return "请输入正确的手机号";
 		// }
 		if (rb_check.isChecked() != true) {
 			tv_hint_deal.setVisibility(View.VISIBLE);
+			tv_hint_deal.setText("请选择用户协议");
+			return "请选择用户协议";
 		}
 		return null;
 	}
@@ -294,9 +324,11 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 					app.userVO = JSONUtil.toJavaBean(UserVO.class, data);
 				} else if (msg.contains("验证码错误，请重新发送")) {
 					tv_hint_code.setVisibility(View.VISIBLE);
+					tv_hint_code.setText("验证码错误，请重新发送");
 					return true;
 				} else if (msg.contains("用户已存在请直接登录")) {
 					tv_hint_phone.setVisibility(View.VISIBLE);
+					tv_hint_phone.setText("用户已存在请直接登录");
 				}
 				util.saveParam(Config.LAST_LOGIN_PHONE,
 						app.userVO.getTelephone());
@@ -349,15 +381,15 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 				@Override
 				public void run() {
 					app.isLogin = true;
-					// ZProgressHUD.getInstance(RegisterActivity.this).show();
-					// ZProgressHUD.getInstance(RegisterActivity.this)
-					// .dismissWithFailure("注册成功");
+					ZProgressHUD.getInstance(RegisterActivity.this).show();
+					ZProgressHUD.getInstance(RegisterActivity.this)
+							.dismissWithFailure("注册成功");
 					new Thread(new Runnable() {
 
 						@Override
 						public void run() {
 							try {
-								Thread.sleep(1000);
+								Thread.sleep(1500);
 								myHandler.sendMessage(myHandler.obtainMessage());
 							} catch (InterruptedException e) {
 								e.printStackTrace();

@@ -4,7 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +21,7 @@ import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.infinitescrollviewpager.MyHandler;
 
 import com.easemob.chat.EMChatManager;
+import com.sft.common.BlackCatApplication;
 import com.sft.common.Config;
 import com.sft.util.CommonUtil;
 import com.sft.viewutil.ZProgressHUD;
@@ -37,6 +41,7 @@ public class SettingActivity extends BaseActivity implements
 	private TextView aboutUsTv, rateTv, callbackTv;
 	private TextView helpTv;
 	private Button logoutBtn;
+	private TextView gradeTv;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +66,7 @@ public class SettingActivity extends BaseActivity implements
 		helpTv = (TextView) findViewById(R.id.setting_hlep);
 		aboutUsTv = (TextView) findViewById(R.id.setting_aboutus_tv);
 		callbackTv = (TextView) findViewById(R.id.setting_callback_tv);
+		gradeTv = (TextView) findViewById(R.id.setting_grade_tv);
 
 		logoutBtn = (Button) findViewById(R.id.person_center_logout_btn);
 
@@ -83,7 +89,7 @@ public class SettingActivity extends BaseActivity implements
 		helpTv.setOnClickListener(this);
 		appointmentCk.setOnCheckedChangeListener(this);
 		messageCk.setOnCheckedChangeListener(this);
-
+		gradeTv.setOnClickListener(this);
 		logoutBtn.setOnClickListener(this);
 	}
 
@@ -138,6 +144,9 @@ public class SettingActivity extends BaseActivity implements
 		case R.id.setting_callback_tv:
 			intent = new Intent(this, CallBackActivity.class);
 			break;
+		case R.id.setting_grade_tv:
+			rateAppInMarket(this);
+			break;
 		}
 		if (intent != null) {
 			startActivity(intent);
@@ -151,8 +160,8 @@ public class SettingActivity extends BaseActivity implements
 	}
 
 	private int sum = 0;
-	
-	private void LoginOut(){
+
+	private void LoginOut() {
 		new MyHandler(1000) {
 			@Override
 			public void run() {
@@ -201,5 +210,20 @@ public class SettingActivity extends BaseActivity implements
 			}
 		}
 		return true;
+	}
+
+	public static void rateAppInMarket(Activity activity) {
+		if (activity == null) {
+			return;
+		}
+		Intent intent = new Intent(Intent.ACTION_VIEW);
+		intent.setData(Uri.parse("market://details?id="
+				+ BlackCatApplication.getInstance().getPackageName()));
+		try {
+			activity.startActivity(intent);
+			activity.overridePendingTransition(0, 0);
+		} catch (ActivityNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 }
