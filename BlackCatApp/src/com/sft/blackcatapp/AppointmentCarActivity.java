@@ -160,6 +160,9 @@ public class AppointmentCarActivity extends BaseActivity implements
 		noCaochErrorIv.setBackgroundResource(R.drawable.app_error_robot);
 		noCaochErroTv.setText(CommonUtil.getString(this,
 				R.string.no_appointment_coach_error_info));
+
+		notimeTv = (TextView) findViewById(R.id.appointment_car_no_time_tv);
+		notimeTv.setVisibility(View.GONE);
 		noCaochErrorRl.setVisibility(View.GONE);
 		hasAppointment.setVisibility(View.VISIBLE);
 		belowLayout.setVisibility(View.VISIBLE);
@@ -362,11 +365,18 @@ public class AppointmentCarActivity extends BaseActivity implements
 
 			// 清空时间表
 			timeLayout.clearData();
-			ZProgressHUD.getInstance(this).show();
-			ZProgressHUD.getInstance(this).dismissWithFailure(msg, 1000);
+			// ZProgressHUD.getInstance(this).show();
+			// ZProgressHUD.getInstance(this).dismissWithFailure(msg, 1000);
+			notimeTv.setVisibility(View.VISIBLE);
+			notimeTv.setText(msg);
+			timeLayout.setVisibility(View.GONE);
 			LogUtil.print(ZProgressHUD.getInstance(this).isShowing()
 					+ "callBack--1111>" + jsonString);
 			return true;
+		} else {
+			notimeTv.setVisibility(View.GONE);
+			timeLayout.setVisibility(View.VISIBLE);
+
 		}
 		try {
 			if (type.equals(coachCourse)) {
@@ -490,6 +500,7 @@ public class AppointmentCarActivity extends BaseActivity implements
 	private TextView coachName;
 	private SelectableRoundedImageView coachPic;
 	private RelativeLayout belowLayout;
+	private TextView notimeTv;
 
 	class MyOnTimeLayoutSelectedListener implements
 			OnTimeLayoutSelectedListener {

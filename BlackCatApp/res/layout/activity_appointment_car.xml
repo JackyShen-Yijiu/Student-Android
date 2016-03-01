@@ -35,19 +35,31 @@
         <ScrollView
             android:id="@+id/appointment_car_time_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" 
-            android:layout_marginBottom="50dp">
+            android:layout_height="match_parent"
+            android:layout_marginBottom="50dp" >
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="400dp"
+                android:minHeight="450dp"
                 android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/appointment_car_no_time_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:visibility="gone"
+                    android:background="@color/white"
+                    android:text="无法获取该时间段的安排"
+                    android:gravity="center" />
 
                 <com.sft.viewutil.ScrollTimeLayout
                     android:id="@+id/appointment_car_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    android:background="@color/white"
                     android:orientation="vertical" >
                 </com.sft.viewutil.ScrollTimeLayout>
 
