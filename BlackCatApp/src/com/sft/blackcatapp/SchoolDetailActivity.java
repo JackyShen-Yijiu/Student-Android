@@ -157,6 +157,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 	private int hegiht;
 	/**暂无训练场 照片*/
 	private TextView tvNoPic;
+	private View viewStatus;
 
 	@TargetApi(Build.VERSION_CODES.KITKAT) @Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -211,6 +212,9 @@ public class SchoolDetailActivity extends BaseActivity implements
 	};
 
 	private void initTitle() {
+		
+		viewStatus = (View) findViewById(R.id.act_school_detail_status);
+		
 		titleLayout = (View) findViewById(R.id.base_titlebar_layout_bg);
 
 		ImageButton bus = (ImageButton) findViewById(R.id.base_right_btn2);
@@ -1058,14 +1062,18 @@ public class SchoolDetailActivity extends BaseActivity implements
 			topStatic = viewTopStatic.getY() + viewTopStatic.getHeight();
 			topTab = radioGroupTop.getY();
 		} else if (topStatic < y) {// 刚进入 状态
+			
 			if (viewTop.getVisibility() != View.GONE) {
 				viewTop.setVisibility(View.GONE);
 				titleLayout.setBackgroundResource(android.R.color.transparent);
 				addDeleteSchoolCk.setVisibility(View.VISIBLE);
 				schoolNameTv.setVisibility(View.VISIBLE);
 				titleTV.setText("");
+				viewStatus.setVisibility(View.GONE);
+				
 				titleLayout.startAnimation(alphaOut);
 				viewTop.startAnimation(alphaOut);
+				viewStatus.startAnimation(alphaOut);
 
 				addDeleteSchoolCk.startAnimation(scaleBig);
 				//
@@ -1074,13 +1082,16 @@ public class SchoolDetailActivity extends BaseActivity implements
 			LogUtil.print(topTab + "yyyyyyy" + y1 + "TextViewHeight::::>>"
 					+ noCoahTv.getHeight());
 		} else if (topStatic > y || topStatic == y) {// 已经滑动很多，
+			
 			if (viewTop.getVisibility() != View.VISIBLE) {
 				viewTop.setVisibility(View.VISIBLE);
 				titleLayout.setBackgroundResource(R.color.new_app_main_color);
 				addDeleteSchoolCk.setVisibility(View.INVISIBLE);
 				schoolNameTv.setVisibility(View.INVISIBLE);
 				titleTV.setText(school.getName());
+				viewStatus.setVisibility(View.VISIBLE);
 
+				viewStatus.startAnimation(alphaIn);
 				viewTop.startAnimation(alphaIn);
 				titleLayout.startAnimation(alphaIn);
 				addDeleteSchoolCk.startAnimation(scaleSmall);

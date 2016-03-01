@@ -4,6 +4,7 @@
     android:background="@color/app_bg_light"
     android:clipToPadding="true"
     android:fitsSystemWindows="true" >
+    <!-- android:clipToPadding="true" -->
 
     <com.baidu.mapapi.map.MapView
         android:id="@+id/main_bmapView"

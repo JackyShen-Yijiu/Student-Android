@@ -19,7 +19,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
@@ -27,6 +29,7 @@ import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
@@ -177,7 +180,7 @@ public class MainActivity extends BaseMainActivity implements
 		LogUtil.print("app--->" + app + "user::" + app.userVO);
 		// if (app.userVO!=null && app.userVO.getApplystate().equals("0")) {
 		// // 填写课时信息
-		// checkStateDialog();
+//		 checkStateDialog();
 		if (app.userVO != null && app.userVO.getApplystate().equals("0")) {
 			// 只弹出一次进入验证学车进度的判断弹出框
 			if (!SharedPreferencesUtil.getBoolean(this, ISCLICKCONFIRM, false)) {
@@ -281,6 +284,7 @@ public class MainActivity extends BaseMainActivity implements
 
 		// set the Behind View
 		setBehindContentView(R.layout.frame_left_menu);
+	
 		home_btn = (ImageView) findViewById(R.id.home_btn);
 		titleLeftIv = (ImageView) findViewById(R.id.title_left_iv);
 		titleTv = (TextView) findViewById(R.id.title_tv);
@@ -291,12 +295,19 @@ public class MainActivity extends BaseMainActivity implements
 		titleFarRightIv = (ImageView) findViewById(R.id.title_far_right_iv);
 		// customize the SlidingMenu
 		mSlidingMenu = getSlidingMenu();
-
+		mSlidingMenu.setFitsSystemWindows(false);
+//		mSlidingMenu.setBackgroundColor(Color.GREEN);
+		
+		
 		mSlidingMenu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
+//		mSlidingMenu.setb
 		mSlidingMenu.setFadeEnabled(false);
 //		mSlidingMenu.setBehindScrollScale(0.25f);
-//		mSlidingMenu.setFadeDegree(0.25f);
-		mSlidingMenu.setBackgroundResource(R.drawable.left_menu_bg);
+		mSlidingMenu.setFadeDegree(0.25f);
+//		mSlidingMenu.setBackgroundResource(R.drawable.left_menu_bg);
+//		TextView tv = new TextView(this);
+//		tv.setText("abckd");
+//		mSlidingMenu.setContent(tv);
 //		mSlidingMenu
 //				.setBehindCanvasTransformer(new SlidingMenu.CanvasTransformer() {
 //					@Override
@@ -321,7 +332,28 @@ public class MainActivity extends BaseMainActivity implements
 				.beginTransaction();
 		fragmentTransaction.replace(R.id.left_menu, new MenuFragment());
 		fragmentTransaction.commit();
+		d.start();
 	}
+	
+	Thread d = new Thread(){
+
+		@Override
+		public void run() {
+			int i =0;
+			while(i<100){
+				LogUtil.print("thread-->"+mSlidingMenu.getWidth());
+				try {
+					i++;
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+		}
+		
+	};
 
 	public void changeMenu() {
 		mSlidingMenu.toggle();

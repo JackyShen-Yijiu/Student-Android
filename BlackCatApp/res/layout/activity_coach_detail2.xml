@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/new_app_main_color"
-    android:clipToPadding="true"
-    android:fitsSystemWindows="true" >
+     >
 
     <!-- 2.0 版本 -->
 
@@ -458,9 +457,17 @@
     <include
         android:id="@+id/base_titlebar_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/base_titlebar_height"
+        android:layout_height="80dp"
         layout="@layout/title" >
     </include>
+    
+     <View 
+         android:id="@+id/act_coach_detail_status"
+        android:layout_width="match_parent"
+    	android:layout_height="30dp"
+    	android:visibility="gone"
+    	android:background="@color/new_app_main_color"
+        />
 
   
 </RelativeLayout>

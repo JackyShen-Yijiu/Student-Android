@@ -169,6 +169,8 @@ public class CoachDetailActivity extends BaseActivity implements
 	
 	private ImageView imgHeadBg;
 	
+	private View viewStatus;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -208,6 +210,8 @@ public class CoachDetailActivity extends BaseActivity implements
 	}
 	
 	private void initTitle(){
+		viewStatus = findViewById(R.id.act_coach_detail_status);
+		
 		titleLayout = findViewById(R.id.base_titlebar_layout);
 		imgLeft = (ImageButton) findViewById(R.id.base_left_btn);
 		imgBus = (ImageButton) findViewById(R.id.base_right_btn2);
@@ -1070,6 +1074,9 @@ public class CoachDetailActivity extends BaseActivity implements
 				collectCk.setVisibility(View.VISIBLE);
 				coachNameTv.setVisibility(View.VISIBLE);
 				tvTitle.setText("");
+				viewStatus.setVisibility(View.VISIBLE);
+				
+				viewStatus.startAnimation(alphaOut);
 				titleLayout.startAnimation(alphaOut);
 				viewTop.startAnimation(alphaOut);
 
@@ -1086,6 +1093,9 @@ public class CoachDetailActivity extends BaseActivity implements
 				collectCk.setVisibility(View.INVISIBLE);
 				coachNameTv.setVisibility(View.INVISIBLE);
 				tvTitle.setText(coachVO.getName());
+				viewStatus.setVisibility(View.GONE);
+				
+				viewStatus.startAnimation(alphaIn);
 				
 				viewTop.startAnimation(alphaIn);
 				titleLayout.startAnimation(alphaIn);
