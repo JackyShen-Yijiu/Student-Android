@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -26,7 +27,6 @@ import cn.jpush.android.api.JPushInterface;
 import cn.sft.baseactivity.util.Util;
 import cn.sft.listener.ICallBack;
 
-import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.sft.common.BlackCatApplication;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.CarModelVO;
@@ -37,7 +37,7 @@ import com.sft.vo.SchoolVO;
 import com.sft.vo.UserVO;
 import com.umeng.analytics.MobclickAgent;
 
-public class BaseMainActivity extends SlidingFragmentActivity implements
+public class BaseMainActivity extends FragmentActivity implements
 		OnClickListener, ICallBack {
 
 	protected static Util util;
