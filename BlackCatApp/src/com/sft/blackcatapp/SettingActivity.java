@@ -23,6 +23,7 @@ import cn.sft.infinitescrollviewpager.MyHandler;
 import com.easemob.chat.EMChatManager;
 import com.sft.common.BlackCatApplication;
 import com.sft.common.Config;
+import com.sft.dialog.NoLoginDialog;
 import com.sft.util.CommonUtil;
 import com.sft.viewutil.ZProgressHUD;
 
@@ -69,7 +70,11 @@ public class SettingActivity extends BaseActivity implements
 		gradeTv = (TextView) findViewById(R.id.setting_grade_tv);
 
 		logoutBtn = (Button) findViewById(R.id.person_center_logout_btn);
-
+		if (!app.isLogin) {
+			NoLoginDialog dialog = new NoLoginDialog(SettingActivity.this);
+			dialog.show();
+			return;
+		}
 		if (app.userVO.getUsersetting().getNewmessagereminder().equals("true")) {
 			messageCk.setChecked(true);
 		} else {
