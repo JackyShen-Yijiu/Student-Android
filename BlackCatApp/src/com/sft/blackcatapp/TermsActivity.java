@@ -7,7 +7,6 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import com.sft.blackcatapp.R;
 
 public class TermsActivity extends BaseActivity {
 
@@ -24,7 +23,7 @@ public class TermsActivity extends BaseActivity {
 	@SuppressLint("SetJavaScriptEnabled")
 	private void initData() {
 		setTitleText(R.string.allow_protocol);
-		String url = "http://www.ifanying.com/userAgreement.html";
+		String url = "http://www.yibuxueche.com/jzjfstudentAgreement.htm";
 		WebSettings webSettings = webView.getSettings();
 		webView.setWebViewClient(new WebViewClient() {
 			@Override

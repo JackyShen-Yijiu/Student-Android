@@ -180,10 +180,7 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 		case R.id.register_password_et:
 			tv_hint_pasword.setVisibility(View.GONE);
 			break;
-		// case R.id.register_conpass_et:
-		//
-		// tv_hint_paswords.setVisibility(View.GONE);
-		// break;
+
 		case R.id.register_invitationcode_et:
 			tv_hint_deal.setVisibility(View.GONE);
 			break;

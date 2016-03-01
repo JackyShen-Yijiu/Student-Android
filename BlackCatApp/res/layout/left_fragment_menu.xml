@@ -2,45 +2,45 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+   	android:background="@drawable/left_menu_bg"
     android:orientation="vertical" >
     
     <RelativeLayout 
         android:layout_width="match_parent"
         android:padding="12dp"
-        android:layout_height="wrap_content">
+        
+        android:layout_height="180dp">
     <com.joooonho.SelectableRoundedImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/fragment_menu_headpic_im"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="51dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="55dp"
+        android:layout_centerHorizontal="true"
         app:sriv_border_color="#00000000"
         app:sriv_border_width="1dip" />
-    <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_marginTop="8dp"
-        android:layout_below="@+id/fragment_menu_headpic_im"
-        android:orientation="vertical" >
 
         <TextView
             android:id="@+id/fragment_menu_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+                   android:layout_centerHorizontal="true"
+                   android:layout_below="@+id/fragment_menu_headpic_im"
+                   android:layout_marginTop="8dp"
             android:text="未登录"
             android:textColor="#f2f2f2"
-            android:textSize="15sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/fragment_menu_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+               android:layout_centerHorizontal="true"
+               android:layout_below="@+id/fragment_menu_username"
             android:layout_marginTop="5dp"
             android:textColor="#f2f2f2"
             android:text="我的Y码："
-            android:textSize="14sp" />
-    </LinearLayout>
+            android:textSize="12sp" />
     </RelativeLayout>
     <LinearLayout 
         android:layout_width="match_parent"

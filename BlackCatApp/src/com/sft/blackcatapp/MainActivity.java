@@ -18,8 +18,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
@@ -29,6 +29,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
@@ -118,8 +119,8 @@ public class MainActivity extends BaseMainActivity implements
 	public final static int CHANNELRESULT = 10;
 
 	SimpleDateFormat df;
-	
-	/**目标 页*/
+
+	/** 目标 页 */
 	public static int TARGET_TAB = 0;
 
 	/**
@@ -160,7 +161,14 @@ public class MainActivity extends BaseMainActivity implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+			// 透明状态栏
+			getWindow().addFlags(
+					WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+			// 透明导航栏
+			getWindow().addFlags(
+					WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+		}
 		setContentView(R.layout.frame_content);
 		// EventBus.getDefault().register(this);
 		init();
@@ -294,27 +302,27 @@ public class MainActivity extends BaseMainActivity implements
 
 		mSlidingMenu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
 		mSlidingMenu.setFadeEnabled(false);
-//		mSlidingMenu.setBehindScrollScale(0.25f);
-//		mSlidingMenu.setFadeDegree(0.25f);
+		// mSlidingMenu.setBehindScrollScale(0.25f);
+		// mSlidingMenu.setFadeDegree(0.25f);
 		mSlidingMenu.setBackgroundResource(R.drawable.left_menu_bg);
-//		mSlidingMenu
-//				.setBehindCanvasTransformer(new SlidingMenu.CanvasTransformer() {
-//					@Override
-//					public void transformCanvas(Canvas canvas, float percentOpen) {
-//						float scale = (float) (percentOpen * 0.25 + 0.75);
-//						canvas.scale(scale, scale, -canvas.getWidth() / 2,
-//								canvas.getHeight() / 2);
-//					}
-//				});
-//
-//		mSlidingMenu
-//				.setAboveCanvasTransformer(new SlidingMenu.CanvasTransformer() {
-//					@Override
-//					public void transformCanvas(Canvas canvas, float percentOpen) {
-//						float scale = (float) (1 - percentOpen * 0.25);
-//						canvas.scale(scale, scale, 0, canvas.getHeight() / 2);
-//					}
-//				});
+		// mSlidingMenu
+		// .setBehindCanvasTransformer(new SlidingMenu.CanvasTransformer() {
+		// @Override
+		// public void transformCanvas(Canvas canvas, float percentOpen) {
+		// float scale = (float) (percentOpen * 0.25 + 0.75);
+		// canvas.scale(scale, scale, -canvas.getWidth() / 2,
+		// canvas.getHeight() / 2);
+		// }
+		// });
+		//
+		// mSlidingMenu
+		// .setAboveCanvasTransformer(new SlidingMenu.CanvasTransformer() {
+		// @Override
+		// public void transformCanvas(Canvas canvas, float percentOpen) {
+		// float scale = (float) (1 - percentOpen * 0.25);
+		// canvas.scale(scale, scale, 0, canvas.getHeight() / 2);
+		// }
+		// });
 
 		// 设置 SlidingMenu 内容
 		FragmentTransaction fragmentTransaction = getSupportFragmentManager()
@@ -1174,14 +1182,12 @@ public class MainActivity extends BaseMainActivity implements
 	private void refreshView() {
 		mMainContainer.refreshTab();
 	}
-	
-	
 
 	@Override
 	protected void onResume() {
 		super.onResume();
 		refreshView();
-		if(MainActivity.TARGET_TAB > 0){//跳转到 指定的页面， 隐藏左侧
+		if (MainActivity.TARGET_TAB > 0) {// 跳转到 指定的页面， 隐藏左侧
 			mMainContainer.showTab(MainActivity.TARGET_TAB);
 			changeMenu();
 		}
@@ -1217,11 +1223,11 @@ public class MainActivity extends BaseMainActivity implements
 						+ app.userVO.getSubject().getSubjectid());
 			} else {
 				mMainContainer.showTab(TAB_APPLY);
-				
+
 			}
 		} else {
 			mMainContainer.showTab(TAB_APPLY);
-			
+
 		}
 	}
 

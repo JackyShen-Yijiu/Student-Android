@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/app_bg_light"
+    android:background="@color/new_app_main_color"
     android:clipToPadding="true"
     android:fitsSystemWindows="true" >
 
@@ -106,6 +106,7 @@
 
     <com.sft.blackcatapp.home.view.MainScreenContainer
         android:id="@+id/main_screen_container"
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/title_layout"
