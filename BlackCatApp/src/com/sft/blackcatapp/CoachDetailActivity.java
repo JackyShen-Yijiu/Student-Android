@@ -1074,7 +1074,7 @@ public class CoachDetailActivity extends BaseActivity implements
 				collectCk.setVisibility(View.VISIBLE);
 				coachNameTv.setVisibility(View.VISIBLE);
 				tvTitle.setText("");
-				viewStatus.setVisibility(View.VISIBLE);
+				viewStatus.setVisibility(View.GONE);
 				
 				viewStatus.startAnimation(alphaOut);
 				titleLayout.startAnimation(alphaOut);
@@ -1093,7 +1093,7 @@ public class CoachDetailActivity extends BaseActivity implements
 				collectCk.setVisibility(View.INVISIBLE);
 				coachNameTv.setVisibility(View.INVISIBLE);
 				tvTitle.setText(coachVO.getName());
-				viewStatus.setVisibility(View.GONE);
+				viewStatus.setVisibility(View.VISIBLE);
 				
 				viewStatus.startAnimation(alphaIn);
 				

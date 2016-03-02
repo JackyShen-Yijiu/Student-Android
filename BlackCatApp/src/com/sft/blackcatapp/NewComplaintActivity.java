@@ -29,8 +29,12 @@ import com.sft.common.Config;
 import com.sft.util.LogUtil;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.CoachVO;
-
-public class NewApplystateActivity extends BaseActivity implements
+/**
+ * 新 投诉
+ * @author sun  2016-3-1 下午8:48:43
+ *
+ */
+public class NewComplaintActivity extends BaseActivity implements
 		OnClickListener, OnCheckedChangeListener {
 
 	private static final String complaint = "complaint";

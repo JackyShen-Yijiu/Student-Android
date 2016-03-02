@@ -39,7 +39,7 @@ import com.sft.blackcatapp.EnrollSchoolActivity1;
 import com.sft.blackcatapp.MessageActivity;
 import com.sft.blackcatapp.MyWalletActivity;
 import com.sft.blackcatapp.NewActivitysActivity;
-import com.sft.blackcatapp.NewApplystateActivity;
+import com.sft.blackcatapp.NewComplaintActivity;
 import com.sft.blackcatapp.PersonCenterActivity;
 import com.sft.blackcatapp.R;
 import com.sft.blackcatapp.SchoolBusRouteActivity;
@@ -401,7 +401,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 						EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue())) {
 
 					intent = new Intent(getActivity(),
-							NewApplystateActivity.class);
+							NewComplaintActivity.class);
 					startActivity(intent);
 				} else {
 					ZProgressHUD.getInstance(mContext).show();
