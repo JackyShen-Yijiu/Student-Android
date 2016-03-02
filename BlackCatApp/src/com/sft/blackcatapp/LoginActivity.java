@@ -291,7 +291,7 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 				// }else{
 				//
 				// =======
-				ZProgressHUD.getInstance(this).dismiss();
+				// ZProgressHUD.getInstance(this).dismiss();
 
 				LogUtil.print(">>>>>>>>11111" + msg + "111");
 				if (data != null && result.equals("1")) {
@@ -362,7 +362,7 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 					.toString());
 
 			if (isMyServiceRunning()) {
-				// ZProgressHUD.getInstance(this).dismiss();
+				ZProgressHUD.getInstance(this).dismiss();
 				app.isLogin = true;
 				Intent intent = new Intent(this, MainActivity.class);
 				startActivity(intent);

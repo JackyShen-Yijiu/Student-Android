@@ -10,9 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.jzjf.app.R;
 import com.sft.blackcatapp.AppointmentExamActivity;
 import com.sft.blackcatapp.QuestionActivity;
-import com.jzjf.app.R;
 import com.sft.dialog.NoLoginDialog;
 import com.sft.util.CommonUtil;
 import com.sft.viewutil.StudyItemLayout;
@@ -39,6 +39,7 @@ public class SubjectFourFragment extends BaseFragment implements
 	// 学习进度
 	private ProgressBar studyProgressBar;
 	private Context mContext;
+	private StudyItemLayout schoolReport;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,6 +66,8 @@ public class SubjectFourFragment extends BaseFragment implements
 		errorData = (StudyItemLayout) rootView.findViewById(R.id.my_error_data);
 		appointment = (StudyItemLayout) rootView
 				.findViewById(R.id.make_an_appointment);
+		schoolReport = (StudyItemLayout) rootView
+				.findViewById(R.id.my_school_report);
 		communication = (StudyItemLayout) rootView
 				.findViewById(R.id.communication);
 	}
@@ -74,6 +77,7 @@ public class SubjectFourFragment extends BaseFragment implements
 		simulation.setOnClickListener(this);
 		errorData.setOnClickListener(this);
 		appointment.setOnClickListener(this);
+		schoolReport.setOnClickListener(this);
 		communication.setOnClickListener(this);
 	}
 
@@ -131,6 +135,23 @@ public class SubjectFourFragment extends BaseFragment implements
 
 			} else {
 				NoLoginDialog dialog = new NoLoginDialog(getActivity());
+				dialog.show();
+			}
+			break;
+		case R.id.my_school_report:
+			// 成绩单
+			if (app.isLogin) {
+				if (app.questionVO != null) {
+					intent = new Intent(mContext, QuestionActivity.class);
+					intent.putExtra("url", app.questionVO.getSubjectone()
+							.getKemusichengjidanurl());
+				} else {
+					ZProgressHUD.getInstance(mContext).show();
+					ZProgressHUD.getInstance(mContext).dismissWithFailure(
+							"暂无成绩单");
+				}
+			} else {
+				NoLoginDialog dialog = new NoLoginDialog(mContext);
 				dialog.show();
 			}
 			break;

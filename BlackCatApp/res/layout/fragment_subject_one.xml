@@ -93,6 +93,14 @@
         study:itemIcon="@drawable/make_an_appointment"
         study:itemTitle="我要约考" >
     </com.sft.viewutil.StudyItemLayout>
+    <com.sft.viewutil.StudyItemLayout
+        android:id="@+id/my_school_report"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        study:itemDescribe="上传模拟成绩，帮君顺利报考"
+        study:itemIcon="@drawable/make_an_appointment"
+        study:itemTitle="成绩单" >
+    </com.sft.viewutil.StudyItemLayout>
 
     <com.sft.viewutil.StudyItemLayout
         android:id="@+id/communication"

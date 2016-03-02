@@ -13,8 +13,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -182,16 +182,28 @@ public class AppointmentDetailActivity extends BaseActivity implements
 		}
 
 		//
-		classNameTv.setText(appointmentVO.getCourseprocessdesc());
-		timeTv.setText(appointmentVO.getClassdatetimedesc());
-		classDetailTv.setText(appointmentVO.getLearningcontent());
-		schoolNameTv.setText(appointmentVO.getCoachid().getDriveschoolinfo()
-				.getName());
+		if (!TextUtils.isEmpty(appointmentVO.getCourseprocessdesc())) {
+			classNameTv.setText(appointmentVO.getCourseprocessdesc());
+		}
+		if (!TextUtils.isEmpty(appointmentVO.getClassdatetimedesc())) {
+			timeTv.setText(appointmentVO.getClassdatetimedesc());
+		}
+		if (!TextUtils.isEmpty(appointmentVO.getLearningcontent())) {
+			classDetailTv.setText(appointmentVO.getLearningcontent());
+		}
+		if (!TextUtils.isEmpty(appointmentVO.getCoachid().getDriveschoolinfo()
+				.getName())) {
+
+			schoolNameTv.setText(appointmentVO.getCoachid()
+					.getDriveschoolinfo().getName());
+		}
 		if (!TextUtils.isEmpty(appointmentVO.getTrainfieldlinfo().getName())) {
 			trainingGroundsTv.setText(appointmentVO.getTrainfieldlinfo()
 					.getName());
 		}
-		shuttleAddressTv.setText(appointmentVO.getShuttleaddress());
+		if (!TextUtils.isEmpty(appointmentVO.getShuttleaddress())) {
+			shuttleAddressTv.setText(appointmentVO.getShuttleaddress());
+		}
 
 		String state = appointmentVO.getReservationstate();
 		// 底部预约显示

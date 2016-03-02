@@ -86,6 +86,7 @@
                       android:id="@+id/fragment_menu_goddness_btn"
             style="@style/left_item_menu_style"
             android:drawableLeft="@drawable/left_item_good"
+            android:visibility="gone"
             android:text="一步优势"/>
                   <TextView 
             android:id="@+id/fragment_menu_setting_btn"

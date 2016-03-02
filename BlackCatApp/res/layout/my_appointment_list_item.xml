@@ -49,7 +49,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
-                android:text="李荣华"
                 android:textColor="#333333"
                 android:textSize="14dp" />
 
@@ -72,7 +71,6 @@
                 android:layout_below="@+id/my_appointment_item_name_tv"
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="5dp"
-                android:text="一步驾校"
                 android:textColor="@color/txt_999"
                 android:textSize="12dp" />
 

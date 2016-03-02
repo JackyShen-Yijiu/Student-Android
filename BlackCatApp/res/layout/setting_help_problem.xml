@@ -26,7 +26,7 @@
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:layout_marginTop="8dp"
-	    android:text="    “一步学车”以学员满意拿本为宗旨，严格保证学员学车质量，执行“一对一教学”，也会因为部分城市差异出现不同。"
+	    android:text="    “极致驾服”以学员满意拿本为宗旨，严格保证学员学车质量，执行“一对一教学”，也会因为部分城市差异出现不同。"
 	    android:textColor="@color/text_color_light"
 	    android:textSize="12sp" />
 	
@@ -42,15 +42,15 @@
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:layout_marginTop="8dp"
-	    android:text="    1．APP线上报名：下载一步学车APP，注册信息并选择驾校或教练的班型进行报名，选择线上报名的方式，通过支付宝或微信线上支付报名费；支付成功后至驾校进行信息采集。\n
+	    android:text="    1．APP线上报名：下载极致驾服APP，注册信息并选择驾校或教练的班型进行报名，选择线上报名的方式，通过支付宝或微信线上支付报名费；支付成功后至驾校进行信息采集。\n
 
-    2．APP线下报名：下载一部学车APP，注册信息并选择驾校或教练的班型进行报名，选择线下报名的方式，成功提交后系统将为您生成报名二维码，在截止时间内至驾校支付报名费并进行信息采集。\n
+    2．APP线下报名：下载极致驾服APP，注册信息并选择驾校或教练的班型进行报名，选择线下报名的方式，成功提交后系统将为您生成报名二维码，在截止时间内至驾校支付报名费并进行信息采集。\n
 报名资料\n
 1.	证件：身份证原件、暂住证（本地学员无需暂住证）\n
 2.	照片：8张白底一寸证件照\n
 3.	医院体检证明一份（照片需与如上照片一致）\n
 联系电话\n
-官方电话：400-626-9255\n
+官方电话：400-101-6669\n
 "
 	    android:textColor="@color/text_color_light"
 	    android:textSize="12sp" />
@@ -59,14 +59,14 @@
 	    android:layout_height="wrap_content"
 	    android:layout_marginLeft="15dp"
 	    android:layout_marginTop="18dp"
-	    android:text="3.“一步学车”的训练场在哪？"
+	    android:text="3.“极致驾服”的训练场在哪？"
 	    android:textColor="@color/left_black"
 	    android:textSize="14sp" />
 		<TextView
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:layout_marginTop="8dp"
-	    android:text="    目前“一步学车”已开放全北京地域的学车报名，北京各个区都有深度合作的”优质驾校“和“金牌教练”为其提供服务，全部由班车接送，交通方便。
+	    android:text="    目前“极致驾服”已开放全北京地域的学车报名，北京各个区都有深度合作的”优质驾校“和“金牌教练”为其提供服务，全部由班车接送，交通方便。
 "
 	    android:textColor="@color/text_color_light"
 	    android:textSize="12sp" />
@@ -75,7 +75,7 @@
 	    android:layout_height="wrap_content"
 	    android:layout_marginLeft="15dp"
 	    android:layout_marginTop="18dp"
-	    android:text="4.在“一步学车”上报考的班型一般需要多久可以拿本？"
+	    android:text="4.在“极致驾服”上报考的班型一般需要多久可以拿本？"
 	    android:textColor="@color/left_black"
 	    android:textSize="14sp" />
 		<TextView
@@ -90,14 +90,14 @@
 	    android:layout_height="wrap_content"
 	    android:layout_marginLeft="15dp"
 	    android:layout_marginTop="18dp"
-	    android:text="5.通过“一步学车”考驾照的基本流程是什么？"
+	    android:text="5.通过“极致驾服”考驾照的基本流程是什么？"
 	    android:textColor="@color/left_black"
 	    android:textSize="14sp" />
 		<TextView
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:layout_marginTop="8dp"
-	    android:text="    （1）在“一步学车”咨询并报名；      （2）“学车管家”协助学员完成学车前准备，包含“照片，体检表，身份证…”等材料。      （3）学员开始参与驾考培训以后，学车管家全程跟踪学员学车进度，及时处理学员在学车过程中出现的常见问题及投诉的处理，帮助学员快速拿本。
+	    android:text="    （1）在“极致驾服”咨询并报名；      （2）“学车管家”协助学员完成学车前准备，包含“照片，体检表，身份证…”等材料。      （3）学员开始参与驾考培训以后，学车管家全程跟踪学员学车进度，及时处理学员在学车过程中出现的常见问题及投诉的处理，帮助学员快速拿本。
 "
 	    android:textColor="@color/text_color_light"
 	    android:textSize="12sp" />
@@ -113,7 +113,7 @@
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:layout_marginTop="8dp"
-	    android:text="    “一步学车”服务方为区域内龙头优质驾校进行深度合作；参与培训的教练全部是有“十年以上教学经验且服务素质高”的“金牌教练”，保证学员能够快速学成拿本。"
+	    android:text="    “极致驾服”服务方为区域内龙头优质驾校进行深度合作；参与培训的教练全部是有“十年以上教学经验且服务素质高”的“金牌教练”，保证学员能够快速学成拿本。"
 	    android:textColor="@color/text_color_light"
 	    android:textSize="12sp" />
 				<TextView
@@ -173,7 +173,7 @@
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:layout_marginTop="8dp"
-	    android:text="    包过是指收费从一而终一次收费的意思，  “一步学车”目前推出的“春节包过班型”就是这样的，学车过程中产生的所以补考费用全部由”一步学车“承担；而”一步学车“的”猴年专享班型“是不提供包过服务的，对于学车过程中的补考费用，需由学员自行承担。保障班型为驾校班型，价格与驾校统一，额外由一步为其做服务保障。"
+	    android:text="    包过是指收费从一而终一次收费的意思，  “极致驾服”目前推出的“春节包过班型”就是这样的，学车过程中产生的所以补考费用全部由”极致驾服“承担；而”极致驾服“的”猴年专享班型“是不提供包过服务的，对于学车过程中的补考费用，需由学员自行承担。保障班型为驾校班型，价格与驾校统一，额外由一步为其做服务保障。"
 	    android:textColor="@color/text_color_light"
 	    android:textSize="12sp" />
 		
