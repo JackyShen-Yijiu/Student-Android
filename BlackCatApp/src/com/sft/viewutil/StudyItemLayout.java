@@ -21,7 +21,7 @@ public class StudyItemLayout extends RelativeLayout {
 
 	public StudyItemLayout(Context context, AttributeSet attrs,
 			int defStyleAttr, int defStyleRes) {
-		super(context, attrs, defStyleAttr, defStyleRes);
+		super(context, attrs, defStyleAttr);//, defStyleRes
 		init(context, attrs);
 	}
 
