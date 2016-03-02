@@ -12,7 +12,7 @@ public class Config {
 	public static final String UMENG_CHANNELID = "ceshi";
 	//
 	// public static final String IP = "http://101.200.204.240:8181/";
-	public static final String IP = "http://api.yibuxueche.com/";
+	public static final String IP = "http://jzapi.yibuxueche.com/";
 
 	/** 学员须知 */
 	public static final String STUDENT_KNOW = IP + "xueyuanxuzhi.html";
