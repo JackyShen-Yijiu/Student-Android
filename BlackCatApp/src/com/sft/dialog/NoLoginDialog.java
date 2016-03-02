@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sft.blackcatapp.LoginActivity;
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 
 @SuppressLint("InflateParams")
 public class NoLoginDialog extends Dialog implements

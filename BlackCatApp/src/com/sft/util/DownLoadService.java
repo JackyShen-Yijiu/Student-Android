@@ -2,7 +2,7 @@ package com.sft.util;
 
 import java.io.File;
 
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 import com.sft.common.Config;
 
 import android.annotation.SuppressLint;

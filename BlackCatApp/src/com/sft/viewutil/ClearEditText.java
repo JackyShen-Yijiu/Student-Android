@@ -14,7 +14,7 @@ import android.view.animation.CycleInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.EditText;
 
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 
 @SuppressLint("ClickableViewAccessibility")
 public class ClearEditText extends EditText implements TextWatcher {

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import cn.sft.baseactivity.util.HttpSendUtils;
 
+import com.jzjf.app.R;
 import com.sft.common.Config;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;

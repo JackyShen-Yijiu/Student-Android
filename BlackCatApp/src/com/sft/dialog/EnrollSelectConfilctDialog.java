@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 
 @SuppressLint("InflateParams")
 public class EnrollSelectConfilctDialog extends Dialog implements

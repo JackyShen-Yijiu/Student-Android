@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.sft.adapter.CarStyleListAdapter;
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 import com.sft.common.Config;
 import com.sft.util.JSONUtil;
 import com.sft.util.Util;

@@ -19,7 +19,7 @@ import com.sft.blackcatapp.ApplyActivity;
 import com.sft.blackcatapp.AppointmentCarActivity;
 import com.sft.blackcatapp.CourseActivity;
 import com.sft.blackcatapp.MyAppointmentActivity;
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
 import com.sft.common.Config.SubjectStatu;

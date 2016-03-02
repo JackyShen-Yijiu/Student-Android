@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.jzjf.app.R;
 import com.sft.vo.ExchangeGoodOrderVO;
 import com.sft.vo.ExchangeOrderItemVO;
 

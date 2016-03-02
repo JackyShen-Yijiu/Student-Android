@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 import com.sft.dialog.NoLoginDialog;
 import com.sft.viewutil.ZProgressHUD;
 

@@ -22,7 +22,7 @@ import com.easemob.chat.VoiceMessageBody;
 import com.easemob.util.EMLog;
 import com.sft.Utils.HXSDKHelper;
 import com.sft.blackcatapp.ChatActivity;
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 
 import android.app.Activity;
 import android.content.Context;

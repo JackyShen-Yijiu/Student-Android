@@ -44,6 +44,7 @@ import cn.sft.infinitescrollviewpager.MyHandler;
 import cn.sft.infinitescrollviewpager.PageChangeListener;
 import cn.sft.infinitescrollviewpager.PageClickListener;
 
+import com.jzjf.app.R;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.Animator.AnimatorListener;
 import com.nineoldandroids.animation.ValueAnimator;

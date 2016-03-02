@@ -20,7 +20,7 @@ import android.widget.ImageView.ScaleType;
 import cn.sft.infinitescrollviewpager.BitmapManager;
 
 import com.joooonho.SelectableRoundedImageView;
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 import com.sft.vo.SchoolVO;
 
 @SuppressLint("InflateParams")

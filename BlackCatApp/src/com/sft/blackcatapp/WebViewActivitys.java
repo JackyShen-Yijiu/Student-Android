@@ -9,6 +9,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.jzjf.app.R;
 import com.sft.vo.ActivitiesVO;
 
 public class WebViewActivitys extends BaseActivity implements OnClickListener {

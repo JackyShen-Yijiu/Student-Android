@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.widget.ListView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
+import com.jzjf.app.R;
 import com.sft.adapter.MyComplaintAdapter;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;

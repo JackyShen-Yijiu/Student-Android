@@ -52,6 +52,7 @@ import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.MapView;
 import com.google.gson.reflect.TypeToken;
+import com.jzjf.app.R;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.sft.adapter.OpenCityAdapter;

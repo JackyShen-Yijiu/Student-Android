@@ -48,7 +48,7 @@ import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.sft.blackcatapp.BaseActivity;
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 import com.sft.city.MyLetterListView.OnTouchingLetterChangedListener;
 import com.sft.common.Config;
 import com.sft.util.CommonUtil;

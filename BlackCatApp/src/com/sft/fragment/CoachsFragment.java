@@ -15,7 +15,7 @@ import cn.sft.infinitescrollviewpager.MyHandler;
 import com.sft.adapter.CoachListAdapter;
 import com.sft.blackcatapp.BaseActivity;
 import com.sft.blackcatapp.CoachDetailActivity;
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
 import com.sft.dialog.EnrollSelectConfilctDialog;

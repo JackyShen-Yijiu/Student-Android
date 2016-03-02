@@ -30,7 +30,7 @@ import com.easemob.util.EMLog;
 import com.sft.Utils.Constant;
 import com.sft.Utils.UserUtils;
 import com.sft.blackcatapp.CoachDetailActivity;
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 import com.sft.blackcatapp.StudentInfoActivity;
 import com.sft.common.Config;
 import com.sft.common.Config.UserType;

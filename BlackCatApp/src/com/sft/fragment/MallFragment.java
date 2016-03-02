@@ -29,7 +29,7 @@ import com.nineoldandroids.view.ViewPropertyAnimator;
 import com.sft.adapter.MallProductAdapter;
 import com.sft.blackcatapp.MallActivity;
 import com.sft.blackcatapp.ProductDetailActivity;
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 import com.sft.common.Config;
 import com.sft.util.JSONUtil;
 import com.sft.vo.MallVO;

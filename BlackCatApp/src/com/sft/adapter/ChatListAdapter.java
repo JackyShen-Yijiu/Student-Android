@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 import com.sft.vo.ChatVO;
 
 @SuppressLint("InflateParams")

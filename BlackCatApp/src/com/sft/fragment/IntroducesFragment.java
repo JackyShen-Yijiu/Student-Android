@@ -10,7 +10,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 import com.sft.blackcatapp.YiBuIntroduceActivity;
 import com.sft.util.CommonUtil;
 import com.sft.viewutil.ZProgressHUD;

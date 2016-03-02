@@ -18,7 +18,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.sft.blackcatapp.MainActivity;
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 import com.sft.blackcatapp.home.i.IIndicateMainTabNotification;
 import com.sft.blackcatapp.home.i.INewIntent;
 import com.sft.blackcatapp.home.i.IOnKeyDown;

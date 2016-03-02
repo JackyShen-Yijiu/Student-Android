@@ -40,7 +40,7 @@ import com.sft.adapter.SchoolDetailCoachHoriListAdapter;
 import com.sft.api.ApiHttpClient;
 import com.sft.blackcatapp.ApplyActivity;
 import com.sft.blackcatapp.CoachDetailActivity;
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 import com.sft.common.Config;
 import com.sft.listener.MOnScrollListener;
 import com.sft.util.JSONUtil;

@@ -8,7 +8,7 @@ import java.util.Locale;
 import java.util.Random;
 
 import com.alipay.sdk.app.PayTask;
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 import com.sft.util.LogUtil;
 
 import android.app.AlertDialog;

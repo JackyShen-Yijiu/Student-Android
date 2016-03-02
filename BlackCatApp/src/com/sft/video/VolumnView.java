@@ -11,7 +11,7 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 
 /**
  * 仿小米声音调节环形进度条

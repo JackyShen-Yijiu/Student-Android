@@ -41,7 +41,7 @@ import com.sft.blackcatapp.MyWalletActivity;
 import com.sft.blackcatapp.NewActivitysActivity;
 import com.sft.blackcatapp.NewComplaintActivity;
 import com.sft.blackcatapp.PersonCenterActivity;
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 import com.sft.blackcatapp.SchoolBusRouteActivity;
 import com.sft.blackcatapp.SettingActivity;
 import com.sft.blackcatapp.TodaysAppointmentActivity;

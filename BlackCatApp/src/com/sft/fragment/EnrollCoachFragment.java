@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.sft.adapter.ViewPagerAdapter;
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 import com.sft.util.LogUtil;
 import com.sft.view.PagerSlidingTab;
 

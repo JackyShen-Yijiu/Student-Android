@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.sft.blackcatapp.AppointmentExamActivity;
 import com.sft.blackcatapp.QuestionActivity;
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 import com.sft.dialog.NoLoginDialog;
 import com.sft.util.CommonUtil;
 import com.sft.viewutil.StudyItemLayout;

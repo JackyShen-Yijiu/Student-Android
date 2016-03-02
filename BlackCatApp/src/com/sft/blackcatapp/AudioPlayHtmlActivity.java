@@ -11,6 +11,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
+import com.jzjf.app.R;
 import com.sft.vo.VideoVO;
 
 /**

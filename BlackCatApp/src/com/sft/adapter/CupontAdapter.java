@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 import com.sft.util.UTC2LOC;
 import com.sft.vo.MyCuponVO;
 

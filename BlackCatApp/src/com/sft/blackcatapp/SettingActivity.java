@@ -21,6 +21,7 @@ import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.infinitescrollviewpager.MyHandler;
 
 import com.easemob.chat.EMChatManager;
+import com.jzjf.app.R;
 import com.sft.common.BlackCatApplication;
 import com.sft.common.Config;
 import com.sft.dialog.NoLoginDialog;

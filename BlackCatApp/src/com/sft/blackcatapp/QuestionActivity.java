@@ -12,6 +12,7 @@ import android.webkit.WebSettings.PluginState;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
+import com.jzjf.app.R;
 
 /**
  * 试题

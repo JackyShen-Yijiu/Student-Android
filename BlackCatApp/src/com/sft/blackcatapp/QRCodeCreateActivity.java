@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.jzjf.app.R;
 import com.sft.qrcode.EncodingHandler;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;

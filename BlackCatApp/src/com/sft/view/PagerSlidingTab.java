@@ -25,7 +25,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 import com.sft.util.LogUtil;
 
 

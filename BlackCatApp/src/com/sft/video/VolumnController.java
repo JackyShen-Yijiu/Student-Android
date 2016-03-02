@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 
 @SuppressLint("InflateParams")
 public class VolumnController {

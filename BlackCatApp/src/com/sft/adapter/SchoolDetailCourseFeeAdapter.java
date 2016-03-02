@@ -14,7 +14,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 import com.sft.common.BlackCatApplication;
 import com.sft.common.Config.EnrollResult;
 import com.sft.util.LogUtil;

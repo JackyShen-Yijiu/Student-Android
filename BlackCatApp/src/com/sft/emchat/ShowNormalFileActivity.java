@@ -8,7 +8,7 @@ import com.easemob.EMCallBack;
 import com.easemob.chat.EMChatManager;
 import com.easemob.chat.FileMessageBody;
 import com.easemob.util.FileUtils;
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 
 import android.os.Bundle;
 import android.text.TextUtils;

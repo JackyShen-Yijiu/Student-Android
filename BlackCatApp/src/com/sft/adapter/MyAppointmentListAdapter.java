@@ -18,7 +18,7 @@ import android.widget.TextView;
 import cn.sft.infinitescrollviewpager.BitmapManager;
 
 import com.joooonho.SelectableRoundedImageView;
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 import com.sft.common.Config.AppointmentResult;
 import com.sft.util.CommonUtil;
 import com.sft.util.UTC2LOC;

@@ -16,7 +16,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 import com.sft.common.BlackCatApplication;
 import com.sft.util.UTC2LOC;
 import com.sft.vo.CoachCourseVO;

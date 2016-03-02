@@ -32,6 +32,7 @@ import cn.sft.infinitescrollviewpager.CropRoundView;
 
 import com.edmodo.cropper.CropImageView;
 import com.edmodo.cropper.PreviewListener;
+import com.jzjf.app.R;
 import com.sft.common.Config;
 import com.sft.util.LogUtil;
 import com.sft.util.Util;

@@ -17,7 +17,7 @@ import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
 import com.nineoldandroids.view.ViewPropertyAnimator;
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 import com.sft.common.Config;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;

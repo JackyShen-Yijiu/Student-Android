@@ -42,6 +42,7 @@ import cn.sft.infinitescrollviewpager.BitmapManager;
 import cn.sft.infinitescrollviewpager.MyHandler;
 
 import com.joooonho.SelectableRoundedImageView;
+import com.jzjf.app.R;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.Animator.AnimatorListener;
 import com.nineoldandroids.animation.ValueAnimator;

@@ -2,7 +2,7 @@ package com.sft.adapter;
 
 import java.util.List;
 
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 import com.sft.vo.CoachVO;
 
 import android.annotation.SuppressLint;

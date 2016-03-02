@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import com.jzjf.app.R;
 import com.sft.viewutil.StudyItemLayout;
 
 public class SettingHelp extends BaseActivity implements OnClickListener {

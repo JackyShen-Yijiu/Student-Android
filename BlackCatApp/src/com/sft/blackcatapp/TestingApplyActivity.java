@@ -3,6 +3,7 @@ package com.sft.blackcatapp;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import com.jzjf.app.R;
 
 /**
  * 验证报名信息

@@ -32,6 +32,7 @@ import cn.sft.pull.LoadMoreView;
 import cn.sft.pull.LoadMoreView.LoadMoreListener;
 import cn.sft.pull.OnItemClickListener;
 
+import com.jzjf.app.R;
 import com.sft.adapter.AppointmentCarCoachHoriListAdapter;
 import com.sft.adapter.AppointmentDetailStudentHoriListAdapter;
 import com.sft.common.Config;

@@ -15,7 +15,7 @@ import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.ListView;
 
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 import com.sft.listener.MOnScrollListener;
 import com.sft.util.LogUtil;
 

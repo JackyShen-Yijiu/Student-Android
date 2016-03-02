@@ -12,6 +12,7 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.jzjf.app.R;
 import com.sft.util.LogUtil;
 import com.sft.vo.MyCuponVO;
 import com.sft.vo.ProductVO;

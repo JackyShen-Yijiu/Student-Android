@@ -1,6 +1,6 @@
 package com.sft.util;
 
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 
 import android.app.Notification;
 import android.app.NotificationManager;

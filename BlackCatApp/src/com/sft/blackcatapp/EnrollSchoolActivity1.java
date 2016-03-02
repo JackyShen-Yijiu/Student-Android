@@ -36,6 +36,7 @@ import android.widget.TextView.OnEditorActionListener;
 import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.listener.ICallBack;
 
+import com.jzjf.app.R;
 import com.sft.adapter.OpenCityAdapter;
 import com.sft.common.BlackCatApplication;
 import com.sft.common.Config;

@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
+import com.jzjf.app.R;
 import com.sft.adapter.AmountInCashistAdapter;
 import com.sft.common.Config;
 import com.sft.util.JSONUtil;

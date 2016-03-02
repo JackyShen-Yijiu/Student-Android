@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 
 public class AppayFragment extends BaseFragment implements OnClickListener {
 

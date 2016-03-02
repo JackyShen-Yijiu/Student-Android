@@ -11,7 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 
 @SuppressLint("InflateParams")
 public class HistoryShuttleAddressListAdapter extends BaseAdapter {

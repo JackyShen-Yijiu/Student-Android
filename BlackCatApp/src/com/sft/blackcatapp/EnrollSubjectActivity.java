@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 
+import com.jzjf.app.R;
 import com.sft.adapter.SubjectListAdapter;
 import com.sft.vo.SubjectVO;
 

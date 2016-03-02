@@ -18,7 +18,7 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import cn.sft.infinitescrollviewpager.MyHandler;
 
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 import com.sft.listener.AdapterRefreshListener;
 
 /**

@@ -98,7 +98,7 @@
                                 android:textSize="12dp" />
 
                             <cn.sft.pull.LoadMoreView
-                                xmlns:test="http://schemas.android.com/apk/res/com.sft.blackcatapp"
+                                xmlns:test="http://schemas.android.com/apk/res/com.jzjf.app"
                                 android:id="@+id/appointment_detail_horizon_listview"
                                 android:layout_width="match_parent"
                                 android:layout_height="45dp"

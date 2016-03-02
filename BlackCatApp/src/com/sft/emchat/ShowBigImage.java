@@ -35,7 +35,7 @@ import com.easemob.util.EMLog;
 import com.easemob.util.ImageUtils;
 import com.easemob.util.PathUtil;
 import com.sft.Utils.ImageCache;
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 
 /**
  * 下载显示大图

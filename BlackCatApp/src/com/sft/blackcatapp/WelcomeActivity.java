@@ -19,6 +19,7 @@ import android.view.KeyEvent;
 import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.infinitescrollviewpager.MyHandler;
 
+import com.jzjf.app.R;
 import com.sft.api.UserLogin;
 import com.sft.common.Config;
 import com.sft.listener.EMLoginListener;

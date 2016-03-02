@@ -11,7 +11,7 @@ import com.baidu.mapapi.search.sug.SuggestionSearch;
 import com.baidu.mapapi.search.sug.SuggestionSearchOption;
 import com.sft.adapter.HistoryShuttleAddressListAdapter;
 import com.sft.adapter.SuggestAddressListAdapter;
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 import com.sft.viewutil.ClearEditText;
 
 import android.content.Intent;

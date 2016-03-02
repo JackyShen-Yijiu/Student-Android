@@ -15,6 +15,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
+import com.jzjf.app.R;
 import com.sft.common.Config;
 import com.sft.util.DownLoadService;
 import com.sft.viewutil.ZProgressHUD;

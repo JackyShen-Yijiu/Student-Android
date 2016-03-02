@@ -15,7 +15,7 @@ package com.sft.emchat;
 
 import com.easemob.util.ImageUtils;
 import com.sft.Utils.ImageCache;
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 
 import android.content.Context;
 import android.graphics.Bitmap;

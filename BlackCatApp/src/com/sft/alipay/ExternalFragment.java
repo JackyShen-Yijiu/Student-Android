@@ -1,6 +1,6 @@
 package com.sft.alipay;
 
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

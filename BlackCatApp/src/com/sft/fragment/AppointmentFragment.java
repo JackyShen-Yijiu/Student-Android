@@ -25,7 +25,7 @@ import cn.sft.baseactivity.util.HttpSendUtils;
 
 import com.sft.adapter.MyAppointmentListAdapter;
 import com.sft.blackcatapp.AppointmentDetailActivity;
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 import com.sft.common.Config;
 import com.sft.event.AppointmentSuccessEvent;
 import com.sft.util.CommonUtil;

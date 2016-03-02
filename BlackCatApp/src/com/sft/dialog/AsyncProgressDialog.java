@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 
 public class AsyncProgressDialog extends ProgressDialog {
 

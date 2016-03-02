@@ -16,6 +16,7 @@ import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.pull.RefreshLoadMoreView;
 import cn.sft.pull.RefreshLoadMoreView.RefreshLoadMoreListener;
 
+import com.jzjf.app.R;
 import com.sft.adapter.MyAppointmentListAdapter;
 import com.sft.common.Config;
 import com.sft.dialog.ApplyExamDialog;

@@ -18,7 +18,7 @@ import android.widget.TextView;
 import cn.sft.infinitescrollviewpager.BitmapManager;
 
 import com.sft.blackcatapp.CoachDetailActivity;
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 import com.sft.util.UTC2LOC;
 import com.sft.vo.CoachCommentVO;
 

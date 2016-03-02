@@ -14,7 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import cn.sft.infinitescrollviewpager.BitmapManager;
 
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 import com.sft.vo.VideoVO;
 
 @SuppressLint({ "InflateParams", "ResourceAsColor" })

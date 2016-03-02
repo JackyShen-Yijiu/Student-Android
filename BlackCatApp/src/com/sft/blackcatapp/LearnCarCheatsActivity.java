@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.jzjf.app.R;
 import com.sft.common.Config;
 import com.sft.util.CommonUtil;
 

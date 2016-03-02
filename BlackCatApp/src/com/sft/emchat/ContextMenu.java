@@ -15,7 +15,7 @@ package com.sft.emchat;
 
 import com.easemob.chat.EMMessage;
 import com.sft.blackcatapp.ChatActivity;
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 
 import android.content.Intent;
 import android.os.Bundle;

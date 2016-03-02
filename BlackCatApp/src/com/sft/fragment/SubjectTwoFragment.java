@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.sft.blackcatapp.AppointmentExamActivity;
 import com.sft.blackcatapp.CourseActivity;
 import com.sft.blackcatapp.LearnCarCheatsActivity;
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 import com.sft.dialog.NoLoginDialog;
 import com.sft.viewutil.StudyItemLayout;
 import com.sft.vo.SubjectForOneVO;

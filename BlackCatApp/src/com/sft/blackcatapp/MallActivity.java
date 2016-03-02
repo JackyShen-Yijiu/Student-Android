@@ -17,6 +17,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import cn.sft.infinitescrollviewpager.BitMapURLExcepteionListner;
 
+import com.jzjf.app.R;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.sft.adapter.MallProductAdapter;

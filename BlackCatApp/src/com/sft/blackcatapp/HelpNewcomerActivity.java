@@ -2,6 +2,7 @@ package com.sft.blackcatapp;
 
 import android.os.Bundle;
 import android.view.View;
+import com.jzjf.app.R;
 
 public class HelpNewcomerActivity extends BaseActivity {
 	@Override

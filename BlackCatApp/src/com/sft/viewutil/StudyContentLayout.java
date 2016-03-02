@@ -12,7 +12,7 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
 
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 
 @SuppressLint("InflateParams")
 public class StudyContentLayout extends LinearLayout {

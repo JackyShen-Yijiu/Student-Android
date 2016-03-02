@@ -91,7 +91,7 @@
         android:layout_marginTop="17dp" >
 
         <cn.sft.pull.RefreshLoadMoreView
-            xmlns:test="http://schemas.android.com/apk/res/com.sft.blackcatapp"
+            xmlns:test="http://schemas.android.com/apk/res/com.jzjf.app"
             android:id="@+id/my_appointment_listview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

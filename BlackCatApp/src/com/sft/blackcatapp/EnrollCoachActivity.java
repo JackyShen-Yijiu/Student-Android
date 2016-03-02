@@ -27,6 +27,7 @@ import android.widget.RelativeLayout;
 import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.infinitescrollviewpager.MyHandler;
 
+import com.jzjf.app.R;
 import com.sft.adapter.CoachListAdapter;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;

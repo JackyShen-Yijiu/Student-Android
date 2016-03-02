@@ -24,6 +24,7 @@ import cn.sft.infinitescrollviewpager.BitmapManager;
 import cn.sft.infinitescrollviewpager.MyHandler;
 
 import com.joooonho.SelectableRoundedImageView;
+import com.jzjf.app.R;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
 import com.sft.util.JSONUtil;

@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
+import com.jzjf.app.R;
 import com.sft.common.Config;
 import com.sft.util.CommonUtil;
 import com.sft.util.JSONUtil;

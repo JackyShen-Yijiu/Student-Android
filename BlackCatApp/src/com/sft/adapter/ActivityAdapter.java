@@ -15,7 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.sft.infinitescrollviewpager.BitmapManager;
 
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 import com.sft.util.DateUtil;
 import com.sft.util.LogUtil;
 import com.sft.vo.ActivitiesVO;

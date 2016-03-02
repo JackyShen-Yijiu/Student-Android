@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
+import com.jzjf.app.R;
 import com.sft.util.UTC2LOC;
 import com.sft.viewutil.MultipleTextViewGroup;
 import com.sft.viewutil.MultipleTextViewGroup.MultipleTextViewVO;

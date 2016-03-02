@@ -40,6 +40,7 @@ import cn.sft.infinitescrollviewpager.PageChangeListener;
 import cn.sft.infinitescrollviewpager.PageClickListener;
 
 import com.google.gson.reflect.TypeToken;
+import com.jzjf.app.R;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.sft.adapter.OpenCityAdapter;

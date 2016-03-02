@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.sft.blackcatapp"
+    package="com.jzjf.app"
     android:versionCode="5"
     android:versionName="1.2.1" >
 
@@ -385,16 +385,16 @@
             android:screenOrientation="portrait" />
            <!-- 设置帮助 -->
             <activity
-               android:name=".HelpGuideActivity"
+               android:name="com.sft.blackcatapp.HelpGuideActivity"
                android:screenOrientation="portrait"></activity>
              <activity
-               android:name=".HelpExamActivity"
+               android:name="com.sft.blackcatapp.HelpExamActivity"
                android:screenOrientation="portrait"></activity>
               <activity
-               android:name=".HelpNewcomerActivity"
+               android:name="com.sft.blackcatapp.HelpNewcomerActivity"
                android:screenOrientation="portrait"></activity>
                <activity
-               android:name=".HelpProblemActivity"
+               android:name="com.sft.blackcatapp.HelpProblemActivity"
                android:screenOrientation="portrait"></activity>
            
            
@@ -402,31 +402,31 @@
            
         <!-- 确认订单 -->
         <activity
-            android:name=".ConfirmOrderActivity"
+            android:name="com.sft.blackcatapp.ConfirmOrderActivity"
             android:screenOrientation="portrait" >
         </activity>
         <!-- 钱包 -->
         <activity
-            android:name=".WalletActivity"
+            android:name="com.sft.blackcatapp.WalletActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".WebViewActivitys"
+            android:name="com.sft.blackcatapp.WebViewActivitys"
             android:screenOrientation="portrait" >
         </activity>
         <!-- 折扣券 验证 -->
         <activity
-            android:name=".CheckDiscodeAct"
+            android:name="com.sft.blackcatapp.CheckDiscodeAct"
             android:screenOrientation="portrait" >
         </activity>
         <!-- 学车秘籍 -->
         <activity
-            android:name=".LearnCarCheatsActivity"
+            android:name="com.sft.blackcatapp.LearnCarCheatsActivity"
             android:screenOrientation="portrait" >
         </activity>
         <!-- 我要约考 -->
         <activity
-            android:name=".AppointmentExamActivity"
+            android:name="com.sft.blackcatapp.AppointmentExamActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         </activity>
@@ -437,20 +437,20 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".MyOrderAct"
+            android:name="com.sft.blackcatapp.MyOrderAct"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".OrderApplyAct"
+            android:name="com.sft.blackcatapp.OrderApplyAct"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".OrderExchangeGoodAct"
+            android:name="com.sft.blackcatapp.OrderExchangeGoodAct"
             android:screenOrientation="portrait" >
         </activity>
         <!-- 兑换商品订单详情 -->
         <activity
-            android:name=".ExchangeDetailAct"
+            android:name="com.sft.blackcatapp.ExchangeDetailAct"
             android:screenOrientation="portrait" >
         </activity>
         <activity
@@ -569,7 +569,7 @@
         <!-- 设置推送应用的appkey d9f9dc8db6bc3dd2c913ced0 test:a9d3780a093c23df7e3e2402 new:3ed0386d38153e3768ef0f26-->
         <meta-data
             android:name="JPUSH_APPKEY"
-            android:value="d9f9dc8db6bc3dd2c913ced0" />
+            android:value="3ed0386d38153e3768ef0f26" />
         <!-- </>值来自开发者平台取得的AppKey -->
         <!-- 推送 ======================================================================== -->
 
@@ -578,14 +578,14 @@
         <!-- black-cat#jizhijaifu -->
         <meta-data
             android:name="EASEMOB_APPKEY"
-            android:value="black-cat#yibuxuecheprod" />
+            android:value="black-cat#jizhijaifu" />
         <!-- 声明sdk所需的service -->
         <service android:name="com.easemob.chat.EMChatService" />
 
         <!-- 百度地图定位 ======================================================================== -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="nCxRAoooo6Pe3yeMG6iDK5aW" />
+            android:value="qL73msVaTCd8gUdfn5PVKG6T" />
 		<!-- 极致假付  qL73msVaTCd8gUdfn5PVKG6T -->
         <!-- 之前版本： UUXsBU2Tq3LETedPZVpxuxQG -->
         <!-- 现在版本： nCxRAoooo6Pe3yeMG6iDK5aW -->
@@ -605,19 +605,19 @@
 
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="56a60db667e58e2df700043f" >
+            android:value="56d269df67e58ef73900068a" >
             <!--new:56d269df67e58ef73900068a  -->
         </meta-data>
         <!-- 微信 -->
 
         <activity
-            android:name=".wxapi.WXEntryActivity"
+            android:name="com.sft.blackcatapp.wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
-            android:name=".WBShareActivity"
+            android:name="com.sft.blackcatapp.WBShareActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait" >
             <intent-filter>

@@ -32,7 +32,7 @@ import com.baidu.mapapi.map.MyLocationConfiguration.LocationMode;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.utils.CoordinateConverter;
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;

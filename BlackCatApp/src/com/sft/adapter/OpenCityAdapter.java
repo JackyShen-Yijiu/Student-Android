@@ -11,7 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 import com.sft.util.CommonUtil;
 import com.sft.vo.OpenCityVO;
 

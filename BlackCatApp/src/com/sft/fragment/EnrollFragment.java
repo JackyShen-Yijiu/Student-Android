@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 
 /**
  * 报名   驾校/教练

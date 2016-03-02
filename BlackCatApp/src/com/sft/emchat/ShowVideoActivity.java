@@ -8,7 +8,7 @@ import com.easemob.EMCallBack;
 import com.easemob.chat.EMChatManager;
 import com.easemob.util.EMLog;
 import com.easemob.util.PathUtil;
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 
 import android.content.Intent;
 import android.net.Uri;

@@ -11,7 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 import com.sft.listener.OnDateClickListener;
 import com.sft.util.CommonUtil;
 import com.sft.util.LogUtil;

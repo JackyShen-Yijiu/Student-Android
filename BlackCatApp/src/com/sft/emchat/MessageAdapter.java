@@ -46,7 +46,7 @@ import com.sft.Utils.ImageCache;
 import com.sft.Utils.ImageUtils;
 import com.sft.Utils.UserUtils;
 import com.sft.blackcatapp.ChatActivity;
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 import com.sft.common.BlackCatApplication;
 
 import android.annotation.SuppressLint;

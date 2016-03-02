@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 import com.sft.event.AppointmentSuccessEvent;
 import com.umeng.socialize.Config;
 import com.umeng.socialize.ShareAction;

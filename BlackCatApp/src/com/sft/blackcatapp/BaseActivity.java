@@ -29,6 +29,7 @@ import android.widget.Toast;
 import cn.jpush.android.api.JPushInterface;
 import cn.sft.listener.ICallBack;
 
+import com.jzjf.app.R;
 import com.sft.common.BlackCatApplication;
 import com.sft.util.LogUtil;
 import com.sft.viewutil.ZProgressHUD;

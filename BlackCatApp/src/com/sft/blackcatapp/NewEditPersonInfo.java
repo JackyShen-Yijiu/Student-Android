@@ -21,6 +21,7 @@ import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.infinitescrollviewpager.BitmapManager;
 
 import com.joooonho.SelectableRoundedImageView;
+import com.jzjf.app.R;
 import com.sft.common.Config;
 
 /**

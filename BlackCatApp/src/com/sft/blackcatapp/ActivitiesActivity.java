@@ -10,6 +10,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import com.jzjf.app.R;
 
 public class ActivitiesActivity extends Activity implements OnClickListener {
 

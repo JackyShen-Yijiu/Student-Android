@@ -51,7 +51,7 @@ import com.sft.adapter.SchoolListAdapter;
 import com.sft.api.ApiHttpClient;
 import com.sft.blackcatapp.ApplyActivity;
 import com.sft.blackcatapp.ConfirmOrderActivity;
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 import com.sft.blackcatapp.SchoolDetailActivity;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;

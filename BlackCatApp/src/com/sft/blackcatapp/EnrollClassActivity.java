@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
+import com.jzjf.app.R;
 import com.sft.adapter.ClasslListAdapter;
 import com.sft.common.Config;
 import com.sft.util.JSONUtil;

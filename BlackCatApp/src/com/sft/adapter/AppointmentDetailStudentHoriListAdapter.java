@@ -18,7 +18,7 @@ import android.widget.RelativeLayout;
 import cn.sft.infinitescrollviewpager.BitmapManager;
 import cn.sft.infinitescrollviewpager.CropRoundView;
 
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 import com.sft.listener.SameTimeStudentOnItemClickListener;
 import com.sft.vo.commentvo.CommentUser;
 

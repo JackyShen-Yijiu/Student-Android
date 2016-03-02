@@ -8,6 +8,7 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
+import com.jzjf.app.R;
 import com.sft.adapter.SchoolBusRouteAdapter;
 import com.sft.common.Config;
 import com.sft.fragment.MenuFragment;

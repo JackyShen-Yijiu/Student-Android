@@ -17,7 +17,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 
 @SuppressLint("UseSparseArrays")
 public class MultipleTextViewGroup extends RelativeLayout {

@@ -25,6 +25,7 @@ import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.infinitescrollviewpager.BitmapManager;
 import cn.sft.infinitescrollviewpager.MyHandler;
 
+import com.jzjf.app.R;
 import com.sft.common.Config;
 import com.sft.util.LogUtil;
 import com.sft.viewutil.ZProgressHUD;

@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager.LayoutParams;
 
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 
 public class BaseDialogWrapper {
 	private Activity mActivity;

@@ -7,7 +7,7 @@ import java.util.Map;
 
 import com.sft.adapter.CoachCommentListAdapter;
 import com.sft.adapter.CoachListAdapter;
-import com.sft.blackcatapp.R;
+import com.jzjf.app.R;
 import com.sft.common.Config;
 import com.sft.common.Config.SubjectStatu;
 import com.sft.common.Config.UserType;

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
+import com.jzjf.app.R;
 import com.sft.alipay.PayResult;
 import com.sft.alipay.PayUtils;
 import com.sft.common.Config;
