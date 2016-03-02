@@ -53,6 +53,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
+                        android:paddingTop="30dp"
                         android:orientation="vertical" >
                         
                         <com.joooonho.SelectableRoundedImageView
@@ -457,7 +458,7 @@
     <include
         android:id="@+id/base_titlebar_layout"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="@dimen/base_titlebar_height_status"
         layout="@layout/title" >
     </include>
     

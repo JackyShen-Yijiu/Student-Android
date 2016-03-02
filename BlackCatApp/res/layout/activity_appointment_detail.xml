@@ -3,14 +3,12 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/app_bg_light"
-    android:clipToPadding="true"
-    android:fitsSystemWindows="true"
     android:orientation="vertical" >
 
     <RelativeLayout
         android:id="@+id/appointment_detail_title"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="240dp"
         android:background="@android:color/transparent" >
 
         <ImageView
@@ -21,7 +19,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp" >
+            android:layout_height="@dimen/base_titlebar_height_status"
+             >
 
             <ImageButton
                 android:id="@+id/appointment_detail_left_btn"
@@ -56,6 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center_horizontal"
+            android:paddingTop="30dp"
             android:orientation="vertical" >
 
             <com.joooonho.SelectableRoundedImageView
