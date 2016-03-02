@@ -112,6 +112,7 @@
                 android:layout_marginLeft="30sp"
                 android:layout_toRightOf="@+id/appointment_detail_class_name_iv"
                 android:textColor="@color/txt_333"
+                android:text="信息暂无"
                 android:textSize="12dp" />
         </RelativeLayout>
 
@@ -136,6 +137,7 @@
                 android:layout_marginLeft="30sp"
                 android:layout_toRightOf="@+id/appointment_detail_class_desc_iv"
                 android:textColor="@color/txt_333"
+                android:text="信息暂无"
                 android:textSize="12dp" />
         </RelativeLayout>
 
@@ -160,6 +162,7 @@
                 android:layout_marginLeft="30sp"
                 android:layout_toRightOf="@+id/appointment_detail_time_iv"
                 android:textColor="@color/txt_333"
+                android:text="信息暂无"
                 android:textSize="12dp" />
         </RelativeLayout>
 
@@ -191,6 +194,7 @@
                 android:layout_marginLeft="30sp"
                 android:layout_toRightOf="@+id/appointment_detail_school_name_iv"
                 android:textColor="@color/txt_333"
+                android:text="信息暂无"
                 android:textSize="12dp" />
         </RelativeLayout>
 
@@ -215,6 +219,7 @@
                 android:layout_marginLeft="30sp"
                 android:layout_toRightOf="@+id/appointment_detail_training_grounds_iv"
                 android:textColor="@color/txt_333"
+                android:text="信息暂无"
                 android:textSize="12dp" />
         </RelativeLayout>
 
@@ -239,6 +244,7 @@
                 android:layout_marginLeft="30sp"
                 android:layout_toRightOf="@+id/appointment_detail_shuttle_address_iv"
                 android:textColor="@color/txt_333"
+                android:text="信息暂无"
                 android:textSize="12dp" />
         </RelativeLayout>
 

@@ -86,6 +86,7 @@ public class Walletintegral extends BaseActivity {
 
 	private void changeMoneyType() {
 		setTitleText(R.string.my_wallet);
+
 		invitCodeTv.setText("我的Y码： " + app.userVO.getInvitationcode());
 		producttype = Config.MoneyType.INTEGRAL_RETURN.getValue();
 		obtainWallet();
@@ -161,11 +162,11 @@ public class Walletintegral extends BaseActivity {
 			finish();
 			break;
 		case R.id.my_wallet_change_btn:
-			
+
 			MainActivity.TARGET_TAB = MainActivity.TAB_MALL;
 			finish();
-//			Intent intent = new Intent(this, MallActivity.class);
-//			startActivity(intent);
+			// Intent intent = new Intent(this, MallActivity.class);
+			// startActivity(intent);
 			break;
 		case R.id.my_wallet_invite_btn:
 			Intent intent2 = new Intent(this, BonusDialog.class);

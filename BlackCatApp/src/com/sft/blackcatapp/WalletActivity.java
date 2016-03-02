@@ -19,6 +19,7 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 import cn.sft.infinitescrollviewpager.MyHandler;
 
+import com.sft.dialog.NoLoginDialog;
 import com.sft.listener.AdapterRefreshListener;
 
 @SuppressWarnings("deprecation")
@@ -78,6 +79,12 @@ public class WalletActivity extends BaseActivity {
 
 		tv_name = (TextView) findViewById(R.id.tv_name);
 		tv_code = (TextView) findViewById(R.id.tv_code);
+
+		if (!app.isLogin) {
+			NoLoginDialog dialog = new NoLoginDialog(WalletActivity.this);
+			dialog.show();
+			return;
+		}
 
 	}
 

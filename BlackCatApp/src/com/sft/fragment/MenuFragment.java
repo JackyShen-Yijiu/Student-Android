@@ -390,8 +390,13 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 
 		// 钱包
 		case R.id.fragment_menu_wallet_btn:
-			intent = new Intent(getActivity(), WalletActivity.class);
-			startActivity(intent);
+			if (app.isLogin) {
+				intent = new Intent(getActivity(), WalletActivity.class);
+				startActivity(intent);
+			} else {
+				NoLoginDialog dialog = new NoLoginDialog(mContext);
+				dialog.show();
+			}
 			break;
 
 		// 投诉
