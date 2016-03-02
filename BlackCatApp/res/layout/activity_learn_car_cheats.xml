@@ -5,6 +5,38 @@
     android:background="@color/app_bg_light"
     android:orientation="vertical" >
 
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        >
+        
+        <ImageView 
+            android:id="@+id/iv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/miji_title"
+            android:layout_centerHorizontal="true"/>
+        
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_title"
+            android:text="科目二实战技巧大秘籍"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/left_gray"
+            android:textSize="14sp"
+            android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
+    
+        <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="15dp"
+        android:background="@color/line_color" />
+    
+    
     <RelativeLayout
         android:id="@+id/learn_car_cheats_backing"
         android:layout_width="match_parent"
@@ -12,22 +44,37 @@
         android:layout_marginLeft="15dp"
         android:layout_marginTop="10dp" >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:text="@string/cheats_backing"
-            android:textColor="@color/text_color_light"
-            android:textSize="14sp" />
-
         <ImageView
+            android:id="@+id/imageView1"
             android:layout_width="18dp"
             android:layout_height="18dp"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="16dp"
-             android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:layout_centerVertical="true"
             android:background="@drawable/person_center_arrow" />
+
+        <TextView
+            android:id="@+id/tv_daoche"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="18dp"
+            android:layout_toRightOf="@+id/tv_one"
+            android:text="@string/cheats_backing"
+             android:layout_centerVertical="true"
+            android:textColor="@color/text_color_light"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_one"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@color/new_app_main_color"
+            android:text="1"
+            android:gravity="center"
+            android:textColor="@color/white" />
+
     </RelativeLayout>
 
     <ImageView
@@ -42,10 +89,23 @@
         android:layout_marginLeft="15dp"
         android:layout_marginTop="10dp" >
 
+        
+            <TextView
+            android:id="@+id/tv_two"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@color/new_app_main_color"
+            android:text="2"
+            android:gravity="center"
+            android:textColor="@color/white" />
+            
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
+            android:layout_toRightOf="@+id/tv_two"
+            android:layout_marginLeft="18dp"
             android:layout_centerVertical="true"
             android:text="@string/cheats_parking"
             android:textColor="@color/text_color_light"
@@ -71,12 +131,21 @@
         android:layout_height="45dp"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="10dp" >
-
+  <TextView
+            android:id="@+id/tv_three"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@color/new_app_main_color"
+            android:text="3"
+            android:gravity="center"
+            android:textColor="@color/white" />
         <TextView
-             
+             android:layout_toRightOf="@+id/tv_three"
+             android:layout_marginLeft="18dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:text="@string/cheats_start"
             android:textColor="@color/text_color_light"
@@ -102,12 +171,22 @@
         android:layout_height="45dp"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="10dp" >
-
+ <TextView
+            android:id="@+id/tv_four"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@color/new_app_main_color"
+            android:text="4"
+            android:gravity="center"
+            android:textColor="@color/white" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/tv_four"
+            android:layout_marginLeft="18dp"
             android:text="@string/cheats_turn_corner"
             android:textColor="@color/text_color_light"
             android:textSize="14sp" />
@@ -132,11 +211,21 @@
         android:layout_height="45dp"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="10dp" >
-
+ <TextView
+            android:id="@+id/tv_five"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@color/new_app_main_color"
+            android:text="5"
+            android:gravity="center"
+            android:textColor="@color/white" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
+			android:layout_toRightOf="@+id/tv_five"
+			android:layout_marginLeft="18dp"
             android:layout_centerVertical="true"
             android:text="@string/cheats_s_curve"
             android:textColor="@color/text_color_light"

@@ -21,8 +21,8 @@ import android.content.IntentFilter;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.widget.DrawerLayout;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -52,7 +52,6 @@ import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.MapView;
 import com.google.gson.reflect.TypeToken;
-import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.sft.adapter.OpenCityAdapter;
@@ -69,7 +68,6 @@ import com.sft.dialog.CustomDialog;
 import com.sft.dialog.NoCommentDialog;
 import com.sft.dialog.NoCommentDialog.ClickListenerInterface;
 import com.sft.dialog.NoLoginDialog;
-import com.sft.fragment.MenuFragment;
 import com.sft.fragment.MenuFragment.SLMenuListOnItemClickListener;
 import com.sft.util.CommonUtil;
 import com.sft.util.JSONUtil;
@@ -107,16 +105,16 @@ public class MainActivity extends BaseMainActivity implements
 	// private LocalActivityManager activityManager = null;
 
 	private ImageView home_btn;
-	private SlidingMenu mSlidingMenu;
-	/** 左阴影部分 */
-	public ImageView shade_left;
-	/** Item宽度 */
-	/** 右阴影部分 */
-	public ImageView shade_right;
-	/** 请求CODE */
-	public final static int CHANNELREQUEST = 1;
-	/** 调整返回的RESULTCODE */
-	public final static int CHANNELRESULT = 10;
+	// private SlidingMenu mSlidingMenu;
+	// /** 左阴影部分 */
+	// public ImageView shade_left;
+	// /** Item宽度 */
+	// /** 右阴影部分 */
+	// public ImageView shade_right;
+	// /** 请求CODE */
+	// public final static int CHANNELREQUEST = 1;
+	// /** 调整返回的RESULTCODE */
+	// public final static int CHANNELRESULT = 10;
 
 	SimpleDateFormat df;
 
@@ -185,7 +183,7 @@ public class MainActivity extends BaseMainActivity implements
 		LogUtil.print("app--->" + app + "user::" + app.userVO);
 		// if (app.userVO!=null && app.userVO.getApplystate().equals("0")) {
 		// // 填写课时信息
-//		 checkStateDialog();
+		// checkStateDialog();
 		if (app.userVO != null && app.userVO.getApplystate().equals("0")) {
 			// 只弹出一次进入验证学车进度的判断弹出框
 			if (!SharedPreferencesUtil.getBoolean(this, ISCLICKCONFIRM, false)) {
@@ -283,13 +281,13 @@ public class MainActivity extends BaseMainActivity implements
 	}
 
 	private void initView() {
-
+		drawerLayout = (DrawerLayout) findViewById(R.id.main_drawerlayout);
 		mapView = (MapView) findViewById(R.id.main_bmapView);
 		mBaiduMap = mapView.getMap();
 
 		// set the Behind View
-		setBehindContentView(R.layout.frame_left_menu);
-	
+		// setBehindContentView(R.layout.frame_left_menu);
+
 		home_btn = (ImageView) findViewById(R.id.home_btn);
 		titleLeftIv = (ImageView) findViewById(R.id.title_left_iv);
 		titleTv = (TextView) findViewById(R.id.title_tv);
@@ -299,39 +297,38 @@ public class MainActivity extends BaseMainActivity implements
 		titleRightTv = (TextView) findViewById(R.id.title_right_tv);
 		titleFarRightIv = (ImageView) findViewById(R.id.title_far_right_iv);
 		// customize the SlidingMenu
-		mSlidingMenu = getSlidingMenu();
-		mSlidingMenu.setFitsSystemWindows(false);
-//		mSlidingMenu.setBackgroundColor(Color.GREEN);
-		
-		
-		mSlidingMenu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
-		mSlidingMenu.setFadeEnabled(false);
-//		mSlidingMenu.setBehindScrollScale(0.25f);
-		mSlidingMenu.setFadeDegree(0.25f);
-//		TextView tv = new TextView(this);
-//		tv.setText("abckd");
-//		mSlidingMenu.setContent(tv);
-//		mSlidingMenu
-//				.setBehindCanvasTransformer(new SlidingMenu.CanvasTransformer() {
-//					@Override
-//					public void transformCanvas(Canvas canvas, float percentOpen) {
-//						float scale = (float) (percentOpen * 0.25 + 0.75);
-//						canvas.scale(scale, scale, -canvas.getWidth() / 2,
-//								canvas.getHeight() / 2);
-//					}
-//				});
-//
-//		mSlidingMenu
-//				.setAboveCanvasTransformer(new SlidingMenu.CanvasTransformer() {
-//					@Override
-//					public void transformCanvas(Canvas canvas, float percentOpen) {
-//						float scale = (float) (1 - percentOpen * 0.25);
-//						canvas.scale(scale, scale, 0, canvas.getHeight() / 2);
-//					}
-//				});
+		// mSlidingMenu = getSlidingMenu();
+		// mSlidingMenu.setFitsSystemWindows(false);
+		// // mSlidingMenu.setBackgroundColor(Color.GREEN);
+		//
+		// mSlidingMenu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
+		// mSlidingMenu.setFadeEnabled(false);
+		// // mSlidingMenu.setBehindScrollScale(0.25f);
+		// mSlidingMenu.setFadeDegree(0.25f);
+		// TextView tv = new TextView(this);
+		// tv.setText("abckd");
+		// mSlidingMenu.setContent(tv);
+		// mSlidingMenu
+		// .setBehindCanvasTransformer(new SlidingMenu.CanvasTransformer() {
+		// @Override
+		// public void transformCanvas(Canvas canvas, float percentOpen) {
+		// float scale = (float) (percentOpen * 0.25 + 0.75);
+		// canvas.scale(scale, scale, -canvas.getWidth() / 2,
+		// canvas.getHeight() / 2);
+		// }
+		// });
+		//
+		// mSlidingMenu
+		// .setAboveCanvasTransformer(new SlidingMenu.CanvasTransformer() {
+		// @Override
+		// public void transformCanvas(Canvas canvas, float percentOpen) {
+		// float scale = (float) (1 - percentOpen * 0.25);
+		// canvas.scale(scale, scale, 0, canvas.getHeight() / 2);
+		// }
+		// });
 		// mSlidingMenu.setBehindScrollScale(0.25f);
 		// mSlidingMenu.setFadeDegree(0.25f);
-		mSlidingMenu.setBackgroundResource(R.drawable.left_menu_bg);
+		// mSlidingMenu.setBackgroundResource(R.drawable.left_menu_bg);
 		// mSlidingMenu
 		// .setBehindCanvasTransformer(new SlidingMenu.CanvasTransformer() {
 		// @Override
@@ -352,36 +349,35 @@ public class MainActivity extends BaseMainActivity implements
 		// });
 
 		// 设置 SlidingMenu 内容
-		FragmentTransaction fragmentTransaction = getSupportFragmentManager()
-				.beginTransaction();
-		fragmentTransaction.replace(R.id.left_menu, new MenuFragment());
-		fragmentTransaction.commit();
-		d.start();
+		// FragmentTransaction fragmentTransaction = getSupportFragmentManager()
+		// .beginTransaction();
+		// fragmentTransaction.replace(R.id.left_menu, new MenuFragment());
+		// fragmentTransaction.commit();
+		// d.start();
 	}
-	
-	Thread d = new Thread(){
 
-		@Override
-		public void run() {
-			int i =0;
-			while(i<100){
-				LogUtil.print("thread-->"+mSlidingMenu.getWidth());
-				try {
-					i++;
-					Thread.sleep(1000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			
-		}
-		
-	};
+	// Thread d = new Thread() {
+	//
+	// @Override
+	// public void run() {
+	// int i = 0;
+	// while (i < 100) {
+	// LogUtil.print("thread-->" + mSlidingMenu.getWidth());
+	// try {
+	// i++;
+	// Thread.sleep(1000);
+	// } catch (InterruptedException e) {
+	// e.printStackTrace();
+	// }
+	// }
+	//
+	// }
+	//
+	// };
 
-	public void changeMenu() {
-		mSlidingMenu.toggle();
-	}
+	// public void changeMenu() {
+	// mSlidingMenu.toggle();
+	// }
 
 	private void initData(Bundle savedInstanceState) {
 
@@ -526,7 +522,8 @@ public class MainActivity extends BaseMainActivity implements
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.home_btn:
-			toggle(); // 动态判断自动关闭或开启SlidingMenu
+			drawerLayout.openDrawer(Gravity.START);
+			// toggle(); // 动态判断自动关闭或开启SlidingMenu
 			break;
 		case R.id.title_far_right_iv:
 		case R.id.title_right_tv:
@@ -1165,6 +1162,7 @@ public class MainActivity extends BaseMainActivity implements
 
 	private int currentPage = TAB_APPLY;
 	private MyAppointmentVO myAppointmentVO;
+	private DrawerLayout drawerLayout;
 
 	@Override
 	public void onTabSelected(int index, boolean reClicked) {
@@ -1237,7 +1235,9 @@ public class MainActivity extends BaseMainActivity implements
 		refreshView();
 		if (MainActivity.TARGET_TAB > 0) {// 跳转到 指定的页面， 隐藏左侧
 			mMainContainer.showTab(MainActivity.TARGET_TAB);
-			changeMenu();
+			drawerLayout.closeDrawer(Gravity.START);
+			// changeMenu();
+
 		}
 		MainActivity.TARGET_TAB = 0;
 		if (app.userVO != null && !app.userVO.getApplystate().equals("0")) {
