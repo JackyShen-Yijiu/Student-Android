@@ -98,7 +98,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         study:itemDescribe="上传模拟成绩，帮君顺利报考"
-        study:itemIcon="@drawable/make_an_appointment"
+        study:itemIcon="@drawable/school_report"
         study:itemTitle="成绩单" >
     </com.sft.viewutil.StudyItemLayout>
 

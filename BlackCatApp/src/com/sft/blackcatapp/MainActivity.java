@@ -187,9 +187,9 @@ public class MainActivity extends BaseMainActivity implements
 		// checkStateDialog();
 		if (app.userVO != null && app.userVO.getApplystate().equals("0")) {
 			// 只弹出一次进入验证学车进度的判断弹出框
-			if (!SharedPreferencesUtil.getBoolean(this, ISCLICKCONFIRM, false)) {
-				checkStateDialog();
-			}
+//			if (!SharedPreferencesUtil.getBoolean(this, ISCLICKCONFIRM, false)) {
+//				checkStateDialog();
+//			}
 		} else {
 			// 获取未评论列表
 
@@ -239,8 +239,9 @@ public class MainActivity extends BaseMainActivity implements
 	 */
 	private void gotoApplyDialog() {
 		final CheckApplyDialog dialog = new CheckApplyDialog(this);
-		dialog.setTextAndImage("前去报名", "您还没有报名，请前去报名", "再看看",
+		dialog.setTextAndImage("前去报名", "抱歉，貌似您还没有报名", "再看看",//您还没有报名，请前去报名
 				R.drawable.appointment_time_error);
+		dialog.showBottom();
 		dialog.setListener(new OnClickListener() {
 
 			@Override

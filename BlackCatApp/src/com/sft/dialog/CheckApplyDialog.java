@@ -29,6 +29,7 @@ public class CheckApplyDialog extends Dialog implements
 	private TextView content;
 	private Button confirmBtn, cancelBtn;
 	private TextView titleTv;
+	private TextView tvBottom;
 
 	public CheckApplyDialog(Context context) {
 		super(context, R.style.dialog);
@@ -46,6 +47,8 @@ public class CheckApplyDialog extends Dialog implements
 		confirmBtn = (Button) view
 				.findViewById(R.id.dialog_no_login_confirm_btn);
 		cancelBtn = (Button) view.findViewById(R.id.dialog_no_login_cancel_btn);
+		// setTextAndImage();
+		tvBottom = (TextView) findViewById(R.id.dialog_no_login_bottom);
 		// setTextAndImage();
 		setContentView(view);
 		DisplayMetrics d = context.getResources().getDisplayMetrics();
@@ -71,6 +74,10 @@ public class CheckApplyDialog extends Dialog implements
 		image.setVisibility(View.GONE);
 		titleTv.setVisibility(View.VISIBLE);
 		titleTv.setText(title);
+	}
+
+	public void showBottom() {
+		tvBottom.setVisibility(View.VISIBLE);
 	}
 
 	/**

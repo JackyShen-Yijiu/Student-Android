@@ -19,7 +19,7 @@ public class EnrollCoachFragment extends BaseFragment{
 	
 	ViewPager viewPager;
 	
-	private String[] title = {"评分","价格","综合"};
+	private String[] title = {"评分最高","价格最低","综合排序"};
 	private int[] orderType = {2,3,0};
 	//评分：2  价格3  综合0
 	

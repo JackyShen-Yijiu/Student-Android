@@ -128,6 +128,7 @@
     <string name="help_problem">常见问题</string>
     
     <string name="enroll_detail">报名详情</string>
+     <string name="enroll_infor">报名信息</string>
     <string name="testing_detail">验证报名信息</string>
     <string name="logout">退出登录</string>
     <string name="person_center">个人中心</string>

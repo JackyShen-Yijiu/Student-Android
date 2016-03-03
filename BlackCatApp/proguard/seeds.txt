@@ -11092,6 +11092,8 @@ com.alipay.android.phone.mrpc.core.c: void a(java.lang.String)
 com.alipay.android.phone.mrpc.core.c: int b()
 com.alipay.android.phone.mrpc.core.c: java.lang.String c()
 com.alipay.android.phone.mrpc.core.c: java.lang.String a(java.lang.Integer,java.lang.String)
+com.alipay.sdk.app.H5PayActivity
+com.alipay.sdk.app.H5PayActivity: H5PayActivity()
 com.alipay.sdk.app.PayTask: java.lang.String pay(java.lang.String,boolean)
 com.alipay.sdk.app.PayTask: com.alipay.sdk.util.H5PayResultModel h5Pay(java.lang.String,boolean)
 com.alipay.sdk.app.f: void onClick(android.content.DialogInterface,int)
@@ -11118,6 +11120,8 @@ com.alipay.sdk.app.q: void a(java.lang.String)
 com.alipay.sdk.app.q: java.lang.String b()
 com.alipay.sdk.app.q: com.alipay.sdk.app.q a(int)
 com.alipay.sdk.app.q: void <clinit>()
+com.alipay.sdk.auth.AuthActivity
+com.alipay.sdk.auth.AuthActivity: AuthActivity()
 com.alipay.sdk.auth.f: void onClick(android.content.DialogInterface,int)
 com.alipay.sdk.auth.g: void onClick(android.content.DialogInterface,int)
 com.alipay.sdk.authjs.a$a
@@ -26106,7 +26110,6 @@ com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: SlidingMenu(android.content.Con
 com.jeremyfeinstein.slidingmenu.lib.SlidingMenu: SlidingMenu(android.content.Context,android.util.AttributeSet,int)
 com.jeremyfeinstein.slidingmenu.lib.SlidingMenu$SavedState
 com.jeremyfeinstein.slidingmenu.lib.SlidingMenu$SavedState: android.os.Parcelable$Creator CREATOR
-com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity: SlidingFragmentActivity()
 com.joooonho.SelectableRoundedImageView
 com.joooonho.SelectableRoundedImageView: SelectableRoundedImageView(android.content.Context)
 com.joooonho.SelectableRoundedImageView: SelectableRoundedImageView(android.content.Context,android.util.AttributeSet)
@@ -26184,6 +26187,7 @@ com.nineoldandroids.view.ViewPropertyAnimatorPreHC$PropertyBundle: boolean cance
 com.sft.adapter.AppointmentCarCoachHoriListAdapter$1: void onClick(android.view.View)
 com.sft.adapter.AppointmentDetailStudentHoriListAdapter$1: void onClick(android.view.View)
 com.sft.adapter.CoachCommentListAdapter$1: void onClick(android.view.View)
+com.sft.adapter.ExchangeGoodOrderAdapter$1: void onClick(android.view.View)
 com.sft.adapter.SchoolDetailCourseFeeAdapter$MyClickListener: void onClick(android.view.View)
 com.sft.adapter.WeekAdapter$1: void onClick(android.view.View)
 com.sft.alipay.ExternalFragment
@@ -26232,6 +26236,7 @@ com.sft.blackcatapp.ApplyActivity: boolean check()
 com.sft.blackcatapp.AppointmentCarActivity
 com.sft.blackcatapp.AppointmentCarActivity: AppointmentCarActivity()
 com.sft.blackcatapp.AppointmentCarActivity: void onClick(android.view.View)
+com.sft.blackcatapp.AppointmentCarActivity: void onEvent(com.sft.event.AppointmentSuccessEvent)
 com.sft.blackcatapp.AppointmentDetailActivity
 com.sft.blackcatapp.AppointmentDetailActivity: AppointmentDetailActivity()
 com.sft.blackcatapp.AppointmentDetailActivity: void onClick(android.view.View)
@@ -26333,6 +26338,8 @@ com.sft.blackcatapp.EnrollSuccessActivity: void onClick(android.view.View)
 com.sft.blackcatapp.EnrollVerifyActivity
 com.sft.blackcatapp.EnrollVerifyActivity: EnrollVerifyActivity()
 com.sft.blackcatapp.EnrollVerifyActivity: void onClick(android.view.View)
+com.sft.blackcatapp.ExchangeDetailAct
+com.sft.blackcatapp.ExchangeDetailAct: ExchangeDetailAct()
 com.sft.blackcatapp.ExchangeDetailAct: void onClick(android.view.View)
 com.sft.blackcatapp.FavouriteCoachActivity
 com.sft.blackcatapp.FavouriteCoachActivity: FavouriteCoachActivity()
@@ -26346,6 +26353,18 @@ com.sft.blackcatapp.FindPasswordActivity: void onClick(android.view.View)
 com.sft.blackcatapp.GuideActivity
 com.sft.blackcatapp.GuideActivity: GuideActivity()
 com.sft.blackcatapp.GuideActivity$1: void onClick(android.view.View)
+com.sft.blackcatapp.HelpExamActivity
+com.sft.blackcatapp.HelpExamActivity: HelpExamActivity()
+com.sft.blackcatapp.HelpExamActivity: void onClick(android.view.View)
+com.sft.blackcatapp.HelpGuideActivity
+com.sft.blackcatapp.HelpGuideActivity: HelpGuideActivity()
+com.sft.blackcatapp.HelpGuideActivity: void onClick(android.view.View)
+com.sft.blackcatapp.HelpNewcomerActivity
+com.sft.blackcatapp.HelpNewcomerActivity: HelpNewcomerActivity()
+com.sft.blackcatapp.HelpNewcomerActivity: void onClick(android.view.View)
+com.sft.blackcatapp.HelpProblemActivity
+com.sft.blackcatapp.HelpProblemActivity: HelpProblemActivity()
+com.sft.blackcatapp.HelpProblemActivity: void onClick(android.view.View)
 com.sft.blackcatapp.LearnCarCheatsActivity
 com.sft.blackcatapp.LearnCarCheatsActivity: LearnCarCheatsActivity()
 com.sft.blackcatapp.LearnCarCheatsActivity: void onClick(android.view.View)
@@ -26390,9 +26409,9 @@ com.sft.blackcatapp.MyWalletInviteActivity: void onClick(android.view.View)
 com.sft.blackcatapp.NewActivitysActivity
 com.sft.blackcatapp.NewActivitysActivity: NewActivitysActivity()
 com.sft.blackcatapp.NewActivitysActivity: void onClick(android.view.View)
-com.sft.blackcatapp.NewApplystateActivity
-com.sft.blackcatapp.NewApplystateActivity: NewApplystateActivity()
-com.sft.blackcatapp.NewApplystateActivity: void onClick(android.view.View)
+com.sft.blackcatapp.NewComplaintActivity
+com.sft.blackcatapp.NewComplaintActivity: NewComplaintActivity()
+com.sft.blackcatapp.NewComplaintActivity: void onClick(android.view.View)
 com.sft.blackcatapp.NewCropImageActivity
 com.sft.blackcatapp.NewCropImageActivity: NewCropImageActivity()
 com.sft.blackcatapp.NewCropImageActivity: void onClick(android.view.View)
@@ -26400,16 +26419,13 @@ com.sft.blackcatapp.NewEditPersonInfo
 com.sft.blackcatapp.NewEditPersonInfo: NewEditPersonInfo()
 com.sft.blackcatapp.NewEditPersonInfo: void onClick(android.view.View)
 com.sft.blackcatapp.OldAppointmentCarActivity: void onClick(android.view.View)
-com.sft.blackcatapp.OldMainActivity
-com.sft.blackcatapp.OldMainActivity: OldMainActivity()
-com.sft.blackcatapp.OldMainActivity: void onClick(android.view.View)
-com.sft.blackcatapp.OldMainActivity$1: void onClick(android.view.View)
 com.sft.blackcatapp.OrderApplyAct
 com.sft.blackcatapp.OrderApplyAct: OrderApplyAct()
 com.sft.blackcatapp.OrderApplyAct: void onClick(android.view.View)
 com.sft.blackcatapp.OrderDetailActivity
 com.sft.blackcatapp.OrderDetailActivity: OrderDetailActivity()
 com.sft.blackcatapp.OrderDetailActivity: void onClick(android.view.View)
+com.sft.blackcatapp.OrderDetailActivity: void pay()
 com.sft.blackcatapp.OrderExchangeGoodAct
 com.sft.blackcatapp.OrderExchangeGoodAct: OrderExchangeGoodAct()
 com.sft.blackcatapp.PersonCenterActivity
@@ -26698,15 +26714,14 @@ com.sft.emchat.ShowVideoActivity: ShowVideoActivity()
 com.sft.emchat.VoicePlayClickListener: void onClick(android.view.View)
 com.sft.fragment.AppayFragment: void onClick(android.view.View)
 com.sft.fragment.AppointmentFragment: void onClick(android.view.View)
-<<<<<<< HEAD
 com.sft.fragment.AppointmentFragment: void onEvent(com.sft.event.AppointmentSuccessEvent)
-=======
->>>>>>> 41b70e3bf146533b65249ce1b8ecbd5e5097651c
 com.sft.fragment.CoachsFragment: void onClick(android.view.View)
 com.sft.fragment.CoachsFragment1: void onClick(android.view.View)
 com.sft.fragment.CommunityFragment: void onClick(android.view.View)
 com.sft.fragment.IntroducesFragment: void onClick(android.view.View)
 com.sft.fragment.MallFragment: void onClick(android.view.View)
+com.sft.fragment.MenuFragment
+com.sft.fragment.MenuFragment: MenuFragment()
 com.sft.fragment.MenuFragment: void onClick(android.view.View)
 com.sft.fragment.OldSubjectFourFragment: void onClick(android.view.View)
 com.sft.fragment.OldSubjectOneFragment: void onClick(android.view.View)
@@ -26720,10 +26735,7 @@ com.sft.fragment.SubjectOneFragment: void onClick(android.view.View)
 com.sft.fragment.SubjectThreeFragment: void onClick(android.view.View)
 com.sft.fragment.SubjectTwoFragment: void onClick(android.view.View)
 com.sft.fragment.WalletFragment: void onClick(android.view.View)
-<<<<<<< HEAD
 com.sft.library.DemoHXSDKHelper$1: void onEvent(com.easemob.EMNotifierEvent)
-=======
->>>>>>> 41b70e3bf146533b65249ce1b8ecbd5e5097651c
 com.sft.model.DefaultHXSDKModel$Key: com.sft.model.DefaultHXSDKModel$Key VibrateAndPlayToneOn
 com.sft.model.DefaultHXSDKModel$Key: com.sft.model.DefaultHXSDKModel$Key VibrateOn
 com.sft.model.DefaultHXSDKModel$Key: com.sft.model.DefaultHXSDKModel$Key PlayToneOn
@@ -27146,6 +27158,23 @@ com.sft.vo.CoachVO: com.sft.vo.coachvo.WorkTimeSpace getWorktimespace()
 com.sft.vo.CoachVO: void setWorktimespace(com.sft.vo.coachvo.WorkTimeSpace)
 com.sft.vo.CoachVO: java.lang.String getSchoolimage()
 com.sft.vo.CoachVO: void setSchoolimage(java.lang.String)
+com.sft.vo.ComplaintHandInfoVO
+com.sft.vo.ComplaintHandInfoVO: int handlestate
+com.sft.vo.ComplaintHandInfoVO: java.lang.String handlemessage
+com.sft.vo.ComplaintHandInfoVO: java.lang.String operator
+com.sft.vo.ComplaintHandInfoVO: java.lang.String handledatetime
+com.sft.vo.ComplaintHandInfoVO: ComplaintHandInfoVO()
+com.sft.vo.ComplaintListVO
+com.sft.vo.ComplaintListVO: java.lang.String _id
+com.sft.vo.ComplaintListVO: com.sft.vo.CoachVO coachid
+com.sft.vo.ComplaintListVO: com.sft.vo.ComplaintVO complaint
+com.sft.vo.ComplaintListVO: com.sft.vo.ComplaintHandInfoVO complainthandinfo
+com.sft.vo.ComplaintListVO: ComplaintListVO()
+com.sft.vo.ComplaintVO
+com.sft.vo.ComplaintVO: java.lang.String reason
+com.sft.vo.ComplaintVO: java.lang.String complainttime
+com.sft.vo.ComplaintVO: java.lang.String complaintcontent
+com.sft.vo.ComplaintVO: ComplaintVO()
 com.sft.vo.EnrollVertifyVO
 com.sft.vo.EnrollVertifyVO: long serialVersionUID
 com.sft.vo.EnrollVertifyVO: java.lang.String studentNumber
@@ -27448,7 +27477,7 @@ com.sft.vo.ProductVO: java.lang.String productimg
 com.sft.vo.ProductVO: java.lang.String productdesc
 com.sft.vo.ProductVO: java.lang.String detailurl
 com.sft.vo.ProductVO: java.lang.String viewcount
-com.sft.vo.ProductVO: java.lang.String buycount
+com.sft.vo.ProductVO: int buycount
 com.sft.vo.ProductVO: java.lang.String detailsimg
 com.sft.vo.ProductVO: java.lang.String address
 com.sft.vo.ProductVO: java.lang.String cityname
@@ -27456,8 +27485,11 @@ com.sft.vo.ProductVO: java.lang.String county
 com.sft.vo.ProductVO: int distinct
 com.sft.vo.ProductVO: java.lang.String is_scanconsumption
 com.sft.vo.ProductVO: java.lang.String merchantid
-com.sft.vo.ProductVO: java.lang.String productcount
+com.sft.vo.ProductVO: int productcount
+com.sft.vo.ProductVO: java.lang.String enddate
 com.sft.vo.ProductVO: ProductVO()
+com.sft.vo.ProductVO: java.lang.String getEnddate()
+com.sft.vo.ProductVO: void setEnddate(java.lang.String)
 com.sft.vo.ProductVO: java.lang.String getProductid()
 com.sft.vo.ProductVO: void setProductid(java.lang.String)
 com.sft.vo.ProductVO: java.lang.String getDetailurl()
@@ -27472,8 +27504,8 @@ com.sft.vo.ProductVO: java.lang.String getProductdesc()
 com.sft.vo.ProductVO: void setProductdesc(java.lang.String)
 com.sft.vo.ProductVO: java.lang.String getViewcount()
 com.sft.vo.ProductVO: void setViewcount(java.lang.String)
-com.sft.vo.ProductVO: java.lang.String getBuycount()
-com.sft.vo.ProductVO: void setBuycount(java.lang.String)
+com.sft.vo.ProductVO: int getBuycount()
+com.sft.vo.ProductVO: void setBuycount(int)
 com.sft.vo.ProductVO: java.lang.String getDetailsimg()
 com.sft.vo.ProductVO: void setDetailsimg(java.lang.String)
 com.sft.vo.ProductVO: java.lang.String getAddress()
@@ -27488,9 +27520,8 @@ com.sft.vo.ProductVO: java.lang.String getIs_scanconsumption()
 com.sft.vo.ProductVO: void setIs_scanconsumption(java.lang.String)
 com.sft.vo.ProductVO: java.lang.String getMerchantid()
 com.sft.vo.ProductVO: void setMerchantid(java.lang.String)
-com.sft.vo.ProductVO: java.lang.String getProductcount()
-com.sft.vo.ProductVO: java.lang.String getCount()
-com.sft.vo.ProductVO: void setProductcount(java.lang.String)
+com.sft.vo.ProductVO: int getProductcount()
+com.sft.vo.ProductVO: void setProductcount(int)
 com.sft.vo.ProductVO: long getSerialversionuid()
 com.sft.vo.PushInnerVO
 com.sft.vo.PushInnerVO: long serialVersionUID
@@ -27561,6 +27592,7 @@ com.sft.vo.QuestionLibVO: long serialVersionUID
 com.sft.vo.QuestionLibVO: java.lang.String questionerrorurl
 com.sft.vo.QuestionLibVO: java.lang.String questiontesturl
 com.sft.vo.QuestionLibVO: java.lang.String questionlisturl
+com.sft.vo.QuestionLibVO: java.lang.String kemusichengjidanurl
 com.sft.vo.QuestionLibVO: QuestionLibVO()
 com.sft.vo.QuestionLibVO: java.lang.String getQuestionerrorurl()
 com.sft.vo.QuestionLibVO: void setQuestionerrorurl(java.lang.String)
@@ -27568,6 +27600,8 @@ com.sft.vo.QuestionLibVO: java.lang.String getQuestiontesturl()
 com.sft.vo.QuestionLibVO: void setQuestiontesturl(java.lang.String)
 com.sft.vo.QuestionLibVO: java.lang.String getQuestionlisturl()
 com.sft.vo.QuestionLibVO: void setQuestionlisturl(java.lang.String)
+com.sft.vo.QuestionLibVO: java.lang.String getKemusichengjidanurl()
+com.sft.vo.QuestionLibVO: void setKemusichengjidanurl(java.lang.String)
 com.sft.vo.QuestionVO
 com.sft.vo.QuestionVO: long serialVersionUID
 com.sft.vo.QuestionVO: com.sft.vo.QuestionLibVO subjectone
@@ -36471,11 +36505,178 @@ com.umeng.socialize.utils.ShareBoardlistener
 com.umeng.socialize.view.UMFriendListener
 com.umeng.socialize.view.b: void onClick(android.view.View)
 com.umeng.socialize.weixin.view.WXCallbackActivity: WXCallbackActivity()
+de.greenrobot.event.AsyncPoster
+de.greenrobot.event.AsyncPoster: de.greenrobot.event.PendingPostQueue queue
+de.greenrobot.event.AsyncPoster: de.greenrobot.event.EventBus eventBus
+de.greenrobot.event.AsyncPoster: AsyncPoster(de.greenrobot.event.EventBus)
+de.greenrobot.event.AsyncPoster: void enqueue(de.greenrobot.event.Subscription,java.lang.Object)
+de.greenrobot.event.AsyncPoster: void run()
+de.greenrobot.event.BackgroundPoster
+de.greenrobot.event.BackgroundPoster: de.greenrobot.event.PendingPostQueue queue
+de.greenrobot.event.BackgroundPoster: de.greenrobot.event.EventBus eventBus
+de.greenrobot.event.BackgroundPoster: boolean executorRunning
+de.greenrobot.event.BackgroundPoster: BackgroundPoster(de.greenrobot.event.EventBus)
+de.greenrobot.event.BackgroundPoster: void enqueue(de.greenrobot.event.Subscription,java.lang.Object)
+de.greenrobot.event.BackgroundPoster: void run()
+de.greenrobot.event.EventBus
+de.greenrobot.event.EventBus: java.lang.String TAG
+de.greenrobot.event.EventBus: de.greenrobot.event.EventBus defaultInstance
+de.greenrobot.event.EventBus: de.greenrobot.event.EventBusBuilder DEFAULT_BUILDER
+de.greenrobot.event.EventBus: java.util.Map eventTypesCache
+de.greenrobot.event.EventBus: java.util.Map subscriptionsByEventType
+de.greenrobot.event.EventBus: java.util.Map typesBySubscriber
+de.greenrobot.event.EventBus: java.util.Map stickyEvents
+de.greenrobot.event.EventBus: java.lang.ThreadLocal currentPostingThreadState
+de.greenrobot.event.EventBus: de.greenrobot.event.HandlerPoster mainThreadPoster
+de.greenrobot.event.EventBus: de.greenrobot.event.BackgroundPoster backgroundPoster
+de.greenrobot.event.EventBus: de.greenrobot.event.AsyncPoster asyncPoster
+de.greenrobot.event.EventBus: de.greenrobot.event.SubscriberMethodFinder subscriberMethodFinder
+de.greenrobot.event.EventBus: java.util.concurrent.ExecutorService executorService
+de.greenrobot.event.EventBus: boolean throwSubscriberException
+de.greenrobot.event.EventBus: boolean logSubscriberExceptions
+de.greenrobot.event.EventBus: boolean logNoSubscriberMessages
+de.greenrobot.event.EventBus: boolean sendSubscriberExceptionEvent
+de.greenrobot.event.EventBus: boolean sendNoSubscriberEvent
+de.greenrobot.event.EventBus: boolean eventInheritance
+de.greenrobot.event.EventBus: de.greenrobot.event.EventBus getDefault()
+de.greenrobot.event.EventBus: de.greenrobot.event.EventBusBuilder builder()
+de.greenrobot.event.EventBus: void clearCaches()
+de.greenrobot.event.EventBus: EventBus()
+de.greenrobot.event.EventBus: EventBus(de.greenrobot.event.EventBusBuilder)
+de.greenrobot.event.EventBus: void register(java.lang.Object)
+de.greenrobot.event.EventBus: void register(java.lang.Object,int)
+de.greenrobot.event.EventBus: void registerSticky(java.lang.Object)
+de.greenrobot.event.EventBus: void registerSticky(java.lang.Object,int)
+de.greenrobot.event.EventBus: void register(java.lang.Object,boolean,int)
+de.greenrobot.event.EventBus: void subscribe(java.lang.Object,de.greenrobot.event.SubscriberMethod,boolean,int)
+de.greenrobot.event.EventBus: boolean isRegistered(java.lang.Object)
+de.greenrobot.event.EventBus: void unubscribeByEventType(java.lang.Object,java.lang.Class)
+de.greenrobot.event.EventBus: void unregister(java.lang.Object)
+de.greenrobot.event.EventBus: void post(java.lang.Object)
+de.greenrobot.event.EventBus: void cancelEventDelivery(java.lang.Object)
+de.greenrobot.event.EventBus: void postSticky(java.lang.Object)
+de.greenrobot.event.EventBus: java.lang.Object getStickyEvent(java.lang.Class)
+de.greenrobot.event.EventBus: java.lang.Object removeStickyEvent(java.lang.Class)
+de.greenrobot.event.EventBus: boolean removeStickyEvent(java.lang.Object)
+de.greenrobot.event.EventBus: void removeAllStickyEvents()
+de.greenrobot.event.EventBus: boolean hasSubscriberForEvent(java.lang.Class)
+de.greenrobot.event.EventBus: void postSingleEvent(java.lang.Object,de.greenrobot.event.EventBus$PostingThreadState)
+de.greenrobot.event.EventBus: boolean postSingleEventForEventType(java.lang.Object,de.greenrobot.event.EventBus$PostingThreadState,java.lang.Class)
+de.greenrobot.event.EventBus: void postToSubscription(de.greenrobot.event.Subscription,java.lang.Object,boolean)
+de.greenrobot.event.EventBus: java.util.List lookupAllEventTypes(java.lang.Class)
+de.greenrobot.event.EventBus: void addInterfaces(java.util.List,java.lang.Class[])
+de.greenrobot.event.EventBus: void invokeSubscriber(de.greenrobot.event.PendingPost)
+de.greenrobot.event.EventBus: void invokeSubscriber(de.greenrobot.event.Subscription,java.lang.Object)
+de.greenrobot.event.EventBus: void handleSubscriberException(de.greenrobot.event.Subscription,java.lang.Object,java.lang.Throwable)
+de.greenrobot.event.EventBus: java.util.concurrent.ExecutorService getExecutorService()
+de.greenrobot.event.EventBus: void <clinit>()
+de.greenrobot.event.EventBus$1
+de.greenrobot.event.EventBus$1: de.greenrobot.event.EventBus this$0
+de.greenrobot.event.EventBus$1: EventBus$1(de.greenrobot.event.EventBus)
+de.greenrobot.event.EventBus$1: de.greenrobot.event.EventBus$PostingThreadState initialValue()
+de.greenrobot.event.EventBus$1: java.lang.Object initialValue()
+de.greenrobot.event.EventBus$2
+de.greenrobot.event.EventBus$2: int[] $SwitchMap$de$greenrobot$event$ThreadMode
+de.greenrobot.event.EventBus$2: void <clinit>()
+de.greenrobot.event.EventBus$PostCallback
+de.greenrobot.event.EventBus$PostCallback: void onPostCompleted(java.util.List)
+de.greenrobot.event.EventBus$PostingThreadState
+de.greenrobot.event.EventBus$PostingThreadState: java.util.List eventQueue
+de.greenrobot.event.EventBus$PostingThreadState: boolean isPosting
+de.greenrobot.event.EventBus$PostingThreadState: boolean isMainThread
+de.greenrobot.event.EventBus$PostingThreadState: de.greenrobot.event.Subscription subscription
+de.greenrobot.event.EventBus$PostingThreadState: java.lang.Object event
+de.greenrobot.event.EventBus$PostingThreadState: boolean canceled
+de.greenrobot.event.EventBus$PostingThreadState: EventBus$PostingThreadState()
+de.greenrobot.event.EventBusBuilder
+de.greenrobot.event.EventBusBuilder: java.util.concurrent.ExecutorService DEFAULT_EXECUTOR_SERVICE
+de.greenrobot.event.EventBusBuilder: boolean logSubscriberExceptions
+de.greenrobot.event.EventBusBuilder: boolean logNoSubscriberMessages
+de.greenrobot.event.EventBusBuilder: boolean sendSubscriberExceptionEvent
+de.greenrobot.event.EventBusBuilder: boolean sendNoSubscriberEvent
+de.greenrobot.event.EventBusBuilder: boolean throwSubscriberException
+de.greenrobot.event.EventBusBuilder: boolean eventInheritance
+de.greenrobot.event.EventBusBuilder: java.util.concurrent.ExecutorService executorService
+de.greenrobot.event.EventBusBuilder: java.util.List skipMethodVerificationForClasses
+de.greenrobot.event.EventBusBuilder: EventBusBuilder()
+de.greenrobot.event.EventBusBuilder: de.greenrobot.event.EventBusBuilder logSubscriberExceptions(boolean)
+de.greenrobot.event.EventBusBuilder: de.greenrobot.event.EventBusBuilder logNoSubscriberMessages(boolean)
+de.greenrobot.event.EventBusBuilder: de.greenrobot.event.EventBusBuilder sendSubscriberExceptionEvent(boolean)
+de.greenrobot.event.EventBusBuilder: de.greenrobot.event.EventBusBuilder sendNoSubscriberEvent(boolean)
+de.greenrobot.event.EventBusBuilder: de.greenrobot.event.EventBusBuilder throwSubscriberException(boolean)
+de.greenrobot.event.EventBusBuilder: de.greenrobot.event.EventBusBuilder eventInheritance(boolean)
+de.greenrobot.event.EventBusBuilder: de.greenrobot.event.EventBusBuilder executorService(java.util.concurrent.ExecutorService)
+de.greenrobot.event.EventBusBuilder: de.greenrobot.event.EventBusBuilder skipMethodVerificationFor(java.lang.Class)
+de.greenrobot.event.EventBusBuilder: de.greenrobot.event.EventBus installDefaultEventBus()
+de.greenrobot.event.EventBusBuilder: de.greenrobot.event.EventBus build()
+de.greenrobot.event.EventBusBuilder: void <clinit>()
 de.greenrobot.event.EventBusException
 de.greenrobot.event.EventBusException: long serialVersionUID
 de.greenrobot.event.EventBusException: EventBusException(java.lang.String)
 de.greenrobot.event.EventBusException: EventBusException(java.lang.Throwable)
 de.greenrobot.event.EventBusException: EventBusException(java.lang.String,java.lang.Throwable)
+de.greenrobot.event.HandlerPoster
+de.greenrobot.event.HandlerPoster: de.greenrobot.event.PendingPostQueue queue
+de.greenrobot.event.HandlerPoster: int maxMillisInsideHandleMessage
+de.greenrobot.event.HandlerPoster: de.greenrobot.event.EventBus eventBus
+de.greenrobot.event.HandlerPoster: boolean handlerActive
+de.greenrobot.event.HandlerPoster: HandlerPoster(de.greenrobot.event.EventBus,android.os.Looper,int)
+de.greenrobot.event.HandlerPoster: void enqueue(de.greenrobot.event.Subscription,java.lang.Object)
+de.greenrobot.event.HandlerPoster: void handleMessage(android.os.Message)
+de.greenrobot.event.NoSubscriberEvent
+de.greenrobot.event.NoSubscriberEvent: de.greenrobot.event.EventBus eventBus
+de.greenrobot.event.NoSubscriberEvent: java.lang.Object originalEvent
+de.greenrobot.event.NoSubscriberEvent: NoSubscriberEvent(de.greenrobot.event.EventBus,java.lang.Object)
+de.greenrobot.event.PendingPost
+de.greenrobot.event.PendingPost: java.util.List pendingPostPool
+de.greenrobot.event.PendingPost: java.lang.Object event
+de.greenrobot.event.PendingPost: de.greenrobot.event.Subscription subscription
+de.greenrobot.event.PendingPost: de.greenrobot.event.PendingPost next
+de.greenrobot.event.PendingPost: PendingPost(java.lang.Object,de.greenrobot.event.Subscription)
+de.greenrobot.event.PendingPost: de.greenrobot.event.PendingPost obtainPendingPost(de.greenrobot.event.Subscription,java.lang.Object)
+de.greenrobot.event.PendingPost: void releasePendingPost(de.greenrobot.event.PendingPost)
+de.greenrobot.event.PendingPost: void <clinit>()
+de.greenrobot.event.PendingPostQueue
+de.greenrobot.event.PendingPostQueue: de.greenrobot.event.PendingPost head
+de.greenrobot.event.PendingPostQueue: de.greenrobot.event.PendingPost tail
+de.greenrobot.event.PendingPostQueue: PendingPostQueue()
+de.greenrobot.event.PendingPostQueue: void enqueue(de.greenrobot.event.PendingPost)
+de.greenrobot.event.PendingPostQueue: de.greenrobot.event.PendingPost poll()
+de.greenrobot.event.PendingPostQueue: de.greenrobot.event.PendingPost poll(int)
+de.greenrobot.event.SubscriberExceptionEvent
+de.greenrobot.event.SubscriberExceptionEvent: de.greenrobot.event.EventBus eventBus
+de.greenrobot.event.SubscriberExceptionEvent: java.lang.Throwable throwable
+de.greenrobot.event.SubscriberExceptionEvent: java.lang.Object causingEvent
+de.greenrobot.event.SubscriberExceptionEvent: java.lang.Object causingSubscriber
+de.greenrobot.event.SubscriberExceptionEvent: SubscriberExceptionEvent(de.greenrobot.event.EventBus,java.lang.Throwable,java.lang.Object,java.lang.Object)
+de.greenrobot.event.SubscriberMethod
+de.greenrobot.event.SubscriberMethod: java.lang.reflect.Method method
+de.greenrobot.event.SubscriberMethod: de.greenrobot.event.ThreadMode threadMode
+de.greenrobot.event.SubscriberMethod: java.lang.Class eventType
+de.greenrobot.event.SubscriberMethod: java.lang.String methodString
+de.greenrobot.event.SubscriberMethod: SubscriberMethod(java.lang.reflect.Method,de.greenrobot.event.ThreadMode,java.lang.Class)
+de.greenrobot.event.SubscriberMethod: boolean equals(java.lang.Object)
+de.greenrobot.event.SubscriberMethod: void checkMethodString()
+de.greenrobot.event.SubscriberMethod: int hashCode()
+de.greenrobot.event.SubscriberMethodFinder
+de.greenrobot.event.SubscriberMethodFinder: java.lang.String ON_EVENT_METHOD_NAME
+de.greenrobot.event.SubscriberMethodFinder: int BRIDGE
+de.greenrobot.event.SubscriberMethodFinder: int SYNTHETIC
+de.greenrobot.event.SubscriberMethodFinder: int MODIFIERS_IGNORE
+de.greenrobot.event.SubscriberMethodFinder: java.util.Map methodCache
+de.greenrobot.event.SubscriberMethodFinder: java.util.Map skipMethodVerificationForClasses
+de.greenrobot.event.SubscriberMethodFinder: SubscriberMethodFinder(java.util.List)
+de.greenrobot.event.SubscriberMethodFinder: java.util.List findSubscriberMethods(java.lang.Class)
+de.greenrobot.event.SubscriberMethodFinder: void clearCaches()
+de.greenrobot.event.SubscriberMethodFinder: void <clinit>()
+de.greenrobot.event.Subscription
+de.greenrobot.event.Subscription: java.lang.Object subscriber
+de.greenrobot.event.Subscription: de.greenrobot.event.SubscriberMethod subscriberMethod
+de.greenrobot.event.Subscription: int priority
+de.greenrobot.event.Subscription: boolean active
+de.greenrobot.event.Subscription: Subscription(java.lang.Object,de.greenrobot.event.SubscriberMethod,int)
+de.greenrobot.event.Subscription: boolean equals(java.lang.Object)
+de.greenrobot.event.Subscription: int hashCode()
 de.greenrobot.event.ThreadMode
 de.greenrobot.event.ThreadMode: de.greenrobot.event.ThreadMode PostThread
 de.greenrobot.event.ThreadMode: de.greenrobot.event.ThreadMode MainThread
@@ -36486,13 +36687,146 @@ de.greenrobot.event.ThreadMode: de.greenrobot.event.ThreadMode[] values()
 de.greenrobot.event.ThreadMode: de.greenrobot.event.ThreadMode valueOf(java.lang.String)
 de.greenrobot.event.ThreadMode: ThreadMode(java.lang.String,int)
 de.greenrobot.event.ThreadMode: void <clinit>()
+de.greenrobot.event.util.AsyncExecutor
+de.greenrobot.event.util.AsyncExecutor: java.util.concurrent.Executor threadPool
+de.greenrobot.event.util.AsyncExecutor: java.lang.reflect.Constructor failureEventConstructor
+de.greenrobot.event.util.AsyncExecutor: de.greenrobot.event.EventBus eventBus
+de.greenrobot.event.util.AsyncExecutor: java.lang.Object scope
+de.greenrobot.event.util.AsyncExecutor: de.greenrobot.event.util.AsyncExecutor$Builder builder()
+de.greenrobot.event.util.AsyncExecutor: de.greenrobot.event.util.AsyncExecutor create()
+de.greenrobot.event.util.AsyncExecutor: AsyncExecutor(java.util.concurrent.Executor,de.greenrobot.event.EventBus,java.lang.Class,java.lang.Object)
+de.greenrobot.event.util.AsyncExecutor: void execute(de.greenrobot.event.util.AsyncExecutor$RunnableEx)
+de.greenrobot.event.util.AsyncExecutor: AsyncExecutor(java.util.concurrent.Executor,de.greenrobot.event.EventBus,java.lang.Class,java.lang.Object,de.greenrobot.event.util.AsyncExecutor$1)
+de.greenrobot.event.util.AsyncExecutor: java.lang.reflect.Constructor access$200(de.greenrobot.event.util.AsyncExecutor)
+de.greenrobot.event.util.AsyncExecutor: java.lang.Object access$300(de.greenrobot.event.util.AsyncExecutor)
+de.greenrobot.event.util.AsyncExecutor: de.greenrobot.event.EventBus access$400(de.greenrobot.event.util.AsyncExecutor)
+de.greenrobot.event.util.AsyncExecutor$1
+de.greenrobot.event.util.AsyncExecutor$1: de.greenrobot.event.util.AsyncExecutor$RunnableEx val$runnable
+de.greenrobot.event.util.AsyncExecutor$1: de.greenrobot.event.util.AsyncExecutor this$0
+de.greenrobot.event.util.AsyncExecutor$1: AsyncExecutor$1(de.greenrobot.event.util.AsyncExecutor,de.greenrobot.event.util.AsyncExecutor$RunnableEx)
+de.greenrobot.event.util.AsyncExecutor$1: void run()
+de.greenrobot.event.util.AsyncExecutor$Builder
+de.greenrobot.event.util.AsyncExecutor$Builder: java.util.concurrent.Executor threadPool
+de.greenrobot.event.util.AsyncExecutor$Builder: java.lang.Class failureEventType
+de.greenrobot.event.util.AsyncExecutor$Builder: de.greenrobot.event.EventBus eventBus
+de.greenrobot.event.util.AsyncExecutor$Builder: AsyncExecutor$Builder()
+de.greenrobot.event.util.AsyncExecutor$Builder: de.greenrobot.event.util.AsyncExecutor$Builder threadPool(java.util.concurrent.Executor)
+de.greenrobot.event.util.AsyncExecutor$Builder: de.greenrobot.event.util.AsyncExecutor$Builder failureEventType(java.lang.Class)
+de.greenrobot.event.util.AsyncExecutor$Builder: de.greenrobot.event.util.AsyncExecutor$Builder eventBus(de.greenrobot.event.EventBus)
+de.greenrobot.event.util.AsyncExecutor$Builder: de.greenrobot.event.util.AsyncExecutor build()
+de.greenrobot.event.util.AsyncExecutor$Builder: de.greenrobot.event.util.AsyncExecutor buildForActivityScope(android.app.Activity)
+de.greenrobot.event.util.AsyncExecutor$Builder: de.greenrobot.event.util.AsyncExecutor buildForScope(java.lang.Object)
+de.greenrobot.event.util.AsyncExecutor$Builder: AsyncExecutor$Builder(de.greenrobot.event.util.AsyncExecutor$1)
+de.greenrobot.event.util.AsyncExecutor$RunnableEx
+de.greenrobot.event.util.AsyncExecutor$RunnableEx: void run()
+de.greenrobot.event.util.ErrorDialogConfig
+de.greenrobot.event.util.ErrorDialogConfig: android.content.res.Resources resources
+de.greenrobot.event.util.ErrorDialogConfig: int defaultTitleId
+de.greenrobot.event.util.ErrorDialogConfig: int defaultErrorMsgId
+de.greenrobot.event.util.ErrorDialogConfig: de.greenrobot.event.util.ExceptionToResourceMapping mapping
+de.greenrobot.event.util.ErrorDialogConfig: de.greenrobot.event.EventBus eventBus
+de.greenrobot.event.util.ErrorDialogConfig: boolean logExceptions
+de.greenrobot.event.util.ErrorDialogConfig: java.lang.String tagForLoggingExceptions
+de.greenrobot.event.util.ErrorDialogConfig: int defaultDialogIconId
+de.greenrobot.event.util.ErrorDialogConfig: java.lang.Class defaultEventTypeOnDialogClosed
+de.greenrobot.event.util.ErrorDialogConfig: ErrorDialogConfig(android.content.res.Resources,int,int)
+de.greenrobot.event.util.ErrorDialogConfig: de.greenrobot.event.util.ErrorDialogConfig addMapping(java.lang.Class,int)
+de.greenrobot.event.util.ErrorDialogConfig: int getMessageIdForThrowable(java.lang.Throwable)
+de.greenrobot.event.util.ErrorDialogConfig: void setDefaultDialogIconId(int)
+de.greenrobot.event.util.ErrorDialogConfig: void setDefaultEventTypeOnDialogClosed(java.lang.Class)
+de.greenrobot.event.util.ErrorDialogConfig: void disableExceptionLogging()
+de.greenrobot.event.util.ErrorDialogConfig: void setTagForLoggingExceptions(java.lang.String)
+de.greenrobot.event.util.ErrorDialogConfig: void setEventBus(de.greenrobot.event.EventBus)
+de.greenrobot.event.util.ErrorDialogConfig: de.greenrobot.event.EventBus getEventBus()
+de.greenrobot.event.util.ErrorDialogFragmentFactory
+de.greenrobot.event.util.ErrorDialogFragmentFactory: de.greenrobot.event.util.ErrorDialogConfig config
+de.greenrobot.event.util.ErrorDialogFragmentFactory: ErrorDialogFragmentFactory(de.greenrobot.event.util.ErrorDialogConfig)
+de.greenrobot.event.util.ErrorDialogFragmentFactory: java.lang.Object prepareErrorFragment(de.greenrobot.event.util.ThrowableFailureEvent,boolean,android.os.Bundle)
+de.greenrobot.event.util.ErrorDialogFragmentFactory: java.lang.Object createErrorFragment(de.greenrobot.event.util.ThrowableFailureEvent,android.os.Bundle)
+de.greenrobot.event.util.ErrorDialogFragmentFactory: java.lang.String getTitleFor(de.greenrobot.event.util.ThrowableFailureEvent,android.os.Bundle)
+de.greenrobot.event.util.ErrorDialogFragmentFactory: java.lang.String getMessageFor(de.greenrobot.event.util.ThrowableFailureEvent,android.os.Bundle)
+de.greenrobot.event.util.ErrorDialogFragmentFactory$Honeycomb
+de.greenrobot.event.util.ErrorDialogFragmentFactory$Honeycomb: ErrorDialogFragmentFactory$Honeycomb(de.greenrobot.event.util.ErrorDialogConfig)
+de.greenrobot.event.util.ErrorDialogFragmentFactory$Honeycomb: android.app.Fragment createErrorFragment(de.greenrobot.event.util.ThrowableFailureEvent,android.os.Bundle)
+de.greenrobot.event.util.ErrorDialogFragmentFactory$Honeycomb: java.lang.Object createErrorFragment(de.greenrobot.event.util.ThrowableFailureEvent,android.os.Bundle)
+de.greenrobot.event.util.ErrorDialogFragmentFactory$Support
+de.greenrobot.event.util.ErrorDialogFragmentFactory$Support: ErrorDialogFragmentFactory$Support(de.greenrobot.event.util.ErrorDialogConfig)
+de.greenrobot.event.util.ErrorDialogFragmentFactory$Support: android.support.v4.app.Fragment createErrorFragment(de.greenrobot.event.util.ThrowableFailureEvent,android.os.Bundle)
+de.greenrobot.event.util.ErrorDialogFragmentFactory$Support: java.lang.Object createErrorFragment(de.greenrobot.event.util.ThrowableFailureEvent,android.os.Bundle)
+de.greenrobot.event.util.ErrorDialogFragments
+de.greenrobot.event.util.ErrorDialogFragments: int ERROR_DIALOG_ICON
+de.greenrobot.event.util.ErrorDialogFragments: java.lang.Class EVENT_TYPE_ON_CLICK
+de.greenrobot.event.util.ErrorDialogFragments: ErrorDialogFragments()
+de.greenrobot.event.util.ErrorDialogFragments: android.app.Dialog createDialog(android.content.Context,android.os.Bundle,android.content.DialogInterface$OnClickListener)
+de.greenrobot.event.util.ErrorDialogFragments: void handleOnClick(android.content.DialogInterface,int,android.app.Activity,android.os.Bundle)
+de.greenrobot.event.util.ErrorDialogFragments: void <clinit>()
+de.greenrobot.event.util.ErrorDialogFragments$Honeycomb
+de.greenrobot.event.util.ErrorDialogFragments$Honeycomb: ErrorDialogFragments$Honeycomb()
+de.greenrobot.event.util.ErrorDialogFragments$Honeycomb: android.app.Dialog onCreateDialog(android.os.Bundle)
 de.greenrobot.event.util.ErrorDialogFragments$Honeycomb: void onClick(android.content.DialogInterface,int)
+de.greenrobot.event.util.ErrorDialogFragments$Support
+de.greenrobot.event.util.ErrorDialogFragments$Support: ErrorDialogFragments$Support()
+de.greenrobot.event.util.ErrorDialogFragments$Support: android.app.Dialog onCreateDialog(android.os.Bundle)
 de.greenrobot.event.util.ErrorDialogFragments$Support: void onClick(android.content.DialogInterface,int)
-<<<<<<< HEAD
+de.greenrobot.event.util.ErrorDialogManager
+de.greenrobot.event.util.ErrorDialogManager: de.greenrobot.event.util.ErrorDialogFragmentFactory factory
+de.greenrobot.event.util.ErrorDialogManager: java.lang.String TAG_ERROR_DIALOG
+de.greenrobot.event.util.ErrorDialogManager: java.lang.String TAG_ERROR_DIALOG_MANAGER
+de.greenrobot.event.util.ErrorDialogManager: java.lang.String KEY_TITLE
+de.greenrobot.event.util.ErrorDialogManager: java.lang.String KEY_MESSAGE
+de.greenrobot.event.util.ErrorDialogManager: java.lang.String KEY_FINISH_AFTER_DIALOG
+de.greenrobot.event.util.ErrorDialogManager: java.lang.String KEY_ICON_ID
+de.greenrobot.event.util.ErrorDialogManager: java.lang.String KEY_EVENT_TYPE_ON_CLOSE
+de.greenrobot.event.util.ErrorDialogManager: ErrorDialogManager()
+de.greenrobot.event.util.ErrorDialogManager: void attachTo(android.app.Activity)
+de.greenrobot.event.util.ErrorDialogManager: void attachTo(android.app.Activity,boolean)
+de.greenrobot.event.util.ErrorDialogManager: void attachTo(android.app.Activity,boolean,android.os.Bundle)
+de.greenrobot.event.util.ErrorDialogManager: void attachTo(android.app.Activity,java.lang.Object,boolean,android.os.Bundle)
+de.greenrobot.event.util.ErrorDialogManager: boolean isSupportActivity(android.app.Activity)
+de.greenrobot.event.util.ErrorDialogManager: void checkLogException(de.greenrobot.event.util.ThrowableFailureEvent)
+de.greenrobot.event.util.ErrorDialogManager: boolean isInExecutionScope(java.lang.Object,de.greenrobot.event.util.ThrowableFailureEvent)
+de.greenrobot.event.util.ErrorDialogManager: boolean access$000(java.lang.Object,de.greenrobot.event.util.ThrowableFailureEvent)
+de.greenrobot.event.util.ErrorDialogManager$HoneycombManagerFragment
+de.greenrobot.event.util.ErrorDialogManager$HoneycombManagerFragment: boolean finishAfterDialog
+de.greenrobot.event.util.ErrorDialogManager$HoneycombManagerFragment: android.os.Bundle argumentsForErrorDialog
+de.greenrobot.event.util.ErrorDialogManager$HoneycombManagerFragment: de.greenrobot.event.EventBus eventBus
+de.greenrobot.event.util.ErrorDialogManager$HoneycombManagerFragment: java.lang.Object executionScope
+de.greenrobot.event.util.ErrorDialogManager$HoneycombManagerFragment: ErrorDialogManager$HoneycombManagerFragment()
+de.greenrobot.event.util.ErrorDialogManager$HoneycombManagerFragment: void onResume()
+de.greenrobot.event.util.ErrorDialogManager$HoneycombManagerFragment: void onPause()
 de.greenrobot.event.util.ErrorDialogManager$HoneycombManagerFragment: void onEventMainThread(de.greenrobot.event.util.ThrowableFailureEvent)
+de.greenrobot.event.util.ErrorDialogManager$HoneycombManagerFragment: void attachTo(android.app.Activity,java.lang.Object,boolean,android.os.Bundle)
+de.greenrobot.event.util.ErrorDialogManager$SupportManagerFragment
+de.greenrobot.event.util.ErrorDialogManager$SupportManagerFragment: boolean finishAfterDialog
+de.greenrobot.event.util.ErrorDialogManager$SupportManagerFragment: android.os.Bundle argumentsForErrorDialog
+de.greenrobot.event.util.ErrorDialogManager$SupportManagerFragment: de.greenrobot.event.EventBus eventBus
+de.greenrobot.event.util.ErrorDialogManager$SupportManagerFragment: boolean skipRegisterOnNextResume
+de.greenrobot.event.util.ErrorDialogManager$SupportManagerFragment: java.lang.Object executionScope
+de.greenrobot.event.util.ErrorDialogManager$SupportManagerFragment: ErrorDialogManager$SupportManagerFragment()
+de.greenrobot.event.util.ErrorDialogManager$SupportManagerFragment: void onCreate(android.os.Bundle)
+de.greenrobot.event.util.ErrorDialogManager$SupportManagerFragment: void onResume()
+de.greenrobot.event.util.ErrorDialogManager$SupportManagerFragment: void onPause()
 de.greenrobot.event.util.ErrorDialogManager$SupportManagerFragment: void onEventMainThread(de.greenrobot.event.util.ThrowableFailureEvent)
-=======
->>>>>>> 41b70e3bf146533b65249ce1b8ecbd5e5097651c
+de.greenrobot.event.util.ErrorDialogManager$SupportManagerFragment: void attachTo(android.app.Activity,java.lang.Object,boolean,android.os.Bundle)
+de.greenrobot.event.util.ExceptionToResourceMapping
+de.greenrobot.event.util.ExceptionToResourceMapping: java.util.Map throwableToMsgIdMap
+de.greenrobot.event.util.ExceptionToResourceMapping: ExceptionToResourceMapping()
+de.greenrobot.event.util.ExceptionToResourceMapping: java.lang.Integer mapThrowable(java.lang.Throwable)
+de.greenrobot.event.util.ExceptionToResourceMapping: java.lang.Integer mapThrowableFlat(java.lang.Throwable)
+de.greenrobot.event.util.ExceptionToResourceMapping: de.greenrobot.event.util.ExceptionToResourceMapping addMapping(java.lang.Class,int)
+de.greenrobot.event.util.HasExecutionScope
+de.greenrobot.event.util.HasExecutionScope: java.lang.Object getExecutionScope()
+de.greenrobot.event.util.HasExecutionScope: void setExecutionScope(java.lang.Object)
+de.greenrobot.event.util.ThrowableFailureEvent
+de.greenrobot.event.util.ThrowableFailureEvent: java.lang.Throwable throwable
+de.greenrobot.event.util.ThrowableFailureEvent: boolean suppressErrorUi
+de.greenrobot.event.util.ThrowableFailureEvent: java.lang.Object executionContext
+de.greenrobot.event.util.ThrowableFailureEvent: ThrowableFailureEvent(java.lang.Throwable)
+de.greenrobot.event.util.ThrowableFailureEvent: ThrowableFailureEvent(java.lang.Throwable,boolean)
+de.greenrobot.event.util.ThrowableFailureEvent: java.lang.Throwable getThrowable()
+de.greenrobot.event.util.ThrowableFailureEvent: boolean isSuppressErrorUi()
+de.greenrobot.event.util.ThrowableFailureEvent: java.lang.Object getExecutionScope()
+de.greenrobot.event.util.ThrowableFailureEvent: void setExecutionScope(java.lang.Object)
 internal.org.apache.http.entity.mime.HttpMultipartMode
 internal.org.apache.http.entity.mime.HttpMultipartMode: internal.org.apache.http.entity.mime.HttpMultipartMode STRICT
 internal.org.apache.http.entity.mime.HttpMultipartMode: internal.org.apache.http.entity.mime.HttpMultipartMode BROWSER_COMPATIBLE

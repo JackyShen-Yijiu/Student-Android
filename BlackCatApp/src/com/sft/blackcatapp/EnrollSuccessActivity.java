@@ -40,7 +40,7 @@ public class EnrollSuccessActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		addView(R.layout.apply_commit);
 		initView();
-		setTitleText("报名成功");
+		setTitleText(R.string.enroll_infor);
 		setListener();
 		obtainApplySuccessInfo();
 	}
