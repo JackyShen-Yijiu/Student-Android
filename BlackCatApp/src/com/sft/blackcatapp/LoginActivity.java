@@ -218,8 +218,6 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 					+ "api/v1/userinfo/userlogin", paramMap);
 		} else {
 			loginBtn.setEnabled(true);
-			// ZProgressHUD.getInstance(this).show();
-			// ZProgressHUD.getInstance(this).dismissWithFailure(checkResult);
 		}
 	}
 

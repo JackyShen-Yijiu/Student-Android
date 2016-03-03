@@ -31,22 +31,21 @@ import cn.sft.listener.ICallBack;
 
 import com.google.gson.reflect.TypeToken;
 import com.joooonho.SelectableRoundedImageView;
+import com.jzjf.app.R;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.sft.api.ApiHttpClient;
 import com.sft.blackcatapp.ActivitiesActivity;
 import com.sft.blackcatapp.EnrollSchoolActivity1;
 import com.sft.blackcatapp.MessageActivity;
-import com.sft.blackcatapp.MyWalletActivity;
+import com.sft.blackcatapp.MyOrderAct;
 import com.sft.blackcatapp.NewActivitysActivity;
 import com.sft.blackcatapp.NewComplaintActivity;
 import com.sft.blackcatapp.PersonCenterActivity;
-import com.jzjf.app.R;
 import com.sft.blackcatapp.SchoolBusRouteActivity;
 import com.sft.blackcatapp.SettingActivity;
 import com.sft.blackcatapp.TodaysAppointmentActivity;
 import com.sft.blackcatapp.WalletActivity;
-import com.sft.blackcatapp.YiBuIntroduceActivity;
 import com.sft.common.BlackCatApplication;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
@@ -177,25 +176,8 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 
 			setPersonInfo();
 		}
-		// 放到钱包
-		// rootView.findViewById(R.id.fragment_menu_content_first)
-		// .setOnClickListener(this);
-		// rootView.findViewById(R.id.fragment_menu_content_seccond)
-		// .setOnClickListener(this);
-		// rootView.findViewById(R.id.fragment_menu_content_third)
-		// .setOnClickListener(this);
-		// 定位地图点击
-		// rootView.findViewById(R.id.left_tv_map).setOnClickListener(this);
-
-		// 底部图片点击
-		// rootView.findViewById(R.id.fragment_menu_home_btn).setOnClickListener(
-		// this);
-		// rootView.findViewById(R.id.fragment_menu_driving_school_btn)
-		// .setOnClickListener(this);
 		rootView.findViewById(R.id.fragment_menu_message_btn)
 				.setOnClickListener(this);
-		// rootView.findViewById(R.id.fragment_menu_mall_btn).setOnClickListener(
-		// this);
 		rootView.findViewById(R.id.fragment_menu_activity_btn)
 				.setOnClickListener(this);
 		rootView.findViewById(R.id.fragment_menu_signin_btn)
@@ -204,15 +186,14 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 				.setOnClickListener(this);
 		rootView.findViewById(R.id.fragment_menu_wallet_btn)
 				.setOnClickListener(this);
-
 		rootView.findViewById(R.id.fragment_menu_complaint_btn)
-				.setOnClickListener(this);
-		rootView.findViewById(R.id.fragment_menu_goddness_btn)
 				.setOnClickListener(this);
 		rootView.findViewById(R.id.fragment_menu_classcar_btn)
 				.setOnClickListener(this);
-		// rootView.findViewById(R.id.fragment_menu_search_coach_btn)
-		// .setOnClickListener(this);
+		rootView.findViewById(R.id.fragment_menu_information_btn)
+				.setOnClickListener(this);
+		rootView.findViewById(R.id.fragment_menu_myindent_btn)
+				.setOnClickListener(this);
 
 	}
 
@@ -418,55 +399,13 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 				dialog.show();
 			}
 			break;
-		//
-		// case R.id.fragment_menu_phone:
-		// String number = CommonUtil.getString(mContext, R.string.yibu_phone);
-		// // 用intent启动拨打电话
-		// Intent intent1 = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"
-		// + number));
-		// startActivity(intent1);
-		// break;
-		case R.id.fragment_menu_content_first:
-			// 积分
-			if (app.isLogin) {
-				intent = new Intent(mContext, MyWalletActivity.class);
-				intent.putExtra("moneytype",
-						Config.MoneyType.INTEGRAL_RETURN.getValue());
-				mContext.startActivity(intent);
-			} else {
-				NoLoginDialog dialog = new NoLoginDialog(mContext);
-				dialog.show();
-			}
+		case R.id.fragment_menu_myindent_btn:
+			// 我的订单
+			startActivityForResult(new Intent(mContext, MyOrderAct.class), 9);
 			break;
-		case R.id.fragment_menu_content_seccond:
-			// 兑换券
-			if (app.isLogin) {
-				intent = new Intent(mContext, MyWalletActivity.class);
-				intent.putExtra("moneytype",
-						Config.MoneyType.COIN_CERTIFICATE.getValue());
-				mContext.startActivity(intent);
-			} else {
-				NoLoginDialog dialog = new NoLoginDialog(mContext);
-				dialog.show();
-			}
-			break;
-		case R.id.fragment_menu_content_third:
-			// 现金
-			if (app.isLogin) {
-				intent = new Intent(mContext, MyWalletActivity.class);
-				intent.putExtra("moneytype",
-						Config.MoneyType.AMOUNT_IN_CASH.getValue());
-				mContext.startActivity(intent);
-			} else {
-				NoLoginDialog dialog = new NoLoginDialog(mContext);
-				dialog.show();
-			}
-			break;
-		case R.id.fragment_menu_goddness_btn:
-			// 优势
-			intent = new Intent(mContext, YiBuIntroduceActivity.class);
-			intent.putExtra("typeId", R.id.introduce_student_know);
-			mContext.startActivity(intent);
+
+		case R.id.fragment_menu_information_btn:
+			// 咨询
 			break;
 		case R.id.fragment_menu_classcar_btn:
 			// 班车
@@ -482,7 +421,6 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 						"您还未报名，不能查看班车信息");
 			}
 			break;
-
 		default:
 			break;
 		}

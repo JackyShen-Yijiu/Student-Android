@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#fff"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/person_center_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp" >
+            <com.joooonho.SelectableRoundedImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/person_center_headpic_im"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center_vertical"
+        app:sriv_border_color="#00000000"
+        app:sriv_border_width="1dip" />
+            
+            <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="更换头像"
+                android:textSize="12sp"
+                android:layout_alignParentRight="true"
+         	    android:layout_centerVertical="true"
+                android:textColor="@color/left_gray"
+                android:drawableRight="@drawable/person_center_arrow"
+                />
+
+    </RelativeLayout>
+      <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="12dp"
+        android:background="@color/app_bg_dark" />
+      
+         <RelativeLayout
+                android:id="@+id/rl_nickname"
+                android:layout_width="match_parent"
+                android:onClick="onClick"
+                android:layout_height="44dp"
+                android:background="@drawable/sl_default_background"
+                android:gravity="center_vertical">
+             <TextView
+                    android:text="昵称"
+                    style="@style/person_center_name_tv1"/>
+			 <TextView
+			    	android:id="@+id/tv_nickname"
+                    android:text="姓名"
+                    style="@style/person_center_name_tv2"
+                    android:drawableRight="@drawable/person_center_arrow"/>
+            </RelativeLayout>
+               <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="14dp"
+        android:background="@color/left_gray" />
+      
+               
+          <RelativeLayout
+                android:id="@+id/rl_name"
+                android:layout_width="match_parent"
+                android:onClick="onClick"
+                android:layout_height="44dp"
+                android:background="@drawable/sl_default_background"
+                android:gravity="center_vertical">
+             <TextView
+                    android:text="姓名"
+                    style="@style/person_center_name_tv1"/>
+			 <TextView
+			    	android:id="@+id/tv_name"
+                    android:text="姓名"
+                    style="@style/person_center_name_tv2"
+                    android:drawableRight="@drawable/person_center_arrow"/>
+            </RelativeLayout>
+               <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="14dp"
+        android:background="@color/left_gray" />        
+               
+               
+                     <RelativeLayout
+                android:id="@+id/rl_six"
+                android:layout_width="match_parent"
+                android:onClick="onClick"
+                android:layout_height="44dp"
+                android:background="@drawable/sl_default_background"
+                android:gravity="center_vertical">
+             <TextView
+                    android:text="性别"
+                    style="@style/person_center_name_tv1"/>
+			 <TextView
+			    	android:id="@+id/tv_six"
+                    android:text="姓名"
+                    style="@style/person_center_name_tv2"
+                    android:drawableRight="@drawable/person_center_arrow"/>
+            </RelativeLayout>
+               <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="14dp"
+        android:background="@color/left_gray" />
+               
+               
+               
+                     <RelativeLayout
+                android:id="@+id/rl_phone"
+                android:layout_width="match_parent"
+                android:onClick="onClick"
+                android:layout_height="44dp"
+                android:background="@drawable/sl_default_background"
+                android:gravity="center_vertical">
+             <TextView
+                    android:text="手机号码"
+                    style="@style/person_center_name_tv1"/>
+			 <TextView
+			    	android:id="@+id/tv_phone"
+                    android:text="姓名"
+                    style="@style/person_center_name_tv2"
+                    android:drawableRight="@drawable/person_center_arrow"/>
+            </RelativeLayout>
+               <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="14dp"
+        android:background="@color/left_gray" />
+               
+               
+               
+                     <RelativeLayout
+                android:id="@+id/rl_adress"
+                android:layout_width="match_parent"
+                android:onClick="onClick"
+                android:layout_height="44dp"
+                android:background="@drawable/sl_default_background"
+                android:gravity="center_vertical">
+             <TextView
+                    android:text="地址"
+                    style="@style/person_center_name_tv1"/>
+			 <TextView
+			    	android:id="@+id/tv_adress"
+                    android:text="姓名"
+                    style="@style/person_center_name_tv2"
+                    android:drawableRight="@drawable/person_center_arrow"/>
+            </RelativeLayout>
+               <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="12dp"
+        android:background="@color/app_bg_dark" />
+               
+                     <RelativeLayout
+                         android:id="@+id/rl_school"
+                         android:layout_width="match_parent"
+                         android:layout_height="44dp"
+                         android:background="@drawable/sl_default_background"
+                         android:gravity="center_vertical"
+                         android:onClick="onClick" >
+
+                         <TextView
+                             android:id="@+id/textView1"
+                             style="@style/person_center_name_tv1"
+                             android:text="驾校" />
+
+                         <TextView
+                             android:id="@+id/tv_school"
+                             style="@style/person_center_name_tv2"
+                             android:layout_marginRight="32dp"
+                             android:text="姓名" />
+                     </RelativeLayout>
+
+               <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="14dp"
+        android:background="@color/left_gray" />
+               
+               
+               
+                     <RelativeLayout
+                android:id="@+id/rl_class"
+                android:layout_width="match_parent"
+                android:onClick="onClick"
+                android:layout_height="44dp"
+                android:background="@drawable/sl_default_background"
+                android:gravity="center_vertical">
+             <TextView
+                    android:text="班型"
+                    style="@style/person_center_name_tv1"/>
+			 <TextView
+			    	android:id="@+id/tv_class"
+                    android:text="姓名"
+                    style="@style/person_center_name_tv2"
+                    android:layout_marginRight="32dp"/>
+            </RelativeLayout>
+               <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="14dp"
+        android:background="@color/left_gray" />
+               
+               
+               
+               
+                     <RelativeLayout
+                android:id="@+id/rl_style"
+                android:layout_width="match_parent"
+                android:onClick="onClick"
+                android:layout_height="44dp"
+                android:background="@drawable/sl_default_background"
+                android:gravity="center_vertical">
+             <TextView
+                    android:text="驾照类型"
+                    style="@style/person_center_name_tv1"/>
+			 <TextView
+			    	android:id="@+id/tv_style"
+                    android:text="姓名"
+                    style="@style/person_center_name_tv2"
+                   	android:layout_marginRight="32dp"/>
+            </RelativeLayout>
+               <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="14dp"
+        android:background="@color/left_gray" />
+               
+               
+               
+               
+                     <RelativeLayout
+                android:id="@+id/rl_collect"
+                android:layout_width="match_parent"
+                android:onClick="onClick"
+                android:layout_height="44dp"
+                android:background="@drawable/sl_default_background"
+                android:gravity="center_vertical">
+             <TextView
+                    android:text="我的收藏"
+                    style="@style/person_center_name_tv1"/>
+			 <TextView
+			    	android:id="@+id/tv_collect"
+                    android:text="姓名"
+                    style="@style/person_center_name_tv2"
+                    android:drawableRight="@drawable/person_center_arrow"/>
+            </RelativeLayout>
+               <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="14dp"
+        android:background="@color/left_gray" />
+               
+               
+               
+               
+                     <RelativeLayout
+                android:id="@+id/rl_apply"
+                android:layout_width="match_parent"
+                android:onClick="onClick"
+                android:layout_height="44dp"
+                android:background="@drawable/sl_default_background"
+                android:gravity="center_vertical">
+             <TextView
+                    android:text="报名信息"
+                    style="@style/person_center_name_tv1"/>
+			 <TextView
+			    	android:id="@+id/tv_apply"
+                    android:text="姓名"
+                    style="@style/person_center_name_tv2"
+                    android:drawableRight="@drawable/person_center_arrow"/>
+            </RelativeLayout>
+               <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="14dp"
+        android:background="@color/left_gray" />
+</LinearLayout>

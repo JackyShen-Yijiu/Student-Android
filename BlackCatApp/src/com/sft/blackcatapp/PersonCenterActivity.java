@@ -7,8 +7,6 @@ import java.util.Set;
 import org.json.JSONException;
 
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -55,6 +53,10 @@ public class PersonCenterActivity extends BaseActivity implements
 	private SelectableRoundedImageView headPicIm;
 	private RelativeLayout enrollDetailTv;
 	private RelativeLayout favouriteTv;
+	private RelativeLayout rl_nickname, rl_adress, rl_class, rl_name, rl_phone,
+			rl_six, rl_school, rl_style, rl_apply, rl_collect;
+	private TextView tv_nickname, tv_adress, tv_class, tv_name, tv_phone,
+			tv_six, tv_school, tv_style, tv_apply, tv_collect;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -100,25 +102,27 @@ public class PersonCenterActivity extends BaseActivity implements
 		carStyleValueTv = (TextView) findViewById(R.id.person_center_carstyle_value_tv);
 		classValueTv = (TextView) findViewById(R.id.person_center_classtyle_value_tv);
 
-		// testingDetailTV = (TextView)
-		// findViewById(R.id.person_center_testing_detail_tv);
+		// rl_nickname = (RelativeLayout) findViewById(R.id.rl_nickname);
+		// rl_adress = (RelativeLayout) findViewById(R.id.rl_adress);
+		// rl_name = (RelativeLayout) findViewById(R.id.rl_name);
+		// rl_phone = (RelativeLayout) findViewById(R.id.rl_phone);
+		// rl_class = (RelativeLayout) findViewById(R.id.rl_class);
+		// rl_six = (RelativeLayout) findViewById(R.id.rl_six);
+		// rl_collect = (RelativeLayout) findViewById(R.id.rl_collect);
+		// rl_style = (RelativeLayout) findViewById(R.id.rl_style);
+		// rl_apply = (RelativeLayout) findViewById(R.id.rl_apply);
+		// rl_school = (RelativeLayout) findViewById(R.id.rl_school);
 
-		// if (app.userVO.getApplystate().equals(
-		// EnrollResult.SUBJECT_NONE.getValue())) {
-		// // 用户没有报名，但可能填写过一些信息
-		// SchoolVO school = Util.getEnrollUserSelectedSchool(this);
-		// if (school != null) {
-		// schoolValueTv.setText(school.getName());
-		// }
-		//
-		// CarModelVO carModel = Util.getEnrollUserSelectedCarStyle(this);
-		// if (carModel != null) {
-		// carStyleValueTv.setText(carModel.getName());
-		// }
-		// } else {
-		// schoolValueTv.setText(app.userVO.getApplyschoolinfo().getName());
-		// carStyleValueTv.setText(app.userVO.getCarmodel().getName());
-		// }
+		tv_nickname = (TextView) findViewById(R.id.tv_nickname);
+		tv_adress = (TextView) findViewById(R.id.tv_adress);
+		tv_name = (TextView) findViewById(R.id.tv_name);
+		tv_phone = (TextView) findViewById(R.id.tv_phone);
+		tv_class = (TextView) findViewById(R.id.tv_class);
+		tv_six = (TextView) findViewById(R.id.tv_six);
+		tv_collect = (TextView) findViewById(R.id.tv_collect);
+		tv_style = (TextView) findViewById(R.id.tv_style);
+		tv_apply = (TextView) findViewById(R.id.tv_apply);
+		tv_school = (TextView) findViewById(R.id.tv_school);
 	}
 
 	private void initData() {
@@ -164,46 +168,9 @@ public class PersonCenterActivity extends BaseActivity implements
 
 	}
 
-	private void resizeDrawalbeLeftSize() {
-		// 显示箭头
-		Resources r = getResources();
-		int size = (int) (18 * screenDensity);
-		Drawable arrow = r.getDrawable(R.drawable.person_center_arrow);
-		arrow.setBounds(0, 0, size, size);
-
-		if (app.userVO.getApplystate().equals(Config.EnrollResult.SUBJECT_NONE)) {
-			schoolValueTv.setCompoundDrawables(null, null, arrow, null);// 设置左图标
-			carStyleValueTv.setCompoundDrawables(null, null, arrow, null);// 设置左图标
-		} else {
-			schoolValueTv.setCompoundDrawables(null, null, null, null);// 设置左图标
-			carStyleValueTv.setCompoundDrawables(null, null, null, null);// 设置左图标
-		}
-
-		Drawable school = r.getDrawable(R.drawable.person_center_school);
-		school.setBounds(0, 0, size, size);
-		schoolTv.setCompoundDrawables(school, null, null, null);// 设置左图标
-
-		Drawable carstyle = r.getDrawable(R.drawable.person_center_carstyle);
-		carstyle.setBounds(0, 0, size, size);
-		carStyleTv.setCompoundDrawables(carstyle, null, null, null);// 设置左图标
-
-		Drawable coach = r.getDrawable(R.drawable.person_center_coach);
-		coach.setBounds(0, 0, size, size);
-		// coachTv.setCompoundDrawables(coach, null, arrow, null);// 设置左图标
-
-		Drawable setting = r.getDrawable(R.drawable.person_center_setting);
-		setting.setBounds(0, 0, size, size);
-		//
-		// Drawable enroll = r.getDrawable(R.drawable.person_center_setting);
-		// setting.setBounds(0, 0, size, size);
-		// enrollDetailTv.setCompoundDrawables(enroll, null, arrow, null);//
-		// 设置左图标
-	}
-
 	private void setListener() {
 		layout.setOnClickListener(this);
 		favouriteTv.setOnClickListener(this);
-
 		enrollDetailTv.setOnClickListener(this);
 
 		if (app.userVO.getApplystate().equals(

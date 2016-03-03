@@ -2,21 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-   	android:background="@drawable/left_menu_bg"
+    android:background="@color/white"
     android:orientation="vertical" >
     
     <RelativeLayout 
         android:layout_width="match_parent"
         android:padding="12dp"
-        
+       android:background="@drawable/left_menu_bg"
         android:layout_height="180dp">
     <com.joooonho.SelectableRoundedImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/fragment_menu_headpic_im"
         android:layout_width="51dp"
         android:layout_height="51dp"
-        android:layout_marginTop="55dp"
-        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="12dp"
         app:sriv_border_color="#00000000"
         app:sriv_border_width="1dip" />
 
@@ -24,9 +25,9 @@
             android:id="@+id/fragment_menu_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-                   android:layout_centerHorizontal="true"
+            android:layout_alignLeft="@+id/fragment_menu_headpic_im"
                    android:layout_below="@+id/fragment_menu_headpic_im"
-                   android:layout_marginTop="8dp"
+                   android:layout_marginTop="14dp"
             android:text="未登录"
             android:textColor="#f2f2f2"
             android:textSize="16sp" />
@@ -35,37 +36,44 @@
             android:id="@+id/fragment_menu_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-               android:layout_centerHorizontal="true"
+            android:layout_alignLeft="@+id/fragment_menu_headpic_im"
                android:layout_below="@+id/fragment_menu_username"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="16dp"
             android:textColor="#f2f2f2"
             android:text="我的Y码："
             android:textSize="12sp" />
     </RelativeLayout>
+    
+    <ScrollView 
+        android:layout_width="match_parent"
+        android:scrollbars="none"
+        android:layout_height="match_parent">
     <LinearLayout 
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_weight="1">
+        android:background="@color/white">
        
-       
-       <TextView
-            android:id="@+id/fragment_menu_activity_btn"
+       <TextView 
+            android:id="@+id/fragment_menu_message_btn"
             style="@style/left_item_menu_style"
-            android:drawableLeft="@drawable/left_item_activity"
-            android:text="优惠活动" />
-       
+            android:drawableLeft="@drawable/left_item_msg"
+            android:text="我的消息"/>
+       <TextView 
+            android:id="@+id/fragment_menu_myindent_btn"
+            style="@style/left_item_menu_style"
+            android:drawableLeft="@drawable/left_item_indent"
+            android:text="我的订单 "/>
+     
          <TextView 
                 android:id="@+id/fragment_menu_wallet_btn"
             style="@style/left_item_menu_style"
             android:drawableLeft="@drawable/left_item_money"
             android:text="我的钱包"/>
-        <TextView 
-            android:id="@+id/fragment_menu_message_btn"
-            style="@style/left_item_menu_style"
-            android:drawableLeft="@drawable/left_item_msg"
-            android:text="我的消息"/>
-
+  <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#bdbdbd" />
         <TextView 
             android:id="@+id/fragment_menu_classcar_btn"
             style="@style/left_item_menu_style"
@@ -77,20 +85,31 @@
             style="@style/left_item_menu_style"
             android:drawableLeft="@drawable/left_item_order"
             android:text="预约签到"/>
-              <TextView 
-            android:id="@+id/fragment_menu_complaint_btn"
+            <TextView
+            android:id="@+id/fragment_menu_activity_btn"
             style="@style/left_item_menu_style"
-            android:drawableLeft="@drawable/left_item_phone"
-            android:text="评论投诉"/>
-                <TextView 
-                      android:id="@+id/fragment_menu_goddness_btn"
-            style="@style/left_item_menu_style"
-            android:drawableLeft="@drawable/left_item_good"
-            android:text="一步优势"/>
+            android:drawableLeft="@drawable/left_item_activity"
+            android:text="优惠活动" />
                   <TextView 
             android:id="@+id/fragment_menu_setting_btn"
             style="@style/left_item_menu_style"
             android:drawableLeft="@drawable/left_item_setting"
-            android:text="设置与帮助"/>
+            android:text="用户设置"/>
+                         
+  <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#bdbdbd" />
+                     <TextView 
+            android:id="@+id/fragment_menu_complaint_btn"
+            style="@style/left_item_menu_style"
+            android:drawableLeft="@drawable/left_item_phone"
+            android:text="投诉"/>
+                        <TextView 
+            android:id="@+id/fragment_menu_information_btn"
+            style="@style/left_item_menu_style"
+            android:drawableLeft="@drawable/left_item_information"
+            android:text="资询"/>
     </LinearLayout>
+    </ScrollView>
 </LinearLayout>
