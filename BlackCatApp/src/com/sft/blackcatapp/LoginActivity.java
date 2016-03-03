@@ -289,11 +289,7 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 				// }else{
 				//
 				// =======
-<<<<<<< HEAD
 				ZProgressHUD.getInstance(this).dismiss();
-=======
-				// ZProgressHUD.getInstance(this).dismiss();
->>>>>>> 4844c78ca2e5e14bb17e7d23950757081ad4e202
 
 				LogUtil.print(">>>>>>>>11111" + msg + "111");
 				if (data != null && result.equals("1")) {

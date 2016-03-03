@@ -11,8 +11,20 @@
         android:layout_height="72dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="28dp"
+        
         android:background="@drawable/ic_launcher"
         android:contentDescription="@string/app_name" />
+    <TextView
+        android:id="@+id/dialog_no_login_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="28dp"
+        android:textColor="@color/text_color_dark"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        android:text="咨询电话" />
 
     <TextView
         android:id="@+id/dialog_no_login_content"

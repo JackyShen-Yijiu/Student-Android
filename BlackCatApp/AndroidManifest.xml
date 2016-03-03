@@ -232,7 +232,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.sft.blackcatapp.CancelAppointmentActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|adjustPan" />
         <activity
             android:name="com.sft.blackcatapp.ChatActivity"
             android:screenOrientation="portrait"
@@ -422,6 +423,15 @@
         <!-- 学车秘籍 -->
         <activity
             android:name="com.sft.blackcatapp.LearnCarCheatsActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <!-- 咨询答疑 -->
+        <activity
+            android:name="com.sft.blackcatapp.ConsultationlActivity"
+            android:screenOrientation="portrait" ></activity>
+            <!-- 我要提问 -->
+        <activity
+            android:name="com.sft.blackcatapp.ConsultationAskActivity"
             android:screenOrientation="portrait" >
         </activity>
         <!-- 我要约考 -->

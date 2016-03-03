@@ -36,6 +36,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.sft.api.ApiHttpClient;
 import com.sft.blackcatapp.ActivitiesActivity;
+import com.sft.blackcatapp.ConsultationlActivity;
 import com.sft.blackcatapp.EnrollSchoolActivity1;
 import com.sft.blackcatapp.MessageActivity;
 import com.sft.blackcatapp.MyOrderAct;
@@ -405,6 +406,8 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 			break;
 
 		case R.id.fragment_menu_information_btn:
+			intent = new Intent(mContext, ConsultationlActivity.class);
+			startActivity(intent);
 			// 咨询
 			break;
 		case R.id.fragment_menu_classcar_btn:

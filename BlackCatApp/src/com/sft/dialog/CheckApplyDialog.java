@@ -1,6 +1,5 @@
 package com.sft.dialog;
 
-
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
@@ -14,10 +13,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jzjf.app.R;
+
 /**
  * 左红又白
- * @author sun  2016-1-29 下午2:24:37
- *
+ * 
+ * @author sun 2016-1-29 下午2:24:37
+ * 
  */
 @SuppressLint("InflateParams")
 public class CheckApplyDialog extends Dialog implements
@@ -27,6 +28,7 @@ public class CheckApplyDialog extends Dialog implements
 	private ImageView image;
 	private TextView content;
 	private Button confirmBtn, cancelBtn;
+	private TextView titleTv;
 
 	public CheckApplyDialog(Context context) {
 		super(context, R.style.dialog);
@@ -38,11 +40,13 @@ public class CheckApplyDialog extends Dialog implements
 		LayoutInflater inflater = LayoutInflater.from(context);
 		View view = inflater.inflate(R.layout.dialog_check, null);
 		image = (ImageView) view.findViewById(R.id.dialog_no_login_im);
+		titleTv = (TextView) view.findViewById(R.id.dialog_no_login_tv);
+		titleTv.setVisibility(View.GONE);
 		content = (TextView) view.findViewById(R.id.dialog_no_login_content);
 		confirmBtn = (Button) view
 				.findViewById(R.id.dialog_no_login_confirm_btn);
 		cancelBtn = (Button) view.findViewById(R.id.dialog_no_login_cancel_btn);
-//		setTextAndImage();
+		// setTextAndImage();
 		setContentView(view);
 		DisplayMetrics d = context.getResources().getDisplayMetrics();
 		Window dialogWindow = getWindow();
@@ -55,21 +59,27 @@ public class CheckApplyDialog extends Dialog implements
 		cancelBtn.setOnClickListener(this);
 	}
 
-	public void setTextAndImage(String left,String top,String right,int drawable) {
+	public void setTextAndImage(String left, String top, String right,
+			int drawable) {
 		image.setBackgroundResource(drawable);
 		content.setText(top);
 		confirmBtn.setText(left);
 		cancelBtn.setText(right);
 	}
-	
-	
-	
+
+	public void showTitle(String title) {
+		image.setVisibility(View.GONE);
+		titleTv.setVisibility(View.VISIBLE);
+		titleTv.setText(title);
+	}
+
 	/**
 	 * 确认事件
+	 * 
 	 * @param listener
 	 */
-	
-	public void setListener(android.view.View.OnClickListener listener){
+
+	public void setListener(android.view.View.OnClickListener listener) {
 		confirmBtn.setOnClickListener(listener);
 	}
 
@@ -80,9 +90,9 @@ public class CheckApplyDialog extends Dialog implements
 			dismiss();
 			break;
 		case R.id.dialog_no_login_cancel_btn:
-			
-//			context.sendBroadcast(new Intent(MyAppointmentActivity.class
-//					.getName()).putExtra("isApplyExam", true));
+
+			// context.sendBroadcast(new Intent(MyAppointmentActivity.class
+			// .getName()).putExtra("isApplyExam", true));
 			dismiss();
 			break;
 		}
