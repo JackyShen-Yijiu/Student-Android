@@ -33,14 +33,5 @@
             android:singleLine="false" />
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/callback_btn"
-        style="@style/btn_style"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="15dp"
-        android:text="@string/commit" />
 
 </LinearLayout>

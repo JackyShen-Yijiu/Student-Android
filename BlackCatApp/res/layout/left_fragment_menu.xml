@@ -88,14 +88,8 @@
             <TextView
             android:id="@+id/fragment_menu_activity_btn"
             style="@style/left_item_menu_style"
-<<<<<<< HEAD
             android:drawableLeft="@drawable/left_item_activity"
             android:text="优惠活动" />
-=======
-            android:drawableLeft="@drawable/left_item_good"
-            android:visibility="gone"
-            android:text="一步优势"/>
->>>>>>> 4844c78ca2e5e14bb17e7d23950757081ad4e202
                   <TextView 
             android:id="@+id/fragment_menu_setting_btn"
             style="@style/left_item_menu_style"

@@ -4,29 +4,6 @@
     android:layout_height="fill_parent" 
     android:background="#fff">
 
-          
-	<TextView 
-   		 android:id="@+id/TextView_phone"
-   		 android:layout_width="wrap_content"
-   		 android:layout_height="wrap_content"
-   		  android:layout_below="@+id/login_logo_iv"
-   		    android:layout_marginLeft="18dp"
-   		  android:layout_marginTop="15dp"
-   		  android:textSize="12sp"
-   		 android:text="手机号"/>
-	<TextView
-            android:id="@+id/tv_hint_phone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/TextView_phone"
-            android:layout_alignRight="@+id/login_forget_tv"
-            android:text=""
-			android:drawablePadding="5dp"
-            android:gravity="center"
-            android:visibility="invisible"
-            android:textColor="@color/new_app_main_color"
-            android:drawableRight="@drawable/login_hint"
-            android:textSize="12sp" />
 	
 	 <LinearLayout 
 	     android:id="@+id/ll_phone"
@@ -34,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_alignLeft="@+id/TextView_phone"
-        android:layout_below="@+id/TextView_phone"
+        android:layout_below="@+id/login_logo_iv"
         android:orientation="horizontal">
             <EditText
                 android:id="@+id/login_phone_et"
@@ -42,6 +19,10 @@
 				android:layout_weight="1"
                 android:layout_height="@dimen/login_et_height"
                 android:background="@null"
+                android:hint="请输入手机号/昵称"
+                android:drawableLeft="@drawable/login_phone"
+                android:drawablePadding="15dp"
+                android:layout_marginLeft="19dp"
                 android:inputType="phone"
                 android:maxLength="11"
                 android:textColor="#212121" />
@@ -60,35 +41,12 @@
                 android:layout_alignLeft="@+id/TextView_phone"
                 android:contentDescription="@string/app_name" />
 
-            <TextView 
-   		 	android:id="@+id/TextView_password"
-   		 	android:layout_width="wrap_content"
-   		 	android:layout_height="wrap_content"
-   		 	 android:layout_below="@+id/login_deivder_im"
-   		  	  android:layout_marginLeft="18dp"
-   		 	 android:layout_marginTop="18dp"
-   		 	 android:textSize="12sp"
-   			 android:text="密码"/>
-            <TextView
-            android:id="@+id/tv_hint_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignRight="@+id/login_forget_tv"
-            android:layout_alignTop="@+id/TextView_password"
-            android:text=""
-			android:drawablePadding="5dp"
-            android:gravity="center"
-            android:visibility="invisible"
-            android:textColor="@color/new_app_main_color"
-            android:drawableRight="@drawable/login_hint"
-            android:textSize="12sp" />
-            
             
             <LinearLayout 
                   android:id="@+id/ll_password"
       		      android:layout_width="match_parent"
         		  android:layout_height="wrap_content"
-       			  android:layout_below="@+id/TextView_password"
+       			  android:layout_below="@+id/ll_phone"
        			  android:layout_alignLeft="@+id/TextView_phone"
       			  android:layout_marginTop="10dp"
       			  android:orientation="horizontal">
@@ -98,6 +56,7 @@
                 android:layout_height="@dimen/login_et_height"
                 android:background="@null"
                 android:layout_width="0dp"
+                android:hint="请输入密码"
 				android:layout_weight="1"
                 android:inputType="textPassword"
                 android:textColor="#212121" />
@@ -139,7 +98,7 @@
                 android:background="@null"
                 android:text="@string/look_around"
                 android:textColor="#bd4437"
-                android:textSize="14dp" />
+                android:textSize="12sp" />
             
         </LinearLayout>
 
@@ -181,8 +140,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/login_head"
+            android:layout_marginTop="72dp"
+            android:background="@drawable/log_welcome"
             android:clipToPadding="true"
             android:contentDescription="@string/app_name"
             android:fitsSystemWindows="true" />

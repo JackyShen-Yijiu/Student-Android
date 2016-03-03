@@ -6,7 +6,6 @@ import java.util.Map;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
@@ -23,7 +22,6 @@ import com.sft.viewutil.ZProgressHUD;
 public class ChangeAddressActivity extends BaseActivity {
 
 	private EditText et;
-	private Button btn;
 
 	private static final String changeAddress = "changeAddress";
 
@@ -32,7 +30,6 @@ public class ChangeAddressActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		addView(R.layout.activity_callback);
 		initView();
-		setListener();
 	}
 
 	protected void onResume() {
@@ -42,17 +39,14 @@ public class ChangeAddressActivity extends BaseActivity {
 
 	private void initView() {
 		setTitleText(R.string.address);
+		showTitlebarText(BaseActivity.SHOW_RIGHT_TEXT);
+		setText(0, R.string.save);
 
-		btn = (Button) findViewById(R.id.callback_btn);
 		et = (EditText) findViewById(R.id.callback_et);
 
 		et.setHint(setHint(R.string.address));
 		et.setText(app.userVO.getAddress());
-		
-	}
 
-	private void setListener() {
-		btn.setOnClickListener(this);
 	}
 
 	@Override
@@ -64,7 +58,8 @@ public class ChangeAddressActivity extends BaseActivity {
 		case R.id.base_left_btn:
 			finish();
 			break;
-		case R.id.callback_btn:
+
+		case R.id.base_right_tv:
 			changeAddress();
 			break;
 		}

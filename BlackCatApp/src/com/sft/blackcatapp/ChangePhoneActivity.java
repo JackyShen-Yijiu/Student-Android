@@ -9,7 +9,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.baseactivity.util.MyHandler;
 
@@ -31,11 +30,10 @@ public class ChangePhoneActivity extends BaseActivity {
 	// 获取验证码间隔时间(秒)
 	private final static int codeTime = 60;
 	private MyHandler codeHandler;
-	private TextView phoneTv;
 
 	private EditText phoneEt, codeEt;
 
-	private Button sendCodeBtn, finishBtn;
+	private Button sendCodeBtn;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,22 +52,21 @@ public class ChangePhoneActivity extends BaseActivity {
 	private void initView() {
 		setTitleText(R.string.change_tie_phone);
 
-		phoneTv = (TextView) findViewById(R.id.change_phone_tv);
+		showTitlebarText(BaseActivity.SHOW_RIGHT_TEXT);
+		setText(0, R.string.save);
+
 		sendCodeBtn = (Button) findViewById(R.id.change_phone_code_btn);
-		finishBtn = (Button) findViewById(R.id.change_phone_finish_btn);
 		phoneEt = (EditText) findViewById(R.id.change_phone_phone_et);
 		codeEt = (EditText) findViewById(R.id.change_phone_code_et);
 
 		phoneEt.setHint(setHint(R.string.new_phonenumber));
 		codeEt.setHint(setHint(R.string.auth_code));
 
-		phoneTv.setText(phoneTv.getText().toString() + ": "
-				+ app.userVO.getMobile());
+		phoneEt.setText(app.userVO.getMobile());
 	}
 
 	private void setListener() {
 		sendCodeBtn.setOnClickListener(this);
-		finishBtn.setOnClickListener(this);
 	}
 
 	private void obtainCode() {
@@ -179,7 +176,7 @@ public class ChangePhoneActivity extends BaseActivity {
 		case R.id.change_phone_code_btn:
 			obtainCode();
 			break;
-		case R.id.change_phone_finish_btn:
+		case R.id.base_right_tv:
 			changePhone();
 			break;
 		}

@@ -41,7 +41,7 @@ import com.sft.blackcatapp.MessageActivity;
 import com.sft.blackcatapp.MyOrderAct;
 import com.sft.blackcatapp.NewActivitysActivity;
 import com.sft.blackcatapp.NewComplaintActivity;
-import com.sft.blackcatapp.PersonCenterActivity;
+import com.sft.blackcatapp.NewPersonCenterAct;
 import com.sft.blackcatapp.SchoolBusRouteActivity;
 import com.sft.blackcatapp.SettingActivity;
 import com.sft.blackcatapp.TodaysAppointmentActivity;
@@ -288,7 +288,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 		switch (v.getId()) {
 		case R.id.fragment_menu_headpic_im:
 			if (app.isLogin) {
-				intent = new Intent(getActivity(), PersonCenterActivity.class);
+				intent = new Intent(getActivity(), NewPersonCenterAct.class);
 				startActivity(intent);
 
 			} else {
