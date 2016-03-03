@@ -51,4 +51,14 @@
             android:layout_weight="1" />
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/dialog_no_login_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="如果您已经报名，请让您的驾校或教练跟极致驾服人员联系"
+        android:visibility="gone"
+        android:textColor="@color/txt_999"
+        android:layout_margin="14dp"
+        android:textSize="12sp" />
+
 </LinearLayout>

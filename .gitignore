@@ -33,3 +33,5 @@ captures/
 
 # local file
 project.properties
+
+.metadata/

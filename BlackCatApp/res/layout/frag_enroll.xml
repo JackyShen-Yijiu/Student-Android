@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app1="http://schemas.android.com/apk/res-auto"
-    xmlns:app="http://schemas.android.com/apk/res-auto/com.sft.blackcatapp"
+    xmlns:app="http://schemas.android.com/apk/res-auto/com.jzjf.app"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
@@ -12,12 +12,11 @@
         android:layout_width="match_parent"
         android:layout_height="36dp"
         android:textSize="14sp"
-        app:tabPaddingLeftRight="46dp"
+        app:tabPaddingLeftRight="32dp"
         android:textColor="@color/select_coach_radiobtn_text_noselected"
         app:indicatorColor="@color/yellow"
         android:background="@color/new_app_main_color"
         app:underlineColor="@color/new_app_main_color"
-        
         app1:underlineHeight="2dp" 
         app:indicatorHeight="2dp"
         android:fillViewport="true">

@@ -30,20 +30,39 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
+        android:layout_centerHorizontal="true"
         android:layout_below="@+id/ll_title_one"
-        android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
-        android:text="恭喜您，报名成功！"
+        android:layout_margin="20dp"
+        android:text="恭喜您报名成功"
         android:textColor="#f00"
-        android:textSize="12sp" />
+        android:textSize="@dimen/txt_size_large" />
+    
+	<include
+	    android:id="@+id/line1"
+	    android:layout_below="@+id/textView1"
+	    android:layout_width="match_parent"
+    	android:layout_height="1dp"
+	    layout="@layout/line"/>    
+	    
+	<LinearLayout 
+	    android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+	    >
+	    <ImageView 
+	        android:layout_width="@dimen/actionBarSize"
+	        />
+	    
+	</LinearLayout>
 
     <TextView
         android:id="@+id/act_apply_suuccess_endtime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/line1"
+        android:layout_marginLeft="15dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="5dp"
         android:text="请您于7日内携带资料前往您所报名的驾校确认报名信息，并支付报名费用。"
