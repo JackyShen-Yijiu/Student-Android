@@ -398,8 +398,10 @@
                android:name="com.sft.blackcatapp.HelpProblemActivity"
                android:screenOrientation="portrait"></activity>
            
-           
-           
+           <!-- 个人中心 -->
+               <activity
+               android:name="com.sft.blackcatapp.NewPersonCenterAct"
+               android:screenOrientation="portrait"></activity>
            
         <!-- 确认订单 -->
         <activity

@@ -10,7 +10,6 @@ import android.os.Build.VERSION;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.infinitescrollviewpager.MyHandler;
@@ -28,7 +27,6 @@ import com.sft.viewutil.ZProgressHUD;
 public class CallBackActivity extends BaseActivity {
 
 	private EditText et;
-	private Button btn;
 
 	private static final String callback = "callback";
 
@@ -48,14 +46,15 @@ public class CallBackActivity extends BaseActivity {
 	private void initView() {
 		setTitleText(R.string.callback);
 
-		btn = (Button) findViewById(R.id.callback_btn);
+		showTitlebarText(BaseActivity.SHOW_RIGHT_TEXT);
+		setText(0, R.string.save);
+
 		et = (EditText) findViewById(R.id.callback_et);
 
 		et.setHint(setHint(R.string.opinions_suggestions));
 	}
 
 	private void setListener() {
-		btn.setOnClickListener(this);
 	}
 
 	@Override
@@ -67,7 +66,7 @@ public class CallBackActivity extends BaseActivity {
 		case R.id.base_left_btn:
 			finish();
 			break;
-		case R.id.callback_btn:
+		case R.id.base_right_tv:
 			callBack();
 			break;
 		}

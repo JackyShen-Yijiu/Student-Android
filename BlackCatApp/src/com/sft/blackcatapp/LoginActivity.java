@@ -32,6 +32,7 @@ import com.sft.util.CommonUtil;
 import com.sft.util.DownLoadService;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
+import com.sft.viewutil.EditTextUtils;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.UserVO;
 import com.sft.vo.VersionVO;
@@ -57,8 +58,6 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 	private TextView forgetPassTv;
 	// 注册账号
 	private TextView registerAccountTv;
-	private TextView hint_passward;
-	private TextView hint_phone;
 	private ImageView show_password;
 	private ImageView delet_iv;
 
@@ -123,14 +122,15 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 		forgetPassTv = (TextView) findViewById(R.id.login_forget_tv);
 		registerAccountTv = (TextView) findViewById(R.id.login_register_tv);
 
-		hint_passward = (TextView) findViewById(R.id.tv_hint_password);
-		hint_phone = (TextView) findViewById(R.id.tv_hint_phone);
 		// phontEt.setHint(setHint(R.string.phonenumber));
 		// passwordEt.setHint(setHint(R.string.password));
 
 		show_password = (ImageView) findViewById(R.id.show_password);
 		delet_iv = (ImageView) findViewById(R.id.delet_iv);
 		app.isLogin = false;
+
+		EditTextUtils.setEditTextHint(phontEt,
+				getString(R.string.search_school), 14);
 
 	}
 
@@ -154,12 +154,6 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 		}
 		Intent intent = null;
 		switch (v.getId()) {
-		case R.id.login_phone_et:
-			hint_phone.setVisibility(View.GONE);
-			break;
-		case R.id.login_passwd_et:
-			hint_passward.setVisibility(View.GONE);
-			break;
 		case R.id.show_password:
 			if (isClick) {
 				passwordEt
@@ -224,22 +218,14 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 	private String checkLoginInfo() {
 		String mobile = phontEt.getText().toString();
 		if (TextUtils.isEmpty(mobile)) {
-			hint_phone.setVisibility(View.VISIBLE);
-			hint_phone.setText("手机号不能为空");
 			return "手机号不能为空";
 		} else if (!CommonUtil.isMobile(mobile)) {
-			hint_phone.setVisibility(View.VISIBLE);
-			hint_phone.setText("手机号格式不正确");
 			return "手机号格式不正确";
 		} else if (mobile.length() != 11) {
-			hint_phone.setVisibility(View.VISIBLE);
-			hint_phone.setText("请输入正确的手机号");
 			return "请输入正确的手机号";
 		}
 		String password = passwordEt.getText().toString();
 		if (TextUtils.isEmpty(password)) {
-			hint_passward.setVisibility(View.VISIBLE);
-			hint_passward.setText("密码不能为空");
 			return "密码不能为空";
 		}
 		return null;
@@ -289,7 +275,11 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 				// }else{
 				//
 				// =======
+<<<<<<< HEAD
 				ZProgressHUD.getInstance(this).dismiss();
+=======
+				// ZProgressHUD.getInstance(this).dismiss();
+>>>>>>> 916125f2ff78911973c6b4c318aff9c2f64a5a88
 
 				LogUtil.print(">>>>>>>>11111" + msg + "111");
 				if (data != null && result.equals("1")) {
@@ -299,12 +289,8 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 					checkLoginInfo();
 				} else if (msg.contains("用户不存在")) {
 
-					hint_phone.setVisibility(View.VISIBLE);
-					hint_phone.setText("该号码尚未注册");
 					return true;
 				} else if (msg.contains("用户名或者密码错误")) {
-					hint_passward.setVisibility(View.VISIBLE);
-					hint_passward.setText("密码错误");
 				} else {
 					// hint_phone.setVisibility(View.VISIBLE);
 					ZProgressHUD.getInstance(this).show();
