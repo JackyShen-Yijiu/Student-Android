@@ -166,8 +166,8 @@ public class BlackCatApplication extends Application {
 
 	{
 		// 微信 appid appsecret
-		PlatformConfig.setWeixin("wxf1c209725d178604",
-				"4a17fd7d8cc0d0e1eacd0ce1d2e23e0e");
+		PlatformConfig.setWeixin("wxb815a53dcb2faf06",
+				"2637931343bdd1d1991fcef1b28a187a");
 		// 新浪微博 appkey appsecret
 		PlatformConfig.setSinaWeibo("16181237",
 				"215d345663ccb8cd2366c3b07d32b738");

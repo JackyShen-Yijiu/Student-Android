@@ -192,7 +192,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="17dp"
-                        android:text="一步Y码(折扣券)"
+                        android:text="Y码(折扣券)"
                         android:textColor="@color/txt_999"
                         android:textSize="@dimen/txt_size_ss" />
                 </RelativeLayout>
@@ -278,7 +278,7 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginBottom="10dp"
                         android:layout_marginTop="10dp"
-                        android:text="一步特惠班详情"
+                        android:text="特惠班详情"
                         android:textColor="#000000" />
 
                     <ImageView

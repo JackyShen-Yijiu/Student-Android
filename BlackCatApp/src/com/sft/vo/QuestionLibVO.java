@@ -9,6 +9,7 @@ public class QuestionLibVO extends DBVO {
 	private String questionerrorurl;
 	private String questiontesturl;
 	private String questionlisturl;
+	private String kemusichengjidanurl;
 
 	public String getQuestionerrorurl() {
 		return questionerrorurl;
@@ -32,6 +33,14 @@ public class QuestionLibVO extends DBVO {
 
 	public void setQuestionlisturl(String questionlisturl) {
 		this.questionlisturl = questionlisturl;
+	}
+
+	public String getKemusichengjidanurl() {
+		return kemusichengjidanurl;
+	}
+
+	public void setKemusichengjidanurl(String kemusichengjidanurl) {
+		this.kemusichengjidanurl = kemusichengjidanurl;
 	}
 
 }

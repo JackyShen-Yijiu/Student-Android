@@ -232,12 +232,16 @@ public class AppointmentCarActivity extends BaseActivity implements
 		selectDate = format.format(new Date());
 		selectCoach = (CoachVO) getIntent().getSerializableExtra("coachVO");
 		// 获取最近一次预约过的教练
+		List<CoachVO> appointmentCoach = Util.getAppointmentCoach(this);
 		if (selectCoach == null) {
 			// 获取最近预约的教练
-			List<CoachVO> appointmentCoach = Util.getAppointmentCoach(this);
 			if (appointmentCoach != null && appointmentCoach.size() != 0) {
-				selectCoach = appointmentCoach.get(0);
+				selectCoach = appointmentCoach.get(appointmentCoach.size() - 1);
 			}
+		}
+		for (int i = 0; i < appointmentCoach.size(); i++) {
+			LogUtil.print("appointmentCoach---"
+					+ appointmentCoach.get(i).getName());
 		}
 		if (selectCoach != null) {
 			coachName.setText("教练" + selectCoach.getName());

@@ -641,6 +641,7 @@ public class SchoolsFragment extends BaseFragment implements
 	}
 
 	private void obtainNearBySchool() {
+		LogUtil.print("nearBySchool-->"+app.curCity);
 		RequestParams paramMap = new RequestParams();
 		paramMap.put("latitude", app.latitude);
 		paramMap.put("longitude", app.longtitude);
@@ -742,9 +743,12 @@ public class SchoolsFragment extends BaseFragment implements
 			}
 			break;
 		case R.id.header_delete://删除 输入框 ，从新刷新请求数据
-			searchSchool.setText("");
-			schoolname = "";
-			searchSchool(true);
+			if(searchSchool.getText().toString().length()>0){
+				searchSchool.setText("");
+				schoolname = "";
+				searchSchool(true);
+			}
+			
 			break;
 		}
 	}

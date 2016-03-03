@@ -21,7 +21,9 @@ public class Config {
 	public static final String RECALL_URL = Config.IP + "paynotice/alipay";
 
 	/** 当前版本号 */
-	public static final String VERSION = "http://yibuxueche.com/about.html?ver=";
+	// public static final String VERSION =
+	// "http://yibuxueche.com/about.html?ver=";
+	public static final String VERSION = "http://www.yibuxueche.com/jzjfabout.html?ver=";
 
 	// 默认头像下载地址
 	public static final String HEAD_URL = "http://7xnjg0.com1.z0.glb.clouddn.com/";

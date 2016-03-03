@@ -592,9 +592,12 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener,
 			
 			break;
 		case R.id.header_delete:
-			searchCoach.setText("");
-			coachname = "";
-			searchcoach(true);
+			if(searchCoach.getText().toString().length()>0){
+				searchCoach.setText("");
+				coachname = "";
+				searchcoach(true);
+			}
+			
 			break;
 		}
 

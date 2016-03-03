@@ -138,8 +138,8 @@ public class BonusDialog extends Activity {
 				new ShareAction(BonusDialog.this)
 						.setPlatform(SHARE_MEDIA.WEIXIN)
 						.setCallback(umShareListener)
-						.withText("一步学车，就是让你so esay的通过驾照考试！ ")
-						.withTitle("一步学车")
+						.withText("极致驾服，就是让你so esay的通过驾照考试！ ")
+						.withTitle("极致驾服")
 						.withTargetUrl("http://www.ybxch.com").withMedia(image)
 						.share();
 				break;
@@ -150,16 +150,16 @@ public class BonusDialog extends Activity {
 				 **/
 				new ShareAction(BonusDialog.this).setPlatform(SHARE_MEDIA.SINA)
 						.setCallback(umShareListener)
-						.withText("一步学车，就是让你so esay的通过驾照考试！ ")
-						.withTitle("一步学车")
+						.withText("极致驾服，就是让你so esay的通过驾照考试！ ")
+						.withTitle("极致驾服")
 						.withTargetUrl("http://www.ybxch.com").withMedia(image)
 						.share();
 				break;
 			case R.id.send_invite_qq_btn:
 				new ShareAction(BonusDialog.this).setPlatform(SHARE_MEDIA.QQ)
 						.setCallback(umShareListener)
-						.withText("一步学车，就是让你so esay的通过驾照考试！ ")
-						.withTitle("一步学车")
+						.withText("极致驾服，就是让你so esay的通过驾照考试！ ")
+						.withTitle("极致驾服")
 						.withTargetUrl("http://www.ybxch.com").withMedia(image)
 						.share();
 				break;
@@ -167,8 +167,8 @@ public class BonusDialog extends Activity {
 				new ShareAction(BonusDialog.this)
 						.setPlatform(SHARE_MEDIA.WEIXIN_CIRCLE)
 						.setCallback(umShareListener)
-						.withText("一步学车，就是让你so esay的通过驾照考试！ ")
-						.withTitle("一步学车")
+						.withText("极致驾服，就是让你so esay的通过驾照考试！ ")
+						.withTitle("极致驾服")
 						.withTargetUrl("http://www.ybxch.com").withMedia(image)
 						.share();
 				break;

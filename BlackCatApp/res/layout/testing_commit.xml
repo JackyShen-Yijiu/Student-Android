@@ -96,7 +96,7 @@
        android:layout_centerHorizontal="true"
        android:textColor="#f00"
        android:textSize="12sp"
-       android:text="一步学车将为您定制属于您的学车之路。" />
+       android:text="极致驾服将为您定制属于您的学车之路。" />
 
    <ImageView
        android:id="@+id/imageView1"

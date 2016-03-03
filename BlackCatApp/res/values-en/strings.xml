@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <resources>
 
-    <string name="app_name">一步学车</string>
+    <string name="app_name">极致驾服</string>
     <string name="school">黑猫驾校</string>
     <string name="phonenumber">手机号</string>
     <string name="password">密码</string>
@@ -120,7 +120,6 @@
     <string name="testing_detail">验证报名信息</string>
     <string name="logout">退出登录</string>
     <string name="person_center">个人中心</string>
-    <string name="indent_detail">订单详情</string>
     <string name="testing_person_center">验证报名信息</string>
     <string name="eidt_info">编辑信息</string>
     <string name="headpic">头像</string>

@@ -37,7 +37,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="12dp"
                         android:paddingBottom="12dp"
-                        android:text="一步折扣卷" />
+                        android:text="折扣卷" />
 
                     <TextView
                         android:id="@+id/tv_coupon_show"
@@ -558,7 +558,6 @@
             android:layout_marginLeft="12dp"
             android:layout_toLeftOf="@+id/act_pay_now"
             android:layout_toRightOf="@+id/textView6"
-            android:text="3188元(一步互联网驾校)"
             android:textColor="@color/txt_333" />
 
     </RelativeLayout>

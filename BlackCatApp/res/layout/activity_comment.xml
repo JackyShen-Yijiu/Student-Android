@@ -32,7 +32,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:text="某某某"
                 android:textColor="@color/text_color_dark"
                 android:textSize="14dp" />
 
@@ -43,7 +42,6 @@
                 android:layout_below="@+id/comment_coachname_tv"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
-                android:text="一步互联网驾校"
                 android:textColor="@color/text_color_light"
                 android:textSize="14dp" />
         </RelativeLayout>
