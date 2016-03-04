@@ -342,9 +342,9 @@ public class BaseActivity extends cn.sft.baseactivity.base.BaseActivity
 		}
 
 		if (!TextUtils.isEmpty(msg)) {
-			// ZProgressHUD.getInstance(this).show();
-			// ZProgressHUD.getInstance(this).dismissWithFailure(msg, 2000);
-			return false;
+			ZProgressHUD.getInstance(this).show();
+			ZProgressHUD.getInstance(this).dismissWithFailure(msg, 2000);
+			return true;
 		}
 
 		return false;
