@@ -184,7 +184,8 @@ public class NewPersonCenterAct extends BaseActivity implements OnClickListener 
 			break;
 		// 电话
 		case R.id.rl_phone:
-			startActivity(new Intent(this, ChangePhoneActivity.class));
+			startActivityForResult(new Intent(this, ChangePhoneActivity.class),
+					12);
 			break;
 		// 地址
 		case R.id.rl_adress:
@@ -416,6 +417,9 @@ public class NewPersonCenterAct extends BaseActivity implements OnClickListener 
 					finish();
 				}
 			};
+		}
+		if (requestCode == 12) {
+			tv_phone.setText(app.userVO.getDisplaymobile());
 		}
 
 	}

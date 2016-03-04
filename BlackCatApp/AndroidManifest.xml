@@ -99,6 +99,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.sft.blackcatapp.LoginActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.sft.blackcatapp.MainActivity"

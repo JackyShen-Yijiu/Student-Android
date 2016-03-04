@@ -44,8 +44,8 @@
             android:id="@+id/change_phone_code_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/button"
             android:layout_marginLeft="15dp"
+            android:background="@drawable/button_rounded_corners"
             android:text="@string/send_auth_code"
             android:textColor="#ffffff"
             android:textSize="14dp" />

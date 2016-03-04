@@ -4,12 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
 import com.jzjf.app.R;
@@ -26,7 +23,6 @@ import com.sft.viewutil.ZProgressHUD;
 public class ChangeSignActivity extends BaseActivity {
 
 	private EditText et;
-	private TextView mTextView;
 
 	private static final String changeName = "name";
 	private static final String changeNickName = "nickname";
@@ -38,7 +34,6 @@ public class ChangeSignActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		addView(R.layout.activity_change_sign);
 		initView();
-		setListener();
 	}
 
 	protected void onResume() {
@@ -52,8 +47,6 @@ public class ChangeSignActivity extends BaseActivity {
 		et = (EditText) findViewById(R.id.callback_et);
 		type = getIntent().getStringExtra("type");
 
-		mTextView = (TextView) findViewById(R.id.text_dialog);
-
 		if (type.equals(changeName)) {
 			setTitleText(R.string.change_name);
 			et.setText(app.userVO.getName());
@@ -64,42 +57,6 @@ public class ChangeSignActivity extends BaseActivity {
 		}
 
 	}
-
-	private void setListener() {
-		et.addTextChangedListener(mTextWatcher);
-	}
-
-	TextWatcher mTextWatcher = new TextWatcher() {
-		private CharSequence temp;
-		private int editStart;
-		private int editEnd;
-
-		@Override
-		public void beforeTextChanged(CharSequence s, int arg1, int arg2,
-				int arg3) {
-			temp = s;
-		}
-
-		@Override
-		public void onTextChanged(CharSequence s, int arg1, int arg2, int arg3) {
-			mTextView.setText(s);
-		}
-
-		@Override
-		public void afterTextChanged(Editable s) {
-			editStart = et.getSelectionStart();
-			editEnd = et.getSelectionEnd();
-			if (temp.length() > 20) {
-				ZProgressHUD.getInstance(ChangeSignActivity.this).show();
-				ZProgressHUD.getInstance(ChangeSignActivity.this)
-						.dismissWithFailure("你输入的字数已经超过了限制！");
-				s.delete(editStart - 1, editEnd);
-				int tempSelection = editStart;
-				et.setText(s);
-				et.setSelection(tempSelection);
-			}
-		}
-	};
 
 	@Override
 	public void onClick(View v) {

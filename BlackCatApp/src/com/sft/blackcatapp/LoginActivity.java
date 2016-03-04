@@ -77,7 +77,7 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 					WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 		}
 
-		addView(R.layout.activity_login);
+		setContentView(R.layout.activity_login);
 		initView();
 		setListener();
 		String lastLoginPhone = util.readParam(Config.LAST_LOGIN_ACCOUNT);

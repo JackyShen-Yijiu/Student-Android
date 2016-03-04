@@ -14,7 +14,9 @@ import cn.sft.baseactivity.util.MyHandler;
 
 import com.jzjf.app.R;
 import com.sft.common.Config;
+import com.sft.util.JSONUtil;
 import com.sft.viewutil.ZProgressHUD;
+import com.sft.vo.UserVO;
 
 /**
  * 修改绑定手机
@@ -27,6 +29,7 @@ public class ChangePhoneActivity extends BaseActivity {
 	// 获取验证码
 	private final static String obtainCode = "obtainCode";
 	private final static String changePhone = "changePhone";
+	private static final String studentDetail = "studentDetail";
 	// 获取验证码间隔时间(秒)
 	private final static int codeTime = 60;
 	private MyHandler codeHandler;
@@ -120,6 +123,12 @@ public class ChangePhoneActivity extends BaseActivity {
 		return null;
 	}
 
+	private void obtainStudentDetail() {
+		HttpSendUtils.httpGetSend(studentDetail, this,
+				Config.IP + "api/v1/userinfo/getuserinfo" + "/1/userid/"
+						+ app.userVO.getUserid());
+	}
+
 	@Override
 	public synchronized boolean doCallBack(String type, Object jsonString) {
 		if (super.doCallBack(type, jsonString)) {
@@ -150,9 +159,26 @@ public class ChangePhoneActivity extends BaseActivity {
 			if (dataString != null) {
 				ZProgressHUD.getInstance(this).show();
 				ZProgressHUD.getInstance(this).dismissWithSuccess("修改成功");
-				app.userVO.setTelephone(phoneEt.getText().toString());
+				// app.userVO.setTelephone(phoneEt.getText().toString());
+				// LogUtil.print("-------" + phoneEt.getText().toString());
+				obtainStudentDetail();
 				util.saveParam(Config.LAST_LOGIN_ACCOUNT, phoneEt.getText()
 						.toString());
+
+			}
+		} else if (type.equals(studentDetail)) {
+			if (data != null) {
+				UserVO userVO = null;
+				try {
+					userVO = JSONUtil.toJavaBean(UserVO.class, data);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				if (userVO != null) {
+					app.userVO.setMobile(userVO.getMobile());
+					app.userVO.setDisplaymobile(userVO.getDisplaymobile());
+					// app.userVO = userVO;
+				}
 				new MyHandler(1000) {
 					@Override
 					public void run() {
