@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#fff"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/register_registerlayout_paddingleftright"
+    android:paddingRight="@dimen/register_registerlayout_paddingleftright" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/register_password_et"
+            style="@style/register_et_style"
+            android:layout_width="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:drawableLeft="@drawable/login_phone"
+            android:drawablePadding="10dp"
+            android:hint="请设置密码"
+            android:inputType="textPassword"
+            android:textColor="@color/text_color_dark"
+            android:textColorHint="#d2d2d2"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/delete_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/delet_phone" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/login_deivder_im"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/line_color"
+        android:contentDescription="@string/app_name" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/register_et_height"
+        android:layout_marginTop="@dimen/register_et_margintop"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/register_invitationcode_et"
+            style="@style/register_et_style"
+            android:layout_width="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:drawableLeft="@drawable/register_phone"
+            android:drawablePadding="10dp"
+            android:hint="邀请人的电话号码（非必填）"
+            android:inputType="phone"
+            android:textColor="@color/text_color_dark"
+            android:textColorHint="#d2d2d2" />
+
+        <ImageView
+            android:id="@+id/delet_invitation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/delet_phone" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/line_color"
+        android:contentDescription="@string/app_name" />
+
+     <RelativeLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="32dp" >
+
+         <CheckBox
+             android:id="@+id/rb_check"
+             android:layout_width="25dp"
+             android:layout_height="20dp"
+             android:layout_centerVertical="true"
+             android:button="@drawable/login_check"
+             android:checked="true" />
+
+         <TextView
+             android:id="@+id/register_protocol_tv"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_centerVertical="true"
+             android:layout_marginLeft="15dp"
+             android:layout_marginTop="15dp"
+             android:layout_toRightOf="@+id/rb_check"
+             android:text="@string/protocol"
+             android:textColor="#6a87f3"
+             android:textSize="12dp" />
+     </RelativeLayout>
+
+    <Button
+        android:id="@+id/register_register_btn"
+        style="@style/btn_style"
+        android:background="@drawable/button"
+        android:text="完成" />
+
+</LinearLayout>

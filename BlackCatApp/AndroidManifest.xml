@@ -110,6 +110,9 @@
             android:name="com.sft.blackcatapp.RegisterActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name="com.sft.blackcatapp.RegisterNextActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="com.sft.blackcatapp.FindPasswordActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -402,6 +405,11 @@
                <activity
                android:name="com.sft.blackcatapp.NewPersonCenterAct"
                android:screenOrientation="portrait"></activity>
+               
+                  <activity
+               android:name="com.sft.blackcatapp.FindPasswordAct"
+               android:screenOrientation="portrait"></activity>
+               
            
         <!-- 确认订单 -->
         <activity

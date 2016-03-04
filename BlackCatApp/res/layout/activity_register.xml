@@ -2,266 +2,93 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical"
-    android:clipToPadding="true"
     android:background="#fff"
-   	android:fitsSystemWindows="true"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
     android:paddingLeft="@dimen/register_registerlayout_paddingleftright"
     android:paddingRight="@dimen/register_registerlayout_paddingleftright" >
 
-    <RelativeLayout 
-        android:layout_width="match_parent"
-        android:layout_marginTop="12dp"
-        android:layout_height="wrap_content">
-    <TextView 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="手机号"/>
-    <TextView
-            android:id="@+id/tv_hint_phone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="您输入的信息有误"
-			android:drawablePadding="5dp"
-            android:gravity="center"
-            android:visibility="invisible"
-            android:textColor="@color/new_app_main_color"
-            android:drawableRight="@drawable/login_hint"
-            android:textSize="12sp" />
-    </RelativeLayout>
-    
-    <LinearLayout 
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:orientation="horizontal">
-    <EditText
-        android:id="@+id/register_phone_et"
-        style="@style/register_et_style"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_marginTop="0dp"
-        android:background="@null"
-        android:textColor="#212121"
-        android:inputType="phone"
-        android:maxLength="11" />
-    
-    <ImageView
-        android:id="@+id/delet_phone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/delet_phone" />
-    </LinearLayout>
-        <ImageView
-                android:id="@+id/login_deivder_im"
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="#88e6e6e6"
-                android:contentDescription="@string/app_name" />
+        android:orientation="horizontal" >
 
-        
-          <RelativeLayout 
-        android:layout_width="match_parent"
-        android:layout_marginTop="12dp"
-        android:layout_height="wrap_content">
-    <TextView 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="验证码"/>
-    <TextView
-            android:id="@+id/tv_hint_code"
+        <EditText
+            android:id="@+id/register_phone_et"
+            style="@style/register_et_style"
+            android:layout_width="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:drawableLeft="@drawable/login_phone"
+            android:drawablePadding="10dp"
+            android:hint="请输入手机号"
+            android:inputType="phone"
+            android:maxLength="11"
+            android:textColorHint="#d2d2d2"
+            android:textColor="@color/text_color_dark"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/delet_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="您输入的信息有误"
-			android:drawablePadding="5dp"
-            android:gravity="center"
-            android:visibility="invisible"
-            android:textColor="@color/new_app_main_color"
-            android:drawableRight="@drawable/login_hint"
-            android:textSize="12sp" />
-    </RelativeLayout>
+            android:src="@drawable/delet_phone" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/login_deivder_im"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/line_color"
+        android:contentDescription="@string/app_name" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/register_et_height"
         android:layout_marginTop="@dimen/register_et_margintop"
         android:orientation="horizontal" >
 
-        
         <EditText
             android:id="@+id/register_authcode_et"
             style="@style/register_et_style"
             android:layout_width="0dp"
-            android:drawablePadding="15dp"
-            android:background="@null"
             android:layout_marginTop="0dp"
             android:layout_weight="1"
-            android:textColor="#212121"
-            android:inputType="text"
-            android:maxLength="6" />
-        
-        
+            android:background="@null"
+            android:drawableLeft="@drawable/key_register"
+            android:drawablePadding="10dp"
+            android:hint="请输入验证码"
+            android:inputType="number"
+            android:maxLength="6"
+            android:textColorHint="#d2d2d2"
+            android:textColor="@color/text_color_dark" />
 
         <Button
             android:id="@+id/register_code_btn"
             style="@style/btn_style"
-            android:textSize="15dp"
-            android:textColor="#fff"
-            android:background="@color/new_app_main_color"
             android:layout_width="@dimen/register_code_btn_width"
-            android:layout_marginLeft="@dimen/register_code_btn_marginleft"
-            android:text="@string/send_auth_code" />
+            android:text="@string/send_auth_code"
+            android:background="@drawable/button"
+            android:textColor="#fff"
+            android:textSize="15dp" />
     </LinearLayout>
-      <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="#88e6e6e6"
-                android:layout_marginTop="5dp"
-                android:contentDescription="@string/app_name" />
-                <RelativeLayout 
-        android:layout_width="match_parent"
-        android:layout_marginTop="12dp"
-        android:layout_height="wrap_content">
-    <TextView 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="密码"/>
-    <TextView
-            android:id="@+id/tv_hint_pasword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="您输入的信息有误"
-			android:drawablePadding="5dp"
-            android:gravity="center"
-            android:visibility="invisible"
-            android:textColor="@color/new_app_main_color"
-            android:drawableRight="@drawable/login_hint"
-            android:textSize="12sp" />
-    </RelativeLayout>
-  <LinearLayout 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:orientation="horizontal">
-    <EditText
-        android:id="@+id/register_password_et"
-        style="@style/register_password_et_style"
-        android:background="@null"
-             android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_marginTop="0dp"
-        android:textColor="#212121"
-        />
-    <ImageView 
-        android:id="@+id/show_password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/showpaswd"/>
-    </LinearLayout>
-      <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="#88e6e6e6"
-                android:contentDescription="@string/app_name" />
-               
 
-  
-      <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="#88e6e6e6"
-                android:contentDescription="@string/app_name" />
-      <RelativeLayout 
-        android:layout_width="match_parent"
-        android:layout_marginTop="12dp"
-        android:layout_height="wrap_content">
-    <TextView 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="填写被邀请人手机号(选填)"/>
-    <TextView
-            android:id="@+id/tv_hint_invite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="您输入的信息有误"
-			android:drawablePadding="5dp"
-            android:gravity="center"
-            android:visibility="invisible"
-            android:textColor="@color/new_app_main_color"
-            android:drawableRight="@drawable/login_hint"
-            android:textSize="12sp" />
-    </RelativeLayout>
-  <LinearLayout 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:orientation="horizontal">
-    <EditText
-        android:id="@+id/register_invitationcode_et"
-        style="@style/register_et_style"
-        android:background="@null"
-            android:layout_width="0dp"
-            android:inputType="phone"
-            android:maxLength="11"
-        android:layout_weight="1"
-        android:layout_marginTop="0dp"
-        android:textColor="#212121"
-        />
     <ImageView
-        android:id="@+id/delet_init"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/delet_phone" />
-        </LinearLayout>
- <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="#88e6e6e6"
-                android:contentDescription="@string/app_name" />
- <RelativeLayout 
-     android:layout_width="match_parent"
-     android:layout_marginTop="10dp"
-     android:layout_height="wrap_content">
-<CheckBox 
-    android:id="@+id/rb_check"
-    android:layout_width="25dp"
-    android:layout_height="20dp"
-    android:checked="true"
-	android:layout_centerVertical="true"
-    android:button="@drawable/login_check"/>
- <TextView
-     android:id="@+id/register_protocol_tv"
-     android:layout_width="wrap_content"
-     android:layout_height="wrap_content"
-     android:layout_marginTop="15dp"
-     android:layout_centerVertical="true"
-     android:layout_toRightOf="@+id/rb_check"
-     android:layout_marginLeft="15dp"
-     android:text="@string/protocol"
-     android:textSize="13dp" />
-  <TextView
-            android:id="@+id/tv_hint_deal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="您输入的信息有误"
-			android:drawablePadding="5dp"
-			android:layout_centerVertical="true"
-            android:gravity="center"
-            android:visibility="invisible"
-            android:textColor="@color/new_app_main_color"
-            android:drawableRight="@drawable/login_hint"
-            android:textSize="12sp" />
-</RelativeLayout>
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/line_color"
+        android:contentDescription="@string/app_name" />
 
- <Button
-     android:id="@+id/register_register_btn"
-     style="@style/btn_style"
-     android:layout_marginBottom="@dimen/register_register_btn_marginbottom"
-     android:layout_marginTop="@dimen/register_register_btn_margintop"
-     android:text="@string/register" />
+    <Button
+        android:id="@+id/register_register_btn"
+        style="@style/btn_style"
+           android:background="@drawable/button"
+        android:layout_marginBottom="@dimen/register_register_btn_marginbottom"
+        android:layout_marginTop="@dimen/register_register_btn_margintop"
+        android:text="@string/next_step" />
 
 </LinearLayout>
