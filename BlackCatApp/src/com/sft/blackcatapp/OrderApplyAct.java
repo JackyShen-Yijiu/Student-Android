@@ -203,9 +203,10 @@ public class OrderApplyAct extends BaseActivity {
 			}else{//立即支付
 				
 				if(pay!=null){
-//					Intent i = new Intent(OrderApplyAct.this,Conf);
-					
-//					startActivity(i);
+					Intent i = new Intent(OrderApplyAct.this,ConfirmOrderActivity.class);
+					i.putExtra("repay", true);
+					i.putExtra("bean", pay);
+					startActivity(i);
 					
 					String orderId = pay._id;
 					String productName = pay.applyclasstypeinfo.name;
@@ -217,8 +218,8 @@ public class OrderApplyAct extends BaseActivity {
 					PayUtils pay = new PayUtils();
 					pay.setTradeNo(orderId);
 //					paymoney = "0.01";
-					LogUtil.print("id::>"+orderId+"name:"+productName+"detail"+productDetail+"Money::>>"+paymoney);
-					pay.pay(this,mHandler,productName,productDetail,paymoney);
+//					LogUtil.print("id::>"+orderId+"name:"+productName+"detail"+productDetail+"Money::>>"+paymoney);
+//					pay.pay(this,mHandler,productName,productDetail,paymoney);
 				}
 				
 			}
