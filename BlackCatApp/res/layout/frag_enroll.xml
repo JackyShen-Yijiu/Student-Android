@@ -10,7 +10,7 @@
     <com.sft.view.PagerSlidingTab
         android:id="@+id/act_student1_sliding_tab"
         android:layout_width="match_parent"
-        android:layout_height="36dp"
+        android:layout_height="50dp"
         android:textSize="14sp"
         app:tabPaddingLeftRight="32dp"
         android:textColor="@color/select_coach_radiobtn_text_noselected"
