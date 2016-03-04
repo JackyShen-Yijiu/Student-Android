@@ -107,8 +107,7 @@
     <Button
         android:id="@+id/register_register_btn"
         style="@style/btn_style"
-        android:layout_marginBottom="@dimen/register_register_btn_marginbottom"
-        android:layout_marginTop="@dimen/register_register_btn_margintop"
+        android:background="@drawable/button"
         android:text="完成" />
 
 </LinearLayout>
