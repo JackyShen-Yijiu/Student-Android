@@ -19,6 +19,7 @@
                 android:layout_height="@dimen/login_et_height"
                 android:background="@null"
                 android:hint="请输入手机号/昵称"
+                android:textColorHint="#d2d2d2"
                 android:drawableLeft="@drawable/login_phone"
                 android:drawablePadding="15dp"
                 android:layout_marginLeft="19dp"
@@ -59,6 +60,7 @@
 				android:drawableLeft="@drawable/login_password"
 				 android:layout_marginLeft="19dp"
 				android:drawablePadding="15dp"
+				android:textColorHint="#d2d2d2"
                 android:inputType="textPassword"
                 android:textColor="#212121" />
 
