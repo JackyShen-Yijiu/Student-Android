@@ -303,7 +303,7 @@
     <string name="add_coach">添加教练</string>
     <string name="driving_school">驾校</string>
     <string name="locationing">定位中</string>
-    <string name="no_appointment_coach_error_info">小步没有找到您的预约信息，点击右上角添加教练\n开始您愉快的学车之旅吧</string>
+    <string name="no_appointment_coach_error_info">没有找到您的预约信息，点击右上角添加教练\n开始您愉快的学车之旅吧</string>
     <string name="no_wifi">网络问题，请您检查手机的网络连接</string>
     <string name="cancel_appointment_intro">取消预约说明0/200</string>
     <string name="enrolling">您的报名正在审核中，请耐心等待</string>
@@ -346,5 +346,8 @@
      <!-- 登录 -->
     <string name="login_phone">请输入手机号/昵称</string>
     <string name="login_password">请输入密码</string>
+    
+    <string name="loading">加载中</string>
+    <string name="personal_infor_take">您需携带个人的身份证以及非本地户口人员需携带暂住证到驾校才能办理入学手续。</string>
     
 </resources>

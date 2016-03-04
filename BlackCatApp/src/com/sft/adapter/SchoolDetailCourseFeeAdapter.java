@@ -45,6 +45,15 @@ public class SchoolDetailCourseFeeAdapter extends BaseAdapter {
 	public void setName(String name){
 		schoolName = name;
 	}
+	
+	/**'
+	 * 设置支付状态
+	 * @param enrollstate
+	 */
+	public void setPayState(String enrollstate){
+		this.enrollstate = enrollstate;
+		notifyDataSetChanged();
+	}
 
 	@Override
 	public int getCount() {
@@ -84,37 +93,78 @@ public class SchoolDetailCourseFeeAdapter extends BaseAdapter {
 //		LogUtil.print(enrollstate+"classID-->"+serverClassList.getCalssid()+"App::>"+app.userVO.getApplyclasstypeinfo().getId());
 		
 		if (app.userVO != null
+				&& app.userVO.getApplyclasstypeinfo() != null ){
+				
+			
+		}
+				
+		
+		if (app.userVO != null
 				&& app.userVO.getApplyclasstypeinfo() != null && serverClassList.getCalssid()!=null
 				&& serverClassList.getCalssid().equals(
 						app.userVO.getApplyclasstypeinfo().getId())) {// 如果相同
 																		// 则显示
-			if (EnrollResult.SUBJECT_NONE.getValue().equals(enrollstate)) {
+			LogUtil.print("pay--state--456>"+app.userVO.getPayState());
+			if(app.userVO.getPayState()==0 || app.userVO.getPayState()==30){//支付失败
 				entrollBut.setText("报名");
 				entrollBut.setTextColor(mContext.getResources().getColor(R.color.white));
-			} else if (EnrollResult.SUBJECT_ENROLLING.getValue().equals(
-					enrollstate)) {
-				entrollBut.setText("报名审核中");
-				entrollBut.setEnabled(false);
-				entrollBut.setTextColor(mContext.getResources().getColor(R.color.text_color_light));
+				entrollBut.setVisibility(View.VISIBLE);
+				entrollBut.setEnabled(true);
 				
-//				entrollBut.setBackgroundColor(mContext.getResources().getColor(
-//						R.color.txt_9));
+			}else{//支付成功
+				if (EnrollResult.SUBJECT_ENROLLING.getValue().equals(
+						enrollstate) ) {
+					entrollBut.setText("报名审核中");
+					entrollBut.setEnabled(false);
+					entrollBut.setTextColor(mContext.getResources().getColor(R.color.text_color_light));
+					
+//					entrollBut.setBackgroundColor(mContext.getResources().getColor(
+//							R.color.txt_9));
 
-			} else {
-				entrollBut.setText("已报名");
-				entrollBut.setEnabled(false);
-				entrollBut.setTextColor(mContext.getResources().getColor(R.color.text_color_light));
-//				entrollBut.setBackgroundColor(mContext.getResources().getColor(
-//						R.color.txt_9));
+				} else {
+					entrollBut.setText("已报名");
+					entrollBut.setEnabled(false);
+					entrollBut.setTextColor(mContext.getResources().getColor(R.color.text_color_light));
+//					entrollBut.setBackgroundColor(mContext.getResources().getColor(
+//							R.color.txt_9));
+				}
 			}
+//			if (EnrollResult.SUBJECT_NONE.getValue().equals(enrollstate)) {
+//				entrollBut.setText("报名");
+//				entrollBut.setTextColor(mContext.getResources().getColor(R.color.white));
+//			} else if (EnrollResult.SUBJECT_ENROLLING.getValue().equals(
+//					enrollstate) ) {
+//				entrollBut.setText("报名审核中");
+//				entrollBut.setEnabled(false);
+//				entrollBut.setTextColor(mContext.getResources().getColor(R.color.text_color_light));
+//				
+////				entrollBut.setBackgroundColor(mContext.getResources().getColor(
+////						R.color.txt_9));
+//
+//			} else {
+//				entrollBut.setText("已报名");
+//				entrollBut.setEnabled(false);
+//				entrollBut.setTextColor(mContext.getResources().getColor(R.color.text_color_light));
+////				entrollBut.setBackgroundColor(mContext.getResources().getColor(
+////						R.color.txt_9));
+//			}
 		}else{
-			
-			if (EnrollResult.SUBJECT_NONE.getValue().equals(enrollstate)) {
+			if(app.userVO.getPayState()==0 || app.userVO.getPayState()==30){//支付失败
 				entrollBut.setText("报名");
 				entrollBut.setTextColor(mContext.getResources().getColor(R.color.white));
-			}  else {
+				entrollBut.setVisibility(View.VISIBLE);
+			}else{//支付成功
 				entrollBut.setVisibility(View.GONE);
 			}
+			
+			
+			//报名状态
+//			if (EnrollResult.SUBJECT_NONE.getValue().equals(enrollstate)) {
+//				entrollBut.setText("报名");
+//				entrollBut.setTextColor(mContext.getResources().getColor(R.color.white));
+//			}  else {
+//				entrollBut.setVisibility(View.GONE);
+//			}
 			
 	
 		}

@@ -198,7 +198,7 @@ public class NewPersonCenterAct extends BaseActivity implements OnClickListener 
 		// 报名信息
 		case R.id.rl_apply:
 			startActivityForResult(new Intent(NewPersonCenterAct.this,
-					MyOrderAct.class), 9);
+					OrderApplyAct.class), 9);
 			break;
 		}
 		if (intent != null) {
@@ -373,7 +373,7 @@ public class NewPersonCenterAct extends BaseActivity implements OnClickListener 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode,
 			final Intent data) {
-		// Toast("onactivityResult");
+		
 		if (requestCode == 8) {// 验证报名信息，，
 			first = true;
 			isApplyOk();
@@ -408,14 +408,16 @@ public class NewPersonCenterAct extends BaseActivity implements OnClickListener 
 				}
 			};
 		}
-		if (requestCode == 9 && resultCode == 0) {// 结束当前页面
-			new MyHandler(200) {
-				@Override
-				public void run() {
-					setResult(RESULT_OK, data);
-					finish();
-				}
-			};
+//		 Toast(requestCode + "onactivityResult"+ resultCode);
+		if (requestCode == 9 && resultCode == 9) {// 结束当前页面
+			setResult(RESULT_OK, data);
+			finish();
+//			new MyHandler(200) {
+//				@Override
+//				public void run() {
+//					
+//				}
+//			};
 		}
 
 	}

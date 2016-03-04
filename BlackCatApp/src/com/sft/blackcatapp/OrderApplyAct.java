@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -62,7 +63,7 @@ public class OrderApplyAct extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.act_order_apply);
+		addView(R.layout.act_order_apply);
 		initView();
 		request();
 //		getApplyState();
@@ -70,6 +71,8 @@ public class OrderApplyAct extends BaseActivity {
 	}
 
 	private void initView() {
+		
+		setTitleText("报名信息");
 		llTop = (LinearLayout) findViewById(R.id.item_order_top_ll);
 		ll = (LinearLayout) findViewById(R.id.item_order);
 		errorRl = (RelativeLayout) findViewById(R.id.error_rl);
@@ -173,15 +176,37 @@ public class OrderApplyAct extends BaseActivity {
 	}
 	
 	
+	
+	
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if(keyCode == KeyEvent.KEYCODE_BACK){
+			setResult(1);
+			finish();
+			return true;
+		}
+			
+		return super.onKeyDown(keyCode, event);
+	}
 
 	@Override
 	public void onClick(View v) {
 		switch(v.getId()){
+		case R.id.base_left_btn:
+			setResult(1);
+			finish();
+			break;
 		case R.id.item_order_button1://立即支付,右面
 			if(successVO.paytype.equals("1")){//线下支付，重新报名
 				reEnroll();
 			}else{//立即支付
+				
 				if(pay!=null){
+//					Intent i = new Intent(OrderApplyAct.this,Conf);
+					
+//					startActivity(i);
+					
 					String orderId = pay._id;
 					String productName = pay.applyclasstypeinfo.name;
 					String productDetail = pay.applyschoolinfo.getName();

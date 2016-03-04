@@ -66,7 +66,9 @@ import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.ClassVO;
 import com.sft.vo.CoachVO;
 import com.sft.vo.HeadLineNewsVO;
+import com.sft.vo.PayOrderVO;
 import com.sft.vo.SchoolVO;
+import com.sft.vo.SuccessVO;
 
 /**
  * 驾校详情界面
@@ -159,6 +161,8 @@ public class SchoolDetailActivity extends BaseActivity implements
 	/**暂无训练场 照片*/
 	private TextView tvNoPic;
 	private View viewStatus;
+	
+	private SuccessVO offlineVO;
 
 	@TargetApi(Build.VERSION_CODES.KITKAT) @Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -191,6 +195,20 @@ public class SchoolDetailActivity extends BaseActivity implements
 		HttpSendUtils.httpGetSend(headLineNews, this, Config.IP
 				+ "api/v1/info/headlinenews");
 	}
+	
+	/**
+	 * 线下报名的 状态
+	 */
+	private void obtainOffLineApplySuccessInfo() {
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("userid", app.userVO.getUserid());
+
+		Map<String, String> headerMap = new HashMap<String, String>();
+		headerMap.put("authorization", app.userVO.getToken());
+		HttpSendUtils.httpGetSend("applySchoolInfor", this, Config.IP
+				+ "api/v1/userinfo/getapplyschoolinfo", paramMap, 10000,
+				headerMap);
+	}
 
 	private String enrollState;
 
@@ -209,6 +227,8 @@ public class SchoolDetailActivity extends BaseActivity implements
 		} else {
 			enrollState = EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue();
 		}
+		if(app.isLogin)
+			obtainOffLineApplySuccessInfo();
 		super.onResume();
 	};
 
@@ -657,6 +677,16 @@ public class SchoolDetailActivity extends BaseActivity implements
 					// sv_container.smoothScrollTo(0, 0);
 				}
 
+			}else if(type.equals("applySchoolInfor")){//存在未完成订单
+				LogUtil.print("applySchoolinfor-->"+jsonString);
+				if (data != null) {
+					offlineVO = JSONUtil.toJavaBean(SuccessVO.class,
+							data);
+					app.userVO.setPayState(offlineVO.paytypestatus);
+					
+//					offlineVO.applystate
+//					setOffLine(offlineVO);
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -960,49 +990,38 @@ public class SchoolDetailActivity extends BaseActivity implements
 				dialog.show();
 				return;
 			}
-			if (app.userVO.getApplystate().equals(
-					EnrollResult.SUBJECT_NONE.getValue())) {
-
+			if(app.userVO.getPayState() == 0 || app.userVO.getPayState() == 30){//未支付，，支付失败
 				toPay(position);
-				// String checkResult = Util.isConfilctEnroll(school);
-				// LogUtil.print("toApply" + checkResult);
-				// if (checkResult == null) {
-				//
-				//
-				// intent = new Intent();
-				// intent.putExtra("school", school);
-				// intent.putExtra("activityName",
-				// SubjectEnrollActivity.class.getName());
-				// setResult(RESULT_OK, intent);
-				// finish();
-				// } else if (checkResult.length() == 0) {
-				// app.selectEnrollSchool = school;
-				// Util.updateEnrollSchool(SchoolDetailActivity.this, school,
-				// false);
-				// intent = new Intent();
-				// intent.putExtra("school", school);
-				// intent.putExtra("activityName",
-				// SubjectEnrollActivity.class.getName());
-				// setResult(RESULT_OK, intent);
-				// finish();
-				// } else {
-				// // 提示
-				// EnrollSelectConfilctDialog dialog = new
-				// EnrollSelectConfilctDialog(
-				// SchoolDetailActivity.this, checkResult);
-				// dialog.show();
-				// }
-			} else if (app.userVO.getApplystate().equals(
-					EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue())) {
-				intent = new Intent(SchoolDetailActivity.this,
-						AppointmentCarActivity.class);
-				startActivity(intent);
-			} else if (app.userVO.getApplystate().equals(
-					EnrollResult.SUBJECT_ENROLLING.getValue())) {
-				ZProgressHUD.getInstance(SchoolDetailActivity.this).show();
-				ZProgressHUD.getInstance(SchoolDetailActivity.this)
-						.dismissWithFailure("正在报名中，请等待审核");
+			}else{//支付成功
+				 if (app.userVO.getApplystate().equals(
+							EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue())) {
+						intent = new Intent(SchoolDetailActivity.this,
+								AppointmentCarActivity.class);
+						startActivity(intent);
+					} else if (app.userVO.getApplystate().equals(
+							EnrollResult.SUBJECT_ENROLLING.getValue())) {
+						ZProgressHUD.getInstance(SchoolDetailActivity.this).show();
+						ZProgressHUD.getInstance(SchoolDetailActivity.this)
+								.dismissWithFailure("正在报名中，请等待审核");
+					}
 			}
+			
+//			if (app.userVO.getApplystate().equals(
+//					EnrollResult.SUBJECT_NONE.getValue())) {
+//				toPay(position);
+//			} else if (app.userVO.getApplystate().equals(
+//					EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue())) {
+//				intent = new Intent(SchoolDetailActivity.this,
+//						AppointmentCarActivity.class);
+//				startActivity(intent);
+//			} else if (app.userVO.getApplystate().equals(
+//					EnrollResult.SUBJECT_ENROLLING.getValue())) {
+//				ZProgressHUD.getInstance(SchoolDetailActivity.this).show();
+//				ZProgressHUD.getInstance(SchoolDetailActivity.this)
+//						.dismissWithFailure("正在报名中，请等待审核");
+//			}
+			
+			
 		}
 
 	};
