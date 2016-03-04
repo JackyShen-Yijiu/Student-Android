@@ -129,8 +129,10 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 		delet_iv = (ImageView) findViewById(R.id.delet_iv);
 		app.isLogin = false;
 
-		EditTextUtils.setEditTextHint(phontEt,
-				getString(R.string.search_school), 14);
+		EditTextUtils.setEditTextHint(phontEt, getString(R.string.login_phone),
+				14);
+		EditTextUtils.setEditTextHint(passwordEt,
+				getString(R.string.login_password), 14);
 
 	}
 
