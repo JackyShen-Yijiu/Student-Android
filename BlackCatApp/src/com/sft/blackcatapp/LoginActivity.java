@@ -181,7 +181,7 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 			intent = new Intent(this, MainActivity.class);
 			break;
 		case R.id.login_forget_tv:
-			intent = new Intent(this, FindPasswordActivity.class);
+			intent = new Intent(this, FindPasswordAct.class);
 			String phone = phontEt.getText().toString();
 			if (!TextUtils.isEmpty(phone)) {
 				intent.putExtra("phone", phone);
@@ -262,9 +262,6 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 			try {
 				loginBtn.setEnabled(true);
 				lookAroundBtn.setEnabled(true);
-<<<<<<< HEAD
-				if (data != null) {
-=======
 				// <<<<<<< HEAD
 				// if (data != null ) {
 				// app.userVO = JSONUtil.toJavaBean(UserVO.class, data);
@@ -280,9 +277,7 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 				ZProgressHUD.getInstance(this).dismiss();
 				// ZProgressHUD.getInstance(this).dismiss();
 
-				LogUtil.print(">>>>>>>>11111" + msg + "111");
 				if (data != null && result.equals("1")) {
->>>>>>> a450523acab823517c6e9761b255e38595025d54
 					app.userVO = JSONUtil.toJavaBean(UserVO.class, data);
 					obtainVersionInfo();
 				} else {
