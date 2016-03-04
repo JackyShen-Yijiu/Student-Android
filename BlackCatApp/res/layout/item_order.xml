@@ -33,7 +33,7 @@
             <TextView
                 android:id="@+id/item_order_title"
                 style="@style/text_black_title"
-                android:text="TextView" />
+                android:text="@string/loading" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -56,14 +56,14 @@
                     android:layout_alignParentTop="true"
                     android:textColor="@color/orange_pay"
                     android:textSize="@dimen/txt_size_middle"
-                    android:text="TextView" />
+                    android:text="￥ 0" />
 
                 <TextView
                     android:id="@+id/item_order_right11"
                     style="@style/text_gray_small"
                     android:layout_alignParentTop="true"
                     android:layout_toLeftOf="@+id/item_order_right10"
-                    android:text="TextView111" />
+                    android:text="实付款:" />
 
             </RelativeLayout>
 
@@ -80,14 +80,14 @@
                     style="@style/text_gray_small"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
-                    android:text="TextView" />
+                    android:text="报名时间:" />
 
                 <TextView
                     android:id="@+id/item_order_right2"
                     style="@style/text_gray_small"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentTop="true"
-                    android:text="TextView" />
+                    android:text="@string/loading" />
 
             </RelativeLayout>
             
@@ -113,7 +113,7 @@
              android:textColor="@color/new_app_main_color"
              android:background="@drawable/shape_red_outline"
              android:clickable="true"
-             android:text="Button" />
+             android:text="@string/loading" />
 
          <TextView
              android:id="@+id/item_order_button2"
@@ -126,7 +126,7 @@
              android:background="@drawable/shape_gray_outline"
              android:clickable="true"
              android:focusable="false"
-             android:text="Button2" />
+             android:text="@string/loading" />
         
     </RelativeLayout>
 

@@ -379,10 +379,15 @@ public class ApplyActivity extends BaseActivity implements
 	private void initData() {
 //		LogUtil.print("initData-->"+app.userVO);
 		enrollState = app.userVO.getApplystate();
-
-		if (EnrollResult.SUBJECT_ENROLLING.getValue().equals(enrollState)) {
-			commitBtn.setText("报名审核中...");
+		if(app.userVO.getPayState() == 20 ){
+//			if (EnrollResult.SUBJECT_ENROLLING.getValue().equals(enrollState)) {
+//				commitBtn.setText("报名审核中...");
+//			}
+			commitBtn.setText("已支付");
 		}
+		
+		
+		
 		String name = SharedPreferencesUtil.getString(this, realName
 				+ app.userVO.getUserid(), "");
 		String contac = SharedPreferencesUtil.getString(this, contact

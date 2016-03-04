@@ -1310,7 +1310,7 @@ public class SchoolsFragment extends BaseFragment implements
 	private void requestNotFinshOrder() {
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("userid", app.userVO.getUserid());
-		paramMap.put("orderstate", "0");// 订单的状态 // 0 订单生成 2 支付成功 3 支付失败 4 订单取消
+		paramMap.put("orderstate", "-1");// 订单的状态 // 0 订单生成 2 支付成功 3 支付失败 4 订单取消
 										// -1 全部(未支付的订单)
 
 		Map<String, String> headerMap = new HashMap<String, String>();

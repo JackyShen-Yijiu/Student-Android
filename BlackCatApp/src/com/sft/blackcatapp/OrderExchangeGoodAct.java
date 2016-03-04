@@ -38,13 +38,13 @@ public class OrderExchangeGoodAct extends BaseActivity implements OnItemClickLis
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.fragment_coach_or_school);
+		addView(R.layout.fragment_coach_or_school);
 		initView();
 		request();
 	}
 
 	private void initView() {
-		
+		setTitleText("我的订单");
 		
 		errorRl= (RelativeLayout) findViewById(R.id.error_rl);
 		errorTv = (TextView) findViewById(R.id.error_tv);
@@ -68,6 +68,18 @@ public class OrderExchangeGoodAct extends BaseActivity implements OnItemClickLis
 				+ "api/v1/userinfo/getmyorderlist", paramMap, 10000, headerMap);
 	}
 	
+
+	
+	
+	@Override
+	public void onClick(View v) {
+		switch(v.getId()){
+		case R.id.base_left_btn:
+			finish();
+			break;
+		}
+		super.onClick(v);
+	}
 
 	@Override
 	public synchronized boolean doCallBack(String type, Object jsonString) {

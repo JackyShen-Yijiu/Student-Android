@@ -124,7 +124,7 @@
         android:layout_below="@+id/apply_commit_school_infor"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="15dp"
         android:text="请您于7日内携带资料前往您所报名的驾校确认报名信息，并支付报名费用。"
         android:textSize="12sp" />
 
@@ -137,6 +137,7 @@
         android:layout_below="@+id/act_apply_suuccess_endtime"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
+        android:visibility="gone"
         android:scaleType="centerCrop" />
     
     <TextView
@@ -155,7 +156,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/act_apply_suuccess_endtime"
-        android:layout_below="@+id/textView3"
+        android:layout_below="@+id/textView4"
         android:layout_marginTop="15dp"
         android:text="携带资料说明："
         android:textColor="@color/txt_gray_deep"
@@ -169,7 +170,7 @@
         android:layout_below="@+id/textView5"
         android:layout_marginRight="8dp"
         android:layout_marginTop="5dp"
-        android:text=""
+        android:text="@string/personal_infor_take"
         android:textSize="12sp" />
 
     <TextView
@@ -195,25 +196,25 @@
         android:textSize="12sp" />
 
     <TextView
-        android:id="@+id/tv_qrcode "
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/textView5"
-        android:layout_marginLeft="35dp"
-        android:layout_toRightOf="@+id/textView7"
-        style="@style/text_gray_small" />
-
-    <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/apply_commit_qrcode"
+        android:layout_below="@+id/textView3"
         android:layout_alignLeft="@+id/act_apply_suuccess_endtime"
-        android:layout_marginRight="60dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="15dp"
         android:text="报名编号："
         android:textColor="@color/txt_gray_deep"
         android:textSize="@dimen/txt_size_small"
         />
+
+    <TextView
+        android:id="@+id/tv_qrcode"
+        style="@style/text_gray_small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView5"
+        android:layout_toRightOf="@+id/textView4"
+        android:text="1351654651" />
 
 </RelativeLayout>
