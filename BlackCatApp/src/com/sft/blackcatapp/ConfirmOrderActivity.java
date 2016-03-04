@@ -212,6 +212,7 @@ public class ConfirmOrderActivity extends BaseActivity implements
 			startActivityForResult(intent, 3);
 			break;
 		case R.id.base_left_btn:
+			setResult(1);
 			finish();
 			break;
 		case R.id.act_pay_now:// 立即支付

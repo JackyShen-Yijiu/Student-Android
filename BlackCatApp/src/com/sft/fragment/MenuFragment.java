@@ -43,7 +43,6 @@ import com.sft.blackcatapp.MyOrderAct;
 import com.sft.blackcatapp.NewActivitysActivity;
 import com.sft.blackcatapp.NewComplaintActivity;
 import com.sft.blackcatapp.NewPersonCenterAct;
-import com.sft.blackcatapp.OrderExchangeGoodAct;
 import com.sft.blackcatapp.SchoolBusRouteActivity;
 import com.sft.blackcatapp.SettingActivity;
 import com.sft.blackcatapp.TodaysAppointmentActivity;
@@ -403,7 +402,13 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 			break;
 		case R.id.fragment_menu_myindent_btn:
 			// 我的订单
-			startActivityForResult(new Intent(mContext, OrderExchangeGoodAct.class), 9);
+			if (app.isLogin) {
+				startActivityForResult(new Intent(mContext, MyOrderAct.class),
+						9);
+			} else {
+				NoLoginDialog dialog = new NoLoginDialog(getActivity());
+				dialog.show();
+			}
 			break;
 
 		case R.id.fragment_menu_information_btn:
