@@ -49,6 +49,16 @@ public class UserVO extends DBVO {
 	private List<VipServerListVO> vipserverlist;
 
 	private PayOrderVO payOrderVO;
+	/**支付状态 0未支付 20支付成功 30 支付失败*/
+	private int payState = 0;
+
+	public int getPayState() {
+		return payState;
+	}
+
+	public void setPayState(int payState) {
+		this.payState = payState;
+	}
 
 	public void setHeadPortrait(HeadPortrait headPortrait) {
 		this.headportrait = headPortrait;

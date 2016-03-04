@@ -261,13 +261,14 @@ public class ConfirmOrderActivity extends BaseActivity implements
 				String resultStatus = payResult.getResultStatus();
 				// 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
 				if (TextUtils.equals(resultStatus, "9000")) {
+					
 					app.userVO
 							.setApplystate(EnrollResult.SUBJECT_ENROLL_SUCCESS
 									.getValue());
 					Toast.makeText(ConfirmOrderActivity.this, "支付成功",
 							Toast.LENGTH_SHORT).show();
-					ConfirmOrderActivity.this.setResult(9, getIntent());
-					ConfirmOrderActivity.this.finish();
+//					ConfirmOrderActivity.this.setResult(9, getIntent());
+//					ConfirmOrderActivity.this.finish();
 					reLogin();
 				} else {
 					app.userVO.setApplystate(EnrollResult.SUBJECT_NONE
@@ -289,6 +290,8 @@ public class ConfirmOrderActivity extends BaseActivity implements
 				break;
 			}
 			case SDK_CHECK_FLAG: {
+				app.userVO.setApplystate(EnrollResult.SUBJECT_NONE
+						.getValue());
 				Toast.makeText(ConfirmOrderActivity.this, "检查结果为：" + msg.obj,
 						Toast.LENGTH_SHORT).show();
 				break;
@@ -296,8 +299,23 @@ public class ConfirmOrderActivity extends BaseActivity implements
 			default:
 				break;
 			}
+			toEnrollSuccess();
 		};
 	};
+	
+	/**
+	 * 跳转到报名成功页面
+	 */
+	private void toEnrollSuccess(){
+		Intent i = new Intent(ConfirmOrderActivity.this,EnrollSuccessActivity.class);
+		i.putExtra("isOnline", true);
+		startActivity(i);
+		// 结束之前的页面
+		setResult(9);
+		finish();
+		
+	}
+	
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {

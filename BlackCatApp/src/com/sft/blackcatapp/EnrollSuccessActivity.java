@@ -20,6 +20,7 @@ import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
+import com.sft.util.UTC2LOC;
 import com.sft.vo.SuccessVO;
 import com.sft.vo.UserBaseStateVO;
 import com.squareup.picasso.Picasso;
@@ -40,7 +41,10 @@ public class EnrollSuccessActivity extends BaseActivity {
 	private ImageView imgSchool;
 	private TextView tvSchoolName,tvClassType,tvPayMoney,tvApplytime,
 	tvState;
+	private TextView tv_Qr;
 
+	private boolean isOnline = false;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -74,19 +78,32 @@ public class EnrollSuccessActivity extends BaseActivity {
 		showTitlebarBtn(1);
 		// showTitlebarText(BaseActivity.SHOW_RIGHT_TEXT);
 		// setText(0, R.string.enroll_again);
-		setTitleText("");
+		setTitleText("报名信息");
+		isOnline = getIntent().getBooleanExtra("isOnline", false);
+		
 		button_sus = (Button) findViewById(R.id.button_sus);
+		
 		qrcode = (ImageView) findViewById(R.id.apply_commit_qrcode);
 		tv_qrcode = (TextView) findViewById(R.id.tv_qrcode);
 		carryData = (TextView) findViewById(R.id.apply_commit_carry_data);
 		tvEndTime = (TextView) findViewById(R.id.act_apply_suuccess_endtime);
 		
+		tv_Qr = (TextView) findViewById(R.id.textView3);
 		imgSchool = (ImageView) findViewById(R.id.apply_commit_img);
 		tvSchoolName = (TextView) findViewById(R.id.apply_commit_school_name);
 		tvClassType  = (TextView) findViewById(R.id.apply_commit_class_type);
 		tvPayMoney  = (TextView) findViewById(R.id.apply_commit_money);
 		tvApplytime  = (TextView) findViewById(R.id.apply_commit_apply_time);
 		tvState  = (TextView) findViewById(R.id.apply_commit_pay_state);
+		
+		if(isOnline){//如果在线
+			qrcode.setVisibility(View.GONE);
+			tv_Qr.setVisibility(View.GONE);
+			findViewById(R.id.textView7).setVisibility(View.GONE);
+			findViewById(R.id.textView8).setVisibility(View.GONE);
+		}else{//线下 支付
+			
+		}
 	}
 	
 	
@@ -193,9 +210,11 @@ public class EnrollSuccessActivity extends BaseActivity {
 						// app.userVO.setApplystate(EnrollResult.SUBJECT_ENROLLING
 						// .getValue());
 						checkUserEnrollState();
-						if (successVO.applynotes != null) {
+						if (successVO.applynotes != null && !successVO.applynotes.equals("")) {
 							carryData.setText(successVO.applynotes);
 						}
+						LogUtil.print("pay--notes-->"+successVO.applynotes);
+						setOffLine(successVO);
 						
 						tvEndTime.setText("请您于 "+successVO.endtime+" 前携带资料前往您所报名的驾校确认报名信息，并支付报名费用。");
 					}
@@ -206,7 +225,8 @@ public class EnrollSuccessActivity extends BaseActivity {
 							UserBaseStateVO.class, data);
 					if (!baseStateVO.getApplystate().equals(
 							app.userVO.getApplystate())) {
-						app.userVO.setApplystate(baseStateVO.getApplystate());
+						LogUtil.print("apply--state-->"+baseStateVO.getApplystate());
+//						app.userVO.setApplystate(baseStateVO.getApplystate());
 					}
 				}
 			}
@@ -230,7 +250,8 @@ public class EnrollSuccessActivity extends BaseActivity {
 		tvSchoolName.setText(successVO.applyschoolinfo.name);
 		tvClassType.setText(successVO.applyclasstypeinfo.name);
 		tvPayMoney.setText("实付款: ￥"+successVO.applyclasstypeinfo.price);
-		tvApplytime.setText("报名时间:"+successVO.applytime);//UTC2LOC.instance.getDate(pay.creattime, "yyyy-MM-dd HH:mm:ss")
+		tvApplytime.setText("报名时间:"+successVO.applytime);
+//		UTC2LOC.instance.getDate(pay.creattime, "yyyy-MM-dd HH:mm:ss")
 		
 		LogUtil.print("paytypestatus---->" + successVO.paytypestatus);
 		

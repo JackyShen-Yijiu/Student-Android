@@ -5,33 +5,19 @@
     android:background="#f7f9fb"
     android:orientation="vertical" >
     
-    
-    <TextView 
-       android:id="@+id/text_dialog"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:textColor="#000" />
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="90dp"
-        android:layout_marginTop="10dp"
-        android:background="#ffffff"
-        android:paddingBottom="10dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:paddingTop="14dp" >
 
         <EditText
             android:id="@+id/callback_et"
+            android:padding="14dp"
+            android:layout_marginTop="10dp"
+       		android:background="#ffffff"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="50dp"
             android:hint="您还可以输入8字"
-            android:textSize="12sp"
+            android:textSize="14sp"
             android:gravity="top|left"
             android:maxLength="8"
-            android:background="@null"
             android:singleLine="false" />
-    </RelativeLayout>
 
 
 </LinearLayout>

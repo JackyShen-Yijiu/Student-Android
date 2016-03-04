@@ -66,6 +66,7 @@ import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.ClassVO;
 import com.sft.vo.CoachCommentVO;
 import com.sft.vo.CoachVO;
+import com.sft.vo.SuccessVO;
 import com.sft.vo.commonvo.Subject;
 
 /**
@@ -203,7 +204,23 @@ public class CoachDetailActivity extends BaseActivity implements
 		} else {
 			enrollState = EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue();
 		}
+		if(app.isLogin)
+			obtainOffLineApplySuccessInfo();
 		super.onResume();
+	}
+	
+	/**
+	 * 线下报名的 状态
+	 */
+	private void obtainOffLineApplySuccessInfo() {
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("userid", app.userVO.getUserid());
+
+		Map<String, String> headerMap = new HashMap<String, String>();
+		headerMap.put("authorization", app.userVO.getToken());
+		HttpSendUtils.httpGetSend("applySchoolInfor", this, Config.IP
+				+ "api/v1/userinfo/getapplyschoolinfo", paramMap, 10000,
+				headerMap);
 	}
 
 	private void initTitle() {
@@ -891,6 +908,19 @@ public class CoachDetailActivity extends BaseActivity implements
 				sendBroadcast(new Intent(MyFavouriteActiviy.class.getName())
 						.putExtra("isRefresh", true).putExtra("activityName",
 								FavouriteCoachActivity.class.getName()));
+			}
+		}else if(type.equals("applySchoolInfor")){
+			if (data != null) {
+				SuccessVO offlineVO;
+				try {
+					offlineVO = JSONUtil.toJavaBean(SuccessVO.class,
+							data);
+					app.userVO.setPayState(offlineVO.paytypestatus);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+				
 			}
 		}
 		return true;

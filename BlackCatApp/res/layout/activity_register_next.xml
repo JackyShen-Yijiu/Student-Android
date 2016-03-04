@@ -12,7 +12,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="48dp"
         android:orientation="horizontal" >
 
         <EditText
@@ -47,7 +47,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/register_et_height"
-        android:layout_marginTop="@dimen/register_et_margintop"
+        android:layout_marginTop="18dp"
         android:orientation="horizontal" >
 
         <EditText
@@ -107,8 +107,8 @@
     <Button
         android:id="@+id/register_register_btn"
         style="@style/btn_style"
-        android:layout_marginBottom="@dimen/register_register_btn_marginbottom"
-        android:layout_marginTop="@dimen/register_register_btn_margintop"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/button_rounded_corners"
         android:text="完成" />
 
 </LinearLayout>
