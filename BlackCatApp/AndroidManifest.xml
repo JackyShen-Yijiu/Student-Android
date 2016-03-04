@@ -110,6 +110,9 @@
             android:name="com.sft.blackcatapp.RegisterActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name="com.sft.blackcatapp.RegisterNextActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="com.sft.blackcatapp.FindPasswordActivity"
             android:screenOrientation="portrait" />
         <activity

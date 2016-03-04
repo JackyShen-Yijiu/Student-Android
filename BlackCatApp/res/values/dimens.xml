@@ -97,5 +97,6 @@
 	
 	<!-- 以下为2.0版本 -->
 	<dimen name="actionBarSize">48dp</dimen>
+	<dimen name="img_height">60dp</dimen>
 							
 </resources>
