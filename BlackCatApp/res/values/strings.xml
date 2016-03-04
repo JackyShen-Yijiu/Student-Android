@@ -6,8 +6,8 @@
     <string name="phonenumber">手机号</string>
     <string name="password">密码</string>
     <string name="login">登录</string>
-    <string name="forget_password">忘记密码</string>
-    <string name="register_account">注册新用户</string>
+    <string name="forget_password">找回密码</string>
+    <string name="register_account">立即注册</string>
     <string name="look_around">随便看看 </string>
     <string name="register">注册</string>
     <string name="confirm_password">确认密码</string>
@@ -285,6 +285,7 @@
     <string name="c2_manual_gear_car">C2自动档小车</string>
      <string name="other">其   他</string>
     
+     
     <string name="all">全部</string>
     <string name="apply_system_distribute">系统分配</string>
     <string name="apply_add_byself">自行添加</string>
@@ -341,5 +342,9 @@
     <string name="three_exam_formula">科目三考试技巧口诀大揭秘</string>
     <string name="consulation">咨询答疑</string>
     <string name="i_to_ask">我要提问</string>
+    
+     <!-- 登录 -->
+    <string name="login_phone">请输入手机号/昵称</string>
+    <string name="login_password">请输入密码</string>
     
 </resources>

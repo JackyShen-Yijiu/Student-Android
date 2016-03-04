@@ -129,8 +129,10 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 		delet_iv = (ImageView) findViewById(R.id.delet_iv);
 		app.isLogin = false;
 
-		EditTextUtils.setEditTextHint(phontEt,
-				getString(R.string.search_school), 14);
+		EditTextUtils.setEditTextHint(phontEt, getString(R.string.login_phone),
+				14);
+		EditTextUtils.setEditTextHint(passwordEt,
+				getString(R.string.login_password), 14);
 
 	}
 
@@ -275,11 +277,7 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 				// }else{
 				//
 				// =======
-<<<<<<< HEAD
-				ZProgressHUD.getInstance(this).dismiss();
-=======
 				// ZProgressHUD.getInstance(this).dismiss();
->>>>>>> 916125f2ff78911973c6b4c318aff9c2f64a5a88
 
 				LogUtil.print(">>>>>>>>11111" + msg + "111");
 				if (data != null && result.equals("1")) {
