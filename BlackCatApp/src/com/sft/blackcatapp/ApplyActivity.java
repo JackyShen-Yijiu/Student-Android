@@ -774,7 +774,7 @@ public class ApplyActivity extends BaseActivity implements
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//		Toast("Activity--->"+data);
+		Toast(requestCode+"Activity--->"+resultCode+"<<----->>"+data);
 		if (data == null) {
 			return;
 		}
