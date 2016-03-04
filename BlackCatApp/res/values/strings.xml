@@ -19,6 +19,8 @@
     <string name="new_password">新密码</string>
     <string name="confirm_new_password">确认新密码</string>
     <string name="finish">提交</string>
+    <string name="ok">完成</string>
+    
     <string name="change_password">更改密码</string>
     <string name="find_password">找回密码</string>
     <string name="next_step">下一步</string>
