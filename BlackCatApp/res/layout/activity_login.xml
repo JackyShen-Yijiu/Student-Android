@@ -12,7 +12,7 @@
         android:layout_marginTop="240dp"
         android:layout_below="@+id/login_logo_iv"
         android:orientation="horizontal">
-            <EditText
+       <!--      <EditText
                 android:id="@+id/login_phone_et"
                 android:layout_width="0dp"
 				android:layout_weight="1"
@@ -25,7 +25,23 @@
                 android:layout_marginLeft="19dp"
                 android:inputType="phone"
                 android:maxLength="11"
-                android:textColor="#212121" />
+                android:textColor="#212121" /> -->
+             <EditText
+            android:id="@+id/login_phone_et"
+            style="@style/register_et_style"
+            android:layout_width="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="19dp"
+            android:background="@null"
+            android:drawableLeft="@drawable/login_phone"
+            android:drawablePadding="10dp"
+            android:hint="请输入手机号"
+            android:inputType="phone"
+            android:maxLength="11"
+             android:textColorHint="#d2d2d2"
+            android:textColor="@color/text_color_dark"
+            android:textSize="14sp" />
             <ImageView
         android:id="@+id/delet_iv"
         android:layout_width="wrap_content"
@@ -40,7 +56,6 @@
                 android:background="#88e6e6e6"
                 android:layout_marginLeft="19dp"
                 android:contentDescription="@string/app_name" />
-
             
             <LinearLayout 
                   android:id="@+id/ll_password"
@@ -50,19 +65,22 @@
       			  android:layout_marginTop="10dp"
       			  android:orientation="horizontal">
             
-            <EditText
-                android:id="@+id/login_passwd_et"
-                android:layout_height="@dimen/login_et_height"
-                android:background="@null"
-                android:layout_width="0dp"
-                android:hint="请输入密码"
-				android:layout_weight="1"
-				android:drawableLeft="@drawable/login_password"
-				 android:layout_marginLeft="19dp"
-				android:drawablePadding="15dp"
-				android:textColorHint="#d2d2d2"
-                android:inputType="textPassword"
-                android:textColor="#212121" />
+          <EditText
+            android:id="@+id/login_passwd_et"
+            style="@style/register_et_style"
+            android:layout_width="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:layout_marginLeft="19dp"
+            android:drawableLeft="@drawable/login_password"
+            android:drawablePadding="10dp"
+            android:inputType="textPassword"
+            android:hint="请输入密码"
+             android:textColorHint="#d2d2d2"
+            android:textColor="@color/text_color_dark"
+            android:textSize="14sp" />
+
 
               <ImageView 
         android:id="@+id/show_password"

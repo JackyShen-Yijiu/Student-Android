@@ -96,9 +96,10 @@ public class FindPasswordActivity extends BaseActivity implements
 			if (dataString != null && result.equals("1")) {
 				ZProgressHUD.getInstance(this).show();
 				ZProgressHUD.getInstance(this).dismissWithSuccess("修改成功");
-				new MyHandler(1000) {
+				new MyHandler(200) {
 					@Override
 					public void run() {
+						setResult(9);
 						finish();
 					}
 				};

@@ -8,6 +8,7 @@ import android.widget.RelativeLayout;
 
 import com.jzjf.app.R;
 import com.sft.dialog.NoLoginDialog;
+import com.sft.util.BaseUtils;
 import com.sft.viewutil.ZProgressHUD;
 
 /**
@@ -145,8 +146,9 @@ public class SubjectOneActivity extends BaseActivity {
 					intent.putExtra("url", app.questionVO.getSubjectone()
 							.getQuestionerrorurl());
 				} else {
-					ZProgressHUD.getInstance(this).show();
-					ZProgressHUD.getInstance(this).dismissWithFailure("暂无题库");
+					BaseUtils.toLogin(SubjectOneActivity.this);
+					// ZProgressHUD.getInstance(this).show();
+					// ZProgressHUD.getInstance(this).dismissWithFailure("暂无题库");
 				}
 			} else {
 				NoLoginDialog dialog = new NoLoginDialog(this);
@@ -168,24 +170,27 @@ public class SubjectOneActivity extends BaseActivity {
 			if (app.isLogin) {
 				intent = new Intent(this, MyWalletActivity.class);
 			} else {
-				NoLoginDialog dialog = new NoLoginDialog(this);
-				dialog.show();
+				BaseUtils.toLogin(SubjectOneActivity.this);
+				// NoLoginDialog dialog = new NoLoginDialog(this);
+				// dialog.show();
 			}
 			break;
 		case R.id.main_message_layout:
 			if (app.isLogin) {
 				intent = new Intent(this, MessageActivity.class);
 			} else {
-				NoLoginDialog dialog = new NoLoginDialog(this);
-				dialog.show();
+				BaseUtils.toLogin(SubjectOneActivity.this);
+				// NoLoginDialog dialog = new NoLoginDialog(this);
+				// dialog.show();
 			}
 			break;
 		case R.id.main_my_layout:
 			if (app.isLogin) {
 				intent = new Intent(this, PersonCenterActivity.class);
 			} else {
-				NoLoginDialog dialog = new NoLoginDialog(this);
-				dialog.show();
+				BaseUtils.toLogin(SubjectOneActivity.this);
+				// NoLoginDialog dialog = new NoLoginDialog(this);
+				// dialog.show();
 			}
 			break;
 		}

@@ -10,12 +10,12 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.jzjf.app.R;
 import com.sft.blackcatapp.AppointmentExamActivity;
 import com.sft.blackcatapp.CourseActivity;
-import com.jzjf.app.R;
 import com.sft.blackcatapp.YiBuIntroduceActivity;
 import com.sft.common.Config;
-import com.sft.dialog.NoLoginDialog;
+import com.sft.util.BaseUtils;
 import com.sft.util.CommonUtil;
 import com.sft.util.LogUtil;
 import com.sft.viewutil.StudyItemLayout;
@@ -102,8 +102,9 @@ public class SubjectThreeFragment extends BaseFragment implements
 				intent.putExtra("subjectid", "3");
 
 			} else {
-				NoLoginDialog dialog = new NoLoginDialog(getActivity());
-				dialog.show();
+				BaseUtils.toLogin(getActivity());
+				// NoLoginDialog dialog = new NoLoginDialog(getActivity());
+				// dialog.show();
 			}
 			break;
 		case R.id.communication:

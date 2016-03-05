@@ -14,6 +14,7 @@ import com.jzjf.app.R;
 import com.sft.blackcatapp.AppointmentExamActivity;
 import com.sft.blackcatapp.QuestionActivity;
 import com.sft.dialog.NoLoginDialog;
+import com.sft.util.BaseUtils;
 import com.sft.util.CommonUtil;
 import com.sft.viewutil.StudyItemLayout;
 import com.sft.viewutil.ZProgressHUD;
@@ -129,8 +130,10 @@ public class SubjectOneFragment extends BaseFragment implements OnClickListener 
 							"暂无题库");
 				}
 			} else {
-				NoLoginDialog dialog = new NoLoginDialog(mContext);
-				dialog.show();
+
+				BaseUtils.toLogin(getActivity());
+				// NoLoginDialog dialog = new NoLoginDialog(mContext);
+				// dialog.show();
 			}
 			break;
 		case R.id.make_an_appointment:

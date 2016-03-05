@@ -26,7 +26,7 @@ import com.loopj.android.http.RequestParams;
 import com.sft.adapter.ConsultationAdapter;
 import com.sft.api.ApiHttpClient;
 import com.sft.dialog.CheckApplyDialog;
-import com.sft.dialog.NoLoginDialog;
+import com.sft.util.BaseUtils;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
 import com.sft.view.RefreshLayout;
@@ -231,8 +231,10 @@ public class ConsultationlActivity extends BaseActivity implements
 				startActivity(intent);
 
 			} else {
-				NoLoginDialog dialog = new NoLoginDialog(this);
-				dialog.show();
+				BaseUtils.toLogin(ConsultationlActivity.this);
+
+				// NoLoginDialog dialog = new NoLoginDialog(this);
+				// dialog.show();
 			}
 			break;
 		case R.id.consulation_to_call:
