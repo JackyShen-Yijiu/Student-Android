@@ -431,9 +431,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 						.getId());
 				mContext.startActivity(intent);
 			} else {
-				ZProgressHUD.getInstance(mContext).show();
-				ZProgressHUD.getInstance(mContext).dismissWithSuccess(
-						"您还未报名，不能查看班车信息");
+				BaseUtils.toLogin(getActivity());
 			}
 			break;
 		default:

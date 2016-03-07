@@ -3,7 +3,7 @@
     android:id="@+id/base_titlebar_layout"
     android:layout_width="match_parent"
     android:layout_height="@dimen/base_titlebar_height"
-    android:background="@android:color/transparent"
+    android:background="@color/new_app_main_color"
     android:clipToPadding="true"
     android:fitsSystemWindows="true"
     android:orientation="vertical" >
