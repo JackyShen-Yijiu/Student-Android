@@ -376,6 +376,7 @@
                         android:layout_height="@dimen/selectcoach_radiogroup_devider_height"
                         android:layout_gravity="center_vertical"
                         android:background="#dddddd"
+                        android:visibility="gone"
                         android:contentDescription="@string/app_name" />
 
                     <RadioButton
@@ -447,6 +448,7 @@
             android:layout_height="@dimen/selectcoach_radiogroup_devider_height"
             android:layout_gravity="center_vertical"
             android:background="#dddddd"
+            android:visibility="gone"
             android:contentDescription="@string/app_name" />
 
         <RadioButton

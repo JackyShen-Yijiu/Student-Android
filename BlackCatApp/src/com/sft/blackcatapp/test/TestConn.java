@@ -119,7 +119,8 @@ public class TestConn {
 			httpURLConnection.setRequestProperty("Accept-Charset", "utf-8");
 			httpURLConnection.setRequestProperty("Content-Type",
 					"application/x-www-form-urlencoded");
-
+			
+//			httpURLConnection.get
 			inputStream = httpURLConnection.getInputStream();
 			inputStreamReader = new InputStreamReader(inputStream);
 			bufferedReader = new BufferedReader(inputStreamReader);
