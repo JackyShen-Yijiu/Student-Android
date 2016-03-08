@@ -14,6 +14,7 @@ import com.jzjf.app.R;
 import com.sft.blackcatapp.AppointmentExamActivity;
 import com.sft.blackcatapp.QuestionActivity;
 import com.sft.dialog.NoLoginDialog;
+import com.sft.util.BaseUtils;
 import com.sft.util.CommonUtil;
 import com.sft.viewutil.StudyItemLayout;
 import com.sft.viewutil.ZProgressHUD;
@@ -89,8 +90,9 @@ public class SubjectFourFragment extends BaseFragment implements
 			return;
 		}
 		if (!app.isLogin) {
-			NoLoginDialog dialog = new NoLoginDialog(mContext);
-			dialog.show();
+			BaseUtils.toLogin(getActivity());
+			// NoLoginDialog dialog = new NoLoginDialog(mContext);
+			// dialog.show();
 			return;
 		}
 		Intent intent = null;

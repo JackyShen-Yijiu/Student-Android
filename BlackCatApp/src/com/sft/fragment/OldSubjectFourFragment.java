@@ -10,9 +10,9 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.sft.blackcatapp.QuestionActivity;
 import com.jzjf.app.R;
-import com.sft.dialog.NoLoginDialog;
+import com.sft.blackcatapp.QuestionActivity;
+import com.sft.util.BaseUtils;
 import com.sft.util.CommonUtil;
 import com.sft.viewutil.ZProgressHUD;
 
@@ -65,8 +65,9 @@ public class OldSubjectFourFragment extends BaseFragment implements
 			return;
 		}
 		if (!app.isLogin) {
-			NoLoginDialog dialog = new NoLoginDialog(mContext);
-			dialog.show();
+			BaseUtils.toLogin(getActivity());
+			// NoLoginDialog dialog = new NoLoginDialog(mContext);
+			// dialog.show();
 			return;
 		}
 		Intent intent = null;

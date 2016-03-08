@@ -10,13 +10,14 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.sft.blackcatapp.QuestionActivity;
 import com.jzjf.app.R;
-import com.sft.dialog.NoLoginDialog;
+import com.sft.blackcatapp.QuestionActivity;
+import com.sft.util.BaseUtils;
 import com.sft.util.CommonUtil;
 import com.sft.viewutil.ZProgressHUD;
 
-public class OldSubjectOneFragment extends BaseFragment implements OnClickListener {
+public class OldSubjectOneFragment extends BaseFragment implements
+		OnClickListener {
 
 	private View view;
 	private ImageView questionBank;
@@ -87,8 +88,9 @@ public class OldSubjectOneFragment extends BaseFragment implements OnClickListen
 							"暂无题库");
 				}
 			} else {
-				NoLoginDialog dialog = new NoLoginDialog(mContext);
-				dialog.show();
+				BaseUtils.toLogin(getActivity());
+				// NoLoginDialog dialog = new NoLoginDialog(mContext);
+				// dialog.show();
 			}
 			break;
 		case R.id.subject_one_mock_iv:

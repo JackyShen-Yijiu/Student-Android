@@ -35,14 +35,14 @@ import com.sft.blackcatapp.LoginActivity;
 import com.sft.common.BlackCatApplication;
 
 public class BaseUtils {
-	
+
 	/**
 	 * 随便看看
 	 */
-	public static boolean justSay(Activity a){
-//		if(app.)
+	public static boolean justSay(Activity a) {
+		// if(app.)
 		BlackCatApplication app = BlackCatApplication.getInstance();
-		if(!app.isLogin){
+		if (!app.isLogin) {
 			Intent intent = new Intent(a, LoginActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -51,6 +51,16 @@ public class BaseUtils {
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * 去登录页面
+	 * 
+	 * @param a
+	 */
+	public static void toLogin(Activity a) {
+		Intent intent = new Intent(a, LoginActivity.class);
+		a.startActivity(intent);
 	}
 
 	/**

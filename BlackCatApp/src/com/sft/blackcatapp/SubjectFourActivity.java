@@ -7,7 +7,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.jzjf.app.R;
-import com.sft.dialog.NoLoginDialog;
+import com.sft.util.BaseUtils;
 import com.sft.viewutil.ZProgressHUD;
 
 /**
@@ -132,8 +132,9 @@ public class SubjectFourActivity extends BaseActivity {
 			return;
 		}
 		if (!app.isLogin) {
-			NoLoginDialog dialog = new NoLoginDialog(this);
-			dialog.show();
+			BaseUtils.toLogin(SubjectFourActivity.this);
+			// NoLoginDialog dialog = new NoLoginDialog(this);
+			// dialog.show();
 			return;
 		}
 		Intent intent = null;

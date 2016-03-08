@@ -70,6 +70,7 @@ import com.sft.dialog.NoCommentDialog;
 import com.sft.dialog.NoCommentDialog.ClickListenerInterface;
 import com.sft.dialog.NoLoginDialog;
 import com.sft.fragment.MenuFragment.SLMenuListOnItemClickListener;
+import com.sft.util.BaseUtils;
 import com.sft.util.CommonUtil;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
@@ -187,9 +188,10 @@ public class MainActivity extends BaseMainActivity implements
 		// checkStateDialog();
 		if (app.userVO != null && app.userVO.getApplystate().equals("0")) {
 			// 只弹出一次进入验证学车进度的判断弹出框
-//			if (!SharedPreferencesUtil.getBoolean(this, ISCLICKCONFIRM, false)) {
-//				checkStateDialog();
-//			}
+			// if (!SharedPreferencesUtil.getBoolean(this, ISCLICKCONFIRM,
+			// false)) {
+			// checkStateDialog();
+			// }
 		} else {
 			// 获取未评论列表
 
@@ -239,7 +241,7 @@ public class MainActivity extends BaseMainActivity implements
 	 */
 	private void gotoApplyDialog() {
 		final CheckApplyDialog dialog = new CheckApplyDialog(this);
-		dialog.setTextAndImage("前去报名", "抱歉，貌似您还没有报名", "再看看",//您还没有报名，请前去报名
+		dialog.setTextAndImage("前去报名", "抱歉，貌似您还没有报名", "再看看",// 您还没有报名，请前去报名
 				R.drawable.appointment_time_error);
 		dialog.showBottom();
 		dialog.setListener(new OnClickListener() {
@@ -459,8 +461,10 @@ public class MainActivity extends BaseMainActivity implements
 				intent = new Intent(this, MessageActivity.class);
 				startActivity(intent);
 			} else {
-				NoLoginDialog dialog = new NoLoginDialog(this);
-				dialog.show();
+				BaseUtils.toLogin(MainActivity.this);
+
+				// NoLoginDialog dialog = new NoLoginDialog(this);
+				// dialog.show();
 			}
 			break;
 		case 3:
@@ -468,8 +472,10 @@ public class MainActivity extends BaseMainActivity implements
 				intent = new Intent(this, MyWalletActivity.class);
 				startActivity(intent);
 			} else {
-				NoLoginDialog dialog = new NoLoginDialog(this);
-				dialog.show();
+				BaseUtils.toLogin(MainActivity.this);
+
+				// NoLoginDialog dialog = new NoLoginDialog(this);
+				// dialog.show();
 			}
 			break;
 		case 4:
@@ -477,8 +483,9 @@ public class MainActivity extends BaseMainActivity implements
 				intent = new Intent(this, PersonCenterActivity.class);
 				startActivityForResult(intent, position);
 			} else {
-				NoLoginDialog dialog = new NoLoginDialog(this);
-				dialog.show();
+				BaseUtils.toLogin(MainActivity.this);
+				// NoLoginDialog dialog = new NoLoginDialog(this);
+				// dialog.show();
 			}
 			break;
 		default:
@@ -1199,10 +1206,10 @@ public class MainActivity extends BaseMainActivity implements
 			titleTv.setText(CommonUtil.getString(this,
 					R.string.tab_indicator_title_appointment) + "列表");
 			// if (app.isLogin) {
-			titleFarRightIv.setVisibility(View.VISIBLE);
-			titleRightTv.setVisibility(View.GONE);
-			// titleRightTv.setText(CommonUtil.getString(this,
-			// R.string.add_coach));
+			// titleFarRightIv.setVisibility(View.VISIBLE);
+			titleRightTv.setVisibility(View.VISIBLE);
+			titleRightTv
+					.setText(CommonUtil.getString(this, R.string.add_coach));
 			// } else {
 			// NoLoginDialog dialog = new NoLoginDialog(this);
 			// dialog.show();

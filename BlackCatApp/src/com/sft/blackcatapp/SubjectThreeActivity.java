@@ -15,7 +15,7 @@ import com.jzjf.app.R;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
 import com.sft.common.Config.SubjectStatu;
-import com.sft.dialog.NoLoginDialog;
+import com.sft.util.BaseUtils;
 import com.sft.util.JSONUtil;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.UserBaseStateVO;
@@ -147,8 +147,9 @@ public class SubjectThreeActivity extends BaseActivity {
 			return;
 		}
 		if (!app.isLogin) {
-			NoLoginDialog dialog = new NoLoginDialog(this);
-			dialog.show();
+			BaseUtils.toLogin(SubjectThreeActivity.this);
+			// NoLoginDialog dialog = new NoLoginDialog(this);
+			// dialog.show();
 			return;
 		}
 		Intent intent = null;

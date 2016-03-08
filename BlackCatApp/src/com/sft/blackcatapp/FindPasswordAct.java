@@ -227,10 +227,21 @@ public class FindPasswordAct extends BaseActivity {
 			if (dataString != null) {
 				Intent intent = new Intent(this, FindPasswordActivity.class);
 				intent.putExtra("phone", phoneEt.getText().toString());
-				startActivity(intent);
+				startActivityForResult(intent, 9);
+				// startActivity(intent);
 			}
 		}
 		return true;
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		switch (resultCode) {
+		case 9://
+			finish();
+			break;
+		}
+		super.onActivityResult(requestCode, resultCode, data);
 	}
 
 	@Override

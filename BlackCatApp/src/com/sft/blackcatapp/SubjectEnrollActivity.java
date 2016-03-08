@@ -14,8 +14,8 @@ import cn.sft.baseactivity.util.HttpSendUtils;
 import com.jzjf.app.R;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
-import com.sft.dialog.NoLoginDialog;
 import com.sft.listener.OnTabActivityResultListener;
+import com.sft.util.BaseUtils;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
 import com.sft.util.Util;
@@ -113,8 +113,9 @@ public class SubjectEnrollActivity extends BaseActivity implements
 					checkUserEnrollState();
 				}
 			} else {
-				NoLoginDialog dialog = new NoLoginDialog(this);
-				dialog.show();
+				BaseUtils.toLogin(SubjectEnrollActivity.this);
+				// NoLoginDialog dialog = new NoLoginDialog(this);
+				// dialog.show();
 			}
 			break;
 		case R.id.main_wallet_layout:
@@ -122,8 +123,9 @@ public class SubjectEnrollActivity extends BaseActivity implements
 				intent = new Intent(this, MyWalletActivity.class);
 				startActivity(intent);
 			} else {
-				NoLoginDialog dialog = new NoLoginDialog(this);
-				dialog.show();
+				BaseUtils.toLogin(SubjectEnrollActivity.this);
+				// NoLoginDialog dialog = new NoLoginDialog(this);
+				// dialog.show();
 			}
 			break;
 		case R.id.main_message_layout:
@@ -131,8 +133,9 @@ public class SubjectEnrollActivity extends BaseActivity implements
 				intent = new Intent(this, MessageActivity.class);
 				startActivity(intent);
 			} else {
-				NoLoginDialog dialog = new NoLoginDialog(this);
-				dialog.show();
+				BaseUtils.toLogin(SubjectEnrollActivity.this);
+				// NoLoginDialog dialog = new NoLoginDialog(this);
+				// dialog.show();
 			}
 			break;
 		case R.id.main_my_layout:
@@ -140,8 +143,9 @@ public class SubjectEnrollActivity extends BaseActivity implements
 				intent = new Intent(this, PersonCenterActivity.class);
 				getParent().startActivityForResult(intent, v.getId());
 			} else {
-				NoLoginDialog dialog = new NoLoginDialog(this);
-				dialog.show();
+				BaseUtils.toLogin(SubjectEnrollActivity.this);
+				// NoLoginDialog dialog = new NoLoginDialog(this);
+				// dialog.show();
 			}
 			break;
 		}

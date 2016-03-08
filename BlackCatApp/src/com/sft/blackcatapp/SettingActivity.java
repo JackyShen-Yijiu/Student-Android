@@ -24,7 +24,7 @@ import com.easemob.chat.EMChatManager;
 import com.jzjf.app.R;
 import com.sft.common.BlackCatApplication;
 import com.sft.common.Config;
-import com.sft.dialog.NoLoginDialog;
+import com.sft.util.BaseUtils;
 import com.sft.util.CommonUtil;
 import com.sft.viewutil.ZProgressHUD;
 
@@ -72,8 +72,9 @@ public class SettingActivity extends BaseActivity implements
 
 		logoutBtn = (Button) findViewById(R.id.person_center_logout_btn);
 		if (!app.isLogin) {
-			NoLoginDialog dialog = new NoLoginDialog(SettingActivity.this);
-			dialog.show();
+			BaseUtils.toLogin(SettingActivity.this);
+			// NoLoginDialog dialog = new NoLoginDialog(SettingActivity.this);
+			// dialog.show();
 			return;
 		}
 		if (app.userVO.getUsersetting().getNewmessagereminder().equals("true")) {

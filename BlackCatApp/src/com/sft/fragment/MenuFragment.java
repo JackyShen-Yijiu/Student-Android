@@ -51,6 +51,7 @@ import com.sft.common.BlackCatApplication;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
 import com.sft.dialog.NoLoginDialog;
+import com.sft.util.BaseUtils;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
 import com.sft.viewutil.ZProgressHUD;
@@ -313,8 +314,9 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 				intent = new Intent(mContext, MessageActivity.class);
 				mContext.startActivity(intent);
 			} else {
-				NoLoginDialog dialog = new NoLoginDialog(mContext);
-				dialog.show();
+				BaseUtils.toLogin(getActivity());
+				// NoLoginDialog dialog = new NoLoginDialog(mContext);
+				// dialog.show();
 			}
 			break;
 		// case R.id.fragment_menu_mall_btn:
@@ -339,8 +341,9 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 				intent = new Intent(mContext, TodaysAppointmentActivity.class);
 				mContext.startActivity(intent);
 			} else {
-				NoLoginDialog dialog = new NoLoginDialog(mContext);
-				dialog.show();
+				BaseUtils.toLogin(getActivity());
+				// NoLoginDialog dialog = new NoLoginDialog(mContext);
+				// dialog.show();
 			}
 			break;
 		// case R.id.fragment_menu_search_coach_btn:
@@ -376,8 +379,9 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 				intent = new Intent(getActivity(), WalletActivity.class);
 				startActivity(intent);
 			} else {
-				NoLoginDialog dialog = new NoLoginDialog(mContext);
-				dialog.show();
+				BaseUtils.toLogin(getActivity());
+				// NoLoginDialog dialog = new NoLoginDialog(mContext);
+				// dialog.show();
 			}
 			break;
 
@@ -396,8 +400,9 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 							"请等待审核");
 				}
 			} else {
-				NoLoginDialog dialog = new NoLoginDialog(getActivity());
-				dialog.show();
+				BaseUtils.toLogin(getActivity());
+				// NoLoginDialog dialog = new NoLoginDialog(getActivity());
+				// dialog.show();
 			}
 			break;
 		case R.id.fragment_menu_myindent_btn:
@@ -406,8 +411,9 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 				startActivityForResult(new Intent(mContext, MyOrderAct.class),
 						9);
 			} else {
-				NoLoginDialog dialog = new NoLoginDialog(getActivity());
-				dialog.show();
+				BaseUtils.toLogin(getActivity());
+				// NoLoginDialog dialog = new NoLoginDialog(getActivity());
+				// dialog.show();
 			}
 			break;
 
@@ -425,9 +431,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 						.getId());
 				mContext.startActivity(intent);
 			} else {
-				ZProgressHUD.getInstance(mContext).show();
-				ZProgressHUD.getInstance(mContext).dismissWithSuccess(
-						"您还未报名，不能查看班车信息");
+				BaseUtils.toLogin(getActivity());
 			}
 			break;
 		default:
