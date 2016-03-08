@@ -1,6 +1,5 @@
 package com.sft.blackcatapp;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,7 +19,6 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,16 +31,13 @@ import cn.sft.baseactivity.util.HttpSendUtils;
 
 import com.jzjf.app.R;
 import com.sft.common.Config;
-import com.sft.common.Config.EnrollResult;
 import com.sft.dialog.EnrollSelectConfilctDialog;
 import com.sft.dialog.EnrollSelectConfilctDialog.OnSelectConfirmListener;
 import com.sft.util.CommonUtil;
 import com.sft.util.JSONUtil;
-import com.sft.util.LogUtil;
 import com.sft.util.SharedPreferencesUtil;
 import com.sft.util.UTC2LOC;
 import com.sft.util.Util;
-import com.sft.view.ApplyClassTypeLayout;
 import com.sft.view.ApplyClassTypeLayout.OnClassTypeSelectedListener;
 import com.sft.viewutil.MultipleTextViewGroup;
 import com.sft.viewutil.MultipleTextViewGroup.MultipleTextViewVO;
@@ -63,7 +58,7 @@ import com.sft.vo.UserVO;
 public class ApplyActivity extends BaseActivity implements
 		OnClassTypeSelectedListener, OnSelectConfirmListener {
 
-//	private ApplyClassTypeLayout applyClassTypeLayout;
+	// private ApplyClassTypeLayout applyClassTypeLayout;
 	private static final String realName = "realName";
 	private static final String contact = "contact";
 	private static final String enroll = "enroll";
@@ -118,7 +113,7 @@ public class ApplyActivity extends BaseActivity implements
 	private String price;
 	private String classType;
 	private String schoolId;
-//	private SchoolVO school;
+	// private SchoolVO school;
 
 	private ClassVO classe;
 	// private String classID;
@@ -130,7 +125,7 @@ public class ApplyActivity extends BaseActivity implements
 	 * 0：驾校详情 1：教练详情 2.活动详情 ，，待定
 	 */
 	private int from;
-	private TextView tvNameError,tvPhoneError;
+	private TextView tvNameError, tvPhoneError;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -139,9 +134,9 @@ public class ApplyActivity extends BaseActivity implements
 		addView(R.layout.new_apply);
 
 		initView();
-//		initData();
+		// initData();
 		setListener();
-//		obtainEnrollCarStyle();
+		// obtainEnrollCarStyle();
 		initApplyData();
 		// View v;
 		// v.setBackgroundColor(Color.)
@@ -179,20 +174,20 @@ public class ApplyActivity extends BaseActivity implements
 		// tvOnSale.setText(classe.getOnsaleprice() + "元");
 		// classID = classe.get_id();
 		// }
-		
+
 		switch (from) {
 		case 0:// 驾校详情
 			classe = (ClassVO) getIntent().getSerializableExtra("class");
 			school = (SchoolVO) getIntent().getSerializableExtra("school");
 			enSchoolId = classe.getSchoolinfo().getSchoolid();
 
-			
 			schoolName = classe.getSchoolinfo().getName();
-//			LogUtil.print("school--id:" + enSchoolId + "id::" + school.getId());
+			// LogUtil.print("school--id:" + enSchoolId + "id::" +
+			// school.getId());
 			enCoachId = "";// 智能分配
 			enclassTypeId = classe.getCalssid();
 			encarmodel = classe.getCarmodel().toString();
-//			LogUtil.print("classTypeId---000>"+enclassTypeId);
+			// LogUtil.print("classTypeId---000>"+enclassTypeId);
 			// coachId 智能分配
 			break;
 		case 1:// 教练详情
@@ -200,18 +195,19 @@ public class ApplyActivity extends BaseActivity implements
 			classe = (ClassVO) getIntent().getSerializableExtra("class");
 
 			enSchoolId = coach.getDriveschoolinfo().getId();
-			
+
 			schoolName = coach.getDriveschoolinfo().getName();
 			enCoachId = coach.getCoachid();// 智能分配
-			
+
 			enclassTypeId = classe.get_id();
-//			LogUtil.print("classTypeId--->"+enclassTypeId);
+			// LogUtil.print("classTypeId--->"+enclassTypeId);
 			encarmodel = classe.getCarmodel().toString();
 			break;
 		case 2:// 活动详情
 			break;
 		}
-//		LogUtil.print("class--name::>>>" + classe.getSchoolinfo().getSchoolid());
+		// LogUtil.print("class--name::>>>" +
+		// classe.getSchoolinfo().getSchoolid());
 		initDefaultData(schoolName, coach, classe);
 
 		// // 从查找驾校处报名
@@ -247,7 +243,7 @@ public class ApplyActivity extends BaseActivity implements
 		schoolTv.setText(schoolName);
 		licenseType.setText(classe.getClassname() + "￥"
 				+ classe.getOnsaleprice());
-		tvOnSale.setText("需支付  "+classe.getOnsaleprice() + "元");
+		tvOnSale.setText("需支付  " + classe.getOnsaleprice() + "元");
 	}
 
 	private void obtainSchoolById(String schoolId) {
@@ -293,7 +289,8 @@ public class ApplyActivity extends BaseActivity implements
 		enroll_rootlayout.setFocusableInTouchMode(true);
 		enroll_rootlayout.requestFocus();
 
-//		applyClassTypeLayout = (ApplyClassTypeLayout) findViewById(R.id.apply_class_type_ll);
+		// applyClassTypeLayout = (ApplyClassTypeLayout)
+		// findViewById(R.id.apply_class_type_ll);
 		tvNameError = (TextView) findViewById(R.id.new_apply_name_error);
 		schoolTv = (TextView) findViewById(R.id.new_apply_school);
 		schoolRl = (RelativeLayout) findViewById(R.id.enroll_school_rl);
@@ -308,8 +305,8 @@ public class ApplyActivity extends BaseActivity implements
 
 		commitBtn = (Button) findViewById(R.id.enroll_commit_btn);
 
-//		licenseTypeC1 = (TextView) findViewById(R.id.apply_license_type_c1);
-//		licenseTypeC2 = (TextView) findViewById(R.id.apply_license_type_c2);
+		// licenseTypeC1 = (TextView) findViewById(R.id.apply_license_type_c1);
+		// licenseTypeC2 = (TextView) findViewById(R.id.apply_license_type_c2);
 		licenseType = (TextView) findViewById(R.id.new_apply_classtype);
 
 		classTypeLayout = (RelativeLayout) findViewById(R.id.enroll_class_rl);
@@ -347,47 +344,47 @@ public class ApplyActivity extends BaseActivity implements
 				return true;
 			}
 		});
-		
+
 		nameEt.addTextChangedListener(new TextWatcher() {
-			
+
 			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
 				// TODO Auto-generated method stub
-				if(s.length()>0){
+				if (s.length() > 0) {
 					tvNameError.setVisibility(View.GONE);
-				}else{
+				} else {
 					tvNameError.setVisibility(View.VISIBLE);
 				}
 			}
-			
+
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count,
 					int after) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void afterTextChanged(Editable s) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
 
 	}
 
 	private void initData() {
-//		LogUtil.print("initData-->"+app.userVO);
+		// LogUtil.print("initData-->"+app.userVO);
 		enrollState = app.userVO.getApplystate();
-		if(app.userVO.getPayState() == 20 ){
-//			if (EnrollResult.SUBJECT_ENROLLING.getValue().equals(enrollState)) {
-//				commitBtn.setText("报名审核中...");
-//			}
+		if (app.userVO.getPayState() == 20) {
+			// if
+			// (EnrollResult.SUBJECT_ENROLLING.getValue().equals(enrollState)) {
+			// commitBtn.setText("报名审核中...");
+			// }
 			commitBtn.setText("已支付");
 		}
-		
-		
-		
+
 		String name = SharedPreferencesUtil.getString(this, realName
 				+ app.userVO.getUserid(), "");
 		String contac = SharedPreferencesUtil.getString(this, contact
@@ -465,27 +462,27 @@ public class ApplyActivity extends BaseActivity implements
 
 	private void setListener() {
 		commitBtn.setOnClickListener(this);
-//		schoolRl.setOnClickListener(this);
+		// schoolRl.setOnClickListener(this);
 		// carStyleTv.setOnClickListener(this);
-//		coachRl.setOnClickListener(this);
+		// coachRl.setOnClickListener(this);
 		// classTv.setOnClickListener(this);
 
 		// nameEt.addTextChangedListener(new MyEditChangedListener(realName));
 		// contactEt.addTextChangedListener(new MyEditChangedListener(contact));
 
-//		licenseTypeC1.setOnClickListener(this);
-//		licenseTypeC2.setOnClickListener(this);
-//		applyClassTypeLayout.setOnClassTypeSelectedListener(this);
-//		classTypeLayout.setOnClickListener(new OnClickListener() {
-//
-//			@Override
-//			public void onClick(View paramView) {
-//				if (isExtend) {
-//
-//					closeClassDetail();
-//				}
-//			}
-//		});
+		// licenseTypeC1.setOnClickListener(this);
+		// licenseTypeC2.setOnClickListener(this);
+		// applyClassTypeLayout.setOnClassTypeSelectedListener(this);
+		// classTypeLayout.setOnClickListener(new OnClickListener() {
+		//
+		// @Override
+		// public void onClick(View paramView) {
+		// if (isExtend) {
+		//
+		// closeClassDetail();
+		// }
+		// }
+		// });
 	}
 
 	@Override
@@ -548,23 +545,22 @@ public class ApplyActivity extends BaseActivity implements
 		// break;
 		case R.id.enroll_commit_btn:
 			String checkResult = checkEnrollInfo();
-//			LogUtil.print("checkResult---->"+checkResult);
-			if(null != checkResult){
+			// LogUtil.print("checkResult---->"+checkResult);
+			if (null != checkResult) {
 				ZProgressHUD.getInstance(this).show();
-				ZProgressHUD.getInstance(this)
-						.dismissWithFailure(checkResult);
-			}else{
+				ZProgressHUD.getInstance(this).dismissWithFailure(checkResult);
+			} else {
 				// 验证Y码
 				if (null == etYCodeCard.getText().toString()
 						|| TextUtils.isEmpty(etYCodeCard.getText().toString()
 								.trim())) {
-					
-					enroll(null, enCoachId, enSchoolId, enclassTypeId, encarmodel);
+
+					enroll(null, enCoachId, enSchoolId, enclassTypeId,
+							encarmodel);
 				} else {
 					obtainYCode();// 正式
 				}
 			}
-			
 
 			// Intent intent1 = new Intent(this, ConfirmOrderActivity.class);
 			// intent1.putExtra("class", classe);
@@ -573,7 +569,6 @@ public class ApplyActivity extends BaseActivity implements
 			// startActivity(intent1);
 			// finish();
 
-			 
 			// // if (checkResult == null) {
 			// // enroll(checkResult);
 			// // } else {
@@ -681,8 +676,8 @@ public class ApplyActivity extends BaseActivity implements
 			paramMap.put("telephone", contactEt.getText().toString());
 			paramMap.put("userid", app.userVO.getUserid());
 
-//			LogUtil.print("enrollll--->" + coachId + "schoolId;:>" + SchoolId
-//					+ "classType:>" + classTypeId + "CarModel-->" + carModel);
+			// LogUtil.print("enrollll--->" + coachId + "schoolId;:>" + SchoolId
+			// + "classType:>" + classTypeId + "CarModel-->" + carModel);
 
 			paramMap.put("coachid", coachId);
 			paramMap.put("schoolid", SchoolId);// school.getSchoolid()
@@ -699,10 +694,10 @@ public class ApplyActivity extends BaseActivity implements
 			} else {
 				paramMap.put("fcode", etYCodeCard.getText().toString());
 			}
-//			LogUtil.print("重复报名:--->	" + app.isEnrollAgain);
-//			if (app.isEnrollAgain) {
-				paramMap.put("applyagain", 1+"");
-//			}
+			// LogUtil.print("重复报名:--->	" + app.isEnrollAgain);
+			// if (app.isEnrollAgain) {
+			paramMap.put("applyagain", 1 + "");
+			// }
 
 			Map<String, String> headerMap = new HashMap<String, String>();
 			headerMap.put("authorization", app.userVO.getToken());
@@ -719,19 +714,18 @@ public class ApplyActivity extends BaseActivity implements
 
 		String name = nameEt.getText().toString();
 		if (TextUtils.isEmpty(name)) {
-//			nameEt.setError("姓名不能为空");
+			// nameEt.setError("姓名不能为空");
 			tvNameError.setVisibility(View.VISIBLE);
 			return "姓名为空";
 		}
-		
 
 		String phone = contactEt.getText().toString();
 		if (TextUtils.isEmpty(phone)) {
-//			contactEt.setError("手机号不能为空");
+			// contactEt.setError("手机号不能为空");
 			return "手机号为空";
 		} else {
 			if (!CommonUtil.isMobile(phone)) {
-//				contactEt.setError("手机号格式不正确");
+				// contactEt.setError("手机号格式不正确");
 				return "手机号格式不正确";
 			}
 		}
@@ -774,13 +768,13 @@ public class ApplyActivity extends BaseActivity implements
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		Toast(requestCode+"Activity--->"+resultCode+"<<----->>"+data);
+		Toast(requestCode + "Activity--->" + resultCode + "<<----->>" + data);
 		if (data == null) {
 			return;
 		}
 		switch (requestCode) {
-		case 9://报名成功
-			setResult(9,getIntent());
+		case 9:// 报名成功
+			setResult(9, getIntent());
 			finish();
 			break;
 		case R.id.enroll_school_rl:
@@ -885,8 +879,8 @@ public class ApplyActivity extends BaseActivity implements
 						list.add(classVO);
 					}
 					// setclassName(list);
-//					applyClassTypeLayout.clearData();
-//					applyClassTypeLayout.setData(list);
+					// applyClassTypeLayout.clearData();
+					// applyClassTypeLayout.setData(list);
 				}
 				// {"type":1,"msg":"","data":"success","extra":{"__v":0,"paymoney":4680,"payendtime":"2016-02-04T15:46:52.002Z",
 				// "creattime":"2016-02-01T15:46:52.002Z","userid":"56a74ca04cc338e971ca226a",
@@ -903,7 +897,7 @@ public class ApplyActivity extends BaseActivity implements
 					SharedPreferencesUtil.putString(this,
 							contact + app.userVO.getUserid(), contactEt
 									.getText().toString());
-//					LogUtil.print("success--->" + jsonString);
+					// LogUtil.print("success--->" + jsonString);
 
 					app.isEnrollAgain = true;
 					if (radioOnLine.isChecked()) {// 线上支付
@@ -918,14 +912,14 @@ public class ApplyActivity extends BaseActivity implements
 						intent.putExtra("schoolName", schoolName);
 						intent.putExtra("phone", contactEt.getText().toString());
 						intent.putExtra("bean", pay);
-//						startActivity(intent);
+						// startActivity(intent);
 						startActivityForResult(intent, 9);
 					} else {// 线下支付
 						Intent intent1 = new Intent(this,
 								EnrollSuccessActivity.class);
-//						startActivity(intent1);
+						// startActivity(intent1);
 						startActivityForResult(intent1, 9);
-//						reLogin();
+						// reLogin();
 					}
 					//
 
@@ -982,9 +976,9 @@ public class ApplyActivity extends BaseActivity implements
 					enroll(null, enCoachId, enSchoolId, enclassTypeId,
 							encarmodel);
 				}
-			}else if(type.equals("reLogin")){
+			} else if (type.equals("reLogin")) {
 				try {
-//					Toast("登录成功");
+					// Toast("登录成功");
 					app.userVO = JSONUtil.toJavaBean(UserVO.class, data);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -995,11 +989,11 @@ public class ApplyActivity extends BaseActivity implements
 		}
 		return true;
 	}
-	
-	private void reLogin(){
+
+	private void reLogin() {
 		String lastLoginPhone = util.readParam(Config.LAST_LOGIN_ACCOUNT);
 		String password = util.readParam(Config.LAST_LOGIN_PASSWORD);
-		
+
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("mobile", lastLoginPhone);
 		paramMap.put("usertype", "1");
