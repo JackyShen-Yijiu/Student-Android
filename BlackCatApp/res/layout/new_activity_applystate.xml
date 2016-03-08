@@ -4,6 +4,11 @@
     android:layout_height="match_parent"
     android:background="#eeeeee" >
 
+    
+    <ScrollView 
+        android:id="@+id/sc_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="wrap_content"
@@ -181,14 +186,14 @@
         </LinearLayout>
     </LinearLayout>
 
-    
+    </ScrollView>
     
     <ImageView
         android:id="@+id/complaint_commit_pic1"
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:layout_marginLeft="18dp"
-        android:layout_below="@+id/linearLayout1"
+        android:layout_below="@+id/sc_layout"
         android:layout_marginTop="28dp"
         android:src="@drawable/applydefault" />
 
@@ -205,10 +210,10 @@
         android:id="@+id/button_commit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="12dp"
+        android:layout_below="@+id/complaint_commit_pic1"
         android:layout_marginRight="12dp"
         android:background="@drawable/btn_bg"
         android:padding="15dp"

@@ -17,24 +17,25 @@ import com.jzjf.app.R;
 import com.sft.adapter.ExchangeGoodOrderAdapter;
 import com.sft.common.Config;
 import com.sft.util.JSONUtil;
-import com.sft.util.LogUtil;
 import com.sft.vo.ExchangeGoodOrderVO;
 
 /**
  * 兑换商品订单
- * @author sun  2016-2-25 下午5:07:55
- *
+ * 
+ * @author sun 2016-2-25 下午5:07:55
+ * 
  */
-public class OrderExchangeGoodAct extends BaseActivity implements OnItemClickListener{
+public class OrderExchangeGoodAct extends BaseActivity implements
+		OnItemClickListener {
 
 	private ListView lv;
-	
+
 	private ExchangeGoodOrderAdapter adapter;
-	
-	ExchangeGoodOrderVO bean ;
+
+	ExchangeGoodOrderVO bean;
 	private RelativeLayout errorRl;
 	private TextView errorTv;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -45,8 +46,8 @@ public class OrderExchangeGoodAct extends BaseActivity implements OnItemClickLis
 
 	private void initView() {
 		setTitleText("我的订单");
-		
-		errorRl= (RelativeLayout) findViewById(R.id.error_rl);
+
+		errorRl = (RelativeLayout) findViewById(R.id.error_rl);
 		errorTv = (TextView) findViewById(R.id.error_tv);
 		errorTv.setText(R.string.no_exchange_order);
 		lv = (ListView) findViewById(R.id.enroll_select_school_listview);
@@ -55,8 +56,8 @@ public class OrderExchangeGoodAct extends BaseActivity implements OnItemClickLis
 		lv.setAdapter(adapter);
 		lv.setOnItemClickListener(this);
 	}
-	
-	private void request(){
+
+	private void request() {
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("userid", app.userVO.getUserid());
 		paramMap.put("index", "1");
@@ -67,13 +68,10 @@ public class OrderExchangeGoodAct extends BaseActivity implements OnItemClickLis
 		HttpSendUtils.httpGetSend("exchangOrder", this, Config.IP
 				+ "api/v1/userinfo/getmyorderlist", paramMap, 10000, headerMap);
 	}
-	
 
-	
-	
 	@Override
 	public void onClick(View v) {
-		switch(v.getId()){
+		switch (v.getId()) {
 		case R.id.base_left_btn:
 			finish();
 			break;
@@ -83,21 +81,21 @@ public class OrderExchangeGoodAct extends BaseActivity implements OnItemClickLis
 
 	@Override
 	public synchronized boolean doCallBack(String type, Object jsonString) {
-		if(super.doCallBack(type, jsonString)){
+		if (super.doCallBack(type, jsonString)) {
 			return true;
 		}
-		if(type.equals("exchangOrder")){
+		if (type.equals("exchangOrder")) {
 			try {
-				bean =JSONUtil.toJavaBean(ExchangeGoodOrderVO.class, data);
+				bean = JSONUtil.toJavaBean(ExchangeGoodOrderVO.class, data);
 				adapter.setData(bean);
-				if(bean.ordrelist.size()==0){
+				if (bean.ordrelist.size() == 0) {
 					errorRl.setVisibility(View.VISIBLE);
-				}else{
+				} else {
 					errorRl.setVisibility(View.VISIBLE);
 				}
-//				adapter.notifyDataSetChanged();
-				
-				LogUtil.print("result--size::"+bean.ordrelist.size());
+				// adapter.notifyDataSetChanged();
+
+				// LogUtil.print("result--size::"+bean.ordrelist.size());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -108,14 +106,11 @@ public class OrderExchangeGoodAct extends BaseActivity implements OnItemClickLis
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		Intent i = new Intent(OrderExchangeGoodAct.this,ExchangeDetailAct.class);
+		Intent i = new Intent(OrderExchangeGoodAct.this,
+				ExchangeDetailAct.class);
 		i.putExtra("bean", bean.ordrelist.get(position));
-//		i.putExtra("po", position);
+		// i.putExtra("po", position);
 		startActivity(i);
 	}
-	
-	
 
-	
-	
 }

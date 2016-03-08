@@ -366,7 +366,7 @@
         <activity
             android:name="com.sft.blackcatapp.NewComplaintActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateVisible" />
+            android:windowSoftInputMode="adjustUnspecified" />
         <activity
             android:name="com.sft.blackcatapp.QRCodeCreateActivity"
             android:screenOrientation="portrait" />
