@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
-                android:src="@drawable/kind_selecter_stly" />
+                android:src="@drawable/menu" />
 
             <ImageView
                 android:id="@+id/title_left_iv"

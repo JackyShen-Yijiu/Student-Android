@@ -209,10 +209,9 @@ public class NewPersonCenterAct extends BaseActivity implements OnClickListener 
 
 	private void showGender(int index) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle("选择性别");
+		builder.setTitle("性别");
 		builder.setSingleChoiceItems(array, index,
 				new DialogInterface.OnClickListener() {
-
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						selectGenderIndex = which;
@@ -374,7 +373,7 @@ public class NewPersonCenterAct extends BaseActivity implements OnClickListener 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode,
 			final Intent data) {
-		
+
 		if (requestCode == 8) {// 验证报名信息，，
 			first = true;
 			isApplyOk();
@@ -409,16 +408,16 @@ public class NewPersonCenterAct extends BaseActivity implements OnClickListener 
 				}
 			};
 		}
-//		 Toast(requestCode + "onactivityResult"+ resultCode);
+		// Toast(requestCode + "onactivityResult"+ resultCode);
 		if (requestCode == 9 && resultCode == 9) {// 结束当前页面
 			setResult(RESULT_OK, data);
 			finish();
-//			new MyHandler(200) {
-//				@Override
-//				public void run() {
-//					
-//				}
-//			};
+			// new MyHandler(200) {
+			// @Override
+			// public void run() {
+			//
+			// }
+			// };
 		}
 		if (requestCode == 12) {
 			tv_phone.setText(app.userVO.getDisplaymobile());
