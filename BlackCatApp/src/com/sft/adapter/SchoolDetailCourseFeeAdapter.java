@@ -92,14 +92,11 @@ public class SchoolDetailCourseFeeAdapter extends BaseAdapter {
 				.findViewById(R.id.course_fee_enroll_btn);
 //		LogUtil.print(enrollstate+"classID-->"+serverClassList.getCalssid()+"App::>"+app.userVO.getApplyclasstypeinfo().getId());
 		
-		if (app.userVO != null
-				&& app.userVO.getApplyclasstypeinfo() != null ){
-				
-			
-		}
-				
-		
-		if (app.userVO != null
+		if (!app.isLogin){
+			entrollBut.setText("报名");
+			entrollBut.setTextColor(mContext.getResources().getColor(R.color.white));
+			entrollBut.setVisibility(View.VISIBLE);	
+		}else if (app.userVO != null
 				&& app.userVO.getApplyclasstypeinfo() != null && serverClassList.getCalssid()!=null
 				&& serverClassList.getCalssid().equals(
 						app.userVO.getApplyclasstypeinfo().getId())) {// 如果相同
