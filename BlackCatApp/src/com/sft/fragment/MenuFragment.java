@@ -298,17 +298,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 				dialog.show();
 			}
 			break;
-		// case R.id.left_tv_map:
-		// obtainOpenCity();
-		// break;
-
-		// case R.id.fragment_menu_home_btn:
-		// ((MainActivity) mContext).changeMenu();
-		// break;
-		// case R.id.fragment_menu_driving_school_btn:// 报名
-		// obtainlocationShowType();
-		//
-		// break;
+		// 我的消息
 		case R.id.fragment_menu_message_btn:
 			if (app.isLogin) {
 				intent = new Intent(mContext, MessageActivity.class);
@@ -319,22 +309,14 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 				// dialog.show();
 			}
 			break;
-		// case R.id.fragment_menu_mall_btn:
-		// // ZProgressHUD.getInstance(mContext).show();
-		// // ZProgressHUD.getInstance(mContext).dismissWithFailure("敬请期待！");
-		// // 进入积分商城
-		// intent = new Intent(mContext, MallActivity.class);
-		// intent.putExtra("moneytype",
-		// Config.MoneyType.INTEGRAL_RETURN.getValue());
-		// startActivity(intent);
-		// break;
 		// 活动
 		case R.id.fragment_menu_activity_btn:
-			// ZProgressHUD.getInstance(mContext).show();
-			// ZProgressHUD.getInstance(mContext).dismissWithFailure("敬请期待！");
-			Intent inten = new Intent(mContext, NewActivitysActivity.class);
-			startActivity(inten);
-			// obtainActivities();
+			if (app.isLogin) {
+				Intent inten = new Intent(mContext, NewActivitysActivity.class);
+				startActivity(inten);
+			} else {
+				BaseUtils.toLogin(getActivity());
+			}
 			break;
 		case R.id.fragment_menu_signin_btn:
 			if (app.isLogin) {
@@ -346,28 +328,6 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 				// dialog.show();
 			}
 			break;
-		// case R.id.fragment_menu_search_coach_btn:
-		// if (app.isLogin) {
-		// intent = new Intent(mContext, SearchCoachActivity.class);
-		// mContext.startActivity(intent);
-		// } else {
-		// NoLoginDialog dialog = new NoLoginDialog(mContext);
-		// dialog.show();
-		// }
-		// break;
-		// 设置
-		// case R.id.fragment_menu_setting_btn:
-		//
-		// if (app.isLogin) {
-		// intent = new Intent(getActivity(), SettingActivity.class);
-		// startActivity(intent);
-		//
-		// } else {
-		// NoLoginDialog dialog = new NoLoginDialog(getActivity());
-		// dialog.show();
-		// }
-		//
-		// break;
 		case R.id.fragment_menu_setting_btn:
 			intent = new Intent(getActivity(), SettingActivity.class);
 			startActivity(intent);

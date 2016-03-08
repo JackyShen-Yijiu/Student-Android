@@ -2,12 +2,14 @@
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.    -->
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.        -->
+            backward-compatibility can go here.
+        -->
     </style>
 
     <!-- Application theme. -->
@@ -31,13 +33,14 @@
         <item name="android:layout_marginTop">@dimen/register_et_margintop</item>
         <item name="android:background">@drawable/register_et_bkground</item>
     </style>
-   <style name="register_et_testing_style" parent="registerlogin_et_style">
+
+    <style name="register_et_testing_style" parent="registerlogin_et_style">
         <item name="android:layout_width">230dp</item>
         <item name="android:layout_height">@dimen/register_et_height</item>
         <item name="android:layout_marginTop">@dimen/register_et_margintop</item>
         <item name="android:background">@drawable/register_et_bkground</item>
     </style>
-    
+
     <style name="register_password_et_style" parent="register_et_style">
         <item name="android:digits">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</item>
         <item name="android:inputType">textPassword</item>
@@ -86,8 +89,8 @@
         <item name="android:layout_weight">1</item>
         <item name="android:layout_height">@dimen/selectcoach_radiogroup_height</item>
     </style>
-    
-     <style name="title_school_coach_right">
+
+    <style name="title_school_coach_right">
         <item name="android:background">@drawable/selector_title_right</item>
         <item name="android:button">@null</item>
         <item name="android:gravity">center</item>
@@ -101,8 +104,8 @@
         <item name="android:paddingRight">10dp</item>
         <item name="android:layout_height">@dimen/selectcoach_radiogroup_height</item>
     </style>
-    
-     <style name="title_school_coach_left">
+
+    <style name="title_school_coach_left">
         <item name="android:background">@drawable/selector_title_left</item>
         <item name="android:button">@null</item>
         <item name="android:gravity">center</item>
@@ -169,16 +172,16 @@
         <item name="android:layout_height">50dp</item>
         <item name="android:background">@drawable/btn_bkground</item>
     </style>
-    
+
     <style name="btn_style_red">
         <item name="android:textSize">@dimen/txt_size_middle</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <!--<item name="android:textColor">@drawable/selector_red_gray</item>  -->
-        
+        <!-- <item name="android:textColor">@drawable/selector_red_gray</item> -->
+
         <item name="android:background">@drawable/selector_red_btn</item>
     </style>
-    
+
     <style name="btn_style_white">
         <item name="android:textColor">@color/app_main_color</item>
         <item name="android:textSize">16dp</item>
@@ -198,7 +201,7 @@
         <item name="android:listSelector">@android:color/transparent</item>
         <item name="android:numStars">5</item>
     </style>
-    
+
     <style name="roomRatingBar_28" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/ratingbar_bkground_28</item>
         <item name="android:layout_width">wrap_content</item>
@@ -234,7 +237,7 @@
         <item name="android:listSelector">@android:color/transparent</item>
         <item name="android:numStars">5</item>
     </style>
-    
+
     <style name="coachdetail_title_style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -256,7 +259,7 @@
         <item name="android:layout_marginLeft">65dp</item>
         <item name="android:background">#cccccc</item>
     </style>
-    
+
     <style name="coachdetail_devider_style1">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1px</item>
@@ -333,7 +336,7 @@
         <item name="android:drawablePadding">12dp</item>
         <item name="android:paddingLeft">15dp</item>
     </style>
-    
+
     <style name="text_black_title">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -341,7 +344,7 @@
         <item name="android:textSize">@dimen/txt_size_middle</item>
         <item name="android:gravity">center_vertical</item>
     </style>
-    
+
     <style name="text_gray_small">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -349,9 +352,9 @@
         <item name="android:textSize">@dimen/txt_size_small</item>
         <item name="android:gravity">center_vertical</item>
     </style>
-    
+
     <!-- 验证报名信息 -->
-     <style name="testing_person_center_text_style">
+    <style name="testing_person_center_text_style">
         <item name="android:layout_width">match_parent</item>
         <item name="android:paddingRight">15dp</item>
         <item name="android:layout_height">44dp</item>
@@ -383,13 +386,13 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:backgroundDimEnabled">true</item>
     </style>
-    
-     <style name="AnimBottom" parent="@android:style/Animation">
+
+    <style name="AnimBottom" parent="@android:style/Animation">
         <item name="android:windowEnterAnimation">@anim/push_bottom_in</item>
         <item name="android:windowExitAnimation">@anim/push_buttom_out</item>
     </style>
-    
-     <style name="chat_content_date_style">
+
+    <style name="chat_content_date_style">
         <item name="android:minHeight">50dp</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">#000000</item>
@@ -405,7 +408,7 @@
         <item name="android:textSize">15sp</item>
         <item name="android:gravity">center</item>
     </style>
-    
+
     <style name="chat_text_date_style">
         <item name="android:padding">2dp</item>
         <item name="android:paddingTop">2dip</item>
@@ -416,8 +419,8 @@
         <item name="android:textSize">12sp</item>
         <item name="android:background">@drawable/timestampe_bg</item>
     </style>
-    
-      <style name="left_item_menu_style">
+
+    <style name="left_item_menu_style">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center_vertical</item>
@@ -430,7 +433,8 @@
         <item name="android:textColor">#7b7b7b</item>
         <item name="android:textSize">14sp</item>
     </style>
-     <style name="MyDialogStyle">
+
+    <style name="MyDialogStyle">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowFrame">@null</item>
         <item name="android:windowNoTitle">true</item>
@@ -447,66 +451,74 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowContentOverlay">@null</item>
     </style>
+
     <style name="roomRatingBar" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/ratingbar_drawable</item>
         <item name="android:minHeight">23dp</item>
         <item name="android:maxHeight">23dp</item>
     </style>
-    
-    <style name="Theme.FloatActivity" parent="android:style/Theme.Dialog">  
-        <!-- float_box为我们定义的窗口背景-->  
-        <item name="android:windowBackground">@drawable/activities_bg</item>  
-    </style>  
-    
-      <style name="DialogViewTheme" parent="android:Theme.Dialog">
+
+    <style name="Theme.FloatActivity" parent="android:style/Theme.Dialog">
+
+        <!-- float_box为我们定义的窗口背景 -->
+        <item name="android:windowBackground">@drawable/activities_bg</item>
+    </style>
+
+    <style name="DialogViewTheme" parent="android:Theme.Dialog">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowNoTitle">true</item>
     </style>
-     
-      <style name="DialogViewAnimation" mce_bogus="1" parent="android:Animation">
+
+    <style name="DialogViewAnimation" mce_bogus="1" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/alpha_in</item>
         <item name="android:windowExitAnimation">@anim/alpha_out</item>
     </style>
-    <style name="Theme.BonueDialog" parent="android:style/Theme.Dialog">  
-        <!-- float_box为我们定义的窗口背景-->  
+
+    <style name="Theme.BonueDialog" parent="android:style/Theme.Dialog">
+
+        <!-- float_box为我们定义的窗口背景 -->
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsTranslucent">true</item>
-    </style>  
-    
+    </style>
+
     <!-- 以下为2.0版本 -->
-    
-     <style name="tab_indicator">
+
+    <style name="tab_indicator">
         <item name="android:textSize">10sp</item>
         <item name="android:singleLine">true</item>
         <item name="android:textColor">@drawable/sl_tab_indicator_title_textcolor</item>
-        
+
         <!-- 个人中心 -->
     </style>
-          <style name="person_center_name_tv1">
-              <item name="android:textSize">14sp</item>
-       		  <item name="android:textColor">#7c7c7c</item>
-        	  <item name="android:layout_marginLeft">14dp</item>
-              <item name="android:layout_alignParentLeft">true</item>
-              <item name="android:layout_height">wrap_content</item>
-              <item name="android:layout_width">wrap_content</item>
-              </style>
-                  <style name="person_center_name_tv2">
-              <item name="android:textSize">12sp</item>
-       		  <item name="android:textColor">#bbbbbb</item>
-        	  <item name="android:layout_marginRight">14dp</item>
-              <item name="android:layout_alignParentRight">true</item>
-              <item name="android:layout_height">wrap_content</item>
-              <item name="android:layout_width">wrap_content</item>
-              
+
+    <style name="person_center_name_tv1">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#7c7c7c</item>
+        <item name="android:layout_marginLeft">14dp</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
     </style>
-     
-     
-     
-     
-     
-     
-     
-     
-     
+
+    <style name="person_center_name_tv2">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">#bbbbbb</item>
+        <item name="android:layout_marginRight">14dp</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="AnimActivityTheme">
+        <item name="android:windowAnimationStyle">@style/FeelyouWindowAnimTheme</item>
+    </style>
+
+    <style name="FeelyouWindowAnimTheme" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/in_from_left</item>
+        <item name="android:activityOpenExitAnimation">@anim/out_from_right</item>
+        <item name="android:activityCloseEnterAnimation">@anim/in_from_right</item>
+        <item name="android:activityCloseExitAnimation">@anim/out_from_left</item>
+    </style>
+
 </resources>
