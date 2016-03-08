@@ -24,10 +24,10 @@ import com.sft.listener.AdapterRefreshListener;
 /**
  * 我的订单 -- 报名订单\兑换商品订单
  * 
- * @author sun  2016-2-25 下午4:44:21
- *
+ * @author sun 2016-2-25 下午4:44:21
+ * 
  */
-public class MyOrderAct extends BaseActivity{
+public class MyOrderAct extends BaseActivity {
 
 	//
 	private ViewPager viewPager;
@@ -42,7 +42,7 @@ public class MyOrderAct extends BaseActivity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		addView(R.layout.activity_select_coach);
+		setContentView(R.layout.activity_select_coach);
 		initView();
 		initData(savedInstanceState);
 		setListener();
@@ -83,10 +83,10 @@ public class MyOrderAct extends BaseActivity{
 		Intent i2 = new Intent(this, OrderExchangeGoodAct.class);
 
 		List<View> listViews = new ArrayList<View>(); // 实例化listViews
-		listViews.add(activityManager.startActivity("OrderApplyAct",
-				i1).getDecorView());
-		listViews.add(activityManager.startActivity("OrderExchangeGoodAct",
-				i2).getDecorView());
+		listViews.add(activityManager.startActivity("OrderApplyAct", i1)
+				.getDecorView());
+		listViews.add(activityManager.startActivity("OrderExchangeGoodAct", i2)
+				.getDecorView());
 
 		viewPager.setAdapter(new MyPageAdapter(listViews));
 	}
@@ -260,5 +260,4 @@ public class MyOrderAct extends BaseActivity{
 		}
 	}
 
-	
 }

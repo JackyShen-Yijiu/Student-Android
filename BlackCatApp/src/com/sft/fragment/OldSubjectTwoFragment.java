@@ -2,7 +2,6 @@ package com.sft.fragment;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.LogRecord;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,21 +14,21 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
+import com.jzjf.app.R;
 import com.sft.blackcatapp.ApplyActivity;
 import com.sft.blackcatapp.AppointmentCarActivity;
 import com.sft.blackcatapp.CourseActivity;
 import com.sft.blackcatapp.MyAppointmentActivity;
-import com.jzjf.app.R;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
 import com.sft.common.Config.SubjectStatu;
-import com.sft.dialog.NoLoginDialog;
+import com.sft.util.BaseUtils;
 import com.sft.util.JSONUtil;
-import com.sft.util.LogUtil;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.UserBaseStateVO;
 
-public class OldSubjectTwoFragment extends BaseFragment implements OnClickListener {
+public class OldSubjectTwoFragment extends BaseFragment implements
+		OnClickListener {
 
 	private static final String checkEnrollState_my = "checkEnrollStatemy";
 	private static final String checkEnrollState_car = "checkEnrollStatecar";
@@ -73,8 +72,9 @@ public class OldSubjectTwoFragment extends BaseFragment implements OnClickListen
 	@Override
 	public void onClick(View v) {
 		if (!app.isLogin) {
-			NoLoginDialog dialog = new NoLoginDialog(mContext);
-			dialog.show();
+			BaseUtils.toLogin(getActivity());
+			// NoLoginDialog dialog = new NoLoginDialog(mContext);
+			// dialog.show();
 			return;
 		}
 		Intent intent = null;
@@ -129,7 +129,7 @@ public class OldSubjectTwoFragment extends BaseFragment implements OnClickListen
 					"您已报名，请等待驾校审核");
 			return;
 		}
-//		LogUtil.print("subjectid--->"+app.userVO.getSubject().getSubjectid());
+		// LogUtil.print("subjectid--->"+app.userVO.getSubject().getSubjectid());
 		if (type.equals(checkEnrollState_my)) {
 			Intent intent = new Intent(mContext, MyAppointmentActivity.class);
 			intent.putExtra("subject", "2");

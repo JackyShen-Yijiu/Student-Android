@@ -36,6 +36,8 @@ public class FindPasswordActivity extends BaseActivity implements
 	private Button nextBtn;
 	private ImageView show_password;
 
+	private String phone;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -51,7 +53,7 @@ public class FindPasswordActivity extends BaseActivity implements
 
 	private void initView() {
 		setTitleText(R.string.find_password);
-
+		phone = getIntent().getStringExtra("phone");
 		show_password = (ImageView) findViewById(R.id.show_password);
 		nextBtn = (Button) findViewById(R.id.findpass_finish_btn);
 		passwordEt = (EditText) findViewById(R.id.findpass_password_et);
@@ -70,6 +72,7 @@ public class FindPasswordActivity extends BaseActivity implements
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("password", util.MD5(passwordEt.getText().toString()));
 		paramMap.put("usertype", "1");
+		paramMap.put("mobile", phone);
 
 		HttpSendUtils.httpPostSend(changepassword, this, Config.IP
 				+ "api/v1/userinfo/updatepwd", paramMap);
@@ -93,9 +96,10 @@ public class FindPasswordActivity extends BaseActivity implements
 			if (dataString != null && result.equals("1")) {
 				ZProgressHUD.getInstance(this).show();
 				ZProgressHUD.getInstance(this).dismissWithSuccess("修改成功");
-				new MyHandler(1000) {
+				new MyHandler(200) {
 					@Override
 					public void run() {
+						setResult(9);
 						finish();
 					}
 				};

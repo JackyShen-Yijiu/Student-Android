@@ -4,7 +4,7 @@
     android:layout_height="fill_parent"
     android:clipToPadding="true"
    	android:fitsSystemWindows="true"
-   	android:background="@color/new_app_main_color"
+   	android:background="#a7342a"
     android:id="@+id/base_all"
      >
      <include layout="@layout/title"></include>

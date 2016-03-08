@@ -302,7 +302,7 @@
     <string name="tab_indicator_title_mall">商城</string>
     <string name="tab_indicator_title_community">社区</string>
     <string name="change_coach">换教练</string>
-    <string name="add_coach">添加教练</string>
+    <string name="add_coach">立即预约</string>
     <string name="driving_school">驾校</string>
     <string name="locationing">定位中</string>
     <string name="no_appointment_coach_error_info">没有找到您的预约信息，点击右上角添加教练\n开始您愉快的学车之旅吧</string>

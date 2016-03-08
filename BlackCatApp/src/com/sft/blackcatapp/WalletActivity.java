@@ -20,8 +20,8 @@ import android.widget.TextView;
 import cn.sft.infinitescrollviewpager.MyHandler;
 
 import com.jzjf.app.R;
-import com.sft.dialog.NoLoginDialog;
 import com.sft.listener.AdapterRefreshListener;
+import com.sft.util.BaseUtils;
 
 @SuppressWarnings("deprecation")
 public class WalletActivity extends BaseActivity {
@@ -82,8 +82,9 @@ public class WalletActivity extends BaseActivity {
 		tv_code = (TextView) findViewById(R.id.tv_code);
 
 		if (!app.isLogin) {
-			NoLoginDialog dialog = new NoLoginDialog(WalletActivity.this);
-			dialog.show();
+			BaseUtils.toLogin(WalletActivity.this);
+			// NoLoginDialog dialog = new NoLoginDialog(WalletActivity.this);
+			// dialog.show();
 			return;
 		}
 

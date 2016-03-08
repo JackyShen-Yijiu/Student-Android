@@ -54,7 +54,6 @@ import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
 import com.sft.dialog.EnrollSelectConfilctDialog;
 import com.sft.dialog.EnrollSelectConfilctDialog.OnSelectConfirmListener;
-import com.sft.dialog.NoLoginDialog;
 import com.sft.fragment.MenuFragment;
 import com.sft.util.BaseUtils;
 import com.sft.util.JSONUtil;
@@ -204,11 +203,11 @@ public class CoachDetailActivity extends BaseActivity implements
 		} else {
 			enrollState = EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue();
 		}
-		if(app.isLogin)
+		if (app.isLogin)
 			obtainOffLineApplySuccessInfo();
 		super.onResume();
 	}
-	
+
 	/**
 	 * 线下报名的 状态
 	 */
@@ -552,9 +551,12 @@ public class CoachDetailActivity extends BaseActivity implements
 			Intent intent = null;
 			// 未登录
 			if (!app.isLogin) {
-				NoLoginDialog dialog = new NoLoginDialog(
-						CoachDetailActivity.this);
-				dialog.show();
+
+				BaseUtils.toLogin(CoachDetailActivity.this);
+
+				// NoLoginDialog dialog = new NoLoginDialog(
+				// CoachDetailActivity.this);
+				// dialog.show();
 				return;
 			}
 
@@ -909,18 +911,16 @@ public class CoachDetailActivity extends BaseActivity implements
 						.putExtra("isRefresh", true).putExtra("activityName",
 								FavouriteCoachActivity.class.getName()));
 			}
-		}else if(type.equals("applySchoolInfor")){
+		} else if (type.equals("applySchoolInfor")) {
 			if (data != null) {
 				SuccessVO offlineVO;
 				try {
-					offlineVO = JSONUtil.toJavaBean(SuccessVO.class,
-							data);
+					offlineVO = JSONUtil.toJavaBean(SuccessVO.class, data);
 					app.userVO.setPayState(offlineVO.paytypestatus);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				
-				
+
 			}
 		}
 		return true;
@@ -945,9 +945,9 @@ public class CoachDetailActivity extends BaseActivity implements
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 		if (!app.isLogin) {
-			NoLoginDialog dialog = new NoLoginDialog(CoachDetailActivity.this);
-			dialog.show();
 			collectCk.setChecked(false);
+			BaseUtils.toLogin(CoachDetailActivity.this);
+
 			return;
 		}
 		// if(!app.isLogin)
@@ -1128,7 +1128,6 @@ public class CoachDetailActivity extends BaseActivity implements
 				coachNameTv.setVisibility(View.INVISIBLE);
 				tvTitle.setText(coachVO.getName());
 				viewStatus.setVisibility(View.VISIBLE);
-				
 
 				viewStatus.startAnimation(alphaIn);
 

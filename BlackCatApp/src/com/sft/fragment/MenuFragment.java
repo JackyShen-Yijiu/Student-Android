@@ -39,10 +39,10 @@ import com.sft.blackcatapp.ActivitiesActivity;
 import com.sft.blackcatapp.ConsultationlActivity;
 import com.sft.blackcatapp.EnrollSchoolActivity1;
 import com.sft.blackcatapp.MessageActivity;
-import com.sft.blackcatapp.MyOrderAct;
 import com.sft.blackcatapp.NewActivitysActivity;
 import com.sft.blackcatapp.NewComplaintActivity;
 import com.sft.blackcatapp.NewPersonCenterAct;
+import com.sft.blackcatapp.OrderExchangeGoodAct;
 import com.sft.blackcatapp.SchoolBusRouteActivity;
 import com.sft.blackcatapp.SettingActivity;
 import com.sft.blackcatapp.TodaysAppointmentActivity;
@@ -51,6 +51,7 @@ import com.sft.common.BlackCatApplication;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
 import com.sft.dialog.NoLoginDialog;
+import com.sft.util.BaseUtils;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
 import com.sft.viewutil.ZProgressHUD;
@@ -297,74 +298,36 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 				dialog.show();
 			}
 			break;
-		// case R.id.left_tv_map:
-		// obtainOpenCity();
-		// break;
-
-		// case R.id.fragment_menu_home_btn:
-		// ((MainActivity) mContext).changeMenu();
-		// break;
-		// case R.id.fragment_menu_driving_school_btn:// 报名
-		// obtainlocationShowType();
-		//
-		// break;
+		// 我的消息
 		case R.id.fragment_menu_message_btn:
 			if (app.isLogin) {
 				intent = new Intent(mContext, MessageActivity.class);
 				mContext.startActivity(intent);
 			} else {
-				NoLoginDialog dialog = new NoLoginDialog(mContext);
-				dialog.show();
+				BaseUtils.toLogin(getActivity());
+				// NoLoginDialog dialog = new NoLoginDialog(mContext);
+				// dialog.show();
 			}
 			break;
-		// case R.id.fragment_menu_mall_btn:
-		// // ZProgressHUD.getInstance(mContext).show();
-		// // ZProgressHUD.getInstance(mContext).dismissWithFailure("敬请期待！");
-		// // 进入积分商城
-		// intent = new Intent(mContext, MallActivity.class);
-		// intent.putExtra("moneytype",
-		// Config.MoneyType.INTEGRAL_RETURN.getValue());
-		// startActivity(intent);
-		// break;
 		// 活动
 		case R.id.fragment_menu_activity_btn:
-			// ZProgressHUD.getInstance(mContext).show();
-			// ZProgressHUD.getInstance(mContext).dismissWithFailure("敬请期待！");
-			Intent inten = new Intent(mContext, NewActivitysActivity.class);
-			startActivity(inten);
-			// obtainActivities();
+			if (app.isLogin) {
+				Intent inten = new Intent(mContext, NewActivitysActivity.class);
+				startActivity(inten);
+			} else {
+				BaseUtils.toLogin(getActivity());
+			}
 			break;
 		case R.id.fragment_menu_signin_btn:
 			if (app.isLogin) {
 				intent = new Intent(mContext, TodaysAppointmentActivity.class);
 				mContext.startActivity(intent);
 			} else {
-				NoLoginDialog dialog = new NoLoginDialog(mContext);
-				dialog.show();
+				BaseUtils.toLogin(getActivity());
+				// NoLoginDialog dialog = new NoLoginDialog(mContext);
+				// dialog.show();
 			}
 			break;
-		// case R.id.fragment_menu_search_coach_btn:
-		// if (app.isLogin) {
-		// intent = new Intent(mContext, SearchCoachActivity.class);
-		// mContext.startActivity(intent);
-		// } else {
-		// NoLoginDialog dialog = new NoLoginDialog(mContext);
-		// dialog.show();
-		// }
-		// break;
-		// 设置
-		// case R.id.fragment_menu_setting_btn:
-		//
-		// if (app.isLogin) {
-		// intent = new Intent(getActivity(), SettingActivity.class);
-		// startActivity(intent);
-		//
-		// } else {
-		// NoLoginDialog dialog = new NoLoginDialog(getActivity());
-		// dialog.show();
-		// }
-		//
-		// break;
 		case R.id.fragment_menu_setting_btn:
 			intent = new Intent(getActivity(), SettingActivity.class);
 			startActivity(intent);
@@ -376,8 +339,9 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 				intent = new Intent(getActivity(), WalletActivity.class);
 				startActivity(intent);
 			} else {
-				NoLoginDialog dialog = new NoLoginDialog(mContext);
-				dialog.show();
+				BaseUtils.toLogin(getActivity());
+				// NoLoginDialog dialog = new NoLoginDialog(mContext);
+				// dialog.show();
 			}
 			break;
 
@@ -396,18 +360,20 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 							"请等待审核");
 				}
 			} else {
-				NoLoginDialog dialog = new NoLoginDialog(getActivity());
-				dialog.show();
+				BaseUtils.toLogin(getActivity());
+				// NoLoginDialog dialog = new NoLoginDialog(getActivity());
+				// dialog.show();
 			}
 			break;
 		case R.id.fragment_menu_myindent_btn:
 			// 我的订单
 			if (app.isLogin) {
-				startActivityForResult(new Intent(mContext, MyOrderAct.class),
-						9);
+				startActivityForResult(new Intent(mContext,
+						OrderExchangeGoodAct.class), 9);
 			} else {
-				NoLoginDialog dialog = new NoLoginDialog(getActivity());
-				dialog.show();
+				BaseUtils.toLogin(getActivity());
+				// NoLoginDialog dialog = new NoLoginDialog(getActivity());
+				// dialog.show();
 			}
 			break;
 
@@ -425,9 +391,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 						.getId());
 				mContext.startActivity(intent);
 			} else {
-				ZProgressHUD.getInstance(mContext).show();
-				ZProgressHUD.getInstance(mContext).dismissWithSuccess(
-						"您还未报名，不能查看班车信息");
+				BaseUtils.toLogin(getActivity());
 			}
 			break;
 		default:

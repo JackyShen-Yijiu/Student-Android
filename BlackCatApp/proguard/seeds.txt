@@ -26298,6 +26298,13 @@ com.sft.blackcatapp.ConfirmOrderActivity: void onClick(android.view.View)
 com.sft.blackcatapp.ConfirmStudyActivity
 com.sft.blackcatapp.ConfirmStudyActivity: ConfirmStudyActivity()
 com.sft.blackcatapp.ConfirmStudyActivity: void onClick(android.view.View)
+com.sft.blackcatapp.ConsultationAskActivity
+com.sft.blackcatapp.ConsultationAskActivity: ConsultationAskActivity()
+com.sft.blackcatapp.ConsultationAskActivity: void onClick(android.view.View)
+com.sft.blackcatapp.ConsultationlActivity
+com.sft.blackcatapp.ConsultationlActivity: ConsultationlActivity()
+com.sft.blackcatapp.ConsultationlActivity: void onClick(android.view.View)
+com.sft.blackcatapp.ConsultationlActivity$4: void onClick(android.view.View)
 com.sft.blackcatapp.CourseActivity
 com.sft.blackcatapp.CourseActivity: CourseActivity()
 com.sft.blackcatapp.CourseActivity: void onClick(android.view.View)
@@ -26347,6 +26354,9 @@ com.sft.blackcatapp.FavouriteCoachActivity: void onClick(android.view.View)
 com.sft.blackcatapp.FavouriteSchoolActivity
 com.sft.blackcatapp.FavouriteSchoolActivity: FavouriteSchoolActivity()
 com.sft.blackcatapp.FavouriteSchoolActivity: void onClick(android.view.View)
+com.sft.blackcatapp.FindPasswordAct
+com.sft.blackcatapp.FindPasswordAct: FindPasswordAct()
+com.sft.blackcatapp.FindPasswordAct: void onClick(android.view.View)
 com.sft.blackcatapp.FindPasswordActivity
 com.sft.blackcatapp.FindPasswordActivity: FindPasswordActivity()
 com.sft.blackcatapp.FindPasswordActivity: void onClick(android.view.View)
@@ -26418,6 +26428,10 @@ com.sft.blackcatapp.NewCropImageActivity: void onClick(android.view.View)
 com.sft.blackcatapp.NewEditPersonInfo
 com.sft.blackcatapp.NewEditPersonInfo: NewEditPersonInfo()
 com.sft.blackcatapp.NewEditPersonInfo: void onClick(android.view.View)
+com.sft.blackcatapp.NewPersonCenterAct
+com.sft.blackcatapp.NewPersonCenterAct: NewPersonCenterAct()
+com.sft.blackcatapp.NewPersonCenterAct: void onClick(android.view.View)
+com.sft.blackcatapp.NewPersonCenterAct$1: void onClick(android.content.DialogInterface,int)
 com.sft.blackcatapp.OldAppointmentCarActivity: void onClick(android.view.View)
 com.sft.blackcatapp.OrderApplyAct
 com.sft.blackcatapp.OrderApplyAct: OrderApplyAct()
@@ -26428,6 +26442,7 @@ com.sft.blackcatapp.OrderDetailActivity: void onClick(android.view.View)
 com.sft.blackcatapp.OrderDetailActivity: void pay()
 com.sft.blackcatapp.OrderExchangeGoodAct
 com.sft.blackcatapp.OrderExchangeGoodAct: OrderExchangeGoodAct()
+com.sft.blackcatapp.OrderExchangeGoodAct: void onClick(android.view.View)
 com.sft.blackcatapp.PersonCenterActivity
 com.sft.blackcatapp.PersonCenterActivity: PersonCenterActivity()
 com.sft.blackcatapp.PersonCenterActivity: void onClick(android.view.View)
@@ -26449,6 +26464,9 @@ com.sft.blackcatapp.QuestionActivity: void onClick(android.view.View)
 com.sft.blackcatapp.RegisterActivity
 com.sft.blackcatapp.RegisterActivity: RegisterActivity()
 com.sft.blackcatapp.RegisterActivity: void onClick(android.view.View)
+com.sft.blackcatapp.RegisterNextActivity
+com.sft.blackcatapp.RegisterNextActivity: RegisterNextActivity()
+com.sft.blackcatapp.RegisterNextActivity: void onClick(android.view.View)
 com.sft.blackcatapp.SchoolAllCoachActivity
 com.sft.blackcatapp.SchoolAllCoachActivity: SchoolAllCoachActivity()
 com.sft.blackcatapp.SchoolAllCoachActivity: void onClick(android.view.View)
@@ -27175,6 +27193,31 @@ com.sft.vo.ComplaintVO: java.lang.String reason
 com.sft.vo.ComplaintVO: java.lang.String complainttime
 com.sft.vo.ComplaintVO: java.lang.String complaintcontent
 com.sft.vo.ComplaintVO: ComplaintVO()
+com.sft.vo.ConsultationVO
+com.sft.vo.ConsultationVO: java.lang.String ENROLL_USER_SELECTED
+com.sft.vo.ConsultationVO: java.lang.String APPOINTMENT_COACH
+com.sft.vo.ConsultationVO: java.lang.String replyuser
+com.sft.vo.ConsultationVO: java.lang.String createtime
+com.sft.vo.ConsultationVO: java.lang.String replytime
+com.sft.vo.ConsultationVO: java.lang.String replycontent
+com.sft.vo.ConsultationVO: java.lang.String _id
+com.sft.vo.ConsultationVO: java.lang.String content
+com.sft.vo.ConsultationVO: com.sft.vo.commentvo.CommentUser userid
+com.sft.vo.ConsultationVO: ConsultationVO()
+com.sft.vo.ConsultationVO: java.lang.String getReplyuser()
+com.sft.vo.ConsultationVO: void setReplyuser(java.lang.String)
+com.sft.vo.ConsultationVO: java.lang.String getCreatetime()
+com.sft.vo.ConsultationVO: void setCreatetime(java.lang.String)
+com.sft.vo.ConsultationVO: java.lang.String getReplytime()
+com.sft.vo.ConsultationVO: void setReplytime(java.lang.String)
+com.sft.vo.ConsultationVO: java.lang.String getReplycontent()
+com.sft.vo.ConsultationVO: void setReplycontent(java.lang.String)
+com.sft.vo.ConsultationVO: java.lang.String get_id()
+com.sft.vo.ConsultationVO: void set_id(java.lang.String)
+com.sft.vo.ConsultationVO: java.lang.String getContent()
+com.sft.vo.ConsultationVO: void setContent(java.lang.String)
+com.sft.vo.ConsultationVO: com.sft.vo.commentvo.CommentUser getUserid()
+com.sft.vo.ConsultationVO: void setUserid(com.sft.vo.commentvo.CommentUser)
 com.sft.vo.EnrollVertifyVO
 com.sft.vo.EnrollVertifyVO: long serialVersionUID
 com.sft.vo.EnrollVertifyVO: java.lang.String studentNumber
@@ -27839,7 +27882,10 @@ com.sft.vo.UserVO: com.sft.vo.uservo.StudentSubject subjectthree
 com.sft.vo.UserVO: com.sft.vo.uservo.UserSettingVO usersetting
 com.sft.vo.UserVO: java.util.List vipserverlist
 com.sft.vo.UserVO: com.sft.vo.PayOrderVO payOrderVO
+com.sft.vo.UserVO: int payState
 com.sft.vo.UserVO: UserVO()
+com.sft.vo.UserVO: int getPayState()
+com.sft.vo.UserVO: void setPayState(int)
 com.sft.vo.UserVO: void setHeadPortrait(com.sft.vo.commonvo.HeadPortrait)
 com.sft.vo.UserVO: com.sft.vo.commonvo.HeadPortrait getHeadportrait()
 com.sft.vo.UserVO: com.sft.vo.commonvo.CarModel getCarmodel()

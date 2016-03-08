@@ -66,7 +66,6 @@ import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.ClassVO;
 import com.sft.vo.CoachVO;
 import com.sft.vo.HeadLineNewsVO;
-import com.sft.vo.PayOrderVO;
 import com.sft.vo.SchoolVO;
 import com.sft.vo.SuccessVO;
 
@@ -158,13 +157,14 @@ public class SchoolDetailActivity extends BaseActivity implements
 	private View viewTopStatic;
 	private View titleLayout;
 	private int hegiht;
-	/**暂无训练场 照片*/
+	/** 暂无训练场 照片 */
 	private TextView tvNoPic;
 	private View viewStatus;
-	
+
 	private SuccessVO offlineVO;
 
-	@TargetApi(Build.VERSION_CODES.KITKAT) @Override
+	@TargetApi(Build.VERSION_CODES.KITKAT)
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 			// 透明状态栏
@@ -195,7 +195,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 		HttpSendUtils.httpGetSend(headLineNews, this, Config.IP
 				+ "api/v1/info/headlinenews");
 	}
-	
+
 	/**
 	 * 线下报名的 状态
 	 */
@@ -215,8 +215,8 @@ public class SchoolDetailActivity extends BaseActivity implements
 	@Override
 	protected void onResume() {
 		register(getClass().getName());
-//		LogUtil.print("state——--》"+app.userVO);
-//		app.userVO.
+		// LogUtil.print("state——--》"+app.userVO);
+		// app.userVO.
 		if (app.userVO == null
 				|| app.userVO.getApplystate().equals(
 						EnrollResult.SUBJECT_NONE.getValue())) {
@@ -227,19 +227,19 @@ public class SchoolDetailActivity extends BaseActivity implements
 		} else {
 			enrollState = EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue();
 		}
-		if(app.isLogin)
+		if (app.isLogin)
 			obtainOffLineApplySuccessInfo();
 		super.onResume();
 	};
 
 	private void initTitle() {
-		
+
 		viewStatus = (View) findViewById(R.id.act_school_detail_status);
-		
+
 		titleLayout = (View) findViewById(R.id.base_titlebar_layout_bg);
 
 		ImageButton bus = (ImageButton) findViewById(R.id.base_right_btn2);
-		
+
 		ImageButton left = (ImageButton) findViewById(R.id.base_left_btn);
 		ImageButton phone = (ImageButton) findViewById(R.id.base_right_btn);
 		titleTV = (TextView) findViewById(R.id.base_title_tv);
@@ -251,8 +251,6 @@ public class SchoolDetailActivity extends BaseActivity implements
 		left.setBackgroundResource(R.drawable.base_left_btn_bkground);
 		phone.setImageResource(R.drawable.phone_white_icon);
 		bus.setVisibility(View.VISIBLE);
-		
-
 
 		phone.setOnClickListener(this);
 		left.setOnClickListener(this);
@@ -592,7 +590,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 					obtainHeadLineNews();
 					setData();
 					obtainEnrollClass();
-					
+
 				}
 			} else if (type.equals(coach)) {
 				if (dataArray != null) {
@@ -677,15 +675,14 @@ public class SchoolDetailActivity extends BaseActivity implements
 					// sv_container.smoothScrollTo(0, 0);
 				}
 
-			}else if(type.equals("applySchoolInfor")){//存在未完成订单
-				LogUtil.print("applySchoolinfor-->"+jsonString);
+			} else if (type.equals("applySchoolInfor")) {// 存在未完成订单
+				LogUtil.print("applySchoolinfor-->" + jsonString);
 				if (data != null) {
-					offlineVO = JSONUtil.toJavaBean(SuccessVO.class,
-							data);
+					offlineVO = JSONUtil.toJavaBean(SuccessVO.class, data);
 					app.userVO.setPayState(offlineVO.paytypestatus);
-					
-//					offlineVO.applystate
-//					setOffLine(offlineVO);
+
+					// offlineVO.applystate
+					// setOffLine(offlineVO);
 				}
 			}
 		} catch (Exception e) {
@@ -871,8 +868,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 		if (!app.isLogin) {
-			NoLoginDialog dialog = new NoLoginDialog(
-					SchoolDetailActivity.this);
+			NoLoginDialog dialog = new NoLoginDialog(SchoolDetailActivity.this);
 			dialog.show();
 			addDeleteSchoolCk.setChecked(false);
 			return;
@@ -985,50 +981,50 @@ public class SchoolDetailActivity extends BaseActivity implements
 					SearchCoachActivity.from_searchCoach_enroll, false);
 			Intent intent = null;
 			if (!app.isLogin) {
-				NoLoginDialog dialog = new NoLoginDialog(
-						SchoolDetailActivity.this);
-				dialog.show();
+				BaseUtils.toLogin(SchoolDetailActivity.this);
+				// NoLoginDialog dialog = new NoLoginDialog(
+				// SchoolDetailActivity.this);
+				// dialog.show();
 				return;
 			}
-			if(app.userVO.getPayState() == 0 || app.userVO.getPayState() == 30){//未支付，，支付失败
+			if (app.userVO.getPayState() == 0 || app.userVO.getPayState() == 30) {// 未支付，，支付失败
 				toPay(position);
-			}else{//支付成功
-				 if (app.userVO.getApplystate().equals(
-							EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue())) {
-						intent = new Intent(SchoolDetailActivity.this,
-								AppointmentCarActivity.class);
-						startActivity(intent);
-					} else if (app.userVO.getApplystate().equals(
-							EnrollResult.SUBJECT_ENROLLING.getValue())) {
-						ZProgressHUD.getInstance(SchoolDetailActivity.this).show();
-						ZProgressHUD.getInstance(SchoolDetailActivity.this)
-								.dismissWithFailure("正在报名中，请等待审核");
-					}
+			} else {// 支付成功
+				if (app.userVO.getApplystate().equals(
+						EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue())) {
+					intent = new Intent(SchoolDetailActivity.this,
+							AppointmentCarActivity.class);
+					startActivity(intent);
+				} else if (app.userVO.getApplystate().equals(
+						EnrollResult.SUBJECT_ENROLLING.getValue())) {
+					ZProgressHUD.getInstance(SchoolDetailActivity.this).show();
+					ZProgressHUD.getInstance(SchoolDetailActivity.this)
+							.dismissWithFailure("正在报名中，请等待审核");
+				}
 			}
-			
-//			if (app.userVO.getApplystate().equals(
-//					EnrollResult.SUBJECT_NONE.getValue())) {
-//				toPay(position);
-//			} else if (app.userVO.getApplystate().equals(
-//					EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue())) {
-//				intent = new Intent(SchoolDetailActivity.this,
-//						AppointmentCarActivity.class);
-//				startActivity(intent);
-//			} else if (app.userVO.getApplystate().equals(
-//					EnrollResult.SUBJECT_ENROLLING.getValue())) {
-//				ZProgressHUD.getInstance(SchoolDetailActivity.this).show();
-//				ZProgressHUD.getInstance(SchoolDetailActivity.this)
-//						.dismissWithFailure("正在报名中，请等待审核");
-//			}
-			
-			
+
+			// if (app.userVO.getApplystate().equals(
+			// EnrollResult.SUBJECT_NONE.getValue())) {
+			// toPay(position);
+			// } else if (app.userVO.getApplystate().equals(
+			// EnrollResult.SUBJECT_ENROLL_SUCCESS.getValue())) {
+			// intent = new Intent(SchoolDetailActivity.this,
+			// AppointmentCarActivity.class);
+			// startActivity(intent);
+			// } else if (app.userVO.getApplystate().equals(
+			// EnrollResult.SUBJECT_ENROLLING.getValue())) {
+			// ZProgressHUD.getInstance(SchoolDetailActivity.this).show();
+			// ZProgressHUD.getInstance(SchoolDetailActivity.this)
+			// .dismissWithFailure("正在报名中，请等待审核");
+			// }
+
 		}
 
 	};
 
 	private void toPay(int po) {
 		ClassVO classe = courseFeeAdapter.getItem(po);
-		LogUtil.print("initdata-->"+app.userVO);
+		LogUtil.print("initdata-->" + app.userVO);
 		Intent i = new Intent(SchoolDetailActivity.this, ApplyActivity.class);
 		i.putExtra("school", school);
 		i.putExtra("schoolId", school.getSchoolid());
@@ -1082,7 +1078,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 			topStatic = viewTopStatic.getY() + viewTopStatic.getHeight();
 			topTab = radioGroupTop.getY();
 		} else if (topStatic < y) {// 刚进入 状态
-			
+
 			if (viewTop.getVisibility() != View.GONE) {
 				viewTop.setVisibility(View.GONE);
 				titleLayout.setBackgroundResource(android.R.color.transparent);
@@ -1090,7 +1086,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 				schoolNameTv.setVisibility(View.VISIBLE);
 				titleTV.setText("");
 				viewStatus.setVisibility(View.GONE);
-				
+
 				titleLayout.startAnimation(alphaOut);
 				viewTop.startAnimation(alphaOut);
 				viewStatus.startAnimation(alphaOut);
@@ -1102,7 +1098,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 			LogUtil.print(topTab + "yyyyyyy" + y1 + "TextViewHeight::::>>"
 					+ noCoahTv.getHeight());
 		} else if (topStatic > y || topStatic == y) {// 已经滑动很多，
-			
+
 			if (viewTop.getVisibility() != View.VISIBLE) {
 				viewTop.setVisibility(View.VISIBLE);
 				titleLayout.setBackgroundResource(R.color.new_app_main_color);

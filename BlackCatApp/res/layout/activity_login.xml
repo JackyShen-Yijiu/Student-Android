@@ -12,20 +12,6 @@
         android:layout_marginTop="240dp"
         android:layout_below="@+id/login_logo_iv"
         android:orientation="horizontal">
-       <!--      <EditText
-                android:id="@+id/login_phone_et"
-                android:layout_width="0dp"
-				android:layout_weight="1"
-                android:layout_height="@dimen/login_et_height"
-                android:background="@null"
-                android:hint="请输入手机号/昵称"
-                android:textColorHint="#d2d2d2"
-                android:drawableLeft="@drawable/login_phone"
-                android:drawablePadding="15dp"
-                android:layout_marginLeft="19dp"
-                android:inputType="phone"
-                android:maxLength="11"
-                android:textColor="#212121" /> -->
              <EditText
             android:id="@+id/login_phone_et"
             style="@style/register_et_style"

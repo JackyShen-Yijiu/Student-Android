@@ -27,7 +27,7 @@
             android:hint="请输入手机号"
             android:inputType="phone"
             android:maxLength="11"
-            android:textColorHint="#d2d2d2"
+             android:textColorHint="#d2d2d2"
             android:textColor="@color/text_color_dark"
             android:textSize="14sp" />
 
