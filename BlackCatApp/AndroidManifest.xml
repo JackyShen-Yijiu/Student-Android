@@ -227,6 +227,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.sft.blackcatapp.AppointmentDetailActivity"
+            
             android:screenOrientation="portrait" />
         <activity
             android:name="com.sft.blackcatapp.ComplainActivity"
