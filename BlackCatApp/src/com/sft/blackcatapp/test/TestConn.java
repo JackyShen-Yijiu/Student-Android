@@ -22,6 +22,18 @@ public class TestConn {
 	public void test(){
 		
 	}
+//	http://www.8264.com/member.php?mod=logging&action=login
+//	member.php?mod=logging&action=login&loginsubmit=yes&loginhash=LC1r7
+	
+//	formhash  
+//	referer       http://www.8264.com/
+	
+//	username_LC1r7
+	
+//	password3_LC1r7
+	
+//	_loginsubmit   ""
+	
 	
 	private static final String charsetName = "UTF-8";
 	private static final String UA = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.152 Safari/537.36";
@@ -120,7 +132,7 @@ public class TestConn {
 			httpURLConnection.setRequestProperty("Content-Type",
 					"application/x-www-form-urlencoded");
 			
-//			httpURLConnection.get
+//			httpURLConnection.getres
 			inputStream = httpURLConnection.getInputStream();
 			inputStreamReader = new InputStreamReader(inputStream);
 			bufferedReader = new BufferedReader(inputStreamReader);

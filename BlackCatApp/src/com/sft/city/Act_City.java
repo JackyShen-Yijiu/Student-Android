@@ -18,7 +18,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
-import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -47,8 +47,8 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
-import com.sft.blackcatapp.BaseActivity;
 import com.jzjf.app.R;
+import com.sft.blackcatapp.BaseActivity;
 import com.sft.city.MyLetterListView.OnTouchingLetterChangedListener;
 import com.sft.common.Config;
 import com.sft.util.CommonUtil;
@@ -945,7 +945,11 @@ public class Act_City extends BaseActivity implements OnScrollListener {
 		} else {
 			PopupWindow pop = new PopupWindow((int) (CommonUtil.getWindowsWidth(this)*0.8), (int) (CommonUtil.getWindowsWidth(this)*0.6));
 			pop.setFocusable(true);
-			pop.setBackgroundDrawable(new BitmapDrawable());
+			
+			ColorDrawable dw = new ColorDrawable(0x90000000);
+			pop.setBackgroundDrawable(dw);
+
+//			pop.setBackgroundDrawable(new BitmapDrawable());
 
 			View convertView = View.inflate(this, R.layout.item_city_recenty,
 					null);
@@ -971,12 +975,12 @@ public class Act_City extends BaseActivity implements OnScrollListener {
 			hotCity.setAdapter(new HotCityAdapter(this, listChild));
 			pop.setContentView(convertView);
 			pop.showAtLocation(getWindow().getDecorView(), Gravity.CENTER, 0, 0);
-			setActAlpha(0.7f);
+//			setActAlpha(0.9f);
 			pop.setOnDismissListener(new OnDismissListener() {
 				
 				@Override
 				public void onDismiss() {
-					setActAlpha(1.0f);
+//					setActAlpha(1.0f);
 				}
 			});
 		}

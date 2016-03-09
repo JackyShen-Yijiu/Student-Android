@@ -226,6 +226,9 @@ public class CoachDetailActivity extends BaseActivity implements
 		viewStatus = findViewById(R.id.act_coach_detail_status);
 
 		titleLayout = findViewById(R.id.base_titlebar_layout);
+		
+		titleLayout.setBackgroundResource(android.R.color.transparent);
+
 		imgLeft = (ImageButton) findViewById(R.id.base_left_btn);
 		imgBus = (ImageButton) findViewById(R.id.base_right_btn2);
 		imgPhone = (ImageButton) findViewById(R.id.base_right_btn);

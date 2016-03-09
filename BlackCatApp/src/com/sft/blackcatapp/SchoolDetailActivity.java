@@ -237,6 +237,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 		viewStatus = (View) findViewById(R.id.act_school_detail_status);
 
 		titleLayout = (View) findViewById(R.id.base_titlebar_layout_bg);
+		findViewById(R.id.base_titlebar_layout).setBackgroundResource(android.R.color.transparent);
 
 		ImageButton bus = (ImageButton) findViewById(R.id.base_right_btn2);
 
@@ -255,6 +256,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 		phone.setOnClickListener(this);
 		left.setOnClickListener(this);
 		bus.setOnClickListener(this);
+		titleLayout.setBackgroundResource(android.R.color.transparent);
 	}
 
 	private void initView() {
@@ -1092,11 +1094,12 @@ public class SchoolDetailActivity extends BaseActivity implements
 				viewStatus.startAnimation(alphaOut);
 
 				addDeleteSchoolCk.startAnimation(scaleBig);
+				LogUtil.print(topTab + "yyyyyyy--透明" );
 				//
 			}
 			noCoahTv.setHeight(hegiht - y1);
-			LogUtil.print(topTab + "yyyyyyy" + y1 + "TextViewHeight::::>>"
-					+ noCoahTv.getHeight());
+			LogUtil.print(topTab + "yyyyyyy" +titleLayout.getBackground() + "TextViewHeight::::>>"
+					+ viewTop.getVisibility());
 		} else if (topStatic > y || topStatic == y) {// 已经滑动很多，
 
 			if (viewTop.getVisibility() != View.VISIBLE) {

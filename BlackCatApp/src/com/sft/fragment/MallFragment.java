@@ -196,7 +196,6 @@ public class MallFragment extends BaseFragment implements
 	private void setListener() {
 		integralMall.setOnClickListener(this);
 		couponsMall.setOnClickListener(this);
-
 	}
 
 	private void changeState(int position) {

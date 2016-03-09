@@ -72,6 +72,7 @@
                 android:layout_alignTop="@+id/title_tv"
                 android:layout_centerHorizontal="true"
                 android:layout_marginRight="15dp"
+                android:padding="5dp"
                 android:textColor="#fefefe"
                 android:textSize="14sp" />
 
