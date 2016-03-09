@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" 
+    android:background="@color/white"
+   android:padding="12dp">
+<ImageView
+    android:id="@+id/mall_item_product_img"
+    android:layout_width="156dp"
+    android:layout_height="156dp"
+    android:layout_alignParentTop="true"
+    android:layout_centerHorizontal="true"
+    android:scaleType="centerCrop"
+    android:src="@drawable/defaultimage" />
+
+        <RelativeLayout 
+            android:layout_width="156dp"
+            android:layout_below="@+id/mall_item_product_img"
+             android:layout_centerHorizontal="true"
+            android:layout_height="wrap_content">
+            
+            <TextView 
+                android:id="@+id/mall_item_product_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="#616161"
+                android:layout_marginTop="10dp"
+                android:text="title"/>
+              <TextView 
+                android:id="@+id/mall_item_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="#b7b7b7"
+                android:layout_below="@+id/mall_item_product_name"
+                android:layout_marginTop="4dp"
+                android:text="截止时间"/>
+       <TextView
+                android:id="@+id/mall_item_coupon_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_below="@+id/mall_item_address"
+                android:textColor="@color/new_app_main_color"
+                android:text="1"
+                android:textSize="14sp" />
+       <TextView
+           android:id="@+id/text_null"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="积分"
+           android:layout_toRightOf="@+id/mall_item_coupon_num"
+           android:layout_marginLeft="5dp"
+           android:layout_alignBottom="@+id/mall_item_coupon_num"
+           android:textColor="#b7b7b7"
+           android:textSize="12sp"/>
+               <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="剩余"
+           android:layout_toLeftOf="@+id/mall_item_surplus_coupon_nums"
+           android:layout_marginRight="5dp"
+           android:layout_alignBottom="@+id/mall_item_surplus_coupon_nums"
+           android:textColor="#b7b7b7"
+           android:textSize="12sp"/>
+               
+                   <TextView
+                android:id="@+id/mall_item_surplus_coupon_nums"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/new_app_main_color"
+                android:layout_alignBottom="@+id/mall_item_coupon_num"
+                android:text="1"
+                android:textSize="14sp" />
+        </RelativeLayout>
+</RelativeLayout>

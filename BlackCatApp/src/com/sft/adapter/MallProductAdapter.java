@@ -63,7 +63,7 @@ public class MallProductAdapter extends BaseAdapter {
 			// layout.addView(image, params);
 			//
 			// convertView = layout;
-			convertView = View.inflate(context, R.layout.mall_item, null);
+			convertView = View.inflate(context, R.layout.new_mall_item, null);
 			holder = new ViewHolder();
 			holder.productImage = (ImageView) convertView
 					.findViewById(R.id.mall_item_product_img);
@@ -73,8 +73,11 @@ public class MallProductAdapter extends BaseAdapter {
 					.findViewById(R.id.mall_item_coupon_num);
 			holder.productAddress = (TextView) convertView
 					.findViewById(R.id.mall_item_address);
-			holder.couponUsed = (TextView) convertView
-					.findViewById(R.id.mall_item_used_coupon_nums);
+			holder.text_null = (TextView) convertView
+					.findViewById(R.id.text_null);
+
+			// holder.couponUsed = (TextView) convertView
+			// .findViewById(R.id.mall_item_used_coupon_nums);
 			holder.couponPurplus = (TextView) convertView
 					.findViewById(R.id.mall_item_surplus_coupon_nums);
 			convertView.setTag(holder);
@@ -91,23 +94,21 @@ public class MallProductAdapter extends BaseAdapter {
 			BitmapManager.INSTANCE.loadBitmap2(productVO.getProductimg(),
 					holder.productImage, width, heigth);
 		}
-		holder.productName.setText("价值" + productVO.getProductprice() + "元"
-				+ productVO.getProductname());
+		holder.productName.setText(productVO.getProductname());
 
-		holder.couponUsed.setText("已有" + productVO.getBuycount() + "人兑换");
-		holder.couponPurplus
-				.setText("剩余"
-						+ (productVO.getProductcount() - productVO
-								.getBuycount()) + "份");
+		// holder.couponUsed.setText("已有" + productVO.getBuycount() + "人兑换");
+		holder.couponPurplus.setText(((productVO.getProductcount() - productVO
+				.getBuycount())) + "");
 
 		if (Config.MoneyType.INTEGRAL_RETURN.getValue().equals(producttype)) {
 
 			holder.productAddress.setText("截止日期："
 					+ UTC2LOC.instance.getDate(productVO.getEnddate(),
 							"yyyy-MM-dd"));
-			holder.couponNum.setText("兑换积分：" + productVO.getProductprice());
+			holder.couponNum.setText(productVO.getProductprice());
 		} else if (Config.MoneyType.COIN_CERTIFICATE.getValue().equals(
 				producttype)) {
+			holder.text_null.setText("");
 			holder.productAddress.setText("地址：" + productVO.getAddress());
 			holder.couponNum.setText("兑换券：1张");
 		}
@@ -118,10 +119,10 @@ public class MallProductAdapter extends BaseAdapter {
 		public ImageView productImage;
 
 		public TextView productName;
+		public TextView text_null;
 		public TextView couponNum;
 
 		public TextView productAddress;
-		public TextView couponUsed;
 		public TextView couponPurplus;
 	}
 }

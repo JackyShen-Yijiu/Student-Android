@@ -14,7 +14,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
+import android.widget.GridView;
 import cn.sft.infinitescrollviewpager.BitMapURLExcepteionListner;
 
 import com.jzjf.app.R;
@@ -54,7 +54,7 @@ public class MallActivity extends BaseActivity implements
 	// private RelativeLayout adLayout;
 	//
 	private RefreshLayout swipeLayout;
-	private ListView productListView;
+	private GridView productListView;
 	private String producttype = "0";
 	private String cityname;
 	private MyCuponVO myCuponVO;
@@ -103,7 +103,7 @@ public class MallActivity extends BaseActivity implements
 		// defaultImage = (ImageView) findViewById(R.id.mall_top_defaultimage);
 		// dotLayout = (LinearLayout) findViewById(R.id.mall_top_dotlayout);
 
-		productListView = (ListView) findViewById(R.id.mall_listview);
+		productListView = (GridView) findViewById(R.id.mall_listview);
 		swipeLayout = (RefreshLayout) findViewById(R.id.mall_swipe_container);
 		swipeLayout.setOnRefreshListener(this);
 		swipeLayout.setOnLoadListener(this);

@@ -44,12 +44,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
-        <ListView
+        <GridView
             android:id="@+id/mall_listview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/app_bg_dark"
             android:cacheColorHint="#00000000"
+            android:numColumns="2"
+            android:horizontalSpacing="1dp"
+			android:verticalSpacing="1dp"
+			android:background="#e8e8ed"
             android:descendantFocusability="blocksDescendants"
             android:divider="@android:color/transparent"
             android:dividerHeight="0dp"

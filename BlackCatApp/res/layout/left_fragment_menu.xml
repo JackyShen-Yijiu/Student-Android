@@ -54,6 +54,7 @@
        <TextView 
             android:id="@+id/fragment_menu_message_btn"
             style="@style/left_item_menu_style"
+            android:layout_marginTop="12dp"
             android:drawableLeft="@drawable/message"
             android:text="我的消息"/>
        <TextView 
@@ -66,15 +67,17 @@
                 android:id="@+id/fragment_menu_wallet_btn"
             style="@style/left_item_menu_style"
             android:drawableLeft="@drawable/wallet"
+            android:layout_marginBottom="6dp"
             android:text="我的钱包"/>
   <ImageView
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="#bdbdbd" />
+        android:background="#dedede" />
         <TextView 
             android:id="@+id/fragment_menu_classcar_btn"
             style="@style/left_item_menu_style"
             android:drawableLeft="@drawable/bus"
+            android:layout_marginTop="6dp"
             android:text="班车接送"/>
 
           <TextView 
