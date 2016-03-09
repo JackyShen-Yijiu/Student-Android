@@ -17,8 +17,8 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
          <item name="android:windowNoTitle">true</item>
         <item name="android:windowContentOverlay">@null</item>
-        <item name="@android:windowEnterAnimation">@anim/in_from_right</item>
-        <item name="@android:windowExitAnimation">@anim/out_from_left</item>
+        <item name="android:windowEnterAnimation">@anim/in_from_right</item>
+        <item name="android:windowExitAnimation">@anim/out_from_left</item>
     </style>
 
     <style name="registerlogin_et_style">
