@@ -174,8 +174,9 @@ public class SettingActivity extends BaseActivity implements
 			public void run() {
 				ZProgressHUD.getInstance(SettingActivity.this).dismiss();
 				util.saveParam(Config.LAST_LOGIN_PASSWORD, "");
+				util.saveParam(Config.LAST_LOGIN_ACCOUNT, "");
 				Intent intent = new Intent(SettingActivity.this,
-						LoginActivity.class);
+						NewLoginActivity.class);
 				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				startActivity(intent);

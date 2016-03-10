@@ -46,8 +46,6 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 
 	// 登录按钮
 	private Button loginBtn;
-	// 随便看看按钮
-	private Button lookAroundBtn;
 	// 手机号输入框
 	private EditText phontEt;
 	// 密码输入框
@@ -77,7 +75,7 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 					WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 		}
 
-		setContentView(R.layout.activity_login);
+		addView(R.layout.activity_login);
 		initView();
 		setListener();
 		String lastLoginPhone = util.readParam(Config.LAST_LOGIN_ACCOUNT);
@@ -110,11 +108,9 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 	}
 
 	private void initView() {
-
-		setTitleBarVisible(View.GONE);
+		setTitleText("密码登录");
 
 		loginBtn = (Button) findViewById(R.id.login_login_btn);
-		lookAroundBtn = (Button) findViewById(R.id.login_lookaround_btn);
 		phontEt = (EditText) findViewById(R.id.login_phone_et);
 		passwordEt = (EditText) findViewById(R.id.login_passwd_et);
 		forgetPassTv = (TextView) findViewById(R.id.login_forget_tv);
@@ -138,7 +134,6 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 		loginBtn.setOnClickListener(this);
 		passwordEt.setOnClickListener(this);
 		phontEt.setOnClickListener(this);
-		lookAroundBtn.setOnClickListener(this);
 		forgetPassTv.setOnClickListener(this);
 		registerAccountTv.setOnClickListener(this);
 		show_password.setOnClickListener(this);
@@ -173,12 +168,11 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 		case R.id.delet_iv:
 			phontEt.setText("");
 			break;
+		case R.id.base_left_btn:
+			finish();
+			break;
 		case R.id.login_login_btn:
 			login();
-			break;
-		case R.id.login_lookaround_btn:
-			finish();
-			intent = new Intent(this, MainActivity.class);
 			break;
 		case R.id.login_forget_tv:
 			intent = new Intent(this, FindPasswordAct.class);
@@ -199,7 +193,6 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 
 	private void login() {
 		loginBtn.setEnabled(false);
-		lookAroundBtn.setEnabled(false);
 		String checkResult = checkLoginInfo();
 		if (checkResult == null) {
 			ZProgressHUD.getInstance(this).setMessage("正在登录...");
@@ -235,7 +228,6 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 		super.doTimeOut(type);
 		if (type.equals(login)) {
 			loginBtn.setEnabled(true);
-			lookAroundBtn.setEnabled(true);
 		}
 		ZProgressHUD.getInstance(this).dismiss();
 	}
@@ -244,7 +236,6 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 	public void doException(String type, Exception e, int code) {
 		super.doException(type, e, code);
 		loginBtn.setEnabled(true);
-		lookAroundBtn.setEnabled(true);
 		ZProgressHUD.getInstance(this).dismiss();
 	}
 
@@ -253,7 +244,6 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 		if (super.doCallBack(type, jsonString)) {
 			if (type.equals(login)) {
 				loginBtn.setEnabled(true);
-				lookAroundBtn.setEnabled(true);
 			}
 			return true;
 		}
@@ -261,19 +251,6 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 		if (type.equals(login)) {
 			try {
 				loginBtn.setEnabled(true);
-				lookAroundBtn.setEnabled(true);
-				// <<<<<<< HEAD
-				// if (data != null ) {
-				// app.userVO = JSONUtil.toJavaBean(UserVO.class, data);
-				// obtainVersionInfo();
-				// } else if (!TextUtils.isEmpty(msg)) {
-				//
-				// ZProgressHUD.getInstance(this).show();
-				// ZProgressHUD.getInstance(this).dismissWithFailure(msg, 2000);
-				// return true;
-				// }else{
-				//
-				// =======
 				ZProgressHUD.getInstance(this).dismiss();
 				// ZProgressHUD.getInstance(this).dismiss();
 
@@ -411,5 +388,16 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 			finish();
 		}
 
+	}
+
+	@Override
+	protected void onPause() {
+		exitAnimition();
+		super.onPause();
+	}
+
+	private void exitAnimition() {
+		overridePendingTransition(R.anim.alpha_in,
+				R.anim.option_leave_from_bottom);
 	}
 }

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" 
-    android:background="@drawable/background_login">
+    android:layout_height="fill_parent"
+    android:background="@color/white">
 
 	
 	 <LinearLayout 
 	     android:id="@+id/ll_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="240dp"
+        android:layout_marginTop="64dp"
         android:layout_below="@+id/login_logo_iv"
         android:orientation="horizontal">
              <EditText
@@ -20,7 +20,7 @@
             android:layout_weight="1"
             android:layout_marginLeft="19dp"
             android:background="@null"
-            android:drawableLeft="@drawable/login_phone"
+            android:drawableLeft="@drawable/icon_phone"
             android:drawablePadding="10dp"
             android:hint="请输入手机号"
             android:inputType="phone"
@@ -98,14 +98,6 @@
             android:orientation="horizontal"
              >
 
-            <Button
-                android:id="@+id/login_lookaround_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/login_lookaround_btn_height"
-                android:background="@null"
-                android:text="@string/look_around"
-                android:textColor="@color/left_gray"
-                android:textSize="12sp" />
             
         </LinearLayout>
 
