@@ -153,10 +153,12 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 		switch (v.getId()) {
 		case R.id.show_password:
 			if (isClick) {
+				show_password.setImageResource(R.drawable.password_btn_display);
 				passwordEt
 						.setTransformationMethod(HideReturnsTransformationMethod
 								.getInstance());
 			} else {
+				show_password.setImageResource(R.drawable.password_btn_hide);
 				passwordEt.setText(passwordEt.getText());
 				passwordEt.setTransformationMethod(PasswordTransformationMethod
 						.getInstance());
