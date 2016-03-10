@@ -1098,8 +1098,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 				//
 			}
 			noCoahTv.setHeight(hegiht - y1);
-			LogUtil.print(topTab + "yyyyyyy" +titleLayout.getBackground() + "TextViewHeight::::>>"
-					+ viewTop.getVisibility());
+			
 		} else if (topStatic > y || topStatic == y) {// 已经滑动很多，
 
 			if (viewTop.getVisibility() != View.VISIBLE) {
@@ -1131,7 +1130,8 @@ public class SchoolDetailActivity extends BaseActivity implements
 			} else {// 已经在最上面了
 				noCoahTv.setHeight((int) (hegiht - topStatic - 180));
 			}
-
+			LogUtil.print(topTab + "yyyyyyy" + "TextViewHeight::::>>"
+					+ noCoahTv.getHeight());
 			// 滑动到 课程费用/教练信息
 			if (topTab > y1) {// 显示固定的，
 				if (radioGroupTop.getVisibility() != View.VISIBLE)

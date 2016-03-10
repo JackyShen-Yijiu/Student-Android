@@ -120,7 +120,7 @@ public class CoachDetailActivity extends BaseActivity implements
 	/** 标签 */
 	private TextView tagTv;
 	// 学员评价
-	private XListView commentList;
+	private ListView commentList;
 	// 报名按钮
 	// private Button enrollBtn;
 	// 教练信息
@@ -145,7 +145,7 @@ public class CoachDetailActivity extends BaseActivity implements
 	// private WordWrapView personLabel;
 
 	// 课程费用
-	private XListView courseFeeListView;
+	private ListView courseFeeListView;
 	private SchoolDetailCourseFeeAdapter courseFeeAdapter;
 
 	private String schoolId = "";
@@ -296,10 +296,10 @@ public class CoachDetailActivity extends BaseActivity implements
 		// studentEvaluation = (TextView)
 		// findViewById(R.id.coach_detail_studentevaluation_tv);
 		noCommentTv = (TextView) findViewById(R.id.coach_detail_noevaluation_tv);
-		commentList = (XListView) findViewById(R.id.coach_detail_comments_listview);
+		commentList = (ListView) findViewById(R.id.coach_detail_comments_listview);
 		commentList.setFocusable(false);
 
-		commentList.setPullRefreshEnable(false);
+//		commentList.setPullRefreshEnable(false);
 		carTypeTv = (TextView) findViewById(R.id.coach_detail_car_style_tv);
 		subjectTv = (TextView) findViewById(R.id.coach_detail_enable_subject_tv);
 		// distanceTv = (TextView) findViewById(R.id.coach_detail_distance_tv);
@@ -307,9 +307,9 @@ public class CoachDetailActivity extends BaseActivity implements
 		// personLabel = (WordWrapView)
 		// findViewById(R.id.coach_detail_personality_labels);
 		// personLabel.showColor(true);
-		courseFeeListView = (XListView) findViewById(R.id.coach_detail_classes_listview);
+		courseFeeListView = (ListView) findViewById(R.id.coach_detail_classes_listview);
 		courseFeeListView.setFocusable(false);
-		courseFeeListView.setPullRefreshEnable(false);
+//		courseFeeListView.setPullRefreshEnable(false);
 		tagTv = (TextView) findViewById(R.id.coach_detail_tag_tv);
 
 		tvNoTrain = (TextView) findViewById(R.id.coach_detail_nopic_tv);
@@ -345,9 +345,9 @@ public class CoachDetailActivity extends BaseActivity implements
 		coachNameTv.getPaint().setFakeBoldText(true);
 		// studentEvaluation.getPaint().setFakeBoldText(true);
 
-		commentList.setPullRefreshEnable(false);
-		commentList.setPullLoadEnable(true);
-		commentList.setXListViewListener(this);
+//		commentList.setPullRefreshEnable(false);
+//		commentList.setPullLoadEnable(true);
+//		commentList.setXListViewListener(this);
 
 		coachVO = (CoachVO) getIntent().getSerializableExtra("coach");
 
@@ -515,7 +515,9 @@ public class CoachDetailActivity extends BaseActivity implements
 
 				if (coachVO.getServerclasslist().size() == 0) {
 					commentList.setVisibility(View.VISIBLE);
+					noCommentTv.setVisibility(View.VISIBLE);
 				} else {
+					noCommentTv.setVisibility(View.GONE);
 					commentList.setVisibility(View.GONE);
 					courseFeeListView.setVisibility(View.VISIBLE);
 				}
@@ -524,7 +526,7 @@ public class CoachDetailActivity extends BaseActivity implements
 				// LogUtil.print("setdata-->>课程费用-->"+coachVO.getServerclasslist().size()+"评论--->"+courseFeeAdapter.getCount());
 			} else {
 				noCommentTv.setText("暂无课程");
-				noCommentTv.setVisibility(View.GONE);
+				noCommentTv.setVisibility(View.VISIBLE);
 			}
 
 			if (null == coachVO.getIntroduction()) {
@@ -873,7 +875,7 @@ public class CoachDetailActivity extends BaseActivity implements
 						}
 					} else if (length == 0) {
 						toast.setText("没有更多数据了");
-						commentList.setPullLoadEnable(false);
+//						commentList.setPullLoadEnable(false);
 					}
 					if (commentVoList == null)
 						commentVoList = new ArrayList<CoachCommentVO>();
@@ -893,7 +895,7 @@ public class CoachDetailActivity extends BaseActivity implements
 					}
 					commentList.setAdapter(adapter);
 					commentList.setSelection(curPosition);
-					commentList.stopLoadMore();
+//					commentList.stopLoadMore();
 					setListViewHeightBasedOnChildren(commentList);
 				}
 			} catch (Exception e) {
@@ -1122,7 +1124,7 @@ public class CoachDetailActivity extends BaseActivity implements
 			}
 			noCommentTv.setHeight(ScreenHeight - y1);
 			LogUtil.print(topTab + "yyyyyyy" + y1 + "TextViewHeight::::>>"
-					+ noCommentTv.getHeight());
+					+ noCommentTv.getVisibility());
 		} else if (topStatic > y || topStatic == y) {// 已经滑动很多，
 			if (viewTop.getVisibility() != View.VISIBLE) {
 				viewTop.setVisibility(View.VISIBLE);
@@ -1154,7 +1156,8 @@ public class CoachDetailActivity extends BaseActivity implements
 			} else {// 已经在最上面了
 				noCommentTv.setHeight((int) (ScreenHeight - topStatic - 180));
 			}
-
+			LogUtil.print(topTab + "yyyyyyy" + "TextViewHeight::::>>"
+					+ noCommentTv.getHeight());
 			// 滑动到 课程费用/教练信息
 			if (topTab > y1) {// 显示固定的，
 				if (radioGroupTop.getVisibility() != View.VISIBLE)
