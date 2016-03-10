@@ -513,29 +513,14 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
     </style>
-<<<<<<< HEAD
-
-    <style name="AnimActivityTheme" parent="AppTheme">
-        <item name="android:windowNoTitle">true</item>
-=======
     
     
     
 
     <style name="AnimActivityTheme" parent="AppTheme">
->>>>>>> d6b3802fbbb484356d6fc6f390af1e1a54176ad5
         <item name="android:windowAnimationStyle">@style/FeelyouWindowAnimTheme</item>
     </style>
-<!-- 。
-
--->
     <style name="FeelyouWindowAnimTheme" parent="@android:style/Animation.Activity">
-<<<<<<< HEAD
-        <item name="android:activityOpenEnterAnimation">@anim/option_entry_from_bottom</item>
-        <item name="android:activityOpenExitAnimation">@anim/alpha_out</item>
-       <item name="android:activityCloseEnterAnimation">@anim/alpha_out</item>
-        <item name="android:activityCloseExitAnimation">@anim/alpha_out</item>
-=======
         <!--  
         <item name="android:activityOpenEnterAnimation">@anim/option_entry_from_bottom</item>
         <item name="android:activityOpenExitAnimation">@anim/out_from_right</item>
@@ -550,7 +535,6 @@
        	<item name="android:activityCloseEnterAnimation">@anim/alpha_out</item>
        
        
->>>>>>> d6b3802fbbb484356d6fc6f390af1e1a54176ad5
     </style> 
 
 </resources>
