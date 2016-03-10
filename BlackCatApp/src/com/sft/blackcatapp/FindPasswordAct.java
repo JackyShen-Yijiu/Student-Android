@@ -251,5 +251,49 @@ public class FindPasswordAct extends BaseActivity {
 		}
 		super.onDestroy();
 	}
+	
+//	private void changePassword() {
+//		Map<String, String> paramMap = new HashMap<String, String>();
+//		paramMap.put("password", util.MD5(passwordEt.getText().toString()));
+//		paramMap.put("usertype", "1");
+//		paramMap.put("mobile", phone);
+//
+//		HttpSendUtils.httpPostSend(changepassword, this, Config.IP
+//				+ "api/v1/userinfo/updatepwd", paramMap);
+//	}
+//
+//	private String checkInput() {
+//		String password = passwordEt.getText().toString();
+//		if (TextUtils.isEmpty(password)) {
+//			return "密码不能为空";
+//		}
+//		return null;
+//	}
+//
+//	@Override
+//	public synchronized boolean doCallBack(String type, Object jsonString) {
+//		if (super.doCallBack(type, jsonString)) {
+//			return true;
+//		}
+//
+//		if (type.equals(changepassword)) {
+//			if (dataString != null && result.equals("1")) {
+//				ZProgressHUD.getInstance(this).show();
+//				ZProgressHUD.getInstance(this).dismissWithSuccess("修改成功");
+//				new MyHandler(200) {
+//					@Override
+//					public void run() {
+//						setResult(9);
+//						finish();
+//					}
+//				};
+//
+//			}
+//			return true;
+//		}
+//		return true;
+//	}
+	
+	
 
 }

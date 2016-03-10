@@ -399,10 +399,11 @@
                     android:layout_marginTop="10dp"
                     android:text="暂无课程"
                     android:textColor="#333333"
+                    android:background="@color/orange"
                     android:textSize="14dp" />
                 <!-- 空白占位 -->
                 
-                <me.maxwin.view.XListView
+                <com.sft.view.NoScrollListView
                     android:id="@+id/coach_detail_comments_listview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -412,7 +413,7 @@
                     android:listSelector="@android:color/transparent"
                     android:visibility="gone" />
 
-                <me.maxwin.view.XListView
+                <com.sft.view.NoScrollListView
                     android:id="@+id/coach_detail_classes_listview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

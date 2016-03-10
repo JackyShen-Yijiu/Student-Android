@@ -34,6 +34,19 @@ public class TestConn {
 	
 //	_loginsubmit   ""
 	
+	/**
+	 * 必要参数:
+	 * 1.username
+	 * 2.password
+	 * 
+	 * hidden
+	 * 3.csrfmiddlewaretoken
+	 * 4.next
+	 * 5.client_id  1
+	 * 6.state  None
+	 * 7.
+	 */
+	
 	
 	private static final String charsetName = "UTF-8";
 	private static final String UA = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.152 Safari/537.36";

@@ -101,7 +101,7 @@
             android:name="com.sft.blackcatapp.LoginActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"
             android:screenOrientation="portrait" 
-            android:theme="@style/AppTheme"
+            android:theme="@style/AnimActivityTheme"
             />
         <activity
             android:name="com.sft.blackcatapp.MainActivity"
@@ -229,6 +229,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.sft.blackcatapp.AppointmentDetailActivity"
+            
             android:screenOrientation="portrait" />
         <activity
             android:name="com.sft.blackcatapp.ComplainActivity"
