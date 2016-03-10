@@ -77,15 +77,19 @@ public class SettingActivity extends BaseActivity implements
 			// dialog.show();
 			return;
 		}
-		if (app.userVO.getUsersetting().getNewmessagereminder().equals("true")) {
-			messageCk.setChecked(true);
-		} else {
-			messageCk.setChecked(false);
-		}
-		if (app.userVO.getUsersetting().getReservationreminder().equals("true")) {
-			appointmentCk.setChecked(true);
-		} else {
-			appointmentCk.setChecked(false);
+		if (app.userVO.getUsersetting() != null) {
+			if (app.userVO.getUsersetting().getNewmessagereminder()
+					.equals("true")) {
+				messageCk.setChecked(true);
+			} else {
+				messageCk.setChecked(false);
+			}
+			if (app.userVO.getUsersetting().getReservationreminder()
+					.equals("true")) {
+				appointmentCk.setChecked(true);
+			} else {
+				appointmentCk.setChecked(false);
+			}
 		}
 	}
 

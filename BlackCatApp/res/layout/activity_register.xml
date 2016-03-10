@@ -22,20 +22,21 @@
             android:layout_marginTop="0dp"
             android:layout_weight="1"
             android:background="@null"
-            android:drawableLeft="@drawable/login_phone"
+            android:drawableLeft="@drawable/register_icon_phone"
             android:drawablePadding="10dp"
             android:hint="请输入手机号"
             android:inputType="phone"
             android:maxLength="11"
-             android:textColorHint="#d2d2d2"
             android:textColor="@color/text_color_dark"
+            android:textColorHint="#d2d2d2"
             android:textSize="14sp" />
 
         <ImageView
             android:id="@+id/delet_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/delet_phone" />
+            android:src="@drawable/delet_phone"
+            android:visibility="invisible" />
     </LinearLayout>
 
     <ImageView
@@ -58,22 +59,59 @@
             android:layout_marginTop="0dp"
             android:layout_weight="1"
             android:background="@null"
-            android:drawableLeft="@drawable/key_register"
+            android:drawableLeft="@drawable/register_icon_codes"
             android:drawablePadding="10dp"
             android:hint="请输入验证码"
             android:inputType="number"
             android:maxLength="6"
-            android:textColorHint="#d2d2d2"
-            android:textColor="@color/text_color_dark" />
+            android:textColor="@color/text_color_dark"
+            android:textColorHint="#d2d2d2" />
 
         <Button
             android:id="@+id/register_code_btn"
-            style="@style/btn_style"
-            android:layout_width="@dimen/register_code_btn_width"
-            android:text="@string/send_auth_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="@drawable/button_rounded_corners"
+            android:text="@string/send_auth_code"
             android:textColor="#fff"
             android:textSize="15dp" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/line_color"
+        android:contentDescription="@string/app_name" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/register_password_et"
+            style="@style/register_et_style"
+            android:layout_width="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:drawableLeft="@drawable/register_icon_password"
+            android:drawablePadding="10dp"
+            android:hint="请设置密码"
+            android:inputType="textPassword"
+            android:textColor="@color/text_color_dark"
+            android:textColorHint="#d2d2d2"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/delete_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/password_btn_hide" />
     </LinearLayout>
 
     <ImageView
@@ -86,9 +124,35 @@
     <Button
         android:id="@+id/register_register_btn"
         style="@style/btn_style"
-           android:background="@drawable/button_rounded_corners"
         android:layout_marginBottom="@dimen/register_register_btn_marginbottom"
         android:layout_marginTop="32dp"
-        android:text="@string/next_step" />
+        android:background="@drawable/button_rounded_corners"
+        android:text="@string/register" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+         >
+
+        <CheckBox
+            android:id="@+id/rb_check"
+            android:layout_width="25dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:button="@drawable/login_check"
+            android:checked="true" />
+
+        <TextView
+            android:id="@+id/register_protocol_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@+id/rb_check"
+            android:text="@string/protocol"
+            android:textColor="#6a87f3"
+            android:textSize="12dp" />
+    </RelativeLayout>
 
 </LinearLayout>
