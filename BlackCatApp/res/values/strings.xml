@@ -349,6 +349,8 @@
     <string name="login_phone">请输入手机号/昵称</string>
     <string name="login_password">请输入密码</string>
     
+    <string name="login_code">请输入验证码</string>
+    
     <string name="loading">加载中</string>
     <string name="personal_infor_take">您需携带个人的身份证以及非本地户口人员需携带暂住证到驾校才能办理入学手续。</string>
     

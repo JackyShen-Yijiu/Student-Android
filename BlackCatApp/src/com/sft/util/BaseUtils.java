@@ -31,7 +31,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
-import com.sft.blackcatapp.LoginActivity;
+import com.sft.blackcatapp.NewLoginActivity;
 import com.sft.common.BlackCatApplication;
 
 public class BaseUtils {
@@ -43,7 +43,7 @@ public class BaseUtils {
 		// if(app.)
 		BlackCatApplication app = BlackCatApplication.getInstance();
 		if (!app.isLogin) {
-			Intent intent = new Intent(a, LoginActivity.class);
+			Intent intent = new Intent(a, NewLoginActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			a.startActivity(intent);
@@ -59,7 +59,7 @@ public class BaseUtils {
 	 * @param a
 	 */
 	public static void toLogin(Activity a) {
-		Intent intent = new Intent(a, LoginActivity.class);
+		Intent intent = new Intent(a, NewLoginActivity.class);
 		a.startActivity(intent);
 	}
 

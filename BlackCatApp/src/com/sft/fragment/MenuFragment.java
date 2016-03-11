@@ -294,8 +294,9 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 				startActivity(intent);
 
 			} else {
-				NoLoginDialog dialog = new NoLoginDialog(getActivity());
-				dialog.show();
+				BaseUtils.toLogin(getActivity());
+//				NoLoginDialog dialog = new NoLoginDialog(getActivity());
+//				dialog.show();
 			}
 			break;
 		// 我的消息

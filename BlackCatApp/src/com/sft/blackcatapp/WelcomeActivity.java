@@ -92,13 +92,16 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 					&& !TextUtils.isEmpty(password)) {
 				AnalyticsConfig.setAppkey(this, Config.UMENG_APPKEY);
 				AnalyticsConfig.setChannel(Config.UMENG_CHANNELID);
-				login(lastLoginPhone, password);
+				// login(lastLoginPhone, password);
+				Intent intent = new Intent(WelcomeActivity.this,
+						MainActivity.class);
+				startActivity(intent);
 			} else {
 				handler = new MyHandler(2000) {
 					@Override
 					public void run() {
 						Intent intent = new Intent(WelcomeActivity.this,
-								LoginActivity.class);
+								NewLoginActivity.class);
 						startActivity(intent);
 						finish();
 					}
@@ -131,7 +134,7 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 	public void doTimeOut(String type) {
 		LogUtil.print("do---TimeOut");
 		super.doTimeOut(type);
-		Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
+		Intent intent = new Intent(WelcomeActivity.this, NewLoginActivity.class);
 		startActivity(intent);
 		finish();
 	}
@@ -144,7 +147,7 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 			@Override
 			public void run() {
 				Intent intent = new Intent(WelcomeActivity.this,
-						LoginActivity.class);
+						NewLoginActivity.class);
 				startActivity(intent);
 				finish();
 			}
@@ -153,10 +156,10 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 
 	@Override
 	public synchronized boolean doCallBack(String type, Object jsonString) {
-		LogUtil.print("do---doCallback"+jsonString);
+		LogUtil.print("do---doCallback" + jsonString);
 		if (super.doCallBack(type, jsonString)) {
 			Intent intent = new Intent(WelcomeActivity.this,
-					LoginActivity.class);
+					NewLoginActivity.class);
 			startActivity(intent);
 			finish();
 			return true;
@@ -170,7 +173,7 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 					@Override
 					public void run() {
 						Intent intent = new Intent(WelcomeActivity.this,
-								LoginActivity.class);
+								NewLoginActivity.class);
 						startActivity(intent);
 						finish();
 					}
@@ -179,7 +182,7 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 			}
 			try {
 				if (data != null) {
-					Log.d("tag","sun--welcome-->"+data);
+					Log.d("tag", "sun--welcome-->" + data);
 					app.userVO = JSONUtil.toJavaBean(UserVO.class, data);
 					util.saveParam(Config.LAST_LOGIN_PHONE,
 							app.userVO.getTelephone());
@@ -284,7 +287,7 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 				@Override
 				public void run() {
 					Intent intent = new Intent(WelcomeActivity.this,
-							LoginActivity.class);
+							NewLoginActivity.class);
 					startActivity(intent);
 					finish();
 				}

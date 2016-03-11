@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -30,6 +31,7 @@ import com.sft.common.Config;
 import com.sft.listener.EMLoginListener;
 import com.sft.util.DownLoadService;
 import com.sft.util.JSONUtil;
+import com.sft.util.LogUtil;
 import com.sft.viewutil.EditTextUtils;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.UserVO;
@@ -46,8 +48,6 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 
 	// 登录按钮
 	private Button loginBtn;
-	// 随便看看按钮
-	private Button lookAroundBtn;
 	// 手机号输入框
 	private EditText phontEt;
 	// 密码输入框
@@ -77,7 +77,7 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 					WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 		}
 
-		setContentView(R.layout.activity_login);
+		addView(R.layout.activity_login);
 		initView();
 		setListener();
 		String lastLoginPhone = util.readParam(Config.LAST_LOGIN_ACCOUNT);
@@ -110,11 +110,9 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 	}
 
 	private void initView() {
-
-		setTitleBarVisible(View.GONE);
+		setTitleText("密码登录");
 
 		loginBtn = (Button) findViewById(R.id.login_login_btn);
-		lookAroundBtn = (Button) findViewById(R.id.login_lookaround_btn);
 		phontEt = (EditText) findViewById(R.id.login_phone_et);
 		passwordEt = (EditText) findViewById(R.id.login_passwd_et);
 		forgetPassTv = (TextView) findViewById(R.id.login_forget_tv);
@@ -138,7 +136,6 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 		loginBtn.setOnClickListener(this);
 		passwordEt.setOnClickListener(this);
 		phontEt.setOnClickListener(this);
-		lookAroundBtn.setOnClickListener(this);
 		forgetPassTv.setOnClickListener(this);
 		registerAccountTv.setOnClickListener(this);
 		show_password.setOnClickListener(this);
@@ -156,10 +153,12 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 		switch (v.getId()) {
 		case R.id.show_password:
 			if (isClick) {
+				show_password.setImageResource(R.drawable.password_btn_display);
 				passwordEt
 						.setTransformationMethod(HideReturnsTransformationMethod
 								.getInstance());
 			} else {
+				show_password.setImageResource(R.drawable.password_btn_hide);
 				passwordEt.setText(passwordEt.getText());
 				passwordEt.setTransformationMethod(PasswordTransformationMethod
 						.getInstance());
@@ -173,12 +172,11 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 		case R.id.delet_iv:
 			phontEt.setText("");
 			break;
+		case R.id.base_left_btn:
+			finish();
+			break;
 		case R.id.login_login_btn:
 			login();
-			break;
-		case R.id.login_lookaround_btn:
-			finish();
-			intent = new Intent(this, MainActivity.class);
 			break;
 		case R.id.login_forget_tv:
 			intent = new Intent(this, FindPasswordAct.class);
@@ -199,7 +197,6 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 
 	private void login() {
 		loginBtn.setEnabled(false);
-		lookAroundBtn.setEnabled(false);
 		String checkResult = checkLoginInfo();
 		if (checkResult == null) {
 			ZProgressHUD.getInstance(this).setMessage("正在登录...");
@@ -235,7 +232,6 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 		super.doTimeOut(type);
 		if (type.equals(login)) {
 			loginBtn.setEnabled(true);
-			lookAroundBtn.setEnabled(true);
 		}
 		ZProgressHUD.getInstance(this).dismiss();
 	}
@@ -244,7 +240,6 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 	public void doException(String type, Exception e, int code) {
 		super.doException(type, e, code);
 		loginBtn.setEnabled(true);
-		lookAroundBtn.setEnabled(true);
 		ZProgressHUD.getInstance(this).dismiss();
 	}
 
@@ -253,7 +248,6 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 		if (super.doCallBack(type, jsonString)) {
 			if (type.equals(login)) {
 				loginBtn.setEnabled(true);
-				lookAroundBtn.setEnabled(true);
 			}
 			return true;
 		}
@@ -261,41 +255,30 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 		if (type.equals(login)) {
 			try {
 				loginBtn.setEnabled(true);
-				lookAroundBtn.setEnabled(true);
-				// <<<<<<< HEAD
-				// if (data != null ) {
-				// app.userVO = JSONUtil.toJavaBean(UserVO.class, data);
-				// obtainVersionInfo();
-				// } else if (!TextUtils.isEmpty(msg)) {
-				//
-				// ZProgressHUD.getInstance(this).show();
-				// ZProgressHUD.getInstance(this).dismissWithFailure(msg, 2000);
-				// return true;
-				// }else{
-				//
-				// =======
-				ZProgressHUD.getInstance(this).dismiss();
-				// ZProgressHUD.getInstance(this).dismiss();
 
 				if (data != null && result.equals("1")) {
 					app.userVO = JSONUtil.toJavaBean(UserVO.class, data);
 					obtainVersionInfo();
 				} else {
+					ZProgressHUD.getInstance(this).dismiss();
 					ZProgressHUD.getInstance(this).show();
 					ZProgressHUD.getInstance(this).dismissWithFailure("数据格式错误");
 				}
 			} catch (Exception e) {
+				ZProgressHUD.getInstance(this).dismiss();
 				ZProgressHUD.getInstance(this).show();
 				ZProgressHUD.getInstance(this).dismissWithFailure("用户数据解析错误");
 				e.printStackTrace();
 			}
 		} else if (type.equals(version)) {
+
 			try {
 				VersionVO versionVO = JSONUtil
 						.toJavaBean(VersionVO.class, data);
 				app.versionVO = versionVO;
 				obtainQiNiuToken();
 			} catch (Exception e) {
+				ZProgressHUD.getInstance(this).dismiss();
 				ZProgressHUD.getInstance(this).show();
 				ZProgressHUD.getInstance(this).dismissWithFailure("版本数据解析错误");
 				e.printStackTrace();
@@ -326,6 +309,7 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 
 	@Override
 	public void loginResult(boolean result, int code, String message) {
+
 		if (result) {
 			util.saveParam(Config.LAST_LOGIN_PHONE, app.userVO.getTelephone());
 			util.saveParam(Config.LAST_LOGIN_ACCOUNT, phontEt.getText()
@@ -336,9 +320,7 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 			if (isMyServiceRunning()) {
 				ZProgressHUD.getInstance(this).dismiss();
 				app.isLogin = true;
-				Intent intent = new Intent(this, MainActivity.class);
-				startActivity(intent);
-				finish();
+				toMainAndFinish();
 			} else {
 				showDialog(this);
 			}
@@ -361,7 +343,7 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 				.replace("V", "").replace(".", "");
 		String newVersion = app.versionVO.getVersionCode().replace("v", "")
 				.replace("V", "").replace(".", "");
-
+		LogUtil.print("version-->" + curVersion + newVersion);
 		try {
 			if (Integer.parseInt(newVersion) > Integer.parseInt(curVersion)) {
 				AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -392,24 +374,48 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 					@Override
 					public void onDismiss(DialogInterface dialog) {
 						app.isLogin = true;
-						Intent intent = new Intent(context, MainActivity.class);
-						startActivity(intent);
-						finish();
+						toMainAndFinish();
 					}
 				});
 			} else {
 				app.isLogin = true;
-				Intent intent = new Intent(context, MainActivity.class);
-				startActivity(intent);
-				finish();
+				toMainAndFinish();
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			app.isLogin = true;
-			Intent intent = new Intent(context, MainActivity.class);
-			startActivity(intent);
-			finish();
+			toMainAndFinish();
+
 		}
 
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			return super.onKeyDown(keyCode, event);
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+
+	private void toMainAndFinish() {
+		if (ZProgressHUD.getInstance(this).isShowing()) {
+			ZProgressHUD.getInstance(this).dismiss();
+		}
+		Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+		startActivity(intent);
+		finish();
+	}
+
+	@Override
+	protected void onPause() {
+		exitAnimition();
+		super.onPause();
+	}
+
+	private void exitAnimition() {
+		overridePendingTransition(R.anim.alpha_in,
+				R.anim.option_leave_from_bottom);
 	}
 }

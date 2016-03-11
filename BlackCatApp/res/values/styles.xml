@@ -16,6 +16,7 @@
     <style name="AppTheme" parent="AppBaseTheme">
 
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+
        <!--  <item name="android:windowAnimationStyle">@style/FeelyouWindowAnimTheme</item> -->
         <item name="android:windowNoTitle">true</item>
     </style>
@@ -512,17 +513,28 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
     </style>
-<!-- 
-    <style name="AnimActivityTheme">
-        <item name="android:windowNoTitle">true</item>
+    
+    
+    
+
+    <style name="AnimActivityTheme" parent="AppTheme">
         <item name="android:windowAnimationStyle">@style/FeelyouWindowAnimTheme</item>
     </style>
-
     <style name="FeelyouWindowAnimTheme" parent="@android:style/Animation.Activity">
-        <item name="android:activityOpenEnterAnimation">@anim/in_from_right</item>
+        <!--  
+        <item name="android:activityOpenEnterAnimation">@anim/option_entry_from_bottom</item>
         <item name="android:activityOpenExitAnimation">@anim/out_from_right</item>
-       <item name="android:activityCloseEnterAnimation">@anim/out_from_right</item>
-        <item name="android:activityCloseExitAnimation">@anim/out_from_left</item>
-    </style> -->
+       <item name="android:activityCloseEnterAnimation">@anim/option_entry_from_bottom</item>
+        <item name="android:activityCloseExitAnimation">@anim/option_entry_from_top</item>
+        -->
+        <item name="android:activityOpenEnterAnimation">@anim/option_entry_from_bottom</item>
+        <item name="android:activityCloseExitAnimation">@anim/option_leave_from_bottom</item>
+         
+        <item name="android:activityOpenExitAnimation">@anim/alpha_out</item>
+         
+       	<item name="android:activityCloseEnterAnimation">@anim/alpha_out</item>
+       
+       
+    </style> 
 
 </resources>
