@@ -297,6 +297,7 @@ public class AppointmentFragment extends BaseFragment implements
 					list.addAll(toadyAppointList);
 					list.addAll(otherAppointList);
 					list.addAll(finishedList);
+					LogUtil.print("预约列表：：---》"+list.size());
 					ZProgressHUD.getInstance(getActivity()).dismiss();
 					if (adapter == null) {
 						adapter = new MyAppointmentListAdapter2(getActivity(),

@@ -474,7 +474,8 @@ public class MyAppointmentListAdapter2 extends BaseExpandableListAdapter   {
 	@Override
 	public Object getChild(int arg0, int arg1) {
 		// TODO Auto-generated method stub
-		return null;
+		
+		return mData.get(arg0).get(arg1);
 	}
 
 	@Override
@@ -514,7 +515,7 @@ public class MyAppointmentListAdapter2 extends BaseExpandableListAdapter   {
 	public View getGroupView(int arg0, boolean arg1, View arg2, ViewGroup arg3) {
 		TextView tv = new TextView(context);
 		tv.setText(arg0+"未完成");
-		return null;
+		return tv;
 	}
 
 	@Override
