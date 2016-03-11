@@ -4,22 +4,27 @@ import java.util.HashMap;
 import java.util.Map;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Editable;
+import android.os.Handler;
 import android.text.TextUtils;
-import android.text.TextWatcher;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.baseactivity.util.MyHandler;
 
 import com.jzjf.app.R;
+import com.sft.api.UserLogin;
 import com.sft.common.Config;
+import com.sft.listener.EMLoginListener;
 import com.sft.util.CommonUtil;
+import com.sft.util.JSONUtil;
 import com.sft.viewutil.ZProgressHUD;
+import com.sft.vo.UserVO;
 
 /**
  * 注册界面
@@ -27,7 +32,7 @@ import com.sft.viewutil.ZProgressHUD;
  * @author Administrator
  * 
  */
-public class RegisterActivity extends BaseActivity {
+public class RegisterActivity extends BaseActivity implements EMLoginListener {
 
 	// 获取验证码间隔时间(秒)
 	private final static int codeTime = 60;
@@ -38,9 +43,15 @@ public class RegisterActivity extends BaseActivity {
 	private EditText codeEt;
 	// 发送验证码按钮
 	private Button sendCodeBtn;
+	// 密码输入框
+	private EditText passwordEt;
 	// 注册按钮
 	private Button registerBtn;
 	// 用户协议
+	private CheckBox rb_check;
+
+	private ImageView show_password;
+	boolean isClick = true;
 
 	private ImageView delet_phone;
 
@@ -71,39 +82,44 @@ public class RegisterActivity extends BaseActivity {
 
 		phoneEt = (EditText) findViewById(R.id.register_phone_et);
 		codeEt = (EditText) findViewById(R.id.register_authcode_et);
+		passwordEt = (EditText) findViewById(R.id.register_password_et);
 		sendCodeBtn = (Button) findViewById(R.id.register_code_btn);
 		registerBtn = (Button) findViewById(R.id.register_register_btn);
+		rb_check = (CheckBox) findViewById(R.id.rb_check);
+		show_password = (ImageView) findViewById(R.id.show_password);
 
 		delet_phone = (ImageView) findViewById(R.id.delet_phone);
+
 		delet_phone.setVisibility(View.GONE);
 	}
 
 	private void setListener() {
 		sendCodeBtn.setOnClickListener(this);
 		registerBtn.setOnClickListener(this);
-		phoneEt.addTextChangedListener(new TextWatcher() {
-
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before,
-					int count) {
-				if (TextUtils.isEmpty(s)) {
-					delet_phone.setVisibility(View.GONE);
-				} else {
-					delet_phone.setVisibility(View.VISIBLE);
-				}
-			}
-
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after) {
-
-			}
-
-			@Override
-			public void afterTextChanged(Editable s) {
-
-			}
-		});
+		show_password.setOnClickListener(this);
+		// phoneEt.addTextChangedListener(new TextWatcher() {
+		//
+		// @Override
+		// public void onTextChanged(CharSequence s, int start, int before,
+		// int count) {
+		// if (TextUtils.isEmpty(s)) {
+		// delet_phone.setVisibility(View.GONE);
+		// } else {
+		// delet_phone.setVisibility(View.VISIBLE);
+		// }
+		// }
+		//
+		// @Override
+		// public void beforeTextChanged(CharSequence s, int start, int count,
+		// int after) {
+		//
+		// }
+		//
+		// @Override
+		// public void afterTextChanged(Editable s) {
+		//
+		// }
+		// });
 		delet_phone.setOnClickListener(this);
 	}
 
@@ -123,13 +139,33 @@ public class RegisterActivity extends BaseActivity {
 			obtainCode();
 			break;
 		case R.id.register_register_btn:
-			// 注册下一步
-			if (TextUtils.isEmpty(checkInput())) {
-				obtainVerificationSmscode();
+			// 注册
+			register();
+			// if (TextUtils.isEmpty(checkInput())) {
+			// obtainVerificationSmscode();
+			// } else {
+			// ZProgressHUD.getInstance(RegisterActivity.this).show();
+			// ZProgressHUD.getInstance(RegisterActivity.this)
+			// .dismissWithFailure(checkInput());
+			// }
+			break;
+		case R.id.show_password:
+			if (isClick) {
+				passwordEt.setText(passwordEt.getText());
+				passwordEt
+						.setTransformationMethod(HideReturnsTransformationMethod
+								.getInstance());
+				show_password.setImageResource(R.drawable.password_btn_display);
 			} else {
-				ZProgressHUD.getInstance(RegisterActivity.this).show();
-				ZProgressHUD.getInstance(RegisterActivity.this)
-						.dismissWithFailure(checkInput());
+				passwordEt.setText(passwordEt.getText());
+				passwordEt.setTransformationMethod(PasswordTransformationMethod
+						.getInstance());
+				show_password.setImageResource(R.drawable.password_btn_hide);
+
+			}
+			isClick = !isClick;
+
+			if (isClick) {
 			}
 			break;
 
@@ -149,7 +185,34 @@ public class RegisterActivity extends BaseActivity {
 		if (TextUtils.isEmpty(code)) {
 			return "验证码不能为空";
 		}
+		String password = passwordEt.getText().toString();
+		if (TextUtils.isEmpty(password)) {
+			return "密码不能为空";
+		}
+
+		if (rb_check.isChecked() != true) {
+			return "请选择用户协议";
+		}
 		return null;
+	}
+
+	private void register() {
+		String checkResult = checkInput();
+		if (checkResult == null) {
+			// 注册
+			registerBtn.setEnabled(true);
+			Map<String, String> paramMap = new HashMap<String, String>();
+			paramMap.put("mobile", phoneEt.getText().toString());
+			paramMap.put("smscode", codeEt.getText().toString());
+			paramMap.put("usertype", "1");
+			paramMap.put("password", util.MD5(passwordEt.getText().toString()));
+			paramMap.put("referrerCode", "");
+			HttpSendUtils.httpPostSend("register", this, Config.IP
+					+ "api/v1/userinfo/signup", paramMap);
+		} else {
+			ZProgressHUD.getInstance(this).show();
+			ZProgressHUD.getInstance(this).dismissWithFailure(checkResult);
+		}
 	}
 
 	private void obtainCode() {
@@ -211,15 +274,15 @@ public class RegisterActivity extends BaseActivity {
 				public void run() {
 					if (time-- > 0) {
 						sendCodeBtn.setText("剩余(" + time + "s)");
-						sendCodeBtn.setBackgroundColor(Color
-								.parseColor("#cccccc"));
+						sendCodeBtn
+								.setBackgroundResource(R.drawable.button_rounded_corners_gray);
 						sendCodeBtn.setEnabled(false);
 					} else {
 						codeHandler.cancle();
 						sendCodeBtn.setEnabled(true);
 						sendCodeBtn.setText(R.string.more_send_auth_code);
 						sendCodeBtn
-								.setBackgroundResource(R.drawable.btn_bkground);
+								.setBackgroundResource(R.drawable.button_rounded_corners);
 					}
 				}
 			};
@@ -228,6 +291,29 @@ public class RegisterActivity extends BaseActivity {
 				Intent intent = new Intent(this, RegisterNextActivity.class);
 				intent.putExtra("phone", phoneEt.getText().toString());
 				startActivity(intent);
+			}
+		} else if (type.equals(register)) {
+			try {
+				if (data != null && result.equals("1")) {
+					app.userVO = JSONUtil.toJavaBean(UserVO.class, data);
+
+					util.saveParam(Config.LAST_LOGIN_PHONE,
+							app.userVO.getTelephone());
+					util.saveParam(Config.LAST_LOGIN_ACCOUNT, phoneEt.getText()
+							.toString());
+					util.saveParam(Config.LAST_LOGIN_PASSWORD, passwordEt
+							.getText().toString());
+
+					new UserLogin(this).userLogin(app.userVO.getUserid(),
+							util.MD5(passwordEt.getText().toString()),
+							app.userVO.getNickname());
+				}
+			} catch (Exception e) {
+				ZProgressHUD.getInstance(this).show();
+				ZProgressHUD.getInstance(this).dismissWithFailure("用户数据解析错误");
+
+				e.printStackTrace();
+
 			}
 		}
 		return true;
@@ -241,4 +327,55 @@ public class RegisterActivity extends BaseActivity {
 		super.onDestroy();
 	}
 
+	private Handler myHandler = new Handler() {
+		@Override
+		public void handleMessage(android.os.Message msg) {
+			Intent intent = new Intent(RegisterActivity.this,
+					MainActivity.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(intent);
+			finish();
+		};
+	};
+
+	@Override
+	public void loginResult(boolean result, int code, String message) {
+		if (result) {
+			runOnUiThread(new Runnable() {
+
+				@Override
+				public void run() {
+					app.isLogin = true;
+					ZProgressHUD.getInstance(RegisterActivity.this).show();
+					ZProgressHUD.getInstance(RegisterActivity.this)
+							.dismissWithSuccess("注册成功");
+					new Thread(new Runnable() {
+
+						@Override
+						public void run() {
+							try {
+								Thread.sleep(1500);
+								myHandler.sendMessage(myHandler.obtainMessage());
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+						}
+					}).start();
+				}
+
+			});
+
+		} else {
+			runOnUiThread(new Runnable() {
+
+				@Override
+				public void run() {
+					ZProgressHUD.getInstance(RegisterActivity.this).show();
+					ZProgressHUD.getInstance(RegisterActivity.this)
+							.dismissWithFailure("初始化聊天失败");
+				}
+			});
+		}
+	}
 }
