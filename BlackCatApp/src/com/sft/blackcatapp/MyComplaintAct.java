@@ -44,7 +44,6 @@ public class MyComplaintAct extends BaseActivity {
 		lv = (ListView) findViewById(R.id.act_mycomplains_lv);
 		adapter = new MyComplaintAdapter(this, list);
 		lv.setAdapter(adapter);
-
 	}
 
 	private void request() {

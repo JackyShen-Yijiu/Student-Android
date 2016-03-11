@@ -355,4 +355,6 @@
     <string name="loading">加载中</string>
     <string name="personal_infor_take">您需携带个人的身份证以及非本地户口人员需携带暂住证到驾校才能办理入学手续。</string>
     
+    <string name="cancel_order">取消订单</string>
+    
 </resources>

@@ -12,13 +12,30 @@
         android:id="@+id/appointment_has_coach_rl"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
+        
+        <ExpandableListView 
+                android:id="@+id/fragment_appointment_listview_ep"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ffffff"
+                android:cacheColorHint="#00000000"
+                android:descendantFocusability="blocksDescendants"
+                android:divider="@null"
+                android:dividerHeight="0dp"
+                android:fadingEdge="none"
+                android:listSelector="@android:color/transparent"
+                android:overScrollMode="always"
+                android:scrollbars="none" 
+                ></ExpandableListView>
+        
 
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/fragment_appointment_swipe_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
-
+            
+            
             <ListView
                 android:id="@+id/fragment_appointment_listview"
                 android:layout_width="match_parent"
@@ -31,6 +48,7 @@
                 android:fadingEdge="none"
                 android:listSelector="@android:color/transparent"
                 android:overScrollMode="always"
+                android:visibility="gone"
                 android:scrollbars="none" />
         </android.support.v4.widget.SwipeRefreshLayout>
     </RelativeLayout>
