@@ -347,7 +347,7 @@
     <string name="i_to_ask">我要提问</string>
     
      <!-- 登录 -->
-    <string name="login_phone">请输入手机号/昵称</string>
+    <string name="login_phone">请输入手机号</string>
     <string name="login_password">请输入密码</string>
     
     <string name="login_code">请输入验证码</string>
