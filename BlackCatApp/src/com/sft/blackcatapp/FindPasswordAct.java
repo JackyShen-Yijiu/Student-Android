@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,6 +38,8 @@ public class FindPasswordAct extends BaseActivity {
 	private EditText phoneEt;
 	// 验证码输入框
 	private EditText codeEt;
+	
+	private EditText etPwd;
 	// 发送验证码按钮
 	private Button sendCodeBtn;
 	// 注册按钮
@@ -43,13 +47,17 @@ public class FindPasswordAct extends BaseActivity {
 	// 用户协议
 
 	private ImageView delet_phone;
+	
+	private ImageView imgShowPwd;
 
 	// 获取验证码
 	private final static String obtainCode = "obtainCode";
 	// 注册
 	private final static String register = "register";
 	// 验证验证码
-	private final static String smscode = "smscode";
+	private final static String SMS_CODE = "smscode";
+	
+	private final static String CHANGE_PWD = "changepassword";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -71,11 +79,18 @@ public class FindPasswordAct extends BaseActivity {
 
 		phoneEt = (EditText) findViewById(R.id.register_phone_et);
 		codeEt = (EditText) findViewById(R.id.register_authcode_et);
+		etPwd = (EditText) findViewById(R.id.register_password_et);
+		
 		sendCodeBtn = (Button) findViewById(R.id.register_code_btn);
 		registerBtn = (Button) findViewById(R.id.register_register_btn);
-
+		
+		imgShowPwd = (ImageView) findViewById(R.id.delete_password);
+		
 		delet_phone = (ImageView) findViewById(R.id.delet_phone);
 		delet_phone.setVisibility(View.GONE);
+		findViewById(R.id.act_regist_rl).setVisibility(View.GONE);
+		
+		registerBtn.setText(R.string.forget_password);
 	}
 
 	private void setListener() {
@@ -106,6 +121,8 @@ public class FindPasswordAct extends BaseActivity {
 		});
 		delet_phone.setOnClickListener(this);
 	}
+	
+	private boolean isClick;
 
 	@Override
 	public void onClick(View v) {
@@ -113,6 +130,23 @@ public class FindPasswordAct extends BaseActivity {
 			return;
 		}
 		switch (v.getId()) {
+		case R.id.show_password:
+			if (isClick) {
+				imgShowPwd.setImageResource(R.drawable.password_btn_display);
+				etPwd.setTransformationMethod(HideReturnsTransformationMethod
+								.getInstance());
+			} else {
+				imgShowPwd.setImageResource(R.drawable.password_btn_hide);
+				etPwd.setText(etPwd.getText());
+				etPwd.setTransformationMethod(PasswordTransformationMethod
+						.getInstance());
+
+			}
+			isClick = !isClick;
+
+			if (isClick) {
+			}
+			break;
 		case R.id.base_left_btn:
 			finish();
 			break;
@@ -146,9 +180,12 @@ public class FindPasswordAct extends BaseActivity {
 			return "请输入正确的手机号";
 		}
 		String code = codeEt.getText().toString();
+		String pwd = etPwd.getText().toString();
 		if (TextUtils.isEmpty(code)) {
 			return "验证码不能为空";
-		}
+		} else if(TextUtils.isEmpty(pwd)){//密码不能为空
+			return "密码不能为空";
+		} 
 		return null;
 	}
 
@@ -174,7 +211,7 @@ public class FindPasswordAct extends BaseActivity {
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("mobile", phoneEt.getText().toString());
 		paramMap.put("code", codeEt.getText().toString());
-		HttpSendUtils.httpGetSend(smscode, this, Config.IP
+		HttpSendUtils.httpGetSend(SMS_CODE, this, Config.IP
 				+ "api/v1/Verificationsmscode", paramMap);
 	}
 
@@ -223,13 +260,34 @@ public class FindPasswordAct extends BaseActivity {
 					}
 				}
 			};
-		} else if (type.equals(smscode)) {
+		} else if (type.equals(SMS_CODE)) {
 			if (dataString != null) {
-				Intent intent = new Intent(this, FindPasswordActivity.class);
-				intent.putExtra("phone", phoneEt.getText().toString());
-				startActivityForResult(intent, 9);
+			
+				if(result.equals("1")){	//验证成功,请求更改密码
+					changePassword();
+				}else{
+					ZProgressHUD.getInstance(this).show();
+					ZProgressHUD.getInstance(this).dismissWithSuccess(msg);
+				}
+//				Intent intent = new Intent(this, FindPasswordActivity.class);
+//				intent.putExtra("phone", phoneEt.getText().toString());
+//				startActivityForResult(intent, 9);
 				// startActivity(intent);
 			}
+		}else if(type.equals(CHANGE_PWD)){
+			if (dataString != null && result.equals("1")) {
+				ZProgressHUD.getInstance(this).show();
+				ZProgressHUD.getInstance(this).dismissWithSuccess("修改成功");
+				new MyHandler(200) {
+					@Override
+					public void run() {
+						setResult(9);
+						finish();
+					}
+				};
+
+			}
+			return true;
 		}
 		return true;
 	}
@@ -252,15 +310,15 @@ public class FindPasswordAct extends BaseActivity {
 		super.onDestroy();
 	}
 	
-//	private void changePassword() {
-//		Map<String, String> paramMap = new HashMap<String, String>();
-//		paramMap.put("password", util.MD5(passwordEt.getText().toString()));
-//		paramMap.put("usertype", "1");
-//		paramMap.put("mobile", phone);
-//
-//		HttpSendUtils.httpPostSend(changepassword, this, Config.IP
-//				+ "api/v1/userinfo/updatepwd", paramMap);
-//	}
+	private void changePassword() {
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("password", util.MD5(etPwd.getText().toString()));
+		paramMap.put("usertype", "1");
+		paramMap.put("mobile", phoneEt.getText().toString());
+
+		HttpSendUtils.httpPostSend(CHANGE_PWD, this, Config.IP
+				+ "api/v1/userinfo/updatepwd", paramMap);
+	}
 //
 //	private String checkInput() {
 //		String password = passwordEt.getText().toString();
@@ -277,19 +335,6 @@ public class FindPasswordAct extends BaseActivity {
 //		}
 //
 //		if (type.equals(changepassword)) {
-//			if (dataString != null && result.equals("1")) {
-//				ZProgressHUD.getInstance(this).show();
-//				ZProgressHUD.getInstance(this).dismissWithSuccess("修改成功");
-//				new MyHandler(200) {
-//					@Override
-//					public void run() {
-//						setResult(9);
-//						finish();
-//					}
-//				};
-//
-//			}
-//			return true;
 //		}
 //		return true;
 //	}

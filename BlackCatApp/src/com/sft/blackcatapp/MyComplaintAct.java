@@ -46,6 +46,7 @@ public class MyComplaintAct extends BaseActivity{
 		adapter = new MyComplaintAdapter(this, list);
 		lv.setAdapter(adapter);
 		
+		
 	}
 	
 	private void request(){
