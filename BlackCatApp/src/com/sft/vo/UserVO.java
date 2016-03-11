@@ -48,8 +48,18 @@ public class UserVO extends DBVO {
 	private UserSettingVO usersetting;
 	private List<VipServerListVO> vipserverlist;
 
+	private String password;
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	private PayOrderVO payOrderVO;
-	/**支付状态 0未支付 20支付成功 30 支付失败*/
+	/** 支付状态 0未支付 20支付成功 30 支付失败 */
 	private int payState = 0;
 
 	public int getPayState() {

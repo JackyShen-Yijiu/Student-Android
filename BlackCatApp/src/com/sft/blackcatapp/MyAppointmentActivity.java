@@ -139,28 +139,6 @@ public class MyAppointmentActivity extends BaseActivity implements
 			tvRight1.setVisibility(View.GONE);
 		}
 
-		// tvRight1.setText("实际练车"+subject.getFinishcourse()+"小时");
-		// tvRight2.setText("剩余学时"+subject.getFinishcourse()+"课时");
-
-		// 只会在初始化时 进行数据的更新，， 放到onresume中
-		// if (subject != null) {
-		// String curProgress = subject.getProgress();
-		// subjectTextTv.setText(getString(R.string.cur_progress) +
-		// curProgress);
-		// subjectTextTv.setOnClickListener(this);
-		// Log.d("tag","我的预约-->>"+(subject.getReservation() +
-		// subject.getFinishcourse())+"total-->"+subject.getTotalcourse());
-		// if (subject.getReservation() + subject.getFinishcourse() >=
-		// subject.getTotalcourse()) {
-		// appointmentBtn.setText(app.userVO.getSubject().getName() + "学时已约满");
-		// } else {
-		// appointmentBtn.setOnClickListener(this);
-		// }
-		// } else {
-		// appointmentBtn.setVisibility(View.GONE);
-		// subjectTextTv.setText(getString(R.string.cur_progress));
-		// }
-
 		appointmentList.setRefreshLoadMoreListener(this);
 	}
 
