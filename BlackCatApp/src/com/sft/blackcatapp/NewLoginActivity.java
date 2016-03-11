@@ -210,6 +210,7 @@ public class NewLoginActivity extends BaseActivity implements EMLoginListener {
 			Map<String, String> paramMap = new HashMap<String, String>();
 			paramMap.put("mobile", phontEt.getText().toString());
 			paramMap.put("usertype", "1");
+			// paramMap.put("password", app.userVO.getPassword());
 			paramMap.put("smscode", passwordEt.getText().toString());
 			HttpSendUtils.httpPostSend(login, this, Config.IP
 					+ "api/v1/userinfo/studentloginbycode", paramMap);
@@ -254,10 +255,10 @@ public class NewLoginActivity extends BaseActivity implements EMLoginListener {
 	@Override
 	public synchronized boolean doCallBack(String type, Object jsonString) {
 		if (super.doCallBack(type, jsonString)) {
-			if (type.equals(login)) {
-				loginBtn.setEnabled(true);
-				lookAroundBtn.setEnabled(true);
-			}
+			// if (type.equals(login)) {
+			// loginBtn.setEnabled(true);
+			// lookAroundBtn.setEnabled(true);
+			// }
 			return true;
 		}
 		if (type.equals(obtainCode)) {
@@ -288,6 +289,7 @@ public class NewLoginActivity extends BaseActivity implements EMLoginListener {
 
 				if (data != null && result.equals("1")) {
 					app.userVO = JSONUtil.toJavaBean(UserVO.class, data);
+					app.isLogin = true;
 					obtainVersionInfo();
 				} else {
 					ZProgressHUD.getInstance(this).show();
@@ -313,8 +315,7 @@ public class NewLoginActivity extends BaseActivity implements EMLoginListener {
 			if (dataString != null) {
 				app.qiniuToken = dataString;
 				new UserLogin(this).userLogin(app.userVO.getUserid(),
-						passwordEt.getText().toString(),
-						app.userVO.getNickname());
+						app.userVO.getPassword(), app.userVO.getNickname());
 			}
 		}
 		return true;
@@ -358,6 +359,9 @@ public class NewLoginActivity extends BaseActivity implements EMLoginListener {
 					ZProgressHUD.getInstance(NewLoginActivity.this).show();
 					ZProgressHUD.getInstance(NewLoginActivity.this)
 							.dismissWithFailure("初始化聊天失败");
+					Intent intent = new Intent(NewLoginActivity.this,
+							MainActivity.class);
+					startActivity(intent);
 				}
 			});
 		}
