@@ -56,7 +56,7 @@ public class NewActivitysActivity extends BaseActivity implements
 
 		listView_activitys.setOnItemClickListener(this);
 		leftBtn.setOnClickListener(this);
-		
+
 	}
 
 	@Override
@@ -67,7 +67,7 @@ public class NewActivitysActivity extends BaseActivity implements
 
 	@Override
 	public void onClick(View v) {
-//		Toast("click-->"+v);
+		// Toast("click-->"+v);
 		if (!onClickSingleView()) {
 			return;
 		}

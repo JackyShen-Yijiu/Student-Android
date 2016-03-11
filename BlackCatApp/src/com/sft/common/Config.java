@@ -5,7 +5,7 @@ import java.io.File;
 import android.os.Environment;
 
 public class Config {
-	
+
 	/**
 	 * 微信appId
 	 */
@@ -40,6 +40,8 @@ public class Config {
 	public static final String LAST_LOGIN_ACCOUNT = "lastloginaccount";
 	// 用户上次登录的密码
 	public static final String LAST_LOGIN_PASSWORD = "lastloginpassword";
+	// 用户上次登陆的信息
+	public static final String LAST_LOGIN_MESSAGE = "lastloginmessage";
 	// 用户自动登录
 	public static final String USER_AUTO_LOGIN = "userautologin";
 	// 用户当前所在城市

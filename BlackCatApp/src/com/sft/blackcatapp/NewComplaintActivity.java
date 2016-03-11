@@ -30,10 +30,12 @@ import com.sft.common.Config;
 import com.sft.util.LogUtil;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.CoachVO;
+
 /**
  * 新 投诉
- * @author sun  2016-3-1 下午8:48:43
- *
+ * 
+ * @author sun 2016-3-1 下午8:48:43
+ * 
  */
 public class NewComplaintActivity extends BaseActivity implements
 		OnClickListener, OnCheckedChangeListener {
@@ -124,6 +126,10 @@ public class NewComplaintActivity extends BaseActivity implements
 
 	private void initView() {
 		setTitleText(R.string.apply_left);
+
+		showTitlebarText(BaseActivity.SHOW_RIGHT_TEXT);
+		setText(0, R.string.complain);
+
 		feedbacktypeRg = (RadioGroup) findViewById(R.id.complaint_feedbacktype_rg);
 		feedbacktypeCoachRb = (RadioButton) findViewById(R.id.complaint_feedbacktype_coach);
 		feedbacktypeSchoolRb = (RadioButton) findViewById(R.id.complaint_feedbacktype_school);
@@ -171,6 +177,11 @@ public class NewComplaintActivity extends BaseActivity implements
 		// 返回
 		case R.id.base_left_btn:
 			finish();
+			break;
+		// 我的投诉
+		case R.id.base_right_tv:
+			intent = new Intent(this, MyComplaintAct.class);
+			startActivity(intent);
 			break;
 		// 提交
 		case R.id.button_commit:

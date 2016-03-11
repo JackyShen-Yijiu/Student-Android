@@ -313,7 +313,7 @@ public class NewLoginActivity extends BaseActivity implements EMLoginListener {
 			if (dataString != null) {
 				app.qiniuToken = dataString;
 				new UserLogin(this).userLogin(app.userVO.getUserid(),
-						passwordEt.getText().toString(),
+						util.MD5(passwordEt.getText().toString()),
 						app.userVO.getNickname());
 			}
 		}
@@ -358,6 +358,9 @@ public class NewLoginActivity extends BaseActivity implements EMLoginListener {
 					ZProgressHUD.getInstance(NewLoginActivity.this).show();
 					ZProgressHUD.getInstance(NewLoginActivity.this)
 							.dismissWithFailure("初始化聊天失败");
+					Intent intent = new Intent(NewLoginActivity.this,
+							MainActivity.class);
+					startActivity(intent);
 				}
 			});
 		}
