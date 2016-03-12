@@ -45,6 +45,7 @@ public class WeekAdapter extends ArrayAdapter<Integer> {
 			convertView = View.inflate(mContext, R.layout.calendar_date, null);
 			// holder.rest = (TextView) convertView.findViewById(R.id.rest);
 			holder.solar = (TextView) convertView.findViewById(R.id.solar);
+			holder.week = (TextView) convertView.findViewById(R.id.week);
 			// holder.hasOrder = (ImageView) convertView
 			// .findViewById(R.id.has_order);
 			convertView.setTag(holder);
@@ -78,6 +79,7 @@ public class WeekAdapter extends ArrayAdapter<Integer> {
 			holder.solar.setTextColor(CommonUtil.getColor(mContext,
 					R.color.text_color_dark));
 		}
+		holder.week.setText(appointmentDay.week);
 		holder.solar.setText(appointmentDay.day + "");
 		// LogUtil.print(appointmentDay.year + "-" + appointmentDay.month + "-"
 		// + appointmentDay.day);
@@ -92,7 +94,7 @@ public class WeekAdapter extends ArrayAdapter<Integer> {
 								appointmentDay, false);
 					} else {
 						TextView textView = (TextView) ((RelativeLayout) v)
-								.getChildAt(0);
+								.getChildAt(1);
 						if (lastClickView != null) {
 							LogUtil.print(lastClickView.getText().toString()
 									+ "========");
@@ -130,6 +132,7 @@ public class WeekAdapter extends ArrayAdapter<Integer> {
 	class ViewHolder {
 		private TextView solar;
 		// private ImageView hasOrder;
+		private TextView week;
 	}
 
 }

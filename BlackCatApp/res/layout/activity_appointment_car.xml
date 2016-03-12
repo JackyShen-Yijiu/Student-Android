@@ -10,20 +10,30 @@
     <LinearLayout
         android:id="@+id/appointment_car_ll"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="91dp"
         android:background="@color/app_bg_dark"
         android:orientation="vertical" >
 
-        <com.sft.view.WeekColumnView
+        <!--
+             <com.sft.view.WeekColumnView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="6dp"
             android:paddingRight="8dp" />
+        -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2016年3月"
+            android:textSize="16sp"
+            android:textColor="@color/text_color_dark"
+            android:layout_gravity="center_horizontal" />
 
         <com.sft.view.WeekViewPager
             android:id="@+id/appointment_car_weekview"
             android:layout_width="match_parent"
-            android:layout_height="38dp"
+            android:layout_height="58dp"
             android:contentDescription="@string/app_name" />
 
         <ImageView
@@ -49,18 +59,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:visibility="gone"
                     android:background="@color/white"
+                    android:gravity="center"
                     android:text="无法获取该时间段的安排"
-                    android:gravity="center" />
+                    android:visibility="gone" />
 
                 <com.sft.viewutil.ScrollTimeLayout
                     android:id="@+id/appointment_car_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="visible"
                     android:background="@color/white"
-                    android:orientation="vertical" >
+                    android:orientation="vertical"
+                    android:visibility="visible" >
                 </com.sft.viewutil.ScrollTimeLayout>
 
                 <ImageView

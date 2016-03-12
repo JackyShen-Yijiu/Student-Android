@@ -5,5 +5,6 @@ public class AppointmentDay {
 	public int year;
 	public int month;
 	public int day;
+	public String week;
 
 }

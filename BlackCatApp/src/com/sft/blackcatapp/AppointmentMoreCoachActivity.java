@@ -21,7 +21,6 @@ import com.sft.adapter.SchoolDetailCourseFeeAdapter.MyClickListener;
 import com.sft.common.Config;
 import com.sft.util.CommonUtil;
 import com.sft.util.JSONUtil;
-import com.sft.util.LogUtil;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.CoachVO;
 
@@ -129,6 +128,7 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 									AppointmentMoreCoachActivity.this)
 									.dismiss();
 							coachListView.setVisibility(View.VISIBLE);
+							coachList.clear();
 						}
 						moreCoachPage++;
 					} else if (length == 0) {
@@ -158,6 +158,7 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 					coachListView.setAdapter(adapter);
 					coachListView.setSelection(curLength);
 					coachListView.stopLoadMore();
+					coachListView.stopRefresh();
 				}
 			}
 		} catch (Exception e) {
@@ -187,7 +188,8 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 
 	@Override
 	public void onRefresh() {
-
+		moreCoachPage = 1;
+		obtainSchoolCoach(moreCoachPage);
 	}
 
 	@Override
@@ -206,7 +208,8 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 			intent.putExtra("coach", coachList.get(position));
 			intent.putExtra("where",
 					AppointmentMoreCoachActivity.class.getName());
-//			LogUtil.print(AppointmentMoreCoachActivity.class.getName() + "---");
+			// LogUtil.print(AppointmentMoreCoachActivity.class.getName() +
+			// "---");
 			startActivity(intent);
 		}
 	};

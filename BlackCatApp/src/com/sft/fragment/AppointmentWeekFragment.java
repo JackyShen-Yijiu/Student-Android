@@ -15,7 +15,7 @@ public class AppointmentWeekFragment {
 
 	public AppointmentWeekFragment(int pagePosition) {
 		rootview = new LinearLayout(BlackCatApplication.getInstance());
-		rootview.setBackgroundColor(Color.parseColor("#eeeeee"));
+		rootview.setBackgroundColor(Color.parseColor("#ffffff"));
 		LayoutParams params = new LinearLayout.LayoutParams(
 				ViewGroup.LayoutParams.MATCH_PARENT,
 				ViewGroup.LayoutParams.WRAP_CONTENT);
