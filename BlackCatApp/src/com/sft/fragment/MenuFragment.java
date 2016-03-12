@@ -125,7 +125,6 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 
 	private void obtainMyMoney() {
 		if (app.isLogin) {
-
 			Map<String, String> paramMap = new HashMap<String, String>();
 			paramMap.put("userid", app.userVO.getUserid());
 			paramMap.put("usertype", "1");

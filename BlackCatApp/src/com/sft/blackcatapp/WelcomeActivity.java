@@ -3,6 +3,8 @@ package com.sft.blackcatapp;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.json.JSONObject;
+
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
 import android.app.AlertDialog;
@@ -86,16 +88,61 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 			// GuideActivity.class));
 		} else {
 
-			String lastLoginPhone = util.readParam(Config.LAST_LOGIN_ACCOUNT);
+			String lastLoginAccount = util.readParam(Config.LAST_LOGIN_ACCOUNT);
 			String password = util.readParam(Config.LAST_LOGIN_PASSWORD);
-			if (!TextUtils.isEmpty(lastLoginPhone)
+
+			if (!TextUtils.isEmpty(lastLoginAccount)
 					&& !TextUtils.isEmpty(password)) {
 				AnalyticsConfig.setAppkey(this, Config.UMENG_APPKEY);
 				AnalyticsConfig.setChannel(Config.UMENG_CHANNELID);
 				// login(lastLoginPhone, password);
-				Intent intent = new Intent(WelcomeActivity.this,
-						MainActivity.class);
-				startActivity(intent);
+
+				util.readParam(Config.LAST_LOGIN_MESSAGE);
+				try {
+
+					String temp = util.readParam(Config.LAST_LOGIN_MESSAGE);
+					// LogUtil.print("msggggggggggggggg22222" + temp);
+					if (temp == null) {
+						app.isLogin = false;
+					} else {
+
+						jsonObject = new JSONObject(temp);
+						if (jsonObject != null) {
+							String type = jsonObject.getString("type");
+
+							String msg = jsonObject.getString("msg");
+
+							JSONObject data = jsonObject.getJSONObject("data");
+							if (type.equals("1")) {
+								app.isLogin = true;
+								app.userVO = JSONUtil.toJavaBean(UserVO.class,
+										data);
+								LogUtil.print("msggggggggggggggg" + app.isLogin);
+							} else {//
+								Intent intent = new Intent(
+										WelcomeActivity.this,
+										MainActivity.class);
+								startActivity(intent);
+								finish();
+							}
+
+						}
+					}
+
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				handler = new MyHandler(2000) {
+					@Override
+					public void run() {
+						Intent intent = new Intent(WelcomeActivity.this,
+								MainActivity.class);
+						startActivity(intent);
+						finish();
+					}
+				};
 			} else {
 				handler = new MyHandler(2000) {
 					@Override
@@ -169,6 +216,7 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 		}
 		if (type.equals(login)) {
 			if (!TextUtils.isEmpty(msg)) {
+
 				new MyHandler(1000) {
 					@Override
 					public void run() {
@@ -268,6 +316,7 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 		if (result) {
 			if (isMyServiceRunning()) {
 				app.isLogin = true;
+
 				Intent intent = new Intent(this, MainActivity.class);
 				startActivity(intent);
 				finish();

@@ -92,7 +92,7 @@ public class OrderApplyAct extends BaseActivity {
 		btn1 = (TextView) findViewById(R.id.item_order_button1);
 		btn2 = (TextView) findViewById(R.id.item_order_button2);
 		btn1.setText("立即支付");
-		btn2.setText("重新报名");
+		btn2.setText(R.string.cancel_order);
 		
 		llTop.setOnClickListener(this);
 		btn1.setOnClickListener(this);
@@ -131,14 +131,14 @@ public class OrderApplyAct extends BaseActivity {
 				tvState.setText("未支付");
 				btn2.setVisibility(View.GONE);
 				btn1.setVisibility(View.VISIBLE);
-//				btn2.setText("重新报名");
-				btn1.setText("重新报名");
+//				btn2.setText(R.string.cancel_order);
+				btn1.setText(R.string.cancel_order);
 			}else if(successVO.paytypestatus == 30){//支付失败
 				tvState.setText("支付失败");
 				btn2.setVisibility(View.GONE);
 				btn1.setVisibility(View.VISIBLE);
-//				btn2.setText("重新报名");
-				btn1.setText("重新报名");
+//				btn2.setText(R.string.cancel_order);
+				btn1.setText(R.string.cancel_order);
 			}
 			
 			
@@ -152,13 +152,13 @@ public class OrderApplyAct extends BaseActivity {
 				tvState.setText("未支付");
 				btn2.setVisibility(View.VISIBLE);
 				btn1.setVisibility(View.VISIBLE);
-				btn2.setText("重新报名");
+				btn2.setText(R.string.cancel_order);
 				btn1.setText("立即支付");
 			}else if(successVO.paytypestatus == 30){//支付失败
 				tvState.setText("支付失败");
 				btn2.setVisibility(View.VISIBLE);
 				btn1.setVisibility(View.VISIBLE);
-				btn2.setText("重新报名");
+				btn2.setText(R.string.cancel_order);
 				btn1.setText("立即支付");
 			}
 		}
@@ -471,7 +471,7 @@ public class OrderApplyAct extends BaseActivity {
 //			tvState.setText("未验证");
 //			btn2.setVisibility(View.GONE);
 //			btn1.setVisibility(View.VISIBLE);
-//			btn1.setText("重新报名");
+//			btn1.setText(R.string.cancel_order);
 //		}
 //	}else{//线上支付
 //		if(null!=pay){//显示线下支付

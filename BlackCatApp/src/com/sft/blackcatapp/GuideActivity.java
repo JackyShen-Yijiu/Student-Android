@@ -48,7 +48,7 @@ public class GuideActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				startActivity(new Intent(GuideActivity.this,
-						LoginActivity.class));
+						NewLoginActivity.class));
 				SharedPreferencesUtil.putBoolean(getApplicationContext(),
 						WelcomeActivity.IS_APP_FIRST_OPEN, false);
 				finish();

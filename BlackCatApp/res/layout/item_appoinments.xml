@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+    <LinearLayout 
+        android:id="@+id/item_appointment_1"
+        android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:orientation="vertical"
+    	android:layout_marginLeft="17dp"
+    	android:layout_marginTop="19dp"
+    	android:layout_marginBottom="19dp"
+    	android:gravity="center"
+        >
+        <ImageView 
+            android:id="@+id/item_appointment_icon"
+            android:layout_width="50dp"
+    		android:layout_height="50dp"
+            />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:text="TextView" />
+        
+    </LinearLayout>
+    
+    
+        <RelativeLayout 
+            android:id="@+id/item_appointment_rl1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_alignTop="@+id/item_appointment_1"
+            android:layout_toRightOf="@+id/item_appointment_1"
+            >
+             <TextView
+            android:id="@+id/item_appointment_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            android:textSize="@dimen/txt_size_large" />
+             
+              <TextView
+            android:id="@+id/item_appointment_class"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            android:textSize="@dimen/txt_size_large" />
+            
+        </RelativeLayout>
+
+       
+        
+        <TextView
+            android:id="@+id/item_appointment_place"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/item_appointment_rl1"
+            android:layout_below="@+id/item_appointment_rl1"
+            android:layout_marginTop="14dp"
+            android:text="TextView"
+            android:textSize="@dimen/txt_size_middle" />
+
+        <TextView
+            android:id="@+id/item_appointment_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/item_appointment_1"
+            android:layout_alignLeft="@+id/item_appointment_place"
+            android:text="TextView111111111"
+            android:textSize="@dimen/txt_size_middle" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/item_appointment_time"
+            android:layout_alignBottom="@+id/item_appointment_time"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:text="扫码签到" />
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/textView2"
+            android:layout_alignRight="@+id/textView2"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/bus" />
+
+</RelativeLayout>

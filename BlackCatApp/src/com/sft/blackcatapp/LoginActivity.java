@@ -259,6 +259,9 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 				if (data != null && result.equals("1")) {
 					app.userVO = JSONUtil.toJavaBean(UserVO.class, data);
 					obtainVersionInfo();
+					LogUtil.print("msgggggggg3333" + jsonString);
+					util.saveParam(Config.LAST_LOGIN_MESSAGE,
+							jsonString.toString());
 				} else {
 					ZProgressHUD.getInstance(this).dismiss();
 					ZProgressHUD.getInstance(this).show();
