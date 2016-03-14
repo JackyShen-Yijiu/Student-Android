@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.jzjf.app.R;
 import com.sft.util.CommonUtil;
+import com.sft.util.LogUtil;
 import com.sft.vo.CoachCourseV2VO;
 
 @SuppressLint({ "InflateParams", "SimpleDateFormat" })
@@ -118,6 +119,7 @@ public class AppointmentCarTimeLayout extends LinearLayout implements
 		}
 		// 已预约
 		if (coachCourseVO.getIs_reservation() == 1) {
+			LogUtil.print("22222222222+" + coachCourseVO.getIs_reservation());
 			ck.setEnabled(false);
 			if (coachCourseVO.getReservationcoachname().equals(
 					coachCourseVO.getCoursedata().getCoachname())) {
@@ -133,6 +135,8 @@ public class AppointmentCarTimeLayout extends LinearLayout implements
 				labelIv.setBackgroundResource(R.drawable.appointment_car_reservation_other);
 			}
 		} else {
+			LogUtil.print("2222222222233333222+"
+					+ coachCourseVO.getIs_reservation());
 			if (coachCourseVO.getIs_outofdate() == 1
 					&& coachCourseVO.getIs_rest() == 1
 					&& coachCourseVO.getCoursedata() != null) {

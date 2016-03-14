@@ -90,7 +90,7 @@
                 android:background="@drawable/icon_qiandao" />
 
             <TextView
-                android:id="@+id/appointment_detail_signin_tv"
+                android:id="@+id/appointment_detail_signin_time_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -206,6 +206,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/appointment_detail_comment_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"

@@ -1,14 +1,12 @@
 package com.sft.vo;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-import android.support.v4.os.ParcelableCompat;
 import cn.sft.sqlhelper.DBVO;
 
 import com.sft.vo.coachvo.TrainFieldlInfo;
+import com.sft.vo.commentvo.CommentContent;
 import com.sft.vo.commonvo.Subject;
 
-public class MyAppointmentVO extends DBVO  {
+public class MyAppointmentVO extends DBVO {
 
 	private static final long serialVersionUID = 1L;
 
@@ -32,6 +30,23 @@ public class MyAppointmentVO extends DBVO  {
 	private TrainFieldlInfo trainfieldlinfo;
 
 	private String sigintime; // 签到时间
+	private CommentContent comment;
+
+	public String getSigintime() {
+		return sigintime;
+	}
+
+	public void setSigintime(String sigintime) {
+		this.sigintime = sigintime;
+	}
+
+	public CommentContent getComment() {
+		return comment;
+	}
+
+	public void setComment(CommentContent comment) {
+		this.comment = comment;
+	}
 
 	public String getCoursehour() {
 		return coursehour;
@@ -177,6 +192,5 @@ public class MyAppointmentVO extends DBVO  {
 	public void setLearningcontent(String learningcontent) {
 		this.learningcontent = learningcontent;
 	}
-
 
 }

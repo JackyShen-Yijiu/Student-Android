@@ -17,6 +17,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
@@ -26,6 +28,7 @@ import com.sft.common.Config;
 import com.sft.common.Config.AppointmentResult;
 import com.sft.common.Config.UserType;
 import com.sft.util.JSONUtil;
+import com.sft.util.UTC2LOC;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.MyAppointmentVO;
 import com.sft.vo.commentvo.CommentUser;
@@ -58,6 +61,12 @@ public class AppointmentDetailActivity extends BaseActivity implements
 	private TextView coachNameTv;
 	private TextView trainingGroundTv;
 	private ImageView coachDuihuaIv;
+	private TextView signInTimeTv;
+	private TextView stopCarTv;
+	private RatingBar ratingBar;
+	private TextView evaluateContentTv;
+	private TextView evaluateTimeTv;
+	private LinearLayout commentLl;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -70,15 +79,38 @@ public class AppointmentDetailActivity extends BaseActivity implements
 		// getWindow().addFlags(
 		// WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 		// }
-		addView(R.layout.activity_appointment_detail);
 		setTitleText(R.string.appointment_detail);
-		initView();
 		appointmentVO = (MyAppointmentVO) getIntent().getSerializableExtra(
 				"appointmentDetail");
+		if (appointmentVO != null) {
+			if (appointmentVO.getReservationstate().equals(
+					Config.AppointmentResult.applyconfirm.getValue())) {
+				addView(R.layout.activity_appointment_detail);
+				initView();
+				setData(appointmentVO);
+			} else {
+				addView(R.layout.activity_appointment_detail_finished);
+				initFinishView();
+				setFinishData(appointmentVO);
 
-		setData(appointmentVO);
+			}
+		}
+
 		setListener();
 		obtainAppointmentDetail();
+	}
+
+	private void initFinishView() {
+		classNameTv = (TextView) findViewById(R.id.appointment_detail_class_name_tv);
+		timeTv = (TextView) findViewById(R.id.appointment_detail_time_tv);
+		signInTimeTv = (TextView) findViewById(R.id.appointment_detail_signin_time_tv);
+		stopCarTv = (TextView) findViewById(R.id.appointment_detail_stopcar_tv);
+		coachNameTv = (TextView) findViewById(R.id.appointment_detail_coach_name_tv);
+		trainingGroundTv = (TextView) findViewById(R.id.appointment_detail_draining_ground_tv);
+		ratingBar = (RatingBar) findViewById(R.id.appointment_detail_ratingBar);
+		evaluateContentTv = (TextView) findViewById(R.id.appointment_detail_evaluate_content_tv);
+		evaluateTimeTv = (TextView) findViewById(R.id.appointment_detail_evaluate_time_tv);
+		commentLl = (LinearLayout) findViewById(R.id.appointment_detail_comment_ll);
 	}
 
 	@Override
@@ -144,6 +176,46 @@ public class AppointmentDetailActivity extends BaseActivity implements
 		}
 	}
 
+	private void setFinishData(MyAppointmentVO appointmentVO) {
+
+		if (appointmentVO == null) {
+			return;
+		}
+
+		coachNameTv.setText(appointmentVO.getCoachid().getName() + "  教练");
+
+		//
+		if (!TextUtils.isEmpty(appointmentVO.getCourseprocessdesc())) {
+			classNameTv.setText(appointmentVO.getCourseprocessdesc());
+		}
+		if (!TextUtils.isEmpty(appointmentVO.getClassdatetimedesc())) {
+			timeTv.setText(appointmentVO.getClassdatetimedesc());
+		}
+		if (!TextUtils.isEmpty(appointmentVO.getTrainfieldlinfo().getName())) {
+			trainingGroundTv.setText(appointmentVO.getTrainfieldlinfo()
+					.getName());
+		}
+		if (!TextUtils.isEmpty(appointmentVO.getSigintime())) {
+			signInTimeTv.setText(appointmentVO.getSigintime());
+		}
+		if (!TextUtils.isEmpty(appointmentVO.getLearningcontent())) {
+			signInTimeTv.setText(appointmentVO.getLearningcontent());
+		}
+
+		if (appointmentVO.getComment() != null) {
+			evaluateContentTv.setText(appointmentVO.getComment()
+					.getCommentcontent());
+			evaluateTimeTv.setText(UTC2LOC.instance.getDate(appointmentVO
+					.getComment().getCommenttime(), "MM/dd HH:mm"));
+			ratingBar.setNumStars(Integer.parseInt(appointmentVO.getComment()
+					.getStarlevel()));
+		} else {
+			commentLl.setVisibility(View.GONE);
+		}
+
+		// String state = appointmentVO.getReservationstate();
+	}
+
 	private void obtainAppointmentDetail() {
 		if (!TextUtils.isEmpty(appointmentVO.get_id()) && app.userVO != null) {
 			Map<String, String> headerMap = new HashMap<String, String>();
@@ -166,6 +238,9 @@ public class AppointmentDetailActivity extends BaseActivity implements
 		}
 		Intent intent = null;
 		switch (v.getId()) {
+		case R.id.base_left_btn:
+			finish();
+			break;
 		case R.id.appointment_detail_coach_duihua_iv:
 			String chatId = appointmentVO.getCoachid().getCoachid();
 			if (!TextUtils.isEmpty(chatId)) {

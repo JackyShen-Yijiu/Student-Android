@@ -195,8 +195,12 @@ public class AppointmentFragment extends BaseFragment implements
 			@Override
 			public boolean onChildClick(ExpandableListView arg0, View arg1,
 					int arg2, int arg3, long arg4) {
-				Toast.makeText(getActivity(), arg2 + "nannan" + arg3,
-						android.widget.Toast.LENGTH_SHORT).show();
+				// Toast.makeText(getActivity(), arg2 + "nannan" + arg3,
+				// android.widget.Toast.LENGTH_SHORT).show();
+				Intent intent = new Intent(getActivity(),
+						AppointmentDetailActivity.class);
+				intent.putExtra("appointmentDetail", datas.get(arg2).get(arg3));
+				startActivity(intent);
 				return false;
 			}
 		});

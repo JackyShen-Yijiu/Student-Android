@@ -278,6 +278,9 @@ public class AppointmentCarActivity extends BaseActivity implements
 			paramMap.put("coachid", coachId);
 			paramMap.put("userid", app.userVO.getUserid());
 			paramMap.put("date", selectDate);
+			LogUtil.print("coachid--" + coachId + "---userid--"
+					+ app.userVO.getUserid());
+			LogUtil.print("----" + app.userVO.getToken());
 			HttpSendUtils.httpGetSend(coachCourse, this, Config.IP
 					+ "api/v1/courseinfo/getcoursebycoachv2", paramMap);
 		}
