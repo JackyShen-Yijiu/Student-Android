@@ -11,7 +11,6 @@ import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnFocusChangeListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -19,7 +18,6 @@ import android.widget.EditText;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.sft.infinitescrollviewpager.BitmapManager;
 
@@ -34,7 +32,8 @@ import com.sft.vo.MyAppointmentVO;
  * @author sun 2016-2-2 下午5:11:57
  * 
  */
-public class NoCommentDialog extends Dialog {
+public class NoCommentDialog extends Dialog implements
+		android.view.View.OnClickListener {
 
 	List<MyAppointmentVO> list = new ArrayList<MyAppointmentVO>();
 
@@ -47,15 +46,27 @@ public class NoCommentDialog extends Dialog {
 
 	private TextView wordNumTv;
 
-	private TextView errorHintTv;
-
-	private TextView editHintTv;
-
 	private EditText commentEdit;
 
-	private RelativeLayout errorHintRl;
-
 	private ClickListenerInterface clickListenerInterface;
+
+	private TextView coachNameTv;
+
+	private TextView titleTv;
+
+	private LinearLayout commentStarsLl;
+
+	private RatingBar totalStar;
+
+	private RatingBar abilityStar;
+
+	private RatingBar attitudeStar;
+
+	private RatingBar punctualStar;
+
+	private LinearLayout commentBtns;
+
+	private Button moreCommitBtn;
 
 	public NoCommentDialog(Context context) {
 		super(context, R.style.dialog);
@@ -68,37 +79,52 @@ public class NoCommentDialog extends Dialog {
 		LayoutInflater inflater = LayoutInflater.from(context);
 		View view = inflater.inflate(R.layout.dialog_comment, null);
 
+		titleTv = (TextView) view.findViewById(R.id.dialog_comment_title_tv);
 		coachPicIv = (SelectableRoundedImageView) view
 				.findViewById(R.id.dialog_comment_coach_im);
 		coachPicIv.setScaleType(ScaleType.CENTER_CROP);
 		coachPicIv.setImageResource(R.drawable.login_head);
 		coachPicIv.setOval(true);
 
+		coachNameTv = (TextView) view
+				.findViewById(R.id.dialog_comment_coach_name_tv);
 		ratingBar = (RatingBar) view
 				.findViewById(R.id.dialog_comment_ratingBar);
-		errorHintRl = (RelativeLayout) view
-				.findViewById(R.id.dialog_comment_error_hint_rl);
+
+		commentStarsLl = (LinearLayout) view
+				.findViewById(R.id.dialog_comment_stars_ll);
+		punctualStar = (RatingBar) view
+				.findViewById(R.id.dialog_comment_punctual_star);
+		attitudeStar = (RatingBar) view
+				.findViewById(R.id.dialog_comment_attitude_star);
+		abilityStar = (RatingBar) view
+				.findViewById(R.id.dialog_comment_ability_star);
+		totalStar = (RatingBar) view
+				.findViewById(R.id.dialog_comment_total_star);
+
 		wordNumTv = (TextView) view.findViewById(R.id.dialog_comment_words_num);
-		errorHintTv = (TextView) view
-				.findViewById(R.id.dialog_comment_error_hint);
-		editHintTv = (TextView) view
-				.findViewById(R.id.dialog_comment_edit_hint);
 		commentEdit = (EditText) view.findViewById(R.id.dialog_comment_edit_et);
 
+		commentBtns = (LinearLayout) view
+				.findViewById(R.id.dialog_comment_btns);
 		moreBtn = (Button) view.findViewById(R.id.dialog_comment_more_btn);
 		commitBtn = (Button) view.findViewById(R.id.dialog_comment_commit_btn);
+
+		moreCommitBtn = (Button) view
+				.findViewById(R.id.dialog_comment_more_commit_btn);
 		// setTextAndImage();
 		setContentView(view);
 		DisplayMetrics d = context.getResources().getDisplayMetrics();
 		Window dialogWindow = getWindow();
 		WindowManager.LayoutParams p = dialogWindow.getAttributes(); // 获取对话框当前的参数值
-		p.width = (int) (d.widthPixels * 0.9); // 宽度设置为屏幕宽度的0.9
+		p.width = (int) (d.widthPixels * 0.75); // 宽度设置为屏幕宽度的0.9
 		dialogWindow.setAttributes(p);
 		setCanceledOnTouchOutside(true);// 设置点击Dialog外部任意区域关闭Dialog
-		// moreBtn.setOnClickListener(this);
+		moreBtn.setOnClickListener(this);
 		// commitBtn.setOnClickListener(this);
-		moreBtn.setOnClickListener(new clickListener());
+		// moreBtn.setOnClickListener(new clickListener());
 		commitBtn.setOnClickListener(new clickListener());
+		moreCommitBtn.setOnClickListener(new clickListener());
 		commentEdit.addTextChangedListener(new TextWatcher() {
 			private CharSequence temp;
 			private int selectionStart;
@@ -118,7 +144,7 @@ public class NoCommentDialog extends Dialog {
 
 			@Override
 			public void afterTextChanged(Editable s) {
-				wordNumTv.setText("评价" + s.length() + "/40");
+				wordNumTv.setText(s.length() + "/40");
 				selectionStart = commentEdit.getSelectionStart();
 				selectionEnd = commentEdit.getSelectionEnd();
 				if (temp.length() > 40) {
@@ -130,17 +156,17 @@ public class NoCommentDialog extends Dialog {
 			}
 		});
 
-		commentEdit.setOnFocusChangeListener(new OnFocusChangeListener() {
-
-			@Override
-			public void onFocusChange(View v, boolean hasFocus) {
-				if (hasFocus) {
-					editHintTv.setVisibility(View.GONE);
-				} else {
-					editHintTv.setVisibility(View.VISIBLE);
-				}
-			}
-		});
+		// commentEdit.setOnFocusChangeListener(new OnFocusChangeListener() {
+		//
+		// @Override
+		// public void onFocusChange(View v, boolean hasFocus) {
+		// if (hasFocus) {
+		// editHintTv.setVisibility(View.GONE);
+		// } else {
+		// editHintTv.setVisibility(View.VISIBLE);
+		// }
+		// }
+		// });
 	}
 
 	public RatingBar getRatingBar() {
@@ -152,11 +178,11 @@ public class NoCommentDialog extends Dialog {
 	}
 
 	public void showErrorHint(boolean isShow) {
-		if (isShow) {
-			errorHintTv.setVisibility(View.VISIBLE);
-		} else {
-			errorHintTv.setVisibility(View.GONE);
-		}
+		// if (isShow) {
+		// errorHintTv.setVisibility(View.VISIBLE);
+		// } else {
+		// errorHintTv.setVisibility(View.GONE);
+		// }
 	}
 
 	public void setImage(String url) {
@@ -210,5 +236,22 @@ public class NoCommentDialog extends Dialog {
 		public void getMoreClick();
 
 		public void commintClick();
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.dialog_comment_more_btn:
+			titleTv.setVisibility(View.GONE);
+			ratingBar.setVisibility(View.GONE);
+			commentBtns.setVisibility(View.GONE);
+
+			commentStarsLl.setVisibility(View.VISIBLE);
+			moreCommitBtn.setVisibility(View.VISIBLE);
+			break;
+
+		default:
+			break;
+		}
 	}
 }

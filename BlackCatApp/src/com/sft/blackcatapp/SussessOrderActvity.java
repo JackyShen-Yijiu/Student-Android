@@ -12,6 +12,7 @@ import cn.sft.baseactivity.util.HttpSendUtils;
 
 import com.jzjf.app.R;
 import com.sft.adapter.SussessAppointmentAdapter;
+import com.sft.vo.AppointmentTempVO;
 import com.sft.common.Config;
 import com.sft.util.JSONUtil;
 import com.sft.vo.MyAppointmentVO;
@@ -30,13 +31,13 @@ public class SussessOrderActvity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		addView(R.layout.sussess_order_act);
 		initView();
-		request();
+//		request();
 	}
 
 	private void initView() {
 		setTitleText("已完成预约");
-
-		appointmentVO = (MyAppointmentVO) getIntent().getSerializableExtra("2");
+		AppointmentTempVO vo = (AppointmentTempVO)getIntent().getSerializableExtra("list");
+		list = vo.list;
 
 		Lv = (ListView) findViewById(R.id.enroll_select_school_listview);
 		adapter = new SussessAppointmentAdapter(this, list);
