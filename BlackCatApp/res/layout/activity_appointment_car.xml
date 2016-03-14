@@ -3,6 +3,7 @@
     xmlns:widget="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="#fff"
      >
 
     <include layout="@layout/layout_error" />
@@ -11,7 +12,6 @@
         android:id="@+id/appointment_car_ll"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
-        android:background="@color/app_bg_dark"
         android:orientation="vertical" >
 
         <com.sft.view.WeekViewPager

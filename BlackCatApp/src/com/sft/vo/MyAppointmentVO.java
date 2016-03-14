@@ -1,11 +1,14 @@
 package com.sft.vo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.support.v4.os.ParcelableCompat;
 import cn.sft.sqlhelper.DBVO;
 
 import com.sft.vo.coachvo.TrainFieldlInfo;
 import com.sft.vo.commonvo.Subject;
 
-public class MyAppointmentVO extends DBVO {
+public class MyAppointmentVO extends DBVO  {
 
 	private static final long serialVersionUID = 1L;
 
@@ -174,5 +177,6 @@ public class MyAppointmentVO extends DBVO {
 	public void setLearningcontent(String learningcontent) {
 		this.learningcontent = learningcontent;
 	}
+
 
 }

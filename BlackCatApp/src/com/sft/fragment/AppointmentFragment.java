@@ -18,14 +18,18 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.OnChildClickListener;
+import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
 import com.jzjf.app.R;
 import com.sft.adapter.MyAppointmentListAdapter2;
 import com.sft.blackcatapp.AppointmentDetailActivity;
+import com.sft.blackcatapp.SussessOrderActvity;
 import com.sft.common.Config;
 import com.sft.dialog.NoCommentDialog;
 import com.sft.event.AppointmentSuccessEvent;
@@ -34,6 +38,7 @@ import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
 import com.sft.util.UTC2LOC;
 import com.sft.viewutil.ZProgressHUD;
+import com.sft.vo.AppointmentTempVO;
 import com.sft.vo.MyAppointmentVO;
 import com.sft.vo.UserVO;
 import com.sft.vo.uservo.StudentSubject;
@@ -81,8 +86,8 @@ public class AppointmentFragment extends BaseFragment implements
 		View rootView = inflater.inflate(R.layout.fragment_appointment, null,// container
 				false);
 		initViews(rootView);
-		commentDialog = new NoCommentDialog(getActivity());
-		commentDialog.show();
+		// commentDialog = new NoCommentDialog(getActivity());
+		// commentDialog.show();
 		return rootView;
 	}
 
@@ -116,7 +121,10 @@ public class AppointmentFragment extends BaseFragment implements
 			subject = app.userVO.getSubjectthree();
 		}
 		if (null != subject) {
+			// 规定xx 学时 完成XX学时
 			tvLeft1.setText("已约学时" + subject.getFinishcourse() + "课时");
+
+			// 购买 XX学时 已学XX学时
 			tvLeft2.setText("漏课" + subject.getMissingcourse() + "课时");
 		} else {
 			tvLeft1.setVisibility(View.GONE);
@@ -182,6 +190,38 @@ public class AppointmentFragment extends BaseFragment implements
 		// .findViewById(R.id.fragment_appointment_listview);
 		epListView = (ExpandableListView) rootView
 				.findViewById(R.id.fragment_appointment_listview_ep);
+		epListView.setOnChildClickListener(new OnChildClickListener() {
+
+			@Override
+			public boolean onChildClick(ExpandableListView arg0, View arg1,
+					int arg2, int arg3, long arg4) {
+				Toast.makeText(getActivity(), arg2 + "nannan" + arg3,
+						android.widget.Toast.LENGTH_SHORT).show();
+				return false;
+			}
+		});
+		epListView.setOnGroupClickListener(new OnGroupClickListener() {
+
+			@Override
+			public boolean onGroupClick(ExpandableListView arg0, View arg1,
+					int arg2, long arg3) {
+				Toast.makeText(getActivity(), arg1 + "group" + arg3,
+						android.widget.Toast.LENGTH_SHORT).show();
+
+				ImageView right = (ImageView) arg1
+						.findViewById(R.id.item_appoint_group_img);
+				LogUtil.print("group-->" + right.getBackground());
+				if (arg2 == 2) {// 已完成列表
+					Intent i = new Intent(getActivity(),
+							SussessOrderActvity.class);
+					AppointmentTempVO vo = new AppointmentTempVO();
+					vo.list = datas.get(0);
+					i.putExtra("list", vo);
+					startActivity(i);
+				}
+				return false;
+			}
+		});
 
 		// appointmentSwipeLaout.setOnRefreshListener(this);
 		// appointmentSwipeLaout.setColorScheme(android.R.color.holo_blue_bright,
@@ -298,11 +338,22 @@ public class AppointmentFragment extends BaseFragment implements
 					list.addAll(otherAppointList);
 					list.addAll(finishedList);
 					LogUtil.print("预约列表：：---》" + list.size());
+					datas.put(2, new ArrayList<MyAppointmentVO>());
+
+					list.addAll(toadyAppointList);
+					list.addAll(otherAppointList);
+					list.addAll(finishedList);
+					LogUtil.print("预约列表：：---今天》" + toadyAppointList.size()
+							+ "other--->" + otherAppointList.size());
 					ZProgressHUD.getInstance(getActivity()).dismiss();
 					if (adapter == null) {
 						adapter = new MyAppointmentListAdapter2(getActivity(),
 								datas);
 						epListView.setAdapter(adapter);
+						// mListView.setAdapter(adapter);
+						for (int i = 0; i < adapter.getGroupCount(); i++) {
+							epListView.expandGroup(i);
+						}
 						// mListView.setAdapter(adapter);
 					}
 
@@ -346,6 +397,7 @@ public class AppointmentFragment extends BaseFragment implements
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		LogUtil.print("focus---ed-->>" + epListView.isFocused());
 		return true;
 	}
 

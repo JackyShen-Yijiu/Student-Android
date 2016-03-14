@@ -193,8 +193,8 @@ public class NewPersonCenterAct extends BaseActivity implements OnClickListener 
 			break;
 		// 我的收藏
 		case R.id.rl_collect:
-			intent = new Intent(this, MyFavouriteActiviy.class);
-			startActivityForResult(intent, R.id.rl_collect);
+			startActivity(new Intent(this, MyFavouriteActiviy.class));
+			// startActivityForResult(intent, R.id.rl_collect);
 			break;
 		// 报名信息
 		case R.id.rl_apply:

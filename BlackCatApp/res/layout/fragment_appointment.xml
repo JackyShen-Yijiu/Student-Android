@@ -26,6 +26,7 @@
                 android:listSelector="@android:color/transparent"
                 android:overScrollMode="always"
                 android:scrollbars="none" 
+                android:groupIndicator="@null"
                 ></ExpandableListView>
         
 
@@ -33,7 +34,9 @@
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/fragment_appointment_swipe_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent" 
+            android:visibility="gone"
+            >
             
             
             <ListView

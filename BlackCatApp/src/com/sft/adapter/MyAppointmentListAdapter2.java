@@ -27,6 +27,7 @@ import com.joooonho.SelectableRoundedImageView;
 import com.jzjf.app.R;
 import com.sft.common.Config.AppointmentResult;
 import com.sft.util.CommonUtil;
+import com.sft.util.LogUtil;
 import com.sft.util.UTC2LOC;
 import com.sft.vo.MyAppointmentVO;
 
@@ -43,6 +44,8 @@ public class MyAppointmentListAdapter2 extends BaseExpandableListAdapter   {
 
 	private int pos = 0; // 0：显示今天的 预约订单 ， 1：显示除今天以外的订单 ， 2：显示已完成的订单
 	private SimpleDateFormat format;
+	
+	private String[] title = {"今日预约","未来预约","已完成预约"};
 
 	public MyAppointmentListAdapter2(Context context, Map<Integer, List<MyAppointmentVO>> mData) {
 		this.mInflater = LayoutInflater.from(context);
@@ -487,7 +490,7 @@ public class MyAppointmentListAdapter2 extends BaseExpandableListAdapter   {
 	@Override
 	public View getChildView(int arg0, int arg1, boolean arg2, View arg3,
 			ViewGroup arg4) {
-		
+		LogUtil.print("childview--->"+arg0+"arg1-->>>"+arg1);
 		return getItemView(mData.get(arg0),arg1);
 	}
 
@@ -513,20 +516,21 @@ public class MyAppointmentListAdapter2 extends BaseExpandableListAdapter   {
 
 	@Override
 	public View getGroupView(int arg0, boolean arg1, View arg2, ViewGroup arg3) {
-		TextView tv = new TextView(context);
-		tv.setText(arg0+"未完成");
-		return tv;
+		
+		View view = View.inflate(context, R.layout.item_appoint_group, null);
+		TextView tvTitle = (TextView) view.findViewById(R.id.item_appoint_group_title);
+		tvTitle.setText(title[arg0]);
+		tvTitle.setClickable(true);
+		return view;
 	}
 
 	@Override
 	public boolean hasStableIds() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean isChildSelectable(int arg0, int arg1) {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 }
