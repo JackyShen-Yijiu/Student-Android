@@ -201,7 +201,7 @@ public class NewLoginActivity extends BaseActivity implements EMLoginListener {
 	}
 
 	private void login() {
-		loginBtn.setEnabled(false);
+		loginBtn.setEnabled(true);
 		lookAroundBtn.setEnabled(false);
 		String checkResult = checkLoginInfo();
 		if (checkResult == null) {

@@ -112,7 +112,7 @@
                 android:layout_height="match_parent"
                 android:button="@null"
                 android:gravity="center"
-                android:text="资询"
+                android:text="咨询"
                 android:textSize="14sp"
                 android:textColor="#7b7b7b"/>
 
