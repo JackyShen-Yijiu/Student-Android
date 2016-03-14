@@ -309,6 +309,11 @@
         <activity
             android:name="com.sft.blackcatapp.PlayVideoMediaActivity"
             android:screenOrientation="portrait" />
+        
+           <activity
+            android:name="com.sft.blackcatapp.SussessOrderActvity"
+            android:screenOrientation="portrait" />
+        
         <activity
             android:name="com.sft.blackcatapp.MallActivity"
             android:screenOrientation="portrait" />

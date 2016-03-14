@@ -50,7 +50,6 @@ import com.sft.blackcatapp.WalletActivity;
 import com.sft.common.BlackCatApplication;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
-import com.sft.dialog.NoLoginDialog;
 import com.sft.util.BaseUtils;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
@@ -294,8 +293,8 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 
 			} else {
 				BaseUtils.toLogin(getActivity());
-//				NoLoginDialog dialog = new NoLoginDialog(getActivity());
-//				dialog.show();
+				// NoLoginDialog dialog = new NoLoginDialog(getActivity());
+				// dialog.show();
 			}
 			break;
 		// 我的消息

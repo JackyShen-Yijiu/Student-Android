@@ -132,7 +132,7 @@
     <string name="no_favourite_coach">还未添加喜欢的教练</string>
     <string name="no_favourite_school">还未添加喜欢的驾校</string>
     <string name="appointment_tip">预约提醒</string>
-    <string name="new_message_tip">新消息提醒</string>
+    <string name="new_message_tip">新消息通知</string>
     <string name="about_us">关于我们</string>
     <string name="set_rate">去评分</string>
     <string name="callback">反馈</string>

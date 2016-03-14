@@ -5,7 +5,13 @@ import java.util.Map;
 import java.util.Set;
 
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningServiceInfo;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,6 +20,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
@@ -26,7 +33,10 @@ import com.sft.common.BlackCatApplication;
 import com.sft.common.Config;
 import com.sft.util.BaseUtils;
 import com.sft.util.CommonUtil;
+import com.sft.util.DownLoadService;
+import com.sft.util.JSONUtil;
 import com.sft.viewutil.ZProgressHUD;
+import com.sft.vo.VersionVO;
 
 /**
  * 设置界面
@@ -44,6 +54,10 @@ public class SettingActivity extends BaseActivity implements
 	private TextView helpTv;
 	private Button logoutBtn;
 	private TextView gradeTv;
+	private TextView tv_code;
+	private RelativeLayout setting_update;
+
+	private static final String version = "version";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +65,10 @@ public class SettingActivity extends BaseActivity implements
 		addView(R.layout.activity_setting);
 		initView();
 		setListener();
+		obtainVersionInfo();
 	}
+
+	// tv_code.setText(app.versionVO.getVersionCode());
 
 	@Override
 	protected void onResume() {
@@ -64,6 +81,10 @@ public class SettingActivity extends BaseActivity implements
 
 		appointmentCk = (CheckBox) findViewById(R.id.setting_appointment_ck);
 		messageCk = (CheckBox) findViewById(R.id.setting_newmessage_ck);
+
+		tv_code = (TextView) findViewById(R.id.tv_code);
+
+		setting_update = (RelativeLayout) findViewById(R.id.setting_update);
 
 		helpTv = (TextView) findViewById(R.id.setting_hlep);
 		aboutUsTv = (TextView) findViewById(R.id.setting_aboutus_tv);
@@ -91,6 +112,7 @@ public class SettingActivity extends BaseActivity implements
 				appointmentCk.setChecked(false);
 			}
 		}
+
 	}
 
 	private void setListener() {
@@ -98,6 +120,7 @@ public class SettingActivity extends BaseActivity implements
 		// rateTv.setOnClickListener(this);
 		callbackTv.setOnClickListener(this);
 		helpTv.setOnClickListener(this);
+		setting_update.setOnClickListener(this);
 		appointmentCk.setOnCheckedChangeListener(this);
 		messageCk.setOnCheckedChangeListener(this);
 		gradeTv.setOnClickListener(this);
@@ -124,6 +147,11 @@ public class SettingActivity extends BaseActivity implements
 
 	}
 
+	private void obtainVersionInfo() {
+		HttpSendUtils.httpGetSend(version, this, Config.IP
+				+ "api/v1/appversion/1");
+	}
+
 	@Override
 	public void onClick(View v) {
 		if (!onClickSingleView()) {
@@ -133,6 +161,10 @@ public class SettingActivity extends BaseActivity implements
 		switch (v.getId()) {
 		case R.id.base_left_btn:
 			finish();
+			break;
+
+		case R.id.setting_update:
+			showDialog();
 			break;
 		case R.id.person_center_logout_btn:
 			ZProgressHUD.getInstance(this).setMessage("正在退出登录...");
@@ -162,6 +194,66 @@ public class SettingActivity extends BaseActivity implements
 		if (intent != null) {
 			startActivity(intent);
 		}
+	}
+
+	private void showDialog() {
+		if (getIntent().getBooleanExtra("update", false)) {
+
+			// 如果正在下载，return
+			if (isMyServiceRunning()) {
+				return;
+			}
+			String curVersion = util.getAppVersion().replace("v", "")
+					.replace("V", "").replace(".", "");
+			String newVersion = app.versionVO.getVersionCode().replace("v", "")
+					.replace("V", "").replace(".", "");
+			try {
+				if (newVersion != curVersion) {
+
+					AlertDialog.Builder builder = new AlertDialog.Builder(this);
+					builder.setTitle("发现新版本");
+					builder.setMessage(getString(R.string.app_name) + "有新版本啦！");
+					builder.setPositiveButton("立即更新",
+							new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog,
+										int whichButton) {
+									startService(new Intent(
+											SettingActivity.this,
+											DownLoadService.class).putExtra(
+											"url",
+											app.versionVO.getDownloadUrl()));
+									dialog.dismiss();
+								}
+							});
+					builder.setNegativeButton("以后再说",
+							new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog,
+										int whichButton) {
+									dialog.dismiss();
+								}
+							});
+					Dialog dialog = builder.create();
+					dialog.show();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	private boolean isMyServiceRunning() {
+		util.print(DownLoadService.class.getName());
+		ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+		for (RunningServiceInfo service : manager
+				.getRunningServices(Integer.MAX_VALUE)) {
+			if (DownLoadService.class.getName().equals(
+					service.service.getClassName())) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private void setTag() {
@@ -219,6 +311,21 @@ public class SettingActivity extends BaseActivity implements
 						appointmentCk.isChecked() ? "true" : "false");
 				app.userVO.getUsersetting().setNewmessagereminder(
 						messageCk.isChecked() ? "true" : "false");
+			}
+		} else if (type.equals(version)) {
+
+			try {
+				VersionVO versionVO = JSONUtil
+						.toJavaBean(VersionVO.class, data);
+				app.versionVO = versionVO;
+
+				tv_code.setText(app.versionVO.getVersionCode());
+
+			} catch (Exception e) {
+				ZProgressHUD.getInstance(this).dismiss();
+				ZProgressHUD.getInstance(this).show();
+				ZProgressHUD.getInstance(this).dismissWithFailure("版本数据解析错误");
+				e.printStackTrace();
 			}
 		}
 		return true;
