@@ -161,7 +161,7 @@
             android:textColor="#333333"
             android:textSize="14dp" />
 
-        <TextView
+      <!--   <TextView
             android:id="@+id/appointment_car_select_course3_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -169,7 +169,7 @@
             android:layout_marginLeft="2dp"
             android:layout_toRightOf="@+id/appointment_car_select_course2_tv"
             android:textColor="#333333"
-            android:textSize="14dp" />
+            android:textSize="14dp" /> -->
 
         <Button
             android:id="@+id/appointment_car_commit_btn"

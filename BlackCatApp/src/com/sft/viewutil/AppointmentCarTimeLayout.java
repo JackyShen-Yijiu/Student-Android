@@ -41,9 +41,12 @@ public class AppointmentCarTimeLayout extends LinearLayout implements
 	private RelativeLayout backgroundRl;
 	private Context mContext;
 
+	private boolean canAppointOtherCoach = false; // 是否可以预约其他教练
+
 	public interface TimeLayoutSelectedChangeListener {
 		public void onTimeLayoutSelectedChange(AppointmentCarTimeLayout layout,
-				CoachCourseV2VO coachCourseVO, boolean selected);
+				CoachCourseV2VO coachCourseVO, boolean selected,
+				boolean canAppointOtherCoach);
 	}
 
 	public void setSelectedChangeListener(
@@ -98,69 +101,76 @@ public class AppointmentCarTimeLayout extends LinearLayout implements
 		// if (BlackCatApplication.getInstance().userVO == null) {
 		// return;
 		// }
-
-		// 休息
-		if (coachCourseVO.getIs_rest() == 0) {
-			labelIv.setBackgroundResource(R.drawable.appointment_car_rest);
-
-			// 是否有其他教练可约
-			if (coachCourseVO.getCoachcount() > 0) {
-				countTv.setText("有" + coachCourseVO.getCoachcount() + "个教练可预约");
-				countTv.setTextColor(Color.parseColor("#5B8EFB"));
-			} else {
-				backgroundRl.setBackgroundColor(Color.parseColor("#efefef"));
-				ck.setEnabled(false);
-			}
-		}
 		// 已过时
 		if (coachCourseVO.getIs_outofdate() == 0) {
 			backgroundRl.setBackgroundColor(Color.parseColor("#efefef"));
 			ck.setEnabled(false);
-		}
-		// 已预约
-		if (coachCourseVO.getIs_reservation() == 1) {
-			LogUtil.print("22222222222+" + coachCourseVO.getIs_reservation());
-			ck.setEnabled(false);
-			if (coachCourseVO.getReservationcoachname().equals(
-					coachCourseVO.getCoursedata().getCoachname())) {
-				// 该教练
-				countTv.setText("已约该教练");
-				countTv.setTextColor(CommonUtil.getColor(mContext,
-						R.color.new_app_main_color));
-				labelIv.setBackgroundResource(R.drawable.appointment_car_reservation_this);
-			} else {
-				countTv.setText("已约" + coachCourseVO.getReservationcoachname()
-						+ "教练");
-				countTv.setTextColor(Color.parseColor("#5B8EFB"));
-				labelIv.setBackgroundResource(R.drawable.appointment_car_reservation_other);
-			}
 		} else {
-			LogUtil.print("2222222222233333222+"
-					+ coachCourseVO.getIs_reservation());
-			if (coachCourseVO.getIs_outofdate() == 1
-					&& coachCourseVO.getIs_rest() == 1
-					&& coachCourseVO.getCoursedata() != null) {
-				// 该教练已约满
-				if (coachCourseVO.getCoursedata().getCoursestudentcount() == coachCourseVO
-						.getCoursedata().getSelectedstudentcount()) {
-					labelIv.setBackgroundResource(R.drawable.appointment_car_full);
-					// 是否有其他教练可约
-					if (coachCourseVO.getCoachcount() > 0) {
-						countTv.setText("有" + coachCourseVO.getCoachcount()
-								+ "个教练可预约");
-						countTv.setTextColor(Color.parseColor("#5B8EFB"));
-					} else {
+			// 休息
+			if (coachCourseVO.getIs_rest() == 0) {
+				labelIv.setBackgroundResource(R.drawable.appointment_car_rest);
 
-						backgroundRl.setBackgroundColor(Color
-								.parseColor("#efefef"));
-						ck.setEnabled(false);
-					}
+				// 是否有其他教练可约
+				if (coachCourseVO.getCoachcount() > 0) {
+					countTv.setText("有" + coachCourseVO.getCoachcount()
+							+ "个教练可预约");
+					countTv.setTextColor(Color.parseColor("#5B8EFB"));
+					canAppointOtherCoach = true;
 				} else {
-					countTv.setText("剩余"
-							+ (coachCourseVO.getCoursedata()
-									.getCoursestudentcount() - coachCourseVO
-									.getCoursedata().getSelectedstudentcount())
-							+ "个名额");
+					canAppointOtherCoach = false;
+					backgroundRl
+							.setBackgroundColor(Color.parseColor("#efefef"));
+					ck.setEnabled(false);
+				}
+			}
+
+			// 已预约
+			if (coachCourseVO.getIs_reservation() == 1) {
+				LogUtil.print("22222222222+"
+						+ coachCourseVO.getIs_reservation());
+				ck.setEnabled(false);
+				if (coachCourseVO.getReservationcoachname().equals(
+						coachCourseVO.getCoursedata().getCoachname())) {
+					// 该教练
+					countTv.setText("已约该教练");
+					countTv.setTextColor(CommonUtil.getColor(mContext,
+							R.color.new_app_main_color));
+					labelIv.setBackgroundResource(R.drawable.appointment_car_reservation_this);
+				} else {
+					countTv.setText("已约"
+							+ coachCourseVO.getReservationcoachname() + "教练");
+					countTv.setTextColor(Color.parseColor("#5B8EFB"));
+					labelIv.setBackgroundResource(R.drawable.appointment_car_reservation_other);
+				}
+			} else {
+				LogUtil.print("2222222222233333222+"
+						+ coachCourseVO.getIs_reservation());
+				if (coachCourseVO.getIs_outofdate() == 1
+						&& coachCourseVO.getIs_rest() == 1
+						&& coachCourseVO.getCoursedata() != null) {
+					// 该教练已约满
+					if (coachCourseVO.getCoursedata().getCoursestudentcount() == coachCourseVO
+							.getCoursedata().getSelectedstudentcount()) {
+						labelIv.setBackgroundResource(R.drawable.appointment_car_full);
+						// 是否有其他教练可约
+						if (coachCourseVO.getCoachcount() > 0) {
+							canAppointOtherCoach = true;
+							countTv.setText("有" + coachCourseVO.getCoachcount()
+									+ "个教练可预约");
+							countTv.setTextColor(Color.parseColor("#5B8EFB"));
+						} else {
+							canAppointOtherCoach = false;
+							backgroundRl.setBackgroundColor(Color
+									.parseColor("#efefef"));
+							ck.setEnabled(false);
+						}
+					} else {
+						countTv.setText("剩余"
+								+ (coachCourseVO.getCoursedata()
+										.getCoursestudentcount() - coachCourseVO
+										.getCoursedata()
+										.getSelectedstudentcount()) + "个名额");
+					}
 				}
 			}
 		}
@@ -275,13 +285,19 @@ public class AppointmentCarTimeLayout extends LinearLayout implements
 
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		if (isChecked) {
-			setTextColor(selected, other);
+		LogUtil.print("========================" + canAppointOtherCoach);
+		if (canAppointOtherCoach) {
+
 		} else {
-			setTextColor(noSelected, other);
+			if (isChecked) {
+				setTextColor(selected, other);
+			} else {
+				setTextColor(noSelected, other);
+			}
 		}
 		selectedListener.onTimeLayoutSelectedChange(this, coachCourseVO,
-				isChecked);
+				isChecked, canAppointOtherCoach);
+
 	}
 
 	public void setCheckBoxState(boolean isChecked) {

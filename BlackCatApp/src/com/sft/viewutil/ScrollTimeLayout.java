@@ -176,28 +176,33 @@ public class ScrollTimeLayout extends LinearLayout implements
 
 	@Override
 	public void onTimeLayoutSelectedChange(AppointmentCarTimeLayout layout,
-			CoachCourseV2VO coachCourseVO, boolean selected) {
+			CoachCourseV2VO coachCourseVO, boolean selected,
+			boolean canAppointOtherCoach) {
 		if (coachCourseVO == null) {
 			return;
 		}
-		if (selected) {
-			selectCourseList.add(coachCourseVO);
-			LogUtil.print("===========select");
-		} else {
-			selectCourseList.remove(coachCourseVO);
-			LogUtil.print("=====no======select");
+		if (!canAppointOtherCoach) {
+			if (selected) {
+				selectCourseList.add(coachCourseVO);
+				LogUtil.print("===========select");
+			} else {
+				selectCourseList.remove(coachCourseVO);
+				LogUtil.print("=====no======select");
+			}
+
+			isTimeBlockCon = checkTimeBlockCon();
+			if (!isTimeBlockCon) {
+				CustomDialog dialog = new CustomDialog(context,
+						CustomDialog.APPOINTMENT_TIME_ERROR);
+				dialog.show();
+				// 选择不连续，给出提示后，就取消该项选择
+				layout.setCheckBoxState(false);
+				selectCourseList.remove(coachCourseVO);
+			}
 		}
 
-		isTimeBlockCon = checkTimeBlockCon();
-		if (!isTimeBlockCon) {
-			CustomDialog dialog = new CustomDialog(context,
-					CustomDialog.APPOINTMENT_TIME_ERROR);
-			dialog.show();
-			// 选择不连续，给出提示后，就取消该项选择
-			layout.setCheckBoxState(false);
-			selectCourseList.remove(coachCourseVO);
-		}
-		onTimeLayoutSelectedListener.TimeLayoutSelectedListener(selected);
+		onTimeLayoutSelectedListener.TimeLayoutSelectedListener(selected,
+				canAppointOtherCoach, coachCourseVO);
 	}
 
 	private boolean checkTimeBlockCon() {
@@ -215,7 +220,8 @@ public class ScrollTimeLayout extends LinearLayout implements
 	}
 
 	public interface OnTimeLayoutSelectedListener {
-		void TimeLayoutSelectedListener(boolean selected);
+		void TimeLayoutSelectedListener(boolean selected,
+				boolean canAppointOtherCoach, CoachCourseV2VO coachCourseVO);
 	}
 
 	private OnTimeLayoutSelectedListener onTimeLayoutSelectedListener;
