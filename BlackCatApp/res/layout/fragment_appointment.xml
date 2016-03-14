@@ -26,6 +26,7 @@
                 android:listSelector="@android:color/transparent"
                 android:overScrollMode="always"
                 android:scrollbars="none" 
+                android:groupIndicator="@null"
                 ></ExpandableListView>
         
 

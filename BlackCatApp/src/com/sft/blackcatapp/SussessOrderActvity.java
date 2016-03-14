@@ -9,6 +9,7 @@ import android.widget.ListView;
 
 import com.jzjf.app.R;
 import com.sft.adapter.SussessAppointmentAdapter;
+import com.sft.vo.AppointmentTempVO;
 import com.sft.vo.MyAppointmentVO;
 
 public class SussessOrderActvity extends BaseActivity {
@@ -26,7 +27,8 @@ public class SussessOrderActvity extends BaseActivity {
 
 	private void initView() {
 		setTitleText("已完成预约");
-
+		AppointmentTempVO vo = (AppointmentTempVO)getIntent().getSerializableExtra("list");
+		list = vo.list;
 		Lv = (ListView) findViewById(R.id.enroll_select_school_listview);
 		adapter = new SussessAppointmentAdapter(this, list);
 		Lv.setAdapter(adapter);

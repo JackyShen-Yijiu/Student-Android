@@ -494,8 +494,16 @@
             android:name="com.sft.dialog.BonusDialog"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.BonueDialog" />
+        
+        <!-- 预约成功 列表 -->
+        <activity 
+            android:name="com.sft.blackcatapp.SussessOrderActvity"
+            android:screenOrientation="portrait"
+            ></activity>
 
         <service android:name="com.sft.util.DownLoadService" />
+        
+        
         
         <!-- 微信支付 -->
 	

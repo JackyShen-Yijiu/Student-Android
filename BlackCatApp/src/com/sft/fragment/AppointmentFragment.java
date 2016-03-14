@@ -10,7 +10,6 @@ import java.util.Map;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,11 +17,10 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
+import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +29,7 @@ import cn.sft.baseactivity.util.HttpSendUtils;
 import com.jzjf.app.R;
 import com.sft.adapter.MyAppointmentListAdapter2;
 import com.sft.blackcatapp.AppointmentDetailActivity;
+import com.sft.blackcatapp.SussessOrderActvity;
 import com.sft.common.Config;
 import com.sft.event.AppointmentSuccessEvent;
 import com.sft.util.CommonUtil;
@@ -38,6 +37,7 @@ import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
 import com.sft.util.UTC2LOC;
 import com.sft.viewutil.ZProgressHUD;
+import com.sft.vo.AppointmentTempVO;
 import com.sft.vo.MyAppointmentVO;
 import com.sft.vo.UserVO;
 import com.sft.vo.uservo.StudentSubject;
@@ -119,7 +119,10 @@ public class AppointmentFragment extends BaseFragment implements
 			subject = app.userVO.getSubjectthree();
 		}
 		if (null != subject) {
+			//规定xx 学时 完成XX学时
 			tvLeft1.setText("已约学时" + subject.getFinishcourse() + "课时");
+			
+			//购买 XX学时  已学XX学时 
 			tvLeft2.setText("漏课" + subject.getMissingcourse() + "课时");
 		} else {
 			tvLeft1.setVisibility(View.GONE);
@@ -194,32 +197,26 @@ public class AppointmentFragment extends BaseFragment implements
 				return false;
 			}
 		});
-//		epListView.setOnItemSelectedListener(new OnItemSelectedListener() {
-//
-//			@Override
-//			public void onItemSelected(AdapterView<?> arg0, View arg1,
-//					int arg2, long arg3) {
-//				// TODO Auto-generated method stub
-//				Toast.makeText(getActivity(),arg2+"onItemSelected"+arg3,android.widget.Toast.LENGTH_SHORT).show();
-//				
-//			}
-//
-//			@Override
-//			public void onNothingSelected(AdapterView<?> arg0) {
-//				// TODO Auto-generated method stub
-//				
-//			}
-//		});
-//		epListView.setOnItemClickListener(new OnItemClickListener() {
-//
-//			@Override
-//			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-//					long arg3) {
-//				Toast.makeText(getActivity(),arg2+"onItemClick"+arg3,android.widget.Toast.LENGTH_SHORT).show();
-//				
-//				
-//			}
-//		});
+		epListView.setOnGroupClickListener(new OnGroupClickListener() {
+			
+			@Override
+			public boolean onGroupClick(ExpandableListView arg0, View arg1, int arg2,
+					long arg3) {
+				Toast.makeText(getActivity(),arg1+"group"+arg3,android.widget.Toast.LENGTH_SHORT).show();
+				
+				ImageView right = (ImageView) arg1.findViewById(R.id.item_appoint_group_img);
+				LogUtil.print("group-->"+right.getBackground());
+				if(arg2 ==2){//已完成列表
+					Intent i = new Intent(getActivity(),SussessOrderActvity.class);
+					AppointmentTempVO vo = new AppointmentTempVO();
+					vo.list = datas.get(0);
+					i.putExtra("list", vo);
+					startActivity(i);
+				}
+				return false;
+			}
+		});
+
 //		appointmentSwipeLaout.setOnRefreshListener(this);
 //		appointmentSwipeLaout.setColorScheme(android.R.color.holo_blue_bright,
 //				android.R.color.holo_green_light,
@@ -330,7 +327,7 @@ public class AppointmentFragment extends BaseFragment implements
 					}
 					datas.put(0, toadyAppointList);
 					datas.put(1, otherAppointList);
-					datas.put(2, finishedList);
+					datas.put(2, new ArrayList<MyAppointmentVO>());
 					
 					list.addAll(toadyAppointList);
 					list.addAll(otherAppointList);
