@@ -10,6 +10,9 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import cn.sft.baseactivity.util.HttpSendUtils;
@@ -24,6 +27,8 @@ import com.sft.util.LogUtil;
 import com.sft.vo.ClassVO;
 import com.sft.vo.PayOrderVO;
 import com.sft.vo.UserVO;
+import com.sft.weixinpay.WeixinPay;
+import com.tencent.mm.sdk.modelpay.PayReq;
 
 public class ConfirmOrderActivity extends BaseActivity implements
 		OnClickListener {
@@ -33,6 +38,8 @@ public class ConfirmOrderActivity extends BaseActivity implements
 	private TextView tvReallyPay;
 	/** 负数 */
 	private TextView tvDiscodeBottom;
+	/**选择不同的支付模式*/
+	private RadioButton rbAlipay,rbWeixinpay;
 
 	private ClassVO classe;
 	/**
@@ -46,6 +53,10 @@ public class ConfirmOrderActivity extends BaseActivity implements
 	private String paymoney;
 	/** 折扣后， 不包含优惠券 */
 	private String onSalePrice;
+	
+	private WeixinPay  weixinPay;
+	
+	private final static String WEIXIN_PAY_INFOR = "getweixin_infor";
 
 	/**
 	 * 商品价格:price 实付:paymoney (最后付款 -- 折扣券) 应付：onsaleprice（打折后的）
@@ -70,6 +81,8 @@ public class ConfirmOrderActivity extends BaseActivity implements
 	boolean repay = false;
 
 	private void initView() {
+		
+		weixinPay = new WeixinPay(ConfirmOrderActivity.this);
 		repay = getIntent().getBooleanExtra("repay", false);
 
 		// tv_coupon_show = (TextView) findViewById(R.id.tv_coupon_show);
@@ -81,7 +94,10 @@ public class ConfirmOrderActivity extends BaseActivity implements
 		tvReallyPay = (TextView) findViewById(R.id.confirm_order_money_pay);
 
 		tvDiscodeBottom = (TextView) findViewById(R.id.confirm_order_discode);
-
+		
+		rbAlipay = (RadioButton) findViewById(R.id.rb_zhifubao);
+		rbWeixinpay = (RadioButton) findViewById(R.id.rb_weixing);
+		
 		if (repay) {// 重新支付
 			doRepay();
 		} else {
@@ -166,6 +182,24 @@ public class ConfirmOrderActivity extends BaseActivity implements
 				+ "api/v1/userinfo/usercouponforpay", paramMap, 10000,
 				headerMap);
 	}
+	
+	/**
+	 * 获取微信支付 的订单信息
+	 * @param userId
+	 * @param payId
+	 */
+	private void requestWeiXinPayInfor(String userId,String payId){
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("userid", userId);
+//		paramMap.put("couponcode", coupCode);
+//		paramMap.put("couponid", couponId);
+		paramMap.put("payoderid", payId);
+		Map<String, String> headerMap = new HashMap<String, String>();
+		headerMap.put("authorization", app.userVO.getToken());
+		HttpSendUtils.httpGetSend(WEIXIN_PAY_INFOR, this, Config.IP
+				+ "api/v1/payinfo/getprepayinfo", paramMap, 10000,
+				headerMap);
+	}
 
 	/**
 	 * 获取位完成的订单 详情
@@ -182,7 +216,8 @@ public class ConfirmOrderActivity extends BaseActivity implements
 
 	@Override
 	public synchronized boolean doCallBack(String type, Object jsonString) {
-		super.doCallBack(type, jsonString);
+		if(super.doCallBack(type, jsonString))
+			return true;
 		LogUtil.print("doCall" + jsonString);
 		if (type.equals("sendPay")) {
 			PayUtils pay = new PayUtils();
@@ -197,7 +232,15 @@ public class ConfirmOrderActivity extends BaseActivity implements
 				e.printStackTrace();
 			}
 
+		}else if(type.equals(WEIXIN_PAY_INFOR)){//获取微信 支付订单信息
+			PayReq pay= weixinPay.parseJson(data);
+			Toast("--"+"id:"+pay.appId+"partnerId::>"+pay.partnerId+"noce::>"+pay.nonceStr
+					+"timeStamp"+pay.timeStamp+""+pay.packageValue+""+pay.sign);
+			LogUtil.print("id:"+pay.appId+"partnerId::>"+pay.partnerId+"noce::>"+pay.nonceStr
+					+"timeStamp"+pay.timeStamp+""+pay.packageValue+""+pay.sign);
+			weixinPay.pay(pay);
 		}
+//		getIntent().getParcelableArrayListExtra(name)
 
 		return false;
 	}
@@ -219,20 +262,28 @@ public class ConfirmOrderActivity extends BaseActivity implements
 			LogUtil.print("coupCode--orderId>" + orderId + "coupCode-->"
 					+ coupCode);
 			// Toast("click--payNow"+coupCode);
-			if ((coupCode == null || coupCode.length() == 0)) {// 直接支付
-				LogUtil.print("coupCode--orderId>" + orderId + "Name-->"
-						+ productName + "Detail-->" + productDetail + "money"
-						+ paymoney);
-				// payName="123456";
-				// payDetail = "12345978";
-				// money = "0.01";
-				PayUtils pay = new PayUtils();
-				pay.setTradeNo(orderId);
-				// paymoney = "0.01";
-				pay.pay(this, mHandler, productName, productDetail, paymoney);
-			} else {
-				request(coupCode, couponId, orderId);
+			if(rbAlipay.isChecked()){//支付宝
+				if ((coupCode == null || coupCode.length() == 0)) {// 直接支付
+					LogUtil.print("coupCode--orderId>" + orderId + "Name-->"
+							+ productName + "Detail-->" + productDetail + "money"
+							+ paymoney);
+					// payName="123456";
+					// payDetail = "12345978";
+					// money = "0.01";
+					PayUtils pay = new PayUtils();
+					pay.setTradeNo(orderId);
+					// paymoney = "0.01";
+					pay.pay(this, mHandler, productName, productDetail, paymoney);
+				} else {
+					request(coupCode, couponId, orderId);
+				}
+			}else{//微信支付
+				requestWeiXinPayInfor(app.userVO.getUserid(),orderId);
 			}
+			
+			//
+			
+			
 			break;
 		default:
 			break;

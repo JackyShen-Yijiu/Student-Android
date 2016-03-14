@@ -9,7 +9,7 @@ public class Config {
 	/**
 	 * 微信appId
 	 */
-	public static final String APP_ID_WEIXIN = "wxd930ea5d5a258f4f";
+	public static final String APP_ID_WEIXIN = "wxb815a53dcb2faf06";
 
 	// 友盟appkey
 	public static final String UMENG_APPKEY = "56243b3d67e58eb1ae00419b";
@@ -24,6 +24,7 @@ public class Config {
 
 	/** 支付宝回掉接口 */
 	public static final String RECALL_URL = IP + "paynotice/alipay";
+	
 
 	/** 当前版本号 */
 	// public static final String VERSION =

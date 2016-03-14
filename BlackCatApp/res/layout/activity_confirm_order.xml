@@ -116,7 +116,7 @@
                 <include layout="@layout/line" />
 
                 <RadioGroup
-                    android:id="@+id/rg_sex_choice"
+                    android:id="@+id/confirm_order_rg_sex_choice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="13dp"
