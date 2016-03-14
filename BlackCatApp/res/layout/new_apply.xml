@@ -516,7 +516,6 @@
 
         <Button
             android:id="@+id/enroll_commit_btn"
-           
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="14dp"

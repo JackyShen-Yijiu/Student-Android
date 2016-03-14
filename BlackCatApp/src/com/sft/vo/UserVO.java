@@ -33,8 +33,8 @@ public class UserVO extends DBVO {
 	private String is_lock;
 	private String telephone;
 	private ApplyCoachInfo applycoachinfo;
-	private ApplyClassTypeInfo applyclasstypeinfo;
 
+	private ApplyClassTypeInfo applyclasstypeinfo;
 	private String[] addresslist;
 	private String address;
 	private String token;
@@ -49,6 +49,16 @@ public class UserVO extends DBVO {
 	private List<VipServerListVO> vipserverlist;
 
 	private String password;
+	// 我的Y码 list
+	private MyCodeVO myCodeVO;
+
+	public MyCodeVO getMyCodeVO() {
+		return myCodeVO;
+	}
+
+	public void setMyCodeVO(MyCodeVO myCodeVO) {
+		this.myCodeVO = myCodeVO;
+	}
 
 	public String getPassword() {
 		return password;

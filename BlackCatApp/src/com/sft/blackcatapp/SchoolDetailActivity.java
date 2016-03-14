@@ -237,7 +237,8 @@ public class SchoolDetailActivity extends BaseActivity implements
 		viewStatus = (View) findViewById(R.id.act_school_detail_status);
 
 		titleLayout = (View) findViewById(R.id.base_titlebar_layout_bg);
-		findViewById(R.id.base_titlebar_layout).setBackgroundResource(android.R.color.transparent);
+		findViewById(R.id.base_titlebar_layout).setBackgroundResource(
+				android.R.color.transparent);
 
 		ImageButton bus = (ImageButton) findViewById(R.id.base_right_btn2);
 
@@ -1027,7 +1028,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 	private void toPay(int po) {
 		ClassVO classe = courseFeeAdapter.getItem(po);
 		LogUtil.print("initdata-->" + app.userVO);
-		Intent i = new Intent(SchoolDetailActivity.this, ApplyActivity.class);
+		Intent i = new Intent(SchoolDetailActivity.this, ApplyAct.class);
 		i.putExtra("school", school);
 		i.putExtra("schoolId", school.getSchoolid());
 		i.putExtra("class", classe);
@@ -1094,11 +1095,11 @@ public class SchoolDetailActivity extends BaseActivity implements
 				viewStatus.startAnimation(alphaOut);
 
 				addDeleteSchoolCk.startAnimation(scaleBig);
-				LogUtil.print(topTab + "yyyyyyy--透明" );
+				LogUtil.print(topTab + "yyyyyyy--透明");
 				//
 			}
 			noCoahTv.setHeight(hegiht - y1);
-			
+
 		} else if (topStatic > y || topStatic == y) {// 已经滑动很多，
 
 			if (viewTop.getVisibility() != View.VISIBLE) {

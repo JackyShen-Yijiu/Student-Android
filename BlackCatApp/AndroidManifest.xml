@@ -124,6 +124,9 @@
             android:name="com.sft.blackcatapp.FindPasswordActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name="com.sft.blackcatapp.ApplyAct"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="com.sft.blackcatapp.EnrollCoachActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -273,6 +276,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.sft.blackcatapp.Walletmoney"
+            android:screenOrientation="portrait" />
+           <activity
+            android:name="com.sft.blackcatapp.YCodeListActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.sft.blackcatapp.SubjectOneActivity"
