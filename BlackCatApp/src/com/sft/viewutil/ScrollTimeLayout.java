@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
 import com.sft.dialog.CustomDialog;
 import com.sft.util.LogUtil;
 import com.sft.viewutil.AppointmentCarTimeLayout.TimeLayoutSelectedChangeListener;
-import com.sft.vo.CoachCourseVO;
+import com.sft.vo.CoachCourseV2VO;
 
 @SuppressLint("NewApi")
 public class ScrollTimeLayout extends LinearLayout implements
@@ -25,7 +25,7 @@ public class ScrollTimeLayout extends LinearLayout implements
 	private int column = 3;
 	private Comparator<Object> courseComp;
 	// 用户选择时间段的课程
-	private List<CoachCourseVO> selectCourseList = new ArrayList<CoachCourseVO>();
+	private List<CoachCourseV2VO> selectCourseList = new ArrayList<CoachCourseV2VO>();
 	private int screenWidth;
 	private boolean isTimeBlockCon;
 
@@ -51,11 +51,13 @@ public class ScrollTimeLayout extends LinearLayout implements
 		courseComp = new Comparator<Object>() {
 			@Override
 			public int compare(Object o1, Object o2) {
-				CoachCourseVO s1 = (CoachCourseVO) o1;
-				CoachCourseVO s2 = (CoachCourseVO) o2;
+				CoachCourseV2VO s1 = (CoachCourseV2VO) o1;
+				CoachCourseV2VO s2 = (CoachCourseV2VO) o2;
 				try {
-					int c1 = Integer.parseInt(s1.getCoursetime().getTimeid());
-					int c2 = Integer.parseInt(s2.getCoursetime().getTimeid());
+					int c1 = Integer.parseInt(s1.getCoursedata()
+							.getCoursetime().getTimeid());
+					int c2 = Integer.parseInt(s2.getCoursedata()
+							.getCoursetime().getTimeid());
 					if (c1 < c2)
 						return -1;
 					else if (c1 == c2)
@@ -74,11 +76,11 @@ public class ScrollTimeLayout extends LinearLayout implements
 		return isTimeBlockCon;
 	}
 
-	public List<CoachCourseVO> getSelectCourseList() {
+	public List<CoachCourseV2VO> getSelectCourseList() {
 		return selectCourseList;
 	}
 
-	public void setSelectCourseList(List<CoachCourseVO> selectCourseList) {
+	public void setSelectCourseList(List<CoachCourseV2VO> selectCourseList) {
 		this.selectCourseList = selectCourseList;
 	}
 
@@ -88,10 +90,10 @@ public class ScrollTimeLayout extends LinearLayout implements
 
 	public void clearData() {
 		removeAllViews();
-		selectCourseList = new ArrayList<CoachCourseVO>();
+		selectCourseList = new ArrayList<CoachCourseV2VO>();
 	}
 
-	public void setData(List<CoachCourseVO> list, float aspect) {
+	public void setData(List<CoachCourseV2VO> list, float aspect) {
 
 		if (list == null || list.size() == 0) {
 			return;
@@ -174,7 +176,7 @@ public class ScrollTimeLayout extends LinearLayout implements
 
 	@Override
 	public void onTimeLayoutSelectedChange(AppointmentCarTimeLayout layout,
-			CoachCourseVO coachCourseVO, boolean selected) {
+			CoachCourseV2VO coachCourseVO, boolean selected) {
 		if (coachCourseVO == null) {
 			return;
 		}
@@ -202,9 +204,10 @@ public class ScrollTimeLayout extends LinearLayout implements
 		Collections.sort(selectCourseList, courseComp);
 		int size = selectCourseList.size() - 1;
 		for (int i = 0; i < size; i++) {
-			if (Integer.parseInt(selectCourseList.get(i).getCoursetime()
-					.getTimeid()) + 1 != Integer.parseInt(selectCourseList
-					.get(i + 1).getCoursetime().getTimeid())) {
+			if (Integer.parseInt(selectCourseList.get(i).getCoursedata()
+					.getCoursetime().getTimeid()) + 1 != Integer
+					.parseInt(selectCourseList.get(i + 1).getCoursedata()
+							.getCoursetime().getTimeid())) {
 				return false;
 			}
 		}

@@ -1241,6 +1241,7 @@ public class MainActivity extends BaseMainActivity implements
 	@Override
 	protected void onResume() {
 		super.onResume();
+
 		refreshView();
 		if (MainActivity.TARGET_TAB > 0) {// 跳转到 指定的页面， 隐藏左侧
 			mMainContainer.showTab(MainActivity.TARGET_TAB);
@@ -1248,11 +1249,11 @@ public class MainActivity extends BaseMainActivity implements
 			// changeMenu();
 
 		}
-		MainActivity.TARGET_TAB = 0;
-		if (app.userVO != null && !app.userVO.getApplystate().equals("0")) {
-			// 获取未评论列表
-			obtainNotComments();
-		}
+		// MainActivity.TARGET_TAB = 0;
+		// if (app.userVO != null && !app.userVO.getApplystate().equals("0")) {
+		// // 获取未评论列表
+		// obtainNotComments();
+		// }
 	}
 
 	private void refreshUI() {
@@ -1328,12 +1329,12 @@ public class MainActivity extends BaseMainActivity implements
 			String content = commentDialog.getEditText().getText().toString();
 			LogUtil.print(rating + content);
 
-			if (TextUtils.isEmpty(content.trim())) {
-				commentDialog.showErrorHint(true);
-			} else {
-				commentDialog.showErrorHint(false);
-				comment(myAppointmentVO.get_id(), rating + "", content);
-			}
+			// if (TextUtils.isEmpty(content.trim())) {
+			// commentDialog.showErrorHint(true);
+			// } else {
+			// commentDialog.showErrorHint(false);
+			// comment(myAppointmentVO.get_id(), rating + "", content);
+			// }
 		}
 	}
 

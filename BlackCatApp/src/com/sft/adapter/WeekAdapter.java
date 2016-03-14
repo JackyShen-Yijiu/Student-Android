@@ -69,7 +69,7 @@ public class WeekAdapter extends ArrayAdapter<Integer> {
 			holder.solar.setTextColor(CommonUtil.getColor(mContext,
 					R.color.new_app_main_color));
 			// holder.hasOrder.setVisibility(View.VISIBLE);
-			LogUtil.print("今天");
+			// LogUtil.print("今天");
 		} else if ((thisMonth == appointmentDay.month)
 				&& (appointmentDay.day < today)) {
 			holder.solar.setTextColor(CommonUtil.getColor(mContext,
