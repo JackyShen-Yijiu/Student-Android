@@ -20,6 +20,7 @@ import cn.sft.infinitescrollviewpager.BitmapManager;
 import com.joooonho.SelectableRoundedImageView;
 import com.jzjf.app.R;
 import com.sft.util.CommonUtil;
+import com.sft.util.LogUtil;
 import com.sft.util.UTC2LOC;
 import com.sft.vo.MyAppointmentVO;
 
@@ -83,7 +84,7 @@ public class SussessAppointmentAdapter extends BaseAdapter {
 		ViewHolder holder = null;
 		if (convertView == null) {
 			holder = new ViewHolder();
-			convertView = mInflater.inflate(R.layout.my_appointment_list_item,
+			convertView = mInflater.inflate(R.layout.sussess_appointment,
 					null);
 
 			holder.headpic = (SelectableRoundedImageView) convertView
@@ -139,7 +140,8 @@ public class SussessAppointmentAdapter extends BaseAdapter {
 
 		holder.classInfo.setText(mData.get(position).getCourseprocessdesc());
 		holder.schoolinfo.setText(schoolName + trainPlace);
-		holder.learncontent.setText(learnContent);
+		LogUtil.print(holder.learncontent+"content-->"+learnContent);
+		holder.learncontent.setText(null == learnContent? "":learnContent);
 
 		// 分块显示
 

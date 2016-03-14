@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 预约列表 -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:drawable="@drawable/ic_arrow_bottom" android:state_selected="true" />
-    <item android:drawable="@drawable/ic_arrow_right" android:state_selected="false" />
-
-    
+   
+    <item android:state_expanded="false"  
+          android:drawingCacheQuality="auto"  
+        android:drawable="@drawable/ic_arrow_bottom"/>     
+    <item android:state_expanded="true"  
+        android:drawingCacheQuality="auto"  
+     android:drawable="@drawable/ic_arrow_right"/> 
     
 </selector>

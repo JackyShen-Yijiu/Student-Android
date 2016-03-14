@@ -31,7 +31,7 @@ public class SussessOrderActvity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		addView(R.layout.sussess_order_act);
 		initView();
-		request();
+//		request();
 	}
 
 	private void initView() {

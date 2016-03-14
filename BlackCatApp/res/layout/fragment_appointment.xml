@@ -2,43 +2,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-     >
-
+    android:orientation="vertical" >
 
     <include layout="@layout/layout_error" />
 
     <RelativeLayout
         android:id="@+id/appointment_has_coach_rl"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-        
-        <ExpandableListView 
-                android:id="@+id/fragment_appointment_listview_ep"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#ffffff"
-                android:cacheColorHint="#00000000"
-                android:descendantFocusability="blocksDescendants"
-                android:divider="@null"
-                android:dividerHeight="0dp"
-                android:fadingEdge="none"
-                android:listSelector="@android:color/transparent"
-                android:overScrollMode="always"
-                android:scrollbars="none" 
-                android:groupIndicator="@null"
-                ></ExpandableListView>
-        
+        android:layout_height="match_parent"
+        android:background="@color/btn_gray" >
 
+        <ExpandableListView
+            android:id="@+id/fragment_appointment_listview_ep"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:cacheColorHint="#00000000"
+            android:descendantFocusability="blocksDescendants"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            android:fadingEdge="none"
+            android:groupIndicator="@null"
+            android:listSelector="@android:color/transparent"
+            android:overScrollMode="always"
+            android:scrollbars="none" >
+        </ExpandableListView>
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/fragment_appointment_swipe_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" 
-            android:visibility="gone"
-            >
-            
-            
+            android:layout_height="match_parent"
+            android:visibility="gone" >
+
             <ListView
                 android:id="@+id/fragment_appointment_listview"
                 android:layout_width="match_parent"
@@ -51,8 +46,8 @@
                 android:fadingEdge="none"
                 android:listSelector="@android:color/transparent"
                 android:overScrollMode="always"
-                android:visibility="gone"
-                android:scrollbars="none" />
+                android:scrollbars="none"
+                android:visibility="gone" />
         </android.support.v4.widget.SwipeRefreshLayout>
     </RelativeLayout>
 

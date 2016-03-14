@@ -7,8 +7,12 @@ import java.util.List;
 import java.util.Map;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,8 +20,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
+import android.widget.Toast;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -25,16 +31,20 @@ import cn.sft.infinitescrollviewpager.BitmapManager;
 
 import com.joooonho.SelectableRoundedImageView;
 import com.jzjf.app.R;
+import com.sft.common.BlackCatApplication;
 import com.sft.common.Config.AppointmentResult;
+import com.sft.qrcode.EncodingHandler;
 import com.sft.util.CommonUtil;
+import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
 import com.sft.util.UTC2LOC;
 import com.sft.vo.MyAppointmentVO;
+import com.sft.vo.QRCodeCreateVO;
 
 @SuppressLint({ "InflateParams", "ResourceAsColor" })
 public class MyAppointmentListAdapter2 extends BaseExpandableListAdapter   {
 
-	private Context context;
+	private Activity context;
 	private LayoutInflater mInflater;
 	
 
@@ -46,8 +56,10 @@ public class MyAppointmentListAdapter2 extends BaseExpandableListAdapter   {
 	private SimpleDateFormat format;
 	
 	private String[] title = {"今日预约","未来预约","已完成预约"};
+	
+	private BlackCatApplication app;
 
-	public MyAppointmentListAdapter2(Context context, Map<Integer, List<MyAppointmentVO>> mData) {
+	public MyAppointmentListAdapter2(Activity context, Map<Integer, List<MyAppointmentVO>> mData) {
 		this.mInflater = LayoutInflater.from(context);
 		this.mData = mData;
 		this.context = context;
@@ -147,7 +159,7 @@ public class MyAppointmentListAdapter2 extends BaseExpandableListAdapter   {
 		// "isJump", true));
 		// }
 		// });
-		MyAppointmentVO item = list.get(position);
+		final MyAppointmentVO item = list.get(position);
 		String state = item.getReservationstate();
 
 		if (state.equals(AppointmentResult.applyconfirm.getValue())) {
@@ -262,16 +274,15 @@ public class MyAppointmentListAdapter2 extends BaseExpandableListAdapter   {
 			
 			@Override
 			public void onClick(View arg0) {
-				
+				showPop(item);
 				
 			}
 		});
-		holder.tvQiandao.setOnClickListener(new OnClickListener() {
+		holder.imgQiandao.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-				
+				showPop(item);
 			}
 		});
 
@@ -468,10 +479,72 @@ public class MyAppointmentListAdapter2 extends BaseExpandableListAdapter   {
 //		return convertView;
 //	}
 	
-	private void showPop(Context context){
-		PopupWindow pop = new PopupWindow(context);
-//		pop.setHeight(height)
+	private void showPop(MyAppointmentVO myAppointmentVO){
+		final PopupWindow pop = new PopupWindow(context);
+		pop.setHeight(LayoutParams.MATCH_PARENT);
+		pop.setWidth(LayoutParams.MATCH_PARENT);
+		View view = View.inflate(context, R.layout.pop_qr, null);
+		view.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				pop.dismiss();
+				
+			}
+		});
+		ImageView img = (ImageView) view.findViewById(R.id.pop_qr_img);
+		img.setBackgroundColor(Color.WHITE);
 		
+		pop.setFocusable(true);  
+		   
+		// popupWindow.setBackgroundDrawable(new BitmapDrawable());  //comment by danielinbiti,如果添加了这行，那么标注1和标注2那两行不用加，加上这行的效果是点popupwindow的外边也能关闭  
+		view.setFocusable(true);//comment by danielinbiti,设置view能够接听事件，标注1  
+		view.setFocusableInTouchMode(true);
+		
+		pop.setContentView(view);
+		
+		pop.showAtLocation(context.getWindow().getDecorView(), Gravity.CENTER, 300, 400);
+		createQr(myAppointmentVO,img);
+	}
+	
+	private void createQr(MyAppointmentVO myAppointmentVO,ImageView img){
+		QRCodeCreateVO codeCreateVO = new QRCodeCreateVO();
+		if (myAppointmentVO != null) {
+			if (app == null) {
+				app = BlackCatApplication.getInstance();
+			}
+			if (app != null) {
+
+				codeCreateVO.setStudentId(app.userVO.getUserid());
+				codeCreateVO.setStudentName(app.userVO.getName());
+				codeCreateVO.setReservationId(myAppointmentVO.get_id());
+				codeCreateVO.setCoachName(app.userVO.getApplycoachinfo()
+						.getName());
+				codeCreateVO.setCourseProcessDesc(app.userVO.getSubject()
+						.getName());
+				codeCreateVO.setCreateTime((new Date().getTime() / 1000) + "");
+				codeCreateVO.setLatitude(app.latitude);
+				codeCreateVO.setLocationAddress(app.userVO.getAddress());
+				codeCreateVO.setLongitude(app.longtitude);
+			}
+		}
+		// 生成二维码
+		try {
+			String contentString = JSONUtil.toJsonString(codeCreateVO);
+			LogUtil.print("contentString---" + contentString);
+			if (contentString != null && contentString.trim().length() > 0) {
+				// 根据字符串生成二维码图片并显示在界面上，第二个参数为图片的大小（350*350）
+				Bitmap qrCodeBitmap = EncodingHandler.createQRCode(
+						contentString, 500);
+				img.setImageBitmap(qrCodeBitmap);
+			} else {
+				Toast.makeText(context, "签到二维码生成失败", Toast.LENGTH_SHORT).show();
+//				toast.setText("生成二维码失败");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	
 	}
 
 	@Override
@@ -521,6 +594,19 @@ public class MyAppointmentListAdapter2 extends BaseExpandableListAdapter   {
 		TextView tvTitle = (TextView) view.findViewById(R.id.item_appoint_group_title);
 		tvTitle.setText(title[arg0]);
 		tvTitle.setClickable(true);
+		
+		ImageView mgroupimage=(ImageView)view.findViewById(R.id.item_appoint_group_img);  
+        if(arg0 == 2){
+        	 mgroupimage.setImageResource(R.drawable.ic_arrow_right);  
+        }else{
+        	if(!arg1){  
+                mgroupimage.setImageResource(R.drawable.ic_arrow_right);  
+            }else{
+           	 mgroupimage.setImageResource(R.drawable.ic_arrow_bottom);  
+            }
+        }
+        
+        
 		return view;
 	}
 

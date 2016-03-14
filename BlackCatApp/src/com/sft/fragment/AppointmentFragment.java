@@ -75,6 +75,8 @@ public class AppointmentFragment extends BaseFragment implements
 	/**列表0:今日列表 ,1,未来预约 */
 	@SuppressLint("UseSparseArrays") 
 	private Map<Integer, List<MyAppointmentVO>> datas = new HashMap<Integer, List<MyAppointmentVO>>();
+	
+	private List<MyAppointmentVO> finishedList = null;
 
 	public AppointmentFragment() {
 	}
@@ -202,16 +204,21 @@ public class AppointmentFragment extends BaseFragment implements
 			@Override
 			public boolean onGroupClick(ExpandableListView arg0, View arg1, int arg2,
 					long arg3) {
-				Toast.makeText(getActivity(),arg1+"group"+arg3,android.widget.Toast.LENGTH_SHORT).show();
+//				Toast.makeText(getActivity(),arg1+"group"+arg3,android.widget.Toast.LENGTH_SHORT).show();
 				
 				ImageView right = (ImageView) arg1.findViewById(R.id.item_appoint_group_img);
-				LogUtil.print("group-->"+right.getBackground());
+//				LogUtil.print("group-->"+right.getBackground());
 				if(arg2 ==2){//已完成列表
-					Intent i = new Intent(getActivity(),SussessOrderActvity.class);
-					AppointmentTempVO vo = new AppointmentTempVO();
-					vo.list = datas.get(0);
-					i.putExtra("list", vo);
-					startActivity(i);
+					if(finishedList!=null){
+						Intent i = new Intent(getActivity(),SussessOrderActvity.class);
+						AppointmentTempVO vo = new AppointmentTempVO();
+						vo.list = finishedList;
+						i.putExtra("list", vo);
+						startActivity(i);
+					}else{
+						
+					}
+					
 				}
 				return false;
 			}
@@ -299,7 +306,7 @@ public class AppointmentFragment extends BaseFragment implements
 					SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 					List<MyAppointmentVO> toadyAppointList = new ArrayList<MyAppointmentVO>();
 					List<MyAppointmentVO> otherAppointList = new ArrayList<MyAppointmentVO>();
-					List<MyAppointmentVO> finishedList = new ArrayList<MyAppointmentVO>();
+					finishedList = new ArrayList<MyAppointmentVO>();
 
 					int length = dataArray.length();
 					if (length == 0) {

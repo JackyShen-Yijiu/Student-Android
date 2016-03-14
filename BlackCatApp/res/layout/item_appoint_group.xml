@@ -33,7 +33,7 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="20dp"
-        android:src="@drawable/ic_arrow_bottom" />
+        android:src="@drawable/selector_parent_group" />
 	    
 	</RelativeLayout>
    
