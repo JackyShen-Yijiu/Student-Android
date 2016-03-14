@@ -8,6 +8,7 @@ public class CommentContent extends DBVO {
 
 	private String commentcontent;
 	private String starlevel;
+	private String commenttime;
 
 	public String getCommentcontent() {
 		return commentcontent;
@@ -23,6 +24,14 @@ public class CommentContent extends DBVO {
 
 	public void setStarlevel(String starlevel) {
 		this.starlevel = starlevel;
+	}
+
+	public String getCommenttime() {
+		return commenttime;
+	}
+
+	public void setCommenttime(String commenttime) {
+		this.commenttime = commenttime;
 	}
 
 }

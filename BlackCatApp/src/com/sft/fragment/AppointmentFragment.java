@@ -10,7 +10,6 @@ import java.util.Map;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +19,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
@@ -29,6 +27,7 @@ import com.jzjf.app.R;
 import com.sft.adapter.MyAppointmentListAdapter2;
 import com.sft.blackcatapp.AppointmentDetailActivity;
 import com.sft.common.Config;
+import com.sft.dialog.NoCommentDialog;
 import com.sft.event.AppointmentSuccessEvent;
 import com.sft.util.CommonUtil;
 import com.sft.util.JSONUtil;
@@ -53,10 +52,9 @@ public class AppointmentFragment extends BaseFragment implements
 	private StudentSubject subject = null;
 
 	private TextView tvLeft1, tvRight1, tvLeft2, tvRight2;
- 
-	
+
 	//
-//	private SwipeRefreshLayout appointmentSwipeLaout;
+	// private SwipeRefreshLayout appointmentSwipeLaout;
 	//
 	private MyAppointmentListAdapter2 adapter;
 	private RelativeLayout hasCaochRl;
@@ -64,14 +62,15 @@ public class AppointmentFragment extends BaseFragment implements
 	private RelativeLayout noCaochErrorRl;
 	private ImageView noCaochErrorIv;
 	private TextView noCaochErroTv;
-//	private ListView mListView;
-	
+	// private ListView mListView;
+
 	private ExpandableListView epListView;
 	private boolean isRefreshing = false;
-	
-	/**列表0:今日列表 ,1,未来预约 */
-	@SuppressLint("UseSparseArrays") 
+
+	/** 列表0:今日列表 ,1,未来预约 */
+	@SuppressLint("UseSparseArrays")
 	private Map<Integer, List<MyAppointmentVO>> datas = new HashMap<Integer, List<MyAppointmentVO>>();
+	private NoCommentDialog commentDialog;
 
 	public AppointmentFragment() {
 	}
@@ -82,7 +81,8 @@ public class AppointmentFragment extends BaseFragment implements
 		View rootView = inflater.inflate(R.layout.fragment_appointment, null,// container
 				false);
 		initViews(rootView);
-
+		commentDialog = new NoCommentDialog(getActivity());
+		commentDialog.show();
 		return rootView;
 	}
 
@@ -176,23 +176,23 @@ public class AppointmentFragment extends BaseFragment implements
 				R.string.no_appointment_coach_error_info));
 		hasCaochRl = (RelativeLayout) rootView
 				.findViewById(R.id.appointment_has_coach_rl);
-//		appointmentSwipeLaout = (SwipeRefreshLayout) rootView
-//				.findViewById(R.id.fragment_appointment_swipe_container);
-//		mListView = (ListView) rootView
-//				.findViewById(R.id.fragment_appointment_listview);
+		// appointmentSwipeLaout = (SwipeRefreshLayout) rootView
+		// .findViewById(R.id.fragment_appointment_swipe_container);
+		// mListView = (ListView) rootView
+		// .findViewById(R.id.fragment_appointment_listview);
 		epListView = (ExpandableListView) rootView
 				.findViewById(R.id.fragment_appointment_listview_ep);
-		
-//		appointmentSwipeLaout.setOnRefreshListener(this);
-//		appointmentSwipeLaout.setColorScheme(android.R.color.holo_blue_bright,
-//				android.R.color.holo_green_light,
-//				android.R.color.holo_orange_light,
-//				android.R.color.holo_red_light);
+
+		// appointmentSwipeLaout.setOnRefreshListener(this);
+		// appointmentSwipeLaout.setColorScheme(android.R.color.holo_blue_bright,
+		// android.R.color.holo_green_light,
+		// android.R.color.holo_orange_light,
+		// android.R.color.holo_red_light);
 		View headerView = View.inflate(getActivity(), R.layout.learn_progress,
 				null);
 		epListView.addHeaderView(headerView);
-//		mListView.addHeaderView(headerView);
-//		mListView.setOnItemClickListener(this);
+		// mListView.addHeaderView(headerView);
+		// mListView.setOnItemClickListener(this);
 		if (app.isLogin) {
 			// 科目一和没学习时都没有预约列表
 			if (app.userVO.getSubject().getSubjectid()
@@ -230,7 +230,7 @@ public class AppointmentFragment extends BaseFragment implements
 		paramMap.put("subjectid", app.userVO.getSubject().getSubjectid());
 		Map<String, String> headerMap = new HashMap<String, String>();
 		headerMap.put("authorization", app.userVO.getToken());
-//		LogUtil.print("---" + app.userVO.getToken());
+		// LogUtil.print("---" + app.userVO.getToken());
 		HttpSendUtils.httpGetSend(reservation, this, Config.IP
 				+ "api/v1/courseinfo/getmyreservation", paramMap, 10000,
 				headerMap);
@@ -293,21 +293,21 @@ public class AppointmentFragment extends BaseFragment implements
 					}
 					datas.put(0, toadyAppointList);
 					datas.put(1, otherAppointList);
-					
+
 					list.addAll(toadyAppointList);
 					list.addAll(otherAppointList);
 					list.addAll(finishedList);
-					LogUtil.print("预约列表：：---》"+list.size());
+					LogUtil.print("预约列表：：---》" + list.size());
 					ZProgressHUD.getInstance(getActivity()).dismiss();
 					if (adapter == null) {
 						adapter = new MyAppointmentListAdapter2(getActivity(),
 								datas);
 						epListView.setAdapter(adapter);
-//						mListView.setAdapter(adapter);
+						// mListView.setAdapter(adapter);
 					}
 
 					if (isRefreshing) {
-//						appointmentSwipeLaout.setRefreshing(false);
+						// appointmentSwipeLaout.setRefreshing(false);
 						isRefreshing = false;
 					}
 				}
@@ -370,12 +370,13 @@ public class AppointmentFragment extends BaseFragment implements
 		noCaochErroTv.setText(CommonUtil.getString(getActivity(),
 				R.string.no_wifi));
 	}
-	
+
 	/**
 	 * 分类
+	 * 
 	 * @param list
 	 */
-	private void getData(List<MyAppointmentVO> list){
+	private void getData(List<MyAppointmentVO> list) {
 		datas.put(0, list);
 		datas.put(1, list);
 	}

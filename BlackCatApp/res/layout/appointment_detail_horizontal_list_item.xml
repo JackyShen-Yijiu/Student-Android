@@ -8,8 +8,8 @@
 
     <cn.sft.infinitescrollviewpager.CropRoundView
         android:id="@+id/appointment_detail_hori_headpic_im"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
         android:layout_centerVertical="true"
         android:background="@drawable/default_small_pic"
         android:focusable="false" />

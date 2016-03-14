@@ -46,7 +46,7 @@ import com.sft.viewutil.ScrollTimeLayout;
 import com.sft.viewutil.ScrollTimeLayout.OnTimeLayoutSelectedListener;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.AppointmentDay;
-import com.sft.vo.CoachCourseVO;
+import com.sft.vo.CoachCourseV2VO;
 import com.sft.vo.CoachVO;
 import com.sft.vo.commentvo.CommentUser;
 
@@ -77,7 +77,7 @@ public class AppointmentCarActivity extends BaseActivity implements
 	// 用户选择的教练
 	private CoachVO selectCoach;
 	// 教练课程列表
-	private List<CoachCourseVO> courseList = new ArrayList<CoachCourseVO>();
+	private List<CoachCourseV2VO> courseList = new ArrayList<CoachCourseV2VO>();
 	private TextView learnProgress1Tv;
 	private TextView learnProgress2Tv;
 	private TextView learnProgress3Tv;
@@ -99,7 +99,7 @@ public class AppointmentCarActivity extends BaseActivity implements
 		addView(R.layout.activity_appointment_car);
 		setTitleText(R.string.appointment_car);
 		showTitlebarText(BaseActivity.SHOW_RIGHT_TEXT);
-		setText(0, R.string.more_coach);
+		setText(0, R.string.appointment_list);
 		initViews();
 		initData();
 		// resizeLayout();
@@ -186,6 +186,9 @@ public class AppointmentCarActivity extends BaseActivity implements
 		coachPic.setScaleType(ScaleType.CENTER_CROP);
 		coachPic.setImageResource(R.drawable.login_head);
 		coachPic.setOval(true);
+
+		changeCoChTv = (TextView) findViewById(R.id.appointment_car_change_coach_tv);
+
 	}
 
 	private void setAppointmentTimeInfo() {
@@ -224,6 +227,7 @@ public class AppointmentCarActivity extends BaseActivity implements
 				.setOnTimeLayoutSelectedListener(new MyOnTimeLayoutSelectedListener());
 		appointCommit.setOnClickListener(this);
 		studentListView.setLoadMoreListener(this);
+		changeCoChTv.setOnClickListener(this);
 	}
 
 	private void initData() {
@@ -245,7 +249,7 @@ public class AppointmentCarActivity extends BaseActivity implements
 		}
 		if (selectCoach != null) {
 			coachName.setText("教练" + selectCoach.getName());
-			LinearLayout.LayoutParams headParam = (LinearLayout.LayoutParams) coachPic
+			RelativeLayout.LayoutParams headParam = (RelativeLayout.LayoutParams) coachPic
 					.getLayoutParams();
 			String url = selectCoach.getHeadportrait().getOriginalpic();
 			if (TextUtils.isEmpty(url)) {
@@ -272,9 +276,10 @@ public class AppointmentCarActivity extends BaseActivity implements
 			LogUtil.print(coachId + "----" + selectDate + "selectDate");
 			Map<String, String> paramMap = new HashMap<String, String>();
 			paramMap.put("coachid", coachId);
+			paramMap.put("userid", app.userVO.getUserid());
 			paramMap.put("date", selectDate);
 			HttpSendUtils.httpGetSend(coachCourse, this, Config.IP
-					+ "api/v1/courseinfo/getcoursebycoach", paramMap);
+					+ "api/v1/courseinfo/getcoursebycoachv2", paramMap);
 		}
 	}
 
@@ -306,9 +311,14 @@ public class AppointmentCarActivity extends BaseActivity implements
 			break;
 		case R.id.base_right_tv:
 			intent = new Intent(this, AppointmentMoreCoachActivity.class);
+			// finish();
 			break;
 		case R.id.base_left_btn:
 			finish();
+			break;
+		case R.id.appointment_car_change_coach_tv:
+			// 更多教练
+			intent = new Intent(this, AppointmentMoreCoachActivity.class);
 			break;
 		default:
 			break;
@@ -327,22 +337,25 @@ public class AppointmentCarActivity extends BaseActivity implements
 		paramsMap.put("address", "");
 
 		String courselist = "";
-		List<CoachCourseVO> selectCourseList = timeLayout.getSelectCourseList();
+		List<CoachCourseV2VO> selectCourseList = timeLayout
+				.getSelectCourseList();
 		int length = selectCourseList.size();
 		for (int i = 0; i < length; i++) {
-			courselist += selectCourseList.get(i).get_id();
+			courselist += selectCourseList.get(i).getCoursedata().get_id();
 			courselist += ",";
 		}
 		courselist = courselist.substring(0, courselist.length() - 1);
 		paramsMap.put("courselist", courselist);
 
-		paramsMap.put("begintime", selectDate + " "
-				+ selectCourseList.get(0).getCoursetime().getBegintime());
+		paramsMap.put("begintime", selectDate
+				+ " "
+				+ selectCourseList.get(0).getCoursedata().getCoursetime()
+						.getBegintime());
 		paramsMap.put("endtime",
 				selectDate
 						+ " "
-						+ selectCourseList.get(length - 1).getCoursetime()
-								.getEndtime());
+						+ selectCourseList.get(length - 1).getCoursedata()
+								.getCoursetime().getEndtime());
 
 		Map<String, String> headerMap = new HashMap<String, String>();
 		headerMap.put("authorization", app.userVO.getToken());
@@ -394,9 +407,9 @@ public class AppointmentCarActivity extends BaseActivity implements
 					belowLayout.setVisibility(View.VISIBLE);
 					int length = dataArray.length();
 					for (int i = 0; i < length; i++) {
-						CoachCourseVO coachCourseVO = JSONUtil
-								.toJavaBean(CoachCourseVO.class,
-										dataArray.getJSONObject(i));
+						CoachCourseV2VO coachCourseVO = JSONUtil.toJavaBean(
+								CoachCourseV2VO.class,
+								dataArray.getJSONObject(i));
 						courseList.add(coachCourseVO);
 					}
 				}
@@ -506,6 +519,7 @@ public class AppointmentCarActivity extends BaseActivity implements
 	private SelectableRoundedImageView coachPic;
 	private RelativeLayout belowLayout;
 	private TextView notimeTv;
+	private TextView changeCoChTv;
 
 	class MyOnTimeLayoutSelectedListener implements
 			OnTimeLayoutSelectedListener {
@@ -518,6 +532,8 @@ public class AppointmentCarActivity extends BaseActivity implements
 			LogUtil.print("========" + timeLayout.getSelectCourseList().size());
 			if (timeLayout.getSelectCourseList().size() == 1) {
 				learnProgress2Tv.setText("第" + (finishTime + 1) + "课时 ");
+			} else if (timeLayout.getSelectCourseList().size() == 0) {
+				learnProgress2Tv.setText("");
 			} else {
 				learnProgress2Tv
 						.setText("第"
@@ -534,9 +550,12 @@ public class AppointmentCarActivity extends BaseActivity implements
 			// }
 			selectEndTime = 0;
 			selectBeginTime = 24;
-			for (CoachCourseVO coachCourseVO : timeLayout.getSelectCourseList()) {
-				String begintime = coachCourseVO.getCoursetime().getBegintime();
-				String endtime = coachCourseVO.getCoursetime().getEndtime();
+			for (CoachCourseV2VO coachCourseVO : timeLayout
+					.getSelectCourseList()) {
+				String begintime = coachCourseVO.getCoursedata()
+						.getCoursetime().getBegintime();
+				String endtime = coachCourseVO.getCoursedata().getCoursetime()
+						.getEndtime();
 				if (selectBeginTime > Integer.parseInt(begintime.split(":")[0])) {
 					selectBeginTime = Integer.parseInt(begintime.split(":")[0]);
 				}
@@ -596,7 +615,7 @@ public class AppointmentCarActivity extends BaseActivity implements
 					selectCoach = coach;
 					coachId = selectCoach.getCoachid();
 					coachName.setText("教练" + selectCoach.getName());
-					LinearLayout.LayoutParams headParam = (LinearLayout.LayoutParams) coachPic
+					RelativeLayout.LayoutParams headParam = (RelativeLayout.LayoutParams) coachPic
 							.getLayoutParams();
 					String url = selectCoach.getHeadportrait().getOriginalpic();
 					if (TextUtils.isEmpty(url)) {

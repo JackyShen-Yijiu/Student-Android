@@ -28,6 +28,8 @@ public class MyAppointmentVO extends DBVO {
 	private String learningcontent;
 	private TrainFieldlInfo trainfieldlinfo;
 
+	private String sigintime; // 签到时间
+
 	public String getCoursehour() {
 		return coursehour;
 	}
