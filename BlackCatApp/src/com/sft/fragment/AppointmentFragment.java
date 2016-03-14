@@ -18,11 +18,14 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
 import com.jzjf.app.R;
@@ -82,7 +85,7 @@ public class AppointmentFragment extends BaseFragment implements
 		View rootView = inflater.inflate(R.layout.fragment_appointment, null,// container
 				false);
 		initViews(rootView);
-
+		
 		return rootView;
 	}
 
@@ -182,7 +185,41 @@ public class AppointmentFragment extends BaseFragment implements
 //				.findViewById(R.id.fragment_appointment_listview);
 		epListView = (ExpandableListView) rootView
 				.findViewById(R.id.fragment_appointment_listview_ep);
-		
+		epListView.setOnChildClickListener(new OnChildClickListener() {
+			
+			@Override
+			public boolean onChildClick(ExpandableListView arg0, View arg1, int arg2,
+					int arg3, long arg4) {
+				Toast.makeText(getActivity(),arg2+"nannan"+arg3,android.widget.Toast.LENGTH_SHORT).show();
+				return false;
+			}
+		});
+//		epListView.setOnItemSelectedListener(new OnItemSelectedListener() {
+//
+//			@Override
+//			public void onItemSelected(AdapterView<?> arg0, View arg1,
+//					int arg2, long arg3) {
+//				// TODO Auto-generated method stub
+//				Toast.makeText(getActivity(),arg2+"onItemSelected"+arg3,android.widget.Toast.LENGTH_SHORT).show();
+//				
+//			}
+//
+//			@Override
+//			public void onNothingSelected(AdapterView<?> arg0) {
+//				// TODO Auto-generated method stub
+//				
+//			}
+//		});
+//		epListView.setOnItemClickListener(new OnItemClickListener() {
+//
+//			@Override
+//			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+//					long arg3) {
+//				Toast.makeText(getActivity(),arg2+"onItemClick"+arg3,android.widget.Toast.LENGTH_SHORT).show();
+//				
+//				
+//			}
+//		});
 //		appointmentSwipeLaout.setOnRefreshListener(this);
 //		appointmentSwipeLaout.setColorScheme(android.R.color.holo_blue_bright,
 //				android.R.color.holo_green_light,
@@ -293,16 +330,20 @@ public class AppointmentFragment extends BaseFragment implements
 					}
 					datas.put(0, toadyAppointList);
 					datas.put(1, otherAppointList);
+					datas.put(2, finishedList);
 					
 					list.addAll(toadyAppointList);
 					list.addAll(otherAppointList);
 					list.addAll(finishedList);
-					LogUtil.print("预约列表：：---》"+list.size());
+					LogUtil.print("预约列表：：---今天》"+toadyAppointList.size()+"other--->"+otherAppointList.size());
 					ZProgressHUD.getInstance(getActivity()).dismiss();
 					if (adapter == null) {
 						adapter = new MyAppointmentListAdapter2(getActivity(),
 								datas);
 						epListView.setAdapter(adapter);
+					    for(int i = 0; i < adapter.getGroupCount(); i++){  
+					    	epListView.expandGroup(i);  
+					     }  
 //						mListView.setAdapter(adapter);
 					}
 
@@ -346,6 +387,7 @@ public class AppointmentFragment extends BaseFragment implements
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		LogUtil.print("focus---ed-->>"+epListView.isFocused());
 		return true;
 	}
 

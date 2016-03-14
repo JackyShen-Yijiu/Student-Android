@@ -3,47 +3,30 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
+    android:background="#fff"
     android:orientation="vertical" >
 
-   <!--  <RelativeLayout
-        android:id="@+id/calender_ll"
+    <TextView
+        android:id="@+id/week"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:orientation="vertical" > -->
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="周一"
+        android:textColor="@color/text_color_dark"
+        android:textSize="12sp" />
 
-        <TextView
-            android:id="@+id/solar"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_centerHorizontal="true"
-            android:text="13"
-            android:gravity="center"
-            android:textColor="@color/text_color_dark"
-            android:textSize="14sp" />
-
-     <!--    <ImageView
-            android:id="@+id/has_order"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/solar"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="18dp"
-            android:visibility="gone"
-            android:background="@drawable/red_point" />
-
-        <TextView
-            android:id="@+id/rest"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:visibility="gone"
-            android:layout_below="@+id/solar"
-            android:layout_centerHorizontal="true"
-            android:gravity="center"
-            android:text="休"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/text_color_light"
-            android:textSize="12sp" /> 
-    </RelativeLayout>-->
+    <TextView
+        android:id="@+id/solar"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:layout_below="@+id/week"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="15dp"
+        android:text="13"
+        android:textColor="@color/text_color_dark"
+        android:textSize="16sp" />
 
 </RelativeLayout>

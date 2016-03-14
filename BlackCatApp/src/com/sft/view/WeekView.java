@@ -29,9 +29,9 @@ public class WeekView extends GridView {
 
 	public void initMonthAdapter(int pagePosition) {
 		if (pagePosition == 0) {
-			this.list = WeekDataUtil.getCurrentWeek();
+			this.list = WeekDataUtil.getThisWeek2();
 		} else if (pagePosition == 1) {
-			this.list = WeekDataUtil.getNextWeek();
+			this.list = WeekDataUtil.getNextWeek2();
 		}
 		adapter = new WeekAdapter(getContext(), 1, this.list);
 		this.setAdapter(adapter);

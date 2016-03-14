@@ -26114,6 +26114,10 @@ com.joooonho.SelectableRoundedImageView
 com.joooonho.SelectableRoundedImageView: SelectableRoundedImageView(android.content.Context)
 com.joooonho.SelectableRoundedImageView: SelectableRoundedImageView(android.content.Context,android.util.AttributeSet)
 com.joooonho.SelectableRoundedImageView: SelectableRoundedImageView(android.content.Context,android.util.AttributeSet,int)
+com.jzjf.app.wxapi.AppRegister
+com.jzjf.app.wxapi.AppRegister: AppRegister()
+com.jzjf.app.wxapi.WXPayEntryActivity
+com.jzjf.app.wxapi.WXPayEntryActivity: WXPayEntryActivity()
 com.loopj.android.http.AsyncHttpClient: com.loopj.android.http.RequestHandle delete(java.lang.String,com.loopj.android.http.ResponseHandlerInterface)
 com.loopj.android.http.AsyncHttpClient: com.loopj.android.http.RequestHandle delete(android.content.Context,java.lang.String,com.loopj.android.http.ResponseHandlerInterface)
 com.loopj.android.http.AsyncHttpClient: com.loopj.android.http.RequestHandle delete(android.content.Context,java.lang.String,org.apache.http.Header[],com.loopj.android.http.ResponseHandlerInterface)
@@ -26188,6 +26192,8 @@ com.sft.adapter.AppointmentCarCoachHoriListAdapter$1: void onClick(android.view.
 com.sft.adapter.AppointmentDetailStudentHoriListAdapter$1: void onClick(android.view.View)
 com.sft.adapter.CoachCommentListAdapter$1: void onClick(android.view.View)
 com.sft.adapter.ExchangeGoodOrderAdapter$1: void onClick(android.view.View)
+com.sft.adapter.MyAppointmentListAdapter2$1: void onClick(android.view.View)
+com.sft.adapter.MyAppointmentListAdapter2$2: void onClick(android.view.View)
 com.sft.adapter.SchoolDetailCourseFeeAdapter$MyClickListener: void onClick(android.view.View)
 com.sft.adapter.WeekAdapter$1: void onClick(android.view.View)
 com.sft.alipay.ExternalFragment
@@ -26404,6 +26410,9 @@ com.sft.blackcatapp.MyAppointmentActivity: void onClick(android.view.View)
 com.sft.blackcatapp.MyCoachActivity
 com.sft.blackcatapp.MyCoachActivity: MyCoachActivity()
 com.sft.blackcatapp.MyCoachActivity: void onClick(android.view.View)
+com.sft.blackcatapp.MyComplaintAct
+com.sft.blackcatapp.MyComplaintAct: MyComplaintAct()
+com.sft.blackcatapp.MyComplaintAct: void onClick(android.view.View)
 com.sft.blackcatapp.MyFavouriteActiviy
 com.sft.blackcatapp.MyFavouriteActiviy: MyFavouriteActiviy()
 com.sft.blackcatapp.MyFavouriteActiviy: void onClick(android.view.View)
@@ -26428,6 +26437,11 @@ com.sft.blackcatapp.NewCropImageActivity: void onClick(android.view.View)
 com.sft.blackcatapp.NewEditPersonInfo
 com.sft.blackcatapp.NewEditPersonInfo: NewEditPersonInfo()
 com.sft.blackcatapp.NewEditPersonInfo: void onClick(android.view.View)
+com.sft.blackcatapp.NewLoginActivity
+com.sft.blackcatapp.NewLoginActivity: NewLoginActivity()
+com.sft.blackcatapp.NewLoginActivity: void onClick(android.view.View)
+com.sft.blackcatapp.NewLoginActivity$3: void onClick(android.content.DialogInterface,int)
+com.sft.blackcatapp.NewLoginActivity$4: void onClick(android.content.DialogInterface,int)
 com.sft.blackcatapp.NewPersonCenterAct
 com.sft.blackcatapp.NewPersonCenterAct: NewPersonCenterAct()
 com.sft.blackcatapp.NewPersonCenterAct: void onClick(android.view.View)
@@ -26547,8 +26561,8 @@ com.sft.blackcatapp.WebViewActivitys: WebViewActivitys()
 com.sft.blackcatapp.WebViewActivitys: void onClick(android.view.View)
 com.sft.blackcatapp.WelcomeActivity
 com.sft.blackcatapp.WelcomeActivity: WelcomeActivity()
-com.sft.blackcatapp.WelcomeActivity$10: void onClick(android.content.DialogInterface,int)
 com.sft.blackcatapp.WelcomeActivity$11: void onClick(android.content.DialogInterface,int)
+com.sft.blackcatapp.WelcomeActivity$12: void onClick(android.content.DialogInterface,int)
 com.sft.blackcatapp.YiBuIntroduceActivity
 com.sft.blackcatapp.YiBuIntroduceActivity: YiBuIntroduceActivity()
 com.sft.blackcatapp.YiBuIntroduceActivity: void onClick(android.view.View)
@@ -27881,9 +27895,12 @@ com.sft.vo.UserVO: com.sft.vo.uservo.StudentSubject subjecttwo
 com.sft.vo.UserVO: com.sft.vo.uservo.StudentSubject subjectthree
 com.sft.vo.UserVO: com.sft.vo.uservo.UserSettingVO usersetting
 com.sft.vo.UserVO: java.util.List vipserverlist
+com.sft.vo.UserVO: java.lang.String password
 com.sft.vo.UserVO: com.sft.vo.PayOrderVO payOrderVO
 com.sft.vo.UserVO: int payState
 com.sft.vo.UserVO: UserVO()
+com.sft.vo.UserVO: java.lang.String getPassword()
+com.sft.vo.UserVO: void setPassword(java.lang.String)
 com.sft.vo.UserVO: int getPayState()
 com.sft.vo.UserVO: void setPayState(int)
 com.sft.vo.UserVO: void setHeadPortrait(com.sft.vo.commonvo.HeadPortrait)
@@ -28230,6 +28247,9 @@ com.sft.vo.walletvo.Integrallist: java.lang.String getSeqindex()
 com.sft.vo.walletvo.Integrallist: void setSeqindex(java.lang.String)
 com.sft.vo.walletvo.Integrallist: java.lang.String getType()
 com.sft.vo.walletvo.Integrallist: void setType(java.lang.String)
+com.sft.weixinpay.PayActivity$1: void onClick(android.view.View)
+com.sft.weixinpay.WeixinPay: void pay()
+com.sft.weixinpay.WeixinPay: void pay(com.tencent.mm.sdk.modelpay.PayReq)
 com.sina.sso.RemoteSSO
 com.sina.sso.RemoteSSO: java.lang.String getPackageName()
 com.sina.sso.RemoteSSO: java.lang.String getActivityName()

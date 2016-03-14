@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/app_bg_dark"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:gravity="center_vertical" >
+
+            <ImageView
+                android:id="@+id/appointment_detail_class_name_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="@drawable/icon_kemu" />
+
+            <TextView
+                android:id="@+id/appointment_detail_class_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="21.5sp"
+                android:layout_toRightOf="@+id/appointment_detail_class_name_iv"
+                android:text="信息暂无"
+                android:textColor="@color/new_text_color_dark"
+                android:textSize="14dp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/line_color" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:gravity="center_vertical" >
+
+            <ImageView
+                android:id="@+id/appointment_detail_time_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="@drawable/icon_time" />
+
+            <TextView
+                android:id="@+id/appointment_detail_time_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="21.5sp"
+                android:layout_toRightOf="@+id/appointment_detail_time_iv"
+                android:text="信息暂无"
+                android:textColor="@color/new_text_color_dark"
+                android:textSize="14dp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/line_color" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:gravity="center_vertical" >
+
+            <ImageView
+                android:id="@+id/appointment_detail_signin_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="@drawable/icon_qiandao" />
+
+            <TextView
+                android:id="@+id/appointment_detail_signin_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="21.5sp"
+                android:layout_toRightOf="@+id/appointment_detail_signin_iv"
+                android:text="信息暂无"
+                android:textColor="@color/new_text_color_dark"
+                android:textSize="14dp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/line_color" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:gravity="center_vertical" >
+
+            <ImageView
+                android:id="@+id/appointment_detail_stopcar_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="@drawable/icon_kecheng" />
+
+            <TextView
+                android:id="@+id/appointment_detail_stopcar_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="21.5sp"
+                android:layout_toRightOf="@+id/appointment_detail_stopcar_iv"
+                android:text="信息暂无"
+                android:textColor="@color/new_text_color_dark"
+                android:textSize="14dp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/line_color" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="20dp"
+            android:gravity="center_vertical" >
+
+            <ImageView
+                android:id="@+id/appointment_detail_coach_name_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="@drawable/icon_renxiang" />
+
+            <TextView
+                android:id="@+id/appointment_detail_coach_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="21.5sp"
+                android:layout_toRightOf="@+id/appointment_detail_coach_name_iv"
+                android:text="信息暂无"
+                android:textColor="@color/new_text_color_dark"
+                android:textSize="14dp" />
+
+            <ImageView
+                android:id="@+id/appointment_detail_coach_duihua_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
+                android:padding="15dp"
+                android:src="@drawable/icon_duihua" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@color/line_color" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:gravity="center_vertical" >
+
+            <ImageView
+                android:id="@+id/appointment_detail_draining_ground_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/icon_map" />
+
+            <TextView
+                android:id="@+id/appointment_detail_draining_ground_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="21.5sp"
+                android:layout_toRightOf="@+id/appointment_detail_draining_ground_iv"
+                android:text="信息暂无"
+                android:textColor="@color/new_text_color_dark"
+                android:textSize="14dp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:text="我的评价"
+            android:textColor="@color/new_text_color_dark"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/line_color" />
+
+        <RatingBar
+            android:id="@+id/appointment_detail_ratingBar"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            style="@style/roomRatingBar_26" />
+        
+        <RelativeLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16.5dp"
+            >
+
+             <TextView
+                 android:id="@+id/appointment_detail_evaluate_content_tv"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginLeft="20dp"
+                 android:layout_marginRight="20dp"
+                 android:text="刘教练不错，态度非常好，而且守时，关键是教的不错，非常满意！！"
+                 android:textColor="@color/new_text_color_dark"
+                 android:textSize="14sp" />
+             <TextView
+                 android:id="@+id/appointment_detail_evaluate_time_tv"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginLeft="20dp"
+                 android:layout_marginRight="20dp"
+                 android:layout_marginTop="10dp"
+                 android:text="2/25  15:00"
+                 android:textColor="@color/new_text_color_dark"
+                 android:layout_below="@+id/appointment_detail_evaluate_content_tv"
+                 android:layout_alignParentRight="true"
+                 android:textSize="14sp" />
+            
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
