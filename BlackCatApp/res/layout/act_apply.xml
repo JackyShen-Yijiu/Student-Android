@@ -7,7 +7,7 @@
     
     <ScrollView 
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
     <RelativeLayout 
         android:layout_width="match_parent"
         android:layout_marginBottom="25dp"
@@ -95,8 +95,7 @@
           android:id="@+id/rl_class"
           android:layout_width="match_parent"
           android:layout_height="44dp"
-          android:onClick="onClick"
-          android:layout_alignParentLeft="true" >
+          android:onClick="onClick" >
 
           <TextView
               android:id="@+id/tv_class"

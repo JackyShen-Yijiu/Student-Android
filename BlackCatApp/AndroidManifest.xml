@@ -266,6 +266,9 @@
         <activity
             android:name="com.sft.blackcatapp.MyWalletActivity"
             android:screenOrientation="portrait" />
+         <activity
+            android:name="com.sft.blackcatapp.NewConfirmOrderActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.sft.blackcatapp.Walletintegral"
             android:screenOrientation="portrait" />

@@ -387,6 +387,7 @@ public class ApplyAct extends BaseActivity implements
 
 	private boolean isSystemAdd = true;
 	private PopupWindow popupWindow;
+	private MyCodeVO codeVO;
 
 	private void showPopupWindow(View parent) {
 		if (popupWindow == null) {
@@ -525,7 +526,7 @@ public class ApplyAct extends BaseActivity implements
 			finish();
 			break;
 		case R.id.rl_Ycode:
-			MyCodeVO codeVO = (MyCodeVO) data.getSerializableExtra("code");
+			codeVO = (MyCodeVO) data.getSerializableExtra("code");
 			apply_Ycode.setText(codeVO.getYcode());
 			break;
 		case R.id.pop_window_two:
@@ -572,10 +573,14 @@ public class ApplyAct extends BaseActivity implements
 			break;
 
 		case R.id.rl_coach:
-			LogUtil.print("=====------===");
-			CoachVO coachVO = (CoachVO) data.getSerializableExtra("coach");
-			if (null != coachVO) {
-				coachTv.setText(coachVO.getName());
+			coach = (CoachVO) data.getSerializableExtra("coach");
+			if (null != coach) {
+				coachTv.setText(coach.getName());
+				enCoachId = coach.getCoachid();
+			} else {
+				coachTv.setText("智能匹配");
+				coach = null;
+				enCoachId = "";
 			}
 			break;
 		}
@@ -624,11 +629,16 @@ public class ApplyAct extends BaseActivity implements
 
 					PayOrderVO pay = JSONUtil.toJavaBean(PayOrderVO.class,
 							extra);
-					Intent intent = new Intent(this, ConfirmOrderActivity.class);
+					Intent intent = new Intent(this,
+							NewConfirmOrderActivity.class);
+					// intent.putExtra("repay", true);
 					intent.putExtra("class", classe);
 					intent.putExtra("schoolName", schoolName);
 					intent.putExtra("phone", contactEt.getText().toString());
 					intent.putExtra("bean", pay);
+					intent.putExtra("coach", coach);
+					intent.putExtra("code", codeVO);
+
 					// startActivity(intent);
 					startActivityForResult(intent, 9);
 					//
