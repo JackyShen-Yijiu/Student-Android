@@ -20,7 +20,6 @@ import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
-import com.sft.util.UTC2LOC;
 import com.sft.vo.SuccessVO;
 import com.sft.vo.UserBaseStateVO;
 import com.squareup.picasso.Picasso;
@@ -37,14 +36,14 @@ public class EnrollSuccessActivity extends BaseActivity {
 	private Button button_sus;
 	private TextView tv_qrcode;
 	private TextView tvEndTime;
-	
+
 	private ImageView imgSchool;
-	private TextView tvSchoolName,tvClassType,tvPayMoney,tvApplytime,
-	tvState;
+	private TextView tvSchoolName, tvClassType, tvPayMoney, tvApplytime,
+			tvState;
 	private TextView tv_Qr;
 
 	private boolean isOnline = false;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -80,43 +79,42 @@ public class EnrollSuccessActivity extends BaseActivity {
 		// setText(0, R.string.enroll_again);
 		setTitleText("报名信息");
 		isOnline = getIntent().getBooleanExtra("isOnline", false);
-		
+
 		button_sus = (Button) findViewById(R.id.button_sus);
-		
+
 		qrcode = (ImageView) findViewById(R.id.apply_commit_qrcode);
 		tv_qrcode = (TextView) findViewById(R.id.tv_qrcode);
 		carryData = (TextView) findViewById(R.id.apply_commit_carry_data);
 		tvEndTime = (TextView) findViewById(R.id.act_apply_suuccess_endtime);
-		
+
 		tv_Qr = (TextView) findViewById(R.id.textView3);
 		imgSchool = (ImageView) findViewById(R.id.apply_commit_img);
 		tvSchoolName = (TextView) findViewById(R.id.apply_commit_school_name);
-		tvClassType  = (TextView) findViewById(R.id.apply_commit_class_type);
-		tvPayMoney  = (TextView) findViewById(R.id.apply_commit_money);
-		tvApplytime  = (TextView) findViewById(R.id.apply_commit_apply_time);
-		tvState  = (TextView) findViewById(R.id.apply_commit_pay_state);
-		
-		if(isOnline){//如果在线
+		tvClassType = (TextView) findViewById(R.id.apply_commit_class_type);
+		tvPayMoney = (TextView) findViewById(R.id.apply_commit_money);
+		tvApplytime = (TextView) findViewById(R.id.apply_commit_apply_time);
+		tvState = (TextView) findViewById(R.id.apply_commit_pay_state);
+
+		if (isOnline) {// 如果在线
 			qrcode.setVisibility(View.GONE);
 			tv_Qr.setVisibility(View.GONE);
 			findViewById(R.id.textView7).setVisibility(View.GONE);
 			findViewById(R.id.textView8).setVisibility(View.GONE);
-		}else{//线下 支付
-			
+		} else {// 线下 支付
+
 		}
 	}
-	
-	
-//	private void obtainApplySuccessInfo() {
-//		Map<String, String> paramMap = new HashMap<String, String>();
-//		paramMap.put("userid", app.userVO.getUserid());
-//
-//		Map<String, String> headerMap = new HashMap<String, String>();
-//		headerMap.put("authorization", app.userVO.getToken());
-//		HttpSendUtils.httpGetSend("applySchoolInfor", this, Config.IP
-//				+ "api/v1/userinfo/getapplyschoolinfo", paramMap, 10000,
-//				headerMap);
-//	}
+
+	// private void obtainApplySuccessInfo() {
+	// Map<String, String> paramMap = new HashMap<String, String>();
+	// paramMap.put("userid", app.userVO.getUserid());
+	//
+	// Map<String, String> headerMap = new HashMap<String, String>();
+	// headerMap.put("authorization", app.userVO.getToken());
+	// HttpSendUtils.httpGetSend("applySchoolInfor", this, Config.IP
+	// + "api/v1/userinfo/getapplyschoolinfo", paramMap, 10000,
+	// headerMap);
+	// }
 
 	private void setListener() {
 		button_sus.setOnClickListener(this);
@@ -130,7 +128,7 @@ public class EnrollSuccessActivity extends BaseActivity {
 		}
 		switch (v.getId()) {
 		case R.id.base_left_btn:
-			setResult(9,getIntent());
+			setResult(9, getIntent());
 			finish();
 			break;
 		case R.id.base_right_tv:
@@ -156,7 +154,7 @@ public class EnrollSuccessActivity extends BaseActivity {
 		case R.id.button_sus:
 			sendBroadcast(new Intent(MainActivity.class.getName()).putExtra(
 					"isEnrollSuccess", true));
-			setResult(9,getIntent());
+			setResult(9, getIntent());
 			finish();
 			break;
 		}
@@ -205,18 +203,21 @@ public class EnrollSuccessActivity extends BaseActivity {
 					}
 					if (successVO != null) {
 						// 保存报名信息
+						LogUtil.print("successVO11" + successVO);
 						setQrCode(successVO.scanauditurl);
 						tv_qrcode.setText(successVO.userid);
 						// app.userVO.setApplystate(EnrollResult.SUBJECT_ENROLLING
 						// .getValue());
 						checkUserEnrollState();
-						if (successVO.applynotes != null && !successVO.applynotes.equals("")) {
+						if (successVO.applynotes != null
+								&& !successVO.applynotes.equals("")) {
 							carryData.setText(successVO.applynotes);
 						}
-						LogUtil.print("pay--notes-->"+successVO.applynotes);
+						LogUtil.print("pay--notes-->" + successVO.applynotes);
 						setOffLine(successVO);
-						
-						tvEndTime.setText("请您于 "+successVO.endtime+" 前携带资料前往您所报名的驾校确认报名信息，并支付报名费用。");
+
+						tvEndTime.setText("请您于 " + successVO.endtime
+								+ " 前携带资料前往您所报名的驾校确认报名信息，并支付报名费用。");
 					}
 				}
 			} else if (type.equals(checkEnrollState)) {
@@ -225,8 +226,9 @@ public class EnrollSuccessActivity extends BaseActivity {
 							UserBaseStateVO.class, data);
 					if (!baseStateVO.getApplystate().equals(
 							app.userVO.getApplystate())) {
-						LogUtil.print("apply--state-->"+baseStateVO.getApplystate());
-//						app.userVO.setApplystate(baseStateVO.getApplystate());
+						LogUtil.print("apply--state-->"
+								+ baseStateVO.getApplystate());
+						// app.userVO.setApplystate(baseStateVO.getApplystate());
 					}
 				}
 			}
@@ -235,54 +237,53 @@ public class EnrollSuccessActivity extends BaseActivity {
 		}
 		return true;
 	}
-	
-	private void setOffLine(SuccessVO successVO){
-//		successVO.applyschoolinfo.name
-//		successVO.applyclasstypeinfo.name;  //课程名称
-//		successVO.applyclasstypeinfo.price;
-//		successVO.applytime;// 报名时间
-//		successVO.applystate //申请状态
-//		successVO.applyclasstypeinfo.paytypestatus;//支付状态
-//		successVO.applyclasstypeinfo.paytype  1 线下支付  2线上支付
-		
-//		tvSchoolName,tvClassType,tvPayMoney,tvApplytime,
-//		tvPayState
+
+	private void setOffLine(SuccessVO successVO) {
+		// successVO.applyschoolinfo.name
+		// successVO.applyclasstypeinfo.name; //课程名称
+		// successVO.applyclasstypeinfo.price;
+		// successVO.applytime;// 报名时间
+		// successVO.applystate //申请状态
+		// successVO.applyclasstypeinfo.paytypestatus;//支付状态
+		// successVO.applyclasstypeinfo.paytype 1 线下支付 2线上支付
+
+		// tvSchoolName,tvClassType,tvPayMoney,tvApplytime,
+		// tvPayState
 		tvSchoolName.setText(successVO.applyschoolinfo.name);
 		tvClassType.setText(successVO.applyclasstypeinfo.name);
-		tvPayMoney.setText("实付款: ￥"+successVO.applyclasstypeinfo.price);
-		tvApplytime.setText("报名时间:"+successVO.applytime);
-//		UTC2LOC.instance.getDate(pay.creattime, "yyyy-MM-dd HH:mm:ss")
-		
+		tvPayMoney.setText("实付款: ￥" + successVO.applyclasstypeinfo.price);
+		tvApplytime.setText("报名时间:" + successVO.applytime);
+		// UTC2LOC.instance.getDate(pay.creattime, "yyyy-MM-dd HH:mm:ss")
+
 		LogUtil.print("paytypestatus---->" + successVO.paytypestatus);
-		
-		if(successVO.paytype.equals("1")){//线下支付
-//			tvTitle.setText(successVO.applyschoolinfo.name+"(线下)");
-			if(successVO.paytypestatus==20){//申请成功
+
+		if (successVO.paytype.equals("1")) {// 线下支付
+			// tvTitle.setText(successVO.applyschoolinfo.name+"(线下)");
+			if (successVO.paytypestatus == 20) {// 申请成功
 				tvState.setText("报名成功");
-			}else if(successVO.paytypestatus == 0){//未支付
+			} else if (successVO.paytypestatus == 0) {// 未支付
 				tvState.setText("未支付");
-			}else if(successVO.paytypestatus == 30){//支付失败
+			} else if (successVO.paytypestatus == 30) {// 支付失败
 				tvState.setText("支付失败");
 			}
-			
-			
-		}else{//线上支付
-			if(successVO.paytypestatus==20){//申请成功
+			qrcode.setVisibility(View.VISIBLE);
+
+		} else {// 线上支付
+			if (successVO.paytypestatus == 20) {// 申请成功
 				tvState.setText("报名成功");
-			}else if(successVO.paytypestatus == 0){//未支付
+			} else if (successVO.paytypestatus == 0) {// 未支付
 				tvState.setText("未支付");
-			}else if(successVO.paytypestatus == 30){//支付失败
+			} else if (successVO.paytypestatus == 30) {// 支付失败
 				tvState.setText("支付失败");
 			}
 		}
-		if(!TextUtils.isEmpty(successVO.schoollogoimg)){
-			LinearLayout.LayoutParams  headParams = (LinearLayout.LayoutParams) imgSchool
+		if (!TextUtils.isEmpty(successVO.schoollogoimg)) {
+			LinearLayout.LayoutParams headParams = (LinearLayout.LayoutParams) imgSchool
 					.getLayoutParams();
-			BitmapManager.INSTANCE.loadBitmap2(successVO.schoollogoimg, imgSchool,
-					headParams.width, headParams.height);
+			BitmapManager.INSTANCE.loadBitmap2(successVO.schoollogoimg,
+					imgSchool, headParams.width, headParams.height);
 		}
-		
-		
+
 	}
 
 	// 设置二维码

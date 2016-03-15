@@ -231,7 +231,7 @@
         android:background="#FFEDEDF1">
 		   </LinearLayout>
 		   
-		    <RadioGroup 
+		    <LinearLayout 
 		        android:layout_width="match_parent"
 		        android:layout_height="wrap_content"
 		        android:paddingLeft="20dp"
@@ -349,7 +349,7 @@
 		                android:button="@drawable/radio_button_check"
 		                android:layout_centerVertical="true"/>
 		        </RelativeLayout>
-		    </RadioGroup>
+		    </LinearLayout>
 		</LinearLayout>
 		</RelativeLayout>
 		</ScrollView>

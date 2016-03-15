@@ -10,6 +10,8 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
@@ -34,7 +36,7 @@ import com.sft.weixinpay.WeixinPay;
 import com.tencent.mm.sdk.modelpay.PayReq;
 
 public class NewConfirmOrderActivity extends BaseActivity implements
-		OnClickListener {
+		OnClickListener, OnCheckedChangeListener {
 
 	private TextView tvGoodPrice;// tv_coupon_show
 	/*** 最终支付金额 */
@@ -196,6 +198,9 @@ public class NewConfirmOrderActivity extends BaseActivity implements
 
 	private void Listenner() {
 		// tv_coupon_show.setOnClickListener(this);
+		rbAlipay.setOnCheckedChangeListener(this);
+		rbWeixinpay.setOnCheckedChangeListener(this);
+		rbXianXiapay.setOnCheckedChangeListener(this);
 	}
 
 	// private String en
@@ -271,12 +276,6 @@ public class NewConfirmOrderActivity extends BaseActivity implements
 
 		} else if (type.equals(WEIXIN_PAY_INFOR)) {// 获取微信 支付订单信息
 			PayReq pay = weixinPay.parseJson(data);
-			Toast("--" + "id:" + pay.appId + "partnerId::>" + pay.partnerId
-					+ "noce::>" + pay.nonceStr + "timeStamp" + pay.timeStamp
-					+ "" + pay.packageValue + "" + pay.sign);
-			LogUtil.print("id:" + pay.appId + "partnerId::>" + pay.partnerId
-					+ "noce::>" + pay.nonceStr + "timeStamp" + pay.timeStamp
-					+ "" + pay.packageValue + "" + pay.sign);
 			weixinPay.pay(pay);
 		}
 		// getIntent().getParcelableArrayListExtra(name)
@@ -317,11 +316,11 @@ public class NewConfirmOrderActivity extends BaseActivity implements
 				} else {
 					request(coupCode, couponId, orderId);
 				}
-			} else if (rbAlipay.isChecked()) {// 微信支付
+			} else if (rbWeixinpay.isChecked()) {// 微信支付
 				requestWeiXinPayInfor(app.userVO.getUserid(), orderId);
 			} else {// 线下支付
 				Intent intent1 = new Intent(NewConfirmOrderActivity.this,
-						SussessOrderActvity.class);
+						EnrollSuccessActivity.class);
 				startActivity(intent1);
 			}
 
@@ -475,4 +474,25 @@ public class NewConfirmOrderActivity extends BaseActivity implements
 		return null;
 	}
 
+	@Override
+	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+		LogUtil.print("isChecked----" + isChecked);
+		if (buttonView.getId() == R.id.rb_weixing) {
+			if (isChecked) {
+				rbAlipay.setChecked(false);
+				rbXianXiapay.setChecked(false);
+			}
+		} else if (buttonView.getId() == R.id.rb_xianxia) {
+			if (isChecked) {
+				rbWeixinpay.setChecked(false);
+				rbAlipay.setChecked(false);
+			}
+		} else if (buttonView.getId() == R.id.rb_zhifubao) {
+			if (isChecked) {
+				rbWeixinpay.setChecked(false);
+				rbXianXiapay.setChecked(false);
+			}
+		}
+
+	}
 }
