@@ -30,6 +30,7 @@ public class MyAppointmentVO extends DBVO {
 	private String learningcontent;
 	private TrainFieldlInfo trainfieldlinfo;
 	private ApplySchoolInfo driveschoolinfo;
+	private String schoolmobile;
 
 	private String sigintime; // 签到时间
 	private CommentContent comment;
@@ -201,6 +202,14 @@ public class MyAppointmentVO extends DBVO {
 
 	public void setDriveschoolinfo(ApplySchoolInfo driveschoolinfo) {
 		this.driveschoolinfo = driveschoolinfo;
+	}
+
+	public String getSchoolmobile() {
+		return schoolmobile;
+	}
+
+	public void setSchoolmobile(String schoolmobile) {
+		this.schoolmobile = schoolmobile;
 	}
 
 }
