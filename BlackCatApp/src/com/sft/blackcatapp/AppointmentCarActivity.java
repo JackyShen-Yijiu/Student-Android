@@ -80,7 +80,7 @@ public class AppointmentCarActivity extends BaseActivity implements
 	private List<CoachCourseV2VO> courseList = new ArrayList<CoachCourseV2VO>();
 	private TextView learnProgress1Tv;
 	private TextView learnProgress2Tv;
-	private TextView learnProgress3Tv;
+	// private TextView learnProgress3Tv;
 	// 同时段学员
 	private LoadMoreView studentListView;
 	private AppointmentDetailStudentHoriListAdapter sameTimeStudentAdapter;
@@ -173,7 +173,8 @@ public class AppointmentCarActivity extends BaseActivity implements
 
 		learnProgress1Tv = (TextView) findViewById(R.id.appointment_car_select_course1_tv);
 		learnProgress2Tv = (TextView) findViewById(R.id.appointment_car_select_course2_tv);
-		learnProgress3Tv = (TextView) findViewById(R.id.appointment_car_select_course3_tv);
+		// learnProgress3Tv = (TextView)
+		// findViewById(R.id.appointment_car_select_course3_tv);
 		setAppointmentTimeInfo();
 
 		//
@@ -212,7 +213,7 @@ public class AppointmentCarActivity extends BaseActivity implements
 		// }
 		learnProgress1Tv.setText(subjectName);
 
-		learnProgress3Tv.setText("完成" + finishTime + "课时");
+		// learnProgress3Tv.setText("完成" + finishTime + "课时");
 	}
 
 	private void resizeLayout() {
@@ -528,7 +529,20 @@ public class AppointmentCarActivity extends BaseActivity implements
 			OnTimeLayoutSelectedListener {
 
 		@Override
-		public void TimeLayoutSelectedListener(boolean selected) {
+		public void TimeLayoutSelectedListener(boolean selected,
+				boolean canAppointOtherCoach, CoachCourseV2VO coachCourse) {
+
+			if (canAppointOtherCoach) {
+				Intent intent = new Intent(AppointmentCarActivity.this,
+						AppointmentMoreCoachActivity.class);
+				intent.putExtra("coachCourse", coachCourse);
+				intent.putExtra("selectDate", selectDate);
+				startActivityForResult(intent,
+						R.id.appointment_car_change_coach_tv);
+				// obtainUsefulcoachTimely(coachCourseVO.getTimeid());
+				LogUtil.print("----可约其他教练");
+				return;
+			}
 			if (timeLayout.getSelectCourseList() == null) {
 				return;
 			}
@@ -587,13 +601,14 @@ public class AppointmentCarActivity extends BaseActivity implements
 			}
 			obtainSameTimeStudent(studentPage);
 		}
+
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (data != null) {
-			if (requestCode == R.id.base_right_tv) {
+			if (requestCode == R.id.appointment_car_change_coach_tv) {
 				// 获取更多教练
 				CoachVO coach = (CoachVO) data.getSerializableExtra("coach");
 				//
