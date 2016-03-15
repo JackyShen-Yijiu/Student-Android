@@ -108,10 +108,8 @@
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name="com.sft.blackcatapp.MainActivity"
-            android:configChanges="orientation|keyboard|keyboardHidden|navigation"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateVisible" />
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name="com.sft.blackcatapp.OldMainActivity"
             android:screenOrientation="portrait" />

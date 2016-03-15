@@ -123,7 +123,6 @@
                     android:layout_below="@+id/school_detail_headpic_im"
                     android:orientation="vertical"
                     android:paddingBottom="@dimen/coachdetail_layout_paddingtopbottom"
-                    android:paddingLeft="15dp"
                     android:paddingTop="@dimen/coachdetail_layout_paddingtopbottom" >
 
                     <TextView
@@ -141,6 +140,7 @@
                         android:drawablePadding="20dp"
                         android:gravity="center_vertical"
                         android:text="暂无"
+                        android:layout_marginLeft="15dp"
                         android:textColor="@color/txt_333"
                         android:textSize="14dp" />
 
@@ -155,6 +155,7 @@
                         android:layout_marginTop="12dp"
                         android:drawableLeft="@drawable/schooldetail_location_icon"
                         android:drawablePadding="20dp"
+                        android:layout_marginLeft="15dp"
                         android:gravity="center_vertical"
                         android:text="暂无"
                         android:textColor="#333333"
@@ -295,25 +296,56 @@
                         android:textColor="@color/new_text_color_light"
                         android:textSize="12sp" />
 
-                    <TextView 
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentRight="true"
-                        android:textColor="#FF5B8EFB"
-                        android:textSize="12sp"
                         android:layout_alignRight="@+id/coach_detail_introduction_tv"
                         android:layout_below="@+id/coach_detail_introduction_tv"
                         android:text="展开"
-                        />
+                        android:layout_marginRight="3dp"
+                        android:textColor="#FF5B8EFB"
+                        android:textSize="12sp" />
                 </RelativeLayout>
             </RelativeLayout>
 
-            <RelativeLayout 
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                ></RelativeLayout>
-            <!-- <LinearLayout
+                android:layout_height="10dp"
+                android:background="@color/app_bg_dark"
+                android:contentDescription="@string/app_name" />
+
+            <RelativeLayout
+                android:id="@+id/school_detail_coach_info_rl"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="教练信息"
+                    android:textColor="#6F6F6F"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/arrow_right" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/app_bg_dark"
+                android:contentDescription="@string/app_name" />
+            <!--
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -351,13 +383,15 @@
                         android:orientation="horizontal" >
                     </LinearLayout>
                 </HorizontalScrollView>
-            </LinearLayout> -->
+            </LinearLayout>
+            -->
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
 
+                <!--
                 <RadioGroup
                     android:id="@+id/school_detail_radiogroup"
                     android:layout_width="match_parent"
@@ -390,7 +424,8 @@
                     android:layout_height="1dp"
                     android:background="#ccc"
                     android:contentDescription="@string/app_name" />
-
+                -->
+                <!--
                 <TextView
                     android:id="@+id/select_coach_horizon_no_tv"
                     android:layout_width="wrap_content"
@@ -400,9 +435,12 @@
                     android:text="@string/no_coach"
                     android:textColor="#333333"
                     android:textSize="14dp" />
+                -->
                 <!-- 空白占位 -->
 
-                <com.sft.view.NoScrollListView
+
+                <!--
+                     <com.sft.view.NoScrollListView
                     android:id="@+id/school_coach_listview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -410,6 +448,22 @@
                     android:divider="@null"
                     android:dividerHeight="0dp"
                     android:listSelector="@android:color/transparent" />
+                -->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:text="课程班型"
+                    android:textColor="#6F6F6F"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@color/line_color" />
 
                 <com.sft.view.NoScrollListView
                     android:id="@+id/course_fee_listview"
@@ -424,7 +478,7 @@
         </LinearLayout>
     </com.sft.viewutil.MyScrollView>
 
-    <RadioGroup
+    <!-- <RadioGroup
         android:id="@+id/school_detail_radiogroup_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -451,7 +505,7 @@
             android:id="@+id/school_detail_coach_info_rb_top"
             style="@style/select_coach_radiobutton"
             android:text="@string/coach_info" />
-    </RadioGroup>
+    </RadioGroup> -->
 
     <include
         android:id="@+id/base_titlebar_layout"
