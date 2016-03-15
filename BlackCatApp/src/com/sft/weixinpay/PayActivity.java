@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.sft.common.Config;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
@@ -18,7 +19,7 @@ public class PayActivity extends Activity {
 		super.onCreate(savedInstanceState);
 //		setContentView(R.layout.pay);
 		
-		api = WXAPIFactory.createWXAPI(this, "wxb4ba3c02aa476ea1");
+		api = WXAPIFactory.createWXAPI(this, Config.APP_ID_WEIXIN);
 
 		Button appayBtn = null;//(Button) findViewById(R.id.appay_btn);
 		appayBtn.setOnClickListener(new View.OnClickListener() {
