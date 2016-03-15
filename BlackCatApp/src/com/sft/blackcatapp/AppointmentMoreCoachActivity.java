@@ -61,18 +61,26 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 				"coachCourse");
 		selectDate = getIntent().getStringExtra("selectDate");
 		boolean isFromApply = getIntent().getBooleanExtra("isFromApply", false);
-		if (isFromApply) {
-			headerRl.setVisibility(View.VISIBLE);
-		} else {
-			headerRl.setVisibility(View.GONE);
 
-		}
 		if (null != coachCourse && (!TextUtils.isEmpty(selectDate))) {
 			// 获取当前时间段可以预约的教练
 			obtainUsefulcoachTimely();
 			LogUtil.print("lfdnofdjbno");
 		} else {
 			obtainSchoolCoach(moreCoachPage);
+		}
+		// 标题
+		setTitleText(R.string.more_coach);
+		if (isFromApply) {
+			setTitleText(R.string.select_coach);
+			headerRl.setVisibility(View.VISIBLE);
+		} else {
+			headerRl.setVisibility(View.GONE);
+
+		}
+		if ((getIntent().getBooleanExtra("isOnClickToDetail", false))) {
+
+			setTitleText(R.string.coach_list);
 		}
 	}
 
@@ -83,7 +91,7 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 	};
 
 	private void initView() {
-		setTitleText(R.string.more_coach);
+
 		headerRl = (RelativeLayout) findViewById(R.id.more_caoch_header);
 		coachListView = (XListView) findViewById(R.id.more_caoch_listview);
 		layout = (RelativeLayout) findViewById(R.id.more_caoch_no_layout);
@@ -146,11 +154,19 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		Intent intent = null;
-		intent = new Intent();
-		intent.putExtra("coach", adapter.getItem(position - 1));
-		setResult(RESULT_OK, intent);
-		finish();
+		if ((getIntent().getBooleanExtra("isOnClickToDetail", false))) {
+			// 查看详情
+			Intent intent2 = new Intent(this, CoachDetailActivity.class);
+			intent2.putExtra("coach", adapter.getItem(position - 1));
+			startActivity(intent2);
+		} else {
+
+			Intent intent = null;
+			intent = new Intent();
+			intent.putExtra("coach", adapter.getItem(position - 1));
+			setResult(RESULT_OK, intent);
+			finish();
+		}
 
 	}
 

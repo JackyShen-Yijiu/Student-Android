@@ -99,11 +99,11 @@ public class WeixinPay {
 			if (null != json && !json.has("retcode")) {
 				PayReq req = new PayReq();
 				// req.appId = "wxf8b4f85f3a794e77"; // 锟斤拷锟斤拷锟斤拷appId
-				req.appId = json.getString("appId");
+				req.appId = json.getString("appid");
 				req.partnerId = json.getString("partnerid");
 				req.prepayId = json.getString("prepayid");
-				req.nonceStr = json.getString("nonceStr");
-				req.timeStamp = json.getString("timeStamp");
+				req.nonceStr = json.getString("noncestr");
+				req.timeStamp = json.getString("timestamp");
 				req.packageValue = json.getString("package");
 				req.sign = json.getString("sign");
 				req.extData = "app data";
@@ -112,8 +112,8 @@ public class WeixinPay {
 			}
 			
 		} catch (Exception e) {
-			Log.e("PAY_GET", "锟届常锟斤拷" + e.getMessage());
-			Toast.makeText(act, "锟届常锟斤拷" + e.getMessage(), Toast.LENGTH_SHORT)
+			Log.e("PAY_GET", "失败" + e.getMessage());
+			Toast.makeText(act, "aaa" + e.getMessage(), Toast.LENGTH_SHORT)
 					.show();
 		}
 		return null;

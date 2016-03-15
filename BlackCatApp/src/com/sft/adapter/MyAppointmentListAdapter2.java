@@ -9,6 +9,7 @@ import java.util.Map;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.text.TextUtils;
@@ -31,6 +32,7 @@ import cn.sft.infinitescrollviewpager.BitmapManager;
 
 import com.joooonho.SelectableRoundedImageView;
 import com.jzjf.app.R;
+import com.sft.blackcatapp.QRCodeCreateActivity;
 import com.sft.common.BlackCatApplication;
 import com.sft.common.Config.AppointmentResult;
 import com.sft.qrcode.EncodingHandler;
@@ -38,6 +40,7 @@ import com.sft.util.CommonUtil;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
 import com.sft.util.UTC2LOC;
+import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.MyAppointmentVO;
 import com.sft.vo.QRCodeCreateVO;
 
@@ -269,24 +272,73 @@ public class MyAppointmentListAdapter2 extends BaseExpandableListAdapter   {
 		}
 
 		holder.line.setVisibility(View.VISIBLE);
-		//签到
-		holder.tvQiandao.setOnClickListener(new OnClickListener() {
+		
+		if(isQianDaoOk(item)){//红色 可以签到
 			
-			@Override
-			public void onClick(View arg0) {
-				showPop(item);
+			holder.tvQiandao.setTextColor(context.getResources().getColor(R.color.new_app_main_color));
+			holder.imgQiandao.setImageResource(R.drawable.icon_erweima_hl);
+			//签到
+			holder.tvQiandao.setOnClickListener(new OnClickListener() {
 				
-			}
-		});
-		holder.imgQiandao.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-				showPop(item);
-			}
-		});
+				@Override
+				public void onClick(View arg0) {
+					showPop(item);
+					
+				}
+			});
+			holder.imgQiandao.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View arg0) {
+					showPop(item);
+				}
+			});
+		}else{//灰色
+			holder.tvQiandao.setTextColor(context.getResources().getColor(R.color.new_text_color_light));
+			holder.imgQiandao.setImageResource(R.drawable.icon_erweima);
+			holder.tvQiandao.setOnClickListener(null);
+			holder.imgQiandao.setOnClickListener(null);
+		}
+		
+		
 
 		return convertView;
+	}
+	
+	private boolean isQianDaoOk(MyAppointmentVO myAppointmentVO){
+		String beginTime = UTC2LOC.instance.getDate(
+				myAppointmentVO.getBegintime(), "hh:mm");
+		String endTime = UTC2LOC.instance.getDate(myAppointmentVO.getEndtime(),
+				"hh:mm");
+
+		SimpleDateFormat format = new SimpleDateFormat("hh:mm");
+		try {
+			long diffBeginTime = UTC2LOC.instance.getDates(
+					myAppointmentVO.getBegintime(), "yyyy-MM-dd HH:mm:ss")
+					.getTime()
+					- new Date().getTime();
+			long diffEndTime = UTC2LOC.instance.getDates(
+					myAppointmentVO.getEndtime(), "yyyy-MM-dd HH:mm:ss")
+					.getTime()
+					- new Date().getTime();
+			LogUtil.print("diffEndTime--" + diffEndTime);
+			if (diffBeginTime / 1000 / 60 > 15) {
+//				ZProgressHUD.getInstance(context).dismissWithSuccess(
+//						"请在开课前15分钟内签到");
+//				ZProgressHUD.getInstance(context).show();
+			} else if (diffEndTime / 1000 / 60 < 0) {
+//				ZProgressHUD.getInstance(context).dismissWithSuccess(
+//						"您的课程已结束，不能再签到");
+//				ZProgressHUD.getInstance(context).show();
+			} else {
+
+				return true;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 //	@Override
