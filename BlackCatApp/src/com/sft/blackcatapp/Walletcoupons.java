@@ -5,10 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
@@ -47,6 +47,8 @@ public class Walletcoupons extends BaseActivity {
 	private String producttype;
 	private WalletActivity parentActivity;
 
+	private ImageView error_iv;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -73,6 +75,7 @@ public class Walletcoupons extends BaseActivity {
 		incomeList = (ListView) findViewById(R.id.my_wallet_listview);
 
 		invitCodeTv = (TextView) findViewById(R.id.my_wallet_invit_code_tv);
+		error_iv = (ImageView) findViewById(R.id.error_iv);
 
 	}
 
@@ -158,8 +161,8 @@ public class Walletcoupons extends BaseActivity {
 		case R.id.my_wallet_change_btn:
 			MainActivity.TARGET_TAB = MainActivity.TAB_MALL;
 			finish();
-//			Intent intent = new Intent(this, MallActivity.class);
-//			startActivity(intent);
+			// Intent intent = new Intent(this, MallActivity.class);
+			// startActivity(intent);
 			break;
 		}
 	}

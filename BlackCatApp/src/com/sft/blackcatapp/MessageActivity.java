@@ -12,6 +12,7 @@ import android.util.Pair;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -41,6 +42,8 @@ public class MessageActivity extends BaseActivity implements
 	private RelativeLayout mes_bg;
 	private RelativeLayout error_rl;
 	private TextView error_tv;
+	private TextView error_tvs;
+	private ImageView error_iv;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -70,8 +73,11 @@ public class MessageActivity extends BaseActivity implements
 		messageListView = (ListView) findViewById(R.id.message_list);
 
 		mes_bg = (RelativeLayout) findViewById(R.id.mes_bg);
+
+		error_iv = (ImageView) findViewById(R.id.error_iv);
 		error_rl = (RelativeLayout) findViewById(R.id.error_rl);
 		error_tv = (TextView) findViewById(R.id.error_tv);
+		error_tvs = (TextView) findViewById(R.id.error_tvs);
 		error_rl.setVisibility(View.GONE);
 		messageListView.setVisibility(View.VISIBLE);
 		messageListView.setOnItemClickListener(this);
@@ -157,8 +163,11 @@ public class MessageActivity extends BaseActivity implements
 		if (list.size() <= 0) {
 			// mes_bg.setBackgroundResource(R.drawable.mes_bg);
 			error_rl.setVisibility(View.VISIBLE);
+			error_iv.setImageResource(R.drawable.image_xiaoxi);
 			messageListView.setVisibility(View.GONE);
-			error_tv.setText("小布还没有找到与您的聊天消息");
+			error_tv.setText("没有找到您的聊天信息");
+			error_tvs.setVisibility(View.VISIBLE);
+			error_tvs.setText("您可以通过预约教练和相邻时段学员发起聊天");
 		}
 
 		return list;
