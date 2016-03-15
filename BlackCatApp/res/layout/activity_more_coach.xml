@@ -2,22 +2,54 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/app_bg_light" >
+    android:background="@color/app_bg_dark" >
 
-    <me.maxwin.view.XListView
-        android:id="@+id/more_caoch_listview"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ffffff"
-        android:cacheColorHint="#00000000"
-        android:descendantFocusability="blocksDescendants"
-        android:divider="@null"
-        android:dividerHeight="2dp"
-        android:fadingEdge="none"
-        android:listSelector="@android:color/transparent"
-        android:overScrollMode="always"
-        android:scrollbars="none"
-        android:visibility="gone" />
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:id="@+id/more_caoch_header"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="#fff"
+            android:paddingLeft="20dp"
+            android:layout_marginBottom="10dp"
+            android:paddingRight="20dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="智能匹配"
+                android:layout_centerVertical="true"
+                android:textColor="#5B8EFB"
+                android:textSize="14sp" />
+            
+            <ImageView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/more_coach_zhineng_pipei"
+                />
+        </RelativeLayout>
+
+        <me.maxwin.view.XListView
+            android:id="@+id/more_caoch_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ffffff"
+            android:cacheColorHint="#00000000"
+            android:descendantFocusability="blocksDescendants"
+            android:divider="@null"
+            android:dividerHeight="2dp"
+            android:fadingEdge="none"
+            android:listSelector="@android:color/transparent"
+            android:overScrollMode="always"
+            android:scrollbars="none"
+            android:visibility="gone" />
+    </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/more_caoch_no_layout"

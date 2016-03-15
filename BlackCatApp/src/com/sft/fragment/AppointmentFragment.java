@@ -93,7 +93,12 @@ public class AppointmentFragment extends BaseFragment implements
 		View rootView = inflater.inflate(R.layout.fragment_appointment, null,// container
 				false);
 		initViews(rootView);
-		// commentDialog = new NoCommentDialog(getActivity());
+		// getActivity().getWindow().setSoftInputMode(
+		//
+		// WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN
+		//
+		// | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+		commentDialog = new NoCommentDialog(getActivity());
 		// commentDialog.show();
 		return rootView;
 	}

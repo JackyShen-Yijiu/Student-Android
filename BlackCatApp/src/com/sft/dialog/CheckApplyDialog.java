@@ -77,7 +77,11 @@ public class CheckApplyDialog extends Dialog implements
 	}
 
 	public void showBottom() {
-		tvBottom.setVisibility(View.VISIBLE);
+
+		if (tvBottom != null) {
+			tvBottom.setVisibility(View.VISIBLE);
+		}
+
 	}
 
 	/**

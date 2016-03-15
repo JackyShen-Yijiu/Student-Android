@@ -9,66 +9,86 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:orientation="vertical"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp" >
-
-        
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp" >
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
-            <TextView
-            android:id="@+id/course_fee_title_tv"
-            style="@style/coachdetail_title_style"
-            android:text="title"
-            android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/course_fee_price_tv"
+                android:id="@+id/course_fee_title_tv"
+                style="@style/coachdetail_title_style"
+                android:text="title"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/course_fee_tehui_iv"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/course_fee_title_tv"
+                android:background="@drawable/school_class_tehui" />
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginRight="20dp"
-                android:textStyle="bold"
-                android:text="￥0" />
-            
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/course_fee_onsaleprice_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:text="学生专享"
+                    android:textColor="#FFDC4437"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/course_fee_price_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="￥0"
+                    android:textColor="@color/new_text_color_light"
+                    android:textSize="12sp"
+                    android:visibility="visible" />
+            </LinearLayout>
         </RelativeLayout>
 
         <TextView
             android:id="@+id/course_fee_intro_tv"
             style="@style/text_gray_small"
-            android:text="intro"
-            android:layout_marginTop="5dp" />
-
-        
+            android:layout_marginTop="5dp"
+            android:text="intro" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginTop="15dp" >
-            
+
             <TextView
-                android:id="@+id/course_fee_name_title_price_tv"
+                android:id="@+id/course_fee_time_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
                 android:layout_toLeftOf="@+id/course_fee_enroll_btn"
+                android:drawableLeft="@drawable/school_class_type_time"
+                android:drawablePadding="10dp"
                 android:gravity="center_vertical"
                 android:text="title"
                 android:textColor="@color/txt_333"
                 android:textSize="14sp" />
-            
-            <Button
-            android:id="@+id/course_fee_enroll_btn"
-            style="@style/btn_style_red"
-            android:layout_gravity="center_horizontal"
-            android:layout_alignParentRight="true"
-            android:focusable="false"
-            android:text="@string/enroll" />
-            
-        </RelativeLayout>
 
+            <Button
+                android:id="@+id/course_fee_enroll_btn"
+                style="@style/btn_style_red"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="center_horizontal"
+                android:focusable="false"
+                android:text="@string/enroll" />
+        </RelativeLayout>
     </LinearLayout>
 
     <ImageView

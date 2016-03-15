@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+    <RelativeLayout 
+        android:id="@+id/rl_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_yma"
+        android:layout_marginBottom="10dp"
+        android:padding="15dp">
+           
+        <TextView 
+            android:id="@+id/tv_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="分享者"
+            android:layout_marginLeft="15dp"
+            android:textColor="#FFb7b7b7"
+            android:textSize="12sp"/>
+        <TextView 
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tv_1"
+            android:layout_toRightOf="@+id/tv_1"
+            android:text="萨达"
+            android:layout_marginLeft="10dp"
+            android:textSize="14sp"/>
+        
+           
+        <TextView 
+            android:id="@+id/tv_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_name"
+            android:layout_marginTop="6dp"
+            android:layout_alignLeft="@+id/tv_1"
+            android:text="Y码"
+            android:textColor="#FF6F6F6F"
+            android:textSize="14sp"/>
+          
+            <TextView
+                android:id="@+id/tv_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/tv_2"
+                android:layout_toRightOf="@+id/tv_2"
+                android:layout_marginLeft="10dp"
+                android:textColor="#FFDC4437"
+                android:text="QEQWEW"
+                android:textSize="14sp" />
+          
+            <TextView 
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_2"
+            android:layout_marginTop="10dp"
+            android:layout_alignLeft="@+id/tv_1"
+            android:text="asd"
+            android:textColor="#FFB7B7B7"
+            android:textSize="14sp"/>
+
+        
+    </RelativeLayout>
+    
+
+</RelativeLayout>

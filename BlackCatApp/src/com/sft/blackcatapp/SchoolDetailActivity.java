@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,25 +20,20 @@ import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.infinitescrollviewpager.BitMapURLExcepteionListner;
-import cn.sft.infinitescrollviewpager.BitmapManager;
 import cn.sft.infinitescrollviewpager.InfinitePagerAdapter;
 import cn.sft.infinitescrollviewpager.InfiniteViewPager;
 import cn.sft.infinitescrollviewpager.MyHandler;
@@ -78,11 +74,10 @@ import com.sft.vo.SuccessVO;
 @SuppressLint("ClickableViewAccessibility")
 public class SchoolDetailActivity extends BaseActivity implements
 		BitMapURLExcepteionListner, PageChangeListener,
-		OnCheckedChangeListener, OnSelectConfirmListener, OnItemClickListener,
-		android.widget.RadioGroup.OnCheckedChangeListener,
+		OnCheckedChangeListener, OnSelectConfirmListener,
 		MyScrollView.scrollStateListener {
 
-	private static final String school_route = "school_route";
+	// private static final String school_route = "school_route";
 	private static final String schoolType = "school";
 	private static final String classInfo = "classInfo";
 	private static final String coach = "coach";
@@ -143,7 +138,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 	// 添加删除教练
 	private CheckBox addDeleteSchoolCk;
 	//
-	private TextView noCoahTv;
+	// private TextView noCoahTv;
 
 	//
 	private int coachPage = 1;
@@ -158,7 +153,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 	private View titleLayout;
 	private int hegiht;
 	/** 暂无训练场 照片 */
-	private TextView tvNoPic;
+	// private TextView tvNoPic;
 	private View viewStatus;
 
 	private SuccessVO offlineVO;
@@ -234,10 +229,11 @@ public class SchoolDetailActivity extends BaseActivity implements
 
 	private void initTitle() {
 
-		viewStatus = (View) findViewById(R.id.act_school_detail_status);
+		viewStatus = findViewById(R.id.act_school_detail_status);
 
-		titleLayout = (View) findViewById(R.id.base_titlebar_layout_bg);
-		findViewById(R.id.base_titlebar_layout).setBackgroundResource(android.R.color.transparent);
+		titleLayout = findViewById(R.id.base_titlebar_layout_bg);
+		findViewById(R.id.base_titlebar_layout).setBackgroundResource(
+				android.R.color.transparent);
 
 		ImageButton bus = (ImageButton) findViewById(R.id.base_right_btn2);
 
@@ -280,29 +276,30 @@ public class SchoolDetailActivity extends BaseActivity implements
 		viewPager = (InfiniteViewPager) findViewById(R.id.school_detail_viewpager);
 		dotLayout = (LinearLayout) findViewById(R.id.school_detail_dotlayout);
 
-		tvNoPic = (TextView) findViewById(R.id.school_detail_nopic_tv);
+		// tvNoPic = (TextView) findViewById(R.id.school_detail_nopic_tv);
 
-		coachlistView = (ListView) findViewById(R.id.school_coach_listview);
+		// coachlistView = (ListView) findViewById(R.id.school_coach_listview);
 		courselistView = (ListView) findViewById(R.id.course_fee_listview);
 		courselistView.setFocusable(false);
-		coachlistView.setFocusable(false);
+		// coachlistView.setFocusable(false);
 		// horizontalListView = (LoadMoreView)
 		// findViewById(R.id.select_coach_horizon_listview);
 		// horizontalListView.setPullLoadMoreEnable(true);
 		// horizontalListView.setVertical();
 
 		// listview添加底部控件
-		View view = View.inflate(this, R.layout.look_school_all_coach, null);
-		coachlistView.addFooterView(view);
+		// View view = View.inflate(this, R.layout.look_school_all_coach, null);
+		// coachlistView.addFooterView(view);
 		schoolInfoTv = (TextView) findViewById(R.id.school_detail_schoolinfo_tv);
 		// schoolInstructionTv = (TextView)
 		// findViewById(R.id.school_detail_schoolinstruction_tv);
 		// enrollBtn = (Button) findViewById(R.id.coach_detail_enroll_btn);
 		// 顶部红色背景
-		viewTop = (View) findViewById(R.id.school_detail_top_ll);
-		viewTopStatic = (View) findViewById(R.id.school_detail_top_static);
+		viewTop = findViewById(R.id.school_detail_top_ll);
+		viewTopStatic = findViewById(R.id.school_detail_top_static);
 
 		schoolNameTv = (TextView) findViewById(R.id.school_detail_name_tv);
+		schoolRatingRar = (RatingBar) findViewById(R.id.school_detail_ratingrar);
 		schoolPriceTv = (TextView) findViewById(R.id.school_detail_price_tv);
 		schoolAddressTv = (TextView) findViewById(R.id.school_detail_place_tv);
 		schoolRateTv = (TextView) findViewById(R.id.school_detail_rate_tv);
@@ -311,24 +308,27 @@ public class SchoolDetailActivity extends BaseActivity implements
 		// schoolInMoreTv = (TextView) findViewById(R.id.school_detail_more_tv);
 
 		addDeleteSchoolCk = (CheckBox) findViewById(R.id.school_detail_collection_ck);
-		noCoahTv = (TextView) findViewById(R.id.select_coach_horizon_no_tv);
-		trainGroundLayout = (LinearLayout) findViewById(R.id.school_detail_train_pic_ll);
-		// busRoute = (WordWrapView)
-		// findViewById(R.id.coach_detail_busroute_intro);
-		// busRoute.showColor(false);
 
-		radioGroup = (RadioGroup) findViewById(R.id.school_detail_radiogroup);
-		coachInfoRb = (RadioButton) findViewById(R.id.school_detail_coach_info_rb);
-		courseFeeRb = (RadioButton) findViewById(R.id.school_detail_course_fee_rb);
+		coachInfoRl = (RelativeLayout) findViewById(R.id.school_detail_coach_info_rl);
 
-		coachInfoRbTop = (RadioButton) findViewById(R.id.school_detail_coach_info_rb_top);
-		courseFeeRbTop = (RadioButton) findViewById(R.id.school_detail_course_fee_rb_top);
+		// radioGroup = (RadioGroup)
+		// findViewById(R.id.school_detail_radiogroup);
+		// coachInfoRb = (RadioButton)
+		// findViewById(R.id.school_detail_coach_info_rb);
+		// courseFeeRb = (RadioButton)
+		// findViewById(R.id.school_detail_course_fee_rb);
 
-		radioGroupTop = (RadioGroup) findViewById(R.id.school_detail_radiogroup_top);
+		// coachInfoRbTop = (RadioButton)
+		// findViewById(R.id.school_detail_coach_info_rb_top);
+		// courseFeeRbTop = (RadioButton)
+		// findViewById(R.id.school_detail_course_fee_rb_top);
+		//
+		// radioGroupTop = (RadioGroup)
+		// findViewById(R.id.school_detail_radiogroup_top);
 		// busMore = (TextView) findViewById(R.id.school_detail_bus_more_tv);
 
-		noCoahTv.setVisibility(View.GONE);
-		coachlistView.setVisibility(View.GONE);
+		// noCoahTv.setVisibility(View.GONE);
+		// coachlistView.setVisibility(View.GONE);
 		courselistView.setVisibility(View.VISIBLE);
 		schoolInfoTv.getPaint().setFakeBoldText(true);
 		// schoolInstructionTv.getPaint().setFakeBoldText(true);
@@ -369,9 +369,10 @@ public class SchoolDetailActivity extends BaseActivity implements
 		// horizontalListView.setLoadMoreListener(this);
 		addDeleteSchoolCk.setOnCheckedChangeListener(this);
 		schoolInTv.setOnClickListener(this);
-		coachlistView.setOnItemClickListener(this);
-		radioGroup.setOnCheckedChangeListener(this);
-		radioGroupTop.setOnCheckedChangeListener(this);
+		coachInfoRl.setOnClickListener(this);
+		// coachlistView.setOnItemClickListener(this);
+		// radioGroup.setOnCheckedChangeListener(this);
+		// radioGroupTop.setOnCheckedChangeListener(this);
 		// busMore.setOnClickListener(this);
 	}
 
@@ -380,6 +381,11 @@ public class SchoolDetailActivity extends BaseActivity implements
 			adImageUrl = school.getPictures();
 			setViewPager();
 			schoolNameTv.setText(school.getName());
+			LogUtil.print(school.getSchoollevel() + "=====");
+			if (!TextUtils.isEmpty(school.getSchoollevel())) {
+				schoolRatingRar.setRating(Float.parseFloat(school
+						.getSchoollevel()));
+			}
 			schoolPriceTv.setText(school.getPrice());
 			schoolAddressTv.setText(school.getAddress());
 			schoolRateTv.setText("通过率 " + school.getPassingrate() + "%");
@@ -387,24 +393,24 @@ public class SchoolDetailActivity extends BaseActivity implements
 			schoolInTv.setText(school.getIntroduction());
 			showSchoolIntro();
 
-			// 动态添加训练场地的图片
-			String[] trainPicStrings = school.getPictures();
-			if (trainPicStrings.length == 0) {
-				tvNoPic.setVisibility(View.VISIBLE);
-				trainGroundLayout.setVisibility(View.GONE);
-			} else {
-				tvNoPic.setVisibility(View.GONE);
-				trainGroundLayout.setVisibility(View.VISIBLE);
-			}
-			for (int i = 0; i < trainPicStrings.length; i++) {
-				ImageView imageView = new ImageView(this);
-				LayoutParams params = new LayoutParams(dp2px(90), dp2px(60));
-				imageView.setScaleType(ScaleType.CENTER_CROP);
-				params.leftMargin = dp2px(15);
-				BitmapManager.INSTANCE.loadBitmap2(trainPicStrings[i],
-						imageView, dp2px(90), dp2px(60));
-				trainGroundLayout.addView(imageView, params);
-			}
+			// // 动态添加训练场地的图片
+			// String[] trainPicStrings = school.getPictures();
+			// if (trainPicStrings.length == 0) {
+			// tvNoPic.setVisibility(View.VISIBLE);
+			// trainGroundLayout.setVisibility(View.GONE);
+			// } else {
+			// tvNoPic.setVisibility(View.GONE);
+			// trainGroundLayout.setVisibility(View.VISIBLE);
+			// }
+			// for (int i = 0; i < trainPicStrings.length; i++) {
+			// ImageView imageView = new ImageView(this);
+			// LayoutParams params = new LayoutParams(dp2px(90), dp2px(60));
+			// imageView.setScaleType(ScaleType.CENTER_CROP);
+			// params.leftMargin = dp2px(15);
+			// BitmapManager.INSTANCE.loadBitmap2(trainPicStrings[i],
+			// imageView, dp2px(90), dp2px(60));
+			// trainGroundLayout.addView(imageView, params);
+			// }
 
 			// 班车路线
 			// addBusRoutes();
@@ -440,15 +446,15 @@ public class SchoolDetailActivity extends BaseActivity implements
 	private boolean isExtend = false;// 是否展开
 	private boolean isRunAnim = false;
 	private MyScrollView sv_container;
-	private ListView coachlistView;
+	// private ListView coachlistView;
 	private ListView courselistView;
-	private LinearLayout trainGroundLayout;
+	// private LinearLayout trainGroundLayout;
 	// private WordWrapView busRoute;
-	private RadioGroup radioGroup;
-	private RadioGroup radioGroupTop;
-	private RadioButton courseFeeRb;
-	private RadioButton coachInfoRb;
-	private RadioButton courseFeeRbTop, coachInfoRbTop;
+	// private RadioGroup radioGroup;
+	// private RadioGroup radioGroupTop;
+	// private RadioButton courseFeeRb;
+	// private RadioButton coachInfoRb;
+	// private RadioButton courseFeeRbTop, coachInfoRbTop;
 	private TextView busMore;
 	private List<CoachVO> twoCoach;
 	private List<ClassVO> courseList;
@@ -594,32 +600,34 @@ public class SchoolDetailActivity extends BaseActivity implements
 					obtainEnrollClass();
 
 				}
-			} else if (type.equals(coach)) {
-				if (dataArray != null) {
-					int length = dataArray.length();
-					if (length > 0) {
-						coachPage++;
-						if (coachList == null)
-							coachList = new ArrayList<CoachVO>();
-						twoCoach = new ArrayList<CoachVO>();
-						for (int i = 0; i < length; i++) {
-							CoachVO coachVO = JSONUtil.toJavaBean(
-									CoachVO.class, dataArray.getJSONObject(i));
-							coachList.add(coachVO);
-							if (i < 2) {
-								twoCoach.add(coachVO);
-							}
-						}
-						adapter = null;
-						adapter = new SchoolDetailCoachHoriListAdapter(this,
-								twoCoach);
-						adapter.setData(twoCoach);
-						coachlistView.setAdapter(adapter);
-
-					}
-					// horizontalListView.setLoadMoreCompleted();
-				}
-			} else if (type.equals(headLineNews)) {
+			}
+			// else if (type.equals(coach)) {
+			// if (dataArray != null) {
+			// int length = dataArray.length();
+			// if (length > 0) {
+			// coachPage++;
+			// if (coachList == null)
+			// coachList = new ArrayList<CoachVO>();
+			// twoCoach = new ArrayList<CoachVO>();
+			// for (int i = 0; i < length; i++) {
+			// CoachVO coachVO = JSONUtil.toJavaBean(
+			// CoachVO.class, dataArray.getJSONObject(i));
+			// coachList.add(coachVO);
+			// if (i < 2) {
+			// twoCoach.add(coachVO);
+			// }
+			// }
+			// adapter = null;
+			// adapter = new SchoolDetailCoachHoriListAdapter(this,
+			// twoCoach);
+			// adapter.setData(twoCoach);
+			// coachlistView.setAdapter(adapter);
+			//
+			// }
+			// // horizontalListView.setLoadMoreCompleted();
+			// }
+			// }
+			else if (type.equals(headLineNews)) {
 				if (dataArray != null) {
 					int length = dataArray.length();
 					adList = new ArrayList<HeadLineNewsVO>();
@@ -673,7 +681,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 					courseFeeAdapter.setName(school.getName());
 					// courseFeeAdapter.setData(twoCoach);
 					courselistView.setAdapter(courseFeeAdapter);
-					setListViewHeightBasedOnChildren(coachlistView);
+					// setListViewHeightBasedOnChildren(coachlistView);
 					// sv_container.smoothScrollTo(0, 0);
 				}
 
@@ -700,6 +708,12 @@ public class SchoolDetailActivity extends BaseActivity implements
 		}
 		Intent intent = null;
 		switch (v.getId()) {
+		case R.id.school_detail_coach_info_rl:
+			// 进入教练列表
+			intent = new Intent(this, AppointmentMoreCoachActivity.class);
+			intent.putExtra("isOnClickToDetail", true);
+			startActivity(intent);
+			break;
 		case R.id.base_left_btn:
 			setResult(v.getId(), getIntent());
 			finish();
@@ -920,58 +934,60 @@ public class SchoolDetailActivity extends BaseActivity implements
 		}
 	}
 
-	@Override
-	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		if (arg2 == adapter.getCount()) {
-			// 查看该校全部教练
-			Intent intent = new Intent(this, SchoolAllCoachActivity.class);
-			intent.putExtra("school", school);
-			startActivity(intent);
-
-		} else {
-
-			Intent intent = new Intent(this, CoachDetailActivity.class);
-			CoachVO coachVO = adapter.getItem(arg2);
-			intent.putExtra("coach", coachVO);
-			// intent.putExtra("schoolId", school.getId());
-			// startActivityForResult(intent, listView.getId());
-			intent.putExtra("schoolId", school.getId());
-			startActivityForResult(intent, coachlistView.getId());
-		}
-	}
+	// @Override
+	// public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long
+	// arg3) {
+	// if (arg2 == adapter.getCount()) {
+	// // 查看该校全部教练
+	// Intent intent = new Intent(this, SchoolAllCoachActivity.class);
+	// intent.putExtra("school", school);
+	// startActivity(intent);
+	//
+	// }
+	// else {
+	//
+	// Intent intent = new Intent(this, CoachDetailActivity.class);
+	// CoachVO coachVO = adapter.getItem(arg2);
+	// intent.putExtra("coach", coachVO);
+	// // intent.putExtra("schoolId", school.getId());
+	// // startActivityForResult(intent, listView.getId());
+	// intent.putExtra("schoolId", school.getId());
+	// startActivityForResult(intent, coachlistView.getId());
+	// }
+	// }
 
 	// @Override
 	// public void onLoadMore() {
 	// obtainSchoolCoach(coachPage);
 	// }
 
-	@Override
-	public void onCheckedChanged(RadioGroup group, int checkedId) {
-		if (checkedId == coachInfoRb.getId()
-				|| checkedId == coachInfoRbTop.getId()) {
-			coachInfoRb.setChecked(true);
-			coachInfoRbTop.setChecked(true);
-			// 教练详情
-			if (coachList != null && coachList.size() > 0) {
-				noCoahTv.setVisibility(View.GONE);
-				coachlistView.setVisibility(View.VISIBLE);
-			} else {
-				noCoahTv.setVisibility(View.VISIBLE);
-				coachlistView.setVisibility(View.GONE);
-			}
-
-			LogUtil.print("noCoach--->" + coachlistView.getHeight());
-			courselistView.setVisibility(View.GONE);
-		} else if (checkedId == courseFeeRb.getId()
-				|| checkedId == courseFeeRbTop.getId()) {
-			courseFeeRb.setChecked(true);
-			courseFeeRbTop.setChecked(true);
-			// 课程费用
-			courselistView.setVisibility(View.VISIBLE);
-			noCoahTv.setVisibility(View.GONE);
-			coachlistView.setVisibility(View.GONE);
-		}
-	}
+	// @Override
+	// public void onCheckedChanged(RadioGroup group, int checkedId) {
+	// if (checkedId == coachInfoRb.getId()
+	// || checkedId == coachInfoRbTop.getId()) {
+	// coachInfoRb.setChecked(true);
+	// coachInfoRbTop.setChecked(true);
+	// // 教练详情
+	// if (coachList != null && coachList.size() > 0) {
+	// noCoahTv.setVisibility(View.GONE);
+	// coachlistView.setVisibility(View.VISIBLE);
+	// } else {
+	// noCoahTv.setVisibility(View.VISIBLE);
+	// coachlistView.setVisibility(View.GONE);
+	// }
+	//
+	// LogUtil.print("noCoach--->" + coachlistView.getHeight());
+	// courselistView.setVisibility(View.GONE);
+	// } else if (checkedId == courseFeeRb.getId()
+	// || checkedId == courseFeeRbTop.getId()) {
+	// courseFeeRb.setChecked(true);
+	// courseFeeRbTop.setChecked(true);
+	// // 课程费用
+	// courselistView.setVisibility(View.VISIBLE);
+	// noCoahTv.setVisibility(View.GONE);
+	// coachlistView.setVisibility(View.GONE);
+	// }
+	// }
 
 	/**
 	 * 实现类，响应按钮点击事件
@@ -1027,7 +1043,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 	private void toPay(int po) {
 		ClassVO classe = courseFeeAdapter.getItem(po);
 		LogUtil.print("initdata-->" + app.userVO);
-		Intent i = new Intent(SchoolDetailActivity.this, ApplyActivity.class);
+		Intent i = new Intent(SchoolDetailActivity.this, ApplyAct.class);
 		i.putExtra("school", school);
 		i.putExtra("schoolId", school.getSchoolid());
 		i.putExtra("class", classe);
@@ -1072,13 +1088,13 @@ public class SchoolDetailActivity extends BaseActivity implements
 		int y = location[1];
 
 		int[] location2 = new int[2];
-		radioGroup.getLocationOnScreen(location2);
+		// radioGroup.getLocationOnScreen(location2);
 		int y1 = location2[1];
 		// LogUtil.print(viewTop.getVisibility()+"ScrollView---onScrollChangedt::>"+(viewTopStatic.getY()+viewTopStatic.getHeight())+"Name::>>>"+y);
 
 		if (topStatic == 0) {// 初始化
 			topStatic = viewTopStatic.getY() + viewTopStatic.getHeight();
-			topTab = radioGroupTop.getY();
+			// topTab = radioGroupTop.getY();
 		} else if (topStatic < y) {// 刚进入 状态
 
 			if (viewTop.getVisibility() != View.GONE) {
@@ -1094,11 +1110,11 @@ public class SchoolDetailActivity extends BaseActivity implements
 				viewStatus.startAnimation(alphaOut);
 
 				addDeleteSchoolCk.startAnimation(scaleBig);
-				LogUtil.print(topTab + "yyyyyyy--透明" );
+				LogUtil.print(topTab + "yyyyyyy--透明");
 				//
 			}
-			noCoahTv.setHeight(hegiht - y1);
-			
+			// noCoahTv.setHeight(hegiht - y1);
+
 		} else if (topStatic > y || topStatic == y) {// 已经滑动很多，
 
 			if (viewTop.getVisibility() != View.VISIBLE) {
@@ -1115,31 +1131,31 @@ public class SchoolDetailActivity extends BaseActivity implements
 				addDeleteSchoolCk.startAnimation(scaleSmall);
 				// 设置 noCoach 的高度
 			}
-			if (topTab < y1) {// 还没有到 最上面
-				if (noCoahTv.getVisibility() == View.VISIBLE) {
-					int height = (hegiht - y1) > noCoahTv.getHeight() ? noCoahTv
-							.getHeight() : hegiht - y1;
-					noCoahTv.setHeight(height);
-					LogUtil.print(height + "yyyyyyy222>>" + y1
-							+ "TextViewHeight::::>>" + noCoahTv.getHeight());
-
-				} else {
-					noCoahTv.setHeight(hegiht - y1);
-				}
-
-			} else {// 已经在最上面了
-				noCoahTv.setHeight((int) (hegiht - topStatic - 180));
-			}
-			LogUtil.print(topTab + "yyyyyyy" + "TextViewHeight::::>>"
-					+ noCoahTv.getHeight());
+			// if (topTab < y1) {// 还没有到 最上面
+			// // if (noCoahTv.getVisibility() == View.VISIBLE) {
+			// // int height = (hegiht - y1) > noCoahTv.getHeight() ? noCoahTv
+			// // .getHeight() : hegiht - y1;
+			// // noCoahTv.setHeight(height);
+			// // LogUtil.print(height + "yyyyyyy222>>" + y1
+			// // + "TextViewHeight::::>>" + noCoahTv.getHeight());
+			// //
+			// // } else {
+			// // noCoahTv.setHeight(hegiht - y1);
+			// // }
+			//
+			// } else {// 已经在最上面了
+			// noCoahTv.setHeight((int) (hegiht - topStatic - 180));
+			// }
+			// LogUtil.print(topTab + "yyyyyyy" + "TextViewHeight::::>>"
+			// + noCoahTv.getHeight());
 			// 滑动到 课程费用/教练信息
-			if (topTab > y1) {// 显示固定的，
-				if (radioGroupTop.getVisibility() != View.VISIBLE)
-					radioGroupTop.setVisibility(View.VISIBLE);
-			} else {// 隐藏固定的
-				if (radioGroupTop.getVisibility() != View.INVISIBLE)
-					radioGroupTop.setVisibility(View.INVISIBLE);
-			}
+			// if (topTab > y1) {// 显示固定的，
+			// if (radioGroupTop.getVisibility() != View.VISIBLE)
+			// radioGroupTop.setVisibility(View.VISIBLE);
+			// } else {// 隐藏固定的
+			// if (radioGroupTop.getVisibility() != View.INVISIBLE)
+			// radioGroupTop.setVisibility(View.INVISIBLE);
+			// }
 
 		}
 
@@ -1154,4 +1170,6 @@ public class SchoolDetailActivity extends BaseActivity implements
 	Animation alphaOut;
 	Animation scaleBig;
 	Animation scaleSmall;
+	private RatingBar schoolRatingRar;
+	private RelativeLayout coachInfoRl;
 }
