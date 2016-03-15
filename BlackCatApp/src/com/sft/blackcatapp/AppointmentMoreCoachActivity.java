@@ -60,6 +60,13 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 		coachCourse = (CoachCourseV2VO) getIntent().getSerializableExtra(
 				"coachCourse");
 		selectDate = getIntent().getStringExtra("selectDate");
+		boolean isFromApply = getIntent().getBooleanExtra("isFromApply", false);
+		if (isFromApply) {
+			headerRl.setVisibility(View.VISIBLE);
+		} else {
+			headerRl.setVisibility(View.GONE);
+
+		}
 		if (null != coachCourse && (!TextUtils.isEmpty(selectDate))) {
 			// 获取当前时间段可以预约的教练
 			obtainUsefulcoachTimely();
@@ -77,7 +84,7 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 
 	private void initView() {
 		setTitleText(R.string.more_coach);
-
+		headerRl = (RelativeLayout) findViewById(R.id.more_caoch_header);
 		coachListView = (XListView) findViewById(R.id.more_caoch_listview);
 		layout = (RelativeLayout) findViewById(R.id.more_caoch_no_layout);
 		noCoachIv = (ImageView) findViewById(R.id.more_caoch_no_im);
@@ -95,6 +102,7 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 		coachListView.setPullLoadEnable(true);
 		coachListView.setOnItemClickListener(this);
 		coachListView.setXListViewListener(this);
+		headerRl.setOnClickListener(this);
 	}
 
 	@Override
@@ -104,6 +112,9 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 		}
 		switch (v.getId()) {
 		case R.id.base_left_btn:
+			finish();
+			break;
+		case R.id.more_caoch_header:
 			finish();
 			break;
 		}
@@ -287,4 +298,5 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 	private TextView noCoachTv;
 	private CoachCourseV2VO coachCourse;
 	private String selectDate;
+	private RelativeLayout headerRl;
 }

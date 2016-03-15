@@ -46,7 +46,7 @@
     <permission
         android:name="com.sft.blackcatapp.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />
-<!-- <uses-permission android:name="com.sft.blackcatapp.permission.JPUSH_MESSAGE" /> -->
+    <!-- <uses-permission android:name="com.sft.blackcatapp.permission.JPUSH_MESSAGE" /> -->
 
 
     <!-- 官方定义的权限，允许应用接收JPUSH内部代码发送的广播消息。 -->
@@ -99,18 +99,19 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.sft.blackcatapp.LoginActivity"
-            android:theme="@style/AnimActivityTheme"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AnimActivityTheme" />
         <activity
             android:name="com.sft.blackcatapp.NewLoginActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:screenOrientation="portrait"
             android:theme="@style/AnimActivityTheme"
-            android:screenOrientation="portrait" />
-        
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name="com.sft.blackcatapp.MainActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden|navigation"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateVisible" />
         <activity
             android:name="com.sft.blackcatapp.OldMainActivity"
             android:screenOrientation="portrait" />
@@ -178,11 +179,9 @@
         <activity
             android:name="com.sft.blackcatapp.MapActivity"
             android:screenOrientation="portrait" />
-        
-           <activity
+        <activity
             android:name="com.sft.blackcatapp.MyComplaintAct"
             android:screenOrientation="portrait" />
-        
         <activity
             android:name="com.sft.blackcatapp.EnrollVerifyActivity"
             android:screenOrientation="portrait" />
@@ -242,7 +241,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.sft.blackcatapp.AppointmentDetailActivity"
-            
             android:screenOrientation="portrait" />
         <activity
             android:name="com.sft.blackcatapp.ComplainActivity"
@@ -277,7 +275,7 @@
         <activity
             android:name="com.sft.blackcatapp.Walletmoney"
             android:screenOrientation="portrait" />
-           <activity
+        <activity
             android:name="com.sft.blackcatapp.YCodeListActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -315,11 +313,6 @@
         <activity
             android:name="com.sft.blackcatapp.PlayVideoMediaActivity"
             android:screenOrientation="portrait" />
-        
-           <activity
-            android:name="com.sft.blackcatapp.SussessOrderActvity"
-            android:screenOrientation="portrait" />
-        
         <activity
             android:name="com.sft.blackcatapp.MallActivity"
             android:screenOrientation="portrait" />
@@ -412,30 +405,34 @@
         <activity
             android:name="com.sft.blackcatapp.EnrollSubjectActivity"
             android:screenOrientation="portrait" />
-           <!-- 设置帮助 -->
-            <activity
-               android:name="com.sft.blackcatapp.HelpGuideActivity"
-               android:screenOrientation="portrait"></activity>
-             <activity
-               android:name="com.sft.blackcatapp.HelpExamActivity"
-               android:screenOrientation="portrait"></activity>
-              <activity
-               android:name="com.sft.blackcatapp.HelpNewcomerActivity"
-               android:screenOrientation="portrait"></activity>
-               <activity
-               android:name="com.sft.blackcatapp.HelpProblemActivity"
-               android:screenOrientation="portrait"></activity>
-           
-           <!-- 个人中心 -->
-               <activity
-               android:name="com.sft.blackcatapp.NewPersonCenterAct"
-               android:screenOrientation="portrait"></activity>
-               
-                  <activity
-               android:name="com.sft.blackcatapp.FindPasswordAct"
-               android:screenOrientation="portrait"></activity>
-               
-           
+        <!-- 设置帮助 -->
+        <activity
+            android:name="com.sft.blackcatapp.HelpGuideActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.sft.blackcatapp.HelpExamActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.sft.blackcatapp.HelpNewcomerActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.sft.blackcatapp.HelpProblemActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+
+        <!-- 个人中心 -->
+        <activity
+            android:name="com.sft.blackcatapp.NewPersonCenterAct"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.sft.blackcatapp.FindPasswordAct"
+            android:screenOrientation="portrait" >
+        </activity>
+
         <!-- 确认订单 -->
         <activity
             android:name="com.sft.blackcatapp.ConfirmOrderActivity"
@@ -463,8 +460,9 @@
         <!-- 咨询答疑 -->
         <activity
             android:name="com.sft.blackcatapp.ConsultationlActivity"
-            android:screenOrientation="portrait" ></activity>
-            <!-- 我要提问 -->
+            android:screenOrientation="portrait" >
+        </activity>
+        <!-- 我要提问 -->
         <activity
             android:name="com.sft.blackcatapp.ConsultationAskActivity"
             android:screenOrientation="portrait" >
@@ -505,38 +503,34 @@
             android:name="com.sft.dialog.BonusDialog"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.BonueDialog" />
-        
+
         <!-- 预约成功 列表 -->
-        <activity 
+        <activity
             android:name="com.sft.blackcatapp.SussessOrderActvity"
-            android:screenOrientation="portrait"
-            ></activity>
+            android:screenOrientation="portrait" >
+        </activity>
 
         <service android:name="com.sft.util.DownLoadService" />
-        
-        
-        
+
         <!-- 微信支付 -->
-	
-		<activity 
-		    android:name="com.jzjf.app.wxapi.WXPayEntryActivity"
-		    android:exported="true"
+
+        <activity
+            android:name="com.jzjf.app.wxapi.WXPayEntryActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="true"
             android:launchMode="singleTop"
-		    android:configChanges="orientation|keyboardHidden|navigation"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden"
-		    ></activity>
-		    
-    
-        <receiver
-            android:name=".wxapi.AppRegister">
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
+
+        <receiver android:name=".wxapi.AppRegister" >
             <intent-filter>
                 <action android:name="com.tencent.mm.plugin.openapi.Intent.ACTION_REFRESH_WXAPP" />
             </intent-filter>
         </receiver>
         <!-- 阿里支付 -->
         <!-- 支付宝支付 Web版本============================================================ -->
-        
+
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
@@ -637,7 +631,7 @@
         <meta-data
             android:name="JPUSH_CHANNEL"
             android:value="developer-default" />
-        <!-- 设置推送应用的appkey d9f9dc8db6bc3dd2c913ced0 test:a9d3780a093c23df7e3e2402 new:3ed0386d38153e3768ef0f26-->
+        <!-- 设置推送应用的appkey d9f9dc8db6bc3dd2c913ced0 test:a9d3780a093c23df7e3e2402 new:3ed0386d38153e3768ef0f26 -->
         <meta-data
             android:name="JPUSH_APPKEY"
             android:value="3ed0386d38153e3768ef0f26" />
@@ -657,7 +651,7 @@
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="qL73msVaTCd8gUdfn5PVKG6T" />
-		<!-- 极致假付  qL73msVaTCd8gUdfn5PVKG6T -->
+        <!-- 极致假付  qL73msVaTCd8gUdfn5PVKG6T -->
         <!-- 之前版本： UUXsBU2Tq3LETedPZVpxuxQG -->
         <!-- 现在版本： nCxRAoooo6Pe3yeMG6iDK5aW -->
 
@@ -677,7 +671,8 @@
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="56d269df67e58ef73900068a" >
-            <!--new:56d269df67e58ef73900068a  -->
+
+            <!-- new:56d269df67e58ef73900068a -->
         </meta-data>
         <!-- 微信 -->
 

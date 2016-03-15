@@ -26,6 +26,7 @@ import com.sft.dialog.EnrollSelectConfilctDialog;
 import com.sft.dialog.EnrollSelectConfilctDialog.OnSelectConfirmListener;
 import com.sft.util.CommonUtil;
 import com.sft.util.JSONUtil;
+import com.sft.util.LogUtil;
 import com.sft.util.SharedPreferencesUtil;
 import com.sft.util.UTC2LOC;
 import com.sft.util.Util;
@@ -234,22 +235,8 @@ public class ApplyAct extends BaseActivity implements
 		priceTv = (TextView) findViewById(R.id.class_detail_price_tv);
 		countTv = (TextView) findViewById(R.id.class_detail_count_tv);
 		introductionTv = (TextView) findViewById(R.id.class_detail_introduction_content_tv);
-		// multipleTextViewGroup = (MultipleTextViewGroup)
-		// findViewById(R.id.class_detail_multiple_tv);
-		//
-		// final ViewTreeObserver vto = multipleTextViewGroup
-		// .getViewTreeObserver();
-		// vto.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-		// @Override
-		// public boolean onPreDraw() {
-		// if (multipleTextViewGroupWidth <= 0) {
-		// multipleTextViewGroupWidth = multipleTextViewGroup
-		// .getMeasuredWidth();
-		// initData();
-		// }
-		// return true;
-		// }
-		// });
+
+		selectCochRl = (RelativeLayout) findViewById(R.id.rl_coach);
 
 	}
 
@@ -283,6 +270,7 @@ public class ApplyAct extends BaseActivity implements
 		commitBtn.setOnClickListener(this);
 		check_btn.setOnClickListener(this);
 		rl_Ycode.setOnClickListener(this);
+		selectCochRl.setOnClickListener(this);
 	}
 
 	boolean isClick = true;
@@ -298,6 +286,11 @@ public class ApplyAct extends BaseActivity implements
 		}
 		Intent intent = null;
 		switch (v.getId()) {
+		case R.id.rl_coach:
+			// 智能匹配
+			intent = new Intent(this, AppointmentMoreCoachActivity.class);
+			intent.putExtra("isFromApply", true);
+			break;
 		case R.id.rl_class:// 整个布局点击
 		case R.id.check_btn:
 			if (isClick) {
@@ -523,6 +516,7 @@ public class ApplyAct extends BaseActivity implements
 		if (data == null) {
 			return;
 		}
+		LogUtil.print("=====---111---===" + requestCode);
 		switch (requestCode) {
 		case 9:// 报名成功
 			setResult(9, getIntent());
@@ -573,6 +567,14 @@ public class ApplyAct extends BaseActivity implements
 				classTv.setText(classId.getClassname());
 			}
 
+			break;
+
+		case R.id.rl_coach:
+			LogUtil.print("=====------===");
+			CoachVO coachVO = (CoachVO) data.getSerializableExtra("coach");
+			if (null != coachVO) {
+				coachTv.setText(coachVO.getName());
+			}
 			break;
 		}
 	}
@@ -749,6 +751,7 @@ public class ApplyAct extends BaseActivity implements
 	private ValueAnimator animator;
 	private RelativeLayout classTypeLayout;
 	private RelativeLayout coachRl;
+	private RelativeLayout selectCochRl;
 
 	// private EditText yCodeEt;
 
