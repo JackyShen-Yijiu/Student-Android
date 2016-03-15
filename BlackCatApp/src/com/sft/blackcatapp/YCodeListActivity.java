@@ -108,8 +108,6 @@ public class YCodeListActivity extends BaseActivity implements
 						}
 						adapter = new MyCodeListAdapter(this, list);
 						codeListView.setAdapter(adapter);
-						codeListView
-								.setOnItemClickListener(YCodeListActivity.this);
 					}
 				}
 			}

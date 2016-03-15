@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONObject;
+
 import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
@@ -37,6 +39,7 @@ import com.sft.vo.CarModelVO;
 import com.sft.vo.ClassVO;
 import com.sft.vo.CoachVO;
 import com.sft.vo.MyCodeVO;
+import com.sft.vo.PayOrderVO;
 import com.sft.vo.SchoolVO;
 import com.sft.vo.UserVO;
 
@@ -332,15 +335,14 @@ public class ApplyAct extends BaseActivity implements
 				ZProgressHUD.getInstance(this).dismissWithFailure(checkResult);
 			} else {
 				// 验证Y码
-				if (null == apply_Ycode.getText().toString()
-						|| TextUtils.isEmpty(apply_Ycode.getText().toString()
-								.trim())) {
+				// if (null == apply_Ycode.getText().toString()
+				// || TextUtils.isEmpty(apply_Ycode.getText().toString()
+				// .trim())) {
 
-					enroll(null, enCoachId, enSchoolId, enclassTypeId,
-							encarmodel);
-				} else {
-					obtainMyCode();// 正式
-				}
+				enroll(null, enCoachId, enSchoolId, enclassTypeId, encarmodel);
+				// } else {
+				// obtainMyCode();// 正式
+				// }
 			}
 			break;
 
@@ -614,6 +616,19 @@ public class ApplyAct extends BaseActivity implements
 					// LogUtil.print("success--->" + jsonString);
 
 					app.isEnrollAgain = true;
+
+					jsonObject = new JSONObject(jsonString.toString());
+					JSONObject extra = jsonObject.getJSONObject("extra");
+
+					PayOrderVO pay = JSONUtil.toJavaBean(PayOrderVO.class,
+							extra);
+					Intent intent = new Intent(this, ConfirmOrderActivity.class);
+					intent.putExtra("class", classe);
+					intent.putExtra("schoolName", schoolName);
+					intent.putExtra("phone", contactEt.getText().toString());
+					intent.putExtra("bean", pay);
+					// startActivity(intent);
+					startActivityForResult(intent, 9);
 					//
 
 					// 报名成功

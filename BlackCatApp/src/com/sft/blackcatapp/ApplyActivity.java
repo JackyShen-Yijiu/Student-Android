@@ -903,15 +903,8 @@ public class ApplyActivity extends BaseActivity implements
 						intent.putExtra("bean", pay);
 						// startActivity(intent);
 						startActivityForResult(intent, 9);
-					} else {// 线下支付
-						Intent intent1 = new Intent(this,
-								EnrollSuccessActivity.class);
-						// startActivity(intent1);
-						startActivityForResult(intent1, 9);
-						// reLogin();
 					}
 					//
-
 					// 报名成功
 					//
 				} else {
