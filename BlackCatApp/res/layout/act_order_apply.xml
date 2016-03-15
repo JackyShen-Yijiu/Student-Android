@@ -4,9 +4,129 @@
     android:layout_height="match_parent"
     android:background="@color/app_bg_light"
     android:orientation="vertical" >
-    <include layout="@layout/layout_error"/>
+
+    <include layout="@layout/layout_error" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/new_app_main_color"
+        android:layout_margin="15dp"
+        android:gravity="center"
+        android:text="订单未支付" />
     
-    <include layout="@layout/item_order"/>
-    
+    <include layout="@layout/line" />
+
+    <LinearLayout
+        android:id="@+id/item_order"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/item_order_top_ll"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="17dp" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="17dp"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/item_order_title"
+                    style="@style/text_black_title"
+                    android:text="@string/loading" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingRight="20dp" >
+
+                    <TextView
+                        android:id="@+id/item_order_left1"
+                        style="@style/text_gray_small"
+                        android:text="兑换金额" />
+
+                    <TextView
+                        android:id="@+id/item_order_right10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:text="￥ 0"
+                        android:textColor="@color/orange_pay"
+                        android:textSize="@dimen/txt_size_middle" />
+
+                    <TextView
+                        android:id="@+id/item_order_right11"
+                        style="@style/text_gray_small"
+                        android:layout_alignParentTop="true"
+                        android:layout_toLeftOf="@+id/item_order_right10"
+                        android:text="实付款:" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:paddingRight="20dp" >
+
+                    <TextView
+                        android:id="@+id/item_order_left2"
+                        style="@style/text_gray_small"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:text="报名时间:" />
+
+                    <TextView
+                        android:id="@+id/item_order_right2"
+                        style="@style/text_gray_small"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:text="@string/loading" />
+                </RelativeLayout>
+
+                
+            </LinearLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/item_order_button1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="9dp"
+                android:background="@drawable/shape_red_outline"
+                android:clickable="true"
+                android:padding="5dp"
+                android:text="@string/loading"
+                android:textColor="@color/new_app_main_color" />
+
+            <TextView
+                android:id="@+id/item_order_button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toLeftOf="@+id/item_order_button1"
+                android:background="@drawable/shape_gray_outline"
+                android:clickable="true"
+                android:focusable="false"
+                android:padding="5dp"
+                android:text="@string/loading"
+                android:textColor="@color/txt_999" />
+        </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>

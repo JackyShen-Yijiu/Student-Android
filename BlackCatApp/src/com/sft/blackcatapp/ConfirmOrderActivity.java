@@ -230,18 +230,10 @@ public class ConfirmOrderActivity extends BaseActivity implements
 				e.printStackTrace();
 			}
 
-		} else if (type.equals(WEIXIN_PAY_INFOR)) {// 获取微信 支付订单信息
-			PayReq pay = weixinPay.parseJson(data);
-			Toast("--" + "id:" + pay.appId + "partnerId::>" + pay.partnerId
-					+ "noce::>" + pay.nonceStr + "timeStamp" + pay.timeStamp
-					+ "" + pay.packageValue + "" + pay.sign);
-			LogUtil.print("id:" + pay.appId + "partnerId::>" + pay.partnerId
-					+ "noce::>" + pay.nonceStr + "timeStamp" + pay.timeStamp
-					+ "" + pay.packageValue + "" + pay.sign);
+		}else if(type.equals(WEIXIN_PAY_INFOR)){//获取微信 支付订单信息
+			PayReq pay= weixinPay.parseJson(data);
 			weixinPay.pay(pay);
 		}
-		// getIntent().getParcelableArrayListExtra(name)
-
 		return false;
 	}
 

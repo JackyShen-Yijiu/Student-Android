@@ -123,6 +123,10 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 			finish();
 			break;
 		case R.id.more_caoch_header:
+			Intent intent = null;
+			intent = new Intent();
+			// intent.putExtra("coach", null);
+			setResult(RESULT_OK, intent);
 			finish();
 			break;
 		}

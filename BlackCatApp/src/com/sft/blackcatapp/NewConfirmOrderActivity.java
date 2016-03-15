@@ -10,10 +10,15 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import cn.sft.baseactivity.util.HttpSendUtils;
+import cn.sft.infinitescrollviewpager.BitmapManager;
 
 import com.jzjf.app.R;
 import com.sft.alipay.PayResult;
@@ -23,21 +28,23 @@ import com.sft.common.Config.EnrollResult;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
 import com.sft.vo.ClassVO;
+import com.sft.vo.CoachVO;
+import com.sft.vo.MyCodeVO;
 import com.sft.vo.PayOrderVO;
 import com.sft.vo.UserVO;
 import com.sft.weixinpay.WeixinPay;
 import com.tencent.mm.sdk.modelpay.PayReq;
 
 public class NewConfirmOrderActivity extends BaseActivity implements
-		OnClickListener {
+		OnClickListener, OnCheckedChangeListener {
 
-	private TextView tvGoodName, tvGoodPrice;// tv_coupon_show
+	private TextView tvGoodPrice;// tv_coupon_show
 	/*** 最终支付金额 */
 	private TextView tvReallyPay;
 	/** 负数 */
 	private TextView tvDiscodeBottom;
 	/** 选择不同的支付模式 */
-	private RadioButton rbAlipay, rbWeixinpay;
+	private RadioButton rbAlipay, rbWeixinpay, rbXianXiapay;
 
 	private ClassVO classe;
 	/**
@@ -65,7 +72,7 @@ public class NewConfirmOrderActivity extends BaseActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		addView(R.layout.activity_confirm_order);
+		addView(R.layout.confirm_order_act);
 		setBg(getResources().getColor(R.color.white));
 		initView();
 		Listenner();
@@ -76,33 +83,61 @@ public class NewConfirmOrderActivity extends BaseActivity implements
 	String productName = "";
 	String productDetail = "";
 
+	private CoachVO coachVO = null;
+
 	boolean repay = false;
+	private MyCodeVO code;
+	private ImageView iv_school;
+	private TextView tv_school;
+	private TextView tv_adress;
+	private TextView tv_coach;
+	private TextView tv_class;
+	private String adress;
+	private TextView discode;
 
 	private void initView() {
+
+		iv_school = (ImageView) findViewById(R.id.iv_school);
+		tv_school = (TextView) findViewById(R.id.tv_school);
+		tv_adress = (TextView) findViewById(R.id.tv_adress);
+		tv_coach = (TextView) findViewById(R.id.tv_coach);
+		tv_class = (TextView) findViewById(R.id.tv_class);
+		discode = (TextView) findViewById(R.id.confirm_order_discode);
 
 		weixinPay = new WeixinPay(NewConfirmOrderActivity.this);
 		repay = getIntent().getBooleanExtra("repay", false);
 
-		// tv_coupon_show = (TextView) findViewById(R.id.tv_coupon_show);
-		tvGoodName = (TextView) findViewById(R.id.confirm_order_good_name);
+		// tvGoodName = (TextView) findViewById(R.id.confirm_order_good_name);
 		tvGoodPrice = (TextView) findViewById(R.id.confirm_order_price);
-		// tvDiscode = (TextView) findViewById(R.id.tv_goods_show);
-		// tvYcode = (TextView) findViewById(R.id.confirm_order_ycode);
-		// tvShoudPay = (TextView) findViewById(R.id.textView_money_should);
 		tvReallyPay = (TextView) findViewById(R.id.confirm_order_money_pay);
 
 		tvDiscodeBottom = (TextView) findViewById(R.id.confirm_order_discode);
 
 		rbAlipay = (RadioButton) findViewById(R.id.rb_zhifubao);
 		rbWeixinpay = (RadioButton) findViewById(R.id.rb_weixing);
+		rbXianXiapay = (RadioButton) findViewById(R.id.rb_xianxia);
 
 		if (repay) {// 重新支付
 			doRepay();
 		} else {
 			// 请求订单 状态
+
+			code = (MyCodeVO) getIntent().getSerializableExtra("code");
 			classe = (ClassVO) getIntent().getSerializableExtra("class");
+
+			tv_class.setText(classe.getClassname());
+			if (null != code)
+				discode.setText(code.getYcode() + "");
 			schoolName = getIntent().getStringExtra("schoolName");
 			phone = getIntent().getStringExtra("phone");
+			// 教练信息
+			coachVO = (CoachVO) getIntent().getSerializableExtra("coach");
+			if (null == coachVO) {// 随机匹配
+				tv_coach.setText("报考教练:智能匹配");
+			} else {
+				tv_coach.setText("报考教练:" + coachVO.getName());
+
+			}
 
 			if (null != classe) {
 				price = classe.getPrice();
@@ -116,6 +151,7 @@ public class NewConfirmOrderActivity extends BaseActivity implements
 			}
 
 			doRepay();
+
 		}
 
 	}
@@ -125,38 +161,46 @@ public class NewConfirmOrderActivity extends BaseActivity implements
 		coupCode = bean.couponcode;
 		couponId = bean.activitycoupon;
 		orderId = bean._id;
-
 		price = bean.applyclasstypeinfo.price;
 		onSalePrice = bean.applyclasstypeinfo.onsaleprice;
 		paymoney = bean.paymoney;
-
 		productName = bean.applyclasstypeinfo.name;
 		productDetail = bean.applyclasstypeinfo.name + onSalePrice;
-
 		tvDiscodeBottom.setText("" + bean.discountmoney + "元");
-
 		phone = app.userVO.getMobile();
+
 		schoolName = bean.applyschoolinfo.getName();
-		// LogUtil.print("repay--->"+coupCode+"price-->"+bean.applyclasstypeinfo.price
-		// );
-		// if((coupCode==null || coupCode.length()==0)){//请选择
-		// tv_coupon_show.setText("请选择");
-		// }else{
-		// tv_coupon_show.setText(coupCode);
-		// tv_coupon_show.setClickable(false);
-		// tv_coupon_show.setEnabled(false);
-		// }
+		adress = bean.applyschoolinfo.getAddress();
+
+		RelativeLayout.LayoutParams headpicParam = (android.widget.RelativeLayout.LayoutParams) iv_school
+				.getLayoutParams();
+		String url = bean.applyschoolinfo.getLogoimg().getOriginalpic();
+		LogUtil.print("Image-->" + url);
+		if (TextUtils.isEmpty(url)) {
+			iv_school.setImageResource(R.drawable.default_image);
+		} else {
+			BitmapManager.INSTANCE.loadBitmap2(url, iv_school,
+					headpicParam.width, headpicParam.height);
+		}
+		tv_school.setText(schoolName);
+		tv_adress.setText(adress);
+		tv_class.setText(productName);
+
+		//
+		// bean.applyschoolinfo.getLogoimg().getThumbnailpic()
 
 		tvGoodPrice.setText(bean.applyclasstypeinfo.price + "元");
-		tvGoodName.setText(bean.applyclasstypeinfo.name + "元");
+		// tvGoodName.setText(bean.applyclasstypeinfo.name + "元");
 
-		// tvReallyPay.setText(bean.applyclasstypeinfo.onsaleprice + "元");
 		tvReallyPay.setText(bean.applyclasstypeinfo.price + "元("
 				+ bean.applyschoolinfo.getName() + ")");
 	}
 
 	private void Listenner() {
 		// tv_coupon_show.setOnClickListener(this);
+		rbAlipay.setOnCheckedChangeListener(this);
+		rbWeixinpay.setOnCheckedChangeListener(this);
+		rbXianXiapay.setOnCheckedChangeListener(this);
 	}
 
 	// private String en
@@ -232,12 +276,6 @@ public class NewConfirmOrderActivity extends BaseActivity implements
 
 		} else if (type.equals(WEIXIN_PAY_INFOR)) {// 获取微信 支付订单信息
 			PayReq pay = weixinPay.parseJson(data);
-			Toast("--" + "id:" + pay.appId + "partnerId::>" + pay.partnerId
-					+ "noce::>" + pay.nonceStr + "timeStamp" + pay.timeStamp
-					+ "" + pay.packageValue + "" + pay.sign);
-			LogUtil.print("id:" + pay.appId + "partnerId::>" + pay.partnerId
-					+ "noce::>" + pay.nonceStr + "timeStamp" + pay.timeStamp
-					+ "" + pay.packageValue + "" + pay.sign);
 			weixinPay.pay(pay);
 		}
 		// getIntent().getParcelableArrayListExtra(name)
@@ -278,11 +316,11 @@ public class NewConfirmOrderActivity extends BaseActivity implements
 				} else {
 					request(coupCode, couponId, orderId);
 				}
-			} else if (rbAlipay.isChecked()) {// 微信支付
+			} else if (rbWeixinpay.isChecked()) {// 微信支付
 				requestWeiXinPayInfor(app.userVO.getUserid(), orderId);
 			} else {// 线下支付
 				Intent intent1 = new Intent(NewConfirmOrderActivity.this,
-						SussessOrderActvity.class);
+						EnrollSuccessActivity.class);
 				startActivity(intent1);
 			}
 
@@ -436,4 +474,25 @@ public class NewConfirmOrderActivity extends BaseActivity implements
 		return null;
 	}
 
+	@Override
+	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+		LogUtil.print("isChecked----" + isChecked);
+		if (buttonView.getId() == R.id.rb_weixing) {
+			if (isChecked) {
+				rbAlipay.setChecked(false);
+				rbXianXiapay.setChecked(false);
+			}
+		} else if (buttonView.getId() == R.id.rb_xianxia) {
+			if (isChecked) {
+				rbWeixinpay.setChecked(false);
+				rbAlipay.setChecked(false);
+			}
+		} else if (buttonView.getId() == R.id.rb_zhifubao) {
+			if (isChecked) {
+				rbWeixinpay.setChecked(false);
+				rbXianXiapay.setChecked(false);
+			}
+		}
+
+	}
 }

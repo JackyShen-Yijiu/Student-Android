@@ -6,6 +6,7 @@
     
     <ScrollView 
         android:layout_width="match_parent"
+        android:layout_above="@+id/confirm_order_bottom_rl"
         android:layout_height="wrap_content">
     <RelativeLayout 
         android:layout_width="match_parent"
@@ -110,7 +111,7 @@
 		            android:text="支付费用"/>
 		    
 		        <TextView 
-		            android:id="@+id/tv_money"
+		            android:id="@+id/confirm_order_price"
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
 		            android:layout_centerVertical="true"
@@ -142,7 +143,7 @@
 		            android:text="Y码返现"/>
 
 		        <TextView
-		            android:id="@+id/tv_code"
+		            android:id="@+id/confirm_order_discode"
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
 		            android:layout_marginLeft="25dp"
@@ -230,7 +231,7 @@
         android:background="#FFEDEDF1">
 		   </LinearLayout>
 		   
-		    <RadioGroup 
+		    <LinearLayout 
 		        android:layout_width="match_parent"
 		        android:layout_height="wrap_content"
 		        android:paddingLeft="20dp"
@@ -268,6 +269,7 @@
 		                android:textSize="12sp"/>
 		            
 		            <RadioButton 
+		                android:id="@+id/rb_weixing"
 		                android:layout_width="wrap_content"
 		                android:layout_height="wrap_content"
 		                android:layout_alignParentRight="true"
@@ -304,6 +306,7 @@
 						android:textColor="#FFB7B7B7"
 		                android:textSize="12sp"/>
 		                    <RadioButton 
+		                        android:id="@+id/rb_zhifubao"
 		                android:layout_width="wrap_content"
 		                android:layout_height="wrap_content"
 		                android:layout_alignParentRight="true"
@@ -339,13 +342,14 @@
 						android:textColor="#FFB7B7B7"
 		                android:textSize="12sp"/>
 		                         <RadioButton 
+		                             android:id="@+id/rb_xianxia"
 		                android:layout_width="wrap_content"
 		                android:layout_height="wrap_content"
 		                android:layout_alignParentRight="true"
 		                android:button="@drawable/radio_button_check"
 		                android:layout_centerVertical="true"/>
 		        </RelativeLayout>
-		    </RadioGroup>
+		    </LinearLayout>
 		</LinearLayout>
 		</RelativeLayout>
 		</ScrollView>

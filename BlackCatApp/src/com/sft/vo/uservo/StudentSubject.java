@@ -10,6 +10,11 @@ public class StudentSubject extends DBVO {
 	private String progress;
 	private String reservationid;
 	public int missingcourse;
+	/**购买学时*/
+	public int buycoursecount;
+	/**官方学时*/
+	public int officialhours;
+	
 
 	public int getTotalcourse() {
 		return totalcourse;
