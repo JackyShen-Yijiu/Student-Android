@@ -1,19 +1,15 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#fff"
+    android:paddingBottom="30dp"
     tools:context="com.sft.emchat.BaiduMapActivity" >
 
-    <LinearLayout
-        android:id="@+id/ll_title_one"
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:layout_marginTop="21dp"
-        android:background="#f7f9fb"
-        android:orientation="horizontal" >
-    </LinearLayout>
-
+<RelativeLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff">
     <Button
         android:id="@+id/button_sus"
         android:layout_width="match_parent"
@@ -26,24 +22,31 @@
         android:textSize="16sp"
         android:visibility="gone" />
 
+    
+    <RelativeLayout 
+        android:id="@+id/rl_1"
+        android:layout_width="match_parent"
+        android:background="@drawable/bg_chengg"
+        android:layout_height="166dp">
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll_title_one"
-        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
         android:layout_margin="20dp"
         android:layout_marginTop="16dp"
         android:text="恭喜您报名成功"
-        android:textColor="#f00"
-        android:textSize="@dimen/txt_size_large" />
-
-    <include
+        android:textColor="#FFDC4437"
+        android:textSize="18sp" />
+</RelativeLayout>
+    <ImageView
         android:id="@+id/line1"
         android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_below="@+id/textView1"
-        layout="@layout/line" />
+        android:layout_height="10dp"
+        android:layout_below="@+id/rl_1"
+        android:background="#f6f6f6"
+        />
 
     <LinearLayout
         android:id="@+id/apply_commit_school_infor"
@@ -102,19 +105,19 @@
                     android:id="@+id/apply_commit_pay_state"
                     style="@style/text_gray_small"
                     android:layout_alignParentRight="true"
-                    android:textColor="@color/new_app_main_color"
+                    android:textColor="#FFDC4437"
                     android:text="未支付" />
                 
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
     
-    <include
-        android:id="@+id/line2"
+  <ImageView
         android:layout_width="match_parent"
-        android:layout_height="1px"
+        android:layout_height="10dp"
         android:layout_below="@+id/apply_commit_school_infor"
-        layout="@layout/line" />
+        android:background="#f6f6f6"
+        />
 
     <TextView
         android:id="@+id/act_apply_suuccess_endtime"
@@ -216,5 +219,5 @@
         android:layout_above="@+id/textView5"
         android:layout_toRightOf="@+id/textView4"
         android:text="1351654651" />
-
 </RelativeLayout>
+</ScrollView>

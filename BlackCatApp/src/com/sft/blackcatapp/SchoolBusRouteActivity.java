@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
@@ -21,7 +23,8 @@ public class SchoolBusRouteActivity extends BaseActivity implements
 	private static final String schoolType = "school";
 	private SchoolVO school;
 	private XListView listview;
-	private TextView noBus;
+	private ImageView error_iv;
+	private TextView errorTvs;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +40,14 @@ public class SchoolBusRouteActivity extends BaseActivity implements
 		listview = (XListView) findViewById(R.id.bus_route_listview);
 		listview.setPullRefreshEnable(false);
 		listview.setPullLoadEnable(false);
-		noBus = (TextView) findViewById(R.id.bus_route_no_tv);
+
+		error_iv = (ImageView) findViewById(R.id.error_iv);
+		errorRl = (RelativeLayout) findViewById(R.id.error_rl);
+		errorTv = (TextView) findViewById(R.id.error_tv);
+		errorTvs = (TextView) findViewById(R.id.error_tvs);
 	}
 
 	private void initData() {
-		noBus.setVisibility(View.GONE);
 
 		school = (SchoolVO) getIntent().getSerializableExtra("school_route");
 		String schoolId = getIntent().getStringExtra(MenuFragment.schoolId);
@@ -51,7 +57,10 @@ public class SchoolBusRouteActivity extends BaseActivity implements
 
 			if (school == null || school.getSchoolbusroute() == null
 					|| school.getSchoolbusroute().size() == 0) {
-				noBus.setVisibility(View.VISIBLE);
+				errorRl.setVisibility(View.VISIBLE);
+				error_iv.setImageResource(R.drawable.image_banche);
+				errorTv.setText("暂时没有班车接送信息");
+
 				listview.setVisibility(View.GONE);
 			} else {
 				SchoolBusRouteAdapter adapter = new SchoolBusRouteAdapter(this,
@@ -79,7 +88,10 @@ public class SchoolBusRouteActivity extends BaseActivity implements
 				}
 				if (school == null && school.getSchoolbusroute() == null
 						&& school.getSchoolbusroute().size() == 0) {
-					noBus.setVisibility(View.VISIBLE);
+					errorRl.setVisibility(View.VISIBLE);
+					error_iv.setImageResource(R.drawable.image_banche);
+					errorTv.setText("暂时没有班车接送信息");
+
 					listview.setVisibility(View.GONE);
 				} else {
 					SchoolBusRouteAdapter adapter = new SchoolBusRouteAdapter(

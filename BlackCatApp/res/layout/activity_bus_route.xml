@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff" >
-
+<include layout="@layout/layout_error"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,13 +22,5 @@
             android:overScrollMode="always"
             android:scrollbars="none" />
 
-        <TextView
-            android:id="@+id/bus_route_no_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="没有班车路线"
-            android:textColor="@color/default_text_color"
-            android:textSize="16dp" />
         </RelativeLayout>
     </RelativeLayout>
