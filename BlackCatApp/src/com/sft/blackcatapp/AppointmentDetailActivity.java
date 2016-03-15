@@ -22,6 +22,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -32,6 +33,7 @@ import com.sft.adapter.AppointmentDetailStudentHoriListAdapter;
 import com.sft.common.Config;
 import com.sft.common.Config.UserType;
 import com.sft.qrcode.EncodingHandler;
+import com.sft.util.CommonUtil;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
 import com.sft.util.UTC2LOC;
@@ -243,6 +245,11 @@ public class AppointmentDetailActivity extends BaseActivity implements
 			signKnowTv.setVisibility(View.GONE);
 			cancelBtnHintTv.setVisibility(View.GONE);
 			cancelBtn.setText("联系客服");
+			LinearLayout.LayoutParams params = (LayoutParams) cancelBtn
+					.getLayoutParams();
+			params.topMargin = CommonUtil.px2dip(this, 400);
+			cancelBtn.setLayoutParams(params);
+
 		} else if (appointmentVO.getReservationstate().equals(
 				Config.AppointmentResult.applyrefuse.getValue())) {
 			appointState.setText("预约被拒绝");
@@ -453,10 +460,9 @@ public class AppointmentDetailActivity extends BaseActivity implements
 			if (appointmentVO.getReservationstate().equals(
 					Config.AppointmentResult.missclass.getValue())) {
 				// 打电话
+				LogUtil.print("电话---" + appointmentVO.getSchoolmobile());
 				Intent intent1 = new Intent(Intent.ACTION_DIAL,
-						Uri.parse("tel:"
-								+ appointmentVO.getDriveschoolinfo()
-										.getMobile()));
+						Uri.parse("tel:" + appointmentVO.getSchoolmobile()));
 				intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				startActivity(intent1);
 			} else {

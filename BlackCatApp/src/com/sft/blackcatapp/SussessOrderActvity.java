@@ -5,19 +5,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
 import com.jzjf.app.R;
 import com.sft.adapter.SussessAppointmentAdapter;
-import com.sft.vo.AppointmentTempVO;
 import com.sft.common.Config;
 import com.sft.util.JSONUtil;
+import com.sft.vo.AppointmentTempVO;
 import com.sft.vo.MyAppointmentVO;
 
-public class SussessOrderActvity extends BaseActivity {
+public class SussessOrderActvity extends BaseActivity implements
+		OnItemClickListener {
 	private static final String complaint = "appointmentVO";
 	private ListView Lv;
 	private SussessAppointmentAdapter adapter;
@@ -31,17 +35,19 @@ public class SussessOrderActvity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		addView(R.layout.sussess_order_act);
 		initView();
-//		request();
+		// request();
 	}
 
 	private void initView() {
 		setTitleText("已完成预约");
-		AppointmentTempVO vo = (AppointmentTempVO)getIntent().getSerializableExtra("list");
+		AppointmentTempVO vo = (AppointmentTempVO) getIntent()
+				.getSerializableExtra("list");
 		list = vo.list;
 
 		Lv = (ListView) findViewById(R.id.enroll_select_school_listview);
 		adapter = new SussessAppointmentAdapter(this, list);
 		Lv.setAdapter(adapter);
+		Lv.setOnItemClickListener(this);
 	}
 
 	private void request() {
@@ -83,6 +89,13 @@ public class SussessOrderActvity extends BaseActivity {
 			finish();
 			break;
 		}
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+		Intent intent = new Intent(this, AppointmentDetailActivity.class);
+		intent.putExtra("appointmentDetail", list.get(arg2 - 1));
+		startActivity(intent);
 	}
 
 }
