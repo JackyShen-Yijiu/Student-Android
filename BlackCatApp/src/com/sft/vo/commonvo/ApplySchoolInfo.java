@@ -8,6 +8,7 @@ public class ApplySchoolInfo extends DBVO {
 
 	private String id;
 	private String name;
+	private String mobile;
 
 	public String getId() {
 		return id;
@@ -23,6 +24,14 @@ public class ApplySchoolInfo extends DBVO {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
 	}
 
 }

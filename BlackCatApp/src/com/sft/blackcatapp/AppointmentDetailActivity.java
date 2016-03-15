@@ -1,13 +1,17 @@
 package com.sft.blackcatapp;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -19,18 +23,21 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
 import com.jzjf.app.R;
 import com.sft.adapter.AppointmentDetailStudentHoriListAdapter;
 import com.sft.common.Config;
-import com.sft.common.Config.AppointmentResult;
 import com.sft.common.Config.UserType;
+import com.sft.qrcode.EncodingHandler;
 import com.sft.util.JSONUtil;
+import com.sft.util.LogUtil;
 import com.sft.util.UTC2LOC;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.MyAppointmentVO;
+import com.sft.vo.QRCodeCreateVO;
 import com.sft.vo.commentvo.CommentUser;
 
 /**
@@ -67,6 +74,14 @@ public class AppointmentDetailActivity extends BaseActivity implements
 	private TextView evaluateContentTv;
 	private TextView evaluateTimeTv;
 	private LinearLayout commentLl;
+	private TextView appointState;
+	private TextView appointInfoTv;
+	private RelativeLayout stopCarRl;
+	private RelativeLayout signInTimeRl;
+	private View signInTimeLine;
+	private View stopCarLine;
+	private LinearLayout cancelBtnLl;
+	private TextView cancelBtnHintTv;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -84,14 +99,15 @@ public class AppointmentDetailActivity extends BaseActivity implements
 				"appointmentDetail");
 		if (appointmentVO != null) {
 			if (appointmentVO.getReservationstate().equals(
-					Config.AppointmentResult.applyconfirm.getValue())) {
-				addView(R.layout.activity_appointment_detail);
-				initView();
-				setData(appointmentVO);
-			} else {
+					Config.AppointmentResult.finish.getValue())) {
 				addView(R.layout.activity_appointment_detail_finished);
 				initFinishView();
 				setFinishData(appointmentVO);
+
+			} else {
+				addView(R.layout.activity_appointment_detail);
+				initView();
+				setData(appointmentVO);
 
 			}
 			setListener();
@@ -119,14 +135,21 @@ public class AppointmentDetailActivity extends BaseActivity implements
 
 	private void initView() {
 
+		appointState = (TextView) findViewById(R.id.appointment_detail_appoint_state);
 		qrcodeIv = (ImageView) findViewById(R.id.appointment_detail_qrcode_iv);
+		appointInfoTv = (TextView) findViewById(R.id.appointment_detail_appoint_info);
 		signKnowTv = (TextView) findViewById(R.id.appointment_detail_sign_know_tv);
 		SpannableStringBuilder builder = new SpannableStringBuilder(signKnowTv
 				.getText().toString());
 		// ForegroundColorSpan 为文字前景色，BackgroundColorSpan为文字背景色
 		ForegroundColorSpan redSpan = new ForegroundColorSpan(Color.RED);
 		builder.setSpan(redSpan, 0, 5, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
+		stopCarLine = findViewById(R.id.appointment_detail_stopcar_line);
+		signInTimeLine = findViewById(R.id.appointment_detail_signin_line);
+		signInTimeRl = (RelativeLayout) findViewById(R.id.appointment_detail_signin_rl);
+		stopCarRl = (RelativeLayout) findViewById(R.id.appointment_detail_stopcar_rl);
+		signInTimeTv = (TextView) findViewById(R.id.appointment_detail_signin_time_tv);
+		stopCarTv = (TextView) findViewById(R.id.appointment_detail_stopcar_tv);
 		classNameTv = (TextView) findViewById(R.id.appointment_detail_class_name_tv);
 		timeTv = (TextView) findViewById(R.id.appointment_detail_time_tv);
 		coachNameTv = (TextView) findViewById(R.id.appointment_detail_coach_name_tv);
@@ -134,12 +157,105 @@ public class AppointmentDetailActivity extends BaseActivity implements
 		coachDuihuaIv = (ImageView) findViewById(R.id.appointment_detail_coach_duihua_iv);
 		signKnowTv.setText(builder);
 		cancelBtn = (Button) findViewById(R.id.appointment_detail_cancel_but);
+		cancelBtnHintTv = (TextView) findViewById(R.id.appointment_detail_btn_hint_tv);
+		cancelBtnLl = (LinearLayout) findViewById(R.id.appointment_detail_but_ll);
 	}
 
 	private void setData(MyAppointmentVO appointmentVO) {
 
 		if (appointmentVO == null) {
 			return;
+		}
+
+		//
+		if (appointmentVO.getReservationstate().equals(
+				Config.AppointmentResult.applying.getValue())) {
+			appointState.setText("预约请求中");
+			qrcodeIv.setImageResource(R.drawable.appointment_detail_applying);
+			appointInfoTv.setText("教练还没有接受预约，请耐心等一下哦");
+			appointInfoTv.setTextSize(14);
+			signKnowTv.setVisibility(View.GONE);
+
+		} else if (appointmentVO.getReservationstate().equals(
+				Config.AppointmentResult.applyconfirm.getValue())) {
+
+			// 开课24小时内不能取消
+			long beginTime = UTC2LOC.instance.getDates(
+					appointmentVO.getBegintime(), "yyyy-MM-dd HH:mm:ss")
+					.getTime()
+					- new Date().getTime();
+			if (beginTime / 1000 / 60 / 60 < 24) {
+				cancelBtn.setEnabled(false);
+				cancelBtn
+						.setBackgroundResource(R.drawable.button_rounded_corners_gray);
+			} else {
+				cancelBtn.setEnabled(true);
+				cancelBtn
+						.setBackgroundResource(R.drawable.button_rounded_corners);
+			}
+			if (checkIsSignIn(appointmentVO)) {
+				// 可签到
+				appointState.setText("预约已接受");
+				appointInfoTv.setText("（给教练扫一扫二维码即可签到）");
+				signKnowTv.setVisibility(View.VISIBLE);
+				createQrcode();
+			} else {
+				// 不可签到
+				appointState.setText("预约已接受");
+				appointInfoTv.setText("没有到签到时间");
+				appointInfoTv.setTextSize(14);
+				signKnowTv.setVisibility(View.VISIBLE);
+				qrcodeIv.setImageResource(R.drawable.appointment_detail_applyconfirm);
+			}
+		} else if (appointmentVO.getReservationstate().equals(
+				Config.AppointmentResult.signfinish.getValue())) {
+
+			appointState.setText("预约已签到");
+			appointInfoTv.setText("该预约已签到");
+			appointInfoTv.setTextSize(14);
+			signKnowTv.setVisibility(View.VISIBLE);
+
+			// 签到信息
+			signInTimeLine.setVisibility(View.VISIBLE);
+			signInTimeRl.setVisibility(View.VISIBLE);
+			stopCarLine.setVisibility(View.VISIBLE);
+			stopCarRl.setVisibility(View.VISIBLE);
+			signInTimeTv.setText(UTC2LOC.instance.getDate(
+					appointmentVO.getSigintime(), "HH:mm"));
+			stopCarTv.setText(appointmentVO.getLearningcontent());
+			qrcodeIv.setImageResource(R.drawable.appointment_detail_signfinish);
+			cancelBtnLl.setVisibility(View.GONE);
+		} else if (appointmentVO.getReservationstate().equals(
+				Config.AppointmentResult.systemcancel.getValue())) {
+			appointState.setText("预约被取消");
+			qrcodeIv.setImageResource(R.drawable.appointment_detail_systemcancel);
+			appointInfoTv.setText("抱歉，由于驾校或其他原因，该预约已被系统取消您可重新预约");
+			appointInfoTv.setTextSize(14);
+			signKnowTv.setVisibility(View.GONE);
+			cancelBtnLl.setVisibility(View.GONE);
+
+		} else if (appointmentVO.getReservationstate().equals(
+				Config.AppointmentResult.missclass.getValue())) {
+			appointState.setText("该预约漏课");
+			qrcodeIv.setImageResource(R.drawable.appointment_detail_systemcancel);
+			appointInfoTv.setText("您没能及时签到该预约，请及时联系客服进行补课事宜");
+			appointInfoTv.setTextSize(14);
+			signKnowTv.setVisibility(View.GONE);
+			cancelBtnHintTv.setVisibility(View.GONE);
+			cancelBtn.setText("联系客服");
+		} else if (appointmentVO.getReservationstate().equals(
+				Config.AppointmentResult.applyrefuse.getValue())) {
+			appointState.setText("预约被拒绝");
+			qrcodeIv.setImageResource(R.drawable.appointment_detail_applyrefuse);
+			appointInfoTv.setVisibility(View.GONE);
+			signKnowTv.setVisibility(View.GONE);
+			cancelBtnLl.setVisibility(View.GONE);
+		} else {
+			appointState.setText("预约已接受");
+			qrcodeIv.setImageResource(R.drawable.appointment_detail_applyconfirm);
+			cancelBtnLl.setVisibility(View.GONE);
+			appointInfoTv.setVisibility(View.GONE);
+			signKnowTv.setVisibility(View.GONE);
 		}
 
 		coachNameTv.setText(appointmentVO.getCoachid().getName() + "  教练");
@@ -158,20 +274,96 @@ public class AppointmentDetailActivity extends BaseActivity implements
 
 		String state = appointmentVO.getReservationstate();
 		// 底部预约显示
-		if (!TextUtils.isEmpty(state)) {
+		// if (!TextUtils.isEmpty(state)) {
+		//
+		// if (state.equals(AppointmentResult.applyconfirm.getValue())
+		// || state.equals(AppointmentResult.applying.getValue())) {
+		// // 预约中
+		// cancelBtn.setEnabled(true);
+		// cancelBtn
+		// .setBackgroundResource(R.drawable.button_rounded_corners);
+		// } else {
+		// // 已完成
+		// cancelBtn.setEnabled(false);
+		// cancelBtn
+		// .setBackgroundResource(R.drawable.button_rounded_corners_gray);
+		// }
+		// }
+	}
 
-			if (state.equals(AppointmentResult.applyconfirm.getValue())
-					|| state.equals(AppointmentResult.applying.getValue())) {
-				// 预约中
-				cancelBtn.setEnabled(true);
-				cancelBtn
-						.setBackgroundResource(R.drawable.button_rounded_corners);
+	private boolean checkIsSignIn(MyAppointmentVO myAppointmentVO) {
+		String beginTime = UTC2LOC.instance.getDate(
+				myAppointmentVO.getBegintime(), "hh:mm");
+		String endTime = UTC2LOC.instance.getDate(myAppointmentVO.getEndtime(),
+				"hh:mm");
+
+		SimpleDateFormat format = new SimpleDateFormat("hh:mm");
+		try {
+			long diffBeginTime = UTC2LOC.instance.getDates(
+					myAppointmentVO.getBegintime(), "yyyy-MM-dd HH:mm:ss")
+					.getTime()
+					- new Date().getTime();
+			long diffEndTime = UTC2LOC.instance.getDates(
+					myAppointmentVO.getEndtime(), "yyyy-MM-dd HH:mm:ss")
+					.getTime()
+					- new Date().getTime();
+			LogUtil.print("diffEndTime--" + diffEndTime);
+			if (diffBeginTime / 1000 / 60 > 15) {
+				// ZProgressHUD.getInstance(this).dismissWithSuccess(
+				// "请在开课前15分钟内签到");
+				// ZProgressHUD.getInstance(this).show();
+				return false;
+			} else if (diffEndTime / 1000 / 60 < 0) {
+				// ZProgressHUD.getInstance(this).dismissWithSuccess(
+				// "您的课程已结束，不能再签到");
+				// ZProgressHUD.getInstance(this).show();
+				return false;
 			} else {
-				// 已完成
-				cancelBtn.setEnabled(false);
-				cancelBtn
-						.setBackgroundResource(R.drawable.button_rounded_corners_gray);
+				return true;
+				// Intent intent = new Intent(this, QRCodeCreateActivity.class);
+				// intent.putExtra("myappointment", myAppointmentVO);
+				// startActivity(intent);
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return false;
+	}
+
+	private void createQrcode() {
+		QRCodeCreateVO codeCreateVO = new QRCodeCreateVO();
+		if (appointmentVO != null) {
+
+			if (app != null) {
+
+				codeCreateVO.setStudentId(app.userVO.getUserid());
+				codeCreateVO.setStudentName(app.userVO.getName());
+				codeCreateVO.setReservationId(appointmentVO.get_id());
+				codeCreateVO.setCoachName(app.userVO.getApplycoachinfo()
+						.getName());
+				codeCreateVO.setCourseProcessDesc(app.userVO.getSubject()
+						.getName());
+				codeCreateVO.setCreateTime((new Date().getTime() / 1000) + "");
+				codeCreateVO.setLatitude(app.latitude);
+				codeCreateVO.setLocationAddress(app.userVO.getAddress());
+				codeCreateVO.setLongitude(app.longtitude);
+			}
+		}
+		// 生成二维码
+		try {
+			String contentString = JSONUtil.toJsonString(codeCreateVO);
+			LogUtil.print("contentString---" + contentString);
+			if (contentString != null && contentString.trim().length() > 0) {
+				// 根据字符串生成二维码图片并显示在界面上，第二个参数为图片的大小（350*350）
+				Bitmap qrCodeBitmap = EncodingHandler.createQRCode(
+						contentString, 500);
+				qrcodeIv.setImageBitmap(qrCodeBitmap);
+			} else {
+				toast.setText("生成二维码失败");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -226,10 +418,10 @@ public class AppointmentDetailActivity extends BaseActivity implements
 	}
 
 	private void setListener() {
-		if(cancelBtn!=null)
+		if (cancelBtn != null)
 			cancelBtn.setOnClickListener(this);
-		if(coachDuihuaIv!=null)
-		coachDuihuaIv.setOnClickListener(this);
+		if (coachDuihuaIv != null)
+			coachDuihuaIv.setOnClickListener(this);
 	}
 
 	@Override
@@ -258,9 +450,21 @@ public class AppointmentDetailActivity extends BaseActivity implements
 			}
 			break;
 		case R.id.appointment_detail_cancel_but:
-			// 取消预约
-			intent = new Intent(this, CancelAppointmentActivity.class);
-			intent.putExtra("appointment", appointmentVO);
+			if (appointmentVO.getReservationstate().equals(
+					Config.AppointmentResult.missclass.getValue())) {
+				// 打电话
+				Intent intent1 = new Intent(Intent.ACTION_DIAL,
+						Uri.parse("tel:"
+								+ appointmentVO.getDriveschoolinfo()
+										.getMobile()));
+				intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				startActivity(intent1);
+			} else {
+				// 取消预约
+				intent = new Intent(this, CancelAppointmentActivity.class);
+				intent.putExtra("appointment", appointmentVO);
+			}
+
 			break;
 
 		}
