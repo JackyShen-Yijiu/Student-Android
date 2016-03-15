@@ -17,7 +17,7 @@ import com.sft.vo.MyCodeVO;
 
 public class MyCodeListAdapter extends BaseAdapter {
 	private List<MyCodeVO> mData;
-	private MyClickListener mListener;
+	private MyClickListener mListener = null;
 	private LayoutInflater mInflater;
 	private List<Boolean> isSelected = new ArrayList<Boolean>();
 	private int index = -1;
@@ -110,7 +110,8 @@ public class MyCodeListAdapter extends BaseAdapter {
 		holder.date.setText("有效期至:" + mData.get(position).getDate());
 
 		holder.rl_code.setTag(position);
-		holder.rl_code.setOnClickListener(mListener);
+		if (mListener != null)
+			holder.rl_code.setOnClickListener(mListener);
 		return convertView;
 	}
 

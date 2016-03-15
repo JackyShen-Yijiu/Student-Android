@@ -7,9 +7,10 @@
     
     <ScrollView 
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
     <RelativeLayout 
         android:layout_width="match_parent"
+        android:layout_marginBottom="25dp"
         android:layout_height="wrap_content">
     <LinearLayout 
         android:id="@+id/ll_mes"
@@ -40,7 +41,7 @@
             android:layout_marginLeft="20dp"
             android:layout_centerVertical="true"
             android:textColor="#FFB7B7B7"
-            android:text="一步互联网驾校"/>
+            android:text=""/>
     </RelativeLayout>
     <LinearLayout 
         android:layout_width="match_parent"
@@ -114,7 +115,7 @@
               android:layout_centerVertical="true"
               android:layout_marginLeft="20dp"
               android:layout_toRightOf="@+id/tv_class"
-              android:text="特训班"
+              android:text=""
               android:textColor="#FFB7B7B7"
               android:textSize="14sp" />
 
@@ -248,7 +249,7 @@
             android:layout_marginLeft="20dp"
             android:layout_centerVertical="true"
             android:textColor="#FFB7B7B7"
-            android:text="SADSADSA"/>
+            android:text=""/>
           
           <ImageView 
               android:layout_width="wrap_content"

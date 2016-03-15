@@ -28,7 +28,7 @@ import com.sft.vo.UserVO;
 import com.sft.weixinpay.WeixinPay;
 import com.tencent.mm.sdk.modelpay.PayReq;
 
-public class ConfirmOrderActivity extends BaseActivity implements
+public class NewConfirmOrderActivity extends BaseActivity implements
 		OnClickListener {
 
 	private TextView tvGoodName, tvGoodPrice;// tv_coupon_show
@@ -80,7 +80,7 @@ public class ConfirmOrderActivity extends BaseActivity implements
 
 	private void initView() {
 
-		weixinPay = new WeixinPay(ConfirmOrderActivity.this);
+		weixinPay = new WeixinPay(NewConfirmOrderActivity.this);
 		repay = getIntent().getBooleanExtra("repay", false);
 
 		// tv_coupon_show = (TextView) findViewById(R.id.tv_coupon_show);
@@ -249,7 +249,7 @@ public class ConfirmOrderActivity extends BaseActivity implements
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.confirm_order_discode_rl:
-			Intent intent = new Intent(ConfirmOrderActivity.this,
+			Intent intent = new Intent(NewConfirmOrderActivity.this,
 					CheckDiscodeAct.class);
 			intent.putExtra("phone", phone);
 			startActivityForResult(intent, 3);
@@ -281,7 +281,7 @@ public class ConfirmOrderActivity extends BaseActivity implements
 			} else if (rbAlipay.isChecked()) {// 微信支付
 				requestWeiXinPayInfor(app.userVO.getUserid(), orderId);
 			} else {// 线下支付
-				Intent intent1 = new Intent(ConfirmOrderActivity.this,
+				Intent intent1 = new Intent(NewConfirmOrderActivity.this,
 						SussessOrderActvity.class);
 				startActivity(intent1);
 			}
@@ -321,7 +321,7 @@ public class ConfirmOrderActivity extends BaseActivity implements
 					app.userVO
 							.setApplystate(EnrollResult.SUBJECT_ENROLL_SUCCESS
 									.getValue());
-					Toast.makeText(ConfirmOrderActivity.this, "支付成功",
+					Toast.makeText(NewConfirmOrderActivity.this, "支付成功",
 							Toast.LENGTH_SHORT).show();
 					// ConfirmOrderActivity.this.setResult(9, getIntent());
 					// ConfirmOrderActivity.this.finish();
@@ -333,12 +333,12 @@ public class ConfirmOrderActivity extends BaseActivity implements
 					// 判断resultStatus 为非"9000"则代表可能支付失败
 					// "8000"代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
 					if (TextUtils.equals(resultStatus, "8000")) {
-						Toast.makeText(ConfirmOrderActivity.this, "支付结果确认中",
+						Toast.makeText(NewConfirmOrderActivity.this, "支付结果确认中",
 								Toast.LENGTH_SHORT).show();
 
 					} else {
 						// 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
-						Toast.makeText(ConfirmOrderActivity.this, "支付失败",
+						Toast.makeText(NewConfirmOrderActivity.this, "支付失败",
 								Toast.LENGTH_SHORT).show();
 
 					}
@@ -347,8 +347,8 @@ public class ConfirmOrderActivity extends BaseActivity implements
 			}
 			case SDK_CHECK_FLAG: {
 				app.userVO.setApplystate(EnrollResult.SUBJECT_NONE.getValue());
-				Toast.makeText(ConfirmOrderActivity.this, "检查结果为：" + msg.obj,
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(NewConfirmOrderActivity.this,
+						"检查结果为：" + msg.obj, Toast.LENGTH_SHORT).show();
 				break;
 			}
 			default:
@@ -362,7 +362,7 @@ public class ConfirmOrderActivity extends BaseActivity implements
 	 * 跳转到报名成功页面
 	 */
 	private void toEnrollSuccess() {
-		Intent i = new Intent(ConfirmOrderActivity.this,
+		Intent i = new Intent(NewConfirmOrderActivity.this,
 				EnrollSuccessActivity.class);
 		i.putExtra("isOnline", true);
 		startActivity(i);
