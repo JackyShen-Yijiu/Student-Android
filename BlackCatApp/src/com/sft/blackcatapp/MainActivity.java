@@ -727,7 +727,7 @@ public class MainActivity extends BaseMainActivity implements
 					notComment = true;
 					// 确定 都是评论
 					if(currentPage == TAB_APPOINTMENT){//预约
-						rlMustComment.setVisibility(View.VISIBLE);
+						rlMustComment.setVisibility(View.GONE);
 					}else{
 						rlMustComment.setVisibility(View.GONE);
 					}
@@ -1126,7 +1126,7 @@ public class MainActivity extends BaseMainActivity implements
 					.setText(CommonUtil.getString(this, R.string.add_coach));
 			rg.setVisibility(View.GONE);
 			
-			if(currentPage == TAB_APPOINTMENT){//预约
+			if(notComment){//预约
 				rlMustComment.setVisibility(View.VISIBLE);
 			}else{
 				rlMustComment.setVisibility(View.GONE);
