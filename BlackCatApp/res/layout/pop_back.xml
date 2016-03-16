@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="22dp"
+    android:paddingRight="12dp"
+    android:paddingTop="10dp" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="170dp" 
+        android:layout_centerInParent="true"
+        android:background="@drawable/bg_tuichu"
+        >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="30dp"
+            android:text="退出支付"
+            android:textColor="@color/new_text_color_dark"
+            android:textSize="@dimen/txt_size_large" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textView1"
+            android:layout_marginLeft="35dp"
+            android:layout_marginTop="12dp"
+            android:text="您还没有支付成功，确定要退出支付吗?"
+            android:textColor="@color/new_text_color_dark"
+            android:textSize="@dimen/txt_size_small" />
+
+        <TextView
+            android:id="@+id/pay_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/pay_cancel"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="25dp"
+            android:padding="8dp"
+            android:text="确定"
+            android:textColor="@color/new_text_color_dark"
+            android:textSize="@dimen/txt_size_small" />
+
+        <TextView
+            android:id="@+id/pay_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView2"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="27dp"
+            android:layout_toLeftOf="@+id/pay_ok"
+            android:padding="8dp"
+            android:text="取消"
+            android:textColor="@color/new_text_color_dark"
+            android:textSize="@dimen/txt_size_small" />
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -2,6 +2,7 @@ package com.jzjf.app.wxapi;
 
 
 import com.jzjf.app.R;
+import com.sft.blackcatapp.NewConfirmOrderActivity;
 import com.sft.common.Config;
 import com.tencent.mm.sdk.constants.ConstantsAPI;
 import com.tencent.mm.sdk.modelbase.BaseReq;
@@ -15,6 +16,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler{
 	
@@ -45,12 +47,16 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler{
 	@Override
 	public void onResp(BaseResp resp) {
 		Log.d(TAG, "onPayFinish, errCode = " + resp.errCode+"String-->"+resp.errStr);
-
 		if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setTitle("R.string.app_tip");
-			builder.setMessage("Message-->"+resp.errCode+resp.errStr);//getString(R.string.pay_result_callback_msg, String.valueOf(resp.errCode)));
-			builder.show();
+			NewConfirmOrderActivity.weixinPayState = resp.errCode;
+			if(resp.errCode == 0){//支付成功
+				Toast.makeText(this,"微信支付成功", Toast.LENGTH_SHORT).show();
+			}else if(resp.errCode == -1){//签名错误等
+				Toast.makeText(this,"微信支付失败", Toast.LENGTH_SHORT).show();
+			}else{//其他错误
+				Toast.makeText(this,"微信支付取消", Toast.LENGTH_SHORT).show();
+			}
+			finish();
 		}
 	}
 }

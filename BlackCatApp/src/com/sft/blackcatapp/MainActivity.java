@@ -75,6 +75,7 @@ import com.sft.util.CommonUtil;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
 import com.sft.util.SharedPreferencesUtil;
+import com.sft.util.SunUtils;
 import com.sft.util.Util;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.ActivitiesVO;
@@ -169,6 +170,8 @@ public class MainActivity extends BaseMainActivity implements
 			getWindow().addFlags(
 					WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 		}
+		LogUtil.print("ip--->"+SunUtils.getIp(this));
+		
 		setContentView(R.layout.frame_content);
 		// EventBus.getDefault().register(this);
 		init();

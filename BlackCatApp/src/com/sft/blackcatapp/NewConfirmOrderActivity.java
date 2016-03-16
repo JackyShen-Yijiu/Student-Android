@@ -8,11 +8,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout.LayoutParams;
+import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -60,6 +64,8 @@ public class NewConfirmOrderActivity extends BaseActivity implements
 	private String onSalePrice;
 
 	private WeixinPay weixinPay;
+	/**0：支付成功 -1 等 失败  -2 用户取消*/
+	public static int weixinPayState = 1;
 
 	private final static String WEIXIN_PAY_INFOR = "getweixin_infor";
 
@@ -255,6 +261,19 @@ public class NewConfirmOrderActivity extends BaseActivity implements
 				+ "api/v1/userinfo/usercouponforpay", paramMap, 10000,
 				headerMap);
 	}
+	
+	
+
+	@Override
+	protected void onResume() {
+		if(weixinPayState == 0){//支付成功
+			LogUtil.print("onResume---支付成功>");
+			toEnrollSuccess();
+		}else if(weixinPayState == -1 || weixinPayState == -2){//支付失败,取消支付
+			LogUtil.print("onResume---支付失败>");
+		}
+		super.onResume();
+	}
 
 	@Override
 	public synchronized boolean doCallBack(String type, Object jsonString) {
@@ -293,8 +312,9 @@ public class NewConfirmOrderActivity extends BaseActivity implements
 			startActivityForResult(intent, 3);
 			break;
 		case R.id.base_left_btn:
-			setResult(1);
-			finish();
+			cancelDialog();
+//			setResult(1);
+//			finish();
 			break;
 		case R.id.act_pay_now:// 立即支付
 			LogUtil.print("coupCode--orderId>" + orderId + "coupCode-->"
@@ -405,10 +425,11 @@ public class NewConfirmOrderActivity extends BaseActivity implements
 		i.putExtra("isOnline", true);
 		startActivity(i);
 		// 结束之前的页面
-		setResult(9);
+		setResult(9,new Intent());
 		finish();
 
 	}
+	
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -472,6 +493,58 @@ public class NewConfirmOrderActivity extends BaseActivity implements
 		if (classe != null)
 			return classe.getClassname() + "￥" + classe.getOnsaleprice();
 		return null;
+	}
+	
+	/**
+	 * 取消对话框
+	 */
+	private void cancelDialog(){
+		final PopupWindow pop = new PopupWindow(this);
+		pop.setHeight(LayoutParams.MATCH_PARENT);
+		pop.setWidth(LayoutParams.MATCH_PARENT);
+		View view = View.inflate(this, R.layout.pop_back, null);
+		view.setFocusable(true);
+		view.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				pop.dismiss();
+			}
+		});
+		pop.setContentView(view);
+		view.findViewById(R.id.pay_ok).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				//跳转
+				
+				pop.dismiss();
+				setResult(9,new Intent());
+				finish();
+//				退出支付流程,干掉之前的
+			}
+		});
+		view.findViewById(R.id.pay_cancel).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				pop.dismiss();
+			}
+		});
+		pop.showAtLocation(getWindow().getDecorView(), Gravity.CENTER, 0, 0);
+	}
+	
+	
+	
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if(keyCode == KeyEvent.KEYCODE_BACK){//返回
+			cancelDialog();
+			return true;
+		}
+		
+		return super.onKeyDown(keyCode, event);
 	}
 
 	@Override

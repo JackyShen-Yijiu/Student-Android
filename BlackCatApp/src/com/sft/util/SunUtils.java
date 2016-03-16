@@ -18,7 +18,7 @@ import android.util.Log;
  */
 public class SunUtils {
 
-	public String getIp(Activity act) {
+	public static String getIp(Activity act) {
 		// 获取wifi服务
 		WifiManager wifiManager = (WifiManager) act
 				.getSystemService(Context.WIFI_SERVICE);
@@ -36,12 +36,12 @@ public class SunUtils {
 		
 	}
 
-	private String intToIp(int i) {
+	private static String intToIp(int i) {
 		return (i & 0xFF) + "." + ((i >> 8) & 0xFF) + "." + ((i >> 16) & 0xFF)
 				+ "." + (i >> 24 & 0xFF);
 	}
 
-	public String getLocalIpAddress() {
+	public static String getLocalIpAddress() {
 		try {
 			for (Enumeration<NetworkInterface> en = NetworkInterface
 					.getNetworkInterfaces(); en.hasMoreElements();) {

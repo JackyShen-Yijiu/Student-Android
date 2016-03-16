@@ -39,9 +39,9 @@
 
         <CheckBox
             android:id="@+id/setting_appointment_ck"
-            android:layout_width="45dp"
+            android:layout_width="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_height="22dp"
+            android:layout_height="wrap_content"
             android:button="@null"
             android:checked="true"
             android:background="@drawable/switch_bkground"
@@ -71,9 +71,9 @@
 
         <CheckBox
             android:id="@+id/setting_newmessage_ck"
-            android:layout_width="45dp"
+            android:layout_width="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_height="22dp"
+            android:layout_height="wrap_content"
             android:button="@null"
             android:checked="true"
             android:background="@drawable/switch_bkground"
