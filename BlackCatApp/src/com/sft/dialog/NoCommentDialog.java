@@ -74,6 +74,10 @@ public class NoCommentDialog extends Dialog implements
 		create(this.context);
 	}
 
+	public void setData(MyAppointmentVO myAppointmentVO) {
+		coachNameTv.setText(myAppointmentVO.getCoachid().getName());
+	}
+
 	private void create(Context context) {
 		LogUtil.print("dialog---------");
 		LayoutInflater inflater = LayoutInflater.from(context);
@@ -173,6 +177,22 @@ public class NoCommentDialog extends Dialog implements
 		return ratingBar;
 	}
 
+	public RatingBar getPunctualStar() {
+		return punctualStar;
+	}
+
+	public RatingBar getAttitudeStar() {
+		return attitudeStar;
+	}
+
+	public RatingBar getAbilityStar() {
+		return abilityStar;
+	}
+
+	public RatingBar getTotalStar() {
+		return totalStar;
+	}
+
 	public EditText getEditText() {
 		return commentEdit;
 	}
@@ -221,7 +241,7 @@ public class NoCommentDialog extends Dialog implements
 			int id = v.getId();
 			switch (id) {
 			case R.id.dialog_comment_more_btn:
-				clickListenerInterface.getMoreClick();
+				// clickListenerInterface.getMoreClick();
 				break;
 			case R.id.dialog_comment_commit_btn:
 				clickListenerInterface.commintClick();
