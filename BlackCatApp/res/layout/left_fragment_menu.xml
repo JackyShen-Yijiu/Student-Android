@@ -120,7 +120,7 @@
                             android:layout_width="1dp"
                             android:layout_height="28dp"
                             android:gravity="center_vertical"
-                            android:background="@color/left_gray"/>
+                            android:background="#dadada"/>
             
             
             <RadioButton

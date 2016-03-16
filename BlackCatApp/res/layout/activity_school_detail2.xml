@@ -36,9 +36,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp" >
 
-                    <cn.sft.infinitescrollviewpager.InfiniteViewPager
+                    <ImageView
                         android:id="@+id/school_detail_viewpager"
                         android:layout_width="match_parent"
+                        android:background="@drawable/defaultimage"
                         android:layout_height="match_parent" />
 
                     <ImageView
