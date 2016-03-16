@@ -35,7 +35,6 @@ import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.infinitescrollviewpager.BitMapURLExcepteionListner;
 import cn.sft.infinitescrollviewpager.InfinitePagerAdapter;
-import cn.sft.infinitescrollviewpager.InfiniteViewPager;
 import cn.sft.infinitescrollviewpager.MyHandler;
 import cn.sft.infinitescrollviewpager.PageChangeListener;
 import cn.sft.infinitescrollviewpager.PageClickListener;
@@ -100,7 +99,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 	/**
 	 * 广告栏
 	 */
-	private InfiniteViewPager viewPager;
+	private ImageView viewPager;
 	/**
 	 * 广告内容
 	 */
@@ -273,7 +272,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 		sv_container = (MyScrollView) findViewById(R.id.school_detail_scrollview);
 		sv_container.setOnStateListener(this);
 		adLayout = (RelativeLayout) findViewById(R.id.school_detail_headpic_im);
-		viewPager = (InfiniteViewPager) findViewById(R.id.school_detail_viewpager);
+		viewPager = (ImageView) findViewById(R.id.school_detail_viewpager);
 		dotLayout = (LinearLayout) findViewById(R.id.school_detail_dotlayout);
 
 		// tvNoPic = (TextView) findViewById(R.id.school_detail_nopic_tv);
@@ -365,7 +364,6 @@ public class SchoolDetailActivity extends BaseActivity implements
 	private void setListener() {
 		schoolAddressTv.setOnClickListener(this);
 		// enrollBtn.setOnClickListener(this);
-		viewPager.setPageChangeListener(this);
 		// horizontalListView.setLoadMoreListener(this);
 		addDeleteSchoolCk.setOnCheckedChangeListener(this);
 		schoolInTv.setOnClickListener(this);
@@ -521,7 +519,6 @@ public class SchoolDetailActivity extends BaseActivity implements
 		}
 		adapter.setPageClickListener(new MyPageClickListener());
 		adapter.setURLErrorListener(this);
-		viewPager.setAdapter(adapter);
 
 		imageViews = new ImageView[length];
 		ImageView imageView = null;
@@ -595,7 +592,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 			if (type.equals(schoolType)) {
 				if (data != null) {
 					school = JSONUtil.toJavaBean(SchoolVO.class, data);
-					obtainHeadLineNews();
+					// obtainHeadLineNews();
 					setData();
 					obtainEnrollClass();
 
@@ -710,9 +707,14 @@ public class SchoolDetailActivity extends BaseActivity implements
 		switch (v.getId()) {
 		case R.id.school_detail_coach_info_rl:
 			// 进入教练列表
-			intent = new Intent(this, AppointmentMoreCoachActivity.class);
-			intent.putExtra("isOnClickToDetail", true);
-			startActivity(intent);
+
+			if (app.isLogin) {
+				intent = new Intent(this, AppointmentMoreCoachActivity.class);
+				intent.putExtra("isOnClickToDetail", true);
+				startActivity(intent);
+			} else {
+				BaseUtils.toLogin(this);
+			}
 			break;
 		case R.id.base_left_btn:
 			setResult(v.getId(), getIntent());

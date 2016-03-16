@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.baseactivity.util.MyHandler;
 
@@ -54,6 +55,7 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 	boolean isClick = true;
 
 	private ImageView delet_phone;
+	private TextView register_protocol_tv;
 
 	// 获取验证码
 	private final static String obtainCode = "obtainCode";
@@ -88,6 +90,8 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 		rb_check = (CheckBox) findViewById(R.id.rb_check);
 		show_password = (ImageView) findViewById(R.id.show_password);
 
+		register_protocol_tv = (TextView) findViewById(R.id.register_protocol_tv);
+
 		delet_phone = (ImageView) findViewById(R.id.delet_phone);
 
 		delet_phone.setVisibility(View.GONE);
@@ -97,6 +101,7 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 		sendCodeBtn.setOnClickListener(this);
 		registerBtn.setOnClickListener(this);
 		show_password.setOnClickListener(this);
+		register_protocol_tv.setOnClickListener(this);
 		// phoneEt.addTextChangedListener(new TextWatcher() {
 		//
 		// @Override
@@ -134,6 +139,10 @@ public class RegisterActivity extends BaseActivity implements EMLoginListener {
 			break;
 		case R.id.delet_phone:
 			phoneEt.setText("");
+			break;
+		case R.id.register_protocol_tv:
+			Intent intent = new Intent(this, TermsActivity.class);
+			startActivity(intent);
 			break;
 		case R.id.register_code_btn:
 			obtainCode();

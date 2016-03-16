@@ -8,7 +8,7 @@
     <include layout="@layout/layout_error" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/act_order_apply_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/new_app_main_color"

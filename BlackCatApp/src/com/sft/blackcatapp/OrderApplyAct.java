@@ -27,6 +27,7 @@ import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
+import com.sft.vo.MyOrderVO;
 import com.sft.vo.PayOrderVO;
 import com.sft.vo.SuccessVO;
 import com.sft.vo.UserBaseStateVO;
@@ -59,13 +60,19 @@ public class OrderApplyAct extends BaseActivity {
 	private TextView errorTv;
 
 	private LinearLayout ll_main;
+	
+	private TextView tvNotPay;
+	
+	private MyOrderVO myOrder;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		addView(R.layout.act_order_apply);
 		initView();
-		request();
+//		request();
+		requestMyOrder();
 		// getApplyState();
 		obtainApplySuccessInfo();
 	}
@@ -92,6 +99,9 @@ public class OrderApplyAct extends BaseActivity {
 		tvState = (TextView) findViewById(R.id.item_order_right2);
 		btn1 = (TextView) findViewById(R.id.item_order_button1);
 		btn2 = (TextView) findViewById(R.id.item_order_button2);
+		
+		tvNotPay = (TextView)findViewById(R.id.act_order_apply_tv);
+		
 		btn1.setText("立即支付");
 		btn2.setText(R.string.cancel_order);
 
@@ -106,13 +116,6 @@ public class OrderApplyAct extends BaseActivity {
 	}
 
 	private void setOffLine(SuccessVO successVO) {
-		// successVO.applyschoolinfo.name
-		// successVO.applyclasstypeinfo.name; //课程名称
-		// successVO.applyclasstypeinfo.price;
-		// successVO.applytime;// 报名时间
-		// successVO.applystate //申请状态
-		// successVO.applyclasstypeinfo.paytypestatus;//支付状态
-		// successVO.applyclasstypeinfo.paytype 1 线下支付 2线上支付
 
 		tvOrderName.setText(successVO.applyclasstypeinfo.name);
 		tvPayMoney.setText("实付款:");
@@ -124,16 +127,19 @@ public class OrderApplyAct extends BaseActivity {
 			tvTitle.setText(successVO.applyschoolinfo.name + "(线下)");
 			if (successVO.paytypestatus == 20) {// 申请成功
 				tvState.setText("报名成功");
+				tvNotPay.setText("订单已支付");
 				btn2.setVisibility(View.GONE);
 				btn1.setVisibility(View.GONE);
 			} else if (successVO.paytypestatus == 0) {// 未支付
 				tvState.setText("未支付");
+				tvNotPay.setText("订单未支付");
 				btn2.setVisibility(View.GONE);
 				btn1.setVisibility(View.VISIBLE);
 				// btn2.setText(R.string.cancel_order);
 				btn1.setText(R.string.cancel_order);
 			} else if (successVO.paytypestatus == 30) {// 支付失败
 				tvState.setText("支付失败");
+				tvNotPay.setText("订单支付失败");
 				btn2.setVisibility(View.GONE);
 				btn1.setVisibility(View.VISIBLE);
 				// btn2.setText(R.string.cancel_order);
@@ -144,16 +150,19 @@ public class OrderApplyAct extends BaseActivity {
 			tvTitle.setText(successVO.applyschoolinfo.name + "(线上)");
 			if (successVO.paytypestatus == 20) {// 申请成功
 				tvState.setText("报名成功");
+				tvNotPay.setText("订单已支付");
 				btn2.setVisibility(View.GONE);
 				btn1.setVisibility(View.GONE);
 			} else if (successVO.paytypestatus == 0) {// 未支付
 				tvState.setText("未支付");
+				tvNotPay.setText("订单未支付");
 				btn2.setVisibility(View.VISIBLE);
 				btn1.setVisibility(View.VISIBLE);
 				btn2.setText(R.string.cancel_order);
 				btn1.setText("立即支付");
 			} else if (successVO.paytypestatus == 30) {// 支付失败
 				tvState.setText("支付失败");
+				tvNotPay.setText("订单支付失败");
 				btn2.setVisibility(View.VISIBLE);
 				btn1.setVisibility(View.VISIBLE);
 				btn2.setText(R.string.cancel_order);
@@ -168,6 +177,61 @@ public class OrderApplyAct extends BaseActivity {
 					headParams.width, headParams.height);
 		}
 
+	}
+	
+	private void setMyOrder(MyOrderVO bean){
+		tvOrderName.setText(bean.applyclasstypeinfo.getName());
+		tvPayMoney.setText("实付款:");
+		tvPay1.setText("￥" + bean.applyclasstypeinfo.getPrice());
+		tvTime.setText("报名时间:" + bean.applytime);
+		
+		if (bean.paytype==1) {// 线下支付
+			tvTitle.setText(bean.applyschoolinfo.getName() + "(线下)");
+			if (bean.paytypestatus == 20) {// 申请成功
+				tvState.setText("报名成功");
+				btn2.setVisibility(View.GONE);
+				btn1.setVisibility(View.GONE);
+			} else if (bean.paytypestatus == 0) {// 未支付
+				tvState.setText("未支付");
+				btn2.setVisibility(View.GONE);
+				btn1.setVisibility(View.VISIBLE);
+				// btn2.setText(R.string.cancel_order);
+				btn1.setText(R.string.cancel_order);
+			} else if (bean.paytypestatus == 30) {// 支付失败
+				tvState.setText("支付失败");
+				btn2.setVisibility(View.GONE);
+				btn1.setVisibility(View.VISIBLE);
+				// btn2.setText(R.string.cancel_order);
+				btn1.setText(R.string.cancel_order);
+			}
+
+		} else {// 线上支付
+			tvTitle.setText(bean.applyschoolinfo.getName() + "(线上)");
+			if (bean.paytypestatus == 20) {// 申请成功
+				tvState.setText("报名成功");
+				btn2.setVisibility(View.GONE);
+				btn1.setVisibility(View.GONE);
+			} else if (bean.paytypestatus == 0) {// 未支付
+				tvState.setText("未支付");
+				btn2.setVisibility(View.VISIBLE);
+				btn1.setVisibility(View.VISIBLE);
+				btn2.setText(R.string.cancel_order);
+				btn1.setText("立即支付");
+			} else if (bean.paytypestatus == 30) {// 支付失败
+				tvState.setText("支付失败");
+				btn2.setVisibility(View.VISIBLE);
+				btn1.setVisibility(View.VISIBLE);
+				btn2.setText(R.string.cancel_order);
+				btn1.setText("立即支付");
+			}
+		}
+		
+		if (!TextUtils.isEmpty(bean.schoollogoimg)) {
+			LinearLayout.LayoutParams headParams = (LinearLayout.LayoutParams) img
+					.getLayoutParams();
+			BitmapManager.INSTANCE.loadBitmap2(bean.schoollogoimg, img,
+					headParams.width, headParams.height);
+		}
 	}
 
 	@Override
@@ -195,7 +259,7 @@ public class OrderApplyAct extends BaseActivity {
 
 				if (pay != null) {
 					Intent i = new Intent(OrderApplyAct.this,
-							ConfirmOrderActivity.class);
+							NewConfirmOrderActivity.class);
 					i.putExtra("repay", true);
 					i.putExtra("bean", pay);
 					startActivity(i);
@@ -222,12 +286,14 @@ public class OrderApplyAct extends BaseActivity {
 		case R.id.item_order_top_ll:// 订单详情
 			if (successVO != null) {
 				if (successVO.paytype.equals("1")) {// 线下
-
-					startActivity(new Intent(OrderApplyAct.this,
-							EnrollSuccessActivity.class));
+					Intent i = new Intent(OrderApplyAct.this,
+							EnrollSuccessActivity.class);
+					i.putExtra("isOnline", false);
+					startActivity(i);
 				} else {// 线上支付
 					Intent i = new Intent(OrderApplyAct.this,
-							OrderDetailActivity.class);
+							EnrollSuccessActivity.class);
+					i.putExtra("isOnline", true);
 					i.putExtra("bean", successVO);
 					i.putExtra("pay", pay);
 					startActivity(i);
@@ -353,6 +419,7 @@ public class OrderApplyAct extends BaseActivity {
 				}
 				if (payList.size() > 0) {
 					pay = payList.get(0);
+					LogUtil.print("pay---->"+pay.applyschoolinfo.getAddress()+"");
 					tvPay1.setText("￥" + pay.paymoney);
 					// setData(pay);
 				} else {
@@ -362,17 +429,6 @@ public class OrderApplyAct extends BaseActivity {
 				// LogUtil.print("order--size-->"+payList.size());
 
 			} else if (type.equals("state")) {
-				// if (data != null) {
-				// UserBaseStateVO baseStateVO = JSONUtil.toJavaBean(
-				// UserBaseStateVO.class, data);
-				// if (!baseStateVO.getApplystate().equals(
-				// app.userVO.getApplystate())) {
-				// this.baseStateVO = baseStateVO;
-				//
-				// app.userVO.setApplystate(baseStateVO.getApplystate());
-				// setDataOffLine(baseStateVO);
-				//
-				// }
 				// }
 			} else if (type.equals("applySchoolInfor")) {// 报名信息，，目的 获取线下报名的内容
 				ll_main.setVisibility(View.VISIBLE);
@@ -385,7 +441,9 @@ public class OrderApplyAct extends BaseActivity {
 					errorRl.setVisibility(View.VISIBLE);
 					errorTv.setText(msg);
 					ll.setVisibility(View.GONE);
+					tvNotPay.setVisibility(View.GONE);
 				} else {
+					tvNotPay.setVisibility(View.VISIBLE);
 					errorRl.setVisibility(View.GONE);
 					ll.setVisibility(View.VISIBLE);
 				}
@@ -393,6 +451,21 @@ public class OrderApplyAct extends BaseActivity {
 				MainActivity.TARGET_TAB = MainActivity.TAB_APPLY;
 				setResult(9);
 				finish();
+			} else if(type.equals("myorder")){//我的订单 详细
+				if (data != null) {
+					myOrder = JSONUtil.toJavaBean(MyOrderVO.class, data);
+					setMyOrder(myOrder);
+				}
+				if (result.equals("0")) {// 没有数据
+					errorRl.setVisibility(View.VISIBLE);
+					errorTv.setText(msg);
+					ll.setVisibility(View.GONE);
+					tvNotPay.setVisibility(View.GONE);
+				} else {
+					tvNotPay.setVisibility(View.VISIBLE);
+					errorRl.setVisibility(View.GONE);
+					ll.setVisibility(View.VISIBLE);
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -414,8 +487,21 @@ public class OrderApplyAct extends BaseActivity {
 		HttpSendUtils.httpGetSend("notPay", this, Config.IP
 				+ "api/v1/userinfo/getmypayorder", paramMap, 10000, headerMap);
 	}
+	
+	/**
+	 * 获取我的订单
+	 */
+	private void requestMyOrder() {
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("userid", app.userVO.getUserid());
+		Map<String, String> headerMap = new HashMap<String, String>();
+		headerMap.put("authorization", app.userVO.getToken());
+		HttpSendUtils.httpGetSend("myorder", this, Config.IP
+				+ "api/v1/userinfo/getmyorder", paramMap, 10000, headerMap);
+	}
 
 	/**
+get /user 
 	 * 订单状态
 	 */
 	private void getApplyState() {

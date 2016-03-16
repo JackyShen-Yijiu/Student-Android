@@ -40,6 +40,8 @@ public class OrderExchangeGoodAct extends BaseActivity implements
 	private TextView errorTvs;
 
 	private ImageView error_iv;
+	
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +76,9 @@ public class OrderExchangeGoodAct extends BaseActivity implements
 		HttpSendUtils.httpGetSend("exchangOrder", this, Config.IP
 				+ "api/v1/userinfo/getmyorderlist", paramMap, 10000, headerMap);
 	}
+	
+	
+
 
 	@Override
 	public void onClick(View v) {

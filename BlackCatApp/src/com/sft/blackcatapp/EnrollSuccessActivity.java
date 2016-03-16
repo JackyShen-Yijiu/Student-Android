@@ -94,14 +94,14 @@ public class EnrollSuccessActivity extends BaseActivity {
 		tvPayMoney = (TextView) findViewById(R.id.apply_commit_money);
 		tvApplytime = (TextView) findViewById(R.id.apply_commit_apply_time);
 		tvState = (TextView) findViewById(R.id.apply_commit_pay_state);
-
-		if (isOnline) {// 如果在线
+		if (isOnline) {// 如果在线,隐藏二维码
 			qrcode.setVisibility(View.GONE);
 			tv_Qr.setVisibility(View.GONE);
 			findViewById(R.id.textView7).setVisibility(View.GONE);
 			findViewById(R.id.textView8).setVisibility(View.GONE);
 		} else {// 线下 支付
-
+			qrcode.setVisibility(View.VISIBLE);
+			tv_Qr.setVisibility(View.VISIBLE);
 		}
 	}
 
@@ -266,7 +266,7 @@ public class EnrollSuccessActivity extends BaseActivity {
 			} else if (successVO.paytypestatus == 30) {// 支付失败
 				tvState.setText("支付失败");
 			}
-			qrcode.setVisibility(View.VISIBLE);
+//			qrcode.setVisibility(View.VISIBLE);
 
 		} else {// 线上支付
 			if (successVO.paytypestatus == 20) {// 申请成功
