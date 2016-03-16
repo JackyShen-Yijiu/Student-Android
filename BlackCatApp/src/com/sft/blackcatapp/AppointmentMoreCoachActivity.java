@@ -48,6 +48,7 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 	private List<CoachVO> coachList = new ArrayList<CoachVO>();
 	//
 	private CoachListAdapter adapter;
+	private String schoolId;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,22 +63,25 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 		selectDate = getIntent().getStringExtra("selectDate");
 		boolean isFromApply = getIntent().getBooleanExtra("isFromApply", false);
 
-		if (null != coachCourse && (!TextUtils.isEmpty(selectDate))) {
-			// 获取当前时间段可以预约的教练
-			obtainUsefulcoachTimely();
-			LogUtil.print("lfdnofdjbno");
-		} else {
-			obtainSchoolCoach(moreCoachPage);
-		}
 		// 标题
 		setTitleText(R.string.more_coach);
 		if (isFromApply) {
+			schoolId = getIntent().getStringExtra("schoolId");
 			setTitleText(R.string.select_coach);
 			headerRl.setVisibility(View.VISIBLE);
+			LogUtil.print("xxxx-adfsf-" + schoolId);
+			obtainSchoolCoach(moreCoachPage);
 		} else {
 			headerRl.setVisibility(View.GONE);
-
+			if (null != coachCourse && (!TextUtils.isEmpty(selectDate))) {
+				// 获取当前时间段可以预约的教练
+				obtainUsefulcoachTimely();
+			} else {
+				schoolId = app.userVO.getApplyschoolinfo().getId();
+				obtainSchoolCoach(moreCoachPage);
+			}
 		}
+
 		if ((getIntent().getBooleanExtra("isOnClickToDetail", false))) {
 
 			setTitleText(R.string.coach_list);
@@ -134,9 +138,9 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 	}
 
 	private void obtainSchoolCoach(int index) {
+		LogUtil.print("xxxx--" + schoolId);
 		HttpSendUtils.httpGetSend(schoolCoach, this, Config.IP
-				+ "api/v1/getschoolcoach/"
-				+ app.userVO.getApplyschoolinfo().getId() + "/" + index);
+				+ "api/v1/getschoolcoach/" + schoolId + "/" + index);
 	}
 
 	// 获取当前时间段可以预约的教练

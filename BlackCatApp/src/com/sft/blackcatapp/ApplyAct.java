@@ -293,6 +293,7 @@ public class ApplyAct extends BaseActivity implements
 			// 智能匹配
 			intent = new Intent(this, AppointmentMoreCoachActivity.class);
 			intent.putExtra("isFromApply", true);
+			intent.putExtra("schoolId", school.getSchoolid());
 			break;
 		case R.id.rl_class:// 整个布局点击
 		case R.id.check_btn:
