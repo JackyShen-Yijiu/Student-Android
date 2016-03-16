@@ -13,13 +13,15 @@
         <RelativeLayout
             android:id="@+id/appointment_has_coach_rl"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent"
+            android:background="@color/white"
+             >
 
             <android.support.v4.widget.SwipeRefreshLayout
                 android:id="@+id/fragment_appointment_swipe_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/btn_gray" >
+                 >
 
                 <ExpandableListView
                     android:id="@+id/fragment_appointment_listview_ep"
@@ -45,7 +47,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#99000000"
+            android:clickable="true"
             android:gravity="center"
+            android:visibility="gone"
             android:orientation="vertical" >
 
            
@@ -55,6 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="@color/white"
+                android:visibility="gone"
                 android:orientation="vertical" >
 
                 <TextView

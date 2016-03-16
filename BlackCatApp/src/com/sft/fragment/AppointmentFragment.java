@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
 import com.jzjf.app.R;
@@ -50,7 +51,7 @@ import de.greenrobot.event.EventBus;
 public class AppointmentFragment extends BaseFragment implements
 		OnClickListener, OnItemClickListener, OnRefreshListener {
 
-	private static final String reservation = "reservation";
+	private static final String RESERVATION = "reservation";
 	private static final String MYPROGRESS = "getmyprogress";
 
 	// private WeekViewPager viewPager;
@@ -266,13 +267,14 @@ public class AppointmentFragment extends BaseFragment implements
 	}
 
 	private void obtainOppointment() {
+		
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("userid", app.userVO.getUserid());
 		paramMap.put("subjectid", app.userVO.getSubject().getSubjectid());
 		Map<String, String> headerMap = new HashMap<String, String>();
 		headerMap.put("authorization", app.userVO.getToken());
-		// LogUtil.print("---" + app.userVO.getToken());
-		HttpSendUtils.httpGetSend(reservation, this, Config.IP
+		// 
+		HttpSendUtils.httpGetSend(RESERVATION, this, Config.IP
 				+ "api/v1/courseinfo/getmyreservation", paramMap, 10000,
 				headerMap);
 		requestStatus();
@@ -296,7 +298,7 @@ public class AppointmentFragment extends BaseFragment implements
 			return true;
 		}
 		try {
-			if (type.equals(reservation)) {
+			if (type.equals(RESERVATION)) {
 				if (dataArray != null) {
 					if (list == null) {
 						list = new ArrayList<MyAppointmentVO>();
@@ -439,6 +441,7 @@ public class AppointmentFragment extends BaseFragment implements
 		super.onActivityResult(requestCode, resultCode, data);
 		if (data != null) {
 			if (requestCode == 0) {
+				Toast.makeText(getActivity(), "onActivity-->"+requestCode, Toast.LENGTH_SHORT).show();
 				obtainOppointment();
 
 			}

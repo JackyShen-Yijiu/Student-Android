@@ -183,7 +183,9 @@
 		            android:hint="请输入或扫描邀请码(选填)"
 		            android:layout_marginLeft="32dp"
 		            android:textSize="14sp"
-		            android:textColor="#FFB7B7B7"/>
+		            android:textColor="#FFB7B7B7">
+		            
+		            </EditText>
 		        <ImageView 
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"

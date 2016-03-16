@@ -533,21 +533,22 @@ public class MyAppointmentListAdapter2 extends BaseExpandableListAdapter   {
 	
 	private void showPop(MyAppointmentVO myAppointmentVO){
 		final PopupWindow pop = new PopupWindow(context);
+//		pop.setHeight(1180);
 		pop.setHeight(LayoutParams.MATCH_PARENT);
 		pop.setWidth(LayoutParams.MATCH_PARENT);
+//		pop.
 		View view = View.inflate(context, R.layout.pop_qr, null);
 		view.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View arg0) {
 				pop.dismiss();
-				
 			}
 		});
 		ImageView img = (ImageView) view.findViewById(R.id.pop_qr_img);
 		img.setBackgroundColor(Color.WHITE);
 		
-		pop.setFocusable(true);  
+//		pop.setFocusable(true);  
 		   
 		// popupWindow.setBackgroundDrawable(new BitmapDrawable());  //comment by danielinbiti,如果添加了这行，那么标注1和标注2那两行不用加，加上这行的效果是点popupwindow的外边也能关闭  
 		view.setFocusable(true);//comment by danielinbiti,设置view能够接听事件，标注1  
@@ -555,7 +556,7 @@ public class MyAppointmentListAdapter2 extends BaseExpandableListAdapter   {
 		
 		pop.setContentView(view);
 		
-		pop.showAtLocation(context.getWindow().getDecorView(), Gravity.CENTER, 300, 400);
+		pop.showAtLocation(context.getWindow().getDecorView(), Gravity.TOP, 0, 0);
 		createQr(myAppointmentVO,img);
 	}
 	
