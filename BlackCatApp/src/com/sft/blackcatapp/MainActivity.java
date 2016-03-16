@@ -23,7 +23,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.DrawerLayout;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -32,12 +34,15 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import cn.jpush.android.api.JPushInterface;
@@ -88,7 +93,14 @@ import com.sft.vo.SchoolVO;
 public class MainActivity extends BaseMainActivity implements
 		SLMenuListOnItemClickListener, OnClickListener, OnTabLisener,
 		OnCheckedChangeListener {
+	
+	/**强制评价*/
 
+	private RelativeLayout rlMustComment;
+	
+	/**是否存在未评价 订单*/
+	private static boolean notComment = false;
+	
 	//
 	private static final String subjectContent = "subjectContent";
 	private static final String coach = "coach";
@@ -303,88 +315,12 @@ public class MainActivity extends BaseMainActivity implements
 		titleRightIv = (ImageView) findViewById(R.id.title_right_iv);
 		titleRightTv = (TextView) findViewById(R.id.title_right_tv);
 		titleFarRightIv = (ImageView) findViewById(R.id.title_far_right_iv);
-		// customize the SlidingMenu
-		// mSlidingMenu = getSlidingMenu();
-		// mSlidingMenu.setFitsSystemWindows(false);
-		// // mSlidingMenu.setBackgroundColor(Color.GREEN);
-		//
-		// mSlidingMenu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
-		// mSlidingMenu.setFadeEnabled(false);
-		// // mSlidingMenu.setBehindScrollScale(0.25f);
-		// mSlidingMenu.setFadeDegree(0.25f);
-		// TextView tv = new TextView(this);
-		// tv.setText("abckd");
-		// mSlidingMenu.setContent(tv);
-		// mSlidingMenu
-		// .setBehindCanvasTransformer(new SlidingMenu.CanvasTransformer() {
-		// @Override
-		// public void transformCanvas(Canvas canvas, float percentOpen) {
-		// float scale = (float) (percentOpen * 0.25 + 0.75);
-		// canvas.scale(scale, scale, -canvas.getWidth() / 2,
-		// canvas.getHeight() / 2);
-		// }
-		// });
-		//
-		// mSlidingMenu
-		// .setAboveCanvasTransformer(new SlidingMenu.CanvasTransformer() {
-		// @Override
-		// public void transformCanvas(Canvas canvas, float percentOpen) {
-		// float scale = (float) (1 - percentOpen * 0.25);
-		// canvas.scale(scale, scale, 0, canvas.getHeight() / 2);
-		// }
-		// });
-		// mSlidingMenu.setBehindScrollScale(0.25f);
-		// mSlidingMenu.setFadeDegree(0.25f);
-		// mSlidingMenu.setBackgroundResource(R.drawable.left_menu_bg);
-		// mSlidingMenu
-		// .setBehindCanvasTransformer(new SlidingMenu.CanvasTransformer() {
-		// @Override
-		// public void transformCanvas(Canvas canvas, float percentOpen) {
-		// float scale = (float) (percentOpen * 0.25 + 0.75);
-		// canvas.scale(scale, scale, -canvas.getWidth() / 2,
-		// canvas.getHeight() / 2);
-		// }
-		// });
-		//
-		// mSlidingMenu
-		// .setAboveCanvasTransformer(new SlidingMenu.CanvasTransformer() {
-		// @Override
-		// public void transformCanvas(Canvas canvas, float percentOpen) {
-		// float scale = (float) (1 - percentOpen * 0.25);
-		// canvas.scale(scale, scale, 0, canvas.getHeight() / 2);
-		// }
-		// });
-
-		// 设置 SlidingMenu 内容
-		// FragmentTransaction fragmentTransaction = getSupportFragmentManager()
-		// .beginTransaction();
-		// fragmentTransaction.replace(R.id.left_menu, new MenuFragment());
-		// fragmentTransaction.commit();
-		// d.start();
+		
+		rlMustComment = (RelativeLayout) findViewById(R.id.main_force_evaluate_rl);
+		
 	}
 
-	// Thread d = new Thread() {
-	//
-	// @Override
-	// public void run() {
-	// int i = 0;
-	// while (i < 100) {
-	// LogUtil.print("thread-->" + mSlidingMenu.getWidth());
-	// try {
-	// i++;
-	// Thread.sleep(1000);
-	// } catch (InterruptedException e) {
-	// e.printStackTrace();
-	// }
-	// }
-	//
-	// }
-	//
-	// };
 
-	// public void changeMenu() {
-	// mSlidingMenu.toggle();
-	// }
 
 	private void initData(Bundle savedInstanceState) {
 
@@ -398,36 +334,6 @@ public class MainActivity extends BaseMainActivity implements
 			app.selectEnrollClass = Util.getEnrollUserSelectedClass(this);
 
 		}
-		/*
-		 * 在一个Activity的一部分中显示其他Activity”要用到LocalActivityManagerity
-		 * 作用体现在manager获取View：manager.startActivity(String,
-		 * Intent).getDecorView()
-		 */
-		// activityManager = new LocalActivityManager(this, true);
-		// activityManager.dispatchCreate(savedInstanceState);
-		//
-		// // 加入2个子Activity
-		// Intent i1 = new Intent(this, SubjectEnrollActivity.class);
-		// Intent i2 = new Intent(this, SubjectOneActivity.class);
-		// Intent i3 = new Intent(this, SubjectTwoActivity.class);
-		// Intent i4 = new Intent(this, SubjectThreeActivity.class);
-		// Intent i5 = new Intent(this, SubjectFourActivity.class);
-		//
-		// List<View> listViews = new ArrayList<View>(); // 实例化listViews
-		// listViews.add(activityManager
-		// .startActivity("SubjectEnrollActivity", i1).getDecorView());
-		// listViews.add(activityManager.startActivity("SubjectOneActivity", i2)
-		// .getDecorView());
-		// listViews.add(activityManager.startActivity("SubjectTwoActivity", i3)
-		// .getDecorView());
-		// listViews.add(activityManager.startActivity("SubjectThreeActivity",
-		// i4)
-		// .getDecorView());
-		// listViews.add(activityManager.startActivity("SubjectFourActivity",
-		// i5)
-		// .getDecorView());
-		//
-		// viewPager.setAdapter(new MyPageAdapter(listViews));
 		refreshUI();
 		app.curCity = util.readParam(Config.USER_CITY);
 		initMyLocation();
@@ -586,8 +492,9 @@ public class MainActivity extends BaseMainActivity implements
 					}
 
 				} else {
-					NoLoginDialog dialog = new NoLoginDialog(this);
-					dialog.show();
+					BaseUtils.toLogin(this);
+//					NoLoginDialog dialog = new NoLoginDialog(this);
+//					dialog.show();
 				}
 				if (intent != null) {
 					startActivityForResult(intent, TAB_APPOINTMENT);
@@ -625,17 +532,17 @@ public class MainActivity extends BaseMainActivity implements
 				}
 			}
 			break;
+		case R.id.dialog_comment_more_btn://更多选项
+			
+			break;
+		case R.id.dialog_comment_commit_btn://提交评价
+			
+			break;
 		default:
 			break;
 		}
 	}
 
-	/**
-	 * 切换驾校\教练
-	 */
-	private void switchSchoolCoach() {
-
-	}
 
 	/**
 	 * 获取未评论列表
@@ -773,6 +680,7 @@ public class MainActivity extends BaseMainActivity implements
 				}
 			} else if (type.equals(NOT_COMMENT)) {
 				// 未评论 的 预约列表
+				notComment = false; 
 				LogUtil.print("notcomment::::>>" + jsonString);
 				if (dataArray != null) {
 					int length = dataArray.length();
@@ -813,7 +721,16 @@ public class MainActivity extends BaseMainActivity implements
 					commentDialog.setCanceledOnTouchOutside(false);
 					commentDialog
 							.setClicklistener(new NoCommentDialogClickListener());
-					commentDialog.show();
+					
+					notComment = true;
+					// 确定 都是评论
+					if(currentPage == TAB_APPOINTMENT){//预约
+						rlMustComment.setVisibility(View.VISIBLE);
+					}else{
+						rlMustComment.setVisibility(View.GONE);
+					}
+					
+//					commentDialog.show();
 
 					// List<MyAppointmentVO> list = new
 					// ArrayList<MyAppointmentVO>();
@@ -1030,21 +947,7 @@ public class MainActivity extends BaseMainActivity implements
 		return super.onKeyDown(keyCode, event);
 	}
 
-	// @Override
-	// public boolean onKeyUp(int keyCode, KeyEvent event) {
-	// if (keyCode == KeyEvent.KEYCODE_BACK) {
-	// long secondTime = System.currentTimeMillis();
-	// if (secondTime - firstTime > 2000) {// 如果两次按键时间间隔大于800毫秒，则不退出
-	// Toast.makeText(MainActivity.this, "再按一次退出程序...",
-	// Toast.LENGTH_SHORT).show();
-	// firstTime = secondTime;// 更新firstTime
-	// return true;
-	// } else {
-	// System.exit(0);// 否则退出程序
-	// }
-	// }
-	// return super.onKeyUp(keyCode, event);
-	// }
+	
 
 	private void obtainActivities() {
 
@@ -1196,12 +1099,15 @@ public class MainActivity extends BaseMainActivity implements
 							.getString(this, R.string.locationing) : util
 							.readParam(Config.USER_CITY));
 			rg.setVisibility(View.VISIBLE);
+			/**强制评价*/
+			rlMustComment.setVisibility(View.GONE);
 			break;
 		case TAB_STUDY:
 			currentPage = TAB_STUDY;
 			titleTv.setText(CommonUtil.getString(this,
 					R.string.tab_indicator_title_study));
 			rg.setVisibility(View.GONE);
+			rlMustComment.setVisibility(View.GONE);
 			break;
 		case TAB_APPOINTMENT:
 			currentPage = TAB_APPOINTMENT;
@@ -1213,17 +1119,20 @@ public class MainActivity extends BaseMainActivity implements
 			titleRightTv.setVisibility(View.VISIBLE);
 			titleRightTv
 					.setText(CommonUtil.getString(this, R.string.add_coach));
-			// } else {
-			// NoLoginDialog dialog = new NoLoginDialog(this);
-			// dialog.show();
-			// }
 			rg.setVisibility(View.GONE);
+			
+			if(currentPage == TAB_APPOINTMENT){//预约
+				rlMustComment.setVisibility(View.VISIBLE);
+			}else{
+				rlMustComment.setVisibility(View.GONE);
+			}
 			break;
 		case TAB_MALL:
 			currentPage = TAB_MALL;
 			titleTv.setText(CommonUtil.getString(this,
 					R.string.tab_indicator_title_mall));
 			rg.setVisibility(View.GONE);
+			rlMustComment.setVisibility(View.GONE);
 			break;
 		case TAB_COMMUNITY:
 			currentPage = TAB_COMMUNITY;
@@ -1253,10 +1162,10 @@ public class MainActivity extends BaseMainActivity implements
 
 		}
 		// MainActivity.TARGET_TAB = 0;
-		// if (app.userVO != null && !app.userVO.getApplystate().equals("0")) {
-		// // 获取未评论列表
-		// obtainNotComments();
-		// }
+		 if (app.userVO != null && !app.userVO.getApplystate().equals("0")) {
+		 // 获取未评论列表
+			 obtainNotComments();
+		 }
 	}
 
 	private void refreshUI() {
@@ -1346,20 +1255,41 @@ public class MainActivity extends BaseMainActivity implements
 		if (mMainContainer.getCurrentFragment().equals(
 				mMainContainer.enrollFragment)) {
 			mMainContainer.enrollFragment.switchSchoolOrCoach();
-			// if (mMainContainer.enrollFragment.type == 0) {
-			// titleTv.setText(R.string.driving_school);
-			// } else {
-			// titleTv.setText(R.string.coach);
-			// }
 		}
-		// switch(checkedId){
-		// case R.id.radio0://驾校
-		//
-		// break;
-		// case R.id.radio1://教练
-		//
-		// break;
-		// }
-
 	}
+	
+	/**
+	 * 初始化 未评论 对话框
+	 */
+	private void initNotCommentDialog(){
+		Button btnMore = (Button) findViewById(R.id.dialog_comment_more_btn);
+		EditText etContent = (EditText) findViewById(R.id.dialog_comment_edit_et);
+		
+		
+		
+		etContent.addTextChangedListener(new TextWatcher() {
+			
+			@Override
+			public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+					int arg3) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void afterTextChanged(Editable arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		
+	}
+	
 }

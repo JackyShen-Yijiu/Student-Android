@@ -211,6 +211,7 @@
                             android:gravity="top|left"
                             android:hint="我来说两句"
                             android:padding="10dp"
+                            android:maxLength="40"
                             android:singleLine="false"
                             android:textColor="#333333"
                             android:textColorHint="#999999"
@@ -250,6 +251,7 @@
                             android:layout_marginRight="14dp"
                             android:layout_weight="1"
                             android:background="@null"
+                            android:onClick="onClick"
                             android:text="更多选项"
                             android:textColor="@color/new_text_color_dark"
                             android:textSize="14sp" />
@@ -266,6 +268,7 @@
                             android:layout_height="match_parent"
                             android:layout_marginRight="15dp"
                             android:layout_weight="1"
+                            android:onClick="onClick"
                             android:background="@null"
                             android:text="提交评价"
                             android:textColor="@color/new_app_main_color"
