@@ -300,8 +300,6 @@ public class NewConfirmOrderActivity extends BaseActivity implements
 		super.onResume();
 	}
 	
-	
-
 	@Override
 	protected void onPause() {
 		weixinPayState = 1;

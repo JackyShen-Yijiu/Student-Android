@@ -71,7 +71,7 @@ public class OrderApplyAct extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		addView(R.layout.act_order_apply);
 		initView();
-//		request();
+		request();
 		requestMyOrder();
 		// getApplyState();
 		obtainApplySuccessInfo();
@@ -253,6 +253,7 @@ public class OrderApplyAct extends BaseActivity {
 			finish();
 			break;
 		case R.id.item_order_button1:// 立即支付,右面
+//			Toast("pay"+successVO.paytype);
 			if (successVO.paytype.equals("1")) {// 线下支付，重新报名
 				reEnroll();
 			} else {// 立即支付
