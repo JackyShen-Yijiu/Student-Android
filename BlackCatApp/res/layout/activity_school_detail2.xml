@@ -70,6 +70,7 @@
                             android:layout_centerVertical="true"
                             android:layout_marginRight="76dp"
                             android:isIndicator="true"
+                            android:stepSize="2dp"
                             android:rating="0" />
                     </RelativeLayout>
 
@@ -137,11 +138,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
                         android:layout_marginTop="12dp"
-                        android:drawableLeft="@drawable/schooldetail_price_icon"
+                        android:drawableLeft="@drawable/icon_qian"
                         android:drawablePadding="20dp"
                         android:gravity="center_vertical"
                         android:text="暂无"
-                        android:layout_marginLeft="15dp"
+                        android:layout_marginLeft="22dp"
                         android:textColor="@color/txt_333"
                         android:textSize="14dp" />
 
@@ -154,9 +155,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
-                        android:drawableLeft="@drawable/schooldetail_location_icon"
+                        android:drawableLeft="@drawable/icon_map"
                         android:drawablePadding="20dp"
-                        android:layout_marginLeft="15dp"
+                        android:layout_marginLeft="22dp"
                         android:gravity="center_vertical"
                         android:text="暂无"
                         android:textColor="#333333"
@@ -226,9 +227,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginLeft="22dp"
                     android:layout_marginTop="12dp"
-                    android:drawableLeft="@drawable/schooldetail_ratio_icon"
+                    android:drawableLeft="@drawable/icon_yuyue"
                     android:drawablePadding="20dp"
                     android:gravity="center_vertical"
                     android:text="暂无"
@@ -243,9 +244,9 @@
                     android:id="@+id/school_detail_time_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginLeft="22dp"
                     android:layout_marginTop="12dp"
-                    android:drawableLeft="@drawable/schooldetail_time_icon"
+                    android:drawableLeft="@drawable/icon_time"
                     android:drawablePadding="20dp"
                     android:gravity="center_vertical"
                     android:text="暂无"
@@ -302,11 +303,11 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentRight="true"
-                        android:layout_alignRight="@+id/coach_detail_introduction_tv"
                         android:layout_below="@+id/coach_detail_introduction_tv"
                         android:text="展开"
                         android:layout_marginRight="3dp"
                         android:textColor="#FF5B8EFB"
+                        android:layout_alignRight="@+id/coach_detail_introduction_tv"
                         android:textSize="12sp" />
                 </RelativeLayout>
             </RelativeLayout>
