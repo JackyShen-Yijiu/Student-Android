@@ -61,7 +61,15 @@ public class ProductDetailActivity extends BaseActivity {
 		boolean isCupon = getIntent().getBooleanExtra("isCupon", false);
 		String url = productVO.getDetailurl();
 		setTitleText("商品详情");
+		webView.setVerticalScrollBarEnabled(false);  
+
+		webView.setHorizontalScrollBarEnabled(false); 
+		
+		
 		WebSettings webSettings = webView.getSettings();
+		
+		webSettings.setUseWideViewPort(true); 
+		webSettings.setLoadWithOverviewMode(true); 
 		webView.setWebViewClient(new WebViewClient() {
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
