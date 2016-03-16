@@ -605,14 +605,16 @@ public class MainActivity extends BaseMainActivity implements
 		}
 	}
 
-	private void comment(String reservationId, String starLevel, String content) {
+	private void comment(String reservationId, String starLevel,
+			String attitudelevel, String timelevel, String abilitylevel,
+			String content) {
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("userid", app.userVO.getUserid());
 		paramMap.put("reservationid", reservationId);
 		paramMap.put("starlevel", starLevel);
-		paramMap.put("attitudelevel", starLevel);
-		paramMap.put("timelevel", starLevel);
-		paramMap.put("abilitylevel", starLevel);
+		paramMap.put("attitudelevel", attitudelevel);
+		paramMap.put("timelevel", timelevel);
+		paramMap.put("abilitylevel", abilitylevel);
 		paramMap.put("commentcontent", content);
 
 		Map<String, String> headerMap = new HashMap<String, String>();
@@ -1110,6 +1112,9 @@ public class MainActivity extends BaseMainActivity implements
 			rlMustComment.setVisibility(View.GONE);
 			break;
 		case TAB_APPOINTMENT:
+			// 弹出强制评价
+			// showPop();
+
 			currentPage = TAB_APPOINTMENT;
 
 			titleTv.setText(CommonUtil.getString(this,
@@ -1144,6 +1149,25 @@ public class MainActivity extends BaseMainActivity implements
 		default:
 			break;
 		}
+	}
+
+	private void showPop() {
+		final PopupWindow pop = new PopupWindow(this);
+		pop.setHeight(LayoutParams.MATCH_PARENT);
+		pop.setWidth(LayoutParams.MATCH_PARENT);
+		View view = View.inflate(this, R.layout.dialog_comment, null);
+
+		pop.setFocusable(true);
+
+		// popupWindow.setBackgroundDrawable(new BitmapDrawable()); //comment by
+		// danielinbiti,如果添加了这行，那么标注1和标注2那两行不用加，加上这行的效果是点popupwindow的外边也能关闭
+		view.setFocusable(true);// comment by danielinbiti,设置view能够接听事件，标注1
+		view.setFocusableInTouchMode(true);
+
+		pop.setContentView(view);
+
+		pop.showAtLocation(this.getWindow().getDecorView(), Gravity.CENTER, 0,
+				400);
 	}
 
 	private void refreshView() {
@@ -1227,12 +1251,14 @@ public class MainActivity extends BaseMainActivity implements
 
 		@Override
 		public void getMoreClick() {
-			// 跳转到评论页面
-			Intent intent = new Intent(MainActivity.this, CommentActivity.class);
-			intent.putExtra("appointmentVO", myAppointmentVO);
-			intent.putExtra("position", getIntent().getIntExtra("position", 0));
-			startActivityForResult(intent, 0);
-			commentDialog.dismiss();
+			// // 跳转到评论页面
+			// Intent intent = new Intent(MainActivity.this,
+			// CommentActivity.class);
+			// intent.putExtra("appointmentVO", myAppointmentVO);
+			// intent.putExtra("position", getIntent().getIntExtra("position",
+			// 0));
+			// startActivityForResult(intent, 0);
+			// commentDialog.dismiss();
 		}
 
 		@Override
@@ -1241,12 +1267,26 @@ public class MainActivity extends BaseMainActivity implements
 			String content = commentDialog.getEditText().getText().toString();
 			LogUtil.print(rating + content);
 
-			// if (TextUtils.isEmpty(content.trim())) {
-			// commentDialog.showErrorHint(true);
-			// } else {
-			// commentDialog.showErrorHint(false);
-			// comment(myAppointmentVO.get_id(), rating + "", content);
-			// }
+			float punctualStar = commentDialog.getPunctualStar().getRating();
+			float attitudeStar = commentDialog.getAttitudeStar().getRating();
+			float abilityStar = commentDialog.getAbilityStar().getRating();
+			float totalStar = commentDialog.getTotalStar().getRating();
+			// comment(String reservationId, String starLevel,
+			// String attitudelevel, String timelevel, String abilitylevel,
+			// String content) {
+			if (TextUtils.isEmpty(content.trim())) {
+			} else {
+				if (rating == 0) {
+					comment(myAppointmentVO.get_id(), totalStar + "",
+							attitudeStar + "", punctualStar + "", abilityStar
+									+ "", content);
+
+				} else {
+					comment(myAppointmentVO.get_id(), rating + "", attitudeStar
+							+ "", punctualStar + "", abilityStar + "", content);
+
+				}
+			}
 		}
 	}
 
