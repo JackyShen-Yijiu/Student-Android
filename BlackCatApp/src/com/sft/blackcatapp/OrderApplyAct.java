@@ -60,11 +60,10 @@ public class OrderApplyAct extends BaseActivity {
 	private TextView errorTv;
 
 	private LinearLayout ll_main;
-	
+
 	private TextView tvNotPay;
-	
+
 	private MyOrderVO myOrder;
-	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -99,9 +98,9 @@ public class OrderApplyAct extends BaseActivity {
 		tvState = (TextView) findViewById(R.id.item_order_right2);
 		btn1 = (TextView) findViewById(R.id.item_order_button1);
 		btn2 = (TextView) findViewById(R.id.item_order_button2);
-		
-		tvNotPay = (TextView)findViewById(R.id.act_order_apply_tv);
-		
+
+		tvNotPay = (TextView) findViewById(R.id.act_order_apply_tv);
+
 		btn1.setText("立即支付");
 		btn2.setText(R.string.cancel_order);
 
@@ -123,6 +122,7 @@ public class OrderApplyAct extends BaseActivity {
 		tvTime.setText("报名时间:" + successVO.applytime);// UTC2LOC.instance.getDate(pay.creattime,
 														// "yyyy-MM-dd HH:mm:ss")
 		LogUtil.print("paytypestatus---->" + successVO.paytypestatus);
+		tvNotPay.setVisibility(View.VISIBLE);
 		if (successVO.paytype.equals("1")) {// 线下支付
 			tvTitle.setText(successVO.applyschoolinfo.name + "(线下)");
 			if (successVO.paytypestatus == 20) {// 申请成功
@@ -178,14 +178,14 @@ public class OrderApplyAct extends BaseActivity {
 		}
 
 	}
-	
-	private void setMyOrder(MyOrderVO bean){
+
+	private void setMyOrder(MyOrderVO bean) {
 		tvOrderName.setText(bean.applyclasstypeinfo.getName());
 		tvPayMoney.setText("实付款:");
 		tvPay1.setText("￥" + bean.applyclasstypeinfo.getPrice());
 		tvTime.setText("报名时间:" + bean.applytime);
-		
-		if (bean.paytype==1) {// 线下支付
+
+		if (bean.paytype == 1) {// 线下支付
 			tvTitle.setText(bean.applyschoolinfo.getName() + "(线下)");
 			if (bean.paytypestatus == 20) {// 申请成功
 				tvState.setText("报名成功");
@@ -225,7 +225,7 @@ public class OrderApplyAct extends BaseActivity {
 				btn1.setText("立即支付");
 			}
 		}
-		
+
 		if (!TextUtils.isEmpty(bean.schoollogoimg)) {
 			LinearLayout.LayoutParams headParams = (LinearLayout.LayoutParams) img
 					.getLayoutParams();
@@ -420,7 +420,8 @@ public class OrderApplyAct extends BaseActivity {
 				}
 				if (payList.size() > 0) {
 					pay = payList.get(0);
-					LogUtil.print("pay---->"+pay.applyschoolinfo.getAddress()+"");
+					LogUtil.print("pay---->" + pay.applyschoolinfo.getAddress()
+							+ "");
 					tvPay1.setText("￥" + pay.paymoney);
 					// setData(pay);
 				} else {
@@ -452,7 +453,7 @@ public class OrderApplyAct extends BaseActivity {
 				MainActivity.TARGET_TAB = MainActivity.TAB_APPLY;
 				setResult(9);
 				finish();
-			} else if(type.equals("myorder")){//我的订单 详细
+			} else if (type.equals("myorder")) {// 我的订单 详细
 				if (data != null) {
 					myOrder = JSONUtil.toJavaBean(MyOrderVO.class, data);
 					setMyOrder(myOrder);
@@ -488,7 +489,7 @@ public class OrderApplyAct extends BaseActivity {
 		HttpSendUtils.httpGetSend("notPay", this, Config.IP
 				+ "api/v1/userinfo/getmypayorder", paramMap, 10000, headerMap);
 	}
-	
+
 	/**
 	 * 获取我的订单
 	 */
@@ -502,8 +503,7 @@ public class OrderApplyAct extends BaseActivity {
 	}
 
 	/**
-get /user 
-	 * 订单状态
+	 * get /user 订单状态
 	 */
 	private void getApplyState() {
 		Map<String, String> paramsMap = new HashMap<String, String>();
