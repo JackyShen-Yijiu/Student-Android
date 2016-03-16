@@ -4,6 +4,7 @@ import cn.sft.sqlhelper.DBVO;
 
 import com.sft.vo.coachvo.TrainFieldlInfo;
 import com.sft.vo.commentvo.CommentContent;
+import com.sft.vo.commonvo.ApplySchoolInfo;
 import com.sft.vo.commonvo.Subject;
 
 public class MyAppointmentVO extends DBVO {
@@ -28,6 +29,8 @@ public class MyAppointmentVO extends DBVO {
 	private String classdatetimedesc;
 	private String learningcontent;
 	private TrainFieldlInfo trainfieldlinfo;
+	private ApplySchoolInfo driveschoolinfo;
+	private String schoolmobile;
 
 	private String sigintime; // 签到时间
 	private CommentContent comment;
@@ -191,6 +194,22 @@ public class MyAppointmentVO extends DBVO {
 
 	public void setLearningcontent(String learningcontent) {
 		this.learningcontent = learningcontent;
+	}
+
+	public ApplySchoolInfo getDriveschoolinfo() {
+		return driveschoolinfo;
+	}
+
+	public void setDriveschoolinfo(ApplySchoolInfo driveschoolinfo) {
+		this.driveschoolinfo = driveschoolinfo;
+	}
+
+	public String getSchoolmobile() {
+		return schoolmobile;
+	}
+
+	public void setSchoolmobile(String schoolmobile) {
+		this.schoolmobile = schoolmobile;
 	}
 
 }

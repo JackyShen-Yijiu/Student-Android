@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -36,6 +37,10 @@ public class OrderExchangeGoodAct extends BaseActivity implements
 	private RelativeLayout errorRl;
 	private TextView errorTv;
 
+	private TextView errorTvs;
+
+	private ImageView error_iv;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -46,10 +51,11 @@ public class OrderExchangeGoodAct extends BaseActivity implements
 
 	private void initView() {
 		setTitleText("我的订单");
-
+		error_iv = (ImageView) findViewById(R.id.error_iv);
 		errorRl = (RelativeLayout) findViewById(R.id.error_rl);
 		errorTv = (TextView) findViewById(R.id.error_tv);
-		errorTv.setText(R.string.no_exchange_order);
+		errorTvs = (TextView) findViewById(R.id.error_tvs);
+
 		lv = (ListView) findViewById(R.id.enroll_select_school_listview);
 		bean = new ExchangeGoodOrderVO();
 		adapter = new ExchangeGoodOrderAdapter(this, bean);
@@ -90,8 +96,13 @@ public class OrderExchangeGoodAct extends BaseActivity implements
 				adapter.setData(bean);
 				if (bean.ordrelist.size() == 0) {
 					errorRl.setVisibility(View.VISIBLE);
+
+					error_iv.setImageResource(R.drawable.image_dingdan);
+					errorTv.setText("没有找到您的订单信息");
+					errorTvs.setVisibility(View.VISIBLE);
+					errorTvs.setText("请前往商城购买");
 				} else {
-					errorRl.setVisibility(View.VISIBLE);
+					errorRl.setVisibility(View.GONE);
 				}
 				// adapter.notifyDataSetChanged();
 

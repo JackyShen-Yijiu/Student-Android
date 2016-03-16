@@ -99,7 +99,7 @@ public class AppointmentFragment extends BaseFragment implements
 		// WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN
 		//
 		// | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-		commentDialog = new NoCommentDialog(getActivity());
+		// commentDialog = new NoCommentDialog(getActivity());
 		// commentDialog.show();
 		return rootView;
 	}

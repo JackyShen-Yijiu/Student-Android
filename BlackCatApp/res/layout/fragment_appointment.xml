@@ -4,9 +4,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
 
         <include layout="@layout/layout_error" />
 
@@ -54,13 +55,6 @@
 
            
 
-            <LinearLayout
-                android:layout_width="272dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@color/white"
-                android:visibility="gone"
-                android:orientation="vertical" >
 
                 <TextView
                     android:id="@+id/dialog_comment_title_tv"
@@ -145,186 +139,10 @@
                     android:layout_marginTop="15dp"
                     android:gravity="center_horizontal"
                     android:orientation="vertical"
-                    android:visibility="gone" >
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal" >
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="守时"
-                            android:textColor="@color/new_text_color_dark"
-                            android:textSize="12sp" />
-
-                        <RatingBar
-                            android:id="@+id/dialog_comment_punctual_star"
-                            style="@style/roomRatingBar_20"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginLeft="20dp"
-                            android:isIndicator="false" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="11dp"
-                        android:gravity="center"
-                        android:orientation="horizontal" >
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="态度"
-                            android:textColor="@color/new_text_color_dark"
-                            android:textSize="12sp" />
-
-                        <RatingBar
-                            android:id="@+id/dialog_comment_attitude_star"
-                            style="@style/roomRatingBar_20"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginLeft="20dp"
-                            android:isIndicator="false" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="11dp"
-                        android:gravity="center"
-                        android:orientation="horizontal" >
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="能力"
-                            android:textColor="@color/new_text_color_dark"
-                            android:textSize="12sp" />
-
-                        <RatingBar
-                            android:id="@+id/dialog_comment_ability_star"
-                            style="@style/roomRatingBar_20"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginLeft="20dp"
-                            android:isIndicator="false" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="11dp"
-                        android:gravity="center"
-                        android:orientation="horizontal" >
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="总体"
-                            android:textColor="@color/new_text_color_dark"
-                            android:textSize="12sp" />
-
-                        <RatingBar
-                            android:id="@+id/dialog_comment_total_star"
-                            style="@style/roomRatingBar_20"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginLeft="20dp"
-                            android:isIndicator="false" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <RelativeLayout
-                    android:layout_width="232dp"
-                    android:layout_height="91.5dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="15dp"
-                    android:background="@drawable/edittext_circle_frame"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true" >
-
-                    <EditText
-                        android:id="@+id/dialog_comment_edit_et"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@null"
-                        android:gravity="top|left"
-                        android:hint="我来说两句"
-                        android:padding="10dp"
-                        android:singleLine="false"
-                        android:textColor="#333333"
-                        android:textColorHint="#999999"
-                        android:textSize="12dp" />
-
-                    <TextView
-                        android:id="@+id/dialog_comment_words_num"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginRight="10dp"
-                        android:text="0/40"
-                        android:textColor="@color/text_color_light"
-                        android:textSize="12sp" />
-                </RelativeLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@color/line_color" />
-
-                <LinearLayout
-                    android:id="@+id/dialog_comment_btns"
-                    android:layout_width="match_parent"
-                    android:layout_height="49dp"
-                    android:orientation="horizontal"
-                    android:visibility="visible" >
-
-                    <Button
-                        android:id="@+id/dialog_comment_more_btn"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginRight="14dp"
-                        android:layout_weight="1"
-                        android:background="@null"
-                        android:text="更多选项"
-                        android:textColor="@color/new_text_color_dark"
-                        android:textSize="14sp" />
-
-                    <View
-                        android:layout_width="0.5dp"
-                        android:layout_height="34dp"
-                        android:layout_gravity="center"
-                        android:background="@color/line_color" />
-
-                    <Button
-                        android:id="@+id/dialog_comment_commit_btn"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="15dp"
-                        android:layout_weight="1"
-                        android:background="@null"
-                        android:text="提交评价"
-                        android:textColor="@color/new_app_main_color"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
-                <Button
-                    android:id="@+id/dialog_comment_more_commit_btn"
-                    android:layout_width="match_parent"
-                    android:layout_height="49dp"
-                    android:background="@null"
-                    android:text="提交评价"
-                    android:textColor="@color/new_app_main_color"
-                    android:textSize="14sp"
                     android:visibility="gone" />
-            </LinearLayout>
-            <!-- </ScrollView> -->
+
         </RelativeLayout>
-    </FrameLayout>
+
+    </LinearLayout>
 
 </LinearLayout>

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
+ <include layout="@layout/layout_error"/>
     <ListView
         android:id="@+id/my_wallet_listview"
         android:layout_width="match_parent"

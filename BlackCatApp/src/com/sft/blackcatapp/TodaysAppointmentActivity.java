@@ -15,6 +15,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -48,6 +49,8 @@ public class TodaysAppointmentActivity extends BaseActivity implements
 	private MyAppointmentVO myAppointmentVO;
 	private RelativeLayout error_rl;
 	private TextView error_tv;
+	private ImageView error_iv;
+	private TextView errorTvs;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +69,8 @@ public class TodaysAppointmentActivity extends BaseActivity implements
 
 		error_rl = (RelativeLayout) findViewById(R.id.error_rl);
 		error_tv = (TextView) findViewById(R.id.error_tv);
+		error_iv = (ImageView) findViewById(R.id.error_iv);
+		errorTvs = (TextView) findViewById(R.id.error_tvs);
 
 		swipeLayout = (SwipeRefreshLayout) findViewById(R.id.today_appointment_swipe_container);
 		order_ll = (RelativeLayout) findViewById(R.id.order_ll);
@@ -167,8 +172,10 @@ public class TodaysAppointmentActivity extends BaseActivity implements
 					LogUtil.print(length + "预约个数：--" + list.size());
 					if (list.size() <= 0) {
 						order_ll.setBackgroundResource(R.drawable.order_bg);
+
 						error_rl.setVisibility(View.VISIBLE);
-						error_tv.setText("小布还没有找到您的预约信息");
+						error_iv.setImageResource(R.drawable.image_yuyue);
+						error_tv.setText("没有找到您的预约信息");
 
 					} else {
 						if (adapter == null) {

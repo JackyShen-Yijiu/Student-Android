@@ -69,6 +69,7 @@ public class SussessAppointmentAdapter extends BaseAdapter {
 		public TextView schoolinfo;
 		public TextView classInfo;
 		public TextView learncontent;
+		public TextView orderTime;
 		public View line, splitLine;
 	}
 
@@ -84,8 +85,7 @@ public class SussessAppointmentAdapter extends BaseAdapter {
 		ViewHolder holder = null;
 		if (convertView == null) {
 			holder = new ViewHolder();
-			convertView = mInflater.inflate(R.layout.sussess_appointment,
-					null);
+			convertView = mInflater.inflate(R.layout.sussess_appointment, null);
 
 			holder.headpic = (SelectableRoundedImageView) convertView
 					.findViewById(R.id.my_appointment_coach_headpic_im);
@@ -106,6 +106,8 @@ public class SussessAppointmentAdapter extends BaseAdapter {
 					.findViewById(R.id.my_appointment_item_line_iv);
 			holder.splitLine = convertView
 					.findViewById(R.id.my_appointment_item_split_line_iv);
+			holder.orderTime = (TextView) convertView
+					.findViewById(R.id.my_appointment_item_ordertime_tv);
 			convertView.setTag(holder);
 		} else {
 
@@ -140,8 +142,8 @@ public class SussessAppointmentAdapter extends BaseAdapter {
 
 		holder.classInfo.setText(mData.get(position).getCourseprocessdesc());
 		holder.schoolinfo.setText(schoolName + trainPlace);
-		LogUtil.print(holder.learncontent+"content-->"+learnContent);
-		holder.learncontent.setText(null == learnContent? "":learnContent);
+		LogUtil.print(holder.learncontent + "content-->" + learnContent);
+		holder.learncontent.setText(null == learnContent ? "" : learnContent);
 
 		// 分块显示
 
@@ -193,6 +195,14 @@ public class SussessAppointmentAdapter extends BaseAdapter {
 		}
 
 		holder.line.setVisibility(View.VISIBLE);
+		if (!TextUtils.isEmpty(mData.get(position).getSigintime())) {
+			holder.orderTime.setText("签到时间："
+					+ UTC2LOC.instance.getDate(mData.get(position)
+							.getSigintime(), "HH:mm"));
+
+		} else {
+			holder.orderTime.setText("未签到");
+		}
 
 		return convertView;
 	}

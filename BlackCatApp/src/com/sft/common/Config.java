@@ -24,7 +24,6 @@ public class Config {
 
 	/** 支付宝回掉接口 */
 	public static final String RECALL_URL = IP + "paynotice/alipay";
-	
 
 	/** 当前版本号 */
 	// public static final String VERSION =

@@ -17,7 +17,6 @@ import com.jzjf.app.R;
 import com.sft.adapter.MyCodeListAdapter;
 import com.sft.common.Config;
 import com.sft.util.JSONUtil;
-import com.sft.util.LogUtil;
 import com.sft.vo.MyCodeVO;
 
 /**
@@ -120,8 +119,6 @@ public class YCodeListActivity extends BaseActivity implements
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		LogUtil.print("onitemclick");
-		Toast("onclick");
 		Intent intent = null;
 		intent = new Intent();
 		intent.putExtra("code", adapter.getItem(position - 1));

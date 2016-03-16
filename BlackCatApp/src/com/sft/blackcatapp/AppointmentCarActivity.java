@@ -64,6 +64,7 @@ public class AppointmentCarActivity extends BaseActivity implements
 	private static final String coachCourse = "coachCourse";
 	private static final String appointmentCourse = "appointmentCourse";
 	private static final String sameTimeStudent = "sameTimeStudent";
+	private static final String getmyfirstcoach = "getmyfirstcoach";
 
 	private RelativeLayout noCaochErrorRl;
 	private ImageView noCaochErrorIv;
@@ -264,9 +265,10 @@ public class AppointmentCarActivity extends BaseActivity implements
 			obtainCaochCourse(coachId);
 
 		} else {
-			noCaochErrorRl.setVisibility(View.VISIBLE);
-			hasAppointment.setVisibility(View.GONE);
-			belowLayout.setVisibility(View.GONE);
+			obtainMyFirstCoach();
+			// noCaochErrorRl.setVisibility(View.VISIBLE);
+			// hasAppointment.setVisibility(View.GONE);
+			// belowLayout.setVisibility(View.GONE);
 		}
 	}
 
@@ -314,8 +316,8 @@ public class AppointmentCarActivity extends BaseActivity implements
 			}
 			break;
 		case R.id.base_right_tv:
-			intent = new Intent(this, AppointmentMoreCoachActivity.class);
-			// finish();
+			// intent = new Intent(this, AppointmentMoreCoachActivity.class);
+			finish();
 			break;
 		case R.id.base_left_btn:
 			finish();
@@ -330,6 +332,18 @@ public class AppointmentCarActivity extends BaseActivity implements
 		if (intent != null) {
 			startActivityForResult(intent, v.getId());
 		}
+	}
+
+	private void obtainMyFirstCoach() {
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("userid", app.userVO.getUserid());
+		paramMap.put("subjectid", app.userVO.getSubject().getSubjectid());
+		Map<String, String> headerMap = new HashMap<String, String>();
+		headerMap.put("authorization", app.userVO.getToken());
+		HttpSendUtils
+				.httpGetSend(getmyfirstcoach, this, Config.IP
+						+ "api/v1/userinfo/getmyfirstcoach", paramMap, 10000,
+						headerMap);
 	}
 
 	private void appointmentCar() {
@@ -383,25 +397,27 @@ public class AppointmentCarActivity extends BaseActivity implements
 			return true;
 		}
 		LogUtil.print("callBack-->" + jsonString);
-		if (!TextUtils.isEmpty(msg)) {
 
-			// 清空时间表
-			timeLayout.clearData();
-			// ZProgressHUD.getInstance(this).show();
-			// ZProgressHUD.getInstance(this).dismissWithFailure(msg, 1000);
-			notimeTv.setVisibility(View.VISIBLE);
-			notimeTv.setText(msg);
-			timeLayout.setVisibility(View.GONE);
-			LogUtil.print(ZProgressHUD.getInstance(this).isShowing()
-					+ "callBack--1111>" + jsonString);
-			return true;
-		} else {
-			notimeTv.setVisibility(View.GONE);
-			timeLayout.setVisibility(View.VISIBLE);
-
-		}
 		try {
 			if (type.equals(coachCourse)) {
+				if (!TextUtils.isEmpty(msg)) {
+
+					// 清空时间表
+					timeLayout.clearData();
+					// ZProgressHUD.getInstance(this).show();
+					// ZProgressHUD.getInstance(this).dismissWithFailure(msg,
+					// 1000);
+					notimeTv.setVisibility(View.VISIBLE);
+					notimeTv.setText(msg);
+					timeLayout.setVisibility(View.GONE);
+					LogUtil.print(ZProgressHUD.getInstance(this).isShowing()
+							+ "callBack--1111>" + jsonString);
+					return true;
+				} else {
+					notimeTv.setVisibility(View.GONE);
+					timeLayout.setVisibility(View.VISIBLE);
+
+				}
 				timeLayout.clearData();
 				courseList.clear();
 
@@ -477,6 +493,26 @@ public class AppointmentCarActivity extends BaseActivity implements
 				}
 				studentListView.setAdapter(sameTimeStudentAdapter);
 				studentListView.setLoadMoreCompleted();
+			} else if (getmyfirstcoach.equals(type)) {
+				if (data != null) {
+					CoachVO coachVO = JSONUtil.toJavaBean(CoachVO.class, data);
+					if (coachVO != null) {
+						selectCoach = coachVO;
+						coachName.setText("教练" + selectCoach.getName());
+						RelativeLayout.LayoutParams headParam = (RelativeLayout.LayoutParams) coachPic
+								.getLayoutParams();
+						String url = selectCoach.getHeadportrait()
+								.getOriginalpic();
+						if (TextUtils.isEmpty(url)) {
+							coachPic.setBackgroundResource(R.drawable.login_head);
+						} else {
+							BitmapManager.INSTANCE.loadBitmap2(url, coachPic,
+									headParam.width, headParam.height);
+						}
+						coachId = selectCoach.getCoachid();
+						obtainCaochCourse(coachId);
+					}
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
