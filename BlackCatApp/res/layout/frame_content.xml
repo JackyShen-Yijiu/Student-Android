@@ -8,15 +8,14 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        
         android:background="@color/new_app_main_color"
         android:clipToPadding="true"
         android:fitsSystemWindows="true" >
 
         <com.sft.view.NoTouchRelativeLayout
-            android:clickable="false"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
+            android:layout_height="fill_parent"
+            android:clickable="false" >
 
             <!-- android:clipToPadding="true" -->
 
@@ -25,7 +24,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:clickable="true"
-                android:visibility="gone" /> 
+                android:visibility="gone" />
 
             <RelativeLayout
                 android:id="@+id/title_layout"
@@ -126,15 +125,15 @@
                 android:orientation="vertical" />
         </com.sft.view.NoTouchRelativeLayout>
 
-        <!-- <RelativeLayout
-            android:focusable="true"
+       <!--  <RelativeLayout
             android:id="@+id/main_force_evaluate_rl"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="52dp" >
+            android:layout_marginBottom="52dp"
+            android:focusable="true" >
 
             <include layout="@layout/dialog_comment" />
-        </RelativeLayout>  --> 
+        </RelativeLayout> -->
     </RelativeLayout>
 
     <fragment

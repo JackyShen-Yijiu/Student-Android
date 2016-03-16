@@ -169,10 +169,10 @@ public class BlackCatApplication extends Application {
 		PlatformConfig.setWeixin("wxb815a53dcb2faf06",
 				"2637931343bdd1d1991fcef1b28a187a");
 		// 新浪微博 appkey appsecret
-		PlatformConfig.setSinaWeibo("16181237",
-				"215d345663ccb8cd2366c3b07d32b738");
+		PlatformConfig.setSinaWeibo("1218454084",
+				"2bc6f9bf921f866bc1045c12f3fbebf8");
 		// QQ和Qzone appid appkey
-		PlatformConfig.setQQZone("1105134894", "701hksN2KY0uPIky");
+		PlatformConfig.setQQZone("1105156397", "CcGth5JpjJmfiLRG");
 
 	}
 

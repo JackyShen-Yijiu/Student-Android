@@ -17,15 +17,14 @@ import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
-import com.sft.blackcatapp.MainActivity;
 import com.jzjf.app.R;
+import com.sft.blackcatapp.MainActivity;
 import com.sft.blackcatapp.home.i.IIndicateMainTabNotification;
 import com.sft.blackcatapp.home.i.INewIntent;
 import com.sft.blackcatapp.home.i.IOnKeyDown;
 import com.sft.fragment.AppointmentFragment;
 import com.sft.fragment.EnrollFragment;
 import com.sft.fragment.MallFragment;
-import com.sft.fragment.OldSubjectTwoFragment;
 import com.sft.fragment.StudyFragment;
 import com.sft.util.LogUtil;
 
@@ -107,10 +106,10 @@ public class MainScreenContainer extends LinearLayout implements
 		mTabs.add(getTabInfo(R.id.tab_mall, new MallFragment(),
 				MainActivity.TAB_MALL, R.string.tab_indicator_title_mall,
 				R.drawable.sl_tab_icon_mall));
-//		mTabs.add(getTabInfo(R.id.tab_community, new OldSubjectTwoFragment(),
-//				MainActivity.TAB_COMMUNITY,
-//				R.string.tab_indicator_title_community,
-//				R.drawable.sl_tab_icon_community));
+		// mTabs.add(getTabInfo(R.id.tab_community, new OldSubjectTwoFragment(),
+		// MainActivity.TAB_COMMUNITY,
+		// R.string.tab_indicator_title_community,
+		// R.drawable.sl_tab_icon_community));
 	}
 
 	private TabInfo getTabInfo(int viewID, Fragment fragment, int type,
@@ -334,4 +333,21 @@ public class MainScreenContainer extends LinearLayout implements
 	public void setOnTabListener(OnTabLisener listener) {
 		this.mOnTabLisener = listener;
 	}
+
+	// @Override
+	// public boolean dispatchTouchEvent(MotionEvent ev) {
+	// int screenHeight = BaseUtils.getScreenHeight(getContext());
+	// int w = View.MeasureSpec.makeMeasureSpec(0,
+	// View.MeasureSpec.UNSPECIFIED);
+	// int h = View.MeasureSpec.makeMeasureSpec(0,
+	// View.MeasureSpec.UNSPECIFIED);
+	// measure(w, h);
+	// int height = getChildAt(getChildCount() - 1).getMeasuredHeight();
+	//
+	// if (screenHeight - ev.getRawY() < height) {
+	// return super.dispatchTouchEvent(ev);
+	// } else {
+	// return true;
+	// }
+	// }
 }

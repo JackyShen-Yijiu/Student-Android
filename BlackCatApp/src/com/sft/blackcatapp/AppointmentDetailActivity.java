@@ -220,11 +220,11 @@ public class AppointmentDetailActivity extends BaseActivity implements
 			// 签到信息
 			signInTimeLine.setVisibility(View.VISIBLE);
 			signInTimeRl.setVisibility(View.VISIBLE);
-			stopCarLine.setVisibility(View.VISIBLE);
-			stopCarRl.setVisibility(View.VISIBLE);
+			stopCarLine.setVisibility(View.GONE);
+			stopCarRl.setVisibility(View.GONE);
 			signInTimeTv.setText(UTC2LOC.instance.getDate(
 					appointmentVO.getSigintime(), "HH:mm"));
-			stopCarTv.setText(appointmentVO.getLearningcontent());
+			// stopCarTv.setText(appointmentVO.getLearningcontent());
 			qrcodeIv.setImageResource(R.drawable.appointment_detail_signfinish);
 			cancelBtnLl.setVisibility(View.GONE);
 		} else if (appointmentVO.getReservationstate().equals(

@@ -90,21 +90,21 @@ public class Config {
 		applying("1"),
 		// 学员预约取消
 		applycancel("2"),
-		// 教练同意
+		// 教练同意(已确定)
 		applyconfirm("3"),
-		// 教练拒绝取消
+		// 教练拒绝或取消
 		applyrefuse("4"),
-		//
+		// 待确认完成（现在没有该状态）
 		unconfirmfinish("5"),
-		//
+		// 待评价
 		ucomments("6"),
-		//
+		// 订单完成
 		finish("7"),
 		// 系统取消
 		systemcancel("8"),
 		// 已签到
 		signfinish("9"),
-		// 漏课
+		// 漏课（未签到）
 		missclass("10");
 
 		private String index;

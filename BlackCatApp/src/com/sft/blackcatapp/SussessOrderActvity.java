@@ -94,7 +94,7 @@ public class SussessOrderActvity extends BaseActivity implements
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		Intent intent = new Intent(this, AppointmentDetailActivity.class);
-		intent.putExtra("appointmentDetail", list.get(arg2 - 1));
+		intent.putExtra("appointmentDetail", list.get(arg2));
 		startActivity(intent);
 	}
 
