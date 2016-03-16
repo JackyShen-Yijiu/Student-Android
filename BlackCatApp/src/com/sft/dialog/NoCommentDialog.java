@@ -52,7 +52,7 @@ public class NoCommentDialog extends Dialog implements
 
 	private TextView coachNameTv;
 
-	private TextView titleTv;
+	private TextView commentTitleTv;
 
 	private LinearLayout commentStarsLl;
 
@@ -83,15 +83,16 @@ public class NoCommentDialog extends Dialog implements
 		LayoutInflater inflater = LayoutInflater.from(context);
 		View view = inflater.inflate(R.layout.dialog_comment, null);
 
-		titleTv = (TextView) view.findViewById(R.id.dialog_comment_title_tv);
+		commentTitleTv = (TextView) view
+				.findViewById(R.id.dialog_comment_title_tv);
 		coachPicIv = (SelectableRoundedImageView) view
-				.findViewById(R.id.dialog_comment_coach_im);
+				.findViewById(R.id.dialog_comment_coach_im1);
 		coachPicIv.setScaleType(ScaleType.CENTER_CROP);
 		coachPicIv.setImageResource(R.drawable.login_head);
 		coachPicIv.setOval(true);
 
 		coachNameTv = (TextView) view
-				.findViewById(R.id.dialog_comment_coach_name_tv);
+				.findViewById(R.id.dialog_comment_coach_name_tv1);
 		ratingBar = (RatingBar) view
 				.findViewById(R.id.dialog_comment_ratingBar);
 
@@ -262,7 +263,7 @@ public class NoCommentDialog extends Dialog implements
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.dialog_comment_more_btn:
-			titleTv.setVisibility(View.GONE);
+			commentTitleTv.setVisibility(View.GONE);
 			ratingBar.setVisibility(View.GONE);
 			commentBtns.setVisibility(View.GONE);
 

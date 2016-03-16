@@ -84,6 +84,9 @@ public class AppointmentDetailActivity extends BaseActivity implements
 	private View stopCarLine;
 	private LinearLayout cancelBtnLl;
 	private TextView cancelBtnHintTv;
+	private LinearLayout coachRefuseLl;
+	private TextView coachRefuseReasonTv;
+	private TextView coachRefuseTimeTv;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -161,6 +164,11 @@ public class AppointmentDetailActivity extends BaseActivity implements
 		cancelBtn = (Button) findViewById(R.id.appointment_detail_cancel_but);
 		cancelBtnHintTv = (TextView) findViewById(R.id.appointment_detail_btn_hint_tv);
 		cancelBtnLl = (LinearLayout) findViewById(R.id.appointment_detail_but_ll);
+
+		coachRefuseLl = (LinearLayout) findViewById(R.id.appointment_detail_coach_refuse_ll);
+		coachRefuseLl.setVisibility(View.GONE);
+		coachRefuseReasonTv = (TextView) findViewById(R.id.appointment_detail_coach_refuse_reason_tv);
+		coachRefuseTimeTv = (TextView) findViewById(R.id.appointment_detail_coach_refuse_time_tv);
 	}
 
 	private void setData(MyAppointmentVO appointmentVO) {
@@ -177,6 +185,20 @@ public class AppointmentDetailActivity extends BaseActivity implements
 			appointInfoTv.setText("教练还没有接受预约，请耐心等一下哦");
 			appointInfoTv.setTextSize(14);
 			signKnowTv.setVisibility(View.GONE);
+			// 开课24小时内不能取消
+			long beginTime = UTC2LOC.instance.getDates(
+					appointmentVO.getBegintime(), "yyyy-MM-dd HH:mm:ss")
+					.getTime()
+					- new Date().getTime();
+			if (beginTime / 1000 / 60 / 60 < 24) {
+				cancelBtn.setEnabled(false);
+				cancelBtn
+						.setBackgroundResource(R.drawable.button_rounded_corners_gray);
+			} else {
+				cancelBtn.setEnabled(true);
+				cancelBtn
+						.setBackgroundResource(R.drawable.button_rounded_corners);
+			}
 
 		} else if (appointmentVO.getReservationstate().equals(
 				Config.AppointmentResult.applyconfirm.getValue())) {
@@ -257,6 +279,11 @@ public class AppointmentDetailActivity extends BaseActivity implements
 			appointInfoTv.setVisibility(View.GONE);
 			signKnowTv.setVisibility(View.GONE);
 			cancelBtnLl.setVisibility(View.GONE);
+			coachRefuseLl.setVisibility(View.VISIBLE);
+			coachRefuseReasonTv.setText(appointmentVO.getCancelreason()
+					.getCancelcontent());
+			coachRefuseTimeTv.setText(UTC2LOC.instance.getDate(
+					appointmentVO.getSigintime(), "MM/dd HH:mm"));
 		} else {
 			appointState.setText("预约已接受");
 			qrcodeIv.setImageResource(R.drawable.appointment_detail_applyconfirm);

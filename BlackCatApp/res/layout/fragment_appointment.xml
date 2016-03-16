@@ -15,7 +15,7 @@
             android:id="@+id/appointment_has_coach_rl"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
+            android:background="@color/app_bg_dark"
              >
 
             <android.support.v4.widget.SwipeRefreshLayout
@@ -28,7 +28,7 @@
                     android:id="@+id/fragment_appointment_listview_ep"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#ffffff"
+                    android:background="@color/app_bg_dark"
                     android:cacheColorHint="#00000000"
                     android:descendantFocusability="blocksDescendants"
                     android:divider="@null"
@@ -42,106 +42,6 @@
             </android.support.v4.widget.SwipeRefreshLayout>
         </RelativeLayout>
 
-        <!-- 强制评价 -->
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#99000000"
-            android:clickable="true"
-            android:gravity="center"
-            android:visibility="gone"
-            android:orientation="vertical" >
-
-           
-
-
-                <TextView
-                    android:id="@+id/dialog_comment_title_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="30dp"
-                    android:gravity="center_horizontal"
-                    android:text="上次练车练的怎么样?\n先来评价一下~"
-                    android:textColor="@color/new_text_color_dark"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="15dp"
-                    android:text="教练"
-                    android:textColor="@color/new_text_color_light"
-                    android:textSize="14sp" />
-
-                <com.joooonho.SelectableRoundedImageView
-                    android:id="@+id/dialog_comment_coach_im"
-                    android:layout_width="49dp"
-                    android:layout_height="49dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="19dp"
-                    android:background="@drawable/ic_launcher"
-                    android:contentDescription="@string/app_name" />
-
-                <TextView
-                    android:id="@+id/dialog_comment_coach_name_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="10dp"
-                    android:text="郑容和"
-                    android:textColor="@color/new_text_color_dark"
-                    android:textSize="16sp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:gravity="center"
-                    android:orientation="horizontal" >
-
-                    <View
-                        android:layout_width="83dp"
-                        android:layout_height="0.5dp"
-                        android:background="@color/line_color" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginLeft="9dp"
-                        android:layout_marginRight="9dp"
-                        android:text="评价教练"
-                        android:textColor="@color/new_text_color_light"
-                        android:textSize="12sp" />
-
-                    <View
-                        android:layout_width="83dp"
-                        android:layout_height="0.5dp"
-                        android:background="@color/line_color" />
-                </LinearLayout>
-
-                <RatingBar
-                    android:id="@+id/dialog_comment_ratingBar"
-                    style="@style/roomRatingBar_30"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginTop="14.5dp"
-                    android:isIndicator="false"
-                    android:visibility="visible" />
-
-                <LinearLayout
-                    android:id="@+id/dialog_comment_stars_ll"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    android:visibility="gone" />
-
-        </RelativeLayout>
 
     </LinearLayout>
 

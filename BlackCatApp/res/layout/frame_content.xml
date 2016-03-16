@@ -12,10 +12,11 @@
         android:clipToPadding="true"
         android:fitsSystemWindows="true" >
 
-        <com.sft.view.NoTouchRelativeLayout
+        <RelativeLayout
+            android:id="@+id/main_rl"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:clickable="false" >
+            android:clickable="true" >
 
             <!-- android:clipToPadding="true" -->
 
@@ -123,7 +124,7 @@
                 android:layout_below="@+id/title_layout"
                 android:background="@color/white"
                 android:orientation="vertical" />
-        </com.sft.view.NoTouchRelativeLayout>
+        </RelativeLayout>
         <!--  
 		<View
             android:focusable="true"
@@ -142,7 +143,7 @@
             android:id="@+id/main_force_evaluate_rl"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clickable="true"
+            android:clickable="false"
             android:layout_marginBottom="52dp" >
 
             <include layout="@layout/dialog_comment" />

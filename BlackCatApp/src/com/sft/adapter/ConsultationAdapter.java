@@ -93,36 +93,44 @@ public class ConsultationAdapter extends BaseAdapter {
 		LinearLayout.LayoutParams headParams = (LinearLayout.LayoutParams) holder.studentPic
 				.getLayoutParams();
 
-		String url = consultationVO.getUserid().getHeadportrait()
-				.getOriginalpic();
-		if (TextUtils.isEmpty(url)) {
-			holder.studentPic.setImageResource(R.drawable.login_head);
-		} else {
-			BitmapManager.INSTANCE.loadBitmap2(url, holder.studentPic,
-					headParams.width, headParams.height);
+		if (consultationVO != null) {
+
+			if (consultationVO.getUserid() != null
+					&& consultationVO.getUserid().getHeadportrait() != null) {
+
+				String url = consultationVO.getUserid().getHeadportrait()
+						.getOriginalpic();
+				if (TextUtils.isEmpty(url)) {
+					holder.studentPic.setImageResource(R.drawable.login_head);
+				} else {
+					BitmapManager.INSTANCE.loadBitmap2(url, holder.studentPic,
+							headParams.width, headParams.height);
+				}
+				holder.studentName
+						.setText(consultationVO.getUserid().getName());
+			}
+			holder.studentAnswerTime.setText(UTC2LOC.instance.getDate(
+					consultationVO.getCreatetime(), "MM/dd HH:mm:ss"));
+			holder.studentAnswerContent.setText(consultationVO.getContent());
+
+			holder.coachPic.setImageResource(R.drawable.head_driving);
+			if (TextUtils.isEmpty(consultationVO.getReplyuser())) {
+				holder.coachName.setText("驾校回复");
+
+			} else {
+				holder.coachName.setText(consultationVO.getReplyuser() + "回复");
+			}
+			holder.coachAnswerTime.setText(UTC2LOC.instance.getDate(
+					consultationVO.getReplytime(), "MM/dd HH:mm:ss"));
+
+			if (TextUtils.isEmpty(consultationVO.getReplycontent())) {
+				holder.coachAnswerContent.setText("等待驾校回复中...");
+
+			} else {
+				holder.coachAnswerContent
+						.setText(consultationVO.getReplyuser());
+			}
 		}
-		holder.studentName.setText(consultationVO.getUserid().getName());
-		holder.studentAnswerTime.setText(UTC2LOC.instance.getDate(
-				consultationVO.getCreatetime(), "MM/dd HH:mm:ss"));
-		holder.studentAnswerContent.setText(consultationVO.getContent());
-
-		holder.coachPic.setImageResource(R.drawable.head_driving);
-		if (TextUtils.isEmpty(consultationVO.getReplyuser())) {
-			holder.coachName.setText("驾校回复");
-
-		} else {
-			holder.coachName.setText(consultationVO.getReplyuser() + "回复");
-		}
-		holder.coachAnswerTime.setText(UTC2LOC.instance.getDate(
-				consultationVO.getReplytime(), "MM/dd HH:mm:ss"));
-
-		if (TextUtils.isEmpty(consultationVO.getReplycontent())) {
-			holder.coachAnswerContent.setText("等待驾校回复中...");
-
-		} else {
-			holder.coachAnswerContent.setText(consultationVO.getReplyuser());
-		}
-
 		return convertView;
 	}
 

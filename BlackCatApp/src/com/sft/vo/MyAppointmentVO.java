@@ -34,7 +34,9 @@ public class MyAppointmentVO extends DBVO {
 
 	private String sigintime; // 签到时间
 	private CommentContent comment;
+	private CancelReasonVO cancelreason;
 
+	// cancelreason:{reason:String,cancelcontent:String},、
 	public String getSigintime() {
 		return sigintime;
 	}
@@ -210,6 +212,18 @@ public class MyAppointmentVO extends DBVO {
 
 	public void setSchoolmobile(String schoolmobile) {
 		this.schoolmobile = schoolmobile;
+	}
+
+	public CancelReasonVO getCancelreason() {
+		return cancelreason;
+	}
+
+	public void setCancelreason(CancelReasonVO cancelreason) {
+		this.cancelreason = cancelreason;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 }

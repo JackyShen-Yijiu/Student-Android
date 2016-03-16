@@ -451,8 +451,7 @@ public class AppointmentCarActivity extends BaseActivity implements
 
 					// 预约成功，保存当前的教练，以备下次预约
 					Util.saveAppointmentCoach(this, selectCoach);
-					// EventBus.getDefault().post(new
-					// AppointmentSuccessEvent());
+					EventBus.getDefault().post(new AppointmentSuccessEvent());
 					Intent intent = new Intent();
 					setResult(RESULT_OK, intent);
 

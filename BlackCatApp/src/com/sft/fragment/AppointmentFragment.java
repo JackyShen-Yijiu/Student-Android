@@ -22,7 +22,7 @@ import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.ImageView;
-import android.widget.RadioButton;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -56,14 +56,14 @@ public class AppointmentFragment extends BaseFragment implements
 
 	// private WeekViewPager viewPager;
 	private TextView subjectValueTv, subjectTextTv;
-	TextView tvLastXueShi ;
+	TextView tvLastXueShi;
 	//
 	private StudentSubject subject = null;
 
 	private TextView tvLeft1, tvRight1, tvLeft2, tvRight2;
 
 	//
-	 private SwipeRefreshLayout appointmentSwipeLaout;
+	private SwipeRefreshLayout appointmentSwipeLaout;
 	//
 	private MyAppointmentListAdapter2 adapter;
 	private RelativeLayout hasCaochRl;
@@ -82,8 +82,9 @@ public class AppointmentFragment extends BaseFragment implements
 
 	private List<MyAppointmentVO> finishedList = null;
 	private NoCommentDialog commentDialog;
-	
+
 	private String subjectId = "0";
+	private LinearLayout yuekaoLr;
 
 	public AppointmentFragment() {
 	}
@@ -105,17 +106,18 @@ public class AppointmentFragment extends BaseFragment implements
 	}
 
 	private void initCurrentProgress(View rootView) {
-		//科目二   科目三
+		// 科目二 科目三
 		subjectValueTv = (TextView) rootView
 				.findViewById(R.id.my_appointment_subject_value_tv);
 		// 已学38 学时 坡道起步
 		subjectTextTv = (TextView) rootView
 				.findViewById(R.id.my_appointment_subject_text_tv);
-		
+
 		tvLastXueShi = (TextView) rootView
 				.findViewById(R.id.learn_progress_last_class);
-		rootView.findViewById(R.id.learn_progress_yuekao).setOnClickListener(this);
-		
+		yuekaoLr = (LinearLayout) rootView
+				.findViewById(R.id.learn_progress_yuekao);
+		yuekaoLr.setOnClickListener(this);
 		tvLeft1 = (TextView) rootView.findViewById(R.id.my_appoint_studied);
 		tvRight1 = (TextView) rootView.findViewById(R.id.my_appoint_really);
 		tvRight2 = (TextView) rootView.findViewById(R.id.my_appoint_last);
@@ -131,15 +133,15 @@ public class AppointmentFragment extends BaseFragment implements
 			noCaochErrorRl.setVisibility(View.GONE);
 			hasCaochRl.setVisibility(View.VISIBLE);
 		}
-		initSubject(subjectId,app.userVO);
-		LogUtil.print("title--enddd>"+subject);
+		initSubject(subjectId, app.userVO);
+		LogUtil.print("title--enddd>" + subject);
 
 	}
-	
+
 	/***
 	 * 当前 课时 信息
 	 */
-	private void initSubject(String subjectId,UserVO userVO){
+	private void initSubject(String subjectId, UserVO userVO) {
 		subjectValueTv.setText(subjectId);
 
 		if (subjectId.equals(Config.SubjectStatu.SUBJECT_TWO.getValue())) {
@@ -150,22 +152,31 @@ public class AppointmentFragment extends BaseFragment implements
 			subject = app.userVO.getSubjectthree();
 			subjectValueTv.setText("科目三");
 		}
-//		app.userVO.
+		// app.userVO.
 		if (null != subject) {
-			
-			subjectTextTv.setText("已学" + subject.getFinishcourse() + "课时  " +subject.getProgress());//+subject.getProgress()
+
+			subjectTextTv.setText("已学" + subject.getFinishcourse() + "课时  "
+					+ subject.getProgress());// +subject.getProgress()
 			// 规定xx 学时 完成XX学时
-			tvLeft1.setText("规定" + subject.getTotalcourse() + "学时  完成" +subject.getFinishcourse()+"学时");
+			tvLeft1.setText("规定" + subject.officialhours + "学时  完成"
+					+ subject.officialfinishhours + "学时");
 
 			// 购买 XX学时 已学XX学时
-			tvLeft2.setText("购买" + subject.buycoursecount + "课时  已学"+subject.officialhours +"课时");
-			if(subject.officialhours <=subject.getFinishcourse()){//可以报考
+			tvLeft2.setText("购买" + subject.getTotalcourse() + "课时  已学"
+					+ subject.getFinishcourse() + "课时");
+			if ((subject.officialhours - subject.officialfinishhours) != 0) {// 可以报考
+				yuekaoLr.setBackgroundResource(R.drawable.button_rounded_corners);
+				yuekaoLr.setClickable(true);
 				tvLastXueShi.setVisibility(View.GONE);
-			}else{//不可以报考
+			} else {// 不可以报考
+				yuekaoLr.setBackgroundResource(R.drawable.button_rounded_corners_gray);
+				yuekaoLr.setClickable(false);
 				tvLastXueShi.setVisibility(View.VISIBLE);
-				tvLastXueShi.setText("还需"+((subject.officialhours) - (subject.getFinishcourse()))+"学时");
+				tvLastXueShi.setText("还需"
+						+ (subject.officialhours - subject.officialfinishhours)
+						+ "学时");
 			}
-			
+
 		} else {
 			tvLeft1.setVisibility(View.GONE);
 			tvLeft2.setVisibility(View.GONE);
@@ -190,8 +201,8 @@ public class AppointmentFragment extends BaseFragment implements
 				R.string.no_appointment_coach_error_info));
 		hasCaochRl = (RelativeLayout) rootView
 				.findViewById(R.id.appointment_has_coach_rl);
-		 appointmentSwipeLaout = (SwipeRefreshLayout) rootView
-		 .findViewById(R.id.fragment_appointment_swipe_container);
+		appointmentSwipeLaout = (SwipeRefreshLayout) rootView
+				.findViewById(R.id.fragment_appointment_swipe_container);
 		epListView = (ExpandableListView) rootView
 				.findViewById(R.id.fragment_appointment_listview_ep);
 		epListView.setOnChildClickListener(new OnChildClickListener() {
@@ -227,11 +238,11 @@ public class AppointmentFragment extends BaseFragment implements
 			}
 		});
 
-		 appointmentSwipeLaout.setOnRefreshListener(this);
-		 appointmentSwipeLaout.setColorScheme(android.R.color.holo_blue_bright,
-		 android.R.color.holo_green_light,
-		 android.R.color.holo_orange_light,
-		 android.R.color.holo_red_light);
+		appointmentSwipeLaout.setOnRefreshListener(this);
+		appointmentSwipeLaout.setColorScheme(android.R.color.holo_blue_bright,
+				android.R.color.holo_green_light,
+				android.R.color.holo_orange_light,
+				android.R.color.holo_red_light);
 		View headerView = View.inflate(getActivity(), R.layout.learn_progress,
 				null);
 		epListView.addHeaderView(headerView);
@@ -267,13 +278,13 @@ public class AppointmentFragment extends BaseFragment implements
 	}
 
 	private void obtainOppointment() {
-		
+
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("userid", app.userVO.getUserid());
 		paramMap.put("subjectid", app.userVO.getSubject().getSubjectid());
 		Map<String, String> headerMap = new HashMap<String, String>();
 		headerMap.put("authorization", app.userVO.getToken());
-		// 
+		//
 		HttpSendUtils.httpGetSend(RESERVATION, this, Config.IP
 				+ "api/v1/courseinfo/getmyreservation", paramMap, 10000,
 				headerMap);
@@ -361,7 +372,7 @@ public class AppointmentFragment extends BaseFragment implements
 					}
 
 					if (isRefreshing) {
-						 appointmentSwipeLaout.setRefreshing(false);
+						appointmentSwipeLaout.setRefreshing(false);
 						isRefreshing = false;
 					}
 				}
@@ -372,8 +383,8 @@ public class AppointmentFragment extends BaseFragment implements
 					String subjectId = userVo.getSubject().getSubjectid();
 					LogUtil.print("myProgress----jsonString>" + jsonString);
 					LogUtil.print("myProgress----subjectId>" + subjectId);
-					
-					initSubject(subjectId,userVo);
+
+					initSubject(subjectId, userVo);
 
 				}
 			}
@@ -406,13 +417,12 @@ public class AppointmentFragment extends BaseFragment implements
 				R.string.no_wifi));
 	}
 
-	
-
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.learn_progress_yuekao://约考
-			Intent intent = new Intent(getActivity(), AppointmentExamActivity.class);
+		case R.id.learn_progress_yuekao:// 约考
+			Intent intent = new Intent(getActivity(),
+					AppointmentExamActivity.class);
 			intent.putExtra("subjectid", subjectId);
 			startActivity(intent);
 			break;
@@ -441,7 +451,8 @@ public class AppointmentFragment extends BaseFragment implements
 		super.onActivityResult(requestCode, resultCode, data);
 		if (data != null) {
 			if (requestCode == 0) {
-				Toast.makeText(getActivity(), "onActivity-->"+requestCode, Toast.LENGTH_SHORT).show();
+				Toast.makeText(getActivity(), "onActivity-->" + requestCode,
+						Toast.LENGTH_SHORT).show();
 				obtainOppointment();
 
 			}

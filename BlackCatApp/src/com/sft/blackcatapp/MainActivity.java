@@ -37,17 +37,20 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
 import cn.sft.baseactivity.util.HttpSendUtils;
+import cn.sft.infinitescrollviewpager.BitmapManager;
 import cn.sft.infinitescrollviewpager.MyHandler;
 
 import com.baidu.location.BDLocation;
@@ -57,6 +60,7 @@ import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.MapView;
 import com.google.gson.reflect.TypeToken;
+import com.joooonho.SelectableRoundedImageView;
 import com.jzjf.app.R;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -73,7 +77,6 @@ import com.sft.dialog.CheckApplyDialog;
 import com.sft.dialog.CustomDialog;
 import com.sft.dialog.NoCommentDialog;
 import com.sft.dialog.NoCommentDialog.ClickListenerInterface;
-import com.sft.dialog.NoLoginDialog;
 import com.sft.fragment.MenuFragment.SLMenuListOnItemClickListener;
 import com.sft.util.BaseUtils;
 import com.sft.util.CommonUtil;
@@ -93,14 +96,14 @@ import com.sft.vo.SchoolVO;
 public class MainActivity extends BaseMainActivity implements
 		SLMenuListOnItemClickListener, OnClickListener, OnTabLisener,
 		OnCheckedChangeListener {
-	
-	/**强制评价*/
+
+	/** 强制评价 */
 
 	private RelativeLayout rlMustComment;
-	
-	/**是否存在未评价 订单*/
+
+	/** 是否存在未评价 订单 */
 	private static boolean notComment = false;
-	
+
 	//
 	private static final String subjectContent = "subjectContent";
 	private static final String coach = "coach";
@@ -182,8 +185,8 @@ public class MainActivity extends BaseMainActivity implements
 			getWindow().addFlags(
 					WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 		}
-		LogUtil.print("ip--->"+SunUtils.getIp(this));
-		
+		LogUtil.print("ip--->" + SunUtils.getIp(this));
+
 		setContentView(R.layout.frame_content);
 		// EventBus.getDefault().register(this);
 		init();
@@ -273,6 +276,8 @@ public class MainActivity extends BaseMainActivity implements
 
 	private int sum = 0;
 
+	private RelativeLayout MainRl;
+
 	private void setTag() {
 		if (app.isLogin) {
 			// app.userVO.getUserid()
@@ -315,12 +320,11 @@ public class MainActivity extends BaseMainActivity implements
 		titleRightIv = (ImageView) findViewById(R.id.title_right_iv);
 		titleRightTv = (TextView) findViewById(R.id.title_right_tv);
 		titleFarRightIv = (ImageView) findViewById(R.id.title_far_right_iv);
-		
+
 		rlMustComment = (RelativeLayout) findViewById(R.id.main_force_evaluate_rl);
-		
+		MainRl = (RelativeLayout) findViewById(R.id.main_rl);
+		rlMustComment.setVisibility(View.GONE);
 	}
-
-
 
 	private void initData(Bundle savedInstanceState) {
 
@@ -493,8 +497,8 @@ public class MainActivity extends BaseMainActivity implements
 
 				} else {
 					BaseUtils.toLogin(this);
-//					NoLoginDialog dialog = new NoLoginDialog(this);
-//					dialog.show();
+					// NoLoginDialog dialog = new NoLoginDialog(this);
+					// dialog.show();
 				}
 				if (intent != null) {
 					startActivityForResult(intent, TAB_APPOINTMENT);
@@ -532,17 +536,47 @@ public class MainActivity extends BaseMainActivity implements
 				}
 			}
 			break;
-		case R.id.dialog_comment_more_btn://更多选项
-			
+
+		// 未评价
+		case R.id.dialog_comment_commit_btn:// 提交评价
+		case R.id.dialog_comment_more_commit_btn:// 提交评价
+			int rating = (int) ratingBar.getRating();
+			String content = commentEdit.getText().toString();
+			LogUtil.print(rating + content);
+
+			float punctual = punctualStar.getRating();
+			float attitude = attitudeStar.getRating();
+			float ability = abilityStar.getRating();
+			float total = totalStar.getRating();
+			// comment(String reservationId, String starLevel,
+			// String attitudelevel, String timelevel, String abilitylevel,
+			// String content) {
+			if (TextUtils.isEmpty(content.trim())) {
+			} else {
+				if (rating == 0) {
+					comment(myAppointmentVO.get_id(), total + "",
+							attitude + "", punctual + "", ability + "", content);
+
+				} else {
+					comment(myAppointmentVO.get_id(), rating + "", attitude
+							+ "", punctual + "", ability + "", content);
+
+				}
+			}
 			break;
-		case R.id.dialog_comment_commit_btn://提交评价
-			
+
+		case R.id.dialog_comment_more_btn:
+			commentTitleTv.setVisibility(View.GONE);
+			ratingBar.setVisibility(View.GONE);
+			commentBtns.setVisibility(View.GONE);
+
+			commentStarsLl.setVisibility(View.VISIBLE);
+			moreCommitBtn.setVisibility(View.VISIBLE);
 			break;
 		default:
 			break;
 		}
 	}
-
 
 	/**
 	 * 获取未评论列表
@@ -682,15 +716,11 @@ public class MainActivity extends BaseMainActivity implements
 				}
 			} else if (type.equals(NOT_COMMENT)) {
 				// 未评论 的 预约列表
-				notComment = false; 
+				notComment = false;
 				LogUtil.print("notcomment::::>>" + jsonString);
 				if (dataArray != null) {
 					int length = dataArray.length();
 					if (length == 0) {// 不存在 未评论
-						if (null != commentDialog) {// 不是空
-							commentDialog.dismiss();
-							return true;
-						}
 						// 获取活动
 						df = new SimpleDateFormat("yyyy-MM-dd");
 						String todayIsOpen = SharedPreferencesUtil.getString(
@@ -701,10 +731,7 @@ public class MainActivity extends BaseMainActivity implements
 						}
 						return true;
 					}
-					// 开始 显示对话框
-					if (commentDialog != null && commentDialog.isShowing()) {
-						return true;
-					}
+
 					try {
 						myAppointmentVO = JSONUtil.toJavaBean(
 								MyAppointmentVO.class,
@@ -716,33 +743,19 @@ public class MainActivity extends BaseMainActivity implements
 					if (myAppointmentVO == null) {
 						return true;
 					}
-					commentDialog = new NoCommentDialog(this);
-					commentDialog.setCancelable(false);
-					commentDialog.setImage(myAppointmentVO.getCoachid()
-							.getHeadportrait().getOriginalpic());
-					commentDialog.setCanceledOnTouchOutside(false);
-					commentDialog
-							.setClicklistener(new NoCommentDialogClickListener());
-					
-					notComment = true;
-					// 确定 都是评论
-					if(currentPage == TAB_APPOINTMENT){//预约
+					// 显示强制评价
+					if (currentPage == TAB_APPOINTMENT) {// 预约
+						LogUtil.print("notcomment::::>>");
 						rlMustComment.setVisibility(View.VISIBLE);
-					}else{
+						MainRl.setClickable(false);
+						rlMustComment.setClickable(true);
+					} else {
 						rlMustComment.setVisibility(View.GONE);
+						MainRl.setClickable(true);
+						rlMustComment.setClickable(false);
 					}
-					
-//					commentDialog.show();
-
-					// List<MyAppointmentVO> list = new
-					// ArrayList<MyAppointmentVO>();
-					//
-					// for (int i = 0; i < length; i++) {
-					// MyAppointmentVO appointmentVO = JSONUtil.toJavaBean(
-					// MyAppointmentVO.class,
-					// dataArray.getJSONObject(i));
-					// list.add(appointmentVO);
-					// }
+					notComment = true;
+					initNotCommentDialog(myAppointmentVO);
 
 				}
 
@@ -774,7 +787,9 @@ public class MainActivity extends BaseMainActivity implements
 				if (dataString != null) {
 					ZProgressHUD.getInstance(this).show();
 					ZProgressHUD.getInstance(this).dismissWithSuccess("评论成功");
-					commentDialog.dismiss();
+					MainRl.setClickable(true);
+					rlMustComment.setVisibility(View.GONE);
+					// commentDialog.dismiss();
 					// new MyHandler(1000) {
 					// @Override
 					// public void run() {
@@ -949,8 +964,6 @@ public class MainActivity extends BaseMainActivity implements
 		return super.onKeyDown(keyCode, event);
 	}
 
-	
-
 	private void obtainActivities() {
 
 		// System.out.println(app.curCity);
@@ -1101,7 +1114,7 @@ public class MainActivity extends BaseMainActivity implements
 							.getString(this, R.string.locationing) : util
 							.readParam(Config.USER_CITY));
 			rg.setVisibility(View.VISIBLE);
-			/**强制评价*/
+			/** 强制评价 */
 			rlMustComment.setVisibility(View.GONE);
 			break;
 		case TAB_STUDY:
@@ -1125,10 +1138,14 @@ public class MainActivity extends BaseMainActivity implements
 			titleRightTv
 					.setText(CommonUtil.getString(this, R.string.add_coach));
 			rg.setVisibility(View.GONE);
-			
-			if(currentPage == TAB_APPOINTMENT){//预约
-				rlMustComment.setVisibility(View.VISIBLE);
-			}else{
+
+			if (notComment) {
+				if (currentPage == TAB_APPOINTMENT) {// 预约
+					rlMustComment.setVisibility(View.VISIBLE);
+				} else {
+					rlMustComment.setVisibility(View.GONE);
+				}
+			} else {
 				rlMustComment.setVisibility(View.GONE);
 			}
 			break;
@@ -1151,25 +1168,6 @@ public class MainActivity extends BaseMainActivity implements
 		}
 	}
 
-	private void showPop() {
-		final PopupWindow pop = new PopupWindow(this);
-		pop.setHeight(LayoutParams.MATCH_PARENT);
-		pop.setWidth(LayoutParams.MATCH_PARENT);
-		View view = View.inflate(this, R.layout.dialog_comment, null);
-
-		pop.setFocusable(true);
-
-		// popupWindow.setBackgroundDrawable(new BitmapDrawable()); //comment by
-		// danielinbiti,如果添加了这行，那么标注1和标注2那两行不用加，加上这行的效果是点popupwindow的外边也能关闭
-		view.setFocusable(true);// comment by danielinbiti,设置view能够接听事件，标注1
-		view.setFocusableInTouchMode(true);
-
-		pop.setContentView(view);
-
-		pop.showAtLocation(this.getWindow().getDecorView(), Gravity.CENTER, 0,
-				400);
-	}
-
 	private void refreshView() {
 		mMainContainer.refreshTab();
 	}
@@ -1186,10 +1184,10 @@ public class MainActivity extends BaseMainActivity implements
 
 		}
 		// MainActivity.TARGET_TAB = 0;
-		 if (app.userVO != null && !app.userVO.getApplystate().equals("0")) {
-		 // 获取未评论列表
-			 obtainNotComments();
-		 }
+		if (app.userVO != null && !app.userVO.getApplystate().equals("0")) {
+			// 获取未评论列表
+			obtainNotComments();
+		}
 	}
 
 	private void refreshUI() {
@@ -1297,39 +1295,121 @@ public class MainActivity extends BaseMainActivity implements
 			mMainContainer.enrollFragment.switchSchoolOrCoach();
 		}
 	}
-	
+
+	/**
+	 * 未评价
+	 */
+	private Button moreBtn, commitBtn;
+
+	private SelectableRoundedImageView coachPicIv;
+
+	private RatingBar ratingBar;
+
+	private TextView wordNumTv;
+
+	private EditText commentEdit;
+
+	private TextView coachNameTv;
+
+	private TextView commentTitleTv;
+
+	private LinearLayout commentStarsLl;
+
+	private RatingBar totalStar;
+
+	private RatingBar abilityStar;
+
+	private RatingBar attitudeStar;
+
+	private RatingBar punctualStar;
+
+	private LinearLayout commentBtns;
+
+	private Button moreCommitBtn;
+
 	/**
 	 * 初始化 未评论 对话框
+	 * 
+	 * @param myAppointmentVO2
 	 */
-	private void initNotCommentDialog(){
-		Button btnMore = (Button) findViewById(R.id.dialog_comment_more_btn);
-		EditText etContent = (EditText) findViewById(R.id.dialog_comment_edit_et);
-		
-		
-		
-		etContent.addTextChangedListener(new TextWatcher() {
-			
+	private void initNotCommentDialog(MyAppointmentVO myAppointmentVO2) {
+		commentTitleTv = (TextView) findViewById(R.id.dialog_comment_title_tv);
+		coachPicIv = (SelectableRoundedImageView) findViewById(R.id.dialog_comment_coach_im1);
+		coachPicIv.setScaleType(ScaleType.CENTER_CROP);
+		coachPicIv.setImageResource(R.drawable.login_head);
+		coachPicIv.setOval(true);
+
+		coachNameTv = (TextView) findViewById(R.id.dialog_comment_coach_name_tv1);
+		ratingBar = (RatingBar) findViewById(R.id.dialog_comment_ratingBar);
+
+		commentStarsLl = (LinearLayout) findViewById(R.id.dialog_comment_stars_ll);
+		punctualStar = (RatingBar) findViewById(R.id.dialog_comment_punctual_star);
+		attitudeStar = (RatingBar) findViewById(R.id.dialog_comment_attitude_star);
+		abilityStar = (RatingBar) findViewById(R.id.dialog_comment_ability_star);
+		totalStar = (RatingBar) findViewById(R.id.dialog_comment_total_star);
+
+		wordNumTv = (TextView) findViewById(R.id.dialog_comment_words_num);
+		commentEdit = (EditText) findViewById(R.id.dialog_comment_edit_et);
+
+		commentBtns = (LinearLayout) findViewById(R.id.dialog_comment_btns);
+		moreBtn = (Button) findViewById(R.id.dialog_comment_more_btn);
+		commitBtn = (Button) findViewById(R.id.dialog_comment_commit_btn);
+
+		moreCommitBtn = (Button) findViewById(R.id.dialog_comment_more_commit_btn);
+		moreBtn.setOnClickListener(this);
+		// commitBtn.setOnClickListener(this);
+		// moreBtn.setOnClickListener(new clickListener());
+		commitBtn.setOnClickListener(this);
+		moreCommitBtn.setOnClickListener(this);
+		commentEdit.addTextChangedListener(new TextWatcher() {
+			private CharSequence temp;
+			private int selectionStart;
+			private int selectionEnd;
+
 			@Override
-			public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
-				// TODO Auto-generated method stub
-				
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+				temp = s;
 			}
-			
+
 			@Override
-			public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
-					int arg3) {
-				// TODO Auto-generated method stub
-				
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+
 			}
-			
+
 			@Override
-			public void afterTextChanged(Editable arg0) {
-				// TODO Auto-generated method stub
-				
+			public void afterTextChanged(Editable s) {
+				wordNumTv.setText(s.length() + "/40");
+				selectionStart = commentEdit.getSelectionStart();
+				selectionEnd = commentEdit.getSelectionEnd();
+				if (temp.length() > 40) {
+					s.delete(selectionStart - 1, selectionEnd);
+					int tempSelection = selectionEnd;
+					commentEdit.setText(s);
+					commentEdit.setSelection(tempSelection);// 设置光标在最后
+				}
 			}
 		});
-		
-		
+		if (myAppointmentVO2 != null) {
+			LogUtil.print(coachNameTv.getId() + "-------dfsdgfsbfs"
+					+ myAppointmentVO.getCoachid().getName());
+			coachNameTv.setText("name:::::::>>>");
+			coachNameTv.setText(myAppointmentVO.getCoachid().getName());
+			LinearLayout.LayoutParams headpicParams = (LinearLayout.LayoutParams) coachPicIv
+					.getLayoutParams();
+
+			if (TextUtils.isEmpty(myAppointmentVO.getCoachid()
+					.getHeadportrait().getOriginalpic())) {
+				coachPicIv.setBackgroundResource(R.drawable.login_head);
+			} else {
+				BitmapManager.INSTANCE.loadBitmap2(myAppointmentVO.getCoachid()
+						.getHeadportrait().getOriginalpic(), coachPicIv,
+						headpicParams.width, headpicParams.height);
+			}
+			LogUtil.print("dsgr-------dfsdgfsbfs"
+					+ myAppointmentVO.getCoachid().getName());
+		}
+
 	}
-	
 }
