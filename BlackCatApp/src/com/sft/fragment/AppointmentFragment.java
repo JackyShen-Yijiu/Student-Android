@@ -196,7 +196,7 @@ public class AppointmentFragment extends BaseFragment implements
 		noCaochErrorRl = (RelativeLayout) rootView.findViewById(R.id.error_rl);
 		noCaochErrorIv = (ImageView) rootView.findViewById(R.id.error_iv);
 		noCaochErroTv = (TextView) rootView.findViewById(R.id.error_tv);
-		noCaochErrorIv.setBackgroundResource(R.drawable.app_error_robot);
+		noCaochErrorIv.setImageResource(R.drawable.appointment_detail_applyconfirm);
 		noCaochErroTv.setText(CommonUtil.getString(getActivity(),
 				R.string.no_appointment_coach_error_info));
 		hasCaochRl = (RelativeLayout) rootView

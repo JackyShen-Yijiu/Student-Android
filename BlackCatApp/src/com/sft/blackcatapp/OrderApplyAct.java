@@ -115,7 +115,8 @@ public class OrderApplyAct extends BaseActivity {
 	}
 
 	private void setOffLine(SuccessVO successVO) {
-
+		LogUtil.print("app--->" + app + "user::apply--》》" + app.userVO.getApplystate());
+		
 		tvOrderName.setText(successVO.applyclasstypeinfo.name);
 		tvPayMoney.setText("实付款:");
 		tvPay1.setText("￥" + successVO.applyclasstypeinfo.price);
