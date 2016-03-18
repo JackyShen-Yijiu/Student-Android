@@ -386,8 +386,13 @@ public class SchoolDetailActivity extends BaseActivity implements
 			}
 			schoolPriceTv.setText(school.getPrice());
 			schoolAddressTv.setText(school.getAddress());
-			schoolRateTv.setText("通过率 " + school.getPassingrate() + "%");
-			workTimeTv.setText("营业时间 " + school.getHours());
+			schoolRateTv.setText(school.getPassingrate() + "%");
+
+			if (TextUtils.isEmpty(workTimeTv.getText())) {
+				workTimeTv.setText("暂无时间");
+			} else {
+				workTimeTv.setText(school.getHours());
+			}
 			schoolInTv.setText(school.getIntroduction());
 			showSchoolIntro();
 
