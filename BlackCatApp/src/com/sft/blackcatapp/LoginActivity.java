@@ -408,6 +408,7 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 		}
 		Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 		startActivity(intent);
+		setResult(9, new Intent());
 		finish();
 	}
 
