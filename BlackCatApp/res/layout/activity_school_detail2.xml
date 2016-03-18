@@ -9,6 +9,7 @@
     <View
         android:id="@+id/school_detail_top_static"
         android:layout_width="match_parent"
+        android:visibility="gone"
         android:layout_height="50dp" />
 
     <com.sft.viewutil.MyScrollView

@@ -292,10 +292,12 @@ public class NewConfirmOrderActivity extends BaseActivity implements
 	protected void onResume() {
 		if(weixinPayState == 0){//支付成功
 			LogUtil.print("onResume---支付成功>");
+			app.userVO.setPayState(20);
 			toEnrollSuccess(true);
 		}else if(weixinPayState == -1 || weixinPayState == -2){//支付失败,取消支付
 			toEnrollSuccess(true);
 			LogUtil.print("onResume---支付失败>");
+			app.userVO.setPayState(30);
 		}
 		super.onResume();
 	}
@@ -404,7 +406,7 @@ public class NewConfirmOrderActivity extends BaseActivity implements
 				String resultStatus = payResult.getResultStatus();
 				// 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
 				if (TextUtils.equals(resultStatus, "9000")) {
-
+					app.userVO.setPayState(20);	
 					app.userVO
 							.setApplystate(EnrollResult.SUBJECT_ENROLL_SUCCESS
 									.getValue());
@@ -416,7 +418,7 @@ public class NewConfirmOrderActivity extends BaseActivity implements
 				} else {
 					app.userVO.setApplystate(EnrollResult.SUBJECT_NONE
 							.getValue());
-
+					app.userVO.setPayState(30);	
 					// 判断resultStatus 为非"9000"则代表可能支付失败
 					// "8000"代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
 					if (TextUtils.equals(resultStatus, "8000")) {
@@ -433,6 +435,7 @@ public class NewConfirmOrderActivity extends BaseActivity implements
 				break;
 			}
 			case SDK_CHECK_FLAG: {
+				app.userVO.setPayState(30);	
 				app.userVO.setApplystate(EnrollResult.SUBJECT_NONE.getValue());
 				Toast.makeText(NewConfirmOrderActivity.this,
 						"检查结果为：" + msg.obj, Toast.LENGTH_SHORT).show();
@@ -490,7 +493,7 @@ public class NewConfirmOrderActivity extends BaseActivity implements
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("mobile", lastLoginPhone);
 		paramMap.put("usertype", "1");
-		paramMap.put("password", util.MD5(password));
+		paramMap.put("password", password);
 		HttpSendUtils.httpPostSend("reLogin", this, Config.IP
 				+ "api/v1/userinfo/userlogin", paramMap);
 	}
