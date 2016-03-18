@@ -189,7 +189,7 @@
                             android:layout_width="17dp"
                             android:layout_height="17dp"
                             android:layout_marginLeft="20dp"
-                            android:src="@drawable/icon_map"/>
+                            android:src="@drawable/icon_maps"/>
                         <TextView 
                             android:id="@+id/tv_place"
                             android:layout_width="wrap_content"
@@ -313,7 +313,7 @@
                             android:layout_width="17dp"
                             android:layout_height="17dp"
                             android:layout_marginLeft="20dp"
-                            android:src="@drawable/icon_time"/>
+                            android:src="@drawable/icon_times"/>
                         <TextView 
                             android:id="@+id/tv_time"
                             android:layout_width="wrap_content"

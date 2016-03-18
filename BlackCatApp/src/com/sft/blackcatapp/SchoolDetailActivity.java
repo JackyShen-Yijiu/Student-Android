@@ -1106,7 +1106,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 
 			if (viewTop.getVisibility() != View.GONE) {
 				viewTop.setVisibility(View.GONE);
-				titleLayout.setBackgroundResource(android.R.color.transparent);
+				titleLayout.setBackgroundResource(R.drawable.bg_top);
 				addDeleteSchoolCk.setVisibility(View.VISIBLE);
 				schoolNameTv.setVisibility(View.VISIBLE);
 				titleTV.setText("");

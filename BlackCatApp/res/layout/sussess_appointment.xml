@@ -42,6 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+            android:layout_alignBottom="@+id/my_appointment_item_icon_ll"
             android:layout_toRightOf="@+id/my_appointment_item_icon_ll"
             android:orientation="vertical" >
 
