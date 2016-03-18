@@ -196,7 +196,8 @@ public class AppointmentFragment extends BaseFragment implements
 		noCaochErrorRl = (RelativeLayout) rootView.findViewById(R.id.error_rl);
 		noCaochErrorIv = (ImageView) rootView.findViewById(R.id.error_iv);
 		noCaochErroTv = (TextView) rootView.findViewById(R.id.error_tv);
-		noCaochErrorIv.setImageResource(R.drawable.appointment_detail_applyconfirm);
+
+		noCaochErrorIv.setBackgroundResource(R.drawable.image_yuyue);
 		noCaochErroTv.setText(CommonUtil.getString(getActivity(),
 				R.string.no_appointment_coach_error_info));
 		hasCaochRl = (RelativeLayout) rootView
@@ -258,7 +259,6 @@ public class AppointmentFragment extends BaseFragment implements
 				noCaochErrorRl.setVisibility(View.GONE);
 				hasCaochRl.setVisibility(View.VISIBLE);
 				initCurrentProgress(headerView);
-				LogUtil.print("拼命加载中...");
 				ZProgressHUD.getInstance(getActivity()).setMessage("拼命加载中...");
 				ZProgressHUD.getInstance(getActivity()).show();
 				obtainOppointment();

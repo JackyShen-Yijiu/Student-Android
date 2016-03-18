@@ -47,7 +47,7 @@ public class UserVO extends DBVO {
 	private StudentSubject subjectthree;
 	private UserSettingVO usersetting;
 	private List<VipServerListVO> vipserverlist;
-
+	
 	private String password;
 	// 我的Y码 list
 	private MyCodeVO myCodeVO;

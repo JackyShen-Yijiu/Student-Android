@@ -309,7 +309,6 @@ public class TodaysAppointmentActivity extends BaseActivity implements
 						"您的课程已结束，不能再签到");
 				ZProgressHUD.getInstance(this).show();
 			} else {
-
 				Intent intent = new Intent(this, QRCodeCreateActivity.class);
 				intent.putExtra("myappointment", myAppointmentVO);
 				startActivity(intent);

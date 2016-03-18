@@ -386,8 +386,13 @@ public class SchoolDetailActivity extends BaseActivity implements
 			}
 			schoolPriceTv.setText(school.getPrice());
 			schoolAddressTv.setText(school.getAddress());
-			schoolRateTv.setText("通过率 " + school.getPassingrate() + "%");
-			workTimeTv.setText("营业时间 " + school.getHours());
+			schoolRateTv.setText(school.getPassingrate() + "%");
+
+			if (TextUtils.isEmpty(workTimeTv.getText())) {
+				workTimeTv.setText("暂无时间");
+			} else {
+				workTimeTv.setText(school.getHours());
+			}
 			schoolInTv.setText(school.getIntroduction());
 			showSchoolIntro();
 
@@ -1101,7 +1106,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 
 			if (viewTop.getVisibility() != View.GONE) {
 				viewTop.setVisibility(View.GONE);
-				titleLayout.setBackgroundResource(android.R.color.transparent);
+				titleLayout.setBackgroundResource(R.drawable.bg_top);
 				addDeleteSchoolCk.setVisibility(View.VISIBLE);
 				schoolNameTv.setVisibility(View.VISIBLE);
 				titleTV.setText("");

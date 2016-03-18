@@ -187,6 +187,7 @@ public class MyAppointmentListAdapter2 extends BaseExpandableListAdapter {
 		} else if (state.equals(AppointmentResult.missclass.getValue())) {
 			// 漏课10
 			holder.status.setText("已漏课");
+
 		}
 		LinearLayout.LayoutParams headParams = (LinearLayout.LayoutParams) holder.headpic
 				.getLayoutParams();
@@ -257,39 +258,57 @@ public class MyAppointmentListAdapter2 extends BaseExpandableListAdapter {
 
 		holder.line.setVisibility(View.VISIBLE);
 
-		if (isQianDaoOk(item)) {// 红色 可以签到
-
-			holder.tvQiandao.setTextColor(context.getResources().getColor(
-					R.color.new_app_main_color));
-			holder.imgQiandao.setImageResource(R.drawable.icon_erweima_hl);
-			// 签到
-			holder.tvQiandao.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View arg0) {
-					showPop(item);
-
-				}
-			});
-			holder.imgQiandao.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View arg0) {
-					showPop(item);
-				}
-			});
+		if (isQianDaoOk(item, state)) {// 红色 可以签到
+			qiandaoOK(holder, item);
 		} else {// 灰色
-			holder.tvQiandao.setTextColor(context.getResources().getColor(
-					R.color.new_text_color_light));
-			holder.imgQiandao.setImageResource(R.drawable.icon_erweima);
-			holder.tvQiandao.setOnClickListener(null);
-			holder.imgQiandao.setOnClickListener(null);
+			qiandaoNo(holder);
 		}
 
 		return convertView;
 	}
 
-	private boolean isQianDaoOk(MyAppointmentVO myAppointmentVO) {
+	/**
+	 * 可以签到
+	 * 
+	 * @param holder
+	 * @param item
+	 */
+	private void qiandaoOK(ViewHolder holder, final MyAppointmentVO item) {
+		holder.tvQiandao.setTextColor(context.getResources().getColor(
+				R.color.new_app_main_color));
+		holder.imgQiandao.setImageResource(R.drawable.icon_erweima_hl);
+		// 签到
+		holder.tvQiandao.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				showPop(item);
+
+			}
+		});
+		holder.imgQiandao.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				showPop(item);
+			}
+		});
+	}
+
+	/**
+	 * 不可以签到
+	 * 
+	 * @param holder
+	 */
+	private void qiandaoNo(ViewHolder holder) {
+		holder.tvQiandao.setTextColor(context.getResources().getColor(
+				R.color.new_text_color_light));
+		holder.imgQiandao.setImageResource(R.drawable.icon_erweima);
+		holder.tvQiandao.setOnClickListener(null);
+		holder.imgQiandao.setOnClickListener(null);
+	}
+
+	private boolean isQianDaoOk(MyAppointmentVO myAppointmentVO, String state) {
 		String beginTime = UTC2LOC.instance.getDate(
 				myAppointmentVO.getBegintime(), "hh:mm");
 		String endTime = UTC2LOC.instance.getDate(myAppointmentVO.getEndtime(),
@@ -314,8 +333,7 @@ public class MyAppointmentListAdapter2 extends BaseExpandableListAdapter {
 				// ZProgressHUD.getInstance(context).dismissWithSuccess(
 				// "您的课程已结束，不能再签到");
 				// ZProgressHUD.getInstance(context).show();
-			} else {
-
+			} else if (state.equals(AppointmentResult.applyconfirm.getValue())) {// 已接受，时间正好
 				return true;
 			}
 
@@ -634,18 +652,29 @@ public class MyAppointmentListAdapter2 extends BaseExpandableListAdapter {
 		View view = View.inflate(context, R.layout.item_appoint_group, null);
 		TextView tvTitle = (TextView) view
 				.findViewById(R.id.item_appoint_group_title);
+		TextView tvRight = (TextView) view
+				.findViewById(R.id.item_appoint_group_tv);
+
 		tvTitle.setText(title[arg0]);
 		tvTitle.setClickable(true);
 
 		ImageView mgroupimage = (ImageView) view
 				.findViewById(R.id.item_appoint_group_img);
+
 		if (arg0 == 2) {
 			mgroupimage.setImageResource(R.drawable.ic_arrow_right);
 		} else {
-			if (!arg1) {
-				mgroupimage.setImageResource(R.drawable.ic_arrow_right);
+			if (mData.get(arg0).size() == 0) {
+				tvRight.setVisibility(View.VISIBLE);
+				mgroupimage.setVisibility(View.GONE);
 			} else {
-				mgroupimage.setImageResource(R.drawable.ic_arrow_bottom);
+				tvRight.setVisibility(View.GONE);
+				mgroupimage.setVisibility(View.VISIBLE);
+				if (!arg1) {
+					mgroupimage.setImageResource(R.drawable.ic_arrow_right);
+				} else {
+					mgroupimage.setImageResource(R.drawable.ic_arrow_bottom);
+				}
 			}
 		}
 

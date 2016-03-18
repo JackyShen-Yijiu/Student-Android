@@ -13,6 +13,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -25,28 +26,60 @@ public class TestConn {
 //	http://www.8264.com/member.php?mod=logging&action=login
 //	member.php?mod=logging&action=login&loginsubmit=yes&loginhash=LC1r7
 	
-//	formhash  
-//	referer       http://www.8264.com/
-	
-//	username_LC1r7
-	
-//	password3_LC1r7
-	
-//	_loginsubmit   ""
+//	
 	
 	/**
+	 * http://account.lvye.cn/accounts/ajax_login
 	 * 必要参数:
 	 * 1.username
 	 * 2.password
+	 * 3.cap_code
 	 * 
-	 * hidden
 	 * 3.csrfmiddlewaretoken
 	 * 4.next
 	 * 5.client_id  1
 	 * 6.state  None
-	 * 7.
+	 * 7.cap_key
+	 * 8.login_code
+	 * 
+	 * cookies:
+	Ryow_c470_saltkey=WKTNkcfT
+	Ryow_c470_lastvisit=1458192789
+	Ryow_c470_sid=JK8TbA
+	Ryow_c470_sendmail=1
+	Ryow_c470_lastact=1458196389%09getstatus.php%09
+	Hm_lvt_d115ff5d8612d97fba465e8c30ea73b7=1457150245,1457526637,1457575280,1458196412
+	Hm_lpvt_d115ff5d8612d97fba465e8c30ea73b7=1458196420
+	_gat=1
+	csrftoken=VAsWYS8Ngcpwt8YWWYnO0aIg5ZRL11OY
+	sessionid=uz1gc621wyrj9tkylniqo0syzhj7m6iu
+	_zg=%7B%22uuid%22%3A%20%2215344c1ebb928b-0d69041be-3396b70-384000-15344c1ebba565%22%2C%22sid%22%3A%201458196411.82%2C%22updated%22%3A%201458196580.004%2C%22info%22%3A%201458196411826%2C%22cuid%22%3A%20%22%22%7D
+	_ga=GA1.2.701831736.1457147473
 	 */
 	
+	/**
+	 * post： body:
+	 * username=sunqimin09%40163.com&password=sqm0417.&cap_code=&auto=on&csrfmiddlewaretoken=VAsWYS8Ngcpwt8YWWYnO0aIg5ZRL11OY&next=http%3A%2F%2Fwww.lvye.cn%2F&client_id=1&state=None&cap_key=&login_code=
+	 */
+	private Map<String, String> postInit(String name,String pwd,String token){
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("username", "");
+		map.put("password", "");
+		map.put("cap_code", "");
+		map.put("auto", "on");
+		map.put("csrfmiddlewaretoken", token);
+		map.put("next", "http://www.lvye.cn/");
+		map.put("cliend_id", "1");
+		map.put("state", "None");
+		map.put("cap_key", "");
+		map.put("login_code", "");
+		return map;
+	}
+	
+	private void Login(String url,String name,String pwd){
+		Map<String, String> map = postInit(name, pwd, "");
+		System.out.print("post-->"+HttpPost(url, map));
+	}
 	
 	private static final String charsetName = "UTF-8";
 	private static final String UA = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.152 Safari/537.36";

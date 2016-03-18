@@ -55,7 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:background="@drawable/icon_time" />
+                android:background="@drawable/icon_time_s" />
 
             <TextView
                 android:id="@+id/appointment_detail_time_tv"
@@ -191,7 +191,7 @@
                 android:id="@+id/appointment_detail_draining_ground_iv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/icon_map" />
+                android:background="@drawable/icon_map_s" />
 
             <TextView
                 android:id="@+id/appointment_detail_draining_ground_tv"

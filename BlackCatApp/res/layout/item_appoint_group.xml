@@ -35,6 +35,18 @@
         android:layout_centerVertical="true"
         android:layout_marginRight="20dp"
         android:src="@drawable/selector_parent_group" />
+    
+    <TextView
+        android:id="@+id/item_appoint_group_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="20dp"
+        android:text="无"
+        android:textColor="@color/txt_999"
+        android:visibility="gone"
+         />
 	    
 	</RelativeLayout>
    
