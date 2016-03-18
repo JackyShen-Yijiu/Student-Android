@@ -4,21 +4,18 @@
     android:layout_height="fill_parent"
     android:background="#f7f9fb"
     android:orientation="vertical" >
-    
-    
-        
-                <EditText
-            android:id="@+id/callback_et"
-            android:padding="14dp"
-            android:layout_marginTop="10dp"
-       		android:background="#ffffff"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="您还可以输入20字"
-            android:textSize="14sp"
-            android:gravity="top|left"
-            android:maxLength="8"
-            android:singleLine="false" />
 
+    <EditText
+        android:id="@+id/callback_et"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:background="#ffffff"
+        android:gravity="top|left"
+        android:hint="您还可以输入20字"
+        android:maxLength="8"
+        android:padding="14dp"
+        android:singleLine="false"
+        android:textSize="14sp" />
 
 </LinearLayout>

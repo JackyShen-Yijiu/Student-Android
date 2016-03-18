@@ -32,8 +32,8 @@ public class CallBackActivity extends BaseActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		addView(R.layout.activity_callback);
+		super.onCreate(savedInstanceState);//activity_callback
+		addView(R.layout.activity_consultation_ask);
 		initView();
 		setListener();
 	}
@@ -49,7 +49,7 @@ public class CallBackActivity extends BaseActivity {
 		showTitlebarText(BaseActivity.SHOW_RIGHT_TEXT);
 		setText(0, R.string.save);
 
-		et = (EditText) findViewById(R.id.callback_et);
+		et = (EditText) findViewById(R.id.consultation_ask_et);
 
 		et.setHint(setHint(R.string.opinions_suggestions));
 	}
