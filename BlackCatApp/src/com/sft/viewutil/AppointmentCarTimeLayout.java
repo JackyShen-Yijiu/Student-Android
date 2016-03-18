@@ -102,6 +102,7 @@ public class AppointmentCarTimeLayout extends LinearLayout implements
 		// return;
 		// }
 		// 已过时
+
 		if (coachCourseVO.getIs_outofdate() == 0) {
 			backgroundRl.setBackgroundColor(Color.parseColor("#efefef"));
 			ck.setEnabled(false);
@@ -126,8 +127,6 @@ public class AppointmentCarTimeLayout extends LinearLayout implements
 
 			// 已预约
 			if (coachCourseVO.getIs_reservation() == 1) {
-				LogUtil.print("22222222222+"
-						+ coachCourseVO.getIs_reservation());
 				ck.setEnabled(false);
 				if (coachCourseVO.getReservationcoachname().equals(
 						coachCourseVO.getCoursedata().getCoachname())) {

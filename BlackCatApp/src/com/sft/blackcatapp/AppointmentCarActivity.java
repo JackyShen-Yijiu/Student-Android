@@ -283,7 +283,7 @@ public class AppointmentCarActivity extends BaseActivity implements
 			paramMap.put("date", selectDate);
 			LogUtil.print("coachid--" + coachId + "---userid--"
 					+ app.userVO.getUserid());
-			LogUtil.print("----" + app.userVO.getToken());
+			LogUtil.print("1111111----===" + selectDate);
 			HttpSendUtils.httpGetSend(coachCourse, this, Config.IP
 					+ "api/v1/courseinfo/getcoursebycoachv2", paramMap);
 		}
@@ -451,7 +451,8 @@ public class AppointmentCarActivity extends BaseActivity implements
 
 					// 预约成功，保存当前的教练，以备下次预约
 					Util.saveAppointmentCoach(this, selectCoach);
-					EventBus.getDefault().post(new AppointmentSuccessEvent());
+					// EventBus.getDefault().post(new
+					// AppointmentSuccessEvent());
 					Intent intent = new Intent();
 					setResult(RESULT_OK, intent);
 

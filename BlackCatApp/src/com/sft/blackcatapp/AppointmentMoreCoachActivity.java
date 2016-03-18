@@ -294,12 +294,24 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 	@Override
 	public void onRefresh() {
 		moreCoachPage = 1;
-		obtainSchoolCoach(moreCoachPage);
+		if (null != coachCourse && (!TextUtils.isEmpty(selectDate))) {
+			// 获取当前时间段可以预约的教练
+			obtainUsefulcoachTimely();
+		} else {
+			schoolId = app.userVO.getApplyschoolinfo().getId();
+			obtainSchoolCoach(moreCoachPage);
+		}
 	}
 
 	@Override
 	public void onLoadMore() {
-		obtainSchoolCoach(moreCoachPage);
+		if (null != coachCourse && (!TextUtils.isEmpty(selectDate))) {
+			// 获取当前时间段可以预约的教练
+			obtainUsefulcoachTimely();
+		} else {
+			schoolId = app.userVO.getApplyschoolinfo().getId();
+			obtainSchoolCoach(moreCoachPage);
+		}
 	}
 
 	/**

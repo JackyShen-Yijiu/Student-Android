@@ -164,7 +164,7 @@ public class AppointmentFragment extends BaseFragment implements
 			// 购买 XX学时 已学XX学时
 			tvLeft2.setText("购买" + subject.getTotalcourse() + "课时  已学"
 					+ subject.getFinishcourse() + "课时");
-			if ((subject.officialhours - subject.officialfinishhours) != 0) {// 可以报考
+			if ((subject.officialhours - subject.officialfinishhours) == 0) {// 可以报考
 				yuekaoLr.setBackgroundResource(R.drawable.button_rounded_corners);
 				yuekaoLr.setClickable(true);
 				tvLastXueShi.setVisibility(View.GONE);
@@ -369,6 +369,8 @@ public class AppointmentFragment extends BaseFragment implements
 							epListView.expandGroup(i);
 						}
 						// mListView.setAdapter(adapter);
+					} else {
+						adapter.notifyDataSetChanged();
 					}
 
 					if (isRefreshing) {
@@ -472,7 +474,7 @@ public class AppointmentFragment extends BaseFragment implements
 	}
 
 	public void onEvent(AppointmentSuccessEvent event) {
-		LogUtil.print("onActivityResult---------");
+		LogUtil.print("onActivityResult--------巅峰时代-");
 		obtainOppointment();
 	}
 
