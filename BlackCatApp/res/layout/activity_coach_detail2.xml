@@ -399,7 +399,6 @@
                     android:layout_marginTop="10dp"
                     android:text="暂无课程"
                     android:textColor="#333333"
-                    android:background="@color/orange"
                     android:textSize="14dp" />
                 <!-- 空白占位 -->
                 
