@@ -41,6 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+            android:layout_alignBottom="@+id/my_appointment_item_icon_ll"
             android:layout_toRightOf="@+id/my_appointment_item_icon_ll"
             android:orientation="vertical" >
 
@@ -80,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/my_appointment_item_schoolinfo_tv"
                 android:text="今天 13:00-14:00"
-                android:textColor="@color/app_main_color"
+                android:textColor="@color/txt_999"
                 android:textSize="12dp" />
 
              <TextView
