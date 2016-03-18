@@ -56,7 +56,7 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="10dp"
                         android:textColor="@color/new_text_color_dark"
-                        android:text="123"
+                        android:text=""
                         android:textSize="16sp" />
 
                     <LinearLayout
@@ -89,7 +89,7 @@
 
                     <RatingBar
                         android:id="@+id/dialog_comment_ratingBar"
-                        style="@style/roomRatingBar_30"
+                        style="@style/roomRatingBar_force_comment"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginBottom="5dp"
                         android:layout_marginTop="14.5dp"
@@ -120,7 +120,7 @@
 
                             <RatingBar
                                 android:id="@+id/dialog_comment_punctual_star"
-                                style="@style/roomRatingBar_20"
+                                style="@style/roomRatingBar_more_force_comment"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginLeft="20dp"
                                 android:isIndicator="false" />
@@ -142,7 +142,7 @@
 
                             <RatingBar
                                 android:id="@+id/dialog_comment_attitude_star"
-                                style="@style/roomRatingBar_20"
+                                style="@style/roomRatingBar_more_force_comment"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginLeft="20dp"
                                 android:isIndicator="false" />
@@ -164,7 +164,7 @@
 
                             <RatingBar
                                 android:id="@+id/dialog_comment_ability_star"
-                                style="@style/roomRatingBar_20"
+                                style="@style/roomRatingBar_more_force_comment"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginLeft="20dp"
                                 android:isIndicator="false" />
@@ -186,7 +186,7 @@
 
                             <RatingBar
                                 android:id="@+id/dialog_comment_total_star"
-                                style="@style/roomRatingBar_20"
+                                style="@style/roomRatingBar_more_force_comment"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginLeft="20dp"
                                 android:isIndicator="false" />

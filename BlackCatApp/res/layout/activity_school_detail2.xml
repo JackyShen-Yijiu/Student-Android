@@ -67,7 +67,7 @@
 
                         <RatingBar
                             android:id="@+id/school_detail_ratingrar"
-                            style="@style/roomRatingBar_20"
+                            style="@style/roomRatingBar_school_detail"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:layout_marginRight="76dp"

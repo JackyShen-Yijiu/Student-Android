@@ -100,7 +100,7 @@
 
                     <RatingBar
                         android:id="@+id/search_coach_ratingBar"
-                        style="@style/roomRatingBar_28"
+                        style="@style/roomRatingBar_list"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
