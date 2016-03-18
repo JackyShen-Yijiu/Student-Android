@@ -84,11 +84,7 @@ public class WeekDataUtil {
 			day.year = calendar.get(Calendar.YEAR);
 			day.month = calendar.get(Calendar.MONTH) + 1;
 			day.day = calendar.get(Calendar.DAY_OF_MONTH);
-			if (i == 0) {
-				day.week = "今天";
-			} else {
-				day.week = weeks[(calendar.get(Calendar.DAY_OF_WEEK) - 1)];
-			}
+			day.week = weeks[(calendar.get(Calendar.DAY_OF_WEEK) - 1)];
 			nextWeek.add(day);
 			calendar.add(Calendar.DATE, 1);
 		}

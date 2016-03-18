@@ -164,7 +164,7 @@ public class NewLoginActivity extends BaseActivity implements EMLoginListener {
 			login();
 			break;
 		case R.id.login_lookaround_btn:
-			finish();
+			finish();// 随便看看
 			intent = new Intent(this, MainActivity.class);
 			break;
 		case R.id.register_code_btn:
@@ -172,7 +172,8 @@ public class NewLoginActivity extends BaseActivity implements EMLoginListener {
 			break;
 
 		case R.id.login_register_tv:
-			intent = new Intent(this, LoginActivity.class);
+			Intent i = new Intent(this, LoginActivity.class);
+			startActivityForResult(i, v.getId());
 			break;
 
 		}
@@ -444,4 +445,16 @@ public class NewLoginActivity extends BaseActivity implements EMLoginListener {
 		}
 		super.onDestroy();
 	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if(data==null)
+			return ;
+		if(requestCode == R.id.login_register_tv){//注册返回
+			finish();
+		}
+		super.onActivityResult(requestCode, resultCode, data);
+	}
+	
+	
 }

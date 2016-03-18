@@ -209,10 +209,14 @@ public class ScrollTimeLayout extends LinearLayout implements
 		Collections.sort(selectCourseList, courseComp);
 		int size = selectCourseList.size() - 1;
 		for (int i = 0; i < size; i++) {
+			LogUtil.print("pppppp---"
+					+ selectCourseList.get(i).getCoursedata().getCoursetime()
+							.getTimeid());
 			if (Integer.parseInt(selectCourseList.get(i).getCoursedata()
 					.getCoursetime().getTimeid()) + 1 != Integer
 					.parseInt(selectCourseList.get(i + 1).getCoursedata()
 							.getCoursetime().getTimeid())) {
+
 				return false;
 			}
 		}

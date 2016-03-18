@@ -200,7 +200,7 @@ public class MainActivity extends BaseMainActivity implements
 		obtainQuestionAddress();
 		obtainSubjectContent();
 
-		LogUtil.print("app--->" + app + "user::" + app.userVO);
+		LogUtil.print("app--->" + app + "user::" + app.userVO.getApplystate());
 		// if (app.userVO!=null && app.userVO.getApplystate().equals("0")) {
 		// // 填写课时信息
 		// checkStateDialog();

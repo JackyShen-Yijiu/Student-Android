@@ -125,7 +125,6 @@
              android:textColor="@color/txt_999"
              android:background="@drawable/shape_gray_outline"
              android:clickable="true"
-             android:focusable="false"
              android:text="@string/loading" />
         
     </RelativeLayout>

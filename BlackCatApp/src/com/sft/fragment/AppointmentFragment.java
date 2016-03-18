@@ -164,7 +164,7 @@ public class AppointmentFragment extends BaseFragment implements
 			// 购买 XX学时 已学XX学时
 			tvLeft2.setText("购买" + subject.getTotalcourse() + "课时  已学"
 					+ subject.getFinishcourse() + "课时");
-			if ((subject.officialhours - subject.officialfinishhours) != 0) {// 可以报考
+			if ((subject.officialhours - subject.officialfinishhours) == 0) {// 可以报考
 				yuekaoLr.setBackgroundResource(R.drawable.button_rounded_corners);
 				yuekaoLr.setClickable(true);
 				tvLastXueShi.setVisibility(View.GONE);
@@ -196,8 +196,12 @@ public class AppointmentFragment extends BaseFragment implements
 		noCaochErrorRl = (RelativeLayout) rootView.findViewById(R.id.error_rl);
 		noCaochErrorIv = (ImageView) rootView.findViewById(R.id.error_iv);
 		noCaochErroTv = (TextView) rootView.findViewById(R.id.error_tv);
+<<<<<<< HEAD
 
 		noCaochErrorIv.setBackgroundResource(R.drawable.image_yuyue);
+=======
+		noCaochErrorIv.setImageResource(R.drawable.appointment_detail_applyconfirm);
+>>>>>>> 0af369b688d310999355b06e450601e36612b34d
 		noCaochErroTv.setText(CommonUtil.getString(getActivity(),
 				R.string.no_appointment_coach_error_info));
 		hasCaochRl = (RelativeLayout) rootView
@@ -369,6 +373,8 @@ public class AppointmentFragment extends BaseFragment implements
 							epListView.expandGroup(i);
 						}
 						// mListView.setAdapter(adapter);
+					} else {
+						adapter.notifyDataSetChanged();
 					}
 
 					if (isRefreshing) {
@@ -472,7 +478,7 @@ public class AppointmentFragment extends BaseFragment implements
 	}
 
 	public void onEvent(AppointmentSuccessEvent event) {
-		LogUtil.print("onActivityResult---------");
+		LogUtil.print("onActivityResult--------巅峰时代-");
 		obtainOppointment();
 	}
 
