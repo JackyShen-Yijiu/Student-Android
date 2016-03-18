@@ -216,6 +216,18 @@
         <item name="android:listSelector">@android:color/transparent</item>
         <item name="android:numStars">5</item>
     </style>
+    <style name="roomRatingBar_school_detail" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/ratingbar_bkground_school_detail</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:minHeight">22dp</item>
+        <item name="android:maxHeight">22dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fadingEdge">none</item>
+        <item name="android:isIndicator">true</item>
+        <item name="android:listSelector">@android:color/transparent</item>
+        <item name="android:numStars">5</item>
+    </style>
+   
 
     <style name="roomRatingBar_28" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/ratingbar_bkground_28</item>
@@ -223,6 +235,17 @@
         <item name="android:minHeight">18dp</item>
         <item name="android:maxHeight">18dp</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:fadingEdge">none</item>
+        <item name="android:isIndicator">true</item>
+        <item name="android:listSelector">@android:color/transparent</item>
+        <item name="android:numStars">5</item>
+    </style>
+    <style name="roomRatingBar_list" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/ratingbar_bkground_list</item>
+       <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">15dp</item>
+        <item name="android:maxHeight">15dp</item>
         <item name="android:fadingEdge">none</item>
         <item name="android:isIndicator">true</item>
         <item name="android:listSelector">@android:color/transparent</item>
@@ -240,7 +263,30 @@
         <item name="android:listSelector">@android:color/transparent</item>
         <item name="android:numStars">5</item>
     </style>
-
+ <style name="roomRatingBar_more_force_comment" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/ratingbar_bkground_more_force_comment</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:minHeight">16dp</item>
+        <item name="android:maxHeight">16dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fadingEdge">none</item>
+        <item name="android:stepSize">1</item>
+        <item name="android:isIndicator">true</item>
+        <item name="android:listSelector">@android:color/transparent</item>
+        <item name="android:numStars">5</item>
+    </style>
+     <style name="roomRatingBar_force_comment" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/ratingbar_bkground_force_comment</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">27dp</item>
+        <item name="android:maxHeight">27dp</item>
+        <item name="android:fadingEdge">none</item>
+        <item name="android:stepSize">1</item>
+        <item name="android:isIndicator">false</item>
+        <item name="android:listSelector">@android:color/transparent</item>
+        <item name="android:numStars">5</item>
+    </style>
     <style name="roomRatingBar_42" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/ratingbar_bkground_42</item>
         <item name="android:layout_width">wrap_content</item>

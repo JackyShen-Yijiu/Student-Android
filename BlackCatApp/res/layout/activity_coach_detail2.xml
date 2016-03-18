@@ -79,7 +79,7 @@
 
                         <RatingBar
                             android:id="@+id/coach_detail_ratingBar"
-                            style="@style/roomRatingBar_42" />
+                            style="@style/roomRatingBar_school_detail" />
                     </LinearLayout>
 
                     <LinearLayout

@@ -10,4 +10,4 @@
         android:id="@+android:id/progress"
         android:drawable="@drawable/rate_select_26"/>
 
-</layer-list>
+</layer-list> 

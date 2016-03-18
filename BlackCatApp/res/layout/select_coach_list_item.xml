@@ -88,7 +88,7 @@
 
                     <RatingBar
                         android:id="@+id/select_coach_ratingBar"
-                        style="@style/roomRatingBar_26"
+                        style="@style/roomRatingBar_list"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"

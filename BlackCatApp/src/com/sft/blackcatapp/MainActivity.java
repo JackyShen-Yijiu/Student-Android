@@ -200,7 +200,8 @@ public class MainActivity extends BaseMainActivity implements
 		obtainQuestionAddress();
 		obtainSubjectContent();
 
-		LogUtil.print("app--->" + app + "user::" + app.userVO.getApplystate());
+		// LogUtil.print("app--->" + app + "user::" +
+		// app.userVO.getApplystate());
 		// if (app.userVO!=null && app.userVO.getApplystate().equals("0")) {
 		// // 填写课时信息
 		// checkStateDialog();
@@ -552,6 +553,8 @@ public class MainActivity extends BaseMainActivity implements
 			// String attitudelevel, String timelevel, String abilitylevel,
 			// String content) {
 			if (TextUtils.isEmpty(content.trim())) {
+				ZProgressHUD.getInstance(this).show();
+				ZProgressHUD.getInstance(this).dismissWithFailure("请输入评论内容");
 			} else {
 				if (rating == 0) {
 					comment(myAppointmentVO.get_id(), total + "",
