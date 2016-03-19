@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
@@ -57,6 +58,10 @@ public class Walletintegral extends BaseActivity {
 
 	private ImageView error_iv;
 
+	private RelativeLayout error_rl;
+
+	private TextView error_tv;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -77,6 +82,10 @@ public class Walletintegral extends BaseActivity {
 	}
 
 	private void initView() {
+
+		error_iv = (ImageView) findViewById(R.id.error_iv);
+		error_rl = (RelativeLayout) findViewById(R.id.error_rl);
+		error_tv = (TextView) findViewById(R.id.error_tv);
 
 		inviteBtn = (Button) findViewById(R.id.my_wallet_invite_btn);
 
@@ -139,6 +148,7 @@ public class Walletintegral extends BaseActivity {
 					app.currency = walletVO.getWallet();
 
 					dataList.addAll(walletVO.getList());
+
 					if (walletAdapter == null) {
 						walletAdapter = new IncomeListAdapter(this, dataList,
 								producttype);
@@ -146,9 +156,16 @@ public class Walletintegral extends BaseActivity {
 						walletAdapter.setData(dataList);
 					}
 					incomeList.setAdapter(walletAdapter);
+
 					if (parentActivity != null) {
 						parentActivity.tv_code.setText(walletVO.getWallet()
 								+ "积分");
+					}
+					if (dataList.size() == 0) {
+						error_rl.setVisibility(View.VISIBLE);
+						error_iv.setImageResource(R.drawable.image_jifen);
+						incomeList.setVisibility(View.GONE);
+						error_tv.setText("您还没有奖励积分");
 					}
 				}
 			}

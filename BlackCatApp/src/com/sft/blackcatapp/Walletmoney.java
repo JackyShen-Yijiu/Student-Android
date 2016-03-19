@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
@@ -48,6 +49,10 @@ public class Walletmoney extends BaseActivity {
 
 	private ImageView error_iv;
 
+	private RelativeLayout error_rl;
+
+	private TextView error_tv;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -67,6 +72,10 @@ public class Walletmoney extends BaseActivity {
 	}
 
 	private void initView() {
+
+		error_iv = (ImageView) findViewById(R.id.error_iv);
+		error_rl = (RelativeLayout) findViewById(R.id.error_rl);
+		error_tv = (TextView) findViewById(R.id.error_tv);
 
 		incomeList = (ListView) findViewById(R.id.my_wallet_listview);
 
@@ -126,6 +135,13 @@ public class Walletmoney extends BaseActivity {
 						amountAdapter.setData(amountInCashVO.getMoneylist());
 					}
 					incomeList.setAdapter(amountAdapter);
+
+					if (amountInCashVO.getMoneylist().size() == 0) {
+						error_rl.setVisibility(View.VISIBLE);
+						error_iv.setImageResource(R.drawable.image_xianjin);
+						incomeList.setVisibility(View.GONE);
+						error_tv.setText("您还没有可领取的现金额度");
+					}
 				}
 			}
 		} catch (Exception e) {
