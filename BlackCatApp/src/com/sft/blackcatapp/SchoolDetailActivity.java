@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -99,7 +100,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 	/**
 	 * 广告栏
 	 */
-	private ImageView viewPager;
+	private ViewPager viewPager;
 	/**
 	 * 广告内容
 	 */
@@ -272,7 +273,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 		sv_container = (MyScrollView) findViewById(R.id.school_detail_scrollview);
 		sv_container.setOnStateListener(this);
 		adLayout = (RelativeLayout) findViewById(R.id.school_detail_headpic_im);
-		viewPager = (ImageView) findViewById(R.id.school_detail_viewpager);
+		viewPager = (ViewPager) findViewById(R.id.school_detail_viewpager);
 		dotLayout = (LinearLayout) findViewById(R.id.school_detail_dotlayout);
 
 		// tvNoPic = (TextView) findViewById(R.id.school_detail_nopic_tv);
@@ -358,7 +359,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 		headParams.width = screenWidth;
 		headParams.height = (int) (screenWidth * 2 / 3f);
 		viewPagerHeight = headParams.height;
-		setViewPager();
+		setViewPager(adImageUrl);
 	}
 
 	private void setListener() {
@@ -377,7 +378,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 	private void setData() {
 		if (school != null) {
 			adImageUrl = school.getPictures();
-			setViewPager();
+			setViewPager(adImageUrl);
 			schoolNameTv.setText(school.getName());
 			LogUtil.print(school.getSchoollevel() + "=====");
 			if (!TextUtils.isEmpty(school.getSchoollevel())) {
@@ -510,7 +511,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 				+ "api/v1/driveschool/getschoolinfo/" + school.getSchoolid());
 	}
 
-	private void setViewPager() {
+	private void setViewPager(String[] adImageUrl) {
 		InfinitePagerAdapter adapter = null;
 		int length = 0;
 		if (adImageUrl != null && adImageUrl.length > 0) {
@@ -524,6 +525,8 @@ public class SchoolDetailActivity extends BaseActivity implements
 		}
 		adapter.setPageClickListener(new MyPageClickListener());
 		adapter.setURLErrorListener(this);
+		
+		viewPager.setAdapter(adapter);
 
 		imageViews = new ImageView[length];
 		ImageView imageView = null;
@@ -645,7 +648,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 								.getOriginalpic();
 					}
 					if (length > 0) {
-						setViewPager();
+						setViewPager(adImageUrl);
 					}
 				}
 				obtainSchoolCoach(coachPage);
