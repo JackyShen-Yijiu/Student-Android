@@ -34,14 +34,14 @@
         android:orientation="horizontal" >
 
         <TextView
-            android:id="@+id/consulation_to_ask"
+            android:id="@+id/consulation_to_call"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="我要提问"
-            android:textColor="@color/text_color_dark"
-            android:textSize="15sp" />
+            android:text="拨打客服"
+            android:textColor="@color/new_text_color_dark"
+            android:textSize="16sp" />
 
         <View
             android:layout_width="1dp"
@@ -51,14 +51,14 @@
             android:background="@color/line_color" />
 
         <TextView
-            android:id="@+id/consulation_to_call"
+            android:id="@+id/consulation_to_ask"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="电话咨询"
-            android:textColor="@color/text_color_dark"
-            android:textSize="15sp" />
+            android:text="我要提问"
+            android:textColor="@color/new_text_color_dark"
+            android:textSize="16sp" />
     </LinearLayout>
 
 </LinearLayout>
