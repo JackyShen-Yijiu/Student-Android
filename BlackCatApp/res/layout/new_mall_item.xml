@@ -10,7 +10,7 @@
     android:layout_height="156dp"
     android:layout_alignParentTop="true"
     android:layout_centerHorizontal="true"
-    android:scaleType="centerCrop"
+    android:scaleType="fitXY"
     android:src="@drawable/defaultimage" />
 
         <RelativeLayout 
