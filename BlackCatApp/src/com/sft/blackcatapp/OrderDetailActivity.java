@@ -87,6 +87,13 @@ public class OrderDetailActivity extends BaseActivity implements
 		
 		
 	}
+	
+	//线下支付： 可以点击，进入详情
+	//线下支付： 不可以点击进入
+	//未支付：     不可以进入详情，重新支付，进入
+	
+	// 未支付： 不可以点击进入
+	// 已经支付：可以进入
 
 
 	private void request() {

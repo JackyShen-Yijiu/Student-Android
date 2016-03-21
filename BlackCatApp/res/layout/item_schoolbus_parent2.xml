@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <include layout="@layout/item_bus_parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="50dp" >
+
+            <ImageView
+                android:id="@+id/item_bus_img_bg"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="26.5dp"
+                android:background="@drawable/bg_xian" />
+
+            <ImageView
+                android:id="@+id/item_bus_img_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="26.5dp"
+                android:background="@color/white"
+                android:paddingBottom="5dp"
+                android:paddingTop="3dp"
+                android:src="@drawable/icon_bus" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/item_bus_title_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="@color/new_text_color_dark"
+                android:textSize="@dimen/txt_size_middle" />
+
+            <TextView
+                android:id="@+id/item_bus_time_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="TextView"
+                android:textColor="@color/new_text_color_light"
+                android:textSize="@dimen/txt_size_small" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/item_school_lv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:background="@color/orange"
+        >
+    </ListView>
+    
+     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="50dp" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="26.5dp"
+                android:visibility="invisible"
+                android:background="@drawable/bg_xian" />
+
+            <ImageView
+                
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="26.5dp"
+                android:background="@color/white"
+                android:paddingBottom="5dp"
+                android:paddingTop="3dp"
+                android:src="@drawable/icon_bus" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/item_bus_title_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="@color/new_text_color_dark"
+                android:textSize="@dimen/txt_size_middle" />
+
+            <TextView
+                android:id="@+id/item_bus_time_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="TextView"
+                android:textColor="@color/new_text_color_light"
+                android:textSize="@dimen/txt_size_small" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

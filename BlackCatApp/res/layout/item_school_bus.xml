@@ -24,7 +24,7 @@
             android:background="@color/white"
             android:paddingTop="3dp"
             android:paddingBottom="5dp"
-            android:src="@drawable/appointment_car" />
+            android:src="@drawable/icon_yuan" />
     </RelativeLayout>
 
     <LinearLayout

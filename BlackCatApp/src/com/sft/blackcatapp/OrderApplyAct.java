@@ -138,6 +138,7 @@ public class OrderApplyAct extends BaseActivity {
 				btn1.setVisibility(View.VISIBLE);
 				// btn2.setText(R.string.cancel_order);
 				btn1.setText(R.string.cancel_order);
+				ll.setOnClickListener(null);
 			} else if (successVO.paytypestatus == 30) {// 支付失败
 				tvState.setText("支付失败");
 				tvNotPay.setText("订单支付失败");
@@ -145,6 +146,7 @@ public class OrderApplyAct extends BaseActivity {
 				btn1.setVisibility(View.VISIBLE);
 				// btn2.setText(R.string.cancel_order);
 				btn1.setText(R.string.cancel_order);
+				ll.setOnClickListener(null);
 			}
 
 		} else {// 线上支付
@@ -161,6 +163,7 @@ public class OrderApplyAct extends BaseActivity {
 				btn1.setVisibility(View.VISIBLE);
 				btn2.setText(R.string.cancel_order);
 				btn1.setText("立即支付");
+				ll.setOnClickListener(null);
 			} else if (successVO.paytypestatus == 30) {// 支付失败
 				tvState.setText("支付失败");
 				tvNotPay.setText("订单支付失败");
@@ -168,6 +171,7 @@ public class OrderApplyAct extends BaseActivity {
 				btn1.setVisibility(View.VISIBLE);
 				btn2.setText(R.string.cancel_order);
 				btn1.setText("立即支付");
+				ll.setOnClickListener(null);
 			}
 		}
 
@@ -234,6 +238,9 @@ public class OrderApplyAct extends BaseActivity {
 					headParams.width, headParams.height);
 		}
 	}
+	
+	// 支付状态: 未支付成功: 不可以点击
+	// 支付状态: 支付成功： 可以点击进入详情
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {

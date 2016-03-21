@@ -279,6 +279,9 @@
         <activity
             android:name="com.sft.blackcatapp.YCodeListActivity"
             android:screenOrientation="portrait" />
+          <activity
+            android:name="com.sft.blackcatapp.CaptureActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.sft.blackcatapp.SubjectOneActivity"
             android:screenOrientation="portrait" />
