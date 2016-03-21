@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="horizontal" >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="50dp" >
+
+        <ImageView
+            android:id="@+id/item_bus_img_bg"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="26.5dp"
+            android:background="@drawable/bg_xian" />
+
+        <ImageView
+            android:id="@+id/item_bus_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="26.5dp"
+            android:background="@color/white"
+            android:paddingTop="3dp"
+            android:paddingBottom="5dp"
+            android:src="@drawable/appointment_car" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="15dp"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/item_bus_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/txt_size_middle"
+            android:textColor="@color/new_text_color_dark"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/item_bus_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/txt_size_small"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/new_text_color_light"
+            android:text="TextView" />
+    </LinearLayout>
+
+</LinearLayout>

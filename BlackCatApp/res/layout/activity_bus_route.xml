@@ -8,9 +8,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#33999999" >
-
-        <me.maxwin.view.XListView
-            android:id="@+id/bus_route_listview"
+        
+        <ExpandableListView 
+             android:id="@+id/bus_route_ep_lv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:cacheColorHint="#00000000"
@@ -20,6 +20,23 @@
             android:fadingEdge="none"
             android:listSelector="@android:color/transparent"
             android:overScrollMode="always"
+            android:scrollbars="none" 
+            android:groupIndicator="@null"
+            android:background="@color/white"
+            ></ExpandableListView>
+
+        <me.maxwin.view.XListView
+            android:id="@+id/bus_route_listview1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:cacheColorHint="#00000000"
+            android:descendantFocusability="blocksDescendants"
+            android:divider="@null"
+            android:dividerHeight="2dp"
+            android:fadingEdge="none"
+            android:listSelector="@android:color/transparent"
+            android:overScrollMode="always"
+            android:visibility="gone"
             android:scrollbars="none" />
 
         </RelativeLayout>

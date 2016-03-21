@@ -35,13 +35,13 @@ public class SchoolVO extends DBVO {
 	private int commentcount;
 	private String id;
 	private String schoollevel;
-	private List<SchoolBusRoute> schoolbusroute;
+	private List<SchoolBusRouteNew> schoolbusroute;
 
-	public List<SchoolBusRoute> getSchoolbusroute() {
+	public List<SchoolBusRouteNew> getSchoolbusroute() {
 		return schoolbusroute;
 	}
 
-	public void setSchoolbusroute(List<SchoolBusRoute> schoolbusroute) {
+	public void setSchoolbusroute(List<SchoolBusRouteNew> schoolbusroute) {
 		this.schoolbusroute = schoolbusroute;
 	}
 

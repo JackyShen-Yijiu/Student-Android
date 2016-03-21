@@ -1,30 +1,37 @@
 package com.sft.blackcatapp;
 
-import me.maxwin.view.XListView;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
 import com.jzjf.app.R;
-import com.sft.adapter.SchoolBusRouteAdapter;
+import com.sft.adapter.SchoolBusAdapter;
 import com.sft.common.Config;
 import com.sft.fragment.MenuFragment;
 import com.sft.util.JSONUtil;
 import com.sft.vo.SchoolVO;
-
+/**
+ * 班车 路线
+ * @author pengdonghua
+ *
+ */
 public class SchoolBusRouteActivity extends BaseActivity implements
 		OnClickListener {
 
 	private static final String schoolType = "school";
 	private SchoolVO school;
-	private XListView listview;
+//	private XListView listview;
+	private ExpandableListView lv;
 	private ImageView error_iv;
 	private TextView errorTvs;
+	
+	private SchoolBusAdapter adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +44,13 @@ public class SchoolBusRouteActivity extends BaseActivity implements
 
 	private void initView() {
 		setTitleText(R.string.bus_route);
-		listview = (XListView) findViewById(R.id.bus_route_listview);
-		listview.setPullRefreshEnable(false);
-		listview.setPullLoadEnable(false);
+//		listview = (XListView) findViewById(R.id.bus_route_listview);
+//		listview.setPullRefreshEnable(false);
+//		listview.setPullLoadEnable(false);
+		adapter = new SchoolBusAdapter(this);
+		lv = (ExpandableListView) findViewById(R.id.bus_route_ep_lv);
+		lv.setAdapter(adapter);
+		
 
 		error_iv = (ImageView) findViewById(R.id.error_iv);
 		errorRl = (RelativeLayout) findViewById(R.id.error_rl);
@@ -61,11 +72,12 @@ public class SchoolBusRouteActivity extends BaseActivity implements
 				error_iv.setImageResource(R.drawable.image_banche);
 				errorTv.setText("暂时没有班车接送信息");
 
-				listview.setVisibility(View.GONE);
+//				listview.setVisibility(View.GONE);
 			} else {
-				SchoolBusRouteAdapter adapter = new SchoolBusRouteAdapter(this,
-						school.getSchoolbusroute());
-				listview.setAdapter(adapter);
+				adapter.setData(school.getSchoolbusroute());
+//				SchoolBusRouteAdapter adapter = new SchoolBusRouteAdapter(this,
+//						school.getSchoolbusroute());
+//				listview.setAdapter(adapter);
 			}
 		}
 	}
@@ -92,11 +104,12 @@ public class SchoolBusRouteActivity extends BaseActivity implements
 					error_iv.setImageResource(R.drawable.image_banche);
 					errorTv.setText("暂时没有班车接送信息");
 
-					listview.setVisibility(View.GONE);
+//					listview.setVisibility(View.GONE);
 				} else {
-					SchoolBusRouteAdapter adapter = new SchoolBusRouteAdapter(
-							this, school.getSchoolbusroute());
-					listview.setAdapter(adapter);
+					adapter.setData(school.getSchoolbusroute());
+//					SchoolBusRouteAdapter adapter = new SchoolBusRouteAdapter(
+//							this, school.getSchoolbusroute());
+//					listview.setAdapter(adapter);
 				}
 
 			}
