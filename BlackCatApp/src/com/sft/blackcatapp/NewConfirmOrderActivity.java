@@ -372,7 +372,7 @@ public class NewConfirmOrderActivity extends BaseActivity implements
 		// 扫描
 		case R.id.rl_saoyisao:
 			Intent intent1 = new Intent(this, CaptureActivity.class);
-			startActivity(intent1);
+			startActivityForResult(intent1, 1);
 			break;
 		case R.id.act_pay_now:// 立即支付
 			int payType = 0;
@@ -488,6 +488,12 @@ public class NewConfirmOrderActivity extends BaseActivity implements
 			tvDiscodeBottom.setText("一步现金可抵扣" + m + "元");
 
 		}
+
+		if (requestCode == 1 && data != null) {
+
+			etFrom.setText(data.getStringExtra("ma"));
+		}
+
 		LogUtil.print("class---》》" + data);
 
 	}
