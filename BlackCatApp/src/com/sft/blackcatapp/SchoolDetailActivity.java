@@ -879,7 +879,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 			if (resultCode == R.id.base_left_btn) {
 				return;
 			}
-			new MyHandler(200) {
+			new MyHandler(1) {
 				@Override
 				public void run() {
 					LogUtil.print("ScholllDetail----result>");
