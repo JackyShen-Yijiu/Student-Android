@@ -61,15 +61,14 @@ public class ProductDetailActivity extends BaseActivity {
 		boolean isCupon = getIntent().getBooleanExtra("isCupon", false);
 		String url = productVO.getDetailurl();
 		setTitleText("商品详情");
-		webView.setVerticalScrollBarEnabled(false);  
+		webView.setVerticalScrollBarEnabled(false);
 
-		webView.setHorizontalScrollBarEnabled(false); 
-		
-		
+		webView.setHorizontalScrollBarEnabled(false);
+
 		WebSettings webSettings = webView.getSettings();
-		
-		webSettings.setUseWideViewPort(true); 
-		webSettings.setLoadWithOverviewMode(true); 
+
+		webSettings.setUseWideViewPort(true);
+		webSettings.setLoadWithOverviewMode(true);
 		webView.setWebViewClient(new WebViewClient() {
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -91,14 +90,17 @@ public class ProductDetailActivity extends BaseActivity {
 						.getProductprice())) {
 					buyBtn.setEnabled(true);
 					buyBtn.setTextColor(Color.parseColor("#ffffff"));
+					buyBtn.setBackgroundResource(R.drawable.button_rounded_corners);
 				} else {
 					buyBtn.setEnabled(false);
-					buyBtn.setTextColor(Color.parseColor("#999999"));
+					buyBtn.setTextColor(Color.parseColor("#ffffff"));
+					buyBtn.setBackgroundResource(R.drawable.button_rounded_corners_gray);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 				buyBtn.setEnabled(false);
-				buyBtn.setTextColor(Color.parseColor("#999999"));
+				buyBtn.setTextColor(Color.parseColor("#ffffff"));
+				buyBtn.setBackgroundResource(R.drawable.button_rounded_corners_gray);
 			}
 		} else {
 			buyBtn.setText("立即兑换");
@@ -108,14 +110,16 @@ public class ProductDetailActivity extends BaseActivity {
 				if ("1".equals(myCupon.getState())) {
 					buyBtn.setEnabled(true);
 					buyBtn.setTextColor(Color.parseColor("#ffffff"));
+					buyBtn.setBackgroundResource(R.drawable.button_rounded_corners);
 				} else {
 					buyBtn.setEnabled(false);
-					buyBtn.setTextColor(Color.parseColor("#999999"));
+					buyBtn.setTextColor(Color.parseColor("#ffffff"));
+					buyBtn.setBackgroundResource(R.drawable.button_rounded_corners_gray);
 				}
 			} else {
 				buyBtn.setEnabled(false);
-				buyBtn.setTextColor(Color.parseColor("#999999"));
-
+				buyBtn.setTextColor(Color.parseColor("#ffffff"));
+				buyBtn.setBackgroundResource(R.drawable.button_rounded_corners_gray);
 			}
 		}
 	}

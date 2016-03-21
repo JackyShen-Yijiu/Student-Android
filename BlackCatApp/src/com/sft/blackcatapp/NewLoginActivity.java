@@ -11,7 +11,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -270,15 +269,16 @@ public class NewLoginActivity extends BaseActivity implements EMLoginListener {
 				public void run() {
 					if (time-- > 0) {
 						sendCodeBtn.setText("剩余(" + time + "s)");
-						sendCodeBtn.setBackgroundColor(Color
-								.parseColor("#cccccc"));
+						sendCodeBtn
+								.setBackgroundResource(R.drawable.button_rounded_corners_gray);
+						;
 						sendCodeBtn.setEnabled(false);
 					} else {
 						codeHandler.cancle();
 						sendCodeBtn.setEnabled(true);
 						sendCodeBtn.setText(R.string.more_send_auth_code);
 						sendCodeBtn
-								.setBackgroundResource(R.drawable.btn_bkground);
+								.setBackgroundResource(R.drawable.button_rounded_corners);
 					}
 				}
 			};
@@ -448,13 +448,12 @@ public class NewLoginActivity extends BaseActivity implements EMLoginListener {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if(data==null)
-			return ;
-		if(requestCode == R.id.login_register_tv){//注册返回
+		if (data == null)
+			return;
+		if (requestCode == R.id.login_register_tv) {// 注册返回
 			finish();
 		}
 		super.onActivityResult(requestCode, resultCode, data);
 	}
-	
-	
+
 }

@@ -135,7 +135,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:textColor="#ff7f05"
+                        android:textColor="@color/new_app_main_color"
                         android:textSize="@dimen/txt_size_middle" />
 
                     <TextView
@@ -144,7 +144,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:textColor="#ff7f05"
+                        android:textColor="@color/new_app_main_color"
                         android:textSize="@dimen/txt_size_small" />
                 </RelativeLayout>
             </LinearLayout>
