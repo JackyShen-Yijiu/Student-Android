@@ -23,6 +23,7 @@
                 android:id="@+id/iv_car"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:src="@drawable/icon_car" />
 
             <TextView
@@ -30,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#212121"
-                android:text="科目2"
+                android:text="科目二"
                 android:layout_marginTop="11dp"
                 android:layout_below="@+id/iv_car"
                 android:textSize="14sp" />
@@ -44,6 +45,7 @@
             android:layout_marginLeft="25dp"
             android:layout_toLeftOf="@+id/learn_progress_yuekao"
             android:layout_toRightOf="@+id/my_appointment_ll"
+            android:layout_alignTop="@+id/my_appointment_ll"
             android:orientation="vertical"
             android:visibility="visible" >
 
