@@ -73,7 +73,6 @@ public class AboutUsActivity extends BaseActivity {
 							dialog.dismiss();
 						}
 					});
-
 			builder.create().show();
 		}
 	}
@@ -127,8 +126,7 @@ public class AboutUsActivity extends BaseActivity {
 
 		// String curVersion = util.getAppVersion().replace("v", "")
 		// .replace("V", "").replace(".", "");
-		webview.loadUrl(Config.VERSION
-				+ util.getAppVersion());
+		webview.loadUrl(Config.VERSION + util.getAppVersion());
 	}
 
 	@Override

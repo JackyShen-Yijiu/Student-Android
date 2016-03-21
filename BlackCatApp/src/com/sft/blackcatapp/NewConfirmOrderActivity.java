@@ -14,9 +14,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout.LayoutParams;
-import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
@@ -65,14 +65,12 @@ public class NewConfirmOrderActivity extends BaseActivity implements
 	private String onSalePrice;
 
 	private WeixinPay weixinPay;
-	/**0：支付成功 -1 等 失败  -2 用户取消*/
+	/** 0：支付成功 -1 等 失败 -2 用户取消 */
 	public static int weixinPayState = 1;
 
 	private final static String WEIXIN_PAY_INFOR = "getweixin_infor";
-	
+
 	private final static String CONFIRM_PAY_ORDER = "confirmpayorder";
-	
-	
 
 	/**
 	 * 商品价格:price 实付:paymoney (最后付款 -- 折扣券) 应付：onsaleprice（打折后的）
@@ -105,10 +103,13 @@ public class NewConfirmOrderActivity extends BaseActivity implements
 	private TextView tv_class;
 	private String adress;
 	private TextView discode;
-	/**渠道*/
+	/** 渠道 */
 	private EditText etFrom;
+	private RelativeLayout rl_saoyisao;
 
 	private void initView() {
+
+		rl_saoyisao = (RelativeLayout) findViewById(R.id.rl_saoyisao);
 
 		iv_school = (ImageView) findViewById(R.id.iv_school);
 		tv_school = (TextView) findViewById(R.id.tv_school);
@@ -215,6 +216,7 @@ public class NewConfirmOrderActivity extends BaseActivity implements
 		rbAlipay.setOnCheckedChangeListener(this);
 		rbWeixinpay.setOnCheckedChangeListener(this);
 		rbXianXiapay.setOnCheckedChangeListener(this);
+		rl_saoyisao.setOnClickListener(this);
 	}
 
 	// private String en
@@ -256,21 +258,24 @@ public class NewConfirmOrderActivity extends BaseActivity implements
 		HttpSendUtils.httpGetSend(WEIXIN_PAY_INFOR, this, Config.IP
 				+ "api/v1/payinfo/getprepayinfo", paramMap, 10000, headerMap);
 	}
-	
+
 	/**
 	 * 确认支付
+	 * 
 	 * @param code
 	 */
-	private void requestConfirmPayOrder(int payType,String code){
+	private void requestConfirmPayOrder(int payType, String code) {
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("userid", app.userVO.getUserid());
-		paramMap.put("paytype", String.valueOf(payType));//  支付方式 0 线下支付 1 支付宝 2 微信 
+		paramMap.put("paytype", String.valueOf(payType));// 支付方式 0 线下支付 1 支付宝 2
+															// 微信
 		paramMap.put("bcode", code);
 		Map<String, String> headerMap = new HashMap<String, String>();
 		headerMap.put("authorization", app.userVO.getToken());
-		HttpSendUtils.httpPostSend(CONFIRM_PAY_ORDER, this, Config.IP
-				+ "api/v1/userinfo/confirmpayorder", paramMap, 10000,
-				headerMap);
+		HttpSendUtils
+				.httpPostSend(CONFIRM_PAY_ORDER, this, Config.IP
+						+ "api/v1/userinfo/confirmpayorder", paramMap, 10000,
+						headerMap);
 	}
 
 	/**
@@ -285,23 +290,21 @@ public class NewConfirmOrderActivity extends BaseActivity implements
 				+ "api/v1/userinfo/usercouponforpay", paramMap, 10000,
 				headerMap);
 	}
-	
-	
 
 	@Override
 	protected void onResume() {
-		if(weixinPayState == 0){//支付成功
+		if (weixinPayState == 0) {// 支付成功
 			LogUtil.print("onResume---支付成功>");
 			app.userVO.setPayState(20);
 			toEnrollSuccess(true);
-		}else if(weixinPayState == -1 || weixinPayState == -2){//支付失败,取消支付
+		} else if (weixinPayState == -1 || weixinPayState == -2) {// 支付失败,取消支付
 			toEnrollSuccess(true);
 			LogUtil.print("onResume---支付失败>");
 			app.userVO.setPayState(30);
 		}
 		super.onResume();
 	}
-	
+
 	@Override
 	protected void onPause() {
 		weixinPayState = 1;
@@ -329,9 +332,8 @@ public class NewConfirmOrderActivity extends BaseActivity implements
 		} else if (type.equals(WEIXIN_PAY_INFOR)) {// 获取微信 支付订单信息
 			PayReq pay = weixinPay.parseJson(data);
 			weixinPay.pay(pay);
-		} else if(type.equals(CONFIRM_PAY_ORDER)){//确认订单，启用第三方 支付，或者线下支付
-			
-			
+		} else if (type.equals(CONFIRM_PAY_ORDER)) {// 确认订单，启用第三方 支付，或者线下支付
+
 			if (rbAlipay.isChecked()) {// 支付宝
 				if ((coupCode == null || coupCode.length() == 0)) {// 直接支付
 					PayUtils pay = new PayUtils();
@@ -346,7 +348,7 @@ public class NewConfirmOrderActivity extends BaseActivity implements
 			} else {// 线下支付
 				toEnrollSuccess(false);
 			}
-			
+
 		}
 		// getIntent().getParcelableArrayListExtra(name)
 
@@ -364,8 +366,13 @@ public class NewConfirmOrderActivity extends BaseActivity implements
 			break;
 		case R.id.base_left_btn:
 			cancelDialog();
-//			setResult(1);
-//			finish();
+			// setResult(1);
+			// finish();
+			break;
+		// 扫描
+		case R.id.rl_saoyisao:
+			Intent intent1 = new Intent(this, CaptureActivity.class);
+			startActivity(intent1);
 			break;
 		case R.id.act_pay_now:// 立即支付
 			int payType = 0;
@@ -373,10 +380,10 @@ public class NewConfirmOrderActivity extends BaseActivity implements
 				payType = 1;
 			} else if (rbWeixinpay.isChecked()) {// 微信支付
 				payType = 2;
-			}else{
+			} else {
 				payType = 0;
 			}
-			requestConfirmPayOrder(payType,etFrom.getText().toString());
+			requestConfirmPayOrder(payType, etFrom.getText().toString());
 			break;
 		default:
 			break;
@@ -406,7 +413,7 @@ public class NewConfirmOrderActivity extends BaseActivity implements
 				String resultStatus = payResult.getResultStatus();
 				// 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
 				if (TextUtils.equals(resultStatus, "9000")) {
-					app.userVO.setPayState(20);	
+					app.userVO.setPayState(20);
 					app.userVO
 							.setApplystate(EnrollResult.SUBJECT_ENROLL_SUCCESS
 									.getValue());
@@ -418,7 +425,7 @@ public class NewConfirmOrderActivity extends BaseActivity implements
 				} else {
 					app.userVO.setApplystate(EnrollResult.SUBJECT_NONE
 							.getValue());
-					app.userVO.setPayState(30);	
+					app.userVO.setPayState(30);
 					// 判断resultStatus 为非"9000"则代表可能支付失败
 					// "8000"代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
 					if (TextUtils.equals(resultStatus, "8000")) {
@@ -435,7 +442,7 @@ public class NewConfirmOrderActivity extends BaseActivity implements
 				break;
 			}
 			case SDK_CHECK_FLAG: {
-				app.userVO.setPayState(30);	
+				app.userVO.setPayState(30);
 				app.userVO.setApplystate(EnrollResult.SUBJECT_NONE.getValue());
 				Toast.makeText(NewConfirmOrderActivity.this,
 						"检查结果为：" + msg.obj, Toast.LENGTH_SHORT).show();
@@ -457,11 +464,10 @@ public class NewConfirmOrderActivity extends BaseActivity implements
 		i.putExtra("isOnline", isOnline);
 		startActivity(i);
 		// 结束之前的页面
-		setResult(9,new Intent());
+		setResult(9, new Intent());
 		finish();
 
 	}
-	
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -526,56 +532,55 @@ public class NewConfirmOrderActivity extends BaseActivity implements
 			return classe.getClassname() + "￥" + classe.getOnsaleprice();
 		return null;
 	}
-	
+
 	/**
 	 * 取消对话框
 	 */
-	private void cancelDialog(){
+	private void cancelDialog() {
 		final PopupWindow pop = new PopupWindow(this);
 		pop.setHeight(LayoutParams.MATCH_PARENT);
 		pop.setWidth(LayoutParams.MATCH_PARENT);
 		View view = View.inflate(this, R.layout.pop_back, null);
 		view.setFocusable(true);
 		view.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View arg0) {
 				pop.dismiss();
 			}
 		});
 		pop.setContentView(view);
-		view.findViewById(R.id.pay_ok).setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-				//跳转
-				
-				pop.dismiss();
-				setResult(9,new Intent());
-				finish();
-//				退出支付流程,干掉之前的
-			}
-		});
-		view.findViewById(R.id.pay_cancel).setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-				pop.dismiss();
-			}
-		});
+		view.findViewById(R.id.pay_ok).setOnClickListener(
+				new OnClickListener() {
+
+					@Override
+					public void onClick(View arg0) {
+						// 跳转
+
+						pop.dismiss();
+						setResult(9, new Intent());
+						finish();
+						// 退出支付流程,干掉之前的
+					}
+				});
+		view.findViewById(R.id.pay_cancel).setOnClickListener(
+				new OnClickListener() {
+
+					@Override
+					public void onClick(View arg0) {
+						pop.dismiss();
+					}
+				});
 		pop.showAtLocation(getWindow().getDecorView(), Gravity.CENTER, 0, 0);
 	}
-	
-	
-	
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if(keyCode == KeyEvent.KEYCODE_BACK){//返回
+		if (keyCode == KeyEvent.KEYCODE_BACK) {// 返回
 			cancelDialog();
 			return true;
 		}
-		
+
 		return super.onKeyDown(keyCode, event);
 	}
 

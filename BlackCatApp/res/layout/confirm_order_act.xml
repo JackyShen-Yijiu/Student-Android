@@ -176,7 +176,7 @@
 		    
 		        <EditText 
 		            android:id="@+id/tv_inivit"
-		            android:layout_width="match_parent"
+		            android:layout_width="wrap_content"
 		            android:layout_height="match_parent"
 		            android:layout_toRightOf="@+id/tv_4"
 		            android:background="@null"
@@ -184,15 +184,22 @@
 		            android:layout_marginLeft="32dp"
 		            android:textSize="14sp"
 		            android:textColor="#FFB7B7B7">
-		            
 		            </EditText>
-		        <ImageView 
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
+		            
+		        <RelativeLayout 
+		            android:id="@+id/rl_saoyisao"
+		            android:layout_width="44dp"
 		            android:layout_alignParentRight="true"
 		            android:layout_centerVertical="true"
 		            android:layout_marginRight="20dp"
+		            android:layout_height="match_parent">
+		        <ImageView 
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_centerHorizontal="true" 
+		            android:layout_centerVertical="true"
 		            android:src="@drawable/btn_saoyisao"/>
+		        </RelativeLayout>
 		    </RelativeLayout>
 		</LinearLayout>
 		<TextView 
