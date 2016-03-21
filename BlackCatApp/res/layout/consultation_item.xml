@@ -9,97 +9,62 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="16dp" >
+        android:paddingLeft="20dp"
+        android:paddingTop="15dp" >
 
-        <com.joooonho.SelectableRoundedImageView
+        <ImageView
             android:id="@+id/consultation_student_headpic_im"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/consultation_question"
             android:contentDescription="@string/app_name" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp" >
-
             <TextView
-                android:id="@+id/consultation_student_name"
+                android:id="@+id/consultation_question_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/text_color_light"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/consultation_student_answer_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:textColor="@color/text_color_light"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/consultation_student_answer_content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/consultation_student_name"
-                android:layout_marginTop="8dp"
-                android:textColor="@color/text_color_dark"
+                android:textColor="@color/new_text_color_dark"
+                android:text="报名之后多久可以学车？"
+                android:layout_marginLeft="10dp"
                 android:textSize="14sp" />
-        </RelativeLayout>
+
+           
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginLeft="60dp"
-        android:background="@color/line_color" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="16dp" >
+        android:paddingLeft="20dp"
+        android:paddingTop="7.5dp"
+        android:paddingRight="20dp"
+         >
 
-        <com.joooonho.SelectableRoundedImageView
+        <ImageView
             android:id="@+id/consultation_coach_headpic_im"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/consultation_answer"
             android:contentDescription="@string/app_name" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp" >
 
             <TextView
-                android:id="@+id/consultation_coach_name"
+                android:id="@+id/consultation_answer_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/text_color_light"
+                android:textColor="@color/new_text_color_light"
+                android:layout_marginLeft="10dp"
+                android:text="一般情况下，在报名建立档案后1至2周内会有驾校的工作人员安排科目一法培课及考试相关事宜。"
                 android:textSize="12sp" />
 
-            <TextView
-                android:id="@+id/consultation_coach_answer_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:textColor="@color/text_color_light"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/consultation_coach_answer_content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/consultation_coach_name"
-                android:layout_marginTop="8dp"
-                android:textColor="@color/text_color_dark"
-                android:textSize="14sp" />
-        </RelativeLayout>
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="10dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginLeft="20dp"
         android:background="@color/line_color" />
 
 </LinearLayout>

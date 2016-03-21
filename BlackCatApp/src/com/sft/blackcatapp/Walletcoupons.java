@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
@@ -49,6 +50,10 @@ public class Walletcoupons extends BaseActivity {
 
 	private ImageView error_iv;
 
+	private RelativeLayout error_rl;
+
+	private TextView error_tv;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -69,6 +74,10 @@ public class Walletcoupons extends BaseActivity {
 	}
 
 	private void initView() {
+
+		error_iv = (ImageView) findViewById(R.id.error_iv);
+		error_rl = (RelativeLayout) findViewById(R.id.error_rl);
+		error_tv = (TextView) findViewById(R.id.error_tv);
 
 		changeBtn = (Button) findViewById(R.id.my_wallet_change_btn);
 
@@ -140,6 +149,13 @@ public class Walletcoupons extends BaseActivity {
 						cupontAdapter.setData(myCuponList);
 					}
 					incomeList.setAdapter(cupontAdapter);
+
+					if (myCuponList.size() == 0) {
+						error_rl.setVisibility(View.VISIBLE);
+						error_iv.setImageResource(R.drawable.image_quan);
+						incomeList.setVisibility(View.GONE);
+						error_tv.setText("您还没有报名兑换券");
+					}
 
 				}
 			}
