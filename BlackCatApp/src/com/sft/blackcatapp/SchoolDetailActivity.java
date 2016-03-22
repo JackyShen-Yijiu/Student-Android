@@ -231,7 +231,6 @@ public class SchoolDetailActivity extends BaseActivity implements
 
 		viewStatus = findViewById(R.id.act_school_detail_status);
 
-		titleLayout = findViewById(R.id.base_titlebar_layout_bg);
 		findViewById(R.id.base_titlebar_layout).setBackgroundResource(
 				android.R.color.transparent);
 
@@ -243,7 +242,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 		// 中文字体加粗
 		titleTV.getPaint().setFakeBoldText(true);
 		titleTV.setText("");
-
+		titleLayout = findViewById(R.id.base_titlebar_layout_bg);
 		bus.setImageResource(R.drawable.bus_white_icon);
 		left.setBackgroundResource(R.drawable.base_left_btn_bkground);
 		phone.setImageResource(R.drawable.phone_white_icon);
@@ -275,7 +274,8 @@ public class SchoolDetailActivity extends BaseActivity implements
 		adLayout = (RelativeLayout) findViewById(R.id.school_detail_headpic_im);
 		viewPager = (ViewPager) findViewById(R.id.school_detail_viewpager);
 		dotLayout = (LinearLayout) findViewById(R.id.school_detail_dotlayout);
-
+		headpicLayout = findViewById(R.id.school_detail_headpic_layout_bg);
+		headpicLayout.setBackgroundResource(R.drawable.bg_top);
 		// tvNoPic = (TextView) findViewById(R.id.school_detail_nopic_tv);
 
 		// coachlistView = (ListView) findViewById(R.id.school_coach_listview);
@@ -377,7 +377,12 @@ public class SchoolDetailActivity extends BaseActivity implements
 
 	private void setData() {
 		if (school != null) {
-			adImageUrl = school.getPictures();
+			if (adImageUrl == null) {
+				adImageUrl = new String[1];
+			}
+			LogUtil.print("adImageUrl[0]"
+					+ school.getLogoimg().getOriginalpic());
+			adImageUrl[0] = school.getLogoimg().getOriginalpic();
 			setViewPager(adImageUrl);
 			schoolNameTv.setText(school.getName());
 			LogUtil.print(school.getSchoollevel() + "=====");
@@ -879,7 +884,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 			if (resultCode == R.id.base_left_btn) {
 				return;
 			}
-			new MyHandler(200) {
+			new MyHandler(1) {
 				@Override
 				public void run() {
 					LogUtil.print("ScholllDetail----result>");
@@ -1107,7 +1112,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 
 			if (viewTop.getVisibility() != View.GONE) {
 				viewTop.setVisibility(View.GONE);
-				titleLayout.setBackgroundResource(R.drawable.bg_top);
+				titleLayout.setBackgroundResource(android.R.color.transparent);
 				addDeleteSchoolCk.setVisibility(View.VISIBLE);
 				schoolNameTv.setVisibility(View.VISIBLE);
 				titleTV.setText("");
@@ -1180,4 +1185,5 @@ public class SchoolDetailActivity extends BaseActivity implements
 	Animation scaleSmall;
 	private RatingBar schoolRatingRar;
 	private RelativeLayout coachInfoRl;
+	private View headpicLayout;
 }

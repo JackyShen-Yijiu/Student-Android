@@ -562,8 +562,8 @@ public class NewConfirmOrderActivity extends BaseActivity implements
 					@Override
 					public void onClick(View arg0) {
 						// 跳转
-
 						pop.dismiss();
+						startActivity(new Intent(NewConfirmOrderActivity.this,OrderApplyAct.class));
 						setResult(9, new Intent());
 						finish();
 						// 退出支付流程,干掉之前的
