@@ -525,7 +525,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 		}
 		adapter.setPageClickListener(new MyPageClickListener());
 		adapter.setURLErrorListener(this);
-		
+
 		viewPager.setAdapter(adapter);
 
 		imageViews = new ImageView[length];
@@ -935,8 +935,6 @@ public class SchoolDetailActivity extends BaseActivity implements
 			}
 			Intent intent = new Intent();
 			intent.putExtra("school", school);
-			intent.putExtra("activityName",
-					SubjectEnrollActivity.class.getName());
 
 			LogUtil.print("change--scholll-->" + school.getName());
 			setResult(RESULT_OK, intent);

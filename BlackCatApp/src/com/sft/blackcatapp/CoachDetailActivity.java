@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import me.maxwin.view.XListView;
 import me.maxwin.view.XListView.IXListViewListener;
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -226,7 +225,7 @@ public class CoachDetailActivity extends BaseActivity implements
 		viewStatus = findViewById(R.id.act_coach_detail_status);
 
 		titleLayout = findViewById(R.id.base_titlebar_layout);
-		
+
 		titleLayout.setBackgroundResource(android.R.color.transparent);
 
 		imgLeft = (ImageButton) findViewById(R.id.base_left_btn);
@@ -299,7 +298,7 @@ public class CoachDetailActivity extends BaseActivity implements
 		commentList = (ListView) findViewById(R.id.coach_detail_comments_listview);
 		commentList.setFocusable(false);
 
-//		commentList.setPullRefreshEnable(false);
+		// commentList.setPullRefreshEnable(false);
 		carTypeTv = (TextView) findViewById(R.id.coach_detail_car_style_tv);
 		subjectTv = (TextView) findViewById(R.id.coach_detail_enable_subject_tv);
 		// distanceTv = (TextView) findViewById(R.id.coach_detail_distance_tv);
@@ -309,7 +308,7 @@ public class CoachDetailActivity extends BaseActivity implements
 		// personLabel.showColor(true);
 		courseFeeListView = (ListView) findViewById(R.id.coach_detail_classes_listview);
 		courseFeeListView.setFocusable(false);
-//		courseFeeListView.setPullRefreshEnable(false);
+		// courseFeeListView.setPullRefreshEnable(false);
 		tagTv = (TextView) findViewById(R.id.coach_detail_tag_tv);
 
 		tvNoTrain = (TextView) findViewById(R.id.coach_detail_nopic_tv);
@@ -345,9 +344,9 @@ public class CoachDetailActivity extends BaseActivity implements
 		coachNameTv.getPaint().setFakeBoldText(true);
 		// studentEvaluation.getPaint().setFakeBoldText(true);
 
-//		commentList.setPullRefreshEnable(false);
-//		commentList.setPullLoadEnable(true);
-//		commentList.setXListViewListener(this);
+		// commentList.setPullRefreshEnable(false);
+		// commentList.setPullLoadEnable(true);
+		// commentList.setXListViewListener(this);
 
 		coachVO = (CoachVO) getIntent().getSerializableExtra("coach");
 
@@ -587,8 +586,6 @@ public class CoachDetailActivity extends BaseActivity implements
 					Util.updateEnrollCoach(CoachDetailActivity.this, coachVO,
 							false);
 					intent = new Intent();
-					intent.putExtra("activityName",
-							SubjectEnrollActivity.class.getName());
 					intent.putExtra("coach", coachVO);
 					intent.putExtra(
 							SearchCoachActivity.from_searchCoach_enroll,
@@ -875,7 +872,7 @@ public class CoachDetailActivity extends BaseActivity implements
 						}
 					} else if (length == 0) {
 						toast.setText("没有更多数据了");
-//						commentList.setPullLoadEnable(false);
+						// commentList.setPullLoadEnable(false);
 					}
 					if (commentVoList == null)
 						commentVoList = new ArrayList<CoachCommentVO>();
@@ -895,7 +892,7 @@ public class CoachDetailActivity extends BaseActivity implements
 					}
 					commentList.setAdapter(adapter);
 					commentList.setSelection(curPosition);
-//					commentList.stopLoadMore();
+					// commentList.stopLoadMore();
 					setListViewHeightBasedOnChildren(commentList);
 				}
 			} catch (Exception e) {
@@ -1006,8 +1003,6 @@ public class CoachDetailActivity extends BaseActivity implements
 				app.selectEnrollClass = Util.getEnrollUserSelectedClass(this);
 			}
 			Intent intent = new Intent();
-			intent.putExtra("activityName",
-					SubjectEnrollActivity.class.getName());
 			intent.putExtra("coach", coachVO);
 			setResult(RESULT_OK, intent);
 			finish();
