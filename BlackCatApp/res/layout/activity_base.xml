@@ -4,10 +4,11 @@
     android:layout_height="fill_parent"
     android:clipToPadding="true"
    	android:fitsSystemWindows="true"
-   	android:background="#a7342a"
     android:id="@+id/base_all"
+    android:background="#a7342a"
      >
-     <include layout="@layout/title"></include>
+     <include layout="@layout/title"
+         ></include>
      
      <!-- 
       <LinearLayout

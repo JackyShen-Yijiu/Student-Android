@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/app_bg_dark"
     android:orientation="vertical" >
 
     <!-- 高度动态控制 -->
@@ -52,7 +51,7 @@
             android:numColumns="2"
             android:horizontalSpacing="1dp"
 			android:verticalSpacing="1dp"
-			android:background="#e8e8ed"
+			android:background="@color/app_bg_dark"
             android:descendantFocusability="blocksDescendants"
             android:divider="@android:color/transparent"
             android:dividerHeight="0dp"

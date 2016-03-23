@@ -28,7 +28,7 @@
                     android:id="@+id/fragment_appointment_listview_ep"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/app_bg_dark"
+                    android:background="@null"
                     android:cacheColorHint="#00000000"
                     android:descendantFocusability="blocksDescendants"
                     android:divider="@null"
