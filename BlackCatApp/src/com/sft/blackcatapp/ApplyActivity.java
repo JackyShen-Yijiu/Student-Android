@@ -289,7 +289,6 @@ public class ApplyActivity extends BaseActivity implements
 		enroll_rootlayout.setFocusableInTouchMode(true);
 		enroll_rootlayout.requestFocus();
 
-		// applyClassTypeLayout = (ApplyClassTypeLayout)
 		// findViewById(R.id.apply_class_type_ll);
 		tvNameError = (TextView) findViewById(R.id.new_apply_name_error);
 		schoolTv = (TextView) findViewById(R.id.new_apply_school);
