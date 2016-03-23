@@ -573,15 +573,6 @@ public class CoachDetailActivity extends BaseActivity implements
 				if (checkResult == null) {
 
 					toPay(position);
-					// intent = new Intent();
-					// intent.putExtra("activityName",
-					// SubjectEnrollActivity.class.getName());
-					// intent.putExtra("coach", coachVO);
-					// intent.putExtra(
-					// SearchCoachActivity.from_searchCoach_enroll,
-					// isFromSearchCoach);
-					// setResult(RESULT_OK, intent);
-					// finish();
 				} else if (checkResult.length() == 0) {
 					app.selectEnrollCoach = coachVO;
 					Util.updateEnrollCoach(CoachDetailActivity.this, coachVO,
@@ -636,7 +627,7 @@ public class CoachDetailActivity extends BaseActivity implements
 	private void toPay(int po) {
 		ClassVO classe = courseFeeAdapter.getItem(po);
 		// LogUtil.print("classTypeId:---->"+classe.getCalssid()+"id:::>>"+classe.get_id());
-		Intent i = new Intent(CoachDetailActivity.this, ApplyActivity.class);
+		Intent i = new Intent(CoachDetailActivity.this, ApplyAct.class);
 		i.putExtra("coach", coachVO);
 		i.putExtra("schoolId", schoolId);
 		i.putExtra("class", classe);

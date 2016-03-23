@@ -185,7 +185,7 @@ public class MainActivity extends BaseMainActivity implements
 			getWindow().addFlags(
 					WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 		}
-		LogUtil.print("ip--->" + SunUtils.getIp(this));
+		LogUtil.print("ip--getApplystate->" +app.userVO.getApplystate());
 
 		setContentView(R.layout.frame_content);
 		// EventBus.getDefault().register(this);
@@ -463,7 +463,7 @@ public class MainActivity extends BaseMainActivity implements
 				Intent intent = null;
 				LogUtil.print("换教练");
 				if (app.isLogin) {
-					LogUtil.print(app.userVO.getSubject().getSubjectid());
+					LogUtil.print("换教练"+app.userVO.getSubject().getSubjectid()+app.userVO.getApplystate());
 					if (app.userVO.getApplystate().equals(
 							EnrollResult.SUBJECT_NONE.getValue())) {
 						// 还没有报名
