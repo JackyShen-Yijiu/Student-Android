@@ -22,6 +22,7 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.jpush.android.api.JPushInterface;
 import cn.sft.baseactivity.util.Util;
@@ -141,6 +142,8 @@ public class BaseMainActivity extends FragmentActivity implements
 		}
 		setContentView(R.layout.activity_base);
 
+		RelativeLayout baseAllRL = (RelativeLayout) findViewById(R.id.base_all);
+		baseAllRL.setBackgroundDrawable(null);
 		titlebarLayout = (LinearLayout) findViewById(R.id.base_titlebar_layout);
 		leftBtn = (ImageButton) findViewById(R.id.base_left_btn);
 		rightBtn = (ImageButton) findViewById(R.id.base_right_btn);

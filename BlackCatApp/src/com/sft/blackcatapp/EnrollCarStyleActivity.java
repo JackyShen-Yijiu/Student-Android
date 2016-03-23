@@ -3,18 +3,18 @@ package com.sft.blackcatapp;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sft.adapter.CarStyleListAdapter;
-import com.jzjf.app.R;
-import com.sft.common.Config;
-import com.sft.util.JSONUtil;
-import com.sft.util.Util;
-import com.sft.vo.CarModelVO;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 import cn.sft.baseactivity.util.HttpSendUtils;
+
+import com.jzjf.app.R;
+import com.sft.adapter.CarStyleListAdapter;
+import com.sft.common.Config;
+import com.sft.util.JSONUtil;
+import com.sft.util.Util;
+import com.sft.vo.CarModelVO;
 
 /**
  * 选择车型界面
@@ -53,7 +53,8 @@ public class EnrollCarStyleActivity extends BaseActivity {
 		setTitleText(R.string.enroll_carstyle);
 
 		carList = (ListView) findViewById(R.id.select_carstyle_listview);
-		selectCarModelVO = (CarModelVO) getIntent().getSerializableExtra("carStyle");
+		selectCarModelVO = (CarModelVO) getIntent().getSerializableExtra(
+				"carStyle");
 	}
 
 	private void setListener() {
@@ -61,7 +62,8 @@ public class EnrollCarStyleActivity extends BaseActivity {
 	}
 
 	private void obtainEnrollCarStyle() {
-		HttpSendUtils.httpGetSend(carStyle, this, Config.IP + "api/v1/info/carmodel");
+		HttpSendUtils.httpGetSend(carStyle, this, Config.IP
+				+ "api/v1/info/carmodel");
 	}
 
 	@Override
@@ -75,17 +77,18 @@ public class EnrollCarStyleActivity extends BaseActivity {
 			break;
 		case R.id.base_right_tv:
 			if (adapter != null) {
-				CarModelVO carModel = (CarModelVO) adapter.getItem(adapter.getIndex());
+				CarModelVO carModel = (CarModelVO) adapter.getItem(adapter
+						.getIndex());
 				if (app.selectEnrollCarStyle == null) {
 					app.selectEnrollCarStyle = carModel;
 					Util.updateEnrollCarStyle(this, carModel);
 				}
-				if (!app.selectEnrollCarStyle.getModelsid().equals(carModel.getModelsid())) {
+				if (!app.selectEnrollCarStyle.getModelsid().equals(
+						carModel.getModelsid())) {
 					app.selectEnrollCarStyle = carModel;
 					Util.updateEnrollCarStyle(this, carModel);
 				}
 				Intent intent = new Intent();
-				intent.putExtra("activityName", SubjectEnrollActivity.class.getName());
 				intent.putExtra("carStyle", carModel);
 				setResult(RESULT_OK, intent);
 			}
@@ -107,10 +110,12 @@ public class EnrollCarStyleActivity extends BaseActivity {
 					int length = dataArray.length();
 					List<CarModelVO> list = new ArrayList<CarModelVO>();
 					for (int i = 0; i < length; i++) {
-						CarModelVO carStyleVO = (CarModelVO) JSONUtil.toJavaBean(CarModelVO.class,
-								dataArray.getJSONObject(i));
+						CarModelVO carStyleVO = (CarModelVO) JSONUtil
+								.toJavaBean(CarModelVO.class,
+										dataArray.getJSONObject(i));
 						if (selectCarModelVO != null) {
-							if (carStyleVO.getModelsid().equals(selectCarModelVO.getModelsid())) {
+							if (carStyleVO.getModelsid().equals(
+									selectCarModelVO.getModelsid())) {
 								selectIndex = i;
 							}
 						}

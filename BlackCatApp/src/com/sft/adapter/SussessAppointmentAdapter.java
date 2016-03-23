@@ -198,7 +198,7 @@ public class SussessAppointmentAdapter extends BaseAdapter {
 							.getSigintime(), "HH:mm"));
 
 		} else {
-			holder.orderTime.setText("未签到");
+			holder.orderTime.setText("暂无签到时间");
 		}
 
 		return convertView;

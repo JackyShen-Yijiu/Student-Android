@@ -53,7 +53,6 @@ import com.sft.vo.UserVO;
 public class ApplyAct extends BaseActivity implements
 		OnClassTypeSelectedListener, OnSelectConfirmListener {
 
-	// private ApplyClassTypeLayout applyClassTypeLayout;
 	private static final String realName = "realName";
 	private static final String contact = "contact";
 	private static final String enroll = "enroll";

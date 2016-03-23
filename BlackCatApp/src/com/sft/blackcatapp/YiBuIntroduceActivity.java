@@ -69,24 +69,6 @@ public class YiBuIntroduceActivity extends BaseActivity {
 		} else {
 			int typeId = getIntent().getIntExtra("typeId", 0);
 			switch (typeId) {
-			case R.id.introduce_student_know:
-				url = Config.STUDENT_KNOW;
-				setTitleText(R.string.yibu_superiority);
-				break;
-			case R.id.introduce_procedure:
-
-				setTitleText(R.string.activitys);
-				Intent intent1 = new Intent(this, NewActivitysActivity.class);
-				startActivity(intent1);
-				finish();
-				break;
-			case R.id.introduce_favourable_class:
-				setTitleText(R.string.yibu_procedure);
-				Intent intent = new Intent(this, EnrollSchoolActivity1.class);
-				intent.putExtra("isFromMenu", true);
-				startActivityForResult(intent, 1);
-				finish();
-				break;
 
 			}
 		}
