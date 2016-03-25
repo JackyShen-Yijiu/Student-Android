@@ -9,8 +9,18 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bg_yma"
         android:layout_marginBottom="10dp"
-        android:padding="15dp">
+        android:paddingLeft="12dp"
+        android:paddingBottom="10dp"
+        android:paddingRight="16dp"
+        >
            
+        
+        <RelativeLayout 
+            android:id="@+id/rl_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            >
         <TextView 
             android:id="@+id/tv_1"
             android:layout_width="wrap_content"
@@ -35,11 +45,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_name"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="12dp"
             android:layout_alignLeft="@+id/tv_1"
-            android:text="Y码"
-            android:textColor="#FF6F6F6F"
-            android:textSize="14sp"/>
+            android:text="Y      码"
+            android:textColor="#FFC1C1C1"
+            android:textSize="12sp"/>
           
             <TextView
                 android:id="@+id/tv_code"
@@ -51,18 +61,17 @@
                 android:textColor="#FFDC4437"
                 android:text="QEQWEW"
                 android:textSize="14sp" />
-          
-            <TextView 
-            android:id="@+id/tv_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_2"
-            android:layout_marginTop="10dp"
-            android:layout_alignLeft="@+id/tv_1"
-            android:text="asd"
-            android:textColor="#FFB7B7B7"
-            android:textSize="14sp"/>
+          </RelativeLayout>
 
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:text="2014/1/1"
+                android:textColor="#FBA89E"
+                android:textSize="12sp" />
         
     </RelativeLayout>
     

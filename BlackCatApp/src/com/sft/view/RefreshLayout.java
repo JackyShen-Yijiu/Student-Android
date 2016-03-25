@@ -14,6 +14,8 @@ import android.view.ViewConfiguration;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.jzjf.app.R;
 import com.sft.listener.MOnScrollListener;
@@ -295,4 +297,26 @@ public class RefreshLayout extends SwipeRefreshLayout implements
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	/**
+	 * 
+	 * @param text
+	 * @param flag
+	 */
+	public void setMoreText(String text,boolean flag){
+		if(mListViewFooter!=null){
+			TextView tv = (TextView) mListViewFooter.findViewById(R.id.pull_to_refresh_loadmore_text);
+			ProgressBar probar = (ProgressBar) mListViewFooter.findViewById(R.id.pull_to_refresh_load_progress);
+			tv.setText(text);
+			if(flag)
+				probar.setVisibility(View.VISIBLE);
+			else
+				probar.setVisibility(View.INVISIBLE);
+//			mListView.
+			mListView.addFooterView(mListViewFooter);
+			LogUtil.print("moretext-->"+text);
+			
+		}
+	}
+	
 }

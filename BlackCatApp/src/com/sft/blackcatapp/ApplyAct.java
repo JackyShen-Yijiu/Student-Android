@@ -162,6 +162,9 @@ public class ApplyAct extends BaseActivity implements
 			enclassTypeId = classe.get_id();
 			// LogUtil.print("classTypeId--->"+enclassTypeId);
 			encarmodel = classe.getCarmodel().toString();
+			//不可以 换教练
+			selectCochRl.setOnClickListener(null);
+			findViewById(R.id.act_apply_coach_img).setVisibility(View.INVISIBLE);
 			break;
 		case 2:// 活动详情
 			break;

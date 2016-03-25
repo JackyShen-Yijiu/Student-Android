@@ -113,6 +113,7 @@
              android:textColor="@color/new_app_main_color"
              android:background="@drawable/shape_red_outline"
              android:clickable="true"
+              android:visibility="gone"
              android:text="@string/loading" />
 
          <TextView
@@ -125,6 +126,7 @@
              android:textColor="@color/txt_999"
              android:background="@drawable/shape_gray_outline"
              android:clickable="true"
+             android:visibility="gone"
              android:text="@string/loading" />
         
     </RelativeLayout>

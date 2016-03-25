@@ -107,7 +107,7 @@ public class MyCodeListAdapter extends BaseAdapter {
 
 		holder.name.setText(mData.get(position).getName());
 		holder.code.setText(mData.get(position).getYcode());
-		holder.date.setText("有效期至:" + mData.get(position).getDate());
+		holder.date.setText(mData.get(position).getDate());
 
 		holder.rl_code.setTag(position);
 		if (mListener != null)

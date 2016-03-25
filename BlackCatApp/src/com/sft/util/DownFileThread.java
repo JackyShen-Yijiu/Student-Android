@@ -9,8 +9,6 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 
-import com.sft.common.Config;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -20,6 +18,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.StrictMode;
 import android.util.Log;
+
+import com.sft.common.Config;
 
 @SuppressLint("NewApi")
 public class DownFileThread implements Runnable {
@@ -33,8 +33,10 @@ public class DownFileThread implements Runnable {
 	boolean interupted = false; // 是否强制停止下载线程
 	private Context context;
 
-	public DownFileThread(Context context, Handler handler, String urlStr, String filePath) {
+	public DownFileThread(Context context, Handler handler, String urlStr,
+			String filePath) {
 		Log.i(TAG, urlStr);
+		LogUtil.print("uuuuuuuuuuuuuuuu" + urlStr);
 		this.mHandler = handler;
 		this.urlStr = urlStr;
 		apkFile = new File(filePath);
@@ -62,16 +64,21 @@ public class DownFileThread implements Runnable {
 
 	@Override
 	public void run() {
-		if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+		if (Environment.getExternalStorageState().equals(
+				Environment.MEDIA_MOUNTED)) {
 			java.net.URL url = null;
 			HttpURLConnection conn = null;
 			InputStream iStream = null;
 			// if (DEVELOPER_MODE)
 			{
-				StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectDiskReads().detectDiskWrites()
-						.detectNetwork().penaltyLog().build());
-				StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectLeakedSqlLiteObjects()
-						.detectLeakedClosableObjects().penaltyLog().penaltyDeath().build());
+				StrictMode
+						.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+								.detectDiskReads().detectDiskWrites()
+								.detectNetwork().penaltyLog().build());
+				StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+						.detectLeakedSqlLiteObjects()
+						.detectLeakedClosableObjects().penaltyLog()
+						.penaltyDeath().build());
 			}
 			try {
 				url = new java.net.URL(urlStr);
@@ -101,6 +108,10 @@ public class DownFileThread implements Runnable {
 			byte[] buffer = new byte[1024];
 			int len;
 			// 获取文件总长度
+			if (conn == null) {
+				mHandler.sendEmptyMessage(DownLoadService.DOWNLOAD_FAIL);
+				return;
+			}
 			int length = conn.getContentLength();
 
 			if (length == -1) {
@@ -146,7 +157,8 @@ public class DownFileThread implements Runnable {
 					Intent intent = new Intent();
 					intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 					intent.setAction(android.content.Intent.ACTION_VIEW);
-					intent.setDataAndType(Uri.fromFile(getApkFile()), "application/vnd.android.package-archive");
+					intent.setDataAndType(Uri.fromFile(getApkFile()),
+							"application/vnd.android.package-archive");
 					context.startActivity(intent);
 					Log.i(TAG, "下载完成结束");
 				}

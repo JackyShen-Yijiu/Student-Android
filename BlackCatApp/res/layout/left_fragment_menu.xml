@@ -3,6 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#f0f0f0"
+    android:clickable="true"
     android:orientation="vertical" >
     
     <RelativeLayout 
@@ -115,13 +116,11 @@
                 android:text="咨询"
                 android:textSize="14sp"
                 android:textColor="#7b7b7b"/>
-
     <TextView
                             android:layout_width="1dp"
                             android:layout_height="28dp"
                             android:gravity="center_vertical"
                             android:background="#dadada"/>
-            
             
             <RadioButton
                 android:id="@+id/fragment_menu_complaint_btn"

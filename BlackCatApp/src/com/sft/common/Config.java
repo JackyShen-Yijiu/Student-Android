@@ -5,6 +5,9 @@ import java.io.File;
 import android.os.Environment;
 
 public class Config {
+	
+	/**分页*/
+	public static final int PAGE_COUNT = 10;
 
 	/**
 	 * 微信appId

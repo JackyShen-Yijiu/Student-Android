@@ -12,6 +12,7 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -65,6 +66,8 @@ public class OrderApplyAct extends BaseActivity {
 
 	private MyOrderVO myOrder;
 
+	private ImageView error_iv;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -80,6 +83,8 @@ public class OrderApplyAct extends BaseActivity {
 
 		setTitleText("报名信息");
 		llTop = (LinearLayout) findViewById(R.id.item_order_top_ll);
+
+		error_iv = (ImageView) findViewById(R.id.error_iv);
 		ll = (LinearLayout) findViewById(R.id.item_order);
 		errorRl = (RelativeLayout) findViewById(R.id.error_rl);
 		errorTv = (TextView) findViewById(R.id.error_tv);
@@ -109,14 +114,22 @@ public class OrderApplyAct extends BaseActivity {
 		btn2.setOnClickListener(this);
 
 		if (errorTv != null) {
-			errorTv.setText(R.string.no_order_apply);
+			errorRl.setVisibility(View.VISIBLE);
+			error_iv.setImageResource(R.drawable.image_dingdan);
+			errorTv.setText("没有找到您的订单信息");
 		}
 
 	}
 
 	private void setOffLine(SuccessVO successVO) {
-		LogUtil.print("app--->" + app + "user::apply--》》" + app.userVO.getApplystate());
+<<<<<<< HEAD
+		LogUtil.print("app--->" + app + "user::apply--》》"
+				+ app.userVO.getApplystate());
+
+=======
+		LogUtil.print("app--->" + app + "user::apply--》线下》" + successVO.paytypestatus);
 		
+>>>>>>> f2cba392a32aa3e8cf36286929387857d800bbe6
 		tvOrderName.setText(successVO.applyclasstypeinfo.name);
 		tvPayMoney.setText("实付款:");
 		tvPay1.setText("￥" + successVO.applyclasstypeinfo.price);
@@ -126,6 +139,7 @@ public class OrderApplyAct extends BaseActivity {
 		tvNotPay.setVisibility(View.VISIBLE);
 		if (successVO.paytype.equals("1")) {// 线下支付
 			tvTitle.setText(successVO.applyschoolinfo.name + "(线下)");
+			
 			if (successVO.paytypestatus == 20) {// 申请成功
 				tvState.setText("报名成功");
 				tvNotPay.setText("订单已支付");
@@ -138,7 +152,7 @@ public class OrderApplyAct extends BaseActivity {
 				btn1.setVisibility(View.VISIBLE);
 				// btn2.setText(R.string.cancel_order);
 				btn1.setText(R.string.cancel_order);
-				ll.setOnClickListener(null);
+//				ll.setOnClickListener(null);
 			} else if (successVO.paytypestatus == 30) {// 支付失败
 				tvState.setText("支付失败");
 				tvNotPay.setText("订单支付失败");
@@ -146,7 +160,7 @@ public class OrderApplyAct extends BaseActivity {
 				btn1.setVisibility(View.VISIBLE);
 				// btn2.setText(R.string.cancel_order);
 				btn1.setText(R.string.cancel_order);
-				ll.setOnClickListener(null);
+//				ll.setOnClickListener(null);
 			}
 
 		} else {// 线上支付
@@ -238,7 +252,7 @@ public class OrderApplyAct extends BaseActivity {
 					headParams.width, headParams.height);
 		}
 	}
-	
+
 	// 支付状态: 未支付成功: 不可以点击
 	// 支付状态: 支付成功： 可以点击进入详情
 
@@ -261,7 +275,7 @@ public class OrderApplyAct extends BaseActivity {
 			finish();
 			break;
 		case R.id.item_order_button1:// 立即支付,右面
-//			Toast("pay"+successVO.paytype);
+			// Toast("pay"+successVO.paytype);
 			if (successVO.paytype.equals("1")) {// 线下支付，重新报名
 				reEnroll();
 			} else {// 立即支付
@@ -449,7 +463,8 @@ public class OrderApplyAct extends BaseActivity {
 				}
 				if (result.equals("0")) {// 没有数据
 					errorRl.setVisibility(View.VISIBLE);
-					errorTv.setText(msg);
+					error_iv.setImageResource(R.drawable.image_dingdan);
+					errorTv.setText("没有找到您的订单信息");
 					ll.setVisibility(View.GONE);
 					tvNotPay.setVisibility(View.GONE);
 				} else {
@@ -468,7 +483,8 @@ public class OrderApplyAct extends BaseActivity {
 				}
 				if (result.equals("0")) {// 没有数据
 					errorRl.setVisibility(View.VISIBLE);
-					errorTv.setText(msg);
+					error_iv.setImageResource(R.drawable.image_dingdan);
+					errorTv.setText("没有找到您的订单信息");
 					ll.setVisibility(View.GONE);
 					tvNotPay.setVisibility(View.GONE);
 				} else {

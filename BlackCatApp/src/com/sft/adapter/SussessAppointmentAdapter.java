@@ -108,7 +108,6 @@ public class SussessAppointmentAdapter extends BaseAdapter {
 					.findViewById(R.id.my_appointment_item_ordertime_tv);
 			convertView.setTag(holder);
 		} else {
-
 			holder = (ViewHolder) convertView.getTag();
 		}
 		holder.headpic.setScaleType(ScaleType.CENTER_CROP);
@@ -198,7 +197,7 @@ public class SussessAppointmentAdapter extends BaseAdapter {
 							.getSigintime(), "HH:mm"));
 
 		} else {
-			holder.orderTime.setText("未签到");
+			holder.orderTime.setText("暂无签到时间");
 		}
 
 		return convertView;
