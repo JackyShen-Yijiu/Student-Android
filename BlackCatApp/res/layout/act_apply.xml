@@ -76,6 +76,7 @@
             android:text="智能匹配"/>
           
           <ImageView 
+              android:id="@+id/act_apply_coach_img"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_centerVertical="true"

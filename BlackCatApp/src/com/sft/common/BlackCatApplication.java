@@ -45,8 +45,8 @@ public class BlackCatApplication extends Application {
 	public String qiniuToken;
 	public QuestionVO questionVO;
 	public VersionVO versionVO;
-	public String latitude = "40.096263";
-	public String longtitude = "116.1270";
+	public String latitude = "39.542415";
+	public String longtitude = "116.232929";
 	// 用户当前所在城市
 	public String curCity;
 	// 我喜欢的教练

@@ -20,6 +20,7 @@ import com.sft.adapter.SchoolBusAdapter2;
 import com.sft.common.Config;
 import com.sft.fragment.MenuFragment;
 import com.sft.util.JSONUtil;
+import com.sft.util.LogUtil;
 import com.sft.vo.SchoolBusRouteNew;
 import com.sft.vo.SchoolVO;
 
@@ -51,6 +52,7 @@ public class SchoolBusRouteActivity extends BaseActivity implements
 		addView(R.layout.activity_bus_route);
 		initView();
 		initData();
+//		
 	}
 
 	private void initView() {
@@ -71,6 +73,7 @@ public class SchoolBusRouteActivity extends BaseActivity implements
 	private void initData() {
 		school = (SchoolVO) getIntent().getSerializableExtra("school_route");
 		String schoolId = getIntent().getStringExtra(MenuFragment.schoolId);
+		
 		if (!TextUtils.isEmpty(schoolId)) {
 			obtainEnrollSchoolDetail(schoolId);
 		} else {
@@ -101,8 +104,9 @@ public class SchoolBusRouteActivity extends BaseActivity implements
 				if (data != null) {
 					school = JSONUtil.toJavaBean(SchoolVO.class, data);
 				}
-				if (school == null && school.getSchoolbusroute() == null
-						&& school.getSchoolbusroute().size() == 0) {
+				
+				if (school == null || school.getSchoolbusroute() == null
+						|| school.getSchoolbusroute().size() == 0) {
 					errorRl.setVisibility(View.VISIBLE);
 					error_iv.setImageResource(R.drawable.image_banche);
 					errorTv.setText("暂时没有班车接送信息");

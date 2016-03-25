@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.jzjf.app.R;
 import com.sft.common.BlackCatApplication;
 import com.sft.common.Config.EnrollResult;
+import com.sft.util.EnrollUtils;
 import com.sft.util.LogUtil;
 import com.sft.vo.ClassVO;
 
@@ -97,94 +98,8 @@ public class SchoolDetailCourseFeeAdapter extends BaseAdapter {
 		Button entrollBut = (Button) convertView
 				.findViewById(R.id.course_fee_enroll_btn);
 
-		BaomingBtn(entrollBut, serverClassList);
-		// LogUtil.print(enrollstate+"classID-->"+serverClassList.getCalssid()+"App::>"+app.userVO.getApplyclasstypeinfo().getId());
-		// LogUtil.print("pay--state--456>000" + app.userVO.getApplystate());
-		// if (!app.isLogin) {
-		// entrollBut.setText("报名");
-		// entrollBut.setTextColor(mContext.getResources().getColor(
-		// R.color.white));
-		// entrollBut.setVisibility(View.VISIBLE);
-		// } else if (app.userVO != null
-		// && app.userVO.getApplyclasstypeinfo() != null
-		// && serverClassList.getCalssid() != null
-		// && serverClassList.getCalssid().equals(
-		// app.userVO.getApplyclasstypeinfo().getId())) {// 如果相同
-		// // 则显示
-		// LogUtil.print("pay--state--456>" + app.userVO.getPayState());
-		// if (app.userVO.getPayState() == 0 || app.userVO.getPayState() == 30)
-		// {// 支付失败
-		// entrollBut.setText("报名");
-		// entrollBut.setTextColor(mContext.getResources().getColor(
-		// R.color.white));
-		// entrollBut.setVisibility(View.VISIBLE);
-		// entrollBut.setEnabled(true);
-		//
-		// } else {// 支付成功
-		// if (EnrollResult.SUBJECT_ENROLLING.getValue().equals(
-		// enrollstate)) {
-		// entrollBut.setText("报名审核中");
-		// entrollBut.setEnabled(false);
-		// entrollBut.setTextColor(mContext.getResources().getColor(
-		// R.color.text_color_light));
-		//
-		// // entrollBut.setBackgroundColor(mContext.getResources().getColor(
-		// // R.color.txt_9));
-		//
-		// } else {
-		// entrollBut.setText("已报名");
-		// entrollBut.setEnabled(false);
-		// entrollBut.setTextColor(mContext.getResources().getColor(
-		// R.color.text_color_light));
-		// // entrollBut.setBackgroundColor(mContext.getResources().getColor(
-		// // R.color.txt_9));
-		// }
-		// }
-		// // if (EnrollResult.SUBJECT_NONE.getValue().equals(enrollstate)) {
-		// // entrollBut.setText("报名");
-		// //
-		// entrollBut.setTextColor(mContext.getResources().getColor(R.color.white));
-		// // } else if (EnrollResult.SUBJECT_ENROLLING.getValue().equals(
-		// // enrollstate) ) {
-		// // entrollBut.setText("报名审核中");
-		// // entrollBut.setEnabled(false);
-		// //
-		// entrollBut.setTextColor(mContext.getResources().getColor(R.color.text_color_light));
-		// //
-		// // //
-		// // entrollBut.setBackgroundColor(mContext.getResources().getColor(
-		// // // R.color.txt_9));
-		// //
-		// // } else {
-		// // entrollBut.setText("已报名");
-		// // entrollBut.setEnabled(false);
-		// //
-		// entrollBut.setTextColor(mContext.getResources().getColor(R.color.text_color_light));
-		// // //
-		// // entrollBut.setBackgroundColor(mContext.getResources().getColor(
-		// // // R.color.txt_9));
-		// // }
-		// } else {
-		// if (app.userVO.getPayState() == 0 || app.userVO.getPayState() == 30)
-		// {// 支付失败
-		// entrollBut.setText("报名");
-		// entrollBut.setTextColor(mContext.getResources().getColor(
-		// R.color.white));
-		// entrollBut.setVisibility(View.VISIBLE);
-		// } else {// 支付成功
-		// entrollBut.setVisibility(View.GONE);
-		// }
-		//
-		// // 报名状态
-		// // if (EnrollResult.SUBJECT_NONE.getValue().equals(enrollstate)) {
-		// // entrollBut.setText("报名");
-		// //
-		// entrollBut.setTextColor(mContext.getResources().getColor(R.color.white));
-		// // } else {
-		// // entrollBut.setVisibility(View.GONE);
-		// // }
-		//
-		// }
+//		EnrollUtils.doEnroll(entrollBut);
+//		BaomingBtn(entrollBut, serverClassList);
 
 		entrollBut.setTag(position);
 		entrollBut.setOnClickListener(mListener);
@@ -193,6 +108,8 @@ public class SchoolDetailCourseFeeAdapter extends BaseAdapter {
 			tehuiIv.setVisibility(View.VISIBLE);
 		}
 		timeTv.setText(serverClassList.getClasschedule());
+		
+		EnrollUtils.doEnroll(entrollBut);
 
 		if (!TextUtils.isEmpty(serverClassList.getOnsaleprice())) {
 			price.setText("¥" + serverClassList.getOnsaleprice());
@@ -210,16 +127,6 @@ public class SchoolDetailCourseFeeAdapter extends BaseAdapter {
 		SpannableStringBuilder builder = new SpannableStringBuilder(intro
 				.getText().toString());
 
-		// ForegroundColorSpan 为文字前景色，BackgroundColorSpan为文字背景色
-		// ForegroundColorSpan span = new ForegroundColorSpan(mContext
-		// .getResources().getColor(R.color.app_main_color));
-		//
-		// builder.setSpan(span, serverClassList.getClassdesc().length(),
-		// serverClassList.getClassdesc().length()
-		// + serverClassList.getOnsaleprice().length() + 1,
-		// Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-		// intro.setText(builder);
-		LogUtil.print("course--adapter-->" + position);
 		return convertView;
 	}
 
@@ -261,55 +168,6 @@ public class SchoolDetailCourseFeeAdapter extends BaseAdapter {
 				entrollBut.setVisibility(View.GONE);
 
 			}
-			// LogUtil.print("pay--state--456>" + app.userVO.getPayState());
-			// if (app.userVO.getPayState() == 0 || app.userVO.getPayState() ==
-			// 30) {// 支付失败
-			// entrollBut.setText("报名");
-			// entrollBut.setTextColor(mContext.getResources().getColor(
-			// R.color.white));
-			// entrollBut.setVisibility(View.VISIBLE);
-			// entrollBut.setEnabled(true);
-			//
-			// } else {// 支付成功
-			// if (EnrollResult.SUBJECT_ENROLLING.getValue().equals(
-			// enrollstate)) {
-			// entrollBut.setText("报名审核中");
-			// entrollBut.setEnabled(false);
-			// entrollBut.setTextColor(mContext.getResources().getColor(
-			// R.color.text_color_light));
-			//
-			// //
-			// entrollBut.setBackgroundColor(mContext.getResources().getColor(
-			// // R.color.txt_9));
-			//
-			// } else {
-			// entrollBut.setText("已报名");
-			// entrollBut.setEnabled(false);
-			// entrollBut.setTextColor(mContext.getResources().getColor(
-			// R.color.text_color_light));
-			// //
-			// entrollBut.setBackgroundColor(mContext.getResources().getColor(
-			// // R.color.txt_9));
-			// }
-			// }
-			// } else {
-			// if (app.userVO.getPayState() == 0 || app.userVO.getPayState() ==
-			// 30) {// 支付失败
-			// entrollBut.setText("报名");
-			// entrollBut.setTextColor(mContext.getResources().getColor(
-			// R.color.white));
-			// entrollBut.setVisibility(View.VISIBLE);
-			// } else {// 支付成功
-			// entrollBut.setVisibility(View.GONE);
-			// }
-
-			// 报名状态
-			// if (EnrollResult.SUBJECT_NONE.getValue().equals(enrollstate)) {
-			// entrollBut.setText("报名");
-			// entrollBut.setTextColor(mContext.getResources().getColor(R.color.white));
-			// } else {
-			// entrollBut.setVisibility(View.GONE);
-			// }
 
 		}
 	}
