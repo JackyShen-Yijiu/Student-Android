@@ -17,7 +17,6 @@ import com.jzjf.app.R;
 import com.sft.adapter.SussessAppointmentAdapter;
 import com.sft.common.Config;
 import com.sft.util.JSONUtil;
-import com.sft.util.LogUtil;
 import com.sft.vo.AppointmentTempVO;
 import com.sft.vo.MyAppointmentVO;
 
@@ -46,7 +45,6 @@ public class SussessOrderActvity extends BaseActivity implements
 		list = vo.list;
 
 		Lv = (ListView) findViewById(R.id.enroll_select_school_listview);
-		LogUtil.print("///////" + list.size());
 		adapter = new SussessAppointmentAdapter(this, list);
 		Lv.setAdapter(adapter);
 		Lv.setOnItemClickListener(this);

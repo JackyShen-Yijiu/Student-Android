@@ -108,7 +108,6 @@ public class SussessAppointmentAdapter extends BaseAdapter {
 					.findViewById(R.id.my_appointment_item_ordertime_tv);
 			convertView.setTag(holder);
 		} else {
-
 			holder = (ViewHolder) convertView.getTag();
 		}
 		holder.headpic.setScaleType(ScaleType.CENTER_CROP);

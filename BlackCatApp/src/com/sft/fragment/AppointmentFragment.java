@@ -191,6 +191,7 @@ public class AppointmentFragment extends BaseFragment implements
 		// EventBus.getDefault().unregister(this);
 	}
 
+	@SuppressWarnings("deprecation")
 	private void initViews(View rootView) {
 
 		noCaochErrorRl = (RelativeLayout) rootView.findViewById(R.id.error_rl);
@@ -278,7 +279,6 @@ public class AppointmentFragment extends BaseFragment implements
 	}
 
 	private void obtainOppointment() {
-
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("userid", app.userVO.getUserid());
 		paramMap.put("subjectid", app.userVO.getSubject().getSubjectid());

@@ -165,6 +165,7 @@ public class SettingActivity extends BaseActivity implements
 
 		case R.id.setting_update:
 			showDialog();
+
 			break;
 		case R.id.person_center_logout_btn:
 			ZProgressHUD.getInstance(this).setMessage("正在退出登录...");
@@ -197,49 +198,47 @@ public class SettingActivity extends BaseActivity implements
 	}
 
 	private void showDialog() {
-		if (getIntent().getBooleanExtra("update", false)) {
 
-			// 如果正在下载，return
-			if (isMyServiceRunning()) {
-				return;
-			}
-			String curVersion = util.getAppVersion().replace("v", "")
-					.replace("V", "").replace(".", "");
-			String newVersion = app.versionVO.getVersionCode().replace("v", "")
-					.replace("V", "").replace(".", "");
-			try {
-				if (newVersion != curVersion) {
+		// 如果正在下载，return
+		if (isMyServiceRunning()) {
+			return;
+		}
+		String curVersion = util.getAppVersion().replace("v", "")
+				.replace("V", "").replace(".", "");
+		String newVersion = app.versionVO.getVersionCode().replace("v", "")
+				.replace("V", "").replace(".", "");
+		try {
+			if (newVersion != curVersion) {
 
-					AlertDialog.Builder builder = new AlertDialog.Builder(this);
-					builder.setTitle("发现新版本");
-					builder.setMessage(getString(R.string.app_name) + "有新版本啦！");
-					builder.setPositiveButton("立即更新",
-							new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog,
-										int whichButton) {
-									startService(new Intent(
-											SettingActivity.this,
-											DownLoadService.class).putExtra(
-											"url",
-											app.versionVO.getDownloadUrl()));
-									dialog.dismiss();
-								}
-							});
-					builder.setNegativeButton("以后再说",
-							new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog,
-										int whichButton) {
-									dialog.dismiss();
-								}
-							});
-					Dialog dialog = builder.create();
-					dialog.show();
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
+				AlertDialog.Builder builder = new AlertDialog.Builder(this);
+				builder.setTitle("发现新版本");
+				builder.setMessage(getString(R.string.app_name) + "有新版本啦！");
+				builder.setPositiveButton("立即更新",
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								startService(new Intent(SettingActivity.this,
+										DownLoadService.class).putExtra("url",
+										app.versionVO.getDownloadUrl()));
+								dialog.dismiss();
+							}
+						});
+				builder.setNegativeButton("以后再说",
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								dialog.dismiss();
+							}
+						});
+				Dialog dialog = builder.create();
+				dialog.show();
+			} else {
+				Toast("已是最新版本！");
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 

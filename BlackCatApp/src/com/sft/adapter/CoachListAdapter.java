@@ -18,9 +18,8 @@ import android.widget.TextView;
 import cn.sft.infinitescrollviewpager.BitmapManager;
 
 import com.joooonho.SelectableRoundedImageView;
-import com.sft.adapter.SchoolDetailCourseFeeAdapter.MyClickListener;
 import com.jzjf.app.R;
-import com.sft.util.LogUtil;
+import com.sft.adapter.SchoolDetailCourseFeeAdapter.MyClickListener;
 import com.sft.vo.CoachVO;
 import com.sft.vo.commonvo.Subject;
 
@@ -128,7 +127,7 @@ public class CoachListAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		holder.headPic.setScaleType(ScaleType.CENTER_CROP);
-		holder.headPic.setImageResource(R.drawable.default_small_pic);
+		holder.headPic.setImageResource(R.drawable.login_head);
 		holder.headPic.setOval(true);
 		// if (position >= isSelected.length) {
 		// return convertView;
@@ -168,7 +167,12 @@ public class CoachListAdapter extends BaseAdapter {
 		holder.passRate
 				.setText("通过率" + mData.get(position).getPassrate() + "%");
 		holder.comment.setText(mData.get(position).getCommentcount() + "条评论");
-		holder.teachAge.setText(mData.get(position).getSeniority() + "年教龄");
+
+		if (mData.get(position).getSeniority().contains("年")) {
+			holder.teachAge.setText(mData.get(position).getSeniority() + "教龄");
+		} else {
+			holder.teachAge.setText(mData.get(position).getSeniority() + "年教龄");
+		}
 
 		RelativeLayout.LayoutParams headParam = (RelativeLayout.LayoutParams) holder.headPic
 				.getLayoutParams();
@@ -181,8 +185,8 @@ public class CoachListAdapter extends BaseAdapter {
 					headParam.width, headParam.height);
 		}
 		// if (position == mData.size() - 1) {
-//		LogUtil.print(mData.size() + "ssssssd===="
-//				+ mData.get(position).getName() + position);
+		// LogUtil.print(mData.size() + "ssssssd===="
+		// + mData.get(position).getName() + position);
 		// }
 
 		holder.headPic.setTag(position);
