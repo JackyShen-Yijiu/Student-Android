@@ -9,10 +9,16 @@ import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -49,6 +55,39 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 		setContentView(R.layout.activity_welcome);
 		initView();
 		initData();
+//		addShortcutToDesktop();
+	}
+	
+	void addShortcutToDesktop(){
+		 
+		Intent shortcut = new Intent(Intent.ACTION_INSTALL_PACKAGE);
+ 
+		BitmapDrawable iconBitmapDrawabel = null;
+ 
+		// 获取应用基本信息
+		String label = this.getPackageName();
+		PackageManager packageManager = getPackageManager();
+		try {
+			iconBitmapDrawabel = (BitmapDrawable) packageManager.getApplicationIcon(label);
+		} catch (NameNotFoundException e) {
+			e.printStackTrace();
+		}
+		Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.icon_bus);
+ 
+		// 设置属性
+		shortcut.putExtra(Intent.EXTRA_SHORTCUT_NAME, "abcd");
+		shortcut.putExtra(Intent.EXTRA_SHORTCUT_ICON, b);
+ 
+		// 是否允许重复创建 -- fase-->否
+		shortcut.putExtra("duplicate", true); 
+ 
+		// 设置启动程序
+		ComponentName comp = new ComponentName(label,"." + this.getLocalClassName());
+		shortcut.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(Intent.ACTION_MAIN).setComponent(comp));
+ 
+		sendBroadcast(shortcut);
+		LogUtil.print("welcome-->");
+		Toast("welcome");
 	}
 
 	private void initView() {

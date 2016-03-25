@@ -1185,7 +1185,7 @@ public class MainActivity extends BaseMainActivity implements
 			mMainContainer.showTab(MainActivity.TARGET_TAB);
 			drawerLayout.closeDrawer(Gravity.START);
 			// changeMenu();
-
+			TARGET_TAB = -1;
 		}
 		// MainActivity.TARGET_TAB = 0;
 		if (app.userVO != null && !app.userVO.getApplystate().equals("0")) {

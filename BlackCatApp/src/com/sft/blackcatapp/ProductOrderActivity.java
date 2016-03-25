@@ -286,6 +286,7 @@ public class ProductOrderActivity extends BaseActivity {
 							productBuySuccessVO.getFinishorderurl());
 				}
 				startActivity(intent);
+				finish();
 			} else if (type.equals(myCoinCertificate)) {
 				if (dataArray != null) {
 					int length = dataArray.length();
