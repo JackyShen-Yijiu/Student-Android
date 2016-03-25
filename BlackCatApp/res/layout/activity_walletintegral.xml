@@ -25,12 +25,18 @@
       android:background="@color/white"
       >
 
+      <View 
+          android:id="@+id/line"
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@color/line_color"/>
       <TextView
           android:id="@+id/my_wallet_invit_code_tv"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_alignParentLeft="true"
           android:layout_centerVertical="true"
+          android:layout_below="@+id/line"
           android:text=""
           android:textColor="@color/left_black"
           android:textSize="14sp" />
