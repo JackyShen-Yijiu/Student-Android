@@ -122,6 +122,14 @@ public class OrderApplyAct extends BaseActivity {
 	}
 
 	private void setOffLine(SuccessVO successVO) {
+<<<<<<< HEAD
+=======
+		LogUtil.print("app--->" + app + "user::apply--》》"
+				+ app.userVO.getApplystate());
+
+		LogUtil.print("app--->" + app + "user::apply--》线下》"
+				+ successVO.paytypestatus);
+>>>>>>> d24b8d7f6c1f445d6be8cabd611d0105d3e59362
 
 		tvOrderName.setText(successVO.applyclasstypeinfo.name);
 		tvPayMoney.setText("实付款:");
@@ -326,6 +334,7 @@ public class OrderApplyAct extends BaseActivity {
 	private static final int SDK_CHECK_FLAG = 2;
 
 	private Handler mHandler = new Handler() {
+		@Override
 		public void handleMessage(Message msg) {
 			// ConfirmOrderActivity.this.setResult(9,getIntent());
 			// ConfirmOrderActivity.this.finish();

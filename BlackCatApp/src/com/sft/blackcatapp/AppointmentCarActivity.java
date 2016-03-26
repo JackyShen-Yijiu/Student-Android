@@ -230,6 +230,7 @@ public class AppointmentCarActivity extends BaseActivity implements
 		appointCommit.setOnClickListener(this);
 		studentListView.setLoadMoreListener(this);
 		changeCoChTv.setOnClickListener(this);
+		coachPic.setOnClickListener(this);
 	}
 
 	private void initData() {
@@ -325,6 +326,12 @@ public class AppointmentCarActivity extends BaseActivity implements
 		case R.id.appointment_car_change_coach_tv:
 			// 更多教练
 			intent = new Intent(this, AppointmentMoreCoachActivity.class);
+			break;
+
+		case R.id.appointment_car_coach_iv:
+			intent = new Intent(this, CoachDetailActivity.class);
+			intent.putExtra("coach", selectCoach);
+			startActivity(intent);
 			break;
 		default:
 			break;
@@ -453,8 +460,8 @@ public class AppointmentCarActivity extends BaseActivity implements
 					Util.saveAppointmentCoach(this, selectCoach);
 					// EventBus.getDefault().post(new
 					// AppointmentSuccessEvent());
-					Intent intent = new Intent();
-					setResult(RESULT_OK, intent);
+					// Intent intent = new Intent();
+					// setResult(RESULT_OK, intent);
 
 					// new MyHandler(1500) {
 					// @Override

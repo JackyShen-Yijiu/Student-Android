@@ -206,6 +206,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 	}
 
 	private String enrollState;
+	private TextView schoolInMoreTv;
 
 	@Override
 	protected void onResume() {
@@ -305,7 +306,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 		schoolRateTv = (TextView) findViewById(R.id.school_detail_rate_tv);
 		workTimeTv = (TextView) findViewById(R.id.school_detail_time_tv);
 		schoolInTv = (TextView) findViewById(R.id.coach_detail_introduction_tv);
-		// schoolInMoreTv = (TextView) findViewById(R.id.school_detail_more_tv);
+		schoolInMoreTv = (TextView) findViewById(R.id.school_detail_more_tv);
 
 		addDeleteSchoolCk = (CheckBox) findViewById(R.id.school_detail_collection_ck);
 
@@ -368,6 +369,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 		addDeleteSchoolCk.setOnCheckedChangeListener(this);
 		schoolInTv.setOnClickListener(this);
 		coachInfoRl.setOnClickListener(this);
+		schoolInMoreTv.setOnClickListener(this);
 		// coachlistView.setOnItemClickListener(this);
 		// radioGroup.setOnCheckedChangeListener(this);
 		// radioGroupTop.setOnCheckedChangeListener(this);
@@ -796,6 +798,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 			break;
 
 		case R.id.coach_detail_introduction_tv:
+		case R.id.school_detail_more_tv:
 			if (isRunAnim) {
 				return;
 			}
@@ -824,7 +827,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 
 			// 标记值取反
 			isExtend = !isExtend;
-			// schoolInMoreTv.setText(isExtend ? "收起" : "更多");
+			schoolInMoreTv.setText(isExtend ? "收起" : "展开");
 			break;
 
 		// case R.id.school_detail_bus_more_tv:
