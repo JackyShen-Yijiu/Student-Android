@@ -122,14 +122,7 @@ public class OrderApplyAct extends BaseActivity {
 	}
 
 	private void setOffLine(SuccessVO successVO) {
-<<<<<<< HEAD
-		LogUtil.print("app--->" + app + "user::apply--》》"
-				+ app.userVO.getApplystate());
 
-=======
-		LogUtil.print("app--->" + app + "user::apply--》线下》" + successVO.paytypestatus);
-		
->>>>>>> f2cba392a32aa3e8cf36286929387857d800bbe6
 		tvOrderName.setText(successVO.applyclasstypeinfo.name);
 		tvPayMoney.setText("实付款:");
 		tvPay1.setText("￥" + successVO.applyclasstypeinfo.price);
@@ -139,7 +132,7 @@ public class OrderApplyAct extends BaseActivity {
 		tvNotPay.setVisibility(View.VISIBLE);
 		if (successVO.paytype.equals("1")) {// 线下支付
 			tvTitle.setText(successVO.applyschoolinfo.name + "(线下)");
-			
+
 			if (successVO.paytypestatus == 20) {// 申请成功
 				tvState.setText("报名成功");
 				tvNotPay.setText("订单已支付");
@@ -152,7 +145,7 @@ public class OrderApplyAct extends BaseActivity {
 				btn1.setVisibility(View.VISIBLE);
 				// btn2.setText(R.string.cancel_order);
 				btn1.setText(R.string.cancel_order);
-//				ll.setOnClickListener(null);
+				// ll.setOnClickListener(null);
 			} else if (successVO.paytypestatus == 30) {// 支付失败
 				tvState.setText("支付失败");
 				tvNotPay.setText("订单支付失败");
@@ -160,7 +153,7 @@ public class OrderApplyAct extends BaseActivity {
 				btn1.setVisibility(View.VISIBLE);
 				// btn2.setText(R.string.cancel_order);
 				btn1.setText(R.string.cancel_order);
-//				ll.setOnClickListener(null);
+				// ll.setOnClickListener(null);
 			}
 
 		} else {// 线上支付
