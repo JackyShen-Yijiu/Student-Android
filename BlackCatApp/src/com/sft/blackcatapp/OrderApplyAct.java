@@ -85,7 +85,7 @@ public class OrderApplyAct extends BaseActivity {
 		llTop = (LinearLayout) findViewById(R.id.item_order_top_ll);
 
 		error_iv = (ImageView) findViewById(R.id.error_iv);
-		ll = (LinearLayout) findViewById(R.id.item_order);
+		ll = (LinearLayout) findViewById(R.id.ll_main);
 		errorRl = (RelativeLayout) findViewById(R.id.error_rl);
 		errorTv = (TextView) findViewById(R.id.error_tv);
 
@@ -128,7 +128,7 @@ public class OrderApplyAct extends BaseActivity {
 		tvPay1.setText("￥" + successVO.applyclasstypeinfo.price);
 		tvTime.setText("报名时间:" + successVO.applytime);// UTC2LOC.instance.getDate(pay.creattime,
 														// "yyyy-MM-dd HH:mm:ss")
-		LogUtil.print("paytypestatus---->" + successVO.paytypestatus);
+
 		tvNotPay.setVisibility(View.VISIBLE);
 		if (successVO.paytype.equals("1")) {// 线下支付
 			tvTitle.setText(successVO.applyschoolinfo.name + "(线下)");
@@ -188,6 +188,7 @@ public class OrderApplyAct extends BaseActivity {
 			BitmapManager.INSTANCE.loadBitmap2(successVO.schoollogoimg, img,
 					headParams.width, headParams.height);
 		}
+		LogUtil.print("paytypestatus---->" + successVO.paytypestatus);
 
 	}
 
@@ -197,7 +198,7 @@ public class OrderApplyAct extends BaseActivity {
 		tvPayMoney.setText("实付款:");
 		tvPay1.setText("￥" + bean.applyclasstypeinfo.getPrice());
 		tvTime.setText("报名时间:" + bean.applytime);
-		LogUtil.print("paytypestatus----setMyOrder>" + bean.paytypestatus);
+
 		if (bean.paytype == 1) {// 线下支付
 			tvTitle.setText(bean.applyschoolinfo.getName() + "(线下)");
 			if (bean.paytypestatus == 20) {// 申请成功
@@ -245,6 +246,8 @@ public class OrderApplyAct extends BaseActivity {
 			BitmapManager.INSTANCE.loadBitmap2(bean.schoollogoimg, img,
 					headParams.width, headParams.height);
 		}
+
+		LogUtil.print("paytypestatus----setMyOrder>" + bean.paytypestatus);
 	}
 
 	// 支付状态: 未支付成功: 不可以点击
@@ -418,6 +421,8 @@ public class OrderApplyAct extends BaseActivity {
 
 	}
 
+	private boolean flag = false;
+
 	@Override
 	public synchronized boolean doCallBack(String type, Object jsonString) {
 		if (super.doCallBack(type, jsonString)) {
@@ -436,13 +441,16 @@ public class OrderApplyAct extends BaseActivity {
 					}
 				}
 				if (payList.size() > 0) {
+					// flag = false; = true;
 					pay = payList.get(0);
 					LogUtil.print("pay---->" + pay.applyschoolinfo.getAddress()
 							+ "");
 					tvPay1.setText("￥" + pay.paymoney);
 					// setData(pay);
 				} else {
-					errorRl.setVisibility(View.VISIBLE);
+					// flag
+					// flag = false;
+					// errorRl.setVisibility(View.VISIBLE);
 				}
 				//
 				// LogUtil.print("order--size-->"+payList.size());
@@ -458,16 +466,19 @@ public class OrderApplyAct extends BaseActivity {
 				}
 				LogUtil.print("myOrder---applySchoolInfor>" + result);
 				if (result.equals("0")) {// 没有数据
+					flag = false;
 					errorRl.setVisibility(View.VISIBLE);
 					error_iv.setImageResource(R.drawable.image_dingdan);
 					errorTv.setText("没有找到您的订单信息");
 					ll.setVisibility(View.GONE);
 					tvNotPay.setVisibility(View.GONE);
 				} else {
+					flag = true;
 					tvNotPay.setVisibility(View.VISIBLE);
 					errorRl.setVisibility(View.GONE);
 					ll.setVisibility(View.VISIBLE);
 				}
+
 			} else if (type.equals("cancleorder")) {
 				MainActivity.TARGET_TAB = MainActivity.TAB_APPLY;
 				setResult(9);
@@ -479,16 +490,19 @@ public class OrderApplyAct extends BaseActivity {
 				}
 				LogUtil.print("myOrder--->" + result);
 				if (result.equals("0")) {// 没有数据
+					flag = false;
 					errorRl.setVisibility(View.VISIBLE);
 					error_iv.setImageResource(R.drawable.image_dingdan);
 					errorTv.setText("没有找到您的订单信息");
 					ll.setVisibility(View.GONE);
 					tvNotPay.setVisibility(View.GONE);
 				} else {
+					flag = true;
 					tvNotPay.setVisibility(View.VISIBLE);
 					errorRl.setVisibility(View.GONE);
 					ll.setVisibility(View.VISIBLE);
 				}
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

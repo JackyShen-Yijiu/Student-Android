@@ -266,7 +266,7 @@ public class EnrollSuccessActivity extends BaseActivity {
 			} else if (successVO.paytypestatus == 30) {// 支付失败
 				tvState.setText("支付失败");
 			}
-//			qrcode.setVisibility(View.VISIBLE);
+			// qrcode.setVisibility(View.VISIBLE);
 
 		} else {// 线上支付
 			if (successVO.paytypestatus == 20) {// 申请成功
@@ -296,7 +296,9 @@ public class EnrollSuccessActivity extends BaseActivity {
 			// headParam.height);
 			Picasso.with(getBaseContext()).load(url).into(qrcode);
 		} else {
-			qrcode.setImageResource(R.drawable.default_small_pic);
+			// qrcode.setImageResource(R.drawable.default_small_pic);
+			qrcode.setVisibility(View.GONE);
+			tv_Qr.setVisibility(View.GONE);
 		}
 	}
 
