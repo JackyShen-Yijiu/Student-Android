@@ -122,7 +122,7 @@ public class OrderApplyAct extends BaseActivity {
 	}
 
 	private void setOffLine(SuccessVO successVO) {
-
+		LogUtil.print("Myorder-offline->" + successVO);
 		tvOrderName.setText(successVO.applyclasstypeinfo.name);
 		tvPayMoney.setText("实付款:");
 		tvPay1.setText("￥" + successVO.applyclasstypeinfo.price);
@@ -192,11 +192,12 @@ public class OrderApplyAct extends BaseActivity {
 	}
 
 	private void setMyOrder(MyOrderVO bean) {
+		LogUtil.print("Myorder-->" + bean);
 		tvOrderName.setText(bean.applyclasstypeinfo.getName());
 		tvPayMoney.setText("实付款:");
 		tvPay1.setText("￥" + bean.applyclasstypeinfo.getPrice());
 		tvTime.setText("报名时间:" + bean.applytime);
-
+		LogUtil.print("paytypestatus----setMyOrder>" + bean.paytypestatus);
 		if (bean.paytype == 1) {// 线下支付
 			tvTitle.setText(bean.applyschoolinfo.getName() + "(线下)");
 			if (bean.paytypestatus == 20) {// 申请成功
@@ -455,6 +456,7 @@ public class OrderApplyAct extends BaseActivity {
 					successVO = JSONUtil.toJavaBean(SuccessVO.class, data);
 					setOffLine(successVO);
 				}
+				LogUtil.print("myOrder---applySchoolInfor>" + result);
 				if (result.equals("0")) {// 没有数据
 					errorRl.setVisibility(View.VISIBLE);
 					error_iv.setImageResource(R.drawable.image_dingdan);
@@ -475,6 +477,7 @@ public class OrderApplyAct extends BaseActivity {
 					myOrder = JSONUtil.toJavaBean(MyOrderVO.class, data);
 					setMyOrder(myOrder);
 				}
+				LogUtil.print("myOrder--->" + result);
 				if (result.equals("0")) {// 没有数据
 					errorRl.setVisibility(View.VISIBLE);
 					error_iv.setImageResource(R.drawable.image_dingdan);
