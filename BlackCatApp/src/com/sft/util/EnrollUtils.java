@@ -20,7 +20,7 @@ public class EnrollUtils {
 	 */
 	public  static void  doEnroll(Button entrollBut){
 		BlackCatApplication app = BlackCatApplication.getInstance();
-		LogUtil.print(app.isLogin+"<<login>>"+app.userVO.getApplystate());
+//		LogUtil.print(app.isLogin+"<<login>>"+app.userVO.getApplystate());
 		if(app.isLogin){//已经登录了
 			if(EnrollResult.SUBJECT_NONE.getValue().equals(app.userVO.getApplystate())){//没有登录， 或者未报名
 				entrollBut.setText("报名");
