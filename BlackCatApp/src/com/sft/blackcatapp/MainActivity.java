@@ -83,7 +83,6 @@ import com.sft.util.CommonUtil;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
 import com.sft.util.SharedPreferencesUtil;
-import com.sft.util.SunUtils;
 import com.sft.util.Util;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.ActivitiesVO;
@@ -185,7 +184,6 @@ public class MainActivity extends BaseMainActivity implements
 			getWindow().addFlags(
 					WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 		}
-		LogUtil.print("ip--getApplystate->" +app.userVO.getApplystate());
 
 		setContentView(R.layout.frame_content);
 		// EventBus.getDefault().register(this);
@@ -463,7 +461,9 @@ public class MainActivity extends BaseMainActivity implements
 				Intent intent = null;
 				LogUtil.print("换教练");
 				if (app.isLogin) {
-					LogUtil.print("换教练"+app.userVO.getSubject().getSubjectid()+app.userVO.getApplystate());
+					LogUtil.print("换教练"
+							+ app.userVO.getSubject().getSubjectid()
+							+ app.userVO.getApplystate());
 					if (app.userVO.getApplystate().equals(
 							EnrollResult.SUBJECT_NONE.getValue())) {
 						// 还没有报名
@@ -554,8 +554,7 @@ public class MainActivity extends BaseMainActivity implements
 			// String content) {
 			if (TextUtils.isEmpty(content.trim())) {
 				ZProgressHUD.getInstance(this).show();
-				ZProgressHUD.getInstance(this).dismissWithFailure(
-						"请输入评论内容");
+				ZProgressHUD.getInstance(this).dismissWithFailure("请输入评论内容");
 			} else {
 				if (rating == 0) {
 					comment(myAppointmentVO.get_id(), total + "",

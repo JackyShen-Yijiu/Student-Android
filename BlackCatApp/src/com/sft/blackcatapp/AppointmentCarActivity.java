@@ -101,6 +101,7 @@ public class AppointmentCarActivity extends BaseActivity implements
 		setTitleText(R.string.appointment_car);
 		showTitlebarText(BaseActivity.SHOW_RIGHT_TEXT);
 		setText(0, R.string.appointment_list);
+
 		initViews();
 		initData();
 		// resizeLayout();

@@ -310,6 +310,7 @@ public class AppointmentFragment extends BaseFragment implements
 		}
 		try {
 			if (type.equals(RESERVATION)) {
+				ZProgressHUD.getInstance(getActivity()).dismiss();
 				if (dataArray != null) {
 					if (list == null) {
 						list = new ArrayList<MyAppointmentVO>();
@@ -325,7 +326,11 @@ public class AppointmentFragment extends BaseFragment implements
 					if (length == 0) {
 						noCaochErrorRl.setVisibility(View.VISIBLE);
 						hasCaochRl.setVisibility(View.GONE);
+					} else {
+						noCaochErrorRl.setVisibility(View.GONE);
+						hasCaochRl.setVisibility(View.VISIBLE);
 					}
+
 					for (int i = 0; i < length; i++) {
 						MyAppointmentVO appointmentVO = JSONUtil.toJavaBean(
 								MyAppointmentVO.class,
@@ -359,7 +364,7 @@ public class AppointmentFragment extends BaseFragment implements
 					list.addAll(finishedList);
 					LogUtil.print("预约列表：：---今天》" + toadyAppointList.size()
 							+ "other--->" + otherAppointList.size());
-					ZProgressHUD.getInstance(getActivity()).dismiss();
+
 					if (adapter == null) {
 						adapter = new MyAppointmentListAdapter2(getActivity(),
 								datas);

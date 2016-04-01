@@ -125,6 +125,7 @@ public class CustomDialog extends Dialog implements
 		switch (v.getId()) {
 		case R.id.dialog_confirm_btn:
 			Intent intent = new Intent(context, BonusDialog.class);
+			intent.putExtra("appointmentSuccess", true);
 			context.startActivity(intent);
 			dismiss();
 			// if (style == APPOINTMENT_TIME_SUCCESS) {

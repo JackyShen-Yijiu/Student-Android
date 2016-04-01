@@ -49,6 +49,8 @@ public class BonusDialog extends Activity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.dialog_bonus);
+		appointmentSuccess = getIntent().getBooleanExtra("appointmentSuccess",
+				false);
 		closeIv = (ImageView) findViewById(R.id.dialog_bonus_close_im);
 		// send = (Button) view.findViewById(R.id.dialog_bonus_send_btn);
 		title = (TextView) findViewById(R.id.dialog_bonus_title_tv);
@@ -182,14 +184,20 @@ public class BonusDialog extends Activity {
 			Toast.makeText(BonusDialog.this, " 分享成功啦", Toast.LENGTH_SHORT)
 					.show();
 			BonusDialog.this.finish();
-			EventBus.getDefault().post(new AppointmentSuccessEvent());
+			if (appointmentSuccess) {
+				EventBus.getDefault().post(new AppointmentSuccessEvent());
+
+			}
 		}
 
 		@Override
 		public void onError(SHARE_MEDIA platform, Throwable t) {
 			Toast.makeText(BonusDialog.this, " 分享失败啦", Toast.LENGTH_SHORT)
 					.show();
-			EventBus.getDefault().post(new AppointmentSuccessEvent());
+			if (appointmentSuccess) {
+				EventBus.getDefault().post(new AppointmentSuccessEvent());
+
+			}
 		}
 
 		@Override
@@ -210,6 +218,7 @@ public class BonusDialog extends Activity {
 	private LinearLayout messageLl;
 	private LinearLayout weiboLl;
 	private LinearLayout qqLl;
+	private boolean appointmentSuccess;
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
