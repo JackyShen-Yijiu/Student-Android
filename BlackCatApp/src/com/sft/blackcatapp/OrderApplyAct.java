@@ -122,11 +122,6 @@ public class OrderApplyAct extends BaseActivity {
 	}
 
 	private void setOffLine(SuccessVO successVO) {
-		LogUtil.print("app--->" + app + "user::apply--》》"
-				+ app.userVO.getApplystate());
-
-		LogUtil.print("app--->" + app + "user::apply--》线下》"
-				+ successVO.paytypestatus);
 
 		tvOrderName.setText(successVO.applyclasstypeinfo.name);
 		tvPayMoney.setText("实付款:");

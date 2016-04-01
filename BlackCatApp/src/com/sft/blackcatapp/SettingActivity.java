@@ -35,6 +35,7 @@ import com.sft.util.BaseUtils;
 import com.sft.util.CommonUtil;
 import com.sft.util.DownLoadService;
 import com.sft.util.JSONUtil;
+import com.sft.util.LogUtil;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.VersionVO;
 
@@ -203,6 +204,7 @@ public class SettingActivity extends BaseActivity implements
 		if (isMyServiceRunning()) {
 			return;
 		}
+		LogUtil.print("开始下载");
 		String curVersion = util.getAppVersion().replace("v", "")
 				.replace("V", "").replace(".", "");
 		String newVersion = app.versionVO.getVersionCode().replace("v", "")
@@ -247,6 +249,9 @@ public class SettingActivity extends BaseActivity implements
 		ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
 		for (RunningServiceInfo service : manager
 				.getRunningServices(Integer.MAX_VALUE)) {
+			if(service.service.getPackageName().contains("com.jzjf.app")){
+				LogUtil.print("place--->"+service.service.getPackageName()+"shortName::>"+service.service.getShortClassName());
+			}
 			if (DownLoadService.class.getName().equals(
 					service.service.getClassName())) {
 				return true;

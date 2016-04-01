@@ -2,6 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/new_app_main_color"
     >
 
     <!-- 2.0 版本 android:clipToPadding="true" -->
@@ -581,6 +583,7 @@
         android:id="@+id/base_titlebar_layout"
         android:layout_width="match_parent"
         android:layout_height="80dp"
+        android:fitsSystemWindows="true"
         layout="@layout/title" >
     </include>
 

@@ -39,7 +39,7 @@ public class MyComplaintAct extends BaseActivity {
 	}
 
 	private void initView() {
-		setTitleText(R.string.myapply);
+		setTitleText(R.string.myapply1);
 
 		lv = (ListView) findViewById(R.id.act_mycomplains_lv);
 		adapter = new MyComplaintAdapter(this, list);
@@ -52,7 +52,8 @@ public class MyComplaintAct extends BaseActivity {
 		Map<String, String> headerMap = new HashMap<String, String>();
 		headerMap.put("authorization", app.userVO.getToken());
 		HttpSendUtils.httpGetSend("complaint", this, Config.IP
-				+ "api/v1/userinfo/favoritecoach", null, 10000, headerMap);
+				+ "api/v1/courseinfo/getmycomplaint", paramsMap, 10000,
+				headerMap);
 	}
 
 	@Override

@@ -452,6 +452,7 @@ public class AppointmentCarActivity extends BaseActivity implements
 					sendBroadcast(new Intent(
 							MyAppointmentActivity.class.getName()).putExtra(
 							"isRefresh", true));
+					
 					final CustomDialog dialog = new CustomDialog(this,
 							CustomDialog.APPOINTMENT_TIME_SUCCESS);
 					dialog.setCanceledOnTouchOutside(false);
