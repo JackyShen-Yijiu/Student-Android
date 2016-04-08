@@ -66,7 +66,7 @@ public class SettingActivity extends BaseActivity implements
 		addView(R.layout.activity_setting);
 		initView();
 		setListener();
-		obtainVersionInfo();
+//		obtainVersionInfo();
 	}
 
 	// tv_code.setText(app.versionVO.getVersionCode());
@@ -113,6 +113,8 @@ public class SettingActivity extends BaseActivity implements
 				appointmentCk.setChecked(false);
 			}
 		}
+		
+		tv_code.setText("V"+BaseUtils.getVersionName(this));
 
 	}
 
@@ -165,8 +167,8 @@ public class SettingActivity extends BaseActivity implements
 			break;
 
 		case R.id.setting_update:
-			showDialog();
-
+//			showDialog();
+			obtainVersionInfo();
 			break;
 		case R.id.person_center_logout_btn:
 			ZProgressHUD.getInstance(this).setMessage("正在退出登录...");
@@ -269,12 +271,19 @@ public class SettingActivity extends BaseActivity implements
 	private int sum = 0;
 
 	private void LoginOut() {
+		//重置保存的信息
+		util.saveParam(Config.LAST_LOGIN_MESSAGE,
+				null);
+		util.saveParam(Config.LAST_LOGIN_PASSWORD,
+				null);
+//		util.saveParam(Config.LAST_LOGIN_PASSWORD, "");
+//		util.saveParam(Config.LAST_LOGIN_ACCOUNT, null);
+		
 		new MyHandler(1000) {
 			@Override
 			public void run() {
 				ZProgressHUD.getInstance(SettingActivity.this).dismiss();
-				util.saveParam(Config.LAST_LOGIN_PASSWORD, "");
-				util.saveParam(Config.LAST_LOGIN_ACCOUNT, "");
+				
 				Intent intent = new Intent(SettingActivity.this,
 						NewLoginActivity.class);
 				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -322,8 +331,8 @@ public class SettingActivity extends BaseActivity implements
 				VersionVO versionVO = JSONUtil
 						.toJavaBean(VersionVO.class, data);
 				app.versionVO = versionVO;
-
-				tv_code.setText(app.versionVO.getVersionCode());
+				update(versionVO);
+//				tv_code.setText(app.versionVO.getVersionCode());
 
 			} catch (Exception e) {
 				ZProgressHUD.getInstance(this).dismiss();
@@ -348,5 +357,51 @@ public class SettingActivity extends BaseActivity implements
 		} catch (ActivityNotFoundException e) {
 			e.printStackTrace();
 		}
+	}
+	/**
+	 * 更新
+	 */
+	private void update(final VersionVO vo){
+		if(vo.innerversionCode > BaseUtils.getVersionCode(this)){//去更新
+
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setTitle("发现新版本");
+			builder.setMessage(getString(R.string.app_name) + "有新版本啦！");
+			builder.setPositiveButton("立即更新",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog,
+								int whichButton) {
+							toDownLoad(vo.getDownloadUrl());
+							dialog.dismiss();
+						}
+					});
+			builder.setNegativeButton("以后再说",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog,
+								int whichButton) {
+							dialog.dismiss();
+						}
+					});
+			Dialog dialog = builder.create();
+			dialog.show();
+			
+		}else{//已经是最新版
+			Toast("已经是最新版！");
+		}
+		
+	}
+	
+	private void toDownLoad(String url){
+		if(url==null){
+			Toast("下载地址错误，请在应用市场更新");
+			return;
+		}
+		Intent intent = new Intent();       
+        intent.setAction("android.intent.action.VIEW");   
+        Uri content_url = Uri.parse(url);  
+        intent.setData(content_url); 
+        startActivity(intent);
 	}
 }

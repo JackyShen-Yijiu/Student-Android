@@ -292,6 +292,9 @@ public class NewLoginActivity extends BaseActivity implements EMLoginListener {
 					app.userVO = JSONUtil.toJavaBean(UserVO.class, data);
 					app.isLogin = true;
 					obtainVersionInfo();
+					util.saveParam(Config.LAST_LOGIN_PASSWORD, app.userVO.getPassword());
+					util.saveParam(Config.LAST_LOGIN_MESSAGE,
+							jsonString.toString());
 				} else {
 					ZProgressHUD.getInstance(this).show();
 					ZProgressHUD.getInstance(this).dismissWithFailure("数据格式错误");
@@ -341,8 +344,8 @@ public class NewLoginActivity extends BaseActivity implements EMLoginListener {
 			util.saveParam(Config.LAST_LOGIN_PHONE, app.userVO.getTelephone());
 			util.saveParam(Config.LAST_LOGIN_ACCOUNT, phontEt.getText()
 					.toString());
-			util.saveParam(Config.LAST_LOGIN_PASSWORD, passwordEt.getText()
-					.toString());
+//			util.saveParam(Config.LAST_LOGIN_PASSWORD, passwordEt.getText()
+//					.toString());
 
 			if (isMyServiceRunning()) {
 				ZProgressHUD.getInstance(this).dismiss();

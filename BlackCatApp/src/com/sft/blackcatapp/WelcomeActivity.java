@@ -19,6 +19,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -31,6 +32,7 @@ import com.jzjf.app.R;
 import com.sft.api.UserLogin;
 import com.sft.common.Config;
 import com.sft.listener.EMLoginListener;
+import com.sft.util.BaseUtils;
 import com.sft.util.DownLoadService;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
@@ -134,54 +136,53 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 					&& !TextUtils.isEmpty(password)) {
 				AnalyticsConfig.setAppkey(this, Config.UMENG_APPKEY);
 				AnalyticsConfig.setChannel(Config.UMENG_CHANNELID);
-				// login(lastLoginPhone, password);
+				login(lastLoginAccount, password);
 
-				util.readParam(Config.LAST_LOGIN_MESSAGE);
-				try {
+//				util.readParam(Config.LAST_LOGIN_MESSAGE);
+//				try {
+//
+//					String temp = util.readParam(Config.LAST_LOGIN_MESSAGE);
+//					// LogUtil.print("msggggggggggggggg22222" + temp);
+//					if (temp == null) {
+//						app.isLogin = false;
+//					} else {
+//
+//						jsonObject = new JSONObject(temp);
+//						if (jsonObject != null) {
+//							String type = jsonObject.getString("type");
+//
+//							String msg = jsonObject.getString("msg");
+//
+//							JSONObject data = jsonObject.getJSONObject("data");
+//							if (type.equals("1")) {
+//								app.isLogin = true;
+//								app.userVO = JSONUtil.toJavaBean(UserVO.class,
+//										data);
+//								LogUtil.print("msggggggggggggggg" + app.isLogin);
+//							} else {//
+//								Intent intent = new Intent(
+//										WelcomeActivity.this,
+//										MainActivity.class);
+//								startActivity(intent);
+//								finish();
+//							}
+//						}
+//					}
+//
+//				} catch (Exception e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
 
-					String temp = util.readParam(Config.LAST_LOGIN_MESSAGE);
-					// LogUtil.print("msggggggggggggggg22222" + temp);
-					if (temp == null) {
-						app.isLogin = false;
-					} else {
-
-						jsonObject = new JSONObject(temp);
-						if (jsonObject != null) {
-							String type = jsonObject.getString("type");
-
-							String msg = jsonObject.getString("msg");
-
-							JSONObject data = jsonObject.getJSONObject("data");
-							if (type.equals("1")) {
-								app.isLogin = true;
-								app.userVO = JSONUtil.toJavaBean(UserVO.class,
-										data);
-								LogUtil.print("msggggggggggggggg" + app.isLogin);
-							} else {//
-								Intent intent = new Intent(
-										WelcomeActivity.this,
-										MainActivity.class);
-								startActivity(intent);
-								finish();
-							}
-
-						}
-					}
-
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-				handler = new MyHandler(2000) {
-					@Override
-					public void run() {
-						Intent intent = new Intent(WelcomeActivity.this,
-								MainActivity.class);
-						startActivity(intent);
-						finish();
-					}
-				};
+//				handler = new MyHandler(2000) {
+//					@Override
+//					public void run() {
+//						Intent intent = new Intent(WelcomeActivity.this,
+//								MainActivity.class);
+//						startActivity(intent);
+//						finish();
+//					}
+//				};
 			} else {
 				handler = new MyHandler(2000) {
 					@Override
@@ -201,7 +202,7 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("mobile", phone);
 		paramMap.put("usertype", "1");
-		paramMap.put("password", util.MD5(password));
+		paramMap.put("password", password);
 		HttpSendUtils.httpPostSend(login, this, Config.IP
 				+ "api/v1/userinfo/userlogin", paramMap);
 	}
@@ -300,6 +301,7 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 				VersionVO versionVO = JSONUtil
 						.toJavaBean(VersionVO.class, data);
 				app.versionVO = versionVO;
+				
 				obtainQiNiuToken();
 			} catch (Exception e) {
 				ZProgressHUD.getInstance(this).show();
@@ -322,6 +324,52 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 			}
 		}
 		return true;
+	}
+	
+	private void update(final VersionVO vo,final Intent i){
+		if(vo.innerversionCode > BaseUtils.getVersionCode(null)){//去更新
+
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setTitle("发现新版本");
+			builder.setMessage(getString(R.string.app_name) + "有新版本啦！");
+			builder.setPositiveButton("立即更新",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog,
+								int whichButton) {
+							toDownLoad(vo.getDownloadUrl());
+							dialog.dismiss();
+						}
+					});
+			builder.setNegativeButton("以后再说",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog,
+								int whichButton) {
+							dialog.dismiss();
+							startActivity(i);
+							finish();
+						}
+					});
+			Dialog dialog = builder.create();
+			dialog.show();
+			
+		}else{//已经是最新版
+//			Toast("已经是最新版！");
+		}
+		
+	}
+	
+	private void toDownLoad(String url){
+		if(url==null){
+			Toast("下载地址错误，请在应用市场更新");
+			return;
+		}
+		Intent intent = new Intent();       
+        intent.setAction("android.intent.action.VIEW");   
+        Uri content_url = Uri.parse(url);  
+        intent.setData(content_url); 
+        startActivity(intent);
 	}
 
 	@Override
@@ -355,10 +403,11 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 		if (result) {
 			if (isMyServiceRunning()) {
 				app.isLogin = true;
-
+					
 				Intent intent = new Intent(this, MainActivity.class);
-				startActivity(intent);
-				finish();
+				update(app.versionVO,intent);
+//				startActivity(intent);
+//				finish();
 			} else {
 				showDialog(this);
 			}
@@ -374,10 +423,12 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 			new MyHandler(1000) {
 				@Override
 				public void run() {
+					
 					Intent intent = new Intent(WelcomeActivity.this,
 							NewLoginActivity.class);
-					startActivity(intent);
-					finish();
+					update(app.versionVO,intent);
+//					startActivity(intent);
+//					finish();
 				}
 			};
 		}

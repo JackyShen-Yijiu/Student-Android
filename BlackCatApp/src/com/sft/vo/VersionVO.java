@@ -7,6 +7,8 @@ public class VersionVO extends DBVO {
 	private static final long serialVersionUID = 1L;
 
 	private String versionCode;
+	/**内部使用*/
+	public int innerversionCode;
 	private String apptype;
 	private String _id;
 	private String updateTime;

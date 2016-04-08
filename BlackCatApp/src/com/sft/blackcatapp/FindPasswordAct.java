@@ -84,7 +84,7 @@ public class FindPasswordAct extends BaseActivity {
 		sendCodeBtn = (Button) findViewById(R.id.register_code_btn);
 		registerBtn = (Button) findViewById(R.id.register_register_btn);
 		
-		imgShowPwd = (ImageView) findViewById(R.id.delete_password);
+		imgShowPwd = (ImageView) findViewById(R.id.show_password);
 		
 		delet_phone = (ImageView) findViewById(R.id.delet_phone);
 		delet_phone.setVisibility(View.GONE);
@@ -159,7 +159,8 @@ public class FindPasswordAct extends BaseActivity {
 		case R.id.register_register_btn:
 			// 注册下一步
 			if (TextUtils.isEmpty(checkInput())) {
-				obtainVerificationSmscode();
+				changePassword();
+//				obtainVerificationSmscode();
 			} else {
 				ZProgressHUD.getInstance(FindPasswordAct.this).show();
 				ZProgressHUD.getInstance(FindPasswordAct.this)
@@ -262,7 +263,7 @@ public class FindPasswordAct extends BaseActivity {
 			};
 		} else if (type.equals(SMS_CODE)) {
 			if (dataString != null) {
-			
+				
 				if(result.equals("1")){	//验证成功,请求更改密码
 					changePassword();
 				}else{
@@ -315,7 +316,8 @@ public class FindPasswordAct extends BaseActivity {
 		paramMap.put("password", util.MD5(etPwd.getText().toString()));
 		paramMap.put("usertype", "1");
 		paramMap.put("mobile", phoneEt.getText().toString());
-
+		paramMap.put("smscode", codeEt.getText().toString());
+		
 		HttpSendUtils.httpPostSend(CHANGE_PWD, this, Config.IP
 				+ "api/v1/userinfo/updatepwd", paramMap);
 	}

@@ -73,7 +73,6 @@ public class FindPasswordActivity extends BaseActivity implements
 		paramMap.put("password", util.MD5(passwordEt.getText().toString()));
 		paramMap.put("usertype", "1");
 		paramMap.put("mobile", phone);
-
 		HttpSendUtils.httpPostSend(changepassword, this, Config.IP
 				+ "api/v1/userinfo/updatepwd", paramMap);
 	}
