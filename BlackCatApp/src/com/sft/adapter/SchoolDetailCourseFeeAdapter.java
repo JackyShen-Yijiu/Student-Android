@@ -98,8 +98,8 @@ public class SchoolDetailCourseFeeAdapter extends BaseAdapter {
 		Button entrollBut = (Button) convertView
 				.findViewById(R.id.course_fee_enroll_btn);
 
-//		EnrollUtils.doEnroll(entrollBut);
-//		BaomingBtn(entrollBut, serverClassList);
+		// EnrollUtils.doEnroll(entrollBut);
+		// BaomingBtn(entrollBut, serverClassList);
 
 		entrollBut.setTag(position);
 		entrollBut.setOnClickListener(mListener);
@@ -108,18 +108,18 @@ public class SchoolDetailCourseFeeAdapter extends BaseAdapter {
 			tehuiIv.setVisibility(View.VISIBLE);
 		}
 		timeTv.setText(serverClassList.getClasschedule());
-		
+
 		EnrollUtils.doEnroll(entrollBut);
 
-		if (!TextUtils.isEmpty(serverClassList.getOnsaleprice())) {
-			price.setText("¥" + serverClassList.getOnsaleprice());
+		if (!TextUtils.isEmpty(serverClassList.getPrice())) {
+			price.setText("¥" + serverClassList.getPrice());
 			price.setVisibility(View.VISIBLE);
 		} else {
 			price.setVisibility(View.GONE);
 
 		}
 		price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG); // 中划线
-		onsaleprice.setText("学生专享¥" + serverClassList.getPrice());
+		onsaleprice.setText("学生专享¥" + serverClassList.getOnsaleprice());
 		title.setText(serverClassList.getClassname());
 
 		intro.setText(serverClassList.getClassdesc());// + "¥"

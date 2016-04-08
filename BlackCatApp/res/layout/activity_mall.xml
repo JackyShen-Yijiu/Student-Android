@@ -4,40 +4,7 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <!-- 高度动态控制 -->
-
-
-    <!--
-    <RelativeLayout
-        android:id="@+id/mall_top_headpic_im"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginBottom="5dp" >
-
-        <cn.sft.infinitescrollviewpager.InfiniteViewPager
-            android:id="@+id/mall_top_viewpager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <LinearLayout
-            android:id="@+id/mall_top_dotlayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:orientation="horizontal" >
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/mall_top_defaultimage"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/defaultimage"
-            android:contentDescription="@string/app_name" />
-    </RelativeLayout>
-    -->      
-
+<include layout="@layout/layout_error" />
     <com.sft.view.RefreshLayout
         android:id="@+id/mall_swipe_container"
         android:layout_width="match_parent"
