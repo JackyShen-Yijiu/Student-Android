@@ -251,8 +251,9 @@ public class SettingActivity extends BaseActivity implements
 		ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
 		for (RunningServiceInfo service : manager
 				.getRunningServices(Integer.MAX_VALUE)) {
-			if(service.service.getPackageName().contains("com.jzjf.app")){
-				LogUtil.print("place--->"+service.service.getPackageName()+"shortName::>"+service.service.getShortClassName());
+			if (service.service.getPackageName().contains("com.jzjf.app")) {
+				LogUtil.print("place--->" + service.service.getPackageName()
+						+ "shortName::>" + service.service.getShortClassName());
 			}
 			if (DownLoadService.class.getName().equals(
 					service.service.getClassName())) {
@@ -331,8 +332,13 @@ public class SettingActivity extends BaseActivity implements
 				VersionVO versionVO = JSONUtil
 						.toJavaBean(VersionVO.class, data);
 				app.versionVO = versionVO;
+
 				update(versionVO);
-//				tv_code.setText(app.versionVO.getVersionCode());
+
+
+//				tv_code.setText(util.getAppVersion());
+				// tv_code.setText(app.versionVO.getVersionCode());
+
 
 			} catch (Exception e) {
 				ZProgressHUD.getInstance(this).dismiss();

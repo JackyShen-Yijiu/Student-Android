@@ -36,7 +36,6 @@
           android:layout_height="wrap_content"
           android:layout_alignParentLeft="true"
           android:layout_centerVertical="true"
-          android:layout_below="@+id/line"
           android:text=""
           android:layout_marginLeft="12dp"
           android:textColor="@color/left_black"

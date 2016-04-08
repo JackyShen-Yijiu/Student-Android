@@ -15,6 +15,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import cn.sft.infinitescrollviewpager.BitMapURLExcepteionListner;
 
 import com.jzjf.app.R;
@@ -23,6 +26,7 @@ import com.loopj.android.http.RequestParams;
 import com.sft.adapter.MallProductAdapter;
 import com.sft.api.ApiHttpClient;
 import com.sft.common.Config;
+import com.sft.util.CommonUtil;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
 import com.sft.view.RefreshLayout;
@@ -87,22 +91,6 @@ public class MallActivity extends BaseActivity implements
 
 	private void initView() {
 
-		// if (Config.MoneyType.INTEGRAL_RETURN.getValue().equals(producttype))
-		// {
-		//
-		// setTitleText("积分商城");
-		// } else if (Config.MoneyType.COIN_CERTIFICATE.getValue().equals(
-		// producttype)) {
-		//
-		// setTitleText("兑换商城");
-		// }
-
-		// adLayout = (RelativeLayout) findViewById(R.id.mall_top_headpic_im);
-		// topViewPager = (InfiniteViewPager)
-		// findViewById(R.id.mall_top_viewpager);
-		// defaultImage = (ImageView) findViewById(R.id.mall_top_defaultimage);
-		// dotLayout = (LinearLayout) findViewById(R.id.mall_top_dotlayout);
-
 		productListView = (GridView) findViewById(R.id.mall_listview);
 		swipeLayout = (RefreshLayout) findViewById(R.id.mall_swipe_container);
 		swipeLayout.setOnRefreshListener(this);
@@ -112,20 +100,14 @@ public class MallActivity extends BaseActivity implements
 				android.R.color.holo_orange_light,
 				android.R.color.holo_red_light);
 		swipeLayout.setBackgroundColor(getResources().getColor(R.color.white));
-		// LinearLayout.LayoutParams headParams = (LinearLayout.LayoutParams)
-		// adLayout
-		// .getLayoutParams();
-		// headParams.width = screenWidth;
-		// int height = (int) ((screenWidth - 12 * screenDensity) / 3
-		// + (screenWidth - 11 * screenDensity) * 2 / 3 + statusbarHeight);
-		// height += (115 * screenDensity);
-		//
-		// headParams.height = screenHeight - height;
-		// viewPagerHeight = headParams.height;
-		// setViewPager();
 
 		productListView.setOnItemClickListener(this);
-		// topViewPager.setPageChangeListener(this);
+
+		errorRl = (RelativeLayout) findViewById(R.id.error_rl);
+		errorIv = (ImageView) findViewById(R.id.error_iv);
+		errorTv = (TextView) findViewById(R.id.error_tv);
+		errorRl.setVisibility(View.GONE);
+		swipeLayout.setVisibility(View.VISIBLE);
 	}
 
 	private void obtainMailProduct() {
@@ -161,9 +143,34 @@ public class MallActivity extends BaseActivity implements
 		@Override
 		public void onFailure(int paramInt, Header[] paramArrayOfHeader,
 				byte[] paramArrayOfByte, Throwable paramThrowable) {
+			ZProgressHUD.getInstance(MallActivity.this).dismiss();
+			if (isRefreshing) {
+				swipeLayout.setRefreshing(false);
+				isRefreshing = false;
+			}
+			if (isLoadingMore) {
+				swipeLayout.setLoading(false);
+				isLoadingMore = false;
+			}
+
+			// 显示空白页
+			errorRl.setVisibility(View.VISIBLE);
+			swipeLayout.setVisibility(View.GONE);
+			if (paramInt == 0) {
+				errorIv.setBackgroundResource(R.drawable.app_no_wifi);
+				errorTv.setText(CommonUtil.getString(MallActivity.this,
+						R.string.no_wifi));
+			} else {
+				errorIv.setBackgroundResource(R.drawable.app_no_wifi);
+				errorTv.setText(CommonUtil.getString(MallActivity.this,
+						R.string.no_wifi));
+			}
 
 		}
 	};
+	private RelativeLayout errorRl;
+	private ImageView errorIv;
+	private TextView errorTv;
 
 	private String parseJson(byte[] responseBody) {
 		String value = null;

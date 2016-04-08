@@ -38,7 +38,7 @@ public class FindPasswordAct extends BaseActivity {
 	private EditText phoneEt;
 	// 验证码输入框
 	private EditText codeEt;
-	
+
 	private EditText etPwd;
 	// 发送验证码按钮
 	private Button sendCodeBtn;
@@ -47,7 +47,7 @@ public class FindPasswordAct extends BaseActivity {
 	// 用户协议
 
 	private ImageView delet_phone;
-	
+
 	private ImageView imgShowPwd;
 
 	// 获取验证码
@@ -56,7 +56,7 @@ public class FindPasswordAct extends BaseActivity {
 	private final static String register = "register";
 	// 验证验证码
 	private final static String SMS_CODE = "smscode";
-	
+
 	private final static String CHANGE_PWD = "changepassword";
 
 	@Override
@@ -80,16 +80,20 @@ public class FindPasswordAct extends BaseActivity {
 		phoneEt = (EditText) findViewById(R.id.register_phone_et);
 		codeEt = (EditText) findViewById(R.id.register_authcode_et);
 		etPwd = (EditText) findViewById(R.id.register_password_et);
-		
+
 		sendCodeBtn = (Button) findViewById(R.id.register_code_btn);
 		registerBtn = (Button) findViewById(R.id.register_register_btn);
+
 		
 		imgShowPwd = (ImageView) findViewById(R.id.show_password);
 		
+//		imgShowPwd = (ImageView) findViewById(R.id.delete_password);
+//
+//>>>>>>> d7df2de3fa5f56df5827368d6702db63b83e1276
 		delet_phone = (ImageView) findViewById(R.id.delet_phone);
 		delet_phone.setVisibility(View.GONE);
 		findViewById(R.id.act_regist_rl).setVisibility(View.GONE);
-		
+
 		registerBtn.setText(R.string.forget_password);
 	}
 
@@ -121,7 +125,7 @@ public class FindPasswordAct extends BaseActivity {
 		});
 		delet_phone.setOnClickListener(this);
 	}
-	
+
 	private boolean isClick;
 
 	@Override
@@ -134,7 +138,7 @@ public class FindPasswordAct extends BaseActivity {
 			if (isClick) {
 				imgShowPwd.setImageResource(R.drawable.password_btn_display);
 				etPwd.setTransformationMethod(HideReturnsTransformationMethod
-								.getInstance());
+						.getInstance());
 			} else {
 				imgShowPwd.setImageResource(R.drawable.password_btn_hide);
 				etPwd.setText(etPwd.getText());
@@ -184,9 +188,9 @@ public class FindPasswordAct extends BaseActivity {
 		String pwd = etPwd.getText().toString();
 		if (TextUtils.isEmpty(code)) {
 			return "验证码不能为空";
-		} else if(TextUtils.isEmpty(pwd)){//密码不能为空
+		} else if (TextUtils.isEmpty(pwd)) {// 密码不能为空
 			return "密码不能为空";
-		} 
+		}
 		return null;
 	}
 
@@ -263,19 +267,24 @@ public class FindPasswordAct extends BaseActivity {
 			};
 		} else if (type.equals(SMS_CODE)) {
 			if (dataString != null) {
+
 				
 				if(result.equals("1")){	//验证成功,请求更改密码
+
+
+//				if (result.equals("1")) { // 验证成功,请求更改密码
+//>>>>>>> d7df2de3fa5f56df5827368d6702db63b83e1276
 					changePassword();
-				}else{
+				} else {
 					ZProgressHUD.getInstance(this).show();
 					ZProgressHUD.getInstance(this).dismissWithSuccess(msg);
 				}
-//				Intent intent = new Intent(this, FindPasswordActivity.class);
-//				intent.putExtra("phone", phoneEt.getText().toString());
-//				startActivityForResult(intent, 9);
+				// Intent intent = new Intent(this, FindPasswordActivity.class);
+				// intent.putExtra("phone", phoneEt.getText().toString());
+				// startActivityForResult(intent, 9);
 				// startActivity(intent);
 			}
-		}else if(type.equals(CHANGE_PWD)){
+		} else if (type.equals(CHANGE_PWD)) {
 			if (dataString != null && result.equals("1")) {
 				ZProgressHUD.getInstance(this).show();
 				ZProgressHUD.getInstance(this).dismissWithSuccess("修改成功");
@@ -310,7 +319,7 @@ public class FindPasswordAct extends BaseActivity {
 		}
 		super.onDestroy();
 	}
-	
+
 	private void changePassword() {
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("password", util.MD5(etPwd.getText().toString()));
@@ -321,26 +330,24 @@ public class FindPasswordAct extends BaseActivity {
 		HttpSendUtils.httpPostSend(CHANGE_PWD, this, Config.IP
 				+ "api/v1/userinfo/updatepwd", paramMap);
 	}
-//
-//	private String checkInput() {
-//		String password = passwordEt.getText().toString();
-//		if (TextUtils.isEmpty(password)) {
-//			return "密码不能为空";
-//		}
-//		return null;
-//	}
-//
-//	@Override
-//	public synchronized boolean doCallBack(String type, Object jsonString) {
-//		if (super.doCallBack(type, jsonString)) {
-//			return true;
-//		}
-//
-//		if (type.equals(changepassword)) {
-//		}
-//		return true;
-//	}
-	
-	
+	//
+	// private String checkInput() {
+	// String password = passwordEt.getText().toString();
+	// if (TextUtils.isEmpty(password)) {
+	// return "密码不能为空";
+	// }
+	// return null;
+	// }
+	//
+	// @Override
+	// public synchronized boolean doCallBack(String type, Object jsonString) {
+	// if (super.doCallBack(type, jsonString)) {
+	// return true;
+	// }
+	//
+	// if (type.equals(changepassword)) {
+	// }
+	// return true;
+	// }
 
 }
