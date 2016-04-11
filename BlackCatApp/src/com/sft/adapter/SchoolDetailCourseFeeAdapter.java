@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
@@ -155,7 +156,10 @@ public class SchoolDetailCourseFeeAdapter extends BaseAdapter {
 					app.userVO.getApplystate())) {// 报名中，审核
 
 				if (app.userVO.getPayState() == 20) {// 已支付
-					entrollBut.setVisibility(View.GONE);
+					entrollBut.setVisibility(View.VISIBLE);
+					entrollBut.setEnabled(false);
+
+					entrollBut.setBackgroundColor(Color.parseColor("#cecece"));
 				} else {
 					entrollBut.setText("报名");
 					entrollBut.setTextColor(mContext.getResources().getColor(
@@ -165,8 +169,10 @@ public class SchoolDetailCourseFeeAdapter extends BaseAdapter {
 				}
 
 			} else {// 报名成功
-				entrollBut.setVisibility(View.GONE);
-
+				entrollBut.setVisibility(View.VISIBLE);
+				entrollBut.setEnabled(false);
+				entrollBut.setBackgroundColor(Color.parseColor("#cecece"));
+				LogUtil.print("123213123" + app.userVO.getPayState());
 			}
 
 		}
