@@ -28,10 +28,12 @@ public class ZipExtractorTask extends AsyncTask<Void, Integer, Long> {
 	private int mProgress = 0;
 	private final Context mContext;
 	private boolean mReplaceAll;
+	ZipCall call = null;
 
 	public ZipExtractorTask(String in, String out, Context context,
-			boolean replaceAll) {
+			boolean replaceAll, ZipCall call) {
 		super();
+		this.call = call;
 		mInput = new File(in);
 		mOutput = new File(out);
 		if (!mOutput.exists()) {
@@ -60,6 +62,7 @@ public class ZipExtractorTask extends AsyncTask<Void, Integer, Long> {
 	protected void onPostExecute(Long result) {
 		// TODO Auto-generated method stub
 		// super.onPostExecute(result);
+		call.unzipSuccess();
 		if (mDialog != null && mDialog.isShowing()) {
 			mDialog.dismiss();
 		}

@@ -10,13 +10,14 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 
 import com.jzjf.app.R;
 import com.sft.util.LogUtil;
 
-public class JieYaMainActivity extends Activity {
+public class JieYaMainActivity extends Activity implements ZipCall {
 
 	private final String TAG = "MainActivity";
 	private String assertName = "ggtkFile.zip";
@@ -25,11 +26,11 @@ public class JieYaMainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_base);
-
+		// zipCall =
 		// Log.d(TAG,
 		// "Environment.getExternalStorageDirectory()="
 
-		fileThread();
+		// fileThread();
 		// showUnzipDialog();
 		// doZipExtractorWork();
 		// doDownLoadWork();
@@ -51,7 +52,9 @@ public class JieYaMainActivity extends Activity {
 						// TODO Auto-generated method stub
 						Log.d(TAG, "onClick 1 = " + which);
 						try {
-							doZipExtractorWork();
+							String localPathString = "";
+							String targetPath = "";
+							doZipExtractorWork(localPathString, localPathString);
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -69,55 +72,74 @@ public class JieYaMainActivity extends Activity {
 
 	File f = new File("/storage/emulated/0");
 
-	public void doZipExtractorWork() throws IOException {
-
-		// String[] temp = getAssets().getLocales();
-		String[] temp = getAssets().list("");
-		for (int i = 0; i < temp.length; i++) {
-			LogUtil.print("123546-->" + temp[i]);
-		}
+	/**
+	 * 
+	 * @param localPath
+	 *            本地压缩包路径 绝对路径
+	 * @param targetPath
+	 *            目标解压文件路径 绝对路径
+	 * @throws IOException
+	 */
+	public void doZipExtractorWork(String localPath, String targetPath)
+			throws IOException {
 
 		// Environment.getExternalStorageDirectory()
 
-		// ZipExtractorTask task = new
-		// ZipExtractorTask("/storage/usb3/system.zip",
-		// "/storage/emulated/legacy/", this, true);
-		String path = "/storage/emulated/0/aa/152.zip";
-		File f = new File("/storage/emulated/0");
-		File f1 = new File("/storage/emulated/0/aa");
+		File f1 = new File(localPath);
 		if (!f1.exists()) {
 			f1.mkdir();
 		}
-		LogUtil.print("file--sasss->>" + path);
-		ZipExtractorTask task = new ZipExtractorTask(path,
-				"/storage/emulated/0/aa/", this, true);
+		File f2 = new File(targetPath);
+		if (!f2.exists()) {
+			f2.mkdir();
+		}
+
+		LogUtil.print("file--sasss->>" + localPath);
+		ZipExtractorTask task = new ZipExtractorTask(localPath, targetPath,
+				this, true, new ZipCall() {
+
+					@Override
+					public void unzipSuccess() {
+						// 解压成功
+
+					}
+
+					@Override
+					public void unzipFailed() {
+						// 解压失败
+					}
+				});
 
 		task.execute();
 	}
 
-	private void fileThread() {
+	private void fileThread(final String assertName, final String targetPath,
+			final Handler handler) {
 		new Thread() {
 			@Override
 			public void run() {
 				try {
-					doFile();
+					CopyFile(assertName, targetPath);
+					handler.sendEmptyMessage(1);
 				} catch (IOException e) {
 					e.printStackTrace();
+					handler.sendEmptyMessage(0);
 				}
 			}
 
 		}.start();
 	}
 
-	private void doFile() throws IOException {
-		String path11 = "/storage/emulated/0/aa/test.zip";
-		File file = new File(path11);
+	private void CopyFile(String assertName, String targetPath)
+			throws IOException {
+		// String path11 = "/storage/emulated/0/aa/test.zip";
+		File file = new File(targetPath);
 		if (!file.exists()) {
 			file.createNewFile();
 		}
 		InputStream is = getAssets().open(assertName);
 
-		FileOutputStream fos = new FileOutputStream(new File(path11));
+		FileOutputStream fos = new FileOutputStream(new File(targetPath));
 		byte[] buffer = new byte[1024];
 		int count = 0;
 		while (true) {
@@ -132,5 +154,17 @@ public class JieYaMainActivity extends Activity {
 		is.close();
 		fos.close();
 		LogUtil.print("copy--end");
+	}
+
+	@Override
+	public void unzipSuccess() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void unzipFailed() {
+		// TODO Auto-generated method stub
+
 	}
 }
