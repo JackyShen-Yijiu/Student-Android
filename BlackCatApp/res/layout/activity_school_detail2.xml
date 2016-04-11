@@ -43,7 +43,7 @@
                         android:id="@+id/school_detail_viewpager"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/defaultimage" />
+                        android:background="@drawable/school_pic" />
 
                     <View
                         android:id="@+id/school_detail_headpic_layout_bg"

@@ -163,13 +163,14 @@ public class SchoolDetailActivity extends BaseActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 			// 透明状态栏
-//			getWindow().addFlags(
-//					WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+			// getWindow().addFlags(
+			// WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 			// 透明导航栏
-//			getWindow().addFlags(
-//					WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-			//底部 导航
-			getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+			// getWindow().addFlags(
+			// WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+			// 底部 导航
+			getWindow().addFlags(
+					WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 		}
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_school_detail2);
@@ -280,7 +281,6 @@ public class SchoolDetailActivity extends BaseActivity implements
 		headpicLayout = findViewById(R.id.school_detail_headpic_layout_bg);
 		headpicLayout.setBackgroundResource(R.drawable.bg_top);
 		// tvNoPic = (TextView) findViewById(R.id.school_detail_nopic_tv);
-
 		// coachlistView = (ListView) findViewById(R.id.school_coach_listview);
 		courselistView = (ListView) findViewById(R.id.course_fee_listview);
 		courselistView.setFocusable(false);
@@ -703,7 +703,6 @@ public class SchoolDetailActivity extends BaseActivity implements
 				if (data != null) {
 					offlineVO = JSONUtil.toJavaBean(SuccessVO.class, data);
 					app.userVO.setPayState(offlineVO.paytypestatus);
-
 					// offlineVO.applystate
 					// setOffLine(offlineVO);
 				}
@@ -1140,7 +1139,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 				addDeleteSchoolCk.setVisibility(View.INVISIBLE);
 				schoolNameTv.setVisibility(View.INVISIBLE);
 				titleTV.setText(school.getName());
-//				viewStatus.setVisibility(View.VISIBLE);
+				// viewStatus.setVisibility(View.VISIBLE);
 
 				viewStatus.startAnimation(alphaIn);
 				viewTop.startAnimation(alphaIn);
