@@ -1,28 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-   
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fafafa"
     android:orientation="vertical"
-    android:paddingLeft="10dp" >
+    android:background="@color/white"
+    android:paddingLeft="24dp" >
 
     <ImageView
         android:id="@+id/study_item_icon"
-        android:layout_width="58dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/simulation_test" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:background="@drawable/question_banks" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        
-        android:layout_marginLeft="10dp"
-        android:orientation="vertical"
-        android:layout_alignTop="@+id/study_item_icon"
-        android:layout_alignBottom="@+id/study_item_icon"
-        android:layout_toRightOf="@+id/study_item_icon" >
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="26dp"
+        android:layout_toRightOf="@+id/study_item_icon"
+        android:orientation="vertical" >
 
         <TextView
             android:id="@+id/study_item_title"
@@ -30,20 +27,24 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:text="题库"
-            android:textSize="14sp"
-            android:textColor="@color/text_color_dark" />
+            android:textColor="@color/text_color_dark"
+            android:textSize="14sp" />
+
         <TextView
             android:id="@+id/study_item_describe"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
+            android:layout_marginTop="10dp"
             android:layout_weight="1"
             android:text="800多道海量题库，任君挑选"
-            android:textSize="12sp"
-            android:textColor="@color/text_color_light" />
-        <ImageView
+            android:textColor="@color/text_color_light"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
         android:background="@color/line_color" />
-    </LinearLayout>
 
 </RelativeLayout>

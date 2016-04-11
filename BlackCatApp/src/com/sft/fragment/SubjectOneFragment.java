@@ -33,9 +33,9 @@ public class SubjectOneFragment extends BaseFragment implements OnClickListener 
 	// 题库
 	private StudyItemLayout questionBank;
 	// 官方课时
-	private TextView officalClass;
+	// private TextView officalClass;
 	// 模拟考试次数
-	private TextView testTimes;
+	// private TextView testTimes;
 	// 学习进度
 	private ProgressBar studyProgressBar;
 
@@ -44,6 +44,7 @@ public class SubjectOneFragment extends BaseFragment implements OnClickListener 
 
 	private Context mContext;
 	private StudyItemLayout schoolReport;
+	private TextView studyProgressTv;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,9 +58,8 @@ public class SubjectOneFragment extends BaseFragment implements OnClickListener 
 	}
 
 	private void initViews(View rootView) {
-		testTimes = (TextView) rootView.findViewById(R.id.study_test_times);
-		officalClass = (TextView) rootView
-				.findViewById(R.id.study_offical_class);
+		studyProgressTv = (TextView) rootView
+				.findViewById(R.id.study_progress_tv);
 		studyProgressBar = (ProgressBar) rootView
 				.findViewById(R.id.study_progressbar);
 
@@ -189,7 +189,9 @@ public class SubjectOneFragment extends BaseFragment implements OnClickListener 
 	private void refreshUI() {
 		studyProgressBar.setMax(subject.getTotalcourse());
 		studyProgressBar.setProgress(subject.getFinishcourse());
-		testTimes.setText("模拟考试" + subject.getFinishcourse() + "次");
-		officalClass.setText("官方学时" + subject.getOfficialhours());
+		studyProgressTv.setText("学习进度   " + subject.getFinishcourse() + "/"
+				+ subject.getOfficialhours());
+		// testTimes.setText("模拟考试" + subject.getFinishcourse() + "次");
+		// officalClass.setText("官方学时" + subject.getOfficialhours());
 	}
 }

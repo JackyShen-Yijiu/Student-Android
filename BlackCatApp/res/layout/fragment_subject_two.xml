@@ -6,21 +6,20 @@
     android:orientation="vertical" >
 <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/line_color"
-        android:paddingTop="12sp" >
+        android:background="@color/white"
+        android:layout_height="54dp"
+         >
 
         <TextView
             android:id="@+id/study_progress_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="学习进度"
+            android:text=""
             android:textSize="12sp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="12dp"
-            android:layout_marginLeft="15dp"
-            android:textColor="@color/text_color_light" />
-        <TextView
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:textColor="@color/text_color_dark" />
+        <!-- <TextView
             android:id="@+id/study_finished_class"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,8 +27,8 @@
             android:textSize="12sp"
             android:layout_alignLeft="@+id/study_progressbar"
             android:layout_alignParentTop="true"
-            android:textColor="@color/text_color_light" />
-        <TextView
+            android:textColor="@color/text_color_light" /> -->
+       <!--  <TextView
             android:id="@+id/study_rule_class"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -48,35 +47,35 @@
             android:layout_toRightOf="@+id/study_rule_class"
             android:layout_marginLeft="15dp"
             android:layout_alignParentTop="true"
-            android:textColor="@color/text_color_light" />
+            android:textColor="@color/text_color_light" /> -->
         <ProgressBar 
         android:id="@+id/study_progressbar"
         android:layout_width="match_parent"
-        android:layout_height="10dp"
+        android:layout_height="12dp"
         android:max="100"
         android:progress="0"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginRight="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="16dp"
+        android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/study_progress_tv"
-        android:layout_alignTop="@+id/study_progress_tv"
         style="?android:attr/progressBarStyleHorizontal"
         android:progressDrawable="@drawable/progressbar_horizontal_color"/>
     </RelativeLayout>
     <com.sft.viewutil.StudyItemLayout
         android:id="@+id/courseware"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        study:itemDescribe="真人实操视频教学，让君掌握"
-        study:itemIcon="@drawable/courseware"
+        android:layout_height="68dp"
+        study:itemDescribe="真人实操教学视频"
+        android:layout_marginTop="10dp"
+        study:itemIcon="@drawable/question_banks"
         study:itemTitle="课件" >
     </com.sft.viewutil.StudyItemLayout>
 
     <com.sft.viewutil.StudyItemLayout
         android:id="@+id/learn_car_cheats"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        study:itemDescribe="独家学车秘籍，使君快人一步"
+        android:layout_height="68dp"
+        study:itemDescribe="独家学车秘籍总是快人一步"
         study:itemIcon="@drawable/cheats"
         study:itemTitle="学车秘籍" >
     </com.sft.viewutil.StudyItemLayout>
@@ -85,16 +84,24 @@
     <com.sft.viewutil.StudyItemLayout
         android:id="@+id/make_an_appointment"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        study:itemDescribe="提交约考信息，足不出户轻松报考"
+        android:layout_height="68dp"
+        study:itemDescribe="足不出户轻松报考"
         study:itemIcon="@drawable/make_an_appointment"
         study:itemTitle="我要约考" >
+    </com.sft.viewutil.StudyItemLayout>
+        <com.sft.viewutil.StudyItemLayout
+        android:id="@+id/my_school_report"
+        android:layout_width="wrap_content"
+        android:layout_height="68dp"
+        study:itemDescribe="记录你的成长历程"
+        study:itemIcon="@drawable/school_report"
+        study:itemTitle="成绩单" >
     </com.sft.viewutil.StudyItemLayout>
 
     <com.sft.viewutil.StudyItemLayout
         android:id="@+id/communication"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="68dp"
         study:itemDescribe="专项科目交流平台"
         study:itemIcon="@drawable/communication"
         study:itemTitle="交流" 

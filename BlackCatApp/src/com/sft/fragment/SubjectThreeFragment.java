@@ -25,11 +25,11 @@ public class SubjectThreeFragment extends BaseFragment implements
 		OnClickListener {
 
 	// 官方课时
-	private TextView officalClass;
+	// private TextView officalClass;
 	// 规定学时
-	private TextView ruleClass;
+	// private TextView ruleClass;
 	// 已完成
-	private TextView finishedClass;
+	// private TextView finishedClass;
 	// 学习进度
 	private ProgressBar studyProgressBar;
 
@@ -44,6 +44,8 @@ public class SubjectThreeFragment extends BaseFragment implements
 
 	private Context mContext;
 
+	private TextView studyProgressTv;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -57,11 +59,13 @@ public class SubjectThreeFragment extends BaseFragment implements
 
 	private void initViews(View rootView) {
 		LogUtil.print("initViews888");
-		finishedClass = (TextView) rootView
-				.findViewById(R.id.study_finished_class);
-		ruleClass = (TextView) rootView.findViewById(R.id.study_rule_class);
-		officalClass = (TextView) rootView
-				.findViewById(R.id.study_offical_class);
+		// finishedClass = (TextView) rootView
+		// .findViewById(R.id.study_finished_class);
+		// ruleClass = (TextView) rootView.findViewById(R.id.study_rule_class);
+		// officalClass = (TextView) rootView
+		// .findViewById(R.id.study_offical_class);
+		studyProgressTv = (TextView) rootView
+				.findViewById(R.id.study_progress_tv);
 		studyProgressBar = (ProgressBar) rootView
 				.findViewById(R.id.study_progressbar);
 
@@ -128,9 +132,11 @@ public class SubjectThreeFragment extends BaseFragment implements
 		}
 		studyProgressBar.setMax(subject.getTotalcourse());
 		studyProgressBar.setProgress(subject.getFinishcourse());
-		finishedClass.setText("已完成" + subject.getFinishcourse());
-		ruleClass.setText("规定课时" + subject.getTotalcourse());
-		officalClass.setText("官方学时" + subject.getOfficialhours());
+		studyProgressTv.setText("规定课时   " + subject.getTotalcourse() + "/"
+				+ subject.getOfficialhours());
+		// finishedClass.setText("已完成" + subject.getFinishcourse());
+		// ruleClass.setText("规定课时" + subject.getTotalcourse());
+		// officalClass.setText("官方学时" + subject.getOfficialhours());
 
 	}
 
