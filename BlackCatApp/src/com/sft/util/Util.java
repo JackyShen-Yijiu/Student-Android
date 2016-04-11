@@ -4,12 +4,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import cn.sft.sqlhelper.DBHelper;
 
@@ -19,6 +21,9 @@ import com.sft.vo.CarModelVO;
 import com.sft.vo.ClassVO;
 import com.sft.vo.CoachVO;
 import com.sft.vo.SchoolVO;
+import com.sft.vo.questionbank.Chapter;
+import com.sft.vo.questionbank.error_book;
+import com.sft.vo.questionbank.web_note;
 
 @SuppressLint("SimpleDateFormat")
 public class Util {
@@ -313,5 +318,136 @@ public class Util {
 						.get(Calendar.DAY_OF_MONTH);
 
 		return isSameDate;
+	}
+
+	private static SQLiteDatabase db = DataBaseUtil
+			.openDatabase(BlackCatApplication.getInstance());
+
+	/**
+	 * ---// 查询科目一所有题
+	 * */
+
+	public static List<web_note> getAllSubjectOneBank() {
+
+		String sql = "SELECT * FROM web_note where kemu =?   and (strTppe=? or strTppe=? or strTppe=? or strTppe=?) order by id";
+		List<web_note> list = DataBaseUtil.getArrays(db, web_note.class, sql,
+				new String[] { "1", "01", "02", "03", "04" });
+
+		return list;
+	}
+
+	/**
+	 * ---// 查询科目四所有题
+	 * */
+
+	public static List<web_note> getAllSubjectFourBank() {
+
+		String sql = "SELECT * FROM web_note where kemu =?   and (strTppe=? or strTppe=? or strTppe=?' or strTppe=? or strTppe=? or strTppe=? or strTppe=?) order by id";
+		List<web_note> list = DataBaseUtil.getArrays(db, web_note.class, sql,
+				new String[] { "4", "01", "02", "03", "04", "05", "06", "07" });
+
+		return list;
+	}
+
+	/**
+	 * ---// 查询科目一 章节题
+	 * */
+
+	public static List<web_note> getSubjectOneQuestionWithChapter(String chapter) {
+
+		String sql = "SELECT * FROM web_note where kemu =?   and strTppe=? order by id";
+		List<web_note> list = DataBaseUtil.getArrays(db, web_note.class, sql,
+				new String[] { "1", chapter });
+
+		return list;
+	}
+
+	/**
+	 * ---// 查询科目四 章节题
+	 * */
+
+	public static List<web_note> getSubjectFourQuestionWithChapter(
+			String chapter) {
+
+		String sql = "SELECT * FROM web_note where kemu =?   and strTppe=? order by id";
+		List<web_note> list = DataBaseUtil.getArrays(db, web_note.class, sql,
+				new String[] { "4", chapter });
+
+		return list;
+	}
+
+	/**
+	 * ---// 查询科目一 章节
+	 * */
+
+	public static List<Chapter> getSubjectOneChapter() {
+
+		String sql = "SELECT"
+				+ "c.title as title ,c.id as id, '0'||c.mid as mid, count(c.id) as count"
+				+ "FROM Chapter c, web_note w WHERE c.kemu = 1 AND w.kemu=1"
+				+ "AND (c.id = 1 OR c.id = 2 OR c.id = 3 OR c.id = 4) AND w.chapterid = c.id"
+				+ "AND (w.strTppe = '01' OR w.strTppe = '02' OR w.strTppe = '03' OR w.strTppe = '04')"
+				+ "GROUP BY c.title,c.id ORDER BY c.id";
+		List<Chapter> list = DataBaseUtil.getArrays(db, Chapter.class, sql,
+				new String[] {});
+
+		return list;
+	}
+
+	/**
+	 * ---// 查询科目四 章节
+	 * */
+
+	public static List<Chapter> getAllSubjectFourChapter() {
+
+		String sql = "SELECT c.title as title ,c.id as id, c.mid as mid, count(c.id) as count"
+				+ "FROM (select '0'||mid as mid ,title ,id ,kemu FROM Chapter where kemu=4 AND fid=0 and ( mid<>8 )) c,"
+				+ "web_note w WHERE c.kemu = 4 AND w.kemu=4" +
+
+				"AND w.strTppe = c.mid GROUP BY c.title,c.id, c.mid ORDER BY c.id";
+		List<Chapter> list = DataBaseUtil.getArrays(db, Chapter.class, sql,
+				new String[] {});
+
+		return list;
+	}
+
+	/** 插入错题集合 */
+	public static void insertErrorBank(error_book error) {
+		List<error_book> list = new ArrayList<error_book>();
+		try {
+			DataBaseUtil.updateArray(db, list);
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 查询科目一所有的错题
+	 * 
+	 * @return
+	 */
+	public static List<web_note> getAllSubjectOneErrorQuestion() {
+
+		String sql = "select * from web_note w error_bank e where kemu=? and e.webnoteid = w.id";
+		List<web_note> list = DataBaseUtil.getArrays(db, web_note.class, sql,
+				new String[] { "1" });
+
+		return list;
+	}
+
+	/**
+	 * 查询科目四所有的错题
+	 * 
+	 * @return
+	 */
+	public static List<web_note> getAllSubjectFourErrorQuestion() {
+
+		String sql = "select * from web_note w error_bank e where kemu=? and e.webnoteid = w.id";
+		List<web_note> list = DataBaseUtil.getArrays(db, web_note.class, sql,
+				new String[] { "4" });
+
+		return list;
 	}
 }
