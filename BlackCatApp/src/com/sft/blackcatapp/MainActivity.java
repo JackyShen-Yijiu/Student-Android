@@ -44,6 +44,7 @@ import android.widget.PopupWindow;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.RatingBar;
+import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -94,7 +95,7 @@ import com.sft.vo.SchoolVO;
 
 public class MainActivity extends BaseMainActivity implements
 		SLMenuListOnItemClickListener, OnClickListener, OnTabLisener,
-		OnCheckedChangeListener {
+		OnCheckedChangeListener, OnRatingBarChangeListener {
 
 	/** 强制评价 */
 
@@ -197,7 +198,7 @@ public class MainActivity extends BaseMainActivity implements
 		obtainFavouriteCoach();
 		obtainQuestionAddress();
 		obtainSubjectContent();
-
+		LogUtil.print("---ppp===" + this.getPackageName().replace(".", ""));
 		// LogUtil.print("app--->" + app + "user::" +
 		// app.userVO.getApplystate());
 		// if (app.userVO!=null && app.userVO.getApplystate().equals("0")) {
@@ -1413,6 +1414,22 @@ public class MainActivity extends BaseMainActivity implements
 			LogUtil.print("dsgr-------dfsdgfsbfs"
 					+ myAppointmentVO.getCoachid().getName());
 		}
+
+		// 设置更多评价的rating事件
+		punctualStar.setOnRatingBarChangeListener(this);
+		attitudeStar.setOnRatingBarChangeListener(this);
+		abilityStar.setOnRatingBarChangeListener(this);
+
+	}
+
+	@Override
+	public void onRatingChanged(RatingBar ratingBar, float rating,
+			boolean fromUser) {
+		// 获取总评分
+		float total = punctualStar.getRating() + attitudeStar.getRating()
+				+ abilityStar.getRating();
+
+		totalStar.setRating(total / 3);
 
 	}
 }

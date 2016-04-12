@@ -34,13 +34,14 @@ public class SubjectFourFragment extends BaseFragment implements
 	// 题库
 	private StudyItemLayout questionBank;
 	// 官方课时
-	private TextView officalClass;
+	// private TextView officalClass;
 	// 模拟考试次数
-	private TextView testTimes;
+	// private TextView testTimes;
 	// 学习进度
 	private ProgressBar studyProgressBar;
 	private Context mContext;
 	private StudyItemLayout schoolReport;
+	private TextView studyProgressTv;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,9 +55,11 @@ public class SubjectFourFragment extends BaseFragment implements
 	}
 
 	private void initViews(View rootView) {
-		testTimes = (TextView) rootView.findViewById(R.id.study_test_times);
-		officalClass = (TextView) rootView
-				.findViewById(R.id.study_offical_class);
+		// testTimes = (TextView) rootView.findViewById(R.id.study_test_times);
+		// officalClass = (TextView) rootView
+		// .findViewById(R.id.study_offical_class);
+		studyProgressTv = (TextView) rootView
+				.findViewById(R.id.study_progress_tv);
 		studyProgressBar = (ProgressBar) rootView
 				.findViewById(R.id.study_progressbar);
 
@@ -172,8 +175,10 @@ public class SubjectFourFragment extends BaseFragment implements
 	public void setLearnProgressInfo(SubjectForOneVO subject) {
 		studyProgressBar.setMax(subject.getTotalcourse());
 		studyProgressBar.setProgress(subject.getFinishcourse());
-		testTimes.setText("模拟考试" + subject.getFinishcourse() + "次");
-		officalClass.setText("官方学时" + subject.getOfficialhours());
+		studyProgressTv.setText("学习进度   " + subject.getFinishcourse() + "/"
+				+ subject.getOfficialhours());
+		// testTimes.setText("模拟考试" + subject.getFinishcourse() + "次");
+		// officalClass.setText("官方学时" + subject.getOfficialhours());
 
 	}
 }

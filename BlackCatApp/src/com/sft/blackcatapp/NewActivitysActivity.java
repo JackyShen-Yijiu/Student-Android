@@ -13,7 +13,10 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import cn.sft.infinitescrollviewpager.BitMapURLExcepteionListner;
 
@@ -33,9 +36,13 @@ public class NewActivitysActivity extends BaseActivity implements
 	private static final String headlineNews = "headlineNews";
 	private String cityname;
 	private ListView listView_activitys;
-	private List<ActivitiesVO> adList;
 	private ActivityAdapter adapter;
 	private Context mContext;
+
+	private ImageView error_iv;
+	private RelativeLayout errorRl;
+	private TextView error_tv;
+	private TextView error_tvs;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +61,10 @@ public class NewActivitysActivity extends BaseActivity implements
 		setText(0, R.string.share);
 		listView_activitys = (ListView) findViewById(R.id.listView_activitys);
 
+		error_iv = (ImageView) findViewById(R.id.error_iv);
+		errorRl = (RelativeLayout) findViewById(R.id.error_rl);
+		error_tv = (TextView) findViewById(R.id.error_tv);
+		error_tvs = (TextView) findViewById(R.id.error_tvs);
 		listView_activitys.setOnItemClickListener(this);
 		leftBtn.setOnClickListener(this);
 
@@ -151,14 +162,24 @@ public class NewActivitysActivity extends BaseActivity implements
 		if (value != null) {
 			LogUtil.print(value);
 			try {
+				@SuppressWarnings("unchecked")
 				List<ActivitiesVO> activitiesList = (List<ActivitiesVO>) JSONUtil
 						.parseJsonToList(value,
 								new TypeToken<List<ActivitiesVO>>() {
 								}.getType());
 
-				LogUtil.print(value);
+				// LogUtil.print(value);
 				adapter = new ActivityAdapter(mContext, activitiesList);
 				listView_activitys.setAdapter(adapter);
+				if (activitiesList.size() == 0) {
+					errorRl.setVisibility(View.VISIBLE);
+					error_iv.setImageResource(R.drawable.act_null);
+					listView_activitys.setVisibility(View.GONE);
+					error_tv.setText("一大波优惠活动正在来袭");
+					error_tvs.setVisibility(View.VISIBLE);
+					error_tvs.setText("敬请期待");
+
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

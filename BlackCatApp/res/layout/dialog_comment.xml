@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
+    android:background="#66000000"
     android:orientation="vertical" >
 
           <!--  <ScrollView
@@ -188,7 +189,8 @@
                                 style="@style/roomRatingBar_more_force_comment"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginLeft="20dp"
-                                android:isIndicator="false" />
+                                android:stepSize="0.1"
+                                android:isIndicator="true" />
                         </LinearLayout>
                     </LinearLayout>
 

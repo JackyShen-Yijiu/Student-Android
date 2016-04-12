@@ -327,6 +327,8 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 				// dialog.show();
 			}
 			break;
+
+		// 设置
 		case R.id.fragment_menu_setting_btn:
 			intent = new Intent(getActivity(), SettingActivity.class);
 			startActivity(intent);

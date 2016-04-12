@@ -14,18 +14,21 @@ import com.jzjf.app.R;
 import com.sft.blackcatapp.AppointmentExamActivity;
 import com.sft.blackcatapp.CourseActivity;
 import com.sft.blackcatapp.LearnCarCheatsActivity;
+import com.sft.blackcatapp.QuestionActivity;
+import com.sft.dialog.NoLoginDialog;
 import com.sft.util.BaseUtils;
 import com.sft.viewutil.StudyItemLayout;
+import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.SubjectForOneVO;
 
 public class SubjectTwoFragment extends BaseFragment implements OnClickListener {
 
 	// 官方课时
-	private TextView officalClass;
+	// private TextView officalClass;
 	// 规定学时
-	private TextView ruleClass;
+	// private TextView ruleClass;
 	// 已完成
-	private TextView finishedClass;
+	// private TextView finishedClass;
 	// 学习进度
 	private ProgressBar studyProgressBar;
 
@@ -39,6 +42,10 @@ public class SubjectTwoFragment extends BaseFragment implements OnClickListener 
 	private StudyItemLayout courseWare;
 	private Context mContext;
 
+	private TextView studyProgressTv;
+
+	private StudyItemLayout schoolReport;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -51,11 +58,13 @@ public class SubjectTwoFragment extends BaseFragment implements OnClickListener 
 	}
 
 	private void initViews(View rootView) {
-		finishedClass = (TextView) rootView
-				.findViewById(R.id.study_finished_class);
-		ruleClass = (TextView) rootView.findViewById(R.id.study_rule_class);
-		officalClass = (TextView) rootView
-				.findViewById(R.id.study_offical_class);
+		// finishedClass = (TextView) rootView
+		// .findViewById(R.id.study_finished_class);
+		// ruleClass = (TextView) rootView.findViewById(R.id.study_rule_class);
+		// officalClass = (TextView) rootView
+		// .findViewById(R.id.study_offical_class);
+		studyProgressTv = (TextView) rootView
+				.findViewById(R.id.study_progress_tv);
 		studyProgressBar = (ProgressBar) rootView
 				.findViewById(R.id.study_progressbar);
 
@@ -66,6 +75,8 @@ public class SubjectTwoFragment extends BaseFragment implements OnClickListener 
 				.findViewById(R.id.make_an_appointment);
 		communication = (StudyItemLayout) rootView
 				.findViewById(R.id.communication);
+		schoolReport = (StudyItemLayout) rootView
+				.findViewById(R.id.my_school_report);
 	}
 
 	private void setListener() {
@@ -73,6 +84,7 @@ public class SubjectTwoFragment extends BaseFragment implements OnClickListener 
 		communication.setOnClickListener(this);
 		learnCarCheats.setOnClickListener(this);
 		courseWare.setOnClickListener(this);
+		schoolReport.setOnClickListener(this);
 	}
 
 	@Override
@@ -100,6 +112,23 @@ public class SubjectTwoFragment extends BaseFragment implements OnClickListener 
 			}
 
 			break;
+		case R.id.my_school_report:
+			// 成绩单
+			if (app.isLogin) {
+				if (app.questionVO != null) {
+					intent = new Intent(mContext, QuestionActivity.class);
+					intent.putExtra("url", app.questionVO.getSubjectone()
+							.getKemusichengjidanurl());
+				} else {
+					ZProgressHUD.getInstance(mContext).show();
+					ZProgressHUD.getInstance(mContext).dismissWithFailure(
+							"暂无成绩单");
+				}
+			} else {
+				NoLoginDialog dialog = new NoLoginDialog(mContext);
+				dialog.show();
+			}
+			break;
 		case R.id.communication:
 
 			break;
@@ -115,8 +144,10 @@ public class SubjectTwoFragment extends BaseFragment implements OnClickListener 
 	public void setLearnProgressInfo(SubjectForOneVO subject) {
 		studyProgressBar.setMax(subject.getTotalcourse());
 		studyProgressBar.setProgress(subject.getFinishcourse());
-		finishedClass.setText("已完成" + subject.getFinishcourse());
-		ruleClass.setText("规定课时" + subject.getTotalcourse());
-		officalClass.setText("官方学时" + subject.getOfficialhours());
+		studyProgressTv.setText("规定课时   " + subject.getTotalcourse() + "/"
+				+ subject.getOfficialhours());
+		// finishedClass.setText("已完成" + subject.getFinishcourse());
+		// ruleClass.setText("规定课时" + subject.getTotalcourse());
+		// officalClass.setText("官方学时" + subject.getOfficialhours());
 	}
 }

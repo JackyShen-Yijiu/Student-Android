@@ -446,7 +446,13 @@
         <activity
             android:name="com.sft.blackcatapp.WalletActivity"
             android:screenOrientation="portrait" >
+            </activity>
+         <!-- 解压 -->
+        <activity
+            android:name="com.sft.jieya.JieYaMainActivity"
+            android:screenOrientation="portrait" >
         </activity>
+        
         <activity
             android:name="com.sft.blackcatapp.WebViewActivitys"
             android:screenOrientation="portrait" >
