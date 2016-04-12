@@ -52,7 +52,7 @@ public class MyComplaintAct extends BaseActivity {
 		Map<String, String> headerMap = new HashMap<String, String>();
 		headerMap.put("authorization", app.userVO.getToken());
 		HttpSendUtils.httpGetSend("complaint", this, Config.IP
-				+ "api/v1/courseinfo/getmycomplaint", paramsMap, 10000,
+				+ "api/v1/courseinfo/getmycomplaintv2", paramsMap, 10000,
 				headerMap);
 	}
 
@@ -88,6 +88,7 @@ public class MyComplaintAct extends BaseActivity {
 
 			}
 			list = payList;
+			adapter.setData(list);
 			adapter.notifyDataSetChanged();
 		}
 

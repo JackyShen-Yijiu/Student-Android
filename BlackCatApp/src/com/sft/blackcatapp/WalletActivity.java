@@ -6,6 +6,7 @@ import java.util.List;
 import android.app.Activity;
 import android.app.LocalActivityManager;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
@@ -13,6 +14,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
@@ -31,8 +34,10 @@ public class WalletActivity extends BaseActivity {
 	private RadioGroup radioGroup;
 
 	private LocalActivityManager activityManager = null;
-	private TextView tv_name;
+	private TextView tv_help;
 	public TextView tv_code;
+	private ImageView iv_integral;
+	private Button wall_shop;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +83,10 @@ public class WalletActivity extends BaseActivity {
 		viewPager = (ViewPager) findViewById(R.id.wallet_viewpager);
 		radioGroup = (RadioGroup) findViewById(R.id.wallet_radiogroup);
 
-		tv_name = (TextView) findViewById(R.id.tv_name);
+		iv_integral = (ImageView) findViewById(R.id.iv_integral);
+		wall_shop = (Button) findViewById(R.id.wall_shop);
+
+		tv_help = (TextView) findViewById(R.id.tv_help);
 		tv_code = (TextView) findViewById(R.id.tv_code);
 
 		if (!app.isLogin) {
@@ -93,6 +101,7 @@ public class WalletActivity extends BaseActivity {
 	private void setListener() {
 		radioGroup.setOnCheckedChangeListener(new MyOnCheckedChangeListener());
 		viewPager.setOnPageChangeListener(new MyPageChangeListener());
+		wall_shop.setOnClickListener(this);
 	}
 
 	@Override
@@ -126,6 +135,10 @@ public class WalletActivity extends BaseActivity {
 		case R.id.base_left_btn:
 			finish();
 			break;
+		case R.id.wall_shop:
+			MainActivity.TARGET_TAB = MainActivity.TAB_MALL;
+			finish();
+			break;
 		}
 	}
 
@@ -153,17 +166,28 @@ public class WalletActivity extends BaseActivity {
 			if (checkedId == R.id.wallet_integral_btn) {
 				viewPager.setCurrentItem(0);
 				setTabBkground(0);
-				tv_name.setText("奖励积分");
+				wall_shop.setText("积分商城");
+				wall_shop.setVisibility(View.VISIBLE);
+				wall_shop.setTextColor(Color.parseColor("#ffffff"));
+				wall_shop.setBackgroundResource(R.drawable.wall_btn_select);
+				wall_shop.setEnabled(true);
+				iv_integral.setImageResource(R.drawable.wallet_integral);
 				tv_code.setText(app.currency + "积分");
 			} else if (checkedId == R.id.wallet_coupons_btn) {
 				viewPager.setCurrentItem(1);
 				setTabBkground(1);
-				tv_name.setText("报名兑换劵");
+				iv_integral.setImageResource(R.drawable.wallet_ticket);
+				wall_shop.setVisibility(View.GONE);
 				tv_code.setText(app.coupons + "张");
 			} else {
 				viewPager.setCurrentItem(2);
 				setTabBkground(2);
-				tv_name.setText("可取现金额");
+				wall_shop.setText("立即提现");
+				wall_shop.setVisibility(View.VISIBLE);
+				wall_shop.setTextColor(Color.parseColor("#eeeeee"));
+				wall_shop.setBackgroundResource(R.drawable.wall_select_hui);
+				wall_shop.setEnabled(false);
+				iv_integral.setImageResource(R.drawable.wallet_cash);
 				tv_code.setText(app.money + "元");
 			}
 			viewPager.setOnPageChangeListener(new MyPageChangeListener());
@@ -181,18 +205,29 @@ public class WalletActivity extends BaseActivity {
 
 			if (position == 0) {
 				radioGroup.check(R.id.wallet_integral_btn);
-				tv_name.setText("奖励积分");
+				iv_integral.setImageResource(R.drawable.wallet_integral);
 				tv_code.setText(app.currency + "积分");
+				wall_shop.setVisibility(View.VISIBLE);
+				wall_shop.setText("积分商城");
+				wall_shop.setTextColor(Color.parseColor("#ffffff"));
+				wall_shop.setBackgroundResource(R.drawable.wall_btn_select);
+				wall_shop.setEnabled(true);
 			}
 			if (position == 1) {
 				radioGroup.check(R.id.wallet_coupons_btn);
-				tv_name.setText("报名兑换劵");
+				iv_integral.setImageResource(R.drawable.wallet_ticket);
+				wall_shop.setVisibility(View.GONE);
 				tv_code.setText(app.coupons + "张");
 			}
 			if (position == 2) {
 				radioGroup.check(R.id.wallet_money_btn);
-				tv_name.setText("可取现金额");
+				iv_integral.setImageResource(R.drawable.wallet_cash);
+				wall_shop.setVisibility(View.VISIBLE);
+				wall_shop.setText("立即提现");
+				wall_shop.setTextColor(Color.parseColor("#eeeeee"));
+				wall_shop.setBackgroundResource(R.drawable.wall_select_hui);
 				tv_code.setText(app.money + "元");
+				wall_shop.setEnabled(false);
 			}
 			radioGroup
 					.setOnCheckedChangeListener(new MyOnCheckedChangeListener());
