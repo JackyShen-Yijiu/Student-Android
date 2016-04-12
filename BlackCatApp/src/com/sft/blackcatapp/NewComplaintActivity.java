@@ -14,12 +14,14 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.infinitescrollviewpager.BitmapManager;
@@ -38,17 +40,16 @@ import com.sft.vo.CoachVO;
  * 
  */
 public class NewComplaintActivity extends BaseActivity implements
-		OnClickListener, OnCheckedChangeListener {
+		OnClickListener, OnCheckedChangeListener,
+		android.widget.CompoundButton.OnCheckedChangeListener {
 
 	private static final String complaint = "complaint";
 
 	private EditText contentEt;
 
-	private RadioGroup feedbackusertypeRg;
-
 	private ImageView commitPic2Iv;
 
-	private Button commitBtn;
+	private TextView commitBtn;
 
 	private ImageView commitPicIv1;
 	private String url1 = null;
@@ -61,10 +62,6 @@ public class NewComplaintActivity extends BaseActivity implements
 
 	private RadioButton feedbacktypeCoachRb;
 
-	private RadioButton feedbackusertypeAnonymous;
-
-	private RadioButton feedbackusertypeRealName;
-
 	private String feedbackusertype = "0";// //投诉类型 0 匿名投诉 1 实名投诉
 
 	private String feedbacktype = "1"; // // 反馈类型 0 平台反馈 1 投诉教练 2 投诉驾校
@@ -76,6 +73,12 @@ public class NewComplaintActivity extends BaseActivity implements
 	private TextView complaint_coach_show;
 
 	private TextView chCounterText;
+
+	private TextView tv_1;
+
+	private RelativeLayout rl_coach;
+
+	private CheckBox name_ck;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -129,14 +132,13 @@ public class NewComplaintActivity extends BaseActivity implements
 
 		showTitlebarText(BaseActivity.SHOW_RIGHT_TEXT);
 		setText(0, R.string.complain);
+		tv_1 = (TextView) findViewById(R.id.tv_1);
+		rl_coach = (RelativeLayout) findViewById(R.id.rl_coach);
+		name_ck = (CheckBox) findViewById(R.id.setting_appointment_ck);
 
 		feedbacktypeRg = (RadioGroup) findViewById(R.id.complaint_feedbacktype_rg);
 		feedbacktypeCoachRb = (RadioButton) findViewById(R.id.complaint_feedbacktype_coach);
 		feedbacktypeSchoolRb = (RadioButton) findViewById(R.id.complaint_feedbacktype_school);
-
-		feedbackusertypeRg = (RadioGroup) findViewById(R.id.complaint_feedbackusertype);
-		feedbackusertypeAnonymous = (RadioButton) findViewById(R.id.complaint_feedbackusertype_anonymous);
-		feedbackusertypeRealName = (RadioButton) findViewById(R.id.complaint_feedbackusertype_realname);
 
 		coachNameTv = (TextView) findViewById(R.id.complaint_coach_name_tv);
 
@@ -146,18 +148,21 @@ public class NewComplaintActivity extends BaseActivity implements
 		chCounterText = (TextView) findViewById(R.id.sdk_status_edit_text);
 		commitPicIv1 = (ImageView) findViewById(R.id.complaint_commit_pic1);
 		commitPic2Iv = (ImageView) findViewById(R.id.complaint_commit_pic2);
-		commitBtn = (Button) findViewById(R.id.button_commit);
+		commitBtn = (TextView) findViewById(R.id.button_commit);
 
 		phoneTv.setText(app.userVO.getTelephone());
+		complaint_coach_show.setText("投诉 "
+				+ app.userVO.getApplycoachinfo().getName() + "教练");
 	}
 
 	private void Listener() {
 		feedbacktypeRg.setOnCheckedChangeListener(this);
-		feedbackusertypeRg.setOnCheckedChangeListener(this);
 		commitPicIv1.setOnClickListener(this);
 		commitPic2Iv.setOnClickListener(this);
 		commitBtn.setOnClickListener(this);
 		coachNameTv.setOnClickListener(this);
+		rl_coach.setOnClickListener(this);
+		name_ck.setOnCheckedChangeListener(this);
 
 	}
 
@@ -187,7 +192,7 @@ public class NewComplaintActivity extends BaseActivity implements
 		case R.id.button_commit:
 			complaint();
 			break;
-		case R.id.complaint_coach_name_tv:
+		case R.id.rl_coach:
 			// 弹出教练列表
 			intent = new Intent(this, AppointmentMoreCoachActivity.class);
 			startActivityForResult(intent, v.getId());
@@ -218,7 +223,7 @@ public class NewComplaintActivity extends BaseActivity implements
 
 			paramMap.put("feedbacktype", feedbacktype);
 			paramMap.put("name", app.userVO.getName());
-			paramMap.put("feedbackusertype", feedbackusertype);
+			paramMap.put("feedbackusertype", name_ck.isChecked() ? "1" : "0");
 			paramMap.put("mobile", app.userVO.getMobile());
 			// 投诉 教练，驾校名
 
@@ -313,6 +318,8 @@ public class NewComplaintActivity extends BaseActivity implements
 			complaint_coach_show.setText("投诉 "
 					+ app.userVO.getApplycoachinfo().getName() + "教练");
 			feedbacktype = "1";
+			tv_1.setText("投诉教练");
+			rl_coach.setEnabled(true);
 			break;
 		// 投诉驾校
 		case R.id.complaint_feedbacktype_school:
@@ -322,18 +329,18 @@ public class NewComplaintActivity extends BaseActivity implements
 			feedbacktype = "2";
 			complaint_coach_show.setText("投诉 "
 					+ app.userVO.getApplyschoolinfo().getName() + "驾校");
-			break;
-		// 匿名投诉
-		case R.id.complaint_feedbackusertype_anonymous:
-			feedbackusertype = "0";
-			break;
-		// 实名投诉
-		case R.id.complaint_feedbackusertype_realname:
-			feedbackusertype = "1";
+			tv_1.setText("投诉驾校");
+			rl_coach.setEnabled(false);
 			break;
 
 		default:
 			break;
 		}
 	}
+
+	@Override
+	public void onCheckedChanged(CompoundButton paramCompoundButton,
+			boolean paramBoolean) {
+	}
+
 }
