@@ -1,7 +1,6 @@
 package com.sft.fragment;
 
 import java.util.List;
-import java.util.Random;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,18 +12,15 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.LinearLayout.LayoutParams;
-import android.widget.Toast;
 
 import com.jzjf.app.R;
 import com.sft.adapter.ExamAdapter;
 import com.sft.util.BaseUtils;
 import com.sft.util.LogUtil;
 import com.sft.vo.ExerciseAnswerVO;
-import com.sft.vo.ExerciseVO;
+import com.sft.vo.questionbank.web_note;
 
 /**
  * 考试每一项
@@ -40,7 +36,7 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 
 	private String param2;
 
-	private ExerciseVO param1;
+	private web_note param1;
 
 	private final String test = "         ";
 
@@ -51,7 +47,7 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 	private ListView lv;
 	private ExamAdapter adapter;
 
-	public static ExciseFragment newInstance(ExerciseVO param1, String param2) {
+	public static ExciseFragment newInstance(web_note param1, String param2) {
 		ExciseFragment fragment = new ExciseFragment();
 		Bundle b = new Bundle();
 		b.putSerializable(PARAM1, param1);
@@ -65,7 +61,7 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		if (getArguments() != null) {
-			param1 = (ExerciseVO) getArguments().getSerializable(PARAM1);
+			param1 = (web_note) getArguments().getSerializable(PARAM1);
 			param2 = getArguments().getString(PARAM2);
 		}
 		LogUtil.print("instantiateItem---onCreate-->Excise");

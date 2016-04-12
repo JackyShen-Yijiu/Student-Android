@@ -1,6 +1,11 @@
 package com.sft.vo.questionbank;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import cn.sft.sqlhelper.DBVO;
+
+import com.sft.vo.ExerciseAnswerVO;
 
 public class web_note extends DBVO {
 
@@ -210,6 +215,58 @@ public class web_note extends DBVO {
 
 	public void setDiff_degree(int diff_degree) {
 		this.diff_degree = diff_degree;
+	}
+	
+	/**
+	 * 获取 答案列表
+	 * @return
+	 */
+	public List<ExerciseAnswerVO> getAnswers(){
+		List<ExerciseAnswerVO> list = new ArrayList<ExerciseAnswerVO>();
+		ExerciseAnswerVO vo = null;
+		for(int i=0;i<7;i++){
+			switch(i){
+			case 0:
+				vo = getAn(answer1);
+				break;
+			case 1:
+				vo = getAn(answer2);
+				break;
+			case 2:
+				vo = getAn(answer3);
+				break;
+			case 3:
+				vo = getAn(answer4);
+				break;
+			case 4:
+				vo = getAn(answer5);
+				break;
+			case 5:
+				vo = getAn(answer6);
+				break;
+			case 6:
+				vo = getAn(answer7);
+				break;
+			default:
+				vo = null;
+				break;
+					
+			}
+			if(vo!=null){
+				list.add(vo);
+			}
+		}
+		return list;
+	}
+	
+	private ExerciseAnswerVO getAn(String str){
+		ExerciseAnswerVO vo = null;
+		if(null == str){
+			
+		}else{
+			vo = new ExerciseAnswerVO(str);
+		}
+		return vo;
 	}
 
 }

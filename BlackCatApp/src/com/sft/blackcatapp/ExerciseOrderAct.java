@@ -8,11 +8,14 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
+
 import com.jzjf.app.R;
 import com.sft.adapter.ExerciseAdapter;
 import com.sft.util.LogUtil;
+import com.sft.util.Util;
 import com.sft.vo.ExerciseAnswerVO;
 import com.sft.vo.ExerciseVO;
+import com.sft.vo.questionbank.web_note;
 
 /**
  * 练习  顺序
@@ -28,9 +31,7 @@ public class ExerciseOrderAct extends BaseFragmentAct{
 	private ExerciseAdapter adapter;
 	
 	/**缓存数据*/
-	private List<ExerciseVO> data1 = new ArrayList<ExerciseVO>(DATA_SIZE);
-	
-	private List<ExerciseVO> data2 = new ArrayList<ExerciseVO>(DATA_SIZE);
+	private List<web_note> data1 = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +45,6 @@ public class ExerciseOrderAct extends BaseFragmentAct{
 	private void initView() {
 		viewpager = (ViewPager) findViewById(R.id.act_exer_order_vp);
 		adapter = new ExerciseAdapter(getSupportFragmentManager(),data1);
-		
 		LogUtil.print("size--->"+data1.size());
 		viewpager.setAdapter(adapter);
 		
@@ -52,26 +52,12 @@ public class ExerciseOrderAct extends BaseFragmentAct{
 	
 	private void initData(){
 		getIntent().getStringExtra("chartId");
+		data1 = Util.getAllSubjectFourBank();
 		
-		ExerciseVO vo ;
-		List<ExerciseAnswerVO> answers = new ArrayList<ExerciseAnswerVO>();
-		
-		for(int i =0;i<30;i++){
-			vo = new ExerciseVO();
-			vo.setQuestion("问题sdjljsdafjojaifojdojasdaojds撒旦法撒旦法双方的 "+i);
-			answers = new ArrayList<ExerciseAnswerVO>();
-			for(int j=0;j<4;j++){
-				answers.add(new ExerciseAnswerVO(j+"答a案"+i));
-			}
-			vo.setAnswers(answers);
-			LogUtil.print("int--->"+new Random().nextInt(4));
-			vo.setType(new Random().nextInt(4));
-			vo.setId(i);
-			data1.add(vo);
-		}
 	}
 	
-//	public void 
+//	public void getData()[
+	
 	
 	public void onClick(View view){
 		switch(view.getId()){
