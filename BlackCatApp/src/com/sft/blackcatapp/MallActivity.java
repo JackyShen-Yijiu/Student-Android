@@ -222,6 +222,7 @@ public class MallActivity extends BaseActivity implements
 	}
 
 	private void setData(final MallVO mallVO) {
+
 		runOnUiThread(new Runnable() {
 
 			@Override
