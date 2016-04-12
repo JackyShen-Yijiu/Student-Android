@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionBarSize"
+        android:background="@color/new_app_main_color"
+        >
+        <ImageButton
+            android:id="@+id/base_left_btn"
+            android:layout_width="@dimen/base_titlebar_leftright_btn_width"
+            android:layout_height="@dimen/base_titlebar_leftright_btn_height"
+            android:src="@drawable/base_left_btn_bkground"
+            android:layout_centerVertical="true"
+            android:onClick="onClick"
+            android:background="@null"
+            android:contentDescription="@string/app_name" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/txt_size_small"
+            android:drawableTop="@drawable/ic_study_time"
+            android:layout_marginRight="@dimen/margin_16"
+            android:drawablePadding="@dimen/padding_4"
+            android:textColor="@color/white"
+            android:text="36:20" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/textView1"
+            android:drawableTop="@drawable/ic_study_percentage"
+            android:layout_marginRight="@dimen/margin_16"
+            android:drawablePadding="@dimen/padding_4"
+            android:text="TextV"
+            android:textColor="@color/white"
+            android:textSize="@dimen/txt_size_ss" />
+        
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/textView2"
+            android:drawableTop="@drawable/ic_study_wrong"
+            android:layout_marginRight="@dimen/margin_16"
+            android:drawablePadding="@dimen/padding_4"
+            android:text="TextV"
+            android:textColor="@color/white"
+            android:textSize="@dimen/txt_size_ss" />
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/textView3"
+            android:drawableTop="@drawable/ic_study_right"
+            android:layout_marginRight="@dimen/margin_16"
+            android:drawablePadding="@dimen/padding_4"
+            android:text="TextV"
+            android:textColor="@color/white"
+            android:textSize="@dimen/txt_size_ss" />
+        
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/textView4"
+            android:drawableTop="@drawable/ic_study_total"
+            android:layout_marginRight="@dimen/margin_16"
+            android:drawablePadding="@dimen/padding_4"
+            android:text="100/100"
+            android:textColor="@color/white"
+            android:textSize="@dimen/txt_size_ss" />
+    </RelativeLayout>
+    
+    <android.support.v4.view.ViewPager
+        android:id="@+id/act_exer_order_vp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/main_bg"
+        >
+        
+    </android.support.v4.view.ViewPager>
+</LinearLayout>

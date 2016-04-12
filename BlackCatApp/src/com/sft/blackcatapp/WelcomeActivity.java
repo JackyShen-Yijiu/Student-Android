@@ -114,6 +114,8 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 
 		boolean isFirstOpen = SharedPreferencesUtil.getBoolean(
 				getApplicationContext(), IS_APP_FIRST_OPEN, true);
+		LogUtil.print("account-->111");
+		
 		if (isFirstOpen) {
 			new Handler().postDelayed(new Runnable() {
 
@@ -131,7 +133,8 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 
 			String lastLoginAccount = util.readParam(Config.LAST_LOGIN_ACCOUNT);
 			String password = util.readParam(Config.LAST_LOGIN_PASSWORD);
-
+			LogUtil.print("account-->"+lastLoginAccount+"password-->"+password);
+			
 			if (!TextUtils.isEmpty(lastLoginAccount)
 					&& !TextUtils.isEmpty(password)) {
 				AnalyticsConfig.setAppkey(this, Config.UMENG_APPKEY);

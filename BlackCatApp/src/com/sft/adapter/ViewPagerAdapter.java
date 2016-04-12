@@ -3,6 +3,7 @@ package com.sft.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 
 /**
  * Created by pengdonghua on 2016/2/3.
@@ -14,9 +15,12 @@ public class ViewPagerAdapter  extends FragmentPagerAdapter {
 //    public static ItemFragment[] fragments = {new ItemFragment(),new ItemFragment(),new ItemFragment()};
 
     private Fragment[] frags = null;
+    
+
 
     public ViewPagerAdapter(FragmentManager fm,String[] titles ,Fragment[] students) {
         super(fm);
+        
         this.titles = titles;
         this.frags = students;
     }

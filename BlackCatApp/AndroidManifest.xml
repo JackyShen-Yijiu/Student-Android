@@ -513,6 +513,11 @@
             android:name="com.sft.blackcatapp.SussessOrderActvity"
             android:screenOrientation="portrait" >
         </activity>
+        
+        <activity 
+            android:name="com.sft.blackcatapp.ExerciseOrderAct"
+            android:screenOrientation="portrait"
+            ></activity>
 
         <service android:name="com.sft.util.DownLoadService" />
 
