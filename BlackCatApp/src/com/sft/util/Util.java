@@ -320,19 +320,17 @@ public class Util {
 		return isSameDate;
 	}
 
-	private static SQLiteDatabase db = DataBaseUtil
-			.openDatabase(BlackCatApplication.getInstance());
-
 	/**
 	 * ---// 查询科目一所有题
 	 * */
 
 	public static List<web_note> getAllSubjectOneBank() {
-
+		SQLiteDatabase db = DataBaseUtil.openDatabase(BlackCatApplication
+				.getInstance());
 		String sql = "SELECT * FROM web_note where kemu =?   and (strTppe=? or strTppe=? or strTppe=? or strTppe=?) order by id";
 		List<web_note> list = DataBaseUtil.getArrays(db, web_note.class, sql,
 				new String[] { "1", "01", "02", "03", "04" });
-
+		db.close();
 		return list;
 	}
 
@@ -341,11 +339,12 @@ public class Util {
 	 * */
 
 	public static List<web_note> getAllSubjectFourBank() {
-
+		SQLiteDatabase db = DataBaseUtil.openDatabase(BlackCatApplication
+				.getInstance());
 		String sql = "SELECT * FROM web_note where kemu =?   and (strTppe=? or strTppe=? or strTppe=?' or strTppe=? or strTppe=? or strTppe=? or strTppe=?) order by id";
 		List<web_note> list = DataBaseUtil.getArrays(db, web_note.class, sql,
 				new String[] { "4", "01", "02", "03", "04", "05", "06", "07" });
-
+		db.close();
 		return list;
 	}
 
@@ -354,11 +353,12 @@ public class Util {
 	 * */
 
 	public static List<web_note> getSubjectOneQuestionWithChapter(String chapter) {
-
+		SQLiteDatabase db = DataBaseUtil.openDatabase(BlackCatApplication
+				.getInstance());
 		String sql = "SELECT * FROM web_note where kemu =?   and strTppe=? order by id";
 		List<web_note> list = DataBaseUtil.getArrays(db, web_note.class, sql,
 				new String[] { "1", chapter });
-
+		db.close();
 		return list;
 	}
 
@@ -368,11 +368,12 @@ public class Util {
 
 	public static List<web_note> getSubjectFourQuestionWithChapter(
 			String chapter) {
-
+		SQLiteDatabase db = DataBaseUtil.openDatabase(BlackCatApplication
+				.getInstance());
 		String sql = "SELECT * FROM web_note where kemu =?   and strTppe=? order by id";
 		List<web_note> list = DataBaseUtil.getArrays(db, web_note.class, sql,
 				new String[] { "4", chapter });
-
+		db.close();
 		return list;
 	}
 
@@ -381,7 +382,8 @@ public class Util {
 	 * */
 
 	public static List<Chapter> getSubjectOneChapter() {
-
+		SQLiteDatabase db = DataBaseUtil.openDatabase(BlackCatApplication
+				.getInstance());
 		String sql = "SELECT"
 				+ "c.title as title ,c.id as id, '0'||c.mid as mid, count(c.id) as count"
 				+ "FROM Chapter c, web_note w WHERE c.kemu = 1 AND w.kemu=1"
@@ -390,7 +392,7 @@ public class Util {
 				+ "GROUP BY c.title,c.id ORDER BY c.id";
 		List<Chapter> list = DataBaseUtil.getArrays(db, Chapter.class, sql,
 				new String[] {});
-
+		db.close();
 		return list;
 	}
 
@@ -399,7 +401,8 @@ public class Util {
 	 * */
 
 	public static List<Chapter> getAllSubjectFourChapter() {
-
+		SQLiteDatabase db = DataBaseUtil.openDatabase(BlackCatApplication
+				.getInstance());
 		String sql = "SELECT c.title as title ,c.id as id, c.mid as mid, count(c.id) as count"
 				+ "FROM (select '0'||mid as mid ,title ,id ,kemu FROM Chapter where kemu=4 AND fid=0 and ( mid<>8 )) c,"
 				+ "web_note w WHERE c.kemu = 4 AND w.kemu=4" +
@@ -407,12 +410,14 @@ public class Util {
 				"AND w.strTppe = c.mid GROUP BY c.title,c.id, c.mid ORDER BY c.id";
 		List<Chapter> list = DataBaseUtil.getArrays(db, Chapter.class, sql,
 				new String[] {});
-
+		db.close();
 		return list;
 	}
 
 	/** 插入错题集合 */
 	public static void insertErrorBank(error_book error) {
+		SQLiteDatabase db = DataBaseUtil.openDatabase(BlackCatApplication
+				.getInstance());
 		List<error_book> list = new ArrayList<error_book>();
 		try {
 			DataBaseUtil.updateArray(db, list);
@@ -420,7 +425,11 @@ public class Util {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
+		} finally {
+			db.close();
 		}
+		db.close();
+
 	}
 
 	/**
@@ -429,11 +438,12 @@ public class Util {
 	 * @return
 	 */
 	public static List<web_note> getAllSubjectOneErrorQuestion() {
-
+		SQLiteDatabase db = DataBaseUtil.openDatabase(BlackCatApplication
+				.getInstance());
 		String sql = "select * from web_note w error_bank e where kemu=? and e.webnoteid = w.id";
 		List<web_note> list = DataBaseUtil.getArrays(db, web_note.class, sql,
 				new String[] { "1" });
-
+		db.close();
 		return list;
 	}
 
@@ -443,11 +453,12 @@ public class Util {
 	 * @return
 	 */
 	public static List<web_note> getAllSubjectFourErrorQuestion() {
-
+		SQLiteDatabase db = DataBaseUtil.openDatabase(BlackCatApplication
+				.getInstance());
 		String sql = "select * from web_note w error_bank e where kemu=? and e.webnoteid = w.id";
 		List<web_note> list = DataBaseUtil.getArrays(db, web_note.class, sql,
 				new String[] { "4" });
-
+		db.close();
 		return list;
 	}
 }

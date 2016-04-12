@@ -74,17 +74,24 @@ public class ProductOrderActivity extends BaseActivity {
 
 		setTitleText("兑换详情");
 
-		productName = (TextView) findViewById(R.id.product_order_product_name_tv);
-		productPriceName = (TextView) findViewById(R.id.product_order_price_name_tv);
-		productPrice = (TextView) findViewById(R.id.product_order_price_tv);
-		addressMode = (TextView) findViewById(R.id.product_order_address_mode_tv);
-
-		addressEt = (EditText) findViewById(R.id.product_order_address_et);
-		addressseeNameEt = (EditText) findViewById(R.id.product_order_addresssee_name_et);
-		addressseePhoneHint = (TextView) findViewById(R.id.product_order_addresssee_phone_hint_tv);
-		phoneEt = (EditText) findViewById(R.id.product_order_addresssee_phone_et);
-
-		addressLl = (LinearLayout) findViewById(R.id.product_order_address_ll);
+		// productName = (TextView)
+		// findViewById(R.id.product_order_product_name_tv);
+		// productPriceName = (TextView)
+		// findViewById(R.id.product_order_price_name_tv);
+		// productPrice = (TextView) findViewById(R.id.product_order_price_tv);
+		// addressMode = (TextView)
+		// findViewById(R.id.product_order_address_mode_tv);
+		//
+		// addressEt = (EditText) findViewById(R.id.product_order_address_et);
+		// addressseeNameEt = (EditText)
+		// findViewById(R.id.product_order_addresssee_name_et);
+		// addressseePhoneHint = (TextView)
+		// findViewById(R.id.product_order_addresssee_phone_hint_tv);
+		// phoneEt = (EditText)
+		// findViewById(R.id.product_order_addresssee_phone_et);
+		//
+		// addressLl = (LinearLayout)
+		// findViewById(R.id.product_order_address_ll);
 
 		prodectBelowPrice = (TextView) findViewById(R.id.product_order_product_price);
 		productBuyBtn = (Button) findViewById(R.id.product_order_buy_btn);

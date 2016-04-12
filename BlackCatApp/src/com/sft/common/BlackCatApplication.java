@@ -84,6 +84,7 @@ public class BlackCatApplication extends Application {
 	public void onCreate() {
 		super.onCreate();
 		LogUtil.print("jpush---init");
+		JPushInterface.setDebugMode(true);
 		JPushInterface.init(this);
 		SDKInitializer.initialize(this);
 

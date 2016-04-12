@@ -14,11 +14,11 @@ import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -34,16 +34,19 @@ import com.sft.common.Config;
 import com.sft.util.CommonUtil;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
+import com.sft.util.Util;
+import com.sft.view.HeaderGridView;
 import com.sft.view.RefreshLayout;
 import com.sft.view.RefreshLayout.OnLoadListener;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.MallVO;
 import com.sft.vo.MyCuponVO;
 import com.sft.vo.ProductVO;
+import com.sft.vo.questionbank.web_note;
 
 public class MallFragment extends BaseFragment implements
 		BitMapURLExcepteionListner, OnItemClickListener, OnRefreshListener,
-		OnLoadListener {
+		OnLoadListener, OnClickListener {
 	private String cityname;
 	private MyCuponVO myCuponVO;
 	private Context mContext;
@@ -52,7 +55,7 @@ public class MallFragment extends BaseFragment implements
 
 	//
 	private RefreshLayout swipeLayout;
-	private GridView productListView;
+	private HeaderGridView productListView;
 	private boolean isRefreshing = false;
 	private boolean isLoadingMore = false;
 	private List<ProductVO> mainList = new ArrayList<ProductVO>();
@@ -81,6 +84,8 @@ public class MallFragment extends BaseFragment implements
 		producttype = "0";
 		initViews(rootView);
 		obtainMailProduct();
+		List<web_note> allSubjectOneBank = Util.getAllSubjectOneBank();
+		LogUtil.print("web_note---" + allSubjectOneBank.size());
 		return rootView;
 	}
 
@@ -88,7 +93,8 @@ public class MallFragment extends BaseFragment implements
 		ZProgressHUD.getInstance(mContext).setMessage("拼命加载中...");
 		ZProgressHUD.getInstance(mContext).show();
 
-		productListView = (GridView) rootView.findViewById(R.id.mall_listview);
+		productListView = (HeaderGridView) rootView
+				.findViewById(R.id.mall_listview);
 		swipeLayout = (RefreshLayout) rootView
 				.findViewById(R.id.mall_swipe_container);
 		swipeLayout.setOnRefreshListener(this);
@@ -100,12 +106,19 @@ public class MallFragment extends BaseFragment implements
 		swipeLayout.setBackgroundColor(getResources().getColor(R.color.white));
 
 		productListView.setOnItemClickListener(this);
-
 		errorRl = (RelativeLayout) rootView.findViewById(R.id.error_rl);
 		errorIv = (ImageView) rootView.findViewById(R.id.error_iv);
 		errorTv = (TextView) rootView.findViewById(R.id.error_tv);
 		errorRl.setVisibility(View.GONE);
 		swipeLayout.setVisibility(View.VISIBLE);
+
+		// 添加头部
+		View view = View.inflate(mContext, R.layout.mall_header, null);
+		productListView.addHeaderView(view);
+		myIntegralTvTextView = (TextView) view
+				.findViewById(R.id.mall_header_my_integral_tv);
+		view.findViewById(R.id.mall_header_exchange_record_btn)
+				.setOnClickListener(this);
 	}
 
 	@Override
@@ -208,6 +221,7 @@ public class MallFragment extends BaseFragment implements
 	private ImageView errorIv;
 	private TextView errorTv;
 	private int screenWidth;
+	private TextView myIntegralTvTextView;
 
 	private String parseJson(byte[] responseBody) {
 		String value = null;
@@ -310,4 +324,15 @@ public class MallFragment extends BaseFragment implements
 		obtainMailProduct();
 	}
 
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.mall_header_exchange_record_btn:
+			// 兑换记录
+			break;
+
+		default:
+			break;
+		}
+	}
 }

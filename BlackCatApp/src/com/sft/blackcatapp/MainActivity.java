@@ -284,7 +284,7 @@ public class MainActivity extends BaseMainActivity implements
 			LogUtil.print("jpush---userId--->" + app.userVO.getUserid());
 			JPushInterface.setAliasAndTags(this, app.userVO.getUserid(), null,
 					new MyTagAliasCallback());
-			// JPushInterface.setAlias(this,app.userVO.getUserid(),
+			// JPushInterface.setAlias(this, app.userVO.getUserid(),
 			// new MyTagAliasCallback());
 			LogUtil.print("jpush---userId---end>" + app.userVO.getUserid());
 		}

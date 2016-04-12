@@ -95,4 +95,6 @@
     <color name="new_text_color_light">#b7b7b7</color>
     <color name="new_background_color">#e3e3e3</color>
     <color name="new_background_color_light">#f7f7f7</color>
+    
+    <color name="new_button_color">#5698fd</color>
 </resources>
