@@ -6,28 +6,51 @@
     
     <RelativeLayout 
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="200dp"
         android:background="@color/new_app_main_color">
 
         <TextView
-            android:id="@+id/tv_name"
+            android:id="@+id/tv_help"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="如何赚积分"
+            android:drawableLeft="@drawable/wallet_prompt"
+            android:drawablePadding="4dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="16dp"
+            android:textColor="#f8dad7"
+            android:textSize="12sp" />
+        
+        <ImageView 
+            android:id="@+id/iv_integral"
+            android:layout_width="68dp"
+            android:layout_height="68dp"
+            android:layout_marginTop="48dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:text="奖励积分"
-            android:textColor="@color/white"
-            android:textSize="14sp" />
+            android:src="@drawable/wallet_integral"/>
         <TextView
             android:id="@+id/tv_code"
-            android:layout_below="@+id/tv_name"
-            android:layout_marginTop="5dp"
+            android:layout_below="@+id/iv_integral"
+            android:layout_marginTop="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
          	android:layout_centerHorizontal="true"
-            android:text=""
+            android:text="asdadasdas"
             android:textColor="@color/white"
-            android:textSize="24sp" />
+            android:textSize="14sp" />
+        <Button 
+            android:id="@+id/wall_shop"
+            android:layout_width="80dp"
+            android:layout_height="32dp"
+            android:text="积分商城"
+            android:textSize="12sp"
+            android:textColor="@color/white"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="14dp"
+            android:layout_below="@+id/tv_code"
+            android:background="@drawable/wall_btn_select"/>
+        
 
  </RelativeLayout>
 
@@ -35,7 +58,7 @@
         android:id="@+id/wallet_radiogroup"
         android:layout_width="match_parent"
         android:layout_height="@dimen/selectcoach_radiogroup_height"
-        android:background="@color/new_app_main_color"
+        android:background="@color/white"
         android:orientation="horizontal" >
         <RadioButton
             android:id="@+id/wallet_integral_btn"
@@ -51,11 +74,30 @@
             style="@style/select_coach_radiobutton"
             android:text="@string/wallet_money" />
     </RadioGroup>
- <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#cccccc"
-        android:contentDescription="@string/app_name" />
+    
+       <RelativeLayout 
+           android:layout_width="match_parent"
+           android:background="@color/app_bg_dark"
+           android:layout_height="36dp">
+           <TextView 
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textSize="12sp"
+               android:layout_marginLeft="16dp"
+               android:layout_centerVertical="true"
+               android:textColor="#6e6e6e"
+               android:text="积分明细"/>
+             <TextView 
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textSize="12sp"
+               android:layout_marginRight="16dp"
+               android:layout_centerVertical="true"
+               android:layout_alignParentRight="true"
+               android:textColor="@color/new_app_main_color"
+               android:text="兑换记录"/>
+       </RelativeLayout>
+   
    
      <android.support.v4.view.ViewPager
         android:id="@+id/wallet_viewpager"

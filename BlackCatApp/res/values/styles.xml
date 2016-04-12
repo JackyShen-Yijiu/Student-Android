@@ -85,7 +85,7 @@
 
     <style name="select_coach_radiobutton">
         <item name="android:button">@null</item>
-        <item name="android:drawableBottom">@drawable/select_coach_radiobtn_bkground</item>
+        <item name="android:drawableBottom">@drawable/select_rg_wall</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">14dp</item>
         <item name="android:textColor">@drawable/select_coach_radiobtn_textcolor</item>
