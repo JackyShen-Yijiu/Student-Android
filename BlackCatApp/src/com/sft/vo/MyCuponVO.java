@@ -1,18 +1,13 @@
 package com.sft.vo;
 
+import java.util.List;
+
 import cn.sft.sqlhelper.DBVO;
 
 public class MyCuponVO extends DBVO {
 
 	private static final long serialVersionUID = 1L;
 
-	// "_id": "56812f877b340f4e48423164",
-	// "userid": "562cb02e93d4ca260b40e544",
-	// "state": 0,
-	// "is_forcash": true,
-	// "couponcomefrom": 1,
-	// "createtime": "2015-12-28T12:48:07.805Z"
-	// }
 	private String _id;
 	private String userid;
 	// 优惠卷状态// 0未领取 1领取 2过期 3作废 4 已消费
@@ -22,6 +17,26 @@ public class MyCuponVO extends DBVO {
 	// 优惠券来源 1 报名奖励 2 活动奖励
 	private String couponcomefrom;
 	private String createtime;
+	// 二维码
+	private String orderscanaduiturl;
+	// 活动列表
+	private List<ActSelecttVO> useproductidlist;
+
+	public String getOrderscanaduiturl() {
+		return orderscanaduiturl;
+	}
+
+	public void setOrderscanaduiturl(String orderscanaduiturl) {
+		this.orderscanaduiturl = orderscanaduiturl;
+	}
+
+	public List<ActSelecttVO> getUseproductidlist() {
+		return useproductidlist;
+	}
+
+	public void setUseproductidlist(List<ActSelecttVO> useproductidlist) {
+		this.useproductidlist = useproductidlist;
+	}
 
 	public String get_id() {
 		return _id;

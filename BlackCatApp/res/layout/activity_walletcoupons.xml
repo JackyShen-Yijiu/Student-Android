@@ -1,56 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:background="#e8e8ed" >
  <include layout="@layout/layout_error"/>
     <ListView
         android:id="@+id/my_wallet_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="#f7f9fb"
-        android:cacheColorHint="#ffffff"
+        android:background="#e8e8ed"
         android:descendantFocusability="blocksDescendants"
-        android:divider="#cccccc"
-        android:dividerHeight="0.5dp"
         android:fadingEdge="none"
+        android:divider="#00000000"  
+        android:dividerHeight="0dip"
         android:listSelector="@android:color/transparent"
         android:overScrollMode="always"
         android:scrollbars="none" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/white" >
-<View 
-          android:id="@+id/line"
-          android:layout_width="match_parent"
-          android:layout_height="1dp"
-          android:background="@color/line_color"/>
-        <TextView
-            android:id="@+id/my_wallet_invit_code_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:text=""
-            android:layout_below="@+id/line"
-            android:layout_marginLeft="12dp"
-            android:textColor="@color/left_black"
-            android:textSize="14sp" />
+    
 
-        <Button
-            android:id="@+id/my_wallet_change_btn"
-            style="@style/btn_style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="4dp"
-            android:background="@drawable/button"
-            android:text="兑换"
-            android:textColor="@color/white" />
-    </RelativeLayout>
-
-</LinearLayout>
+</RelativeLayout>
