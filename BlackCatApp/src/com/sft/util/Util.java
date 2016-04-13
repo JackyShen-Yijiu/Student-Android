@@ -341,7 +341,7 @@ public class Util {
 	public static List<web_note> getAllSubjectFourBank() {
 		SQLiteDatabase db = DataBaseUtil.openDatabase(BlackCatApplication
 				.getInstance());
-		String sql = "SELECT * FROM web_note where kemu =?   and (strTppe=? or strTppe=? or strTppe=?' or strTppe=? or strTppe=? or strTppe=? or strTppe=?) order by id";
+		String sql = "SELECT * FROM web_note where kemu =?   and (strTppe=? or strTppe=? or strTppe=? or strTppe=? or strTppe=? or strTppe=? or strTppe=?) order by id";
 		List<web_note> list = DataBaseUtil.getArrays(db, web_note.class, sql,
 				new String[] { "4", "01", "02", "03", "04", "05", "06", "07" });
 		db.close();

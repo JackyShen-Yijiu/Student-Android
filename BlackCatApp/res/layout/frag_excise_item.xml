@@ -31,8 +31,10 @@
 
         <ImageView
             android:id="@+id/frag_excise_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitCenter"
+             />
 
         <VideoView
             android:id="@+id/frag_excise_videov"
@@ -67,6 +69,15 @@
                 android:text="答案详解"
                 android:textColor="@color/new_button_color"
                 android:textSize="12sp" />
+            
+            <TextView
+                android:id="@+id/frag_excise_item_answer_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="14dp"
+                android:text=""
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/frag_excise_item_answer_content"

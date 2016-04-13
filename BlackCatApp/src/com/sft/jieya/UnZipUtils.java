@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import android.content.Context;
+import android.os.Environment;
 import android.os.Handler;
 
 import com.sft.util.LogUtil;
@@ -17,6 +18,39 @@ import com.sft.util.LogUtil;
  * 
  */
 public class UnZipUtils {
+
+	
+	public static String assertName = "ggtkFile.zip";
+	
+	public static String targetPath;
+	
+	/**本地文件的解压 */
+	public static String localPath;
+	
+	
+	public UnZipUtils(){
+		String Path = Environment.getExternalStorageDirectory()+"/jzjf/img";
+		File f = new File(Path);
+		if(!f.exists()){
+			f.mkdirs();
+		}
+		 targetPath = Path +"/a.zip";
+		File f1 = new File(targetPath);
+		if(!f1.exists()){
+			try {
+				f1.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		//解压目标 文件
+		localPath = Path +"/a";
+		
+		File f2 = new File(localPath);
+		if(!f2.exists()){
+			f2.mkdirs();
+		}
+	}
 
 	// 复制文件
 

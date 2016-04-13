@@ -21,8 +21,7 @@
                 android:id="@+id/product_detail_pic"
                 android:layout_width="90dp"
                 android:layout_height="90dp"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/act_null" />
+                android:layout_gravity="center_vertical" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -38,7 +37,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="苹果6s粉色樱花手机壳"
+                    android:text=""
                     android:textColor="@color/text_color_dark"
                     android:textSize="@dimen/txt_size_middle" />
 
@@ -52,7 +51,7 @@
                         android:id="@+id/product_detail_price_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="160"
+                        android:text=""
                         android:textColor="@color/new_app_main_color"
                         android:textSize="18sp" />
 
@@ -60,6 +59,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="积分"
+                        android:layout_marginLeft="4dp"
                         android:textColor="@color/text_color_light"
                         android:textSize="@dimen/txt_size_small" />
                 </LinearLayout>
@@ -69,7 +69,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="兑换时间：2014/09/22"
+                    android:text=""
                     android:textColor="@color/text_color_light"
                     android:textSize="@dimen/txt_size_middle" />
             </LinearLayout>
@@ -80,44 +80,121 @@
             android:layout_height="44dp"
             android:layout_marginTop="10dp"
             android:background="@color/white"
-            android:gravity="center_vertical"
-            android:paddingLeft="16dp" >
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp" >
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
                 android:text="兑换数量:"
+                android:textColor="@color/text_color_dark"
+                android:textSize="@dimen/txt_size_middle" />
+
+            <ImageView
+                android:id="@+id/product_detail_num_add_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/quantity_add_on" />
+
+            <TextView
+                android:id="@+id/product_detail_num_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_toLeftOf="@+id/product_detail_num_add_iv"
+                android:gravity="center_vertical"
+                android:text="1"
+                android:textColor="@color/text_color_dark"
+                android:textSize="@dimen/txt_size_small" />
+
+            <ImageView
+                android:id="@+id/product_detail_num_sub_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@+id/product_detail_num_tv"
+                android:src="@drawable/quantity_subtract_off" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="领取地点:"
+                android:textColor="@color/text_color_dark"
+                android:textSize="@dimen/txt_size_middle" />
+
+            <TextView
+                android:id="@+id/prodduct_detail_exchange_addr_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical"
+                android:text=""
                 android:textColor="@color/text_color_dark"
                 android:textSize="@dimen/txt_size_middle" />
         </RelativeLayout>
     </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
         android:background="@color/white" >
 
-        <TextView
+        <LinearLayout
+             android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/product_order_product_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/new_app_main_color"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="积分"
+                android:layout_marginLeft="4dp"
+                android:textColor="@color/text_color_light"
+                android:textSize="@dimen/txt_size_small" />
+        </LinearLayout>
+
+     <!--    <TextView
             android:id="@+id/product_order_product_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
             android:textColor="@color/new_app_main_color"
-            android:textSize="14sp" />
+            android:textSize="14sp" /> -->
 
         <Button
             android:id="@+id/product_order_buy_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="15dp"
-            android:background="@drawable/button"
-            android:text="@string/redeem_now"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:background="@color/new_app_main_color"
+            android:text="确认兑换"
             android:textColor="@color/white"
             android:textSize="16sp" />
-    </RelativeLayout>
+    </LinearLayout>
 
 </RelativeLayout>
