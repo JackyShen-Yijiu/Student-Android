@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:background="#e8e8ed" >
     <include layout="@layout/layout_error"/>
   <ListView
         android:id="@+id/my_wallet_listview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:background="#f7f9fb"
         android:cacheColorHint="#ffffff"
         android:descendantFocusability="blocksDescendants"
@@ -18,55 +17,39 @@
         android:listSelector="@android:color/transparent"
         android:overScrollMode="always"
         android:scrollbars="none" />
-  
-  <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="50dp"
-      android:background="@color/white"
-      >
-
-      <View 
+   <View 
           android:id="@+id/line"
           android:layout_width="match_parent"
           android:layout_height="1dp"
           android:background="@color/line_color"/>
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="40dp"
+      android:layout_alignParentBottom="true"
+      android:background="@color/white"
+      >
+     
       <TextView
           android:id="@+id/my_wallet_invit_code_tv"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_alignParentLeft="true"
-          android:layout_centerVertical="true"
+          android:layout_width="0dp"
+          android:layout_weight="1"
+          android:layout_height="match_parent"
           android:text=""
-          android:layout_marginLeft="12dp"
-          android:textColor="@color/left_black"
+          android:gravity="center"
+          android:textColor="#b7b7b7"
           android:textSize="14sp" />
 
-      <Button
+      <TextView
         android:id="@+id/my_wallet_invite_btn"
-        style="@style/btn_style"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/my_wallet_change_btn"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/button"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:background="@color/new_app_main_color"
+        android:gravity="center"
+        android:layout_height="match_parent"
         android:text="邀请好友"
+        android:textSize="14sp"
         android:textColor="@color/white" />
-           
-      
-      <Button
-            android:id="@+id/my_wallet_change_btn"
-            style="@style/btn_style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="4dp"
-            android:background="@drawable/button"
-            android:text="积分兑换"
-            android:textColor="@color/white" />
 
+  </LinearLayout>
 
-  </RelativeLayout>
-
-</LinearLayout>
+</RelativeLayout>

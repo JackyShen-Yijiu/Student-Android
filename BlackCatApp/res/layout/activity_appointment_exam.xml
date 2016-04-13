@@ -1,216 +1,200 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@color/app_bg_dark" >
 
     <LinearLayout
+        android:id="@+id/appointment_exam_userinfo_ll"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/app_bg_light"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
         android:orientation="vertical" >
 
         <RelativeLayout
-            android:id="@+id/appointment_exam_name_hint_rl"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="15dp" >
+            android:layout_height="44dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:gravity="center_vertical" >
 
             <TextView
-                android:id="@+id/appointment_exam_name_words_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="姓名"
-                android:textColor="@color/text_color_light"
-                android:textSize="12sp" />
+                android:textColor="@color/text_color_dark"
+                android:textSize="@dimen/txt_size_middle" />
 
             <TextView
-                android:id="@+id/appointment_exam_name_error_hint"
+                android:id="@+id/appointment_exam_username_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:drawablePadding="5dp"
-                android:drawableRight="@drawable/login_hint"
-                android:text="您填入的信息有误"
-                android:textColor="@color/new_app_main_color"
-                android:textSize="12sp"
-                android:visibility="invisible" />
+                android:text=""
+                android:textColor="@color/text_color_light"
+                android:textSize="@dimen/txt_size_middle" />
         </RelativeLayout>
-
-        <EditText
-            android:id="@+id/appointment_exam_name_edit_et"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="10dp"
-            android:background="@null"
-            android:gravity="top|left"
-            android:singleLine="false"
-            android:textColor="#333333"
-            android:textColorHint="#999999"
-            android:textSize="14dp" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
             android:background="@color/line_color" />
 
         <RelativeLayout
-            android:id="@+id/appointment_exam_phone_hint_rl"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="15dp" >
+            android:layout_height="44dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:gravity="center_vertical" >
 
             <TextView
-                android:id="@+id/appointment_exam_phone_words_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="电话"
-                android:textColor="@color/text_color_light"
-                android:textSize="12sp" />
+                android:textColor="@color/text_color_dark"
+                android:textSize="@dimen/txt_size_middle" />
 
             <TextView
-                android:id="@+id/appointment_exam_phone_error_hint"
+                android:id="@+id/appointment_exam_user_phone_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:drawablePadding="5dp"
-                android:drawableRight="@drawable/login_hint"
-                android:text="您填入的信息有误"
-                android:textColor="@color/new_app_main_color"
-                android:textSize="12sp"
-                android:visibility="invisible" />
+                android:text="123456415"
+                android:textColor="@color/text_color_light"
+                android:textSize="@dimen/txt_size_middle" />
         </RelativeLayout>
 
-        <EditText
-            android:id="@+id/appointment_exam_phone_edit_et"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="10dp"
-            android:background="@null"
-            android:gravity="top|left"
-            android:singleLine="false"
-            android:textColor="#333333"
-            android:textColorHint="#999999"
-            android:textSize="14dp" />
-
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
             android:background="@color/line_color" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:text="期望考试时间段"
-            android:textColor="@color/text_color_light"
-            android:textSize="12sp" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:orientation="horizontal"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp" >
-
-            <DatePicker
-                android:id="@+id/appointment_exam_start_datepicker"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:calendarViewShown="false" />
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="44dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:gravity="center_vertical" >
 
             <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:text="至" />
-
-            <DatePicker
-                android:id="@+id/appointment_exam_end_datepicker"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:calendarViewShown="false" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/line_color" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:text="考前提前试车(需试车费用)"
-            android:textColor="@color/text_color_light"
-            android:textSize="12sp" />
-
-        <RadioGroup
-            android:id="@+id/appointment_exam_test_drive_rg"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <RadioButton
-                android:id="@+id/appointment_exam_test_drive_rb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="18dp"
-                android:layout_weight="1"
-                android:background="@null"
-                android:button="@drawable/radio_button_bg"
-                android:checked="true"
-                android:paddingLeft="10dp"
-                android:text="是"
-                android:textColor="#333333"
-                android:textSize="12sp" />
+                android:text="考试原因"
+                android:textColor="@color/text_color_dark"
+                android:textSize="@dimen/txt_size_middle" />
 
-            <RadioButton
-                android:id="@+id/appointment_exam_no_test_drive_rb"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="18dp"
-                android:layout_weight="1"
-                android:background="@null"
-                android:button="@drawable/radio_button_bg"
-                android:paddingLeft="10dp"
-                android:text="否"
+                android:layout_alignParentRight="true"
+                android:text="初次申请"
                 android:textColor="@color/text_color_light"
-                android:textSize="12sp" />
-        </RadioGroup>
+                android:textSize="@dimen/txt_size_middle" />
+        </RelativeLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
             android:background="@color/line_color" />
     </LinearLayout>
 
-    <RelativeLayout
+    <TextView
+        android:id="@+id/appointmet_exam_time_intruduce"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/appointment_exam_userinfo_ll"
+        android:layout_marginBottom="14dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="14dp"
+        android:text="预约考试起止日期"
+        android:textColor="@color/text_color_light"
+        android:textSize="@dimen/txt_size_middle" />
+
+    <LinearLayout
+        android:id="@+id/appointmet_exam_time_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/appointmet_exam_time_intruduce"
+        android:background="@color/white"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/appointmet_exam_begin_time_tv"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:gravity="center"
+            android:text="起始日期"
+            android:textColor="@color/text_color_light"
+            android:textSize="@dimen/txt_size_middle" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line_color" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:background="#fafafa"
+            android:gravity="center"
+            android:text="至"
+            android:textColor="@color/text_color_dark"
+            android:textSize="@dimen/txt_size_middle" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line_color" />
+
+        <TextView
+            android:id="@+id/appointmet_exam_end_time_tv"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:gravity="center"
+            android:text="最后日期"
+            android:textColor="@color/text_color_light"
+            android:textSize="@dimen/txt_size_middle" />
+    </LinearLayout>
+
+    <TextView 
+        android:id="@+id/appointmet_exam_info1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_below="@id/appointmet_exam_time_ll"
+        android:textSize="@dimen/txt_size_small"
+        android:textColor="@color/text_color_light"
+        android:text="@string/school_appointment_instructions1"/>
+    <TextView 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_below="@id/appointmet_exam_info1"
+        android:textSize="@dimen/txt_size_small"
+        android:textColor="@color/text_color_light"
+        android:text="@string/school_appointment_instructions2"/>
+     <Button 
+        android:id="@+id/appointment_exam_apply_btn"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_alignParentBottom="true"
+        android:text="申请预约"
+        android:textColor="@color/white"
+        android:textSize="@dimen/txt_size_middle"
+        android:background="@drawable/button_rounded_corners"
+        />
+    <!-- <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
@@ -235,6 +219,6 @@
             android:layout_marginRight="15dp"
             android:background="@drawable/button"
             android:text="立即申请" />
-    </RelativeLayout>
+    </RelativeLayout> -->
 
 </RelativeLayout>

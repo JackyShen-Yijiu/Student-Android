@@ -8,7 +8,6 @@ import java.util.Map;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -38,9 +37,8 @@ public class Walletintegral extends BaseActivity {
 	// 收益列表
 	private ListView incomeList;
 	// 邀请好友
-	private Button inviteBtn;
+	private TextView inviteBtn;
 	//
-	private Button changeBtn;
 
 	// 邀请码
 	private TextView invitCodeTv;
@@ -87,9 +85,7 @@ public class Walletintegral extends BaseActivity {
 		error_rl = (RelativeLayout) findViewById(R.id.error_rl);
 		error_tv = (TextView) findViewById(R.id.error_tv);
 
-		inviteBtn = (Button) findViewById(R.id.my_wallet_invite_btn);
-
-		changeBtn = (Button) findViewById(R.id.my_wallet_change_btn);
+		inviteBtn = (TextView) findViewById(R.id.my_wallet_invite_btn);
 
 		incomeList = (ListView) findViewById(R.id.my_wallet_listview);
 
@@ -102,7 +98,6 @@ public class Walletintegral extends BaseActivity {
 	private void changeMoneyType() {
 		setTitleText(R.string.my_wallet);
 
-		invitCodeTv.setText("我的Y码： " + app.userVO.getInvitationcode());
 		producttype = Config.MoneyType.INTEGRAL_RETURN.getValue();
 		obtainWallet();
 
@@ -110,7 +105,6 @@ public class Walletintegral extends BaseActivity {
 
 	private void setListener() {
 		inviteBtn.setOnClickListener(this);
-		changeBtn.setOnClickListener(this);
 	}
 
 	private void initData() {
@@ -148,7 +142,7 @@ public class Walletintegral extends BaseActivity {
 					app.currency = walletVO.getWallet();
 
 					dataList.addAll(walletVO.getList());
-
+					invitCodeTv.setText(app.userVO.getFcode());
 					if (walletAdapter == null) {
 						walletAdapter = new IncomeListAdapter(this, dataList,
 								producttype);
@@ -183,13 +177,6 @@ public class Walletintegral extends BaseActivity {
 		switch (v.getId()) {
 		case R.id.base_left_btn:
 			finish();
-			break;
-		case R.id.my_wallet_change_btn:
-
-			MainActivity.TARGET_TAB = MainActivity.TAB_MALL;
-			finish();
-			// Intent intent = new Intent(this, MallActivity.class);
-			// startActivity(intent);
 			break;
 		case R.id.my_wallet_invite_btn:
 			Intent intent2 = new Intent(this, BonusDialog.class);

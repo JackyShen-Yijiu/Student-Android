@@ -7,7 +7,6 @@ import java.util.Map;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -18,7 +17,6 @@ import com.jzjf.app.R;
 import com.sft.adapter.CupontAdapter;
 import com.sft.common.Config;
 import com.sft.util.JSONUtil;
-import com.sft.vo.IncomeVO;
 import com.sft.vo.MyCuponVO;
 
 /**
@@ -35,10 +33,8 @@ public class Walletcoupons extends BaseActivity {
 	// 收益列表
 	private ListView incomeList;
 	//
-	private Button changeBtn;
 
 	// 邀请码
-	private TextView invitCodeTv;
 
 	// private int clickNum = 0;
 
@@ -60,7 +56,6 @@ public class Walletcoupons extends BaseActivity {
 		setContentView(R.layout.activity_walletcoupons);
 		initView();
 		initData();
-		setListener();
 		changeMoneyType();
 		parentActivity = (WalletActivity) getParent();
 		// LogUtil.print(getParent() + "sun-->" + getCallingPackage());
@@ -79,24 +74,16 @@ public class Walletcoupons extends BaseActivity {
 		error_rl = (RelativeLayout) findViewById(R.id.error_rl);
 		error_tv = (TextView) findViewById(R.id.error_tv);
 
-		changeBtn = (Button) findViewById(R.id.my_wallet_change_btn);
-
 		incomeList = (ListView) findViewById(R.id.my_wallet_listview);
 
-		invitCodeTv = (TextView) findViewById(R.id.my_wallet_invit_code_tv);
 		error_iv = (ImageView) findViewById(R.id.error_iv);
 
 	}
 
 	private void changeMoneyType() {
-		invitCodeTv.setText("我的Y码： " + app.userVO.getInvitationcode());
 		producttype = Config.MoneyType.COIN_CERTIFICATE.getValue();
 		obtainCoinCertificate();
 
-	}
-
-	private void setListener() {
-		changeBtn.setOnClickListener(this);
 	}
 
 	private void initData() {
@@ -118,7 +105,6 @@ public class Walletcoupons extends BaseActivity {
 				+ "api/v1/userinfo/getmycupon", paramsMap, 10000, headerMap);
 	}
 
-	private List<IncomeVO> dataList = new ArrayList<IncomeVO>();
 	private List<MyCuponVO> myCuponList;
 
 	private MyCuponVO myCuponVO;

@@ -11,7 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.jzjf.app.R;
-import com.sft.blackcatapp.AppointmentExamActivity;
+import com.sft.blackcatapp.AppointmentExamPreActivity;
 import com.sft.blackcatapp.ExerciseOrderAct;
 import com.sft.blackcatapp.QuestionActivity;
 import com.sft.blackcatapp.SectionActivity;
@@ -100,12 +100,20 @@ public class SubjectOneFragment extends BaseFragment implements OnClickListener 
 
 			// 题库
 			if (app.questionVO != null) {
+<<<<<<< HEAD
 				
 				intent = new Intent(mContext, SectionActivity.class);
 //				ExerciseOrderAct
 //				intent = new Intent(mContext, QuestionActivity.class);
 //				intent.putExtra("url", app.questionVO.getSubjectone()
 //						.getQuestionlisturl());
+=======
+
+				intent = new Intent(mContext, ExerciseOrderAct.class);
+				// intent = new Intent(mContext, QuestionActivity.class);
+				// intent.putExtra("url", app.questionVO.getSubjectone()
+				// .getQuestionlisturl());
+>>>>>>> 5b9f84822fdfd53e897edbd00bd27dddadfe512b
 			} else {
 				ZProgressHUD.getInstance(mContext).show();
 				ZProgressHUD.getInstance(mContext).dismissWithFailure("暂无题库");
@@ -143,7 +151,7 @@ public class SubjectOneFragment extends BaseFragment implements OnClickListener 
 			break;
 		case R.id.make_an_appointment:
 			if (app.isLogin) {
-				intent = new Intent(mContext, AppointmentExamActivity.class);
+				intent = new Intent(mContext, AppointmentExamPreActivity.class);
 				intent.putExtra("subjectid", "1");
 
 			} else {
