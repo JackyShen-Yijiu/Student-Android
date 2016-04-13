@@ -84,8 +84,8 @@ public class MallFragment extends BaseFragment implements
 		producttype = "0";
 		initViews(rootView);
 		obtainMailProduct();
-		List<web_note> allSubjectOneBank = Util.getAllSubjectOneBank();
-		LogUtil.print("web_note---" + allSubjectOneBank.size());
+//		List<web_note> allSubjectOneBank = Util.getAllSubjectOneBank();
+//		LogUtil.print("web_note---" + allSubjectOneBank.size());
 		return rootView;
 	}
 

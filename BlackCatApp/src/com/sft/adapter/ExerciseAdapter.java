@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 
 import com.sft.fragment.ExciseFragment;
+import com.sft.vo.ExerciseVO;
 import com.sft.vo.questionbank.web_note;
 /**
  * 练习 适配器
@@ -22,7 +23,7 @@ public class ExerciseAdapter extends FragmentPagerAdapter{
 	
 //	private List<ExciseFragment> frags = new ArrayList<ExciseFragment>(5);
 	
-	private List<web_note> data = new ArrayList<web_note>();
+	private List<ExerciseVO> data = new ArrayList<ExerciseVO>();
 	
     private FragmentTransaction tran;
     private FragmentManager fm;
@@ -35,7 +36,7 @@ public class ExerciseAdapter extends FragmentPagerAdapter{
 	}
 	
 	@SuppressLint("CommitTransaction") 
-	public ExerciseAdapter(FragmentManager fm,List<web_note> data) {
+	public ExerciseAdapter(FragmentManager fm,List<ExerciseVO> data) {
 		super(fm);
 		tran = fm.beginTransaction();
 		this.fm = fm;
@@ -43,22 +44,10 @@ public class ExerciseAdapter extends FragmentPagerAdapter{
 	}
 	
 	
-//	private void init(web_note vo,String po){
-//		if(fragsMap.size()<5){
-//			ExciseFragment frag = ExciseFragment.newInstance(vo, "321");
-//			fragsMap.put(po, frag);
-//		}else{
-//		}	
-//	}
 	
-	public void setData(List<web_note> data){
+	public void setData(List<ExerciseVO> data){
 		this.data = data;
 		notifyDataSetChanged();
-//		for(int i=0;i<5;i++){
-//			frags.add(ExciseFragment.newInstance(data.get(i), ""));
-//		}
-		
-		
 	}
 
 

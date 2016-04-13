@@ -85,6 +85,7 @@ public class DataBaseUtil {
 
 		String tableName = cls.getSimpleName();
 		List entities = new ArrayList();
+		LogUtil.print("sql-->"+sql);
 		Cursor cursor = db.rawQuery(sql, paramsvalues);
 
 		try {
@@ -113,7 +114,7 @@ public class DataBaseUtil {
 			}
 
 		} catch (NullPointerException ex) {
-
+			ex.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
