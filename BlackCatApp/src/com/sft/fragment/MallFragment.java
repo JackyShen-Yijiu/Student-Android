@@ -34,7 +34,6 @@ import com.sft.common.Config;
 import com.sft.util.CommonUtil;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
-import com.sft.util.Util;
 import com.sft.view.HeaderGridView;
 import com.sft.view.RefreshLayout;
 import com.sft.view.RefreshLayout.OnLoadListener;
@@ -42,7 +41,6 @@ import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.MallVO;
 import com.sft.vo.MyCuponVO;
 import com.sft.vo.ProductVO;
-import com.sft.vo.questionbank.web_note;
 
 public class MallFragment extends BaseFragment implements
 		BitMapURLExcepteionListner, OnItemClickListener, OnRefreshListener,
@@ -84,8 +82,6 @@ public class MallFragment extends BaseFragment implements
 		producttype = "0";
 		initViews(rootView);
 		obtainMailProduct();
-		List<web_note> allSubjectOneBank = Util.getAllSubjectOneBank();
-		LogUtil.print("web_note---" + allSubjectOneBank.size());
 		return rootView;
 	}
 
@@ -117,8 +113,14 @@ public class MallFragment extends BaseFragment implements
 		productListView.addHeaderView(view);
 		myIntegralTvTextView = (TextView) view
 				.findViewById(R.id.mall_header_my_integral_tv);
+
 		view.findViewById(R.id.mall_header_exchange_record_btn)
 				.setOnClickListener(this);
+
+		//
+		if (app.currency != null) {
+			myIntegralTvTextView.setText(app.currency);
+		}
 	}
 
 	@Override
