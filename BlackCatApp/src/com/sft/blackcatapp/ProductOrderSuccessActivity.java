@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -14,10 +15,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import cn.sft.infinitescrollviewpager.BitmapManager;
 
 import com.jzjf.app.R;
 import com.sft.common.Config;
+import com.sft.qrcode.EncodingHandler;
+import com.sft.util.LogUtil;
 import com.sft.vo.ProductVO;
 
 /**
@@ -44,6 +48,8 @@ public class ProductOrderSuccessActivity extends BaseActivity {
 
 	private TextView timeTv;
 
+	private ImageView productQr;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -68,6 +74,7 @@ public class ProductOrderSuccessActivity extends BaseActivity {
 		timeTv = (TextView) findViewById(R.id.product_order_time_tv);
 		productVO = (ProductVO) getIntent().getSerializableExtra("productVO");
 
+		productQr = (ImageView) findViewById(R.id.product_order_qr_iv);
 		productNameTv.setText(productVO.getProductname());
 		productPriceTv.setText(productVO.getProductprice());
 		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
@@ -83,32 +90,11 @@ public class ProductOrderSuccessActivity extends BaseActivity {
 			BitmapManager.INSTANCE.loadBitmap2(productVO.getProductimg(),
 					productPic, headParam.width, headParam.height);
 		}
-		// button_sus = (Button) findViewById(R.id.button_sus);
 
-		// webview = (WebView) findViewById(R.id.order_success_webview);
-		// progress = (ProgressBar) findViewById(R.id.order_success_progress);
-		// // returnBtn = (Button) findViewById(R.id.order_success_btn);
-		//
-		// webview.setWebViewClient(new WebViewClient() {
-		// @Override
-		// public void onPageFinished(WebView view, String url) {
-		// // 页面加载完成时，回调
-		// progress.setVisibility(View.GONE);
-		// super.onPageFinished(view, url);
-		// }
-		// });
-		//
-		// settings = webview.getSettings();
-		// settings.setBuiltInZoomControls(false);
-		// settings.setUseWideViewPort(true);
-		// settings.setJavaScriptEnabled(true);
-		// webview.setHorizontalScrollBarEnabled(false);
-		// webview.setVerticalScrollBarEnabled(false);
-		// String finishorderurl = getIntent().getStringExtra("finishorderurl");
-		// if (finishorderurl != null) {
-		//
-		// webview.loadUrl(finishorderurl);
-		// }
+		String orderscanaduiturl = getIntent().getStringExtra(
+				"orderscanaduiturl");
+		createQr(orderscanaduiturl, productQr);
+
 	}
 
 	private void setListener() {
@@ -134,6 +120,26 @@ public class ProductOrderSuccessActivity extends BaseActivity {
 			startActivity(intent1);
 			break;
 		}
+	}
+
+	private void createQr(String contentString, ImageView img) {
+
+		// 生成二维码
+		try {
+			LogUtil.print("contentString---" + contentString);
+			if (contentString != null && contentString.trim().length() > 0) {
+				// 根据字符串生成二维码图片并显示在界面上，第二个参数为图片的大小（350*350）
+				Bitmap qrCodeBitmap = EncodingHandler.createQRCode(
+						contentString, 500);
+				img.setImageBitmap(qrCodeBitmap);
+			} else {
+				Toast.makeText(this, "签到二维码生成失败", Toast.LENGTH_SHORT).show();
+				// toast.setText("生成二维码失败");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	@Override

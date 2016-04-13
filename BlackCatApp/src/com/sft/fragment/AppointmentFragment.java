@@ -31,7 +31,7 @@ import cn.sft.baseactivity.util.HttpSendUtils;
 import com.jzjf.app.R;
 import com.sft.adapter.MyAppointmentListAdapter2;
 import com.sft.blackcatapp.AppointmentDetailActivity;
-import com.sft.blackcatapp.AppointmentExamActivity;
+import com.sft.blackcatapp.AppointmentExamPreActivity;
 import com.sft.blackcatapp.SussessOrderActvity;
 import com.sft.common.Config;
 import com.sft.dialog.NoCommentDialog;
@@ -423,7 +423,7 @@ public class AppointmentFragment extends BaseFragment implements
 		switch (v.getId()) {
 		case R.id.learn_progress_yuekao:// 约考
 			Intent intent = new Intent(getActivity(),
-					AppointmentExamActivity.class);
+					AppointmentExamPreActivity.class);
 			intent.putExtra("subjectid", subjectId);
 			startActivity(intent);
 			break;

@@ -11,7 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.jzjf.app.R;
-import com.sft.blackcatapp.AppointmentExamActivity;
+import com.sft.blackcatapp.AppointmentExamPreActivity;
 import com.sft.blackcatapp.QuestionActivity;
 import com.sft.dialog.NoLoginDialog;
 import com.sft.util.BaseUtils;
@@ -135,7 +135,7 @@ public class SubjectFourFragment extends BaseFragment implements
 			break;
 		case R.id.make_an_appointment:
 			if (app.isLogin) {
-				intent = new Intent(mContext, AppointmentExamActivity.class);
+				intent = new Intent(mContext, AppointmentExamPreActivity.class);
 				intent.putExtra("subjectid", "4");
 
 			} else {
