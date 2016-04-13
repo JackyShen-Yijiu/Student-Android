@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,6 +17,7 @@ import cn.sft.baseactivity.util.HttpSendUtils;
 import com.jzjf.app.R;
 import com.sft.adapter.AmountInCashistAdapter;
 import com.sft.common.Config;
+import com.sft.dialog.BonusDialog;
 import com.sft.util.JSONUtil;
 import com.sft.vo.AmountInCashVO;
 import com.sft.vo.IncomeVO;
@@ -53,6 +55,8 @@ public class Walletmoney extends BaseActivity {
 
 	private TextView error_tv;
 
+	private TextView inviteBtn;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -77,6 +81,8 @@ public class Walletmoney extends BaseActivity {
 		error_rl = (RelativeLayout) findViewById(R.id.error_rl);
 		error_tv = (TextView) findViewById(R.id.error_tv);
 
+		inviteBtn = (TextView) findViewById(R.id.my_wallet_invite_btn);
+
 		incomeList = (ListView) findViewById(R.id.my_wallet_listview);
 
 		invitCodeTv = (TextView) findViewById(R.id.my_wallet_invit_code_tv);
@@ -85,8 +91,12 @@ public class Walletmoney extends BaseActivity {
 
 	}
 
+	private void setListener() {
+		inviteBtn.setOnClickListener(this);
+	}
+
 	private void changeMoneyType() {
-		invitCodeTv.setText("我的Y码： " + app.userVO.getInvitationcode());
+
 		producttype = Config.MoneyType.AMOUNT_IN_CASH.getValue();
 		obtainAmountInCash();
 
@@ -128,6 +138,7 @@ public class Walletmoney extends BaseActivity {
 					AmountInCashVO amountInCashVO = JSONUtil.toJavaBean(
 							AmountInCashVO.class, data);
 					app.money = amountInCashVO.getMoney();
+					invitCodeTv.setText("我的Y码： " + amountInCashVO.getFcode());
 					if (amountAdapter == null) {
 						amountAdapter = new AmountInCashistAdapter(this,
 								amountInCashVO.getMoneylist());
@@ -158,6 +169,10 @@ public class Walletmoney extends BaseActivity {
 		switch (v.getId()) {
 		case R.id.base_left_btn:
 			finish();
+			break;
+		case R.id.my_wallet_invite_btn:
+			Intent intent2 = new Intent(this, BonusDialog.class);
+			startActivity(intent2);
 			break;
 		}
 	}

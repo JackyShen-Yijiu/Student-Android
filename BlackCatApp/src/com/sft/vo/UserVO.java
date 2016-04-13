@@ -32,6 +32,7 @@ public class UserVO extends DBVO {
 	private String displayuserid;
 	private String is_lock;
 	private String telephone;
+
 	private ApplyCoachInfo applycoachinfo;
 
 	private ApplyClassTypeInfo applyclasstypeinfo;
@@ -39,6 +40,15 @@ public class UserVO extends DBVO {
 	private String address;
 	private String token;
 	private String displaymobile;
+
+	public String getFcode() {
+		return fcode;
+	}
+
+	public void setFcode(String fcode) {
+		this.fcode = fcode;
+	}
+
 	private String userid;
 	private String gender;
 	private String signature;
@@ -47,8 +57,10 @@ public class UserVO extends DBVO {
 	private StudentSubject subjectthree;
 	private UserSettingVO usersetting;
 	private List<VipServerListVO> vipserverlist;
-	
+
 	private String password;
+	// 我的Y码
+	private String fcode;
 	// 我的Y码 list
 	private MyCodeVO myCodeVO;
 

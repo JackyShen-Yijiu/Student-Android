@@ -294,8 +294,9 @@ public class NewComplaintActivity extends BaseActivity implements
 				BitmapManager.INSTANCE.loadBitmap2(url1, commitPicIv1, 90, 90);
 				// BitmapManager.INSTANCE.loadBitmap2(url2, iv_applystates, 90,
 				// 90);
-			} else if (requestCode == R.id.complaint_coach_name_tv) {
+			} else if (requestCode == R.id.rl_coach) {
 				CoachVO coach = (CoachVO) data.getSerializableExtra("coach");
+				LogUtil.print(coach + "ssssssssssssss");
 				if (coach != null) {
 					coachNameTv.setText(coach.getName());
 					complaint_coach_show

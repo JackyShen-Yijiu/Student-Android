@@ -72,7 +72,8 @@ public class BlackCatApplication extends Application {
 	public String currency;
 	// 我的兑换劵
 	public int coupons;
-
+	// 我的Y码
+	public String fcode;
 	// 我的现金
 	public String money;
 

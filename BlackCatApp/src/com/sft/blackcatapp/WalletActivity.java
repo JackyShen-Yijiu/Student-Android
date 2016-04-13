@@ -102,6 +102,7 @@ public class WalletActivity extends BaseActivity {
 		radioGroup.setOnCheckedChangeListener(new MyOnCheckedChangeListener());
 		viewPager.setOnPageChangeListener(new MyPageChangeListener());
 		wall_shop.setOnClickListener(this);
+		tv_help.setOnClickListener(this);
 	}
 
 	@Override
@@ -139,6 +140,11 @@ public class WalletActivity extends BaseActivity {
 			MainActivity.TARGET_TAB = MainActivity.TAB_MALL;
 			finish();
 			break;
+		case R.id.tv_help:
+			MainActivity.TARGET_TAB = MainActivity.TAB_MALL;
+			finish();
+			break;
+
 		}
 	}
 
@@ -166,6 +172,7 @@ public class WalletActivity extends BaseActivity {
 			if (checkedId == R.id.wallet_integral_btn) {
 				viewPager.setCurrentItem(0);
 				setTabBkground(0);
+				tv_help.setVisibility(View.VISIBLE);
 				wall_shop.setText("积分商城");
 				wall_shop.setVisibility(View.VISIBLE);
 				wall_shop.setTextColor(Color.parseColor("#ffffff"));
@@ -176,12 +183,14 @@ public class WalletActivity extends BaseActivity {
 			} else if (checkedId == R.id.wallet_coupons_btn) {
 				viewPager.setCurrentItem(1);
 				setTabBkground(1);
+				tv_help.setVisibility(View.GONE);
 				iv_integral.setImageResource(R.drawable.wallet_ticket);
 				wall_shop.setVisibility(View.GONE);
 				tv_code.setText(app.coupons + "张");
 			} else {
 				viewPager.setCurrentItem(2);
 				setTabBkground(2);
+				tv_help.setVisibility(View.GONE);
 				wall_shop.setText("立即提现");
 				wall_shop.setVisibility(View.VISIBLE);
 				wall_shop.setTextColor(Color.parseColor("#eeeeee"));
@@ -205,6 +214,7 @@ public class WalletActivity extends BaseActivity {
 
 			if (position == 0) {
 				radioGroup.check(R.id.wallet_integral_btn);
+				tv_help.setVisibility(View.VISIBLE);
 				iv_integral.setImageResource(R.drawable.wallet_integral);
 				tv_code.setText(app.currency + "积分");
 				wall_shop.setVisibility(View.VISIBLE);
@@ -217,6 +227,7 @@ public class WalletActivity extends BaseActivity {
 				radioGroup.check(R.id.wallet_coupons_btn);
 				iv_integral.setImageResource(R.drawable.wallet_ticket);
 				wall_shop.setVisibility(View.GONE);
+				tv_help.setVisibility(View.GONE);
 				tv_code.setText(app.coupons + "张");
 			}
 			if (position == 2) {
@@ -224,6 +235,7 @@ public class WalletActivity extends BaseActivity {
 				iv_integral.setImageResource(R.drawable.wallet_cash);
 				wall_shop.setVisibility(View.VISIBLE);
 				wall_shop.setText("立即提现");
+				tv_help.setVisibility(View.GONE);
 				wall_shop.setTextColor(Color.parseColor("#eeeeee"));
 				wall_shop.setBackgroundResource(R.drawable.wall_select_hui);
 				tv_code.setText(app.money + "元");

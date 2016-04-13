@@ -164,7 +164,6 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 			intent2.putExtra("coach", adapter.getItem(position - 1));
 			startActivity(intent2);
 		} else {
-
 			Intent intent = null;
 			intent = new Intent();
 			intent.putExtra("coach", adapter.getItem(position - 1));

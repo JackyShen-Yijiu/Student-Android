@@ -9,6 +9,15 @@ public class MyWalletVO extends DBVO {
 	private static final long serialVersionUID = 1L;
 
 	private String wallet;
+	private String fcode;
+
+	public String getFcode() {
+		return fcode;
+	}
+
+	public void setFcode(String fcode) {
+		this.fcode = fcode;
+	}
 
 	private List<IncomeVO> list;
 

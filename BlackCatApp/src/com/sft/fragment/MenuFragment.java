@@ -429,6 +429,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 							data);
 					if (myMoneyVO != null) {
 						setData(myMoneyVO);
+						app.userVO.setFcode(myMoneyVO.getFcode());
 					}
 				}
 
