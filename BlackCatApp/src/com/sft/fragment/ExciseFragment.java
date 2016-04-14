@@ -36,6 +36,7 @@ import com.sft.util.Util;
 import com.sft.vo.ExerciseAnswerVO;
 import com.sft.vo.ExerciseVO;
 import com.sft.vo.questionbank.error_book;
+import com.sft.vo.questionbank.score;
 import com.sft.vo.questionbank.web_note;
 
 /**
@@ -409,7 +410,6 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 			app = BlackCatApplication.getInstance();
 		}
 		error_book error = new error_book();
-		// error.setId(34);、
 		error.setUserid(app.userVO.getUserid());
 		error.setChapterid(((ExerciseOrderAct) getActivity()).chartId);
 		error.setKemu(((ExerciseOrderAct) getActivity()).kemu);
@@ -418,6 +418,16 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 		Util.insertErrorBank(error);
 		List<web_note> list = Util.getAllSubjectFourErrorQuestion();
 		LogUtil.print("error---size>" + list.size());
+	}
+
+	/**
+	 * 插入考试信息
+	 */
+	private void insertExam() {
+		score sc = new score();
+		sc.setChenji("");
+
+		// Util.insertErrorBank(error)
 	}
 
 }

@@ -17,6 +17,7 @@ import cn.sft.baseactivity.util.HttpSendUtils;
 import com.jzjf.app.R;
 import com.sft.blackcatapp.AppointmentExamPreActivity;
 import com.sft.blackcatapp.AppointmentExamSuccessActivity;
+import com.sft.blackcatapp.ExerciseOrderAct;
 import com.sft.blackcatapp.QuestionActivity;
 import com.sft.blackcatapp.SectionActivity;
 import com.sft.common.Config;
@@ -122,22 +123,31 @@ public class SubjectOneFragment extends BaseFragment implements OnClickListener 
 			break;
 		case R.id.simulation_test:
 			// 模拟考试
-			if (app.questionVO != null) {
-				intent = new Intent(mContext, QuestionActivity.class);
-				intent.putExtra("url", app.questionVO.getSubjectone()
-						.getQuestiontesturl());
-			} else {
-				ZProgressHUD.getInstance(mContext).show();
-				ZProgressHUD.getInstance(mContext).dismissWithFailure("暂无题库");
-			}
+			intent = new Intent(mContext, ExerciseOrderAct.class);
+			intent.putExtra("flag", 1);
+			intent.putExtra("subjectid", 1);
+//			kemu = getIntent().getIntExtra("subjectid",1);
+			//练习模式
+			
+//			if (app.questionVO != null) {
+//				intent = new Intent(mContext, QuestionActivity.class);
+//				intent.putExtra("url", app.questionVO.getSubjectone()
+//						.getQuestiontesturl());
+//			} else {
+//				ZProgressHUD.getInstance(mContext).show();
+//				ZProgressHUD.getInstance(mContext).dismissWithFailure("暂无题库");
+//			}
 			break;
 		case R.id.my_error_data:
 			// 我的错题
 			if (app.isLogin) {
+				intent = new Intent(mContext, ExerciseOrderAct.class);
+				intent.putExtra("flag", 2);
+				intent.putExtra("subjectid", 1);
 				if (app.questionVO != null) {
-					intent = new Intent(mContext, QuestionActivity.class);
-					intent.putExtra("url", app.questionVO.getSubjectone()
-							.getQuestionerrorurl());
+//					intent = new Intent(mContext, QuestionActivity.class);
+//					intent.putExtra("url", app.questionVO.getSubjectone()
+//							.getQuestionerrorurl());
 				} else {
 					ZProgressHUD.getInstance(mContext).show();
 					ZProgressHUD.getInstance(mContext).dismissWithFailure(

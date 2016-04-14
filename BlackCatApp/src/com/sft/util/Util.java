@@ -444,9 +444,10 @@ public class Util {
 	public static List<web_note> getAllSubjectOneErrorQuestion() {
 		SQLiteDatabase db = DataBaseUtil.openDatabase(BlackCatApplication
 				.getInstance());
-		String sql = "select w.* from web_note w error_book e where kemu=? and e.webnoteid = w.id";
+		String sql = "select * from web_note w, error_book e where e.kemu=? and w.kemu=? and e.webnoteid = w.id";
+//		String sql = "select w.* from web_note w error_book e where kemu=? and e.webnoteid = w.id";
 		List<web_note> list = DataBaseUtil.getArrays(db, web_note.class, sql,
-				new String[] { "1" });
+				new String[] { "1","1" });
 		db.close();
 		return list;
 	}
