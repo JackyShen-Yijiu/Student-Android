@@ -32,7 +32,7 @@ public class CallBackActivity extends BaseActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);//activity_callback
+		super.onCreate(savedInstanceState);// activity_callback
 		addView(R.layout.activity_consultation_ask);
 		initView();
 		setListener();
@@ -105,7 +105,7 @@ public class CallBackActivity extends BaseActivity {
 		if (type.equals(callback)) {
 			if (dataString != null) {
 				ZProgressHUD.getInstance(this).show();
-				ZProgressHUD.getInstance(this).dismissWithSuccess("反馈成功");
+				ZProgressHUD.getInstance(this).dismissWithSuccess("非常感谢您的反馈！");
 				new MyHandler(1000) {
 					@Override
 					public void run() {

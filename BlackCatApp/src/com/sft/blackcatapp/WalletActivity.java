@@ -141,8 +141,8 @@ public class WalletActivity extends BaseActivity {
 			finish();
 			break;
 		case R.id.tv_help:
-			MainActivity.TARGET_TAB = MainActivity.TAB_MALL;
-			finish();
+			Intent intent = new Intent(this, IntegralHelpActivity.class);
+			startActivity(intent);
 			break;
 
 		}

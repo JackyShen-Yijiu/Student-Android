@@ -2,15 +2,20 @@ package com.sft.blackcatapp;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.jzjf.app.R;
 
 public class IntegralHelpActivity extends BaseActivity {
+	private TextView tv_code;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		addView(R.layout.section_select);
+		addView(R.layout.integral_help);
 		setTitleText(R.string.integra);
+		tv_code = (TextView) findViewById(R.id.tv_code);
+		tv_code.setText(app.currency);
 	}
 
 	@Override

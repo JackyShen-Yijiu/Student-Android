@@ -46,7 +46,7 @@
             android:id="@+id/study_progressbar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
-            android:layout_height="12dp"
+            android:layout_height="6dp"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="16dp"
             android:layout_toRightOf="@+id/study_progress_tv"

@@ -153,6 +153,7 @@
     <string name="callback">反馈</string>
     <string name="section">章节选择</string>
     <string name="integra">赚积分</string>
+    <string name="user_record">使用记录</string>
      <string name="activitys">活动</string>
     <string name="opinions_suggestions">请留下宝贵的意见和建议</string>
     <string name="attitude_school">做有态度的驾校培训</string>
@@ -372,7 +373,7 @@
      
      <string name="appointment_exam_success">提交成功</string>
      
-     <string name="congratulations_appointment_exam_success">恭喜您预考成功</string>
+     <string name="congratulations_appointment_exam_success">恭喜您，约考成功</string>
      <string name="congratulations_appointment_exam_finish"> 恭喜您，您的约考信息已提交</string>
      
      <string name="appointmenting">正在预约中...</string>

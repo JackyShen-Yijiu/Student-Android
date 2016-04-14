@@ -6,47 +6,47 @@
      >
 
     <TextView
-        android:layout_marginTop="15dp"
         android:id="@+id/mall_header_integral_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:text="我的积分:"
-         android:layout_centerVertical="true"
+        android:layout_marginTop="5dp"
+        android:layout_alignTop="@+id/mall_header_exchange_record_btn"
         android:textColor="@color/text_color_dark"
         android:textSize="@dimen/txt_size_middle" />
 
     <TextView
-         android:layout_marginTop="15dp"
         android:id="@+id/mall_header_my_integral_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
-         android:layout_centerVertical="true"
+        android:layout_alignTop="@+id/mall_header_integral_tv"
         android:layout_toRightOf="@+id/mall_header_integral_tv"
         android:text=""
         android:textColor="@color/new_app_main_color"
         android:textSize="@dimen/txt_size_middle" />
 
     <Button
-         android:layout_marginTop="15dp"
+         
         android:id="@+id/mall_header_exchange_record_btn"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_marginRight="16dp"
         android:background="@drawable/button_rounded_corners_blue"
         android:text="兑换记录" 
-        android:layout_centerVertical="true"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
         android:layout_alignParentRight="true"
         android:textColor="@color/new_button_color"
         android:textSize="@dimen/txt_size_small"/>
     
-    <ImageView 
+  <!--   <ImageView 
         android:layout_width="match_parent"
         android:layout_height="1dp"
          android:layout_marginTop="15dp"
         android:background="@color/line_color"
         android:visibility="gone"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"/> -->
 
 </RelativeLayout>

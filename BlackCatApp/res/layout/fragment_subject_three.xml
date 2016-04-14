@@ -52,7 +52,7 @@
         <ProgressBar 
         android:id="@+id/study_progressbar"
         android:layout_width="match_parent"
-        android:layout_height="12dp"
+        android:layout_height="6dp"
         android:max="100"
         android:progress="0"
         android:layout_marginLeft="12dp"
@@ -97,6 +97,7 @@
         android:layout_height="68dp"
         study:itemDescribe="记录你的成长历程"
         study:itemIcon="@drawable/school_report"
+        android:visibility="gone"
         study:itemTitle="成绩单" >
     </com.sft.viewutil.StudyItemLayout>
     <com.sft.viewutil.StudyItemLayout

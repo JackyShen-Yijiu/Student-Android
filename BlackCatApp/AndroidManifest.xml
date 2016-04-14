@@ -137,6 +137,10 @@
         <activity
             android:name="com.sft.blackcatapp.NewEditPersonInfo"
             android:screenOrientation="portrait" />
+        
+          <activity
+            android:name="com.sft.blackcatapp.IntegralHelpActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.sft.blackcatapp.EnrollSchoolActivity"
             android:screenOrientation="portrait" />
@@ -524,9 +528,18 @@
             android:name="com.sft.blackcatapp.SussessOrderActvity"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name="com.sft.blackcatapp.AppointmentExamSuccessActivity"
+            android:screenOrientation="portrait" >
+        </activity>
         
         <activity 
             android:name="com.sft.blackcatapp.ExerciseOrderAct"
+            android:screenOrientation="portrait"
+            ></activity>
+        
+        <activity 
+            android:name="com.sft.blackcatapp.MyOrderActivity"
             android:screenOrientation="portrait"
             ></activity>
         

@@ -56,7 +56,7 @@
             android:layout_height="2dp"
             android:id="@+id/line"   
             android:layout_alignParentBottom="true"
-            android:background="#FFEA00" />
+            android:background="@color/white" />
     </RelativeLayout>
     
 <android.support.v4.view.ViewPager

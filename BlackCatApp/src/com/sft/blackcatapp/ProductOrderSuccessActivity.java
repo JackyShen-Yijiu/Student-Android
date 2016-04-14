@@ -22,6 +22,7 @@ import com.jzjf.app.R;
 import com.sft.common.Config;
 import com.sft.qrcode.EncodingHandler;
 import com.sft.util.LogUtil;
+import com.sft.vo.ExchangeOrderItemVO;
 import com.sft.vo.ProductVO;
 
 /**
@@ -50,11 +51,16 @@ public class ProductOrderSuccessActivity extends BaseActivity {
 
 	private ImageView productQr;
 
+	private ImageView successPic;
+
+	private TextView statusTv;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		addView(R.layout.activity_order_success);
 		initView();
+		initData();
 		// setListener();
 	}
 
@@ -69,32 +75,66 @@ public class ProductOrderSuccessActivity extends BaseActivity {
 		showTitlebarBtn(1);
 
 		productPic = (ImageView) findViewById(R.id.product_order_pic);
+		successPic = (ImageView) findViewById(R.id.product_order_success_pic);
 		productNameTv = (TextView) findViewById(R.id.product_order_name_tv);
 		productPriceTv = (TextView) findViewById(R.id.product_order_price_tv);
 		timeTv = (TextView) findViewById(R.id.product_order_time_tv);
-		productVO = (ProductVO) getIntent().getSerializableExtra("productVO");
 
 		productQr = (ImageView) findViewById(R.id.product_order_qr_iv);
-		productNameTv.setText(productVO.getProductname());
-		productPriceTv.setText(productVO.getProductprice());
-		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
-		timeTv.setText(format.format(new Date()));
+		statusTv = (TextView) findViewById(R.id.product_order_status_tv);
 
-		// exchangeAddrTv.setText(productVO.getAddress());
+	}
+
+	private void initData() {
+		ExchangeOrderItemVO exchangeOrderItemVO = (ExchangeOrderItemVO) getIntent()
+				.getSerializableExtra("exchangeOrderItemVO");
+		productVO = (ProductVO) getIntent().getSerializableExtra("productVO");
 		LinearLayout.LayoutParams headParam = (LinearLayout.LayoutParams) productPic
 				.getLayoutParams();
-		if (TextUtils.isEmpty(productVO.getProductimg())) {
-			productPic.setBackgroundResource(R.drawable.defaultimage);
+		if (exchangeOrderItemVO != null) {
+			//
+			successPic.setVisibility(View.GONE);
+			productNameTv.setText(exchangeOrderItemVO.productname);
+			productPriceTv.setText(exchangeOrderItemVO.productprice + "");
+			timeTv.setText("兑换时间：" + exchangeOrderItemVO.createtime);
+			if (TextUtils.isEmpty(exchangeOrderItemVO.productimg)) {
+				productPic.setBackgroundResource(R.drawable.defaultimage);
+			} else {
+
+				BitmapManager.INSTANCE.loadBitmap2(
+						exchangeOrderItemVO.productimg, productPic,
+						headParam.width, headParam.height);
+			}
+
+			createQr(exchangeOrderItemVO.orderscanaduiturl, productQr);
+			if ("5".equals(exchangeOrderItemVO.orderstate)) {
+				statusTv.setText("已领取");
+			} else {
+				statusTv.setText("未领取");
+			}
 		} else {
+			if (productVO != null) {
 
-			BitmapManager.INSTANCE.loadBitmap2(productVO.getProductimg(),
-					productPic, headParam.width, headParam.height);
+				productNameTv.setText(productVO.getProductname());
+				productPriceTv.setText(productVO.getProductprice());
+				SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+				timeTv.setText("兑换时间：" + format.format(new Date()));
+
+				// exchangeAddrTv.setText(productVO.getAddress());
+				if (TextUtils.isEmpty(productVO.getProductimg())) {
+					productPic.setBackgroundResource(R.drawable.defaultimage);
+				} else {
+
+					BitmapManager.INSTANCE.loadBitmap2(
+							productVO.getProductimg(), productPic,
+							headParam.width, headParam.height);
+				}
+
+				createQr(getIntent().getStringExtra("orderscanaduiturl"),
+						productQr);
+				statusTv.setText("已领取");
+			}
 		}
-
-		String orderscanaduiturl = getIntent().getStringExtra(
-				"orderscanaduiturl");
-		createQr(orderscanaduiturl, productQr);
-
 	}
 
 	private void setListener() {
