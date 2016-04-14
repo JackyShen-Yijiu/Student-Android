@@ -3,15 +3,15 @@ package com.sft.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jivesoftware.smack.packet.Session;
-
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,6 +21,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -29,8 +30,11 @@ import android.widget.VideoView;
 import com.jzjf.app.R;
 import com.sft.adapter.ExamAdapter;
 import com.sft.blackcatapp.ExerciseOrderAct;
+import com.sft.blackcatapp.NewConfirmOrderActivity;
+import com.sft.blackcatapp.OrderApplyAct;
 import com.sft.common.BlackCatApplication;
 import com.sft.jieya.UnZipUtils;
+import com.sft.qr.FinishListener;
 import com.sft.util.BaseUtils;
 import com.sft.util.CommonUtil;
 import com.sft.util.LogUtil;
@@ -38,6 +42,7 @@ import com.sft.util.Util;
 import com.sft.vo.ExerciseAnswerVO;
 import com.sft.vo.ExerciseVO;
 import com.sft.vo.questionbank.error_book;
+import com.sft.vo.questionbank.score;
 import com.sft.vo.questionbank.web_note;
 
 /**
@@ -406,7 +411,7 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 			app = BlackCatApplication.getInstance();
 		}
 		error_book error = new error_book();
-//		error.setId(34);、
+//		error.setId(34);
 		error.setUserid(app.userVO.getUserid());
 		error.setChapterid(((ExerciseOrderAct)getActivity()).chartId);
 		error.setKemu(((ExerciseOrderAct)getActivity()).kemu);
@@ -416,6 +421,19 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 		List<web_note> list = Util.getAllSubjectFourErrorQuestion();
 		LogUtil.print("error---size>"+list.size());
 	}
+	
+	/**
+	 * 插入考试信息
+	 */
+	private void insertExam(){
+		score sc = new score();
+		sc.setChenji("");
+		
+		
+//		Util.insertErrorBank(error)
+	}
+	
+	
 	
 
 }

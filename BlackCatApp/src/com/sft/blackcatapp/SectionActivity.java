@@ -95,6 +95,8 @@ public class SectionActivity extends BaseActivity implements
 		TitleVO titleVO = (TitleVO) parent.getAdapter().getItem(position);
 		Intent intent = new Intent(SectionActivity.this, ExerciseOrderAct.class);
 		intent.putExtra("subjectid", getIntent().getIntExtra("subjectid", 1));
+		intent.putExtra("id", titleVO.getId());
+		intent.putExtra("flag", 0);
 		startActivity(intent);
 	}
 
