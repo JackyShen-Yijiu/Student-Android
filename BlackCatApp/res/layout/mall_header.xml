@@ -21,6 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
+        android:layout_alignTop="@+id/mall_header_integral_tv"
         android:layout_toRightOf="@+id/mall_header_integral_tv"
         android:text=""
         android:textColor="@color/new_app_main_color"
