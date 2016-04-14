@@ -100,20 +100,8 @@ public class SubjectOneFragment extends BaseFragment implements OnClickListener 
 
 			// 题库
 			if (app.questionVO != null) {
-<<<<<<< HEAD
 				
 				intent = new Intent(mContext, SectionActivity.class);
-//				ExerciseOrderAct
-//				intent = new Intent(mContext, QuestionActivity.class);
-//				intent.putExtra("url", app.questionVO.getSubjectone()
-//						.getQuestionlisturl());
-=======
-
-				intent = new Intent(mContext, ExerciseOrderAct.class);
-				// intent = new Intent(mContext, QuestionActivity.class);
-				// intent.putExtra("url", app.questionVO.getSubjectone()
-				// .getQuestionlisturl());
->>>>>>> 5b9f84822fdfd53e897edbd00bd27dddadfe512b
 			} else {
 				ZProgressHUD.getInstance(mContext).show();
 				ZProgressHUD.getInstance(mContext).dismissWithFailure("暂无题库");

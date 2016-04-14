@@ -97,8 +97,9 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginTop="16dp"
-            android:background="@color/new_app_main_color"
+            android:background="@drawable/selector_red_btn_study"
             android:text="确定"
+            android:enabled="false"
             android:textColor="@color/white"
             android:visibility="gone" />
     </LinearLayout>

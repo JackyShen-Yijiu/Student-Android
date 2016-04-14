@@ -131,10 +131,12 @@ public class DataBaseUtil {
 
 	public static void updateArray(SQLiteDatabase db, List list)
 			throws IllegalArgumentException, IllegalAccessException {
+		LogUtil.print("error---"+list.size());
 		if (list == null || list.size() == 0) {
 			return;
 		}
 
+		
 		Object obj = list.get(0);
 		// /根据对象的类型来确定数据表
 		String table = obj.getClass().getSimpleName();
@@ -164,6 +166,7 @@ public class DataBaseUtil {
 				}
 			}
 
+			LogUtil.print(val.toString()+"error---"+table);
 			db.insert(table, null, val);
 		}
 	}

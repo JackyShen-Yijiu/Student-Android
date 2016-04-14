@@ -3,8 +3,8 @@ package com.sft.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.annotation.SuppressLint;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,6 +19,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.VideoView;
@@ -28,9 +29,13 @@ import com.sft.adapter.ExamAdapter;
 import com.sft.blackcatapp.ExerciseOrderAct;
 import com.sft.jieya.UnZipUtils;
 import com.sft.util.BaseUtils;
+import com.sft.util.CommonUtil;
 import com.sft.util.LogUtil;
+import com.sft.util.Util;
 import com.sft.vo.ExerciseAnswerVO;
 import com.sft.vo.ExerciseVO;
+import com.sft.vo.questionbank.error_book;
+import com.sft.vo.questionbank.web_note;
 
 /**
  * 考试每一项
@@ -112,9 +117,21 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 		if (parent != null) {
 			parent.removeView(view);
 		}
-//		LogUtil.print("excise--111>>"+param1.getId()+"position---checked-->"+param1.getAnswers());
-		
+		LogUtil.print("excise--111>>"+param1.getWebnote().getId()+"position---checked-->"+param1.getAnswers());
 		return view;
+	}
+	
+	
+
+	@Override
+	public void onPause() {
+		super.onPause();
+	}
+
+	@Override
+	public void onResume() {
+		LogUtil.print("onResume--->");
+		super.onResume();
 	}
 
 	private void initData() {
@@ -131,6 +148,7 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 		videoView = (VideoView) view.findViewById(R.id.frag_excise_videov);
 		llAnswer = (LinearLayout) view.findViewById(R.id.frag_excise_item_answer_ll);
 		tvAnswer = (TextView) view.findViewById(R.id.frag_excise_item_answer_content);
+		tvRightAnswer = (TextView) view.findViewById(R.id.frag_excise_item_answer_right);
 		
 		btnSubmit.setOnClickListener(this);
 		
@@ -165,6 +183,7 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 		adapter = new ExamAdapter(getActivity(), param1.getAnswers());
 		adapter.setRightAnswer(param1.getWebnote().getAnswer_true());
 		adapter.setSubmit(param1.submit);
+		adapter.setType(param1.getWebnote().getType());
 		lv.setAdapter(adapter);
 		BaseUtils.setListViewHeightBasedOnChildren(lv);
 		//显示图片
@@ -173,12 +192,17 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 		doVideo(param1.getWebnote().getVideo_url());
 	}
 	
-	private void doImage(String name){
+	@SuppressLint("NewApi") private void doImage(String name){
 		if(null == name){
 			img.setVisibility(View.GONE);
 		}else{
+			int height = (int)(CommonUtil.getWindowsWidth(getActivity()) *0.4);
 			Uri uri = Uri.parse(localPath+name);
-			img.setImageURI(uri);
+//			img.setImageURI(uri);
+			LayoutParams p = new LayoutParams(LayoutParams.MATCH_PARENT,height);
+			Drawable d = Drawable.createFromPath(localPath+name);
+			img.setLayoutParams(p);
+			img.setBackgroundDrawable(d);
 			img.setVisibility(View.VISIBLE);
 		}
 		
@@ -189,6 +213,9 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 			videoView.setVisibility(View.GONE);
 			return;
 		}
+		int height = (int)(CommonUtil.getWindowsWidth(getActivity()) *0.4);
+		LayoutParams p = new LayoutParams(LayoutParams.MATCH_PARENT,height);
+		videoView.setLayoutParams(p);
 		LogUtil.print("video-->"+localPath+name);
 		videoView.setVisibility(View.VISIBLE);
 		videoView.setVideoPath(localPath+name);
@@ -216,9 +243,12 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		// LogUtil.print("onItem--click"+arg2);
-		// Toast.makeText(getActivity(), "onItemClick"+arg2,
-		// Toast.LENGTH_SHORT).show();
+		LogUtil.print("onItemClick-->"+param1.submit);
+		if(param1.submit == 1){//已经提交了
+			btnSubmit.setEnabled(false);
+			return ;
+		}
+		
 		List<ExerciseAnswerVO> data = adapter.getData();
 		switch (param1.getWebnote().getType()) {
 		case 0:
@@ -234,24 +264,22 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 			adapter.setSubmit(param1.submit);
 			adapter.notifyDataSetChanged();
 			if(checkAnswerSingle(arg2)){//正确
-//				try {
-//					Thread.sleep(100);
-//				} catch (InterruptedException e) {
-//					e.printStackTrace();
-//				}
 				((ExerciseOrderAct)getActivity()).addRight();
 				((ExerciseOrderAct)getActivity()).next();
-				
 			}else{//错误
 				showAnalysy();
 				((ExerciseOrderAct)getActivity()).addWrong();
 			}
-			
-			
 			break;
 		case 3:
 			// 多选
 			data.get(arg2).setChecked(data.get(arg2).getChecked() == 0 ? 1 : 0);
+			
+			if(getSeletedSize()>1){//按钮可用
+				btnSubmit.setEnabled(true);
+			}else{//不可用
+				btnSubmit.setEnabled(false);
+			}
 			adapter.notifyDataSetChanged();
 			break;
 		}
@@ -272,18 +300,11 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 				((ExerciseOrderAct)getActivity()).addWrong();
 				showAnalysy();
 			}
+			btnSubmit.setEnabled(false);
 			break;
 		}
 	}
 
-	private int[] getRightAnswer(int type) {
-		int[] result = new int[] { 0, 0, 0, 0, 0, 0, 0 };
-		String t = String.valueOf(type).toString();
-		for (int i = 0; i < t.length(); i++) {
-			result[i] = t.charAt(i);
-		}
-		return result;
-	}
 	
 	/**
 	 * 判断 单选  答案是否正确
@@ -306,18 +327,15 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 	 * @return
 	 */
 	private boolean checkMulity(){
-		int[] right = adapter.getRightAnswer(param1.getWebnote().getAnswer_true());
-		for(int i=0;i<right.length;i++){//所有正确的
-			boolean flag = false;
-			for(int j=0;j<param1.getAnswers().size();j++){
-				if(param1.getAnswers().get(j).getChecked() == 1){//我选择的
-					if(right[i] == j+1){//正确，
-						flag = true;
-					}
+		
+		List<ExerciseAnswerVO> list = param1.getAnswers();
+		for(int i=0;i<list.size();i++){//所有答案， 我的答案
+			if(list.get(i).getChecked() == 1){//选择了
+				if(param1.getWebnote().getAnswer_true().contains((i+1)+"")){//是正确的
+					
+				}else{//不正确
+					return false;
 				}
-			}
-			if(!flag){
-				return false;
 			}
 		}
 		return true;
@@ -329,6 +347,12 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 	private void showAnalysy(){
 		llAnswer.setVisibility(View.VISIBLE);
 		tvAnswer.setText(param1.getWebnote().getExplain());
+		String temp =param1.getWebnote().getAnswer_true();
+		String temp1 = temp.replace("1", "A ").replace("2", "B ").replace("3", "C ").replace("4", "D ");
+		LogUtil.print(temp1+"right::"+param1.getWebnote().getAnswer_true());
+		tvRightAnswer.setText("正确答案:  "+temp1);
+		
+		insertError();
 	}
 	
 	/**
@@ -337,5 +361,52 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 	private void resizeImg(){
 //		Bitmap b = BitmapFactory.decodeFile(pathName)
 	}
+	
+	/*
+	 * 获取选择的数量
+	 */
+	private int getSeletedSize(){
+		List<ExerciseAnswerVO> list = param1.getAnswers();
+		int result = 0;
+		for(int i=0;i<list.size();i++){
+			if(list.get(i).getChecked() == 1){
+				result ++ ;
+			}
+		}
+		return result;
+	}
+	/**
+	 * 播放视频
+	 */
+	public void playVideo(){
+//		if(null!=param1.getWebnote().getVideo_url()){
+//			videoView.seekTo(0);
+//			videoView.start();
+//		}
+	}
+	
+	
+	public interface doConnect{
+		public void do1();
+	}
+	
+	public String getMTag(){
+		return param2;
+	}
+	/**
+	 * 插入错题本 数据库
+	 */
+	private void insertError(){
+		error_book error = new error_book();
+		error.setId(34);
+		error.setChapterid(((ExerciseOrderAct)getActivity()).chartId);
+		error.setKemu(((ExerciseOrderAct)getActivity()).kemu);
+		error.setWebnoteid(param1.getWebnote().getId());
+		
+		Util.insertErrorBank(error);
+		List<web_note> list = Util.getAllSubjectFourErrorQuestion();
+		LogUtil.print("error---size>"+list.size());
+	}
+	
 
 }
