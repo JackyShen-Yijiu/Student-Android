@@ -59,9 +59,9 @@ public class MyOrderActivity extends BaseActivity {
 		// 加入2个子Activity
 		Intent i1 = new Intent(this, OrderExchangeGoodAct.class);
 		i1.putExtra("hasActionBar", false);
-		Intent i2 = new Intent(this, OrderExchangeGoodAct.class);
+		Intent i2 = new Intent(this, RecordActivity.class);
 		i2.putExtra("hasActionBar", false);
-		Intent i3 = new Intent(this, OrderExchangeGoodAct.class);
+		Intent i3 = new Intent(this, OrderApplyAct.class);
 		i3.putExtra("hasActionBar", false);
 
 		listViews = new ArrayList<View>();

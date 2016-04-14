@@ -77,7 +77,7 @@
          android:textSize="12sp"
          android:textColor="@color/new_app_main_color"
          android:text="该兑换劵仅能在下列活动中选择一个活动使用"/>
-     <ListView 
+     <com.sft.view.NoScrollListView 
          android:id="@+id/list_detail"
          android:layout_width="match_parent"
          android:layout_marginTop="14dp"
@@ -85,7 +85,7 @@
         android:dividerHeight="0dip"
          android:layout_height="wrap_content">
          
-     </ListView>
+     </com.sft.view.NoScrollListView>
  </LinearLayout>
 
 </LinearLayout>

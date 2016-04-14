@@ -20,10 +20,10 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.LinearLayout.LayoutParams;
 
 import com.jzjf.app.R;
 import com.sft.adapter.ExerciseAdapter;
@@ -54,39 +54,38 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect {
 
 	/** 缓存数据 */
 	private List<ExerciseVO> data1 = null;
-	
+
 	private List<ExerciseVO> dataExam = null;
-	
 
 	static int minute = -1;
 	static int second = -1;
-	/**章节id*/
+	/** 章节id */
 	public int chartId;
 	public int kemu;
-	/**种类  0：练习     1：考试   2:错题*/
+	/** 种类 0：练习 1：考试 2:错题 */
 	private int flag = 0;
 
- 	Handler handler = new Handler() {
+	Handler handler = new Handler() {
 
 		@Override
 		public void handleMessage(Message msg) {
 			if (msg.arg1 == 1) {// 倒计时
 				handler();
 			} else {
-				
-				if(flag == 1){//考试
+
+				if (flag == 1) {// 考试
 					adapter = new ExerciseAdapter(getSupportFragmentManager(),
 							dataExam);
 					tvTotal.setText("1/" + dataExam.size());
-				}else{
+				} else {
 					adapter = new ExerciseAdapter(getSupportFragmentManager(),
 							data1);
 					tvTotal.setText("1/" + data1.size());
 				}
 				// 刷新 显示
-//				LogUtil.print("size--->" + dataExam.size());
+				// LogUtil.print("size--->" + dataExam.size());
 				viewpager.setAdapter(adapter);
-				
+
 			}
 
 		}
@@ -145,7 +144,7 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect {
 
 	private void initData() {
 		data1 = new ArrayList<ExerciseVO>();
-		
+
 		flag = getIntent().getIntExtra("flag", 0);
 		//练习模式
 		chartId = getIntent().getIntExtra("id",0);
@@ -161,48 +160,49 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect {
 			tvTime.setVisibility(View.GONE);
 		}else if(flag ==2 ){//错题模式
 			tvTime.setVisibility(View.GONE);
+
 		}
-		
-		//考试模式
+
+		// 考试模式
 		new Thread() {
 
 			@Override
 			public void run() {
 				List<web_note> d = null;
-				switch(flag){
-				case 0://练习模式
-					if(kemu == 1){
-						d = Util.getSubjectOneQuestionWithChapter("0"+chartId);
-					}else{
-						d = Util.getSubjectFourQuestionWithChapter("0"+chartId);
+				switch (flag) {
+				case 0:// 练习模式
+					if (kemu == 1) {
+						d = Util.getSubjectOneQuestionWithChapter("0" + chartId);
+					} else {
+						d = Util.getSubjectFourQuestionWithChapter("0"
+								+ chartId);
 					}
 					data1 = doData(d);
 					break;
-				case 1://考试模式
-					if(kemu == 1){
+				case 1:// 考试模式
+					if (kemu == 1) {
 						d = Util.getAllSubjectOneBank();
-					}else{
+					} else {
 						d = Util.getAllSubjectFourBank();
 					}
-					LogUtil.print("Kaoshi--->"+d.size());
+					LogUtil.print("Kaoshi--->" + d.size());
 					data1 = doData(d);
-					LogUtil.print("Kaoshi---1111>"+data1.size());
+					LogUtil.print("Kaoshi---1111>" + data1.size());
 					getRandWeb(data1, kemu);
-					LogUtil.print("Kaoshi---2222>"+dataExam.size());
-					
+					LogUtil.print("Kaoshi---2222>" + dataExam.size());
+
 					break;
-				case 2://错题模式
-					if(kemu == 1){
+				case 2:// 错题模式
+					if (kemu == 1) {
 						d = Util.getAllSubjectOneErrorQuestion();
-					}else{
+					} else {
 						d = Util.getAllSubjectFourErrorQuestion();
 					}
 					data1 = doData(d);
 					break;
 				}
-				LogUtil.print(data1.size() + "size---0123>"+chartId
-						);
-				
+				LogUtil.print(data1.size() + "size---0123>" + chartId);
+
 				handler.sendEmptyMessage(0);
 
 			}
@@ -228,12 +228,15 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect {
 		return data;
 	}
 
-	
-
 	public void onClick(View view) {
 		switch (view.getId()) {
 		case R.id.base_left_btn:// 干掉页面
-			finish();
+			if(flag == 1){//模拟考试
+				Toast.makeText(this, "keydown-->", Toast.LENGTH_SHORT).show();
+				showDialogBack(50);
+			}else{
+				finish();
+			}
 			break;
 		}
 	}
@@ -269,14 +272,19 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect {
 	 * 正确率
 	 */
 	private void setPercentage() {
-		tvPercentage.setText(((int) (100 * right / (right + wrong))) + "%");
+		tvPercentage.setText((100 * right / (right + wrong)) + "%");
 	}
 
 	private void unzip() {
 		UnZipUtils zip = new UnZipUtils();
 		File f = new File(zip.targetPath);
-		if (f.exists())
+		if (f.exists()) {
+			LogUtil.print(zip.targetPath + "video--copy--fhdht>snvjsdl");
 			return;
+		} else {
+			zip.createDir();
+		}
+
 		zip.CopyFileThread(this, UnZipUtils.assertName, UnZipUtils.targetPath,
 				new Handler() {
 
@@ -311,20 +319,19 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect {
 
 				});
 	}
-	
-	
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if(keyCode == KeyEvent.KEYCODE_BACK){
-			Toast.makeText(this, "keydown-->", Toast.LENGTH_SHORT).show();
-			showDialogBack(50);
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			if(flag == 1){//模拟考试
+				Toast.makeText(this, "keydown-->", Toast.LENGTH_SHORT).show();
+				showDialogBack(50);
+			}
+			
 			return false;
 		}
 		return super.onKeyDown(keyCode, event);
 	}
-
-
 
 	private int right = 0;
 	private int wrong = 0;
@@ -332,11 +339,14 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect {
 	@Override
 	public void do1() {
 	}
-	
+
+	// private void getRandWeb(List<ExerciseVO> list, int type) {
+	// =======
+
 	/**
 	 * 中途退出
 	 */
-	private void showDialogBack(int last){
+	private void showDialogBack(int last) {
 		final PopupWindow pop = new PopupWindow(this);
 		pop.setHeight(LayoutParams.MATCH_PARENT);
 		pop.setWidth(LayoutParams.MATCH_PARENT);
@@ -344,7 +354,7 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect {
 		TextView tvTitle = (TextView) view.findViewById(R.id.textView1);
 		TextView tvContent = (TextView) view.findViewById(R.id.textView2);
 		tvTitle.setText("退出模拟考试");
-		tvContent.setText("还有"+last+"道题目没做呢，确定要退出模拟考试吗?");
+		tvContent.setText("还有" + last + "道题目没做呢，确定要退出模拟考试吗?");
 		view.setFocusable(true);
 		view.setOnClickListener(new OnClickListener() {
 
@@ -373,13 +383,14 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect {
 						pop.dismiss();
 					}
 				});
-		pop.showAtLocation(this.getWindow().getDecorView(), Gravity.CENTER, 0, 0);
+		pop.showAtLocation(this.getWindow().getDecorView(), Gravity.CENTER, 0,
+				0);
 	}
-	
+
 	/**
 	 * 考试结束,未通过
 	 */
-	private void showDialogFinish(){
+	private void showDialogFinish() {
 		final PopupWindow pop = new PopupWindow(this);
 		pop.setHeight(LayoutParams.MATCH_PARENT);
 		pop.setWidth(LayoutParams.MATCH_PARENT);
@@ -417,53 +428,54 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect {
 						pop.dismiss();
 					}
 				});
-		pop.showAtLocation(this.getWindow().getDecorView(), Gravity.CENTER, 0, 0);
+		pop.showAtLocation(this.getWindow().getDecorView(), Gravity.CENTER, 0,
+				0);
 	}
-	
-	
+
 	/**
-	 * 获取指定 数量 的  题目
+	 * 获取指定 数量 的 题目
+	 * 
 	 * @param list
 	 * @param type
 	 */
-	private void getRandWeb(List<ExerciseVO> list,int type){
+	private void getRandWeb(List<ExerciseVO> list, int type) {
 		Integer[] result = null;
-		if(type==1){
+		if (type == 1) {
 			result = getRandomInt(list.size(), 100);
-			for(int i=0;i<100;i++){
+
+			for (int i = 0; i < 100; i++) {
 				dataExam.add(i, list.get(result[i]));
 			}
-		}else{
+		} else {
 			result = getRandomInt(list.size(), 50);
-			for(int i=0;i<50;i++){
+			for (int i = 0; i < 50; i++) {
 				dataExam.add(i, list.get(result[i]));
 			}
 		}
-		
-		
+
 	}
-	
+
 	/**
 	 * 获取随机数
 	 */
-	private Integer[] getRandomInt(int max,int lenght){
+	private Integer[] getRandomInt(int max, int lenght) {
 		int[] num = new int[lenght];
 		for (int i = 0; i < lenght; i++) {
 			num[i] = i;
 		}
-		Integer[] result = getRandomNum(num, lenght,max);
+		Integer[] result = getRandomNum(num, lenght, max);
 		System.out.println(Arrays.toString(result));
 		return result;
 	}
-	
-	private Integer[] getRandomNum(int[] num, int n,int max) {
+
+	private Integer[] getRandomNum(int[] num, int n, int max) {
 		Set<Integer> sets = new HashSet<Integer>();
 		Random random = new Random();
 		while (sets.size() < n) {
 			sets.add(random.nextInt(max));
 		}
 
-	return sets.toArray(new Integer[n]);
+		return sets.toArray(new Integer[n]);
 
 	}
 

@@ -73,8 +73,13 @@ public class IncomeListAdapter extends BaseAdapter {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		holder.date.setText(UTC2LOC.instance.getDate(mData.get(position)
-				.getCreatetime(), "yyyy/MM/dd"));
+		if (mData.get(position).getCreatetime() != null) {
+
+			holder.date.setText(UTC2LOC.instance.getDate(mData.get(position)
+					.getCreatetime(), "yyyy/MM/dd")
+					+ "");
+		}
+
 		holder.income.setText(mData.get(position).getAmount() + "积分");
 		return convertView;
 	}

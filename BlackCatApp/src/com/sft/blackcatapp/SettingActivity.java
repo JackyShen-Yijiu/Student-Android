@@ -66,7 +66,7 @@ public class SettingActivity extends BaseActivity implements
 		addView(R.layout.activity_setting);
 		initView();
 		setListener();
-//		obtainVersionInfo();
+		// obtainVersionInfo();
 	}
 
 	// tv_code.setText(app.versionVO.getVersionCode());
@@ -113,8 +113,8 @@ public class SettingActivity extends BaseActivity implements
 				appointmentCk.setChecked(false);
 			}
 		}
-		
-		tv_code.setText("V"+BaseUtils.getVersionName(this));
+
+		tv_code.setText("V" + BaseUtils.getVersionName(this));
 
 	}
 
@@ -167,7 +167,7 @@ public class SettingActivity extends BaseActivity implements
 			break;
 
 		case R.id.setting_update:
-//			showDialog();
+			// showDialog();
 			obtainVersionInfo();
 			break;
 		case R.id.person_center_logout_btn:
@@ -272,19 +272,17 @@ public class SettingActivity extends BaseActivity implements
 	private int sum = 0;
 
 	private void LoginOut() {
-		//重置保存的信息
-		util.saveParam(Config.LAST_LOGIN_MESSAGE,
-				null);
-		util.saveParam(Config.LAST_LOGIN_PASSWORD,
-				null);
-//		util.saveParam(Config.LAST_LOGIN_PASSWORD, "");
-//		util.saveParam(Config.LAST_LOGIN_ACCOUNT, null);
-		
+		// 重置保存的信息
+		util.saveParam(Config.LAST_LOGIN_MESSAGE, null);
+		util.saveParam(Config.LAST_LOGIN_PASSWORD, null);
+		// util.saveParam(Config.LAST_LOGIN_PASSWORD, "");
+		// util.saveParam(Config.LAST_LOGIN_ACCOUNT, null);
+
 		new MyHandler(1000) {
 			@Override
 			public void run() {
 				ZProgressHUD.getInstance(SettingActivity.this).dismiss();
-				
+
 				Intent intent = new Intent(SettingActivity.this,
 						NewLoginActivity.class);
 				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -335,10 +333,8 @@ public class SettingActivity extends BaseActivity implements
 
 				update(versionVO);
 
-
-//				tv_code.setText(util.getAppVersion());
+				// tv_code.setText(util.getAppVersion());
 				// tv_code.setText(app.versionVO.getVersionCode());
-
 
 			} catch (Exception e) {
 				ZProgressHUD.getInstance(this).dismiss();
@@ -364,11 +360,12 @@ public class SettingActivity extends BaseActivity implements
 			e.printStackTrace();
 		}
 	}
+
 	/**
 	 * 更新
 	 */
-	private void update(final VersionVO vo){
-		if(vo.innerversionCode > BaseUtils.getVersionCode(this)){//去更新
+	private void update(final VersionVO vo) {
+		if (vo.innerversionCode > BaseUtils.getVersionCode(this)) {// 去更新
 
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setTitle("发现新版本");
@@ -392,22 +389,22 @@ public class SettingActivity extends BaseActivity implements
 					});
 			Dialog dialog = builder.create();
 			dialog.show();
-			
-		}else{//已经是最新版
+
+		} else {// 已经是最新版
 			Toast("已经是最新版！");
 		}
-		
+
 	}
-	
-	private void toDownLoad(String url){
-		if(url==null){
+
+	private void toDownLoad(String url) {
+		if (url == null) {
 			Toast("下载地址错误，请在应用市场更新");
 			return;
 		}
-		Intent intent = new Intent();       
-        intent.setAction("android.intent.action.VIEW");   
-        Uri content_url = Uri.parse(url);  
-        intent.setData(content_url); 
-        startActivity(intent);
+		Intent intent = new Intent();
+		intent.setAction("android.intent.action.VIEW");
+		Uri content_url = Uri.parse(url);
+		intent.setData(content_url);
+		startActivity(intent);
 	}
 }
