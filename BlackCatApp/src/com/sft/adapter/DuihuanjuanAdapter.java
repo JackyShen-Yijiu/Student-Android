@@ -21,12 +21,13 @@ public class DuihuanjuanAdapter extends BaseAdapter {
 	public DuihuanjuanAdapter(Context context, List<ActSelecttVO> mData) {
 		this.mInflater = LayoutInflater.from(context);
 		this.mData = mData;
+		LogUtil.print("ssssssss222" + mData);
+		LogUtil.print("ssssssss111" + mData.size());
 	}
 
 	public void setData(List<ActSelecttVO> mData) {
 		this.mData = mData;
-		LogUtil.print("ssssssss222" + mData);
-		LogUtil.print("ssssssss111" + mData.size());
+
 	}
 
 	@Override

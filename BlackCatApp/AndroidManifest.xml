@@ -498,6 +498,12 @@
             android:name="com.sft.city.Act_City"
             android:screenOrientation="portrait" >
         </activity>
+        <!-- 兑换劵使用记录 -->
+        <activity
+            android:name="com.sft.blackcatapp.RecordActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        
         <activity
             android:name="com.sft.blackcatapp.MyOrderAct"
             android:screenOrientation="portrait" >

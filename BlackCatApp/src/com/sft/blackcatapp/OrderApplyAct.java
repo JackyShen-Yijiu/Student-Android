@@ -82,6 +82,13 @@ public class OrderApplyAct extends BaseActivity {
 	private void initView() {
 
 		setTitleText("报名信息");
+		boolean hasActionBar = getIntent()
+				.getBooleanExtra("hasActionBar", true);
+		if (hasActionBar) {
+			setTitleBarVisible(View.VISIBLE);
+		} else {
+			setTitleBarVisible(View.GONE);
+		}
 		llTop = (LinearLayout) findViewById(R.id.item_order_top_ll);
 
 		error_iv = (ImageView) findViewById(R.id.error_iv);

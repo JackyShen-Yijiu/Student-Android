@@ -17,6 +17,28 @@ public class MyCuponVO extends DBVO {
 	// 优惠券来源 1 报名奖励 2 活动奖励
 	private String couponcomefrom;
 	private String createtime;
+
+	public String getUsetime() {
+		return usetime;
+	}
+
+	public void setUsetime(String usetime) {
+		this.usetime = usetime;
+	}
+
+	// 使用过的活动
+	private ActSelecttVO productid;
+
+	public ActSelecttVO getProductid() {
+		return productid;
+	}
+
+	public void setProductid(ActSelecttVO productid) {
+		this.productid = productid;
+	}
+
+	// 使用时间
+	private String usetime;
 	// 二维码
 	private String orderscanaduiturl;
 	// 活动列表
