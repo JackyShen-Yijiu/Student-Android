@@ -535,6 +535,11 @@
             ></activity>
         
         <activity 
+            android:name="com.sft.blackcatapp.MyOrderActivity"
+            android:screenOrientation="portrait"
+            ></activity>
+        
+        <activity 
             android:name="com.sft.blackcatapp.SectionActivity"
             android:screenOrientation="portrait"
             ></activity>

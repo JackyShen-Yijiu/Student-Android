@@ -65,6 +65,14 @@ public class OrderExchangeGoodAct extends BaseActivity implements
 
 	private void initView() {
 		setTitleText("我的订单");
+		boolean hasActionBar = getIntent()
+				.getBooleanExtra("hasActionBar", true);
+		if (hasActionBar) {
+			setTitleBarVisible(View.VISIBLE);
+		} else {
+			setTitleBarVisible(View.GONE);
+		}
+
 		error_iv = (ImageView) findViewById(R.id.error_iv);
 		errorRl = (RelativeLayout) findViewById(R.id.error_rl);
 		errorTv = (TextView) findViewById(R.id.error_tv);
@@ -193,8 +201,8 @@ public class OrderExchangeGoodAct extends BaseActivity implements
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 		Intent i = new Intent(OrderExchangeGoodAct.this,
-				ExchangeDetailAct.class);
-		i.putExtra("bean", bean.ordrelist.get(position));
+				ProductOrderSuccessActivity.class);
+		i.putExtra("exchangeOrderItemVO", bean.ordrelist.get(position));
 		// i.putExtra("po", position);
 		startActivity(i);
 	}

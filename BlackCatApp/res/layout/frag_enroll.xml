@@ -14,7 +14,7 @@
         android:textSize="14sp"
         app:tabPaddingLeftRight="32dp"
         android:textColor="@color/select_coach_radiobtn_text_noselected"
-        app:indicatorColor="@color/yellow"
+        app:indicatorColor="@color/white"
         android:background="@color/new_app_main_color"
         app:underlineColor="@color/new_app_main_color"
         app1:underlineHeight="2dp" 
