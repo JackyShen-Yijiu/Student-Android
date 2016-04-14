@@ -16,12 +16,7 @@ import com.jzjf.app.R;
 import com.sft.adapter.SectionAdapter;
 import com.sft.util.LogUtil;
 import com.sft.util.Util;
-<<<<<<< HEAD
 import com.sft.vo.questionbank.TitleVO;
-=======
-import com.sft.vo.questionbank.Chapter;
-import com.sft.fragment.ExciseFragment;
->>>>>>> 972630a2f1de6bece84f03dc60fff75e43b1756b
 
 /**
  * 章节选择
@@ -86,11 +81,6 @@ public class SectionActivity extends BaseActivity implements
 		case R.id.base_left_btn:
 			finish();
 			break;
-<<<<<<< HEAD
-		// startActivity(new Intent(SectionActivity.this,
-		// ExerciseOrderAct.class));
-=======
->>>>>>> 972630a2f1de6bece84f03dc60fff75e43b1756b
 		}
 	}
 
