@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -419,17 +418,20 @@ public class Util {
 	public static void insertErrorBank(error_book error) {
 		SQLiteDatabase db = DataBaseUtil.openDatabase(BlackCatApplication
 				.getInstance());
-		List<error_book> list = new ArrayList<error_book>();
-		list.add(error);
-		try {
-			DataBaseUtil.updateArray(db, list);
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} finally {
-			db.close();
-		}
+		db.execSQL("INSERT INTO error_book VALUES (NULL, ?, ?,?,?)",
+				new Object[] { error.getChapterid(), error.getWebnoteid(),
+						error.getUserid(), error.getKemu() });
+		// List<error_book> list = new ArrayList<error_book>();
+		// list.add(error);
+		// try {
+		// DataBaseUtil.updateArray(db, list);
+		// } catch (IllegalArgumentException e) {
+		// e.printStackTrace();
+		// } catch (IllegalAccessException e) {
+		// e.printStackTrace();
+		// } finally {
+		// db.close();
+		// }
 		db.close();
 
 	}
@@ -443,6 +445,7 @@ public class Util {
 		SQLiteDatabase db = DataBaseUtil.openDatabase(BlackCatApplication
 				.getInstance());
 		String sql = "select * from web_note w, error_book e where e.kemu=? and w.kemu=? and e.webnoteid = w.id";
+//		String sql = "select w.* from web_note w error_book e where kemu=? and e.webnoteid = w.id";
 		List<web_note> list = DataBaseUtil.getArrays(db, web_note.class, sql,
 				new String[] { "1","1" });
 		db.close();
@@ -457,7 +460,7 @@ public class Util {
 	public static List<web_note> getAllSubjectFourErrorQuestion() {
 		SQLiteDatabase db = DataBaseUtil.openDatabase(BlackCatApplication
 				.getInstance());
-		String sql = "select * from web_note w ,error_book e where w.kemu=? and e.kemu=? and e.webnoteid = w.id";
+		String sql = "select w.* from web_note w ,error_book e where w.kemu=? and e.kemu=? and e.webnoteid = w.id";
 		List<web_note> list = DataBaseUtil.getArrays(db, web_note.class, sql,
 				new String[] { "4", "4" });
 		db.close();
