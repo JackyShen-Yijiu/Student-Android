@@ -372,7 +372,7 @@
      
      <string name="appointment_exam_success">提交成功</string>
      
-     <string name="congratulations_appointment_exam_success">恭喜您预考成功</string>
+     <string name="congratulations_appointment_exam_success">恭喜您，约考成功</string>
      <string name="congratulations_appointment_exam_finish"> 恭喜您，您的约考信息已提交</string>
      
      <string name="appointmenting">正在预约中...</string>

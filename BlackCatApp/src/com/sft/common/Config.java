@@ -5,8 +5,8 @@ import java.io.File;
 import android.os.Environment;
 
 public class Config {
-	
-	/**分页*/
+
+	/** 分页 */
 	public static final int PAGE_COUNT = 10;
 
 	/**
@@ -128,6 +128,21 @@ public class Config {
 		private String index;
 
 		private EnrollResult(String index) {
+			this.index = index;
+		}
+
+		public String getValue() {
+			return index;
+		}
+	}
+
+	public enum MyExamInfo {
+		// 0 未申请 ， 1 申请中， 2 申请拒绝 ， 3 已安排
+		EXAMINATION_NONE("0"), EXAMINATIONING("1"), EXAMINATION_REFUSE("2"), EXAMINATION_FINISH(
+				"3");
+		private String index;
+
+		private MyExamInfo(String index) {
 			this.index = index;
 		}
 

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -15,7 +16,6 @@ import android.widget.DatePicker;
 import android.widget.DatePicker.OnDateChangedListener;
 import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
-import cn.sft.baseactivity.util.MyHandler;
 
 import com.jzjf.app.R;
 import com.sft.common.Config;
@@ -182,14 +182,16 @@ public class AppointmentExamActivity extends BaseActivity {
 		try {
 			if (type.equals(applyexam)) {
 				if (dataString != null) {
-					ZProgressHUD.getInstance(this).show();
-					ZProgressHUD.getInstance(this).dismissWithSuccess("约考成功");
-					new MyHandler(1000) {
-						@Override
-						public void run() {
-							finish();
-						}
-					};
+					startActivity(new Intent(this,
+							AppointmentExamSuccessActivity.class));
+					// ZProgressHUD.getInstance(this).show();
+					// ZProgressHUD.getInstance(this).dismissWithSuccess("约考成功");
+					// new MyHandler(1000) {
+					// @Override
+					// public void run() {
+					// finish();
+					// }
+					// };
 				}
 			}
 
