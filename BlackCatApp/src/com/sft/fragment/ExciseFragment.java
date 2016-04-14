@@ -5,6 +5,8 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -209,9 +211,24 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 //			img.setImageURI(uri);
 			LayoutParams p = new LayoutParams(LayoutParams.MATCH_PARENT,height);
 			Drawable d = Drawable.createFromPath(localPath+name);
-			img.setLayoutParams(p);
-			img.setBackgroundDrawable(d);
-			img.setVisibility(View.VISIBLE);
+			Bitmap b = BitmapFactory.decodeFile(localPath+name);
+			int w = b.getWidth();
+			int h = b.getHeight();
+			b.recycle();
+			b = null;
+			LogUtil.print("width::>"+w+"height::>"+h);
+			if(w-h>20){
+				img.setLayoutParams(p);
+				img.setBackgroundDrawable(d);
+				img.setVisibility(View.VISIBLE);
+			}else{
+				p = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT);
+				img.setLayoutParams(p);
+				img.setImageDrawable(d);
+				img.setVisibility(View.VISIBLE);
+			}
+			
+			
 		}
 		
 	}

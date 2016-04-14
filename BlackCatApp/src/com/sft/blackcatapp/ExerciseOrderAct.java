@@ -97,9 +97,10 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.act_exercise_order);
+		initView();
 		initData();
 		// getData();
-		initView();
+		
 		unzip();
 		Exam();
 	}
@@ -116,7 +117,12 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect {
 
 			@Override
 			public void onPageSelected(int arg0) {
-				tvTotal.setText((arg0 + 1) + "/" + data1.size());
+				if(flag==1){//考试
+					tvTotal.setText((arg0 + 1) + "/" + dataExam.size());
+				}else{
+					tvTotal.setText((arg0 + 1) + "/" + data1.size());
+				}
+				
 				ExciseFragment t = adapter.getByTag(arg0 + "");
 				if (t != null)
 					t.playVideo();
@@ -134,6 +140,7 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect {
 
 			}
 		});
+		
 	}
 
 	private void initData() {
@@ -144,13 +151,16 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect {
 		chartId = getIntent().getIntExtra("id",0);
 		kemu = getIntent().getIntExtra("subjectid",1);
 		if(flag == 1){//考试模式
+			tvTime.setVisibility(View.VISIBLE);
 			if(kemu == 1){
 				dataExam  = new ArrayList<ExerciseVO>(100);
 			}else if(kemu == 4){
 				dataExam  = new ArrayList<ExerciseVO>(50);
 			}
 		}else if(flag == 0){//练习模式
-			
+			tvTime.setVisibility(View.GONE);
+		}else if(flag ==2 ){//错题模式
+			tvTime.setVisibility(View.GONE);
 		}
 		
 		//考试模式
