@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -23,7 +24,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.jzjf.app.R;
@@ -200,43 +203,44 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 	private void doImage(String name) {
 		if (null == name) {
 			img.setVisibility(View.GONE);
-		}else{
-			int height = (int)(CommonUtil.getWindowsWidth(getActivity()) *0.4);
-			Uri uri = Uri.parse(localPath+name);
-//			img.setImageURI(uri);
-			LayoutParams p = new LayoutParams(LayoutParams.MATCH_PARENT,height);
-			Drawable d = Drawable.createFromPath(localPath+name);
-			Bitmap b = BitmapFactory.decodeFile(localPath+name);
-			int w = 0,h = 0;
-			if(b!=null){
+		} else {
+			int height = (int) (CommonUtil.getWindowsWidth(getActivity()) * 0.4);
+			Uri uri = Uri.parse(localPath + name);
+			// img.setImageURI(uri);
+			LayoutParams p = new LayoutParams(LayoutParams.MATCH_PARENT, height);
+			Drawable d = Drawable.createFromPath(localPath + name);
+			Bitmap b = BitmapFactory.decodeFile(localPath + name);
+			int w = 0, h = 0;
+			if (b != null) {
 				w = b.getWidth();
 				h = b.getHeight();
 				b.recycle();
 				b = null;
 			}
-			LogUtil.print("width::>"+w+"height::>"+h);
-			if(w-h>20){
+			LogUtil.print("width::>" + w + "height::>" + h);
+			if (w - h > 20) {
 				img.setLayoutParams(p);
 				img.setBackgroundDrawable(d);
 				img.setVisibility(View.VISIBLE);
-			}else{
-				p = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT);
+			} else {
+				p = new LayoutParams(LayoutParams.MATCH_PARENT,
+						LayoutParams.WRAP_CONTENT);
 				img.setLayoutParams(p);
 				img.setImageDrawable(d);
 				img.setVisibility(View.VISIBLE);
 			}
-			
+
 		}
-//		} else {
-//			int height = (int) (CommonUtil.getWindowsWidth(getActivity()) * 0.4);
-//			Uri uri = Uri.parse(localPath + name);
-//			// img.setImageURI(uri);
-//			LayoutParams p = new LayoutParams(LayoutParams.MATCH_PARENT, height);
-//			Drawable d = Drawable.createFromPath(localPath + name);
-//			img.setLayoutParams(p);
-//			img.setBackgroundDrawable(d);
-//			img.setVisibility(View.VISIBLE);
-//		}
+		// } else {
+		// int height = (int) (CommonUtil.getWindowsWidth(getActivity()) * 0.4);
+		// Uri uri = Uri.parse(localPath + name);
+		// // img.setImageURI(uri);
+		// LayoutParams p = new LayoutParams(LayoutParams.MATCH_PARENT, height);
+		// Drawable d = Drawable.createFromPath(localPath + name);
+		// img.setLayoutParams(p);
+		// img.setBackgroundDrawable(d);
+		// img.setVisibility(View.VISIBLE);
+		// }
 
 	}
 
@@ -388,6 +392,14 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 		tvRightAnswer.setText("正确答案:  " + temp1);
 
 		insertError();
+		if (((ExerciseOrderAct) getActivity()).wrong > 8) {
+			showDialogFinish();
+		}
+
+		if (((ExerciseOrderAct) getActivity()).isEnd()) {// 是否结束
+			Toast.makeText(getActivity(), "end", Toast.LENGTH_SHORT).show();
+		}
+
 	}
 
 	/**
@@ -457,6 +469,51 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 		sc.setChenji("");
 
 		// Util.insertErrorBank(error)
+	}
+
+	/**
+	 * 考试结束,未通过
+	 */
+	private void showDialogFinish() {
+		final PopupWindow pop = new PopupWindow(getActivity());
+		pop.setHeight(LayoutParams.MATCH_PARENT);
+		pop.setWidth(LayoutParams.MATCH_PARENT);
+		View view = View.inflate(getActivity(), R.layout.pop_back, null);
+		TextView tvTitle = (TextView) view.findViewById(R.id.textView1);
+		TextView tvContent = (TextView) view.findViewById(R.id.textView2);
+		tvTitle.setText("考试不通过");
+		tvContent.setText("非常抱歉，您已经答错了十一道题目，模拟考试未通过，请再接再厉!");
+		view.findViewById(R.id.pay_cancel).setVisibility(View.INVISIBLE);
+		view.setFocusable(true);
+		view.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				pop.dismiss();
+			}
+		});
+		pop.setContentView(view);
+		view.findViewById(R.id.pay_ok).setOnClickListener(
+				new OnClickListener() {
+
+					@Override
+					public void onClick(View arg0) {
+						// 跳转
+						pop.dismiss();
+						getActivity().finish();
+						// 退出支付流程,干掉之前的
+					}
+				});
+		view.findViewById(R.id.pay_cancel).setOnClickListener(
+				new OnClickListener() {
+
+					@Override
+					public void onClick(View arg0) {
+						pop.dismiss();
+					}
+				});
+		pop.showAtLocation(getActivity().getWindow().getDecorView(),
+				Gravity.CENTER, 0, 0);
 	}
 
 }
