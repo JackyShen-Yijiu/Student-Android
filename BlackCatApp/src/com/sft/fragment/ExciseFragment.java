@@ -3,6 +3,8 @@ package com.sft.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jivesoftware.smack.packet.Session;
+
 import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
@@ -27,6 +29,7 @@ import android.widget.VideoView;
 import com.jzjf.app.R;
 import com.sft.adapter.ExamAdapter;
 import com.sft.blackcatapp.ExerciseOrderAct;
+import com.sft.common.BlackCatApplication;
 import com.sft.jieya.UnZipUtils;
 import com.sft.util.BaseUtils;
 import com.sft.util.CommonUtil;
@@ -393,12 +396,18 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 	public String getMTag(){
 		return param2;
 	}
+	
+	BlackCatApplication app = null;
 	/**
 	 * 插入错题本 数据库
 	 */
 	private void insertError(){
+		if (app == null) {
+			app = BlackCatApplication.getInstance();
+		}
 		error_book error = new error_book();
-		error.setId(34);
+//		error.setId(34);、
+		error.setUserid(app.userVO.getUserid());
 		error.setChapterid(((ExerciseOrderAct)getActivity()).chartId);
 		error.setKemu(((ExerciseOrderAct)getActivity()).kemu);
 		error.setWebnoteid(param1.getWebnote().getId());

@@ -3,7 +3,11 @@ package com.sft.blackcatapp;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
+import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -123,8 +127,6 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect {
 		chartId = getIntent().getIntExtra("chartId",0);
 		kemu = getIntent().getIntExtra("kemu",0);
 		//考试模式
-		
-		
 		
 		new Thread() {
 
@@ -314,6 +316,42 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect {
 
 	@Override
 	public void do1() {
+	}
+	
+	private void getRandWeb(List<ExerciseVO> list,int type){
+		Integer[] result = null;
+		if(type==1){
+			result = getRandomInt(list.size(), 100);
+		}else{
+			result = getRandomInt(list.size(), 50);
+		}
+		
+		
+		
+	}
+	
+	/**
+	 * 获取随机数
+	 */
+	private Integer[] getRandomInt(int max,int lenght){
+		int[] num = new int[lenght];
+		for (int i = 0; i < lenght; i++) {
+			num[i] = i;
+		}
+		Integer[] result = getRandomNum(num, lenght,max);
+		System.out.println(Arrays.toString(result));
+		return result;
+	}
+	
+	private Integer[] getRandomNum(int[] num, int n,int max) {
+		Set<Integer> sets = new HashSet<Integer>();
+		Random random = new Random();
+		while (sets.size() < n) {
+			sets.add(random.nextInt(max));
+		}
+
+	return sets.toArray(new Integer[n]);
+
 	}
 
 	/**
