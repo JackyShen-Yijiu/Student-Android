@@ -2,6 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+<<<<<<< HEAD
+     android:background="#e8e8ed" 
+    android:orientation="vertical" >
+ <ListView 
+    android:id="@+id/section_list"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:scrollbars="none" 
+    android:divider="@color/new_text_color_light"  
+    android:dividerHeight="1dip"
+    android:layout_height="wrap_content">
+</ListView>
+=======
     android:background="@color/white"
     android:orientation="vertical" >
     
@@ -214,4 +227,5 @@
             android:layout_marginRight="16dp"/>
     </RelativeLayout>
 
+>>>>>>> beef03890c833c138f0c77409395a081484e9b89
 </LinearLayout>
