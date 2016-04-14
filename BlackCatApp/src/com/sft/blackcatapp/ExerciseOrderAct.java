@@ -52,13 +52,13 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect {
 
 	static int minute = -1;
 	static int second = -1;
-	/**章节id*/
+	/** 章节id */
 	public int chartId;
 	public int kemu;
-	/**种类  0：练习     1：考试   2:错题*/
+	/** 种类 0：练习 1：考试 2:错题 */
 	private int flag = 0;
 
- 	Handler handler = new Handler() {
+	Handler handler = new Handler() {
 
 		@Override
 		public void handleMessage(Message msg) {
@@ -123,11 +123,11 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect {
 	private void initData() {
 		data1 = new ArrayList<ExerciseVO>();
 		flag = getIntent().getIntExtra("flag", 0);
-		//练习模式
-		chartId = getIntent().getIntExtra("chartId",0);
-		kemu = getIntent().getIntExtra("kemu",0);
-		//考试模式
-		
+		// 练习模式
+		chartId = getIntent().getIntExtra("chartId", 0);
+		kemu = getIntent().getIntExtra("kemu", 0);
+		// 考试模式
+
 		new Thread() {
 
 			@Override
@@ -268,14 +268,19 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect {
 	 * 正确率
 	 */
 	private void setPercentage() {
-		tvPercentage.setText(((int) (100 * right / (right + wrong))) + "%");
+		tvPercentage.setText((100 * right / (right + wrong)) + "%");
 	}
 
 	private void unzip() {
 		UnZipUtils zip = new UnZipUtils();
 		File f = new File(zip.targetPath);
-		if (f.exists())
+		if (f.exists()) {
+			LogUtil.print(zip.targetPath + "video--copy--fhdht>snvjsdl");
 			return;
+		} else {
+			zip.createDir();
+		}
+
 		zip.CopyFileThread(this, UnZipUtils.assertName, UnZipUtils.targetPath,
 				new Handler() {
 
@@ -317,40 +322,38 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect {
 	@Override
 	public void do1() {
 	}
-	
-	private void getRandWeb(List<ExerciseVO> list,int type){
+
+	private void getRandWeb(List<ExerciseVO> list, int type) {
 		Integer[] result = null;
-		if(type==1){
+		if (type == 1) {
 			result = getRandomInt(list.size(), 100);
-		}else{
+		} else {
 			result = getRandomInt(list.size(), 50);
 		}
-		
-		
-		
+
 	}
-	
+
 	/**
 	 * 获取随机数
 	 */
-	private Integer[] getRandomInt(int max,int lenght){
+	private Integer[] getRandomInt(int max, int lenght) {
 		int[] num = new int[lenght];
 		for (int i = 0; i < lenght; i++) {
 			num[i] = i;
 		}
-		Integer[] result = getRandomNum(num, lenght,max);
+		Integer[] result = getRandomNum(num, lenght, max);
 		System.out.println(Arrays.toString(result));
 		return result;
 	}
-	
-	private Integer[] getRandomNum(int[] num, int n,int max) {
+
+	private Integer[] getRandomNum(int[] num, int n, int max) {
 		Set<Integer> sets = new HashSet<Integer>();
 		Random random = new Random();
 		while (sets.size() < n) {
 			sets.add(random.nextInt(max));
 		}
 
-	return sets.toArray(new Integer[n]);
+		return sets.toArray(new Integer[n]);
 
 	}
 

@@ -19,35 +19,38 @@ import com.sft.util.LogUtil;
  */
 public class UnZipUtils {
 
-	
 	public static String assertName = "ggtkFile.zip";
-	
+
 	public static String targetPath;
-	
-	/**本地文件的解压 */
+
+	/** 本地文件的解压 */
 	public static String localPath;
-	
-	
-	public UnZipUtils(){
-		String Path = Environment.getExternalStorageDirectory()+"/jzjf/img";
+
+	public UnZipUtils() {
+		String Path = Environment.getExternalStorageDirectory() + "/jzjf/img";
+		targetPath = Path + "/a.zip";
+	}
+
+	public void createDir() {
+		String Path = Environment.getExternalStorageDirectory() + "/jzjf/img";
 		File f = new File(Path);
-		if(!f.exists()){
+		if (!f.exists()) {
 			f.mkdirs();
 		}
-		 targetPath = Path +"/a.zip";
+
 		File f1 = new File(targetPath);
-		if(!f1.exists()){
+		if (!f1.exists()) {
 			try {
 				f1.createNewFile();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-		//解压目标 文件
-		localPath = Path +"/a";
-		
+		// 解压目标 文件
+		localPath = Path + "/a";
+
 		File f2 = new File(localPath);
-		if(!f2.exists()){
+		if (!f2.exists()) {
 			f2.mkdirs();
 		}
 	}
@@ -74,6 +77,7 @@ public class UnZipUtils {
 	private void CopyFile(Context context, String assertName, String targetPath)
 			throws IOException {
 		// String path11 = "/storage/emulated/0/aa/test.zip";
+		LogUtil.print(assertName + "--copy-->" + targetPath);
 		File file = new File(targetPath);
 		if (!file.exists()) {
 			file.createNewFile();
