@@ -32,6 +32,8 @@ public class web_note extends DBVO {
 	private String img_url;
 	private String video_url;
 	private int diff_degree;
+	/**是否提交    0：未提交  1：提交     单选后 直接提交， 多选需要点击提交按钮*/
+//	public int submit = 0;
 
 	public int getId() {
 		return id;
@@ -216,48 +218,7 @@ public class web_note extends DBVO {
 	public void setDiff_degree(int diff_degree) {
 		this.diff_degree = diff_degree;
 	}
-	
-	/**
-	 * 获取 答案列表
-	 * @return
-	 */
-	public List<ExerciseAnswerVO> getAnswers(){
-		List<ExerciseAnswerVO> list = new ArrayList<ExerciseAnswerVO>();
-		ExerciseAnswerVO vo = null;
-		for(int i=0;i<7;i++){
-			switch(i){
-			case 0:
-				vo = getAn(answer1);
-				break;
-			case 1:
-				vo = getAn(answer2);
-				break;
-			case 2:
-				vo = getAn(answer3);
-				break;
-			case 3:
-				vo = getAn(answer4);
-				break;
-			case 4:
-				vo = getAn(answer5);
-				break;
-			case 5:
-				vo = getAn(answer6);
-				break;
-			case 6:
-				vo = getAn(answer7);
-				break;
-			default:
-				vo = null;
-				break;
-					
-			}
-			if(vo!=null){
-				list.add(vo);
-			}
-		}
-		return list;
-	}
+
 	
 	private ExerciseAnswerVO getAn(String str){
 		ExerciseAnswerVO vo = null;
