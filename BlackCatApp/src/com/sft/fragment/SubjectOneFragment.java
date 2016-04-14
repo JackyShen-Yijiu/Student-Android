@@ -107,8 +107,9 @@ public class SubjectOneFragment extends BaseFragment implements OnClickListener 
 
 			// 题库
 			if (app.questionVO != null) {
-				
+
 				intent = new Intent(mContext, SectionActivity.class);
+				intent.putExtra("subjectid", 1);
 				// ExerciseOrderAct
 				// intent = new Intent(mContext, QuestionActivity.class);
 				// intent.putExtra("url", app.questionVO.getSubjectone()

@@ -18,6 +18,7 @@ import com.jzjf.app.R;
 import com.sft.blackcatapp.AppointmentExamPreActivity;
 import com.sft.blackcatapp.AppointmentExamSuccessActivity;
 import com.sft.blackcatapp.QuestionActivity;
+import com.sft.blackcatapp.SectionActivity;
 import com.sft.common.Config;
 import com.sft.dialog.NoLoginDialog;
 import com.sft.util.BaseUtils;
@@ -111,9 +112,8 @@ public class SubjectFourFragment extends BaseFragment implements
 		case R.id.question_banks:
 			// 题库
 			if (app.questionVO != null) {
-				intent = new Intent(mContext, QuestionActivity.class);
-				intent.putExtra("url", app.questionVO.getSubjectfour()
-						.getQuestionlisturl());
+				intent = new Intent(mContext, SectionActivity.class);
+				intent.putExtra("subjectid", 4);
 			} else {
 				ZProgressHUD.getInstance(mContext).show();
 				ZProgressHUD.getInstance(mContext).dismissWithFailure("暂无题库");

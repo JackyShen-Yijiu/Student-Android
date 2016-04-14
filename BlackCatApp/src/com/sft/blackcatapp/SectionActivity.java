@@ -47,7 +47,12 @@ public class SectionActivity extends BaseActivity implements
 
 			@Override
 			public void run() {
-				data1 = Util.getSubjectOneChapter();
+				if (getIntent().getIntExtra(("subjectid"), 1) == 1) {
+					data1 = Util.getSubjectOneChapter();
+				} else {
+					data1 = Util.getAllSubjectFourChapter();
+				}
+
 				LogUtil.print("web_note--" + data1.size());
 				// 耗时的方法
 				handler.sendEmptyMessage(1);
@@ -89,7 +94,7 @@ public class SectionActivity extends BaseActivity implements
 			long id) {
 		TitleVO titleVO = (TitleVO) parent.getAdapter().getItem(position);
 		Intent intent = new Intent(SectionActivity.this, ExerciseOrderAct.class);
-		intent.putExtra("id", titleVO);
+		intent.putExtra("subjectid", getIntent().getIntExtra("subjectid", 1));
 		startActivity(intent);
 	}
 

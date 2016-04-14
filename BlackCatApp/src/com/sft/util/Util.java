@@ -21,7 +21,6 @@ import com.sft.vo.CarModelVO;
 import com.sft.vo.ClassVO;
 import com.sft.vo.CoachVO;
 import com.sft.vo.SchoolVO;
-import com.sft.vo.questionbank.Chapter;
 import com.sft.vo.questionbank.TitleVO;
 import com.sft.vo.questionbank.error_book;
 import com.sft.vo.questionbank.web_note;
@@ -402,7 +401,7 @@ public class Util {
 	 * ---// 查询科目四 章节
 	 * */
 
-	public static List<Chapter> getAllSubjectFourChapter() {
+	public static List<TitleVO> getAllSubjectFourChapter() {
 		SQLiteDatabase db = DataBaseUtil.openDatabase(BlackCatApplication
 				.getInstance());
 		String sql = "SELECT c.title as title ,c.id as id, c.mid as mid, count(c.id) as count"
@@ -410,7 +409,7 @@ public class Util {
 				+ " web_note w WHERE c.kemu = 4 AND w.kemu=4" +
 
 				" AND w.strTppe = c.mid GROUP BY c.title,c.id, c.mid ORDER BY c.id";
-		List<Chapter> list = DataBaseUtil.getArrays(db, Chapter.class, sql,
+		List<TitleVO> list = DataBaseUtil.getArrays(db, TitleVO.class, sql,
 				new String[] {});
 		db.close();
 		return list;
@@ -460,7 +459,7 @@ public class Util {
 				.getInstance());
 		String sql = "select * from web_note w ,error_book e where w.kemu=? and e.kemu=? and e.webnoteid = w.id";
 		List<web_note> list = DataBaseUtil.getArrays(db, web_note.class, sql,
-				new String[] { "4","4" });
+				new String[] { "4", "4" });
 		db.close();
 		return list;
 	}
