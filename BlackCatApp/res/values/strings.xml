@@ -315,7 +315,7 @@
     <string name="enrolling">您的报名正在审核中，请耐心等待</string>
     <string name="learn_car_cheats">学车秘籍</string>
 
-    <string name="driving_school_appointment_exam">驾校约考</string>
+    <string name="driving_school_appointment_exam">驾校代约</string>
     
     <string name="no_school">没有符合条件的驾校</string>
 	<string name="no_coach_error">没有符合条件的教练</string>
@@ -360,4 +360,24 @@
     
     <string name="cancel_order">取消订单</string>
      <string name="appointment_list">预约列表</string>
+     <string name="school_appointment">驾校代约</string>
+     <string name="i_want_to_appointment_exam">我要约考</string>
+     <string name="appointment_exam_instructions">自主约考说明</string>
+     <string name="appointment_exam_introduce">根据中华人民共和国公安部令第139号文件，学员可以自主选择考试场地、考试时间、考试场次提出考试预约申请。在停止接受考试预约申请前，学员可以在互联网办理取消预约。在预约结果公布时间当天，该考试计划将在互联网上截止预约。（由于该系统在全国各地的推进进度不同，可能有部分地区暂时不支持自主约考，请选择驾校代约）</string>
+     <string name="appointment_exam_process">学员登录122.gov.cn，点击【驾驶证业务】→【考试预约】业务功能办理。</string>
+     <string name="appointment_exam_process_instructions">业务流程及操作说明</string>
+     <string name="appointment_exam_process_introduce">【业务须知】→ 【确认信息】→ 【考试预约】→ 【选择日期和场次】→ 【确认提交】→ 【完成提交】</string>
+     <string name="appointment_exam_result">提交成功后，系统生成业务流水号，学员根据该业务流水号可以在网办进度中查询该流水的预约受理状态。系统将在预约结果公示时间当天安排考试，学员可以通过网办进度、驾驶人考试预约结果公布、短信及时获取预约结果。</string>
+     <string name="school_appointment_instructions1">选择驾校代约后，您所报考的驾校将收到您提交的约考信息并统一帮您约考，您不必在自行取122网站约考。</string>
+     <string name="school_appointment_instructions2">若您已自行在122网站提交约考信息，就不必在这里再次提交代约信息。</string>
+     
+     <string name="appointment_exam_success">提交成功</string>
+     
+     <string name="congratulations_appointment_exam_success">恭喜您，约考成功</string>
+     <string name="congratulations_appointment_exam_finish"> 恭喜您，您的约考信息已提交</string>
+     
+     <string name="appointmenting">正在预约中...</string>
+     <string name="appointment_success">约考成功</string>
+     
+     <string name="appointment_exam_tip">我们将尽快代您预约考试\n一旦预约成功将会以短信形式通知您！</string>
 </resources>

@@ -2,15 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/new_background_color"
     android:orientation="vertical" >
-    <include layout="@layout/layout_error"/>
-<com.sft.view.RefreshLayout
+
+    <include layout="@layout/layout_error" />
+
+    <com.sft.view.RefreshLayout
         android:id="@+id/enroll_school_swipe_container"
         android:layout_width="match_parent"
-        android:background="@color/app_main_title_color"
-        android:layout_height="match_parent" >
-        
-    	
+        android:layout_height="match_parent"
+        android:background="@color/app_main_title_color" >
 
         <ListView
             android:id="@+id/enroll_select_school_listview"
@@ -23,16 +24,13 @@
             android:listSelector="@android:color/transparent"
             android:overScrollMode="always"
             android:scrollbars="none" />
-        
-</com.sft.view.RefreshLayout>
-</LinearLayout>
-<!-- 
+    </com.sft.view.RefreshLayout>
 
+</LinearLayout><!--
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 </LinearLayout>
 
-xmlns:android="http://schemas.android.com/apk/res/android"
- -->
+xmlns:android="http://schemas.android.com/apk/res/android"-->

@@ -487,6 +487,11 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         </activity>
+        <activity
+            android:name="com.sft.blackcatapp.AppointmentExamPreActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+        </activity>
         <!-- 选择城市 -->
 
         <activity
@@ -523,9 +528,23 @@
             android:name="com.sft.blackcatapp.SussessOrderActvity"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name="com.sft.blackcatapp.AppointmentExamSuccessActivity"
+            android:screenOrientation="portrait" >
+        </activity>
         
         <activity 
             android:name="com.sft.blackcatapp.ExerciseOrderAct"
+            android:screenOrientation="portrait"
+            ></activity>
+        
+        <activity 
+            android:name="com.sft.blackcatapp.MyOrderActivity"
+            android:screenOrientation="portrait"
+            ></activity>
+        
+        <activity 
+            android:name="com.sft.blackcatapp.SectionActivity"
             android:screenOrientation="portrait"
             ></activity>
 

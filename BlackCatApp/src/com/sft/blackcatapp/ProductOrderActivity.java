@@ -333,8 +333,8 @@ public class ProductOrderActivity extends BaseActivity {
 						ProductOrderSuccessActivity.class);
 				intent.putExtra("productVO", productVO);
 				if (productBuySuccessVO != null) {
-					intent.putExtra("finishorderurl",
-							productBuySuccessVO.getFinishorderurl());
+					intent.putExtra("orderscanaduiturl",
+							productBuySuccessVO.getOrderscanaduiturl());
 				}
 				startActivity(intent);
 				finish();

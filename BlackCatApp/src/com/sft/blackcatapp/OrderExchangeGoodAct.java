@@ -1,10 +1,13 @@
 package com.sft.blackcatapp;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -17,8 +20,13 @@ import cn.sft.baseactivity.util.HttpSendUtils;
 import com.jzjf.app.R;
 import com.sft.adapter.ExchangeGoodOrderAdapter;
 import com.sft.common.Config;
+import com.sft.util.CommonUtil;
 import com.sft.util.JSONUtil;
+import com.sft.util.LogUtil;
+import com.sft.view.RefreshLayout;
+import com.sft.view.RefreshLayout.OnLoadListener;
 import com.sft.vo.ExchangeGoodOrderVO;
+import com.sft.vo.ExchangeOrderItemVO;
 
 /**
  * 兑换商品订单
@@ -27,7 +35,7 @@ import com.sft.vo.ExchangeGoodOrderVO;
  * 
  */
 public class OrderExchangeGoodAct extends BaseActivity implements
-		OnItemClickListener {
+		OnItemClickListener, OnRefreshListener, OnLoadListener {
 
 	private ListView lv;
 
@@ -40,8 +48,12 @@ public class OrderExchangeGoodAct extends BaseActivity implements
 	private TextView errorTvs;
 
 	private ImageView error_iv;
-	
-	
+
+	private RefreshLayout swipeLayout;
+	private boolean isRefreshing = false;
+	private boolean isLoadingMore = false;
+	private int index = 1;
+	private List<ExchangeOrderItemVO> orderList = new ArrayList<ExchangeOrderItemVO>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,14 +65,29 @@ public class OrderExchangeGoodAct extends BaseActivity implements
 
 	private void initView() {
 		setTitleText("我的订单");
+		boolean hasActionBar = getIntent()
+				.getBooleanExtra("hasActionBar", true);
+		if (hasActionBar) {
+			setTitleBarVisible(View.VISIBLE);
+		} else {
+			setTitleBarVisible(View.GONE);
+		}
+
 		error_iv = (ImageView) findViewById(R.id.error_iv);
 		errorRl = (RelativeLayout) findViewById(R.id.error_rl);
 		errorTv = (TextView) findViewById(R.id.error_tv);
 		errorTvs = (TextView) findViewById(R.id.error_tvs);
-
+		swipeLayout = (RefreshLayout) findViewById(R.id.enroll_school_swipe_container);
+		swipeLayout.setOnRefreshListener(this);
+		swipeLayout.setOnLoadListener(this);
+		swipeLayout.setColorScheme(android.R.color.holo_blue_bright,
+				android.R.color.holo_green_light,
+				android.R.color.holo_orange_light,
+				android.R.color.holo_red_light);
+		swipeLayout.setBackgroundColor(getResources().getColor(R.color.white));
 		lv = (ListView) findViewById(R.id.enroll_select_school_listview);
 		bean = new ExchangeGoodOrderVO();
-		adapter = new ExchangeGoodOrderAdapter(this, bean);
+		adapter = new ExchangeGoodOrderAdapter(this, orderList);
 		lv.setAdapter(adapter);
 		lv.setOnItemClickListener(this);
 	}
@@ -68,7 +95,7 @@ public class OrderExchangeGoodAct extends BaseActivity implements
 	private void request() {
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("userid", app.userVO.getUserid());
-		paramMap.put("index", "1");
+		paramMap.put("index", index + "");
 		paramMap.put("count", "10");
 
 		Map<String, String> headerMap = new HashMap<String, String>();
@@ -76,9 +103,6 @@ public class OrderExchangeGoodAct extends BaseActivity implements
 		HttpSendUtils.httpGetSend("exchangOrder", this, Config.IP
 				+ "api/v1/userinfo/getmyorderlist", paramMap, 10000, headerMap);
 	}
-	
-	
-
 
 	@Override
 	public void onClick(View v) {
@@ -91,6 +115,41 @@ public class OrderExchangeGoodAct extends BaseActivity implements
 	}
 
 	@Override
+	public void doException(String type, Exception e, int code) {
+		super.doException(type, e, code);
+		if (isRefreshing) {
+			swipeLayout.setRefreshing(false);
+			isRefreshing = false;
+		}
+		if (isLoadingMore) {
+			swipeLayout.setLoading(false);
+			isLoadingMore = false;
+		}
+		errorRl.setVisibility(View.VISIBLE);
+		swipeLayout.setVisibility(View.GONE);
+
+		error_iv.setBackgroundResource(R.drawable.app_no_wifi);
+		errorTv.setText(CommonUtil.getString(this, R.string.no_wifi));
+	}
+
+	@Override
+	public void doTimeOut(String type) {
+		super.doTimeOut(type);
+		if (isRefreshing) {
+			swipeLayout.setRefreshing(false);
+			isRefreshing = false;
+		}
+		if (isLoadingMore) {
+			swipeLayout.setLoading(false);
+			isLoadingMore = false;
+		}
+		errorRl.setVisibility(View.VISIBLE);
+		swipeLayout.setVisibility(View.GONE);
+		error_iv.setBackgroundResource(R.drawable.app_no_wifi);
+		errorTv.setText(CommonUtil.getString(this, R.string.no_wifi));
+	}
+
+	@Override
 	public synchronized boolean doCallBack(String type, Object jsonString) {
 		if (super.doCallBack(type, jsonString)) {
 			return true;
@@ -98,7 +157,6 @@ public class OrderExchangeGoodAct extends BaseActivity implements
 		if (type.equals("exchangOrder")) {
 			try {
 				bean = JSONUtil.toJavaBean(ExchangeGoodOrderVO.class, data);
-				adapter.setData(bean);
 				if (bean.ordrelist.size() == 0) {
 					errorRl.setVisibility(View.VISIBLE);
 
@@ -109,8 +167,28 @@ public class OrderExchangeGoodAct extends BaseActivity implements
 				} else {
 					errorRl.setVisibility(View.GONE);
 				}
-				// adapter.notifyDataSetChanged();
-
+				if (index == 1) {
+					orderList.clear();
+					orderList.addAll(bean.ordrelist);
+				} else {
+					if (bean.ordrelist.size() == 0) {
+						// 没有更多数据
+						Toast("没有更多数据了");
+						LogUtil.print("没有更多数据了");
+					} else {
+						orderList.addAll(bean.ordrelist);
+					}
+				}
+				// adapter.setData(bean);
+				adapter.notifyDataSetChanged();
+				if (isRefreshing) {
+					swipeLayout.setRefreshing(false);
+					isRefreshing = false;
+				}
+				if (isLoadingMore) {
+					swipeLayout.setLoading(false);
+					isLoadingMore = false;
+				}
 				// LogUtil.print("result--size::"+bean.ordrelist.size());
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -123,10 +201,23 @@ public class OrderExchangeGoodAct extends BaseActivity implements
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 		Intent i = new Intent(OrderExchangeGoodAct.this,
-				ExchangeDetailAct.class);
-		i.putExtra("bean", bean.ordrelist.get(position));
+				ProductOrderSuccessActivity.class);
+		i.putExtra("exchangeOrderItemVO", bean.ordrelist.get(position));
 		// i.putExtra("po", position);
 		startActivity(i);
 	}
 
+	@Override
+	public void onRefresh() {
+		isRefreshing = true;
+		index = 1;
+		request();
+	}
+
+	@Override
+	public void onLoad() {
+		isLoadingMore = true;
+		index++;
+		request();
+	}
 }

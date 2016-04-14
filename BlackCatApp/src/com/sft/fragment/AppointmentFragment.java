@@ -31,7 +31,8 @@ import cn.sft.baseactivity.util.HttpSendUtils;
 import com.jzjf.app.R;
 import com.sft.adapter.MyAppointmentListAdapter2;
 import com.sft.blackcatapp.AppointmentDetailActivity;
-import com.sft.blackcatapp.AppointmentExamActivity;
+import com.sft.blackcatapp.AppointmentExamPreActivity;
+import com.sft.blackcatapp.AppointmentExamSuccessActivity;
 import com.sft.blackcatapp.SussessOrderActvity;
 import com.sft.common.Config;
 import com.sft.dialog.NoCommentDialog;
@@ -43,6 +44,7 @@ import com.sft.util.UTC2LOC;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.AppointmentTempVO;
 import com.sft.vo.MyAppointmentVO;
+import com.sft.vo.MyExamInfoVO;
 import com.sft.vo.UserVO;
 import com.sft.vo.uservo.StudentSubject;
 
@@ -52,6 +54,7 @@ public class AppointmentFragment extends BaseFragment implements
 		OnClickListener, OnItemClickListener, OnRefreshListener {
 
 	private static final String RESERVATION = "reservation";
+	private static final String MYEXAMINFO = "myexaminfo";
 	private static final String MYPROGRESS = "getmyprogress";
 
 	// private WeekViewPager viewPager;
@@ -388,6 +391,32 @@ public class AppointmentFragment extends BaseFragment implements
 					initSubject(subjectId, userVo);
 
 				}
+			} else if (type.equals(MYEXAMINFO)) {
+				//
+				if (null != data) {
+					MyExamInfoVO examInfoVO = JSONUtil.toJavaBean(
+							MyExamInfoVO.class, data);
+					// 跳转到相应的页面
+					Intent intent = null;
+					LogUtil.print("=====-----"
+							+ examInfoVO.getExaminationstate());
+					if (examInfoVO.getExaminationstate().equals(
+							Config.MyExamInfo.EXAMINATION_NONE.getValue())) {
+						// 未申请
+						LogUtil.print("=====-----"
+								+ examInfoVO.getExaminationstate());
+						intent = new Intent(getActivity(),
+								AppointmentExamPreActivity.class);
+						intent.putExtra("subjectid", subjectId);
+						startActivity(intent);
+					} else {
+						//
+						intent = new Intent(getActivity(),
+								AppointmentExamSuccessActivity.class);
+						intent.putExtra("examInfoVO", examInfoVO);
+						startActivity(intent);
+					}
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -422,14 +451,23 @@ public class AppointmentFragment extends BaseFragment implements
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.learn_progress_yuekao:// 约考
-			Intent intent = new Intent(getActivity(),
-					AppointmentExamActivity.class);
-			intent.putExtra("subjectid", subjectId);
-			startActivity(intent);
+			obtainMyExaminfo();
+
 			break;
 		default:
 			break;
 		}
+	}
+
+	// 获取我的预考信息
+	private void obtainMyExaminfo() {
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("subjectid", subjectId);
+		Map<String, String> headerMap = new HashMap<String, String>();
+		headerMap.put("authorization", app.userVO.getToken());
+		//
+		HttpSendUtils.httpGetSend(MYEXAMINFO, this, Config.IP
+				+ "api/v1/userinfo/getmyexaminfo", paramMap, 10000, headerMap);
 	}
 
 	@Override

@@ -1,5 +1,8 @@
 package com.sft.fragment;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,20 +12,25 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import cn.sft.baseactivity.util.HttpSendUtils;
 
 import com.jzjf.app.R;
-import com.sft.blackcatapp.AppointmentExamActivity;
+import com.sft.blackcatapp.AppointmentExamPreActivity;
+import com.sft.blackcatapp.AppointmentExamSuccessActivity;
 import com.sft.blackcatapp.QuestionActivity;
+import com.sft.common.Config;
 import com.sft.dialog.NoLoginDialog;
 import com.sft.util.BaseUtils;
 import com.sft.util.CommonUtil;
+import com.sft.util.JSONUtil;
 import com.sft.viewutil.StudyItemLayout;
 import com.sft.viewutil.ZProgressHUD;
+import com.sft.vo.MyExamInfoVO;
 import com.sft.vo.SubjectForOneVO;
 
 public class SubjectFourFragment extends BaseFragment implements
 		OnClickListener {
-
+	private static final String MYEXAMINFO = "myexaminfo";
 	// 交流
 	private StudyItemLayout communication;
 	// 我要约考
@@ -135,8 +143,10 @@ public class SubjectFourFragment extends BaseFragment implements
 			break;
 		case R.id.make_an_appointment:
 			if (app.isLogin) {
-				intent = new Intent(mContext, AppointmentExamActivity.class);
-				intent.putExtra("subjectid", "4");
+				obtainMyExaminfo();
+				// intent = new Intent(mContext,
+				// AppointmentExamPreActivity.class);
+				// intent.putExtra("subjectid", "4");
 
 			} else {
 				NoLoginDialog dialog = new NoLoginDialog(getActivity());
@@ -170,6 +180,52 @@ public class SubjectFourFragment extends BaseFragment implements
 		if (intent != null) {
 			startActivity(intent);
 		}
+	}
+
+	// 获取我的预考信息
+	private void obtainMyExaminfo() {
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("subjectid", "4");
+		Map<String, String> headerMap = new HashMap<String, String>();
+		headerMap.put("authorization", app.userVO.getToken());
+		//
+		HttpSendUtils.httpGetSend(MYEXAMINFO, this, Config.IP
+				+ "api/v1/userinfo/getmyexaminfo", paramMap, 10000, headerMap);
+	}
+
+	@Override
+	public synchronized boolean doCallBack(String type, Object jsonString) {
+		if (super.doCallBack(type, jsonString)) {
+			return true;
+		}
+		try {
+			if (type.equals(MYEXAMINFO)) {
+				//
+				if (null != data) {
+					MyExamInfoVO examInfoVO = JSONUtil.toJavaBean(
+							MyExamInfoVO.class, data);
+					// 跳转到相应的页面
+					Intent intent = null;
+					if (examInfoVO.getExaminationstate().equals(
+							Config.MyExamInfo.EXAMINATION_NONE.getValue())) {
+						// 未申请
+						intent = new Intent(getActivity(),
+								AppointmentExamPreActivity.class);
+						intent.putExtra("subjectid", "4");
+						startActivity(intent);
+					} else {
+						//
+						intent = new Intent(getActivity(),
+								AppointmentExamSuccessActivity.class);
+						intent.putExtra("examInfoVO", examInfoVO);
+						startActivity(intent);
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return true;
 	}
 
 	public void setLearnProgressInfo(SubjectForOneVO subject) {

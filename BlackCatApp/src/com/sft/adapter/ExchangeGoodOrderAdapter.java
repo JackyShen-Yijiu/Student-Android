@@ -1,53 +1,53 @@
 package com.sft.adapter;
 
+import java.util.List;
+
 import android.app.Activity;
-import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.ImageView.ScaleType;
-
 import cn.sft.infinitescrollviewpager.BitmapManager;
 
-import com.joooonho.SelectableRoundedImageView;
 import com.jzjf.app.R;
+import com.sft.util.CommonUtil;
 import com.sft.vo.ExchangeGoodOrderVO;
 import com.sft.vo.ExchangeOrderItemVO;
+
 /**
  * 兑换商品订单
- * @author sun  2016-2-26 下午4:38:09
- *
+ * 
+ * @author sun 2016-2-26 下午4:38:09
+ * 
  */
-public class ExchangeGoodOrderAdapter extends BaseAdapter{
+public class ExchangeGoodOrderAdapter extends BaseAdapter {
 
 	private ExchangeGoodOrderVO bean;
-	
+	private List<ExchangeOrderItemVO> list;
 	private Activity c;
-	
-	public ExchangeGoodOrderAdapter(Activity context,ExchangeGoodOrderVO bean){
-		this.bean = bean;
+
+	public ExchangeGoodOrderAdapter(Activity context,
+			List<ExchangeOrderItemVO> list) {
+		this.list = list;
 		c = context;
 	}
-	
-	public void setData(ExchangeGoodOrderVO b){
+
+	public void setData(ExchangeGoodOrderVO b) {
 		this.bean = b;
 		notifyDataSetChanged();
 	}
-	
+
 	@Override
 	public int getCount() {
-		return bean.ordrelist.size();
+		return list.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		return bean.ordrelist.get(position);
+		return list.get(position);
 	}
 
 	@Override
@@ -58,74 +58,56 @@ public class ExchangeGoodOrderAdapter extends BaseAdapter{
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder = null;
-//		LinearLayout.LayoutParams headParams = null;
+		// LinearLayout.LayoutParams headParams = null;
 		if (convertView == null) {
-			convertView = View.inflate(c,R.layout.item_order, null);
+			convertView = View.inflate(c, R.layout.item_order, null);
 			holder = new ViewHolder();
-			holder.img = (SelectableRoundedImageView) convertView.findViewById(R.id.item_order_img);
-			holder.title = (TextView) convertView.findViewById(R.id.item_order_title);
-			holder.left1 = (TextView) convertView.findViewById(R.id.item_order_left1);
-			holder.left2 = (TextView) convertView.findViewById(R.id.item_order_left2);
-			holder.right10 = (TextView) convertView.findViewById(R.id.item_order_right10);
-			holder.right11 = (TextView) convertView.findViewById(R.id.item_order_right11);
-			holder.right2 = (TextView) convertView.findViewById(R.id.item_order_right2);
-			holder.btn2 = (TextView) convertView.findViewById(R.id.item_order_button1);
-			holder.btn2.setText("再次兑换");
-//			holder.btn2.setVisibility(View.GONE);
-			convertView.findViewById(R.id.item_order_button2).setVisibility(View.GONE);
-			holder.right11.setText("实付金额:");
-			
-			holder.img.setScaleType(ScaleType.CENTER_CROP);
-			holder.img.setImageResource(R.drawable.default_small_pic);
-			holder.img.setOval(true);
-			
+			holder.productPicIv = (ImageView) convertView
+					.findViewById(R.id.product_order_pic);
+			holder.productNameTv = (TextView) convertView
+					.findViewById(R.id.product_order_name_tv);
+			holder.productPriceTv = (TextView) convertView
+					.findViewById(R.id.product_order_price_tv);
+			holder.productTimeTv = (TextView) convertView
+					.findViewById(R.id.product_order_time_tv);
+			holder.productStatus = (TextView) convertView
+					.findViewById(R.id.product_order_status_tv);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		ExchangeOrderItemVO b = bean.ordrelist.get(position);
-		holder.title.setText(b.productname);
-		holder.left1.setText("兑换金额:"+b.productprice+"YB");
-		holder.left2.setText("下单时间:"+b.createtime);
-		holder.right10.setText(b.productprice+"YB");
-		if (b.orderstate.equals("1")) {
-			holder.right2.setText("兑换成功");
-		}else{
-			holder.right2.setText("兑换失败");
-		}
-		
-
+		ExchangeOrderItemVO b = list.get(position);
 		if (TextUtils.isEmpty(b.productimg)) {
-			holder.img.setBackgroundResource(R.drawable.default_small_pic);
+			holder.productPicIv
+					.setBackgroundResource(R.drawable.default_small_pic);
 		} else {
-			LinearLayout.LayoutParams  headParams = (LinearLayout.LayoutParams) holder.img
+			LinearLayout.LayoutParams headParams = (LinearLayout.LayoutParams) holder.productPicIv
 					.getLayoutParams();
-			BitmapManager.INSTANCE.loadBitmap2(b.productimg, holder.img,
-					headParams.width, headParams.height);
+			BitmapManager.INSTANCE.loadBitmap2(b.productimg,
+					holder.productPicIv, headParams.width, headParams.height);
 		}
-		holder.btn2.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				c.setResult(9);
-				c.finish();
-			}
-		});
+		holder.productNameTv.setText(b.productname);
+		holder.productPriceTv.setText(b.productprice + "");
+		holder.productTimeTv.setText(b.createtime);
+		if ("5".equals(b.orderstate)) {
+			holder.productStatus.setText("已领取");
+			holder.productStatus.setTextColor(CommonUtil.getColor(c,
+					R.color.new_button_color));
+		} else {
+			holder.productStatus.setText("未领取");
+			holder.productStatus.setTextColor(CommonUtil.getColor(c,
+					R.color.new_app_main_color));
+		}
 		return convertView;
 	}
 
 	private class ViewHolder {
-		public SelectableRoundedImageView img;
-		public TextView title;
-		public TextView left1;
-		public TextView left2;
-		public TextView right10;
-		public TextView right11;
-		public TextView right2;
-		public TextView btn2;
-		
+
+		private ImageView productPicIv;
+		private TextView productNameTv;
+		private TextView productPriceTv;
+		private TextView productTimeTv;
+		private TextView productStatus;
 	}
-	
-	
-	
+
 }
