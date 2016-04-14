@@ -229,10 +229,9 @@ public class SubjectFourFragment extends BaseFragment implements
 	}
 
 	public void setLearnProgressInfo(SubjectForOneVO subject) {
-		studyProgressBar.setMax(subject.getTotalcourse());
-		studyProgressBar.setProgress(subject.getFinishcourse());
-		studyProgressTv.setText("学习进度   " + subject.getFinishcourse() + "/"
-				+ subject.getOfficialhours());
+		studyProgressBar.setMax(3);
+		studyProgressBar.setProgress(0);
+		studyProgressTv.setText("学习进度   " + "0" + "/3");
 		// testTimes.setText("模拟考试" + subject.getFinishcourse() + "次");
 		// officalClass.setText("官方学时" + subject.getOfficialhours());
 

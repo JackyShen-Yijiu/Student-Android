@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+<<<<<<< HEAD
      android:background="#e8e8ed" 
     android:orientation="vertical" >
  <ListView 
@@ -16,3 +17,19 @@
     
     
 </LinearLayout>
+=======
+    android:background="#e8e8ed"
+    android:orientation="vertical" >
+
+    <ListView
+        android:id="@+id/section_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:divider="@color/new_text_color_light"
+        android:dividerHeight="1dip"
+        android:scrollbars="none" >
+    </ListView>
+
+</LinearLayout>
+>>>>>>> 972630a2f1de6bece84f03dc60fff75e43b1756b

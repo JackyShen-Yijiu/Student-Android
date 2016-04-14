@@ -197,7 +197,7 @@ public class SubjectTwoFragment extends BaseFragment implements OnClickListener 
 	public void setLearnProgressInfo(SubjectForOneVO subject) {
 		studyProgressBar.setMax(subject.getTotalcourse());
 		studyProgressBar.setProgress(subject.getFinishcourse());
-		studyProgressTv.setText("规定课时   " + subject.getTotalcourse() + "/"
+		studyProgressTv.setText("规定课时   " + subject.getFinishcourse() + "/"
 				+ subject.getOfficialhours());
 		// finishedClass.setText("已完成" + subject.getFinishcourse());
 		// ruleClass.setText("规定课时" + subject.getTotalcourse());

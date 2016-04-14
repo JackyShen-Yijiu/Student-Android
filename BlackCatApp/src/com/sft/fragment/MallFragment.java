@@ -29,6 +29,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.sft.adapter.MallProductAdapter;
 import com.sft.api.ApiHttpClient;
+import com.sft.blackcatapp.OrderExchangeGoodAct;
 import com.sft.blackcatapp.ProductDetailActivity;
 import com.sft.common.Config;
 import com.sft.util.CommonUtil;
@@ -331,6 +332,7 @@ public class MallFragment extends BaseFragment implements
 		switch (v.getId()) {
 		case R.id.mall_header_exchange_record_btn:
 			// 兑换记录
+			startActivity(new Intent(mContext, OrderExchangeGoodAct.class));
 			break;
 
 		default:

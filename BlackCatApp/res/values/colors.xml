@@ -97,4 +97,6 @@
     <color name="new_background_color_light">#f7f7f7</color>
     
     <color name="new_button_color">#5698fd</color>
+    
+    <color name="btn_not_selected">#cecece</color>
 </resources>

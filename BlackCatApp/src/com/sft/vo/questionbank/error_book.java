@@ -8,6 +8,7 @@ public class error_book extends DBVO {
 	private int chapterid;
 	private int webnoteid;
 	private int kemu;
+	private String userid;
 
 	public int getId() {
 		return id;
@@ -39,6 +40,14 @@ public class error_book extends DBVO {
 
 	public void setKemu(int kemu) {
 		this.kemu = kemu;
+	}
+
+	public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
 
 }

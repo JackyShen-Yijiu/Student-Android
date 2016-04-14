@@ -35,7 +35,7 @@ public class SubjectOneFragment extends BaseFragment implements OnClickListener 
 	private StudyItemLayout communication;
 	// 我要约考
 	private StudyItemLayout appointment;
-	// 我的错题
+	// m我的错题
 	private StudyItemLayout errorData;
 	// 模拟考试
 	private StudyItemLayout simulation;
@@ -107,7 +107,7 @@ public class SubjectOneFragment extends BaseFragment implements OnClickListener 
 
 			// 题库
 			if (app.questionVO != null) {
-
+				
 				intent = new Intent(mContext, SectionActivity.class);
 				// ExerciseOrderAct
 				// intent = new Intent(mContext, QuestionActivity.class);
@@ -248,10 +248,9 @@ public class SubjectOneFragment extends BaseFragment implements OnClickListener 
 	}
 
 	private void refreshUI() {
-		studyProgressBar.setMax(subject.getTotalcourse());
-		studyProgressBar.setProgress(subject.getFinishcourse());
-		studyProgressTv.setText("学习进度   " + subject.getFinishcourse() + "/"
-				+ subject.getOfficialhours());
+		studyProgressBar.setMax(3);
+		studyProgressBar.setProgress(0);
+		studyProgressTv.setText("学习进度   " + "0" + "/3");
 		// testTimes.setText("模拟考试" + subject.getFinishcourse() + "次");
 		// officalClass.setText("官方学时" + subject.getOfficialhours());
 	}

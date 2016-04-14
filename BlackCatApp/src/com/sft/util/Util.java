@@ -421,6 +421,7 @@ public class Util {
 		SQLiteDatabase db = DataBaseUtil.openDatabase(BlackCatApplication
 				.getInstance());
 		List<error_book> list = new ArrayList<error_book>();
+		list.add(error);
 		try {
 			DataBaseUtil.updateArray(db, list);
 		} catch (IllegalArgumentException e) {
@@ -442,7 +443,7 @@ public class Util {
 	public static List<web_note> getAllSubjectOneErrorQuestion() {
 		SQLiteDatabase db = DataBaseUtil.openDatabase(BlackCatApplication
 				.getInstance());
-		String sql = "select * from web_note w error_bank e where kemu=? and e.webnoteid = w.id";
+		String sql = "select * from web_note w error_book e where kemu=? and e.webnoteid = w.id";
 		List<web_note> list = DataBaseUtil.getArrays(db, web_note.class, sql,
 				new String[] { "1" });
 		db.close();
@@ -457,9 +458,9 @@ public class Util {
 	public static List<web_note> getAllSubjectFourErrorQuestion() {
 		SQLiteDatabase db = DataBaseUtil.openDatabase(BlackCatApplication
 				.getInstance());
-		String sql = "select * from web_note w error_bank e where kemu=? and e.webnoteid = w.id";
+		String sql = "select * from web_note w ,error_book e where w.kemu=? and e.kemu=? and e.webnoteid = w.id";
 		List<web_note> list = DataBaseUtil.getArrays(db, web_note.class, sql,
-				new String[] { "4" });
+				new String[] { "4","4" });
 		db.close();
 		return list;
 	}
