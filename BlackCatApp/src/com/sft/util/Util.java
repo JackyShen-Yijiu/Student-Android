@@ -22,6 +22,7 @@ import com.sft.vo.ClassVO;
 import com.sft.vo.CoachVO;
 import com.sft.vo.SchoolVO;
 import com.sft.vo.questionbank.Chapter;
+import com.sft.vo.questionbank.TitleVO;
 import com.sft.vo.questionbank.error_book;
 import com.sft.vo.questionbank.web_note;
 
@@ -381,17 +382,18 @@ public class Util {
 	 * ---// 查询科目一 章节
 	 * */
 
-	public static List<Chapter> getSubjectOneChapter() {
+	public static List<TitleVO> getSubjectOneChapter() {
 		SQLiteDatabase db = DataBaseUtil.openDatabase(BlackCatApplication
 				.getInstance());
 		String sql = "SELECT"
-				+ "c.title as title ,c.id as id, '0'||c.mid as mid, count(c.id) as count"
-				+ "FROM Chapter c, web_note w WHERE c.kemu = 1 AND w.kemu=1"
-				+ "AND (c.id = 1 OR c.id = 2 OR c.id = 3 OR c.id = 4) AND w.chapterid = c.id"
-				+ "AND (w.strTppe = '01' OR w.strTppe = '02' OR w.strTppe = '03' OR w.strTppe = '04')"
-				+ "GROUP BY c.title,c.id ORDER BY c.id";
-		List<Chapter> list = DataBaseUtil.getArrays(db, Chapter.class, sql,
+				+ " c.title as title ,c.id as id, '0'||c.mid as mid, count(c.id) as count"
+				+ " FROM Chapter c, web_note w WHERE c.kemu = 1 AND w.kemu=1"
+				+ " AND (c.id = 1 OR c.id = 2 OR c.id = 3 OR c.id = 4) AND w.chapterid = c.id"
+				+ " AND (w.strTppe = '01' OR w.strTppe = '02' OR w.strTppe = '03' OR w.strTppe = '04')"
+				+ " GROUP BY c.title,c.id ORDER BY c.id";
+		List<TitleVO> list = DataBaseUtil.getArrays(db, TitleVO.class, sql,
 				new String[] {});
+		LogUtil.print(list.size() + "sssssssssssss222");
 		db.close();
 		return list;
 	}
@@ -404,10 +406,10 @@ public class Util {
 		SQLiteDatabase db = DataBaseUtil.openDatabase(BlackCatApplication
 				.getInstance());
 		String sql = "SELECT c.title as title ,c.id as id, c.mid as mid, count(c.id) as count"
-				+ "FROM (select '0'||mid as mid ,title ,id ,kemu FROM Chapter where kemu=4 AND fid=0 and ( mid<>8 )) c,"
-				+ "web_note w WHERE c.kemu = 4 AND w.kemu=4" +
+				+ " FROM (select '0'||mid as mid ,title ,id ,kemu FROM Chapter where kemu=4 AND fid=0 and ( mid<>8 )) c,"
+				+ " web_note w WHERE c.kemu = 4 AND w.kemu=4" +
 
-				"AND w.strTppe = c.mid GROUP BY c.title,c.id, c.mid ORDER BY c.id";
+				" AND w.strTppe = c.mid GROUP BY c.title,c.id, c.mid ORDER BY c.id";
 		List<Chapter> list = DataBaseUtil.getArrays(db, Chapter.class, sql,
 				new String[] {});
 		db.close();

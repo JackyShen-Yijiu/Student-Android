@@ -10,20 +10,21 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.jzjf.app.R;
-import com.sft.vo.questionbank.Chapter;
+import com.sft.util.LogUtil;
+import com.sft.vo.questionbank.TitleVO;
 
 public class SectionAdapter extends BaseAdapter {
 
-	private List<Chapter> list = new ArrayList<Chapter>();
+	private List<TitleVO> list = new ArrayList<TitleVO>();
 	private Context context;
 
-	public SectionAdapter(Context context, List<Chapter> list) {
+	public SectionAdapter(Context context, List<TitleVO> list) {
 		this.context = context;
 		this.list = list;
 
 	}
 
-	public void setData(List<Chapter> data1) {
+	public void setData(List<TitleVO> data1) {
 		this.list = data1;
 	}
 
@@ -47,6 +48,7 @@ public class SectionAdapter extends BaseAdapter {
 		ViewHolder holder = null;
 		if (convertView == null) {
 			holder = new ViewHolder();
+			LogUtil.print("---" + context);
 			convertView = View.inflate(context, R.layout.item_list_section,
 					null);
 			holder.data = (TextView) convertView
@@ -60,7 +62,7 @@ public class SectionAdapter extends BaseAdapter {
 		}
 		holder.data.setText(list.get(position).getTitle());
 
-		holder.number.setText(list.size() + "");
+		holder.number.setText((position + 1) + "");
 		return convertView;
 	}
 

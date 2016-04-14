@@ -1,27 +1,22 @@
 package com.sft.blackcatapp;
 
-<<<<<<< HEAD
 import java.util.List;
 
 import android.content.Context;
-=======
 import android.content.Intent;
->>>>>>> beef03890c833c138f0c77409395a081484e9b89
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.jzjf.app.R;
-<<<<<<< HEAD
 import com.sft.adapter.SectionAdapter;
 import com.sft.util.LogUtil;
 import com.sft.util.Util;
-import com.sft.vo.questionbank.Chapter;
-=======
-import com.sft.fragment.ExciseFragment;
->>>>>>> beef03890c833c138f0c77409395a081484e9b89
+import com.sft.vo.questionbank.TitleVO;
 
 /**
  * 章节选择
@@ -29,10 +24,11 @@ import com.sft.fragment.ExciseFragment;
  * @author Administrator
  * 
  */
-public class SectionActivity extends BaseActivity {
+public class SectionActivity extends BaseActivity implements
+		OnItemClickListener {
 
 	private ListView sectionlist;
-	private List<Chapter> data1;
+	private List<TitleVO> data1;
 	private SectionAdapter adapter;
 	private Context context;
 
@@ -46,7 +42,7 @@ public class SectionActivity extends BaseActivity {
 
 	private void initView() {
 		sectionlist = (ListView) findViewById(R.id.section_list);
-
+		sectionlist.setOnItemClickListener(this);
 		new Thread(new Runnable() {
 
 			@Override
@@ -67,7 +63,7 @@ public class SectionActivity extends BaseActivity {
 			// handler接收到消息后就会执行此方法
 			switch (msg.what) {
 			case 1:
-				adapter = new SectionAdapter(context, data1);
+				adapter = new SectionAdapter(SectionActivity.this, data1);
 				sectionlist.setAdapter(adapter);
 				adapter.setData(data1);
 				adapter.notifyDataSetChanged();
@@ -85,13 +81,18 @@ public class SectionActivity extends BaseActivity {
 		case R.id.base_left_btn:
 			finish();
 			break;
-		case R.id.section_test:
-		case R.id.section_test1:
-		case R.id.section_test2:
-		case R.id.section_test4:
-			startActivity(new Intent(SectionActivity.this,ExerciseOrderAct.class));
-			break;
+		// startActivity(new Intent(SectionActivity.this,
+		// ExerciseOrderAct.class));
 		}
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		TitleVO titleVO = (TitleVO) parent.getAdapter().getItem(position);
+		Intent intent = new Intent(SectionActivity.this, ExerciseOrderAct.class);
+		intent.putExtra("id", titleVO);
+		startActivity(intent);
 	}
 
 }

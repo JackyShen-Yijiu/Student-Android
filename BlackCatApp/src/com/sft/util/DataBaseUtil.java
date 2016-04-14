@@ -42,9 +42,9 @@ public class DataBaseUtil {
 			// 不存在先创建文件夹
 			File path = new File(pathStr);
 			if (path.mkdir()) {
-				Log.i("test", "创建成功");
+				Log.i("test", "创建成功" + jhPath);
 			} else {
-				Log.i("test", "创建失败");
+				Log.i("test", "创建失败" + jhPath);
 			}
 			try {
 				// 得到资源
@@ -85,7 +85,7 @@ public class DataBaseUtil {
 
 		String tableName = cls.getSimpleName();
 		List entities = new ArrayList();
-		LogUtil.print("sql-->"+sql);
+		LogUtil.print("sql-->" + sql);
 		Cursor cursor = db.rawQuery(sql, paramsvalues);
 
 		try {
