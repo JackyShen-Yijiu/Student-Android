@@ -7,7 +7,6 @@ import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
@@ -419,7 +418,6 @@ public class EnrollSchoolActivity extends BaseActivity implements
 				lastId = firstVisibleItem;
 			}
 
-			@SuppressLint("NewApi")
 			@Override
 			public void downPull() {
 				if (lastId == 0) {
@@ -572,7 +570,7 @@ public class EnrollSchoolActivity extends BaseActivity implements
 				adapter = new SchoolListAdapter(this, schoolList);
 				schoolListView.setAdapter(adapter);
 			} else {// ??? 正在刷新
-			// schoolList.addAll(school);
+				// schoolList.addAll(school);
 				schoolList = school;
 				adapter = new SchoolListAdapter(this, schoolList);
 				schoolListView.setAdapter(adapter);

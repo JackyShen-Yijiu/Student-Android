@@ -64,19 +64,23 @@
         <RadioButton
             android:id="@+id/wallet_integral_btn"
             style="@style/select_coach_radiobutton"
+            android:textColor="@drawable/select_coach_radiobtn_textcolor"
             android:checked="true"
             android:text="@string/wallet_integral" />
         <RadioButton
             android:id="@+id/wallet_coupons_btn"
             style="@style/select_coach_radiobutton"
+            android:textColor="@drawable/select_coach_radiobtn_textcolor"
             android:text="@string/wallet_coupons" />
          <RadioButton
             android:id="@+id/wallet_money_btn"
             style="@style/select_coach_radiobutton"
+            android:textColor="@drawable/select_coach_radiobtn_textcolor"
             android:text="@string/wallet_money" />
     </RadioGroup>
     
        <RelativeLayout 
+           android:id="@+id/rl_record"
            android:layout_width="match_parent"
            android:background="#e8e8ed"
            android:layout_height="36dp">
@@ -89,6 +93,7 @@
                android:textColor="#6e6e6e"
                android:text="积分明细"/>
              <TextView 
+                 android:id="@+id/tv_record"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:textSize="12sp"

@@ -32,6 +32,7 @@ import com.sft.api.ApiHttpClient;
 import com.sft.blackcatapp.OrderExchangeGoodAct;
 import com.sft.blackcatapp.ProductDetailActivity;
 import com.sft.common.Config;
+import com.sft.event.ProductExchangeSuccessEvent;
 import com.sft.util.CommonUtil;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
@@ -42,6 +43,8 @@ import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.MallVO;
 import com.sft.vo.MyCuponVO;
 import com.sft.vo.ProductVO;
+
+import de.greenrobot.event.EventBus;
 
 public class MallFragment extends BaseFragment implements
 		BitMapURLExcepteionListner, OnItemClickListener, OnRefreshListener,
@@ -67,6 +70,7 @@ public class MallFragment extends BaseFragment implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.savedInstanceState = savedInstanceState;
+		EventBus.getDefault().register(this);
 	}
 
 	@Override
@@ -332,11 +336,29 @@ public class MallFragment extends BaseFragment implements
 		switch (v.getId()) {
 		case R.id.mall_header_exchange_record_btn:
 			// 兑换记录
-			startActivity(new Intent(mContext, OrderExchangeGoodAct.class));
+			Intent intent = new Intent(mContext, OrderExchangeGoodAct.class);
+			intent.putExtra("isexchangerecord", true);
+			startActivity(intent);
 			break;
 
 		default:
 			break;
 		}
+	}
+
+	public void onEvent(ProductExchangeSuccessEvent event) {
+		// this.finish();
+		int money = (int) event.money;
+		if (app.currency != null) {
+			myIntegralTvTextView
+					.setText((Integer.parseInt(app.currency) - money) + "");
+		}
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+
+		EventBus.getDefault().unregister(this);
 	}
 }

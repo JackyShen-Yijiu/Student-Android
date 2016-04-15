@@ -14,6 +14,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -182,6 +183,14 @@ public class NewComplaintActivity extends BaseActivity implements
 		// 返回
 		case R.id.base_left_btn:
 			finish();
+			InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+			// 得到InputMethodManager的实例
+			if (getCurrentFocus() != null) {
+				((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE))
+						.hideSoftInputFromWindow(getCurrentFocus()
+								.getWindowToken(),
+								InputMethodManager.HIDE_NOT_ALWAYS);
+			}
 			break;
 		// 我的投诉
 		case R.id.base_right_tv:

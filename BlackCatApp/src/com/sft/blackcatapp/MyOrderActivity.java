@@ -188,9 +188,11 @@ public class MyOrderActivity extends BaseActivity {
 		case 1:
 			coinTv.setTextColor(getResources().getColor(
 					R.color.study_text_selected));
+			break;
 		case 2:
 			applyTv.setTextColor(getResources().getColor(
 					R.color.study_text_selected));
+			break;
 
 		default:
 			break;

@@ -69,6 +69,7 @@
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="20dp"
                             android:textColor="#fff"
+                            android:maxEms="8"
                             android:textSize="14sp" />
 
                         <RatingBar

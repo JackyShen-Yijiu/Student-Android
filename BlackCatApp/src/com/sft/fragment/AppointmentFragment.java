@@ -156,7 +156,7 @@ public class AppointmentFragment extends BaseFragment implements
 			subjectTextTv.setText("已学:" + subject.getFinishcourse() + "课时  "
 					+ subject.getProgress());// +subject.getProgress()
 			// 规定xx 学时 完成XX学时
-			tvLeft1.setText("规定:" + subject.officialhours + "课时");
+			tvLeft1.setText("规定:" + subject.getTotalcourse() + "课时");
 
 			// 购买 XX学时 已学XX学时
 			tvLeft2.setText("已学:" + subject.getFinishcourse() + "课时");
@@ -306,7 +306,7 @@ public class AppointmentFragment extends BaseFragment implements
 		}
 		try {
 			if (type.equals(RESERVATION)) {
-				ZProgressHUD.getInstance(getActivity()).dismiss();
+
 				if (dataArray != null) {
 					if (list == null) {
 						list = new ArrayList<MyAppointmentVO>();
@@ -373,7 +373,7 @@ public class AppointmentFragment extends BaseFragment implements
 					} else {
 						adapter.notifyDataSetChanged();
 					}
-
+					ZProgressHUD.getInstance(getActivity()).dismiss();
 					if (isRefreshing) {
 						appointmentSwipeLaout.setRefreshing(false);
 						isRefreshing = false;

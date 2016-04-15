@@ -20,10 +20,13 @@ import cn.sft.infinitescrollviewpager.BitmapManager;
 
 import com.jzjf.app.R;
 import com.sft.common.Config;
+import com.sft.event.ProductExchangeSuccessEvent;
 import com.sft.qrcode.EncodingHandler;
 import com.sft.util.LogUtil;
 import com.sft.vo.ExchangeOrderItemVO;
 import com.sft.vo.ProductVO;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * 购买成功
@@ -89,6 +92,7 @@ public class ProductOrderSuccessActivity extends BaseActivity {
 		ExchangeOrderItemVO exchangeOrderItemVO = (ExchangeOrderItemVO) getIntent()
 				.getSerializableExtra("exchangeOrderItemVO");
 		productVO = (ProductVO) getIntent().getSerializableExtra("productVO");
+
 		LinearLayout.LayoutParams headParam = (LinearLayout.LayoutParams) productPic
 				.getLayoutParams();
 		if (exchangeOrderItemVO != null) {
@@ -114,15 +118,16 @@ public class ProductOrderSuccessActivity extends BaseActivity {
 			}
 		} else {
 			if (productVO != null) {
-
+				int price = (int) getIntent().getDoubleExtra("money",
+						Double.parseDouble(productVO.getProductprice()));
 				productNameTv.setText(productVO.getProductname());
-				productPriceTv.setText(productVO.getProductprice());
+				productPriceTv.setText(price);
 				SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
 				timeTv.setText("兑换时间：" + format.format(new Date()));
 
 				// exchangeAddrTv.setText(productVO.getAddress());
 				if (TextUtils.isEmpty(productVO.getProductimg())) {
-					productPic.setBackgroundResource(R.drawable.defaultimage);
+					productPic.setBackgroundResource(R.drawable.shop_pic);
 				} else {
 
 					BitmapManager.INSTANCE.loadBitmap2(
@@ -132,7 +137,7 @@ public class ProductOrderSuccessActivity extends BaseActivity {
 
 				createQr(getIntent().getStringExtra("orderscanaduiturl"),
 						productQr);
-				statusTv.setText("已领取");
+				statusTv.setText("未领取");
 			}
 		}
 	}
@@ -184,10 +189,17 @@ public class ProductOrderSuccessActivity extends BaseActivity {
 
 	@Override
 	public void finish() {
-		sendBroadcast(new Intent(ProductOrderActivity.class.getName())
-				.putExtra("finish", true));
-		sendBroadcast(new Intent(ProductDetailActivity.class.getName())
-				.putExtra("finish", true));
 		super.finish();
+		ProductExchangeSuccessEvent event = new ProductExchangeSuccessEvent();
+		event.money = getIntent().getDoubleExtra("money", 0.0);
+		EventBus.getDefault().post(event);
 	}
+	// @Override
+	// public void finish() {
+	// sendBroadcast(new Intent(ProductOrderActivity.class.getName())
+	// .putExtra("finish", true));
+	// sendBroadcast(new Intent(ProductDetailActivity.class.getName())
+	// .putExtra("finish", true));
+	// super.finish();
+	// }
 }
