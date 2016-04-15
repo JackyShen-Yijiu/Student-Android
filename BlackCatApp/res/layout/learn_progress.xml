@@ -63,6 +63,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
+                android:layout_marginTop="16dp"
                 android:layout_height="wrap_content" 
                 >
 
@@ -71,7 +72,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="15dp"
-                    android:textColor="@color/txt_999"
+                    android:textColor="@color/new_app_main_color"
                     android:text="规定"
                     android:textSize="12sp" />
 
@@ -80,11 +81,10 @@
                     android:id="@+id/my_appoint_notsign"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/my_appoint_studied"
                     android:layout_marginRight="15dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@+id/my_appoint_studied"
                     android:text="购买"
-                    android:textColor="@color/txt_999"
+                    android:textColor="@color/new_button_color"
                     android:textSize="12sp" />
 
                 

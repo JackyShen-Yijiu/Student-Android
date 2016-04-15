@@ -52,7 +52,7 @@ public class MyAppointmentActivity extends BaseActivity implements
 	//
 	private StudentSubject subject = null;
 
-	private TextView tvLeft1, tvRight1, tvLeft2, tvRight2;
+	private TextView tvLeft1, tvRight2;
 
 	int flag = 0;
 
@@ -116,9 +116,7 @@ public class MyAppointmentActivity extends BaseActivity implements
 		subjectTextTv = (TextView) findViewById(R.id.my_appointment_subject_text_tv);
 
 		tvLeft1 = (TextView) findViewById(R.id.my_appoint_studied);
-		tvRight1 = (TextView) findViewById(R.id.my_appoint_really);
 		tvRight2 = (TextView) findViewById(R.id.my_appoint_last);
-		tvLeft2 = (TextView) findViewById(R.id.my_appoint_notsign);
 
 		String subjectId = app.userVO.getSubject().getSubjectid();
 		subjectValueTv.setText(subjectId);
@@ -131,12 +129,9 @@ public class MyAppointmentActivity extends BaseActivity implements
 		}
 		if (null != subject) {
 			tvLeft1.setText("已约学时" + subject.getFinishcourse() + "课时");
-			tvLeft2.setText("漏课" + subject.getReservation() + "课时");
 		} else {
 			tvLeft1.setVisibility(View.GONE);
-			tvLeft2.setVisibility(View.GONE);
 			tvRight2.setVisibility(View.GONE);
-			tvRight1.setVisibility(View.GONE);
 		}
 
 		appointmentList.setRefreshLoadMoreListener(this);
@@ -330,7 +325,6 @@ public class MyAppointmentActivity extends BaseActivity implements
 					// tempSubject.getFinishcourse();
 					tvLeft1.setText("已约学时" + tempSubject.getFinishcourse()
 							+ "课时");
-					tvLeft2.setText("漏课" + tempSubject.missingcourse + "课时");
 
 					if (tempSubject.getReservation()
 							+ tempSubject.getFinishcourse() >= tempSubject
