@@ -70,7 +70,7 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect,
 	public int chartId;
 	public int kemu;
 	/** 种类 0：练习 1：考试 2:错题 */
-	private int flag = 0;
+	public int flag = 0;
 
 	Handler handler = new Handler() {
 
@@ -165,6 +165,7 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect,
 			} else if (kemu == 4) {
 				dataExam = new ArrayList<ExerciseVO>(50);
 			}
+			beginTime = System.currentTimeMillis()+"";
 		} else if (flag == 0) {// 练习模式
 			tvTime.setVisibility(View.GONE);
 		} else if (flag == 2) {// 错题模式
@@ -335,9 +336,8 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect,
 			if (flag == 1) {// 模拟考试
 				Toast.makeText(this, "keydown-->", Toast.LENGTH_SHORT).show();
 				showDialogBack();
+				return false;
 			}
-
-			return false;
 		}
 		return super.onKeyDown(keyCode, event);
 	}
@@ -363,6 +363,56 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect,
 		TextView tvTitle = (TextView) view.findViewById(R.id.textView1);
 		TextView tvContent = (TextView) view.findViewById(R.id.textView2);
 		tvTitle.setText("退出模拟考试");
+		int last = 0;
+		if (flag == 1) {
+			last = 100 - right - wrong;
+		} else {// 科目四
+			last = 50 - right - wrong;
+		}
+		tvContent.setText("还有" + last + "道题目没做呢，确定要退出模拟考试吗?");
+		view.setFocusable(true);
+		view.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				pop.dismiss();
+			}
+		});
+		pop.setContentView(view);
+		view.findViewById(R.id.pay_ok).setOnClickListener(
+				new OnClickListener() {
+
+					@Override
+					public void onClick(View arg0) {
+						// 跳转
+						pop.dismiss();
+						finish();
+						// 退出支付流程,干掉之前的
+					}
+				});
+		view.findViewById(R.id.pay_cancel).setOnClickListener(
+				new OnClickListener() {
+
+					@Override
+					public void onClick(View arg0) {
+						pop.dismiss();
+					}
+				});
+		pop.showAtLocation(this.getWindow().getDecorView(), Gravity.CENTER, 0,
+				0);
+	}
+	
+	/**
+	 *考试时间到
+	 */
+	private void showDialogTimeOut() {
+		final PopupWindow pop = new PopupWindow(this);
+		pop.setHeight(LayoutParams.MATCH_PARENT);
+		pop.setWidth(LayoutParams.MATCH_PARENT);
+		View view = View.inflate(this, R.layout.pop_back, null);
+		TextView tvTitle = (TextView) view.findViewById(R.id.textView1);
+		TextView tvContent = (TextView) view.findViewById(R.id.textView2);
+		tvTitle.setText("模拟考试时间到");
 		int last = 0;
 		if (flag == 1) {
 			last = 100 - right - wrong;
@@ -478,6 +528,7 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect,
 	private void handler() {
 		if (minute == 0) {
 			if (second == 0) {
+				
 				tvTime.setText("Time out !");
 				if (timer != null) {
 					timer.cancel();
@@ -486,6 +537,7 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect,
 				if (timerTask != null) {
 					timerTask = null;
 				}
+				showDialogTimeOut();
 			} else {
 				second--;
 				if (second >= 10) {
@@ -546,11 +598,28 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect,
 	 * @param endTime
 	 * @param score
 	 */
-	private void requestExam(String beginTime, String endTime, int score) {
+	public void requestExam() {
 		BlackCatApplication app = BlackCatApplication.getInstance();
+		//如果不登录 ，不需要请求
+		if(!app.isLogin){
+			return;
+		}
+		//如果成绩不合格不需要请求
+		int score = 0; 
+		if(kemu == 1){
+			score = right;
+		}else{
+			score = right *2;
+		}
+		if(score<90){//成绩不合格
+			return ;
+		}
+		LogUtil.print("request--Exam>>"+score);
+		String endTime = System.currentTimeMillis()+"";
+		
+		
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("userid", app.userVO.getUserid());
-
 		paramMap.put("begintime", beginTime);
 		paramMap.put("endtime", endTime);// school.getSchoolid()
 		paramMap.put("score", String.valueOf(score));// classId.getCalssid()
@@ -563,6 +632,12 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect,
 						+ "api/v1/userinfo/userapplyschool", paramMap, 10000,
 						headerMap);
 	}
+	
+	/**
+	 * 考试开始
+	 */
+	private String beginTime = "";
+
 
 	@Override
 	public boolean doCallBack(String arg0, Object arg1) {
