@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.json.JSONObject;
-
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
 import android.app.AlertDialog;
@@ -119,33 +117,39 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 	
 
 	
-	void addShortcutToDesktop(){
-		 
+	
+
+	void addShortcutToDesktop() {
+
 		Intent shortcut = new Intent(Intent.ACTION_INSTALL_PACKAGE);
- 
+
 		BitmapDrawable iconBitmapDrawabel = null;
- 
+
 		// 获取应用基本信息
 		String label = this.getPackageName();
 		PackageManager packageManager = getPackageManager();
 		try {
-			iconBitmapDrawabel = (BitmapDrawable) packageManager.getApplicationIcon(label);
+			iconBitmapDrawabel = (BitmapDrawable) packageManager
+					.getApplicationIcon(label);
 		} catch (NameNotFoundException e) {
 			e.printStackTrace();
 		}
-		Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.icon_bus);
- 
+		Bitmap b = BitmapFactory.decodeResource(getResources(),
+				R.drawable.icon_bus);
+
 		// 设置属性
 		shortcut.putExtra(Intent.EXTRA_SHORTCUT_NAME, "abcd");
 		shortcut.putExtra(Intent.EXTRA_SHORTCUT_ICON, b);
- 
+
 		// 是否允许重复创建 -- fase-->否
-		shortcut.putExtra("duplicate", true); 
- 
+		shortcut.putExtra("duplicate", true);
+
 		// 设置启动程序
-		ComponentName comp = new ComponentName(label,"." + this.getLocalClassName());
-		shortcut.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(Intent.ACTION_MAIN).setComponent(comp));
- 
+		ComponentName comp = new ComponentName(label, "."
+				+ this.getLocalClassName());
+		shortcut.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(
+				Intent.ACTION_MAIN).setComponent(comp));
+
 		sendBroadcast(shortcut);
 		LogUtil.print("welcome-->");
 		Toast("welcome");
@@ -174,7 +178,7 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 		boolean isFirstOpen = SharedPreferencesUtil.getBoolean(
 				getApplicationContext(), IS_APP_FIRST_OPEN, true);
 		LogUtil.print("account-->111");
-		
+
 		if (isFirstOpen) {
 			new Handler().postDelayed(new Runnable() {
 
@@ -192,59 +196,60 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 
 			String lastLoginAccount = util.readParam(Config.LAST_LOGIN_ACCOUNT);
 			String password = util.readParam(Config.LAST_LOGIN_PASSWORD);
-			LogUtil.print("account-->"+lastLoginAccount+"password-->"+password);
-			
+			LogUtil.print("account-->" + lastLoginAccount + "password-->"
+					+ password);
+
 			if (!TextUtils.isEmpty(lastLoginAccount)
 					&& !TextUtils.isEmpty(password)) {
 				AnalyticsConfig.setAppkey(this, Config.UMENG_APPKEY);
 				AnalyticsConfig.setChannel(Config.UMENG_CHANNELID);
 				login(lastLoginAccount, password);
 
-//				util.readParam(Config.LAST_LOGIN_MESSAGE);
-//				try {
-//
-//					String temp = util.readParam(Config.LAST_LOGIN_MESSAGE);
-//					// LogUtil.print("msggggggggggggggg22222" + temp);
-//					if (temp == null) {
-//						app.isLogin = false;
-//					} else {
-//
-//						jsonObject = new JSONObject(temp);
-//						if (jsonObject != null) {
-//							String type = jsonObject.getString("type");
-//
-//							String msg = jsonObject.getString("msg");
-//
-//							JSONObject data = jsonObject.getJSONObject("data");
-//							if (type.equals("1")) {
-//								app.isLogin = true;
-//								app.userVO = JSONUtil.toJavaBean(UserVO.class,
-//										data);
-//								LogUtil.print("msggggggggggggggg" + app.isLogin);
-//							} else {//
-//								Intent intent = new Intent(
-//										WelcomeActivity.this,
-//										MainActivity.class);
-//								startActivity(intent);
-//								finish();
-//							}
-//						}
-//					}
-//
-//				} catch (Exception e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
+				// util.readParam(Config.LAST_LOGIN_MESSAGE);
+				// try {
+				//
+				// String temp = util.readParam(Config.LAST_LOGIN_MESSAGE);
+				// // LogUtil.print("msggggggggggggggg22222" + temp);
+				// if (temp == null) {
+				// app.isLogin = false;
+				// } else {
+				//
+				// jsonObject = new JSONObject(temp);
+				// if (jsonObject != null) {
+				// String type = jsonObject.getString("type");
+				//
+				// String msg = jsonObject.getString("msg");
+				//
+				// JSONObject data = jsonObject.getJSONObject("data");
+				// if (type.equals("1")) {
+				// app.isLogin = true;
+				// app.userVO = JSONUtil.toJavaBean(UserVO.class,
+				// data);
+				// LogUtil.print("msggggggggggggggg" + app.isLogin);
+				// } else {//
+				// Intent intent = new Intent(
+				// WelcomeActivity.this,
+				// MainActivity.class);
+				// startActivity(intent);
+				// finish();
+				// }
+				// }
+				// }
+				//
+				// } catch (Exception e) {
+				// // TODO Auto-generated catch block
+				// e.printStackTrace();
+				// }
 
-//				handler = new MyHandler(2000) {
-//					@Override
-//					public void run() {
-//						Intent intent = new Intent(WelcomeActivity.this,
-//								MainActivity.class);
-//						startActivity(intent);
-//						finish();
-//					}
-//				};
+				// handler = new MyHandler(2000) {
+				// @Override
+				// public void run() {
+				// Intent intent = new Intent(WelcomeActivity.this,
+				// MainActivity.class);
+				// startActivity(intent);
+				// finish();
+				// }
+				// };
 			} else {
 				handler = new MyHandler(2000) {
 					@Override
@@ -363,7 +368,7 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 				VersionVO versionVO = JSONUtil
 						.toJavaBean(VersionVO.class, data);
 				app.versionVO = versionVO;
-				
+
 				obtainQiNiuToken();
 			} catch (Exception e) {
 				ZProgressHUD.getInstance(this).show();
@@ -387,9 +392,9 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 		}
 		return true;
 	}
-	
-	private void update(final VersionVO vo,final Intent i){
-		if(vo.innerversionCode > BaseUtils.getVersionCode(null)){//去更新
+
+	private void update(final VersionVO vo, final Intent i) {
+		if (vo.innerversionCode > BaseUtils.getVersionCode(null)) {// 去更新
 
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setTitle("发现新版本");
@@ -415,23 +420,23 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 					});
 			Dialog dialog = builder.create();
 			dialog.show();
-			
-		}else{//已经是最新版
-//			Toast("已经是最新版！");
+
+		} else {// 已经是最新版
+			// Toast("已经是最新版！");
 		}
-		
+
 	}
-	
-	private void toDownLoad(String url){
-		if(url==null){
+
+	private void toDownLoad(String url) {
+		if (url == null) {
 			Toast("下载地址错误，请在应用市场更新");
 			return;
 		}
-		Intent intent = new Intent();       
-        intent.setAction("android.intent.action.VIEW");   
-        Uri content_url = Uri.parse(url);  
-        intent.setData(content_url); 
-        startActivity(intent);
+		Intent intent = new Intent();
+		intent.setAction("android.intent.action.VIEW");
+		Uri content_url = Uri.parse(url);
+		intent.setData(content_url);
+		startActivity(intent);
 	}
 
 	@Override
@@ -465,11 +470,11 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 		if (result) {
 			if (isMyServiceRunning()) {
 				app.isLogin = true;
-					
+
 				Intent intent = new Intent(this, MainActivity.class);
-				update(app.versionVO,intent);
-//				startActivity(intent);
-//				finish();
+				update(app.versionVO, intent);
+				// startActivity(intent);
+				// finish();
 			} else {
 				showDialog(this);
 			}
@@ -485,12 +490,12 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 			new MyHandler(1000) {
 				@Override
 				public void run() {
-					
+
 					Intent intent = new Intent(WelcomeActivity.this,
 							NewLoginActivity.class);
-					update(app.versionVO,intent);
-//					startActivity(intent);
-//					finish();
+					update(app.versionVO, intent);
+					// startActivity(intent);
+					// finish();
 				}
 			};
 		}

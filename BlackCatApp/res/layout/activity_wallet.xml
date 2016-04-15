@@ -83,6 +83,7 @@
            android:id="@+id/rl_record"
            android:layout_width="match_parent"
            android:background="#e8e8ed"
+           android:clickable="true"
            android:layout_height="36dp">
            <TextView 
                android:layout_width="wrap_content"

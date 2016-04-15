@@ -8,7 +8,6 @@ import java.util.Map;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -54,8 +53,6 @@ public class Walletintegral extends BaseActivity {
 	private String producttype;
 	private WalletActivity parentActivity;
 
-	private ImageView error_iv;
-
 	private RelativeLayout error_rl;
 
 	private TextView error_tv;
@@ -81,7 +78,6 @@ public class Walletintegral extends BaseActivity {
 
 	private void initView() {
 
-		error_iv = (ImageView) findViewById(R.id.error_iv);
 		error_rl = (RelativeLayout) findViewById(R.id.error_rl);
 		error_tv = (TextView) findViewById(R.id.error_tv);
 
@@ -90,8 +86,6 @@ public class Walletintegral extends BaseActivity {
 		incomeList = (ListView) findViewById(R.id.my_wallet_listview);
 
 		invitCodeTv = (TextView) findViewById(R.id.my_wallet_invit_code_tv);
-
-		error_iv = (ImageView) findViewById(R.id.error_iv);
 
 	}
 
@@ -157,7 +151,6 @@ public class Walletintegral extends BaseActivity {
 					}
 					if (dataList.size() == 0) {
 						error_rl.setVisibility(View.VISIBLE);
-						error_iv.setImageResource(R.drawable.image_jifen);
 						incomeList.setVisibility(View.GONE);
 						error_tv.setText("您还没有奖励积分");
 					}

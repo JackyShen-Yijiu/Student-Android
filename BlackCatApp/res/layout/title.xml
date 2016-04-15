@@ -45,6 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text=""
+            android:maxEms="8"
             android:textColor="#fefefe"
             android:textSize="18dp"
             android:textStyle="bold" />

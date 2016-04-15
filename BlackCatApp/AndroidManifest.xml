@@ -97,6 +97,10 @@
         <activity
             android:name="com.sft.blackcatapp.GuideActivity"
             android:screenOrientation="portrait" />
+         <activity
+            android:name="com.sft.blackcatapp.MoneyRecord"
+            android:screenOrientation="portrait" />
+        
         <activity
             android:name="com.sft.blackcatapp.LoginActivity"
             android:screenOrientation="portrait"
