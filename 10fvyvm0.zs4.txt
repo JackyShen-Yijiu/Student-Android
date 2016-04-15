@@ -1,0 +1,42 @@
+﻿Merge branch 'jzstudent' of https://github.com/JackyShen-Yijiu/Student-Android into jzstudent
+
+Conflicts:
+	BlackCatApp/src/com/sft/blackcatapp/ExerciseOrderAct.java
+	BlackCatApp/src/com/sft/fragment/ExciseFragment.java
+#
+# It looks like you may be committing a merge.
+# If this is not correct, please remove the file
+#	.git/MERGE_HEAD
+# and try again.
+
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch jzstudent
+# Your branch and 'origin/jzstudent' have diverged,
+# and have 1 and 4 different commits each, respectively.
+#   (use "git pull" to merge the remote branch into yours)
+#
+# All conflicts fixed but you are still merging.
+#
+# Changes to be committed:
+#	modified:   BlackCatApp/AndroidManifest.xml
+#	modified:   BlackCatApp/assets/ggtkFile.zip
+#	modified:   BlackCatApp/res/layout/act_exercise_order.xml
+#	modified:   BlackCatApp/res/layout/activity_walletcoupons.xml
+#	modified:   BlackCatApp/res/layout/mywallet_item_list.xml
+#	new file:   BlackCatApp/res/layout/record_item.xml
+#	modified:   BlackCatApp/src/com/sft/adapter/CupontAdapter.java
+#	modified:   BlackCatApp/src/com/sft/adapter/DuihuanjuanAdapter.java
+#	modified:   BlackCatApp/src/com/sft/adapter/IncomeListAdapter.java
+#	new file:   BlackCatApp/src/com/sft/adapter/RecordAdapter.java
+#	modified:   BlackCatApp/src/com/sft/blackcatapp/ExerciseOrderAct.java
+#	modified:   BlackCatApp/src/com/sft/blackcatapp/MyOrderActivity.java
+#	modified:   BlackCatApp/src/com/sft/blackcatapp/OrderApplyAct.java
+#	modified:   BlackCatApp/src/com/sft/blackcatapp/RecordActivity.java
+#	modified:   BlackCatApp/src/com/sft/blackcatapp/SettingActivity.java
+#	modified:   BlackCatApp/src/com/sft/fragment/ExciseFragment.java
+#	modified:   BlackCatApp/src/com/sft/jieya/UnZipUtils.java
+#	modified:   BlackCatApp/src/com/sft/vo/MyCuponVO.java
+#
+

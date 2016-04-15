@@ -4,8 +4,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.Timer;
@@ -20,13 +22,17 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.LinearLayout.LayoutParams;
+import cn.sft.baseactivity.util.HttpSendUtils;
+import cn.sft.listener.ICallBack;
 
 import com.jzjf.app.R;
 import com.sft.adapter.ExerciseAdapter;
+import com.sft.common.BlackCatApplication;
+import com.sft.common.Config;
 import com.sft.fragment.ExciseFragment;
 import com.sft.fragment.ExciseFragment.doConnect;
 import com.sft.jieya.UnZipUtils;
@@ -42,7 +48,8 @@ import com.sft.vo.questionbank.web_note;
  * @author pengdonghua
  * 
  */
-public class ExerciseOrderAct extends BaseFragmentAct implements doConnect {
+public class ExerciseOrderAct extends BaseFragmentAct implements doConnect,
+		ICallBack {
 
 	private final static int DATA_SIZE = 50;
 
@@ -54,39 +61,38 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect {
 
 	/** 缓存数据 */
 	private List<ExerciseVO> data1 = null;
-	
+
 	private List<ExerciseVO> dataExam = null;
-	
 
 	static int minute = -1;
 	static int second = -1;
-	/**章节id*/
+	/** 章节id */
 	public int chartId;
 	public int kemu;
-	/**种类  0：练习     1：考试   2:错题*/
+	/** 种类 0：练习 1：考试 2:错题 */
 	private int flag = 0;
 
- 	Handler handler = new Handler() {
+	Handler handler = new Handler() {
 
 		@Override
 		public void handleMessage(Message msg) {
 			if (msg.arg1 == 1) {// 倒计时
 				handler();
 			} else {
-				
-				if(flag == 1){//考试
+
+				if (flag == 1) {// 考试
 					adapter = new ExerciseAdapter(getSupportFragmentManager(),
 							dataExam);
 					tvTotal.setText("1/" + dataExam.size());
-				}else{
+				} else {
 					adapter = new ExerciseAdapter(getSupportFragmentManager(),
 							data1);
 					tvTotal.setText("1/" + data1.size());
 				}
 				// 刷新 显示
-//				LogUtil.print("size--->" + dataExam.size());
+				// LogUtil.print("size--->" + dataExam.size());
 				viewpager.setAdapter(adapter);
-				
+
 			}
 
 		}
@@ -97,9 +103,10 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.act_exercise_order);
+		initView();
 		initData();
 		// getData();
-		initView();
+
 		unzip();
 		Exam();
 	}
@@ -116,10 +123,17 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect {
 
 			@Override
 			public void onPageSelected(int arg0) {
-				tvTotal.setText((arg0 + 1) + "/" + data1.size());
+
+				if (flag == 1) {// 考试
+					tvTotal.setText((arg0 + 1) + "/" + dataExam.size());
+				} else {
+					tvTotal.setText((arg0 + 1) + "/" + data1.size());
+				}
+
 				ExciseFragment t = adapter.getByTag(arg0 + "");
 				if (t != null)
 					t.playVideo();
+
 			}
 
 			@Override
@@ -134,65 +148,70 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect {
 
 			}
 		});
+
 	}
 
 	private void initData() {
 		data1 = new ArrayList<ExerciseVO>();
-		
+
 		flag = getIntent().getIntExtra("flag", 0);
-		//练习模式
-		chartId = getIntent().getIntExtra("id",0);
-		kemu = getIntent().getIntExtra("subjectid",1);
-		if(flag == 1){//考试模式
-			if(kemu == 1){
-				dataExam  = new ArrayList<ExerciseVO>(100);
-			}else if(kemu == 4){
-				dataExam  = new ArrayList<ExerciseVO>(50);
+		// 练习模式
+		chartId = getIntent().getIntExtra("id", 0);
+		kemu = getIntent().getIntExtra("subjectid", 1);
+		if (flag == 1) {// 考试模式
+			tvTime.setVisibility(View.VISIBLE);
+			if (kemu == 1) {
+				dataExam = new ArrayList<ExerciseVO>(100);
+			} else if (kemu == 4) {
+				dataExam = new ArrayList<ExerciseVO>(50);
 			}
-		}else if(flag == 0){//练习模式
-			
+		} else if (flag == 0) {// 练习模式
+			tvTime.setVisibility(View.GONE);
+		} else if (flag == 2) {// 错题模式
+			tvTime.setVisibility(View.GONE);
+
 		}
-		
-		//考试模式
+
+		// 考试模式
 		new Thread() {
 
 			@Override
 			public void run() {
 				List<web_note> d = null;
-				switch(flag){
-				case 0://练习模式
-					if(kemu == 1){
-						d = Util.getSubjectOneQuestionWithChapter("0"+chartId);
-					}else{
-						d = Util.getSubjectFourQuestionWithChapter("0"+chartId);
+				switch (flag) {
+				case 0:// 练习模式
+					if (kemu == 1) {
+						d = Util.getSubjectOneQuestionWithChapter("0" + chartId);
+					} else {
+						d = Util.getSubjectFourQuestionWithChapter("0"
+								+ chartId);
 					}
 					data1 = doData(d);
 					break;
-				case 1://考试模式
-					if(kemu == 1){
+				case 1:// 考试模式
+					if (kemu == 1) {
 						d = Util.getAllSubjectOneBank();
-					}else{
+					} else {
 						d = Util.getAllSubjectFourBank();
 					}
-					LogUtil.print("Kaoshi--->"+d.size());
+					LogUtil.print("Kaoshi--->" + d.size());
 					data1 = doData(d);
-					LogUtil.print("Kaoshi---1111>"+data1.size());
+					LogUtil.print("Kaoshi---1111>" + data1.size());
 					getRandWeb(data1, kemu);
-					LogUtil.print("Kaoshi---2222>"+dataExam.size());
-					
+					LogUtil.print("Kaoshi---2222>" + dataExam.size());
+
 					break;
-				case 2://错题模式
-					if(kemu == 1){
+				case 2:// 错题模式
+					if (kemu == 1) {
 						d = Util.getAllSubjectOneErrorQuestion();
-					}else{
+					} else {
 						d = Util.getAllSubjectFourErrorQuestion();
 					}
 					data1 = doData(d);
 					break;
 				}
-				LogUtil.print(data1.size() + "size---0123>"+chartId
-						);
-				
+				LogUtil.print(data1.size() + "size---0123>" + chartId);
+
 				handler.sendEmptyMessage(0);
 
 			}
@@ -218,12 +237,15 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect {
 		return data;
 	}
 
-	
-
 	public void onClick(View view) {
 		switch (view.getId()) {
 		case R.id.base_left_btn:// 干掉页面
-			finish();
+			if (flag == 1) {// 模拟考试
+				Toast.makeText(this, "keydown-->", Toast.LENGTH_SHORT).show();
+				showDialogBack();
+			} else {
+				finish();
+			}
 			break;
 		}
 	}
@@ -259,14 +281,19 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect {
 	 * 正确率
 	 */
 	private void setPercentage() {
-		tvPercentage.setText(((int) (100 * right / (right + wrong))) + "%");
+		tvPercentage.setText((100 * right / (right + wrong)) + "%");
 	}
 
 	private void unzip() {
 		UnZipUtils zip = new UnZipUtils();
 		File f = new File(zip.targetPath);
-		if (f.exists())
+		if (f.exists()) {
+			LogUtil.print(zip.targetPath + "video--copy--fhdht>snvjsdl");
 			return;
+		} else {
+			zip.createDir();
+		}
+
 		zip.CopyFileThread(this, UnZipUtils.assertName, UnZipUtils.targetPath,
 				new Handler() {
 
@@ -301,32 +328,34 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect {
 
 				});
 	}
-	
-	
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if(keyCode == KeyEvent.KEYCODE_BACK){
-			Toast.makeText(this, "keydown-->", Toast.LENGTH_SHORT).show();
-			showDialogBack(50);
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			if (flag == 1) {// 模拟考试
+				Toast.makeText(this, "keydown-->", Toast.LENGTH_SHORT).show();
+				showDialogBack();
+			}
+
 			return false;
 		}
 		return super.onKeyDown(keyCode, event);
 	}
 
-
-
-	private int right = 0;
-	private int wrong = 0;
+	public int right = 0;
+	public int wrong = 0;
 
 	@Override
 	public void do1() {
 	}
-	
+
+	// private void getRandWeb(List<ExerciseVO> list, int type) {
+	// =======
+
 	/**
 	 * 中途退出
 	 */
-	private void showDialogBack(int last){
+	private void showDialogBack() {
 		final PopupWindow pop = new PopupWindow(this);
 		pop.setHeight(LayoutParams.MATCH_PARENT);
 		pop.setWidth(LayoutParams.MATCH_PARENT);
@@ -334,7 +363,13 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect {
 		TextView tvTitle = (TextView) view.findViewById(R.id.textView1);
 		TextView tvContent = (TextView) view.findViewById(R.id.textView2);
 		tvTitle.setText("退出模拟考试");
-		tvContent.setText("还有"+last+"道题目没做呢，确定要退出模拟考试吗?");
+		int last = 0;
+		if (flag == 1) {
+			last = 100 - right - wrong;
+		} else {// 科目四
+			last = 50 - right - wrong;
+		}
+		tvContent.setText("还有" + last + "道题目没做呢，确定要退出模拟考试吗?");
 		view.setFocusable(true);
 		view.setOnClickListener(new OnClickListener() {
 
@@ -363,97 +398,54 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect {
 						pop.dismiss();
 					}
 				});
-		pop.showAtLocation(this.getWindow().getDecorView(), Gravity.CENTER, 0, 0);
+		pop.showAtLocation(this.getWindow().getDecorView(), Gravity.CENTER, 0,
+				0);
 	}
-	
+
 	/**
-	 * 考试结束,未通过
-	 */
-	private void showDialogFinish(){
-		final PopupWindow pop = new PopupWindow(this);
-		pop.setHeight(LayoutParams.MATCH_PARENT);
-		pop.setWidth(LayoutParams.MATCH_PARENT);
-		View view = View.inflate(this, R.layout.pop_back, null);
-		TextView tvTitle = (TextView) view.findViewById(R.id.textView1);
-		TextView tvContent = (TextView) view.findViewById(R.id.textView2);
-		tvTitle.setText("考试不通过");
-		tvContent.setText("非常抱歉，您已经答错了十一道题目，模拟考试未通过，请再接再厉!");
-		view.findViewById(R.id.pay_cancel).setVisibility(View.GONE);
-		view.setFocusable(true);
-		view.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				pop.dismiss();
-			}
-		});
-		pop.setContentView(view);
-		view.findViewById(R.id.pay_ok).setOnClickListener(
-				new OnClickListener() {
-
-					@Override
-					public void onClick(View arg0) {
-						// 跳转
-						pop.dismiss();
-						finish();
-						// 退出支付流程,干掉之前的
-					}
-				});
-		view.findViewById(R.id.pay_cancel).setOnClickListener(
-				new OnClickListener() {
-
-					@Override
-					public void onClick(View arg0) {
-						pop.dismiss();
-					}
-				});
-		pop.showAtLocation(this.getWindow().getDecorView(), Gravity.CENTER, 0, 0);
-	}
-	
-	
-	/**
-	 * 获取指定 数量 的  题目
+	 * 获取指定 数量 的 题目
+	 * 
 	 * @param list
 	 * @param type
 	 */
-	private void getRandWeb(List<ExerciseVO> list,int type){
+	private void getRandWeb(List<ExerciseVO> list, int type) {
 		Integer[] result = null;
-		if(type==1){
+		if (type == 1) {
 			result = getRandomInt(list.size(), 100);
-			for(int i=0;i<100;i++){
+
+			for (int i = 0; i < 100; i++) {
 				dataExam.add(i, list.get(result[i]));
 			}
-		}else{
+		} else {
 			result = getRandomInt(list.size(), 50);
-			for(int i=0;i<50;i++){
+			for (int i = 0; i < 50; i++) {
 				dataExam.add(i, list.get(result[i]));
 			}
 		}
-		
-		
+
 	}
-	
+
 	/**
 	 * 获取随机数
 	 */
-	private Integer[] getRandomInt(int max,int lenght){
+	private Integer[] getRandomInt(int max, int lenght) {
 		int[] num = new int[lenght];
 		for (int i = 0; i < lenght; i++) {
 			num[i] = i;
 		}
-		Integer[] result = getRandomNum(num, lenght,max);
+		Integer[] result = getRandomNum(num, lenght, max);
 		System.out.println(Arrays.toString(result));
 		return result;
 	}
-	
-	private Integer[] getRandomNum(int[] num, int n,int max) {
+
+	private Integer[] getRandomNum(int[] num, int n, int max) {
 		Set<Integer> sets = new HashSet<Integer>();
 		Random random = new Random();
 		while (sets.size() < n) {
 			sets.add(random.nextInt(max));
 		}
 
-	return sets.toArray(new Integer[n]);
+		return sets.toArray(new Integer[n]);
 
 	}
 
@@ -528,6 +520,66 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect {
 				}
 			}
 		}
+	}
+
+	/**
+	 * 是否结束
+	 * 
+	 * @return
+	 */
+	public boolean isEnd() {
+		if (kemu == 1) {
+			if ((right + wrong) == 100)
+				return true;
+		} else {// 科目四
+			if ((right + wrong) == 50)
+				return true;
+		}
+		return false;
+
+	}
+
+	/**
+	 * 考试请求接口
+	 * 
+	 * @param beginTime
+	 * @param endTime
+	 * @param score
+	 */
+	private void requestExam(String beginTime, String endTime, int score) {
+		BlackCatApplication app = BlackCatApplication.getInstance();
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("userid", app.userVO.getUserid());
+
+		paramMap.put("begintime", beginTime);
+		paramMap.put("endtime", endTime);// school.getSchoolid()
+		paramMap.put("score", String.valueOf(score));// classId.getCalssid()
+		paramMap.put("subjectid", String.valueOf(kemu));// carStyle.toString()
+
+		Map<String, String> headerMap = new HashMap<String, String>();
+		headerMap.put("authorization", app.userVO.getToken());
+		HttpSendUtils
+				.httpPostSend("doScore", this, Config.IP
+						+ "api/v1/userinfo/userapplyschool", paramMap, 10000,
+						headerMap);
+	}
+
+	@Override
+	public boolean doCallBack(String arg0, Object arg1) {
+		LogUtil.print("docallback-->" + arg0 + arg1);
+		return false;
+	}
+
+	@Override
+	public void doException(String arg0, Exception arg1, int arg2) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void doTimeOut(String arg0) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

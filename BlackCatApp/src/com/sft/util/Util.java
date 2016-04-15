@@ -22,6 +22,7 @@ import com.sft.vo.CoachVO;
 import com.sft.vo.SchoolVO;
 import com.sft.vo.questionbank.TitleVO;
 import com.sft.vo.questionbank.error_book;
+import com.sft.vo.questionbank.score;
 import com.sft.vo.questionbank.web_note;
 
 @SuppressLint("SimpleDateFormat")
@@ -418,6 +419,9 @@ public class Util {
 	public static void insertErrorBank(error_book error) {
 		SQLiteDatabase db = DataBaseUtil.openDatabase(BlackCatApplication
 				.getInstance());
+		// 插入之前先删除
+		db.execSQL("delete from error_book where webnoteid ="
+				+ error.getWebnoteid());
 		db.execSQL("INSERT INTO error_book VALUES (NULL, ?, ?,?,?)",
 				new Object[] { error.getChapterid(), error.getWebnoteid(),
 						error.getUserid(), error.getKemu() });
@@ -436,6 +440,27 @@ public class Util {
 
 	}
 
+	/** 插入分数 */
+	public static void insertScore(score s) {
+		SQLiteDatabase db = DataBaseUtil.openDatabase(BlackCatApplication
+				.getInstance());
+		db.execSQL(
+				"INSERT INTO score VALUES (NULL, ?,?,?,?,?)",
+				new Object[] { s.getKemu(), s.getChenji(), s.getUid(),
+						s.getUsetime(), s.getRiqi() });
+		db.close();
+
+	}
+
+	/** 删除错题 */
+	public static void deleteErrorBook(error_book error) {
+		SQLiteDatabase db = DataBaseUtil.openDatabase(BlackCatApplication
+				.getInstance());
+		// 插入之前先删除
+		db.execSQL("delete from error_book where id =" + error.getId());
+		db.close();
+	}
+
 	/**
 	 * 查询科目一所有的错题
 	 * 
@@ -445,9 +470,10 @@ public class Util {
 		SQLiteDatabase db = DataBaseUtil.openDatabase(BlackCatApplication
 				.getInstance());
 		String sql = "select * from web_note w, error_book e where e.kemu=? and w.kemu=? and e.webnoteid = w.id";
-//		String sql = "select w.* from web_note w error_book e where kemu=? and e.webnoteid = w.id";
+		// String sql =
+		// "select w.* from web_note w error_book e where kemu=? and e.webnoteid = w.id";
 		List<web_note> list = DataBaseUtil.getArrays(db, web_note.class, sql,
-				new String[] { "1","1" });
+				new String[] { "1", "1" });
 		db.close();
 		return list;
 	}

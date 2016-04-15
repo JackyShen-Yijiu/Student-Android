@@ -17,48 +17,30 @@
             android:onClick="onClick"
             android:background="@null"
             android:contentDescription="@string/app_name" />
-
-        <TextView
-            android:id="@+id/act_exercise_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:textSize="@dimen/txt_size_small"
-            android:drawableTop="@drawable/ic_study_time"
-            android:layout_marginRight="@dimen/margin_16"
-            android:drawablePadding="@dimen/padding_4"
-            android:textColor="@color/white"
-            android:text="30:00" />
-
-        <TextView
-            android:id="@+id/act_exercise_percentage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/act_exercise_time"
-            android:drawableTop="@drawable/ic_study_percentage"
-            android:layout_marginRight="@dimen/margin_16"
-            android:drawablePadding="@dimen/padding_4"
-            android:text="0%"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="@dimen/txt_size_ss" />
         
-        <TextView
-            android:id="@+id/act_exercise_wrong"
+        <LinearLayout 
+            android:layout_width="wrap_content"
+        	android:layout_height="@dimen/actionBarSize"
+        	android:orientation="horizontal"
+        	android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            >
+            
+                <TextView
+            android:id="@+id/act_exercise_total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/act_exercise_percentage"
-            android:drawableTop="@drawable/ic_study_wrong"
+            android:layout_toLeftOf="@+id/act_exercise_right"
+            android:drawableTop="@drawable/ic_study_total"
             android:layout_marginRight="@dimen/margin_16"
             android:drawablePadding="@dimen/padding_4"
-            android:text="0"
-            android:gravity="center"
+            android:text="100/100"
             android:textColor="@color/white"
             android:textSize="@dimen/txt_size_ss" />
-        <TextView
+            
+            <TextView
             android:id="@+id/act_exercise_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -72,18 +54,56 @@
             android:textColor="@color/white"
             android:textSize="@dimen/txt_size_ss" />
         
-        <TextView
-            android:id="@+id/act_exercise_total"
+            
+            
+            <TextView
+            android:id="@+id/act_exercise_wrong"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/act_exercise_right"
-            android:drawableTop="@drawable/ic_study_total"
+            android:layout_toLeftOf="@+id/act_exercise_percentage"
+            android:drawableTop="@drawable/ic_study_wrong"
             android:layout_marginRight="@dimen/margin_16"
             android:drawablePadding="@dimen/padding_4"
-            android:text="100/100"
+            android:text="0"
+            android:gravity="center"
             android:textColor="@color/white"
             android:textSize="@dimen/txt_size_ss" />
+            
+            <TextView
+            android:id="@+id/act_exercise_percentage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/act_exercise_time"
+            android:drawableTop="@drawable/ic_study_percentage"
+            android:layout_marginRight="@dimen/margin_16"
+            android:drawablePadding="@dimen/padding_4"
+            android:text="0%"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/txt_size_ss" />
+            
+            <TextView
+            android:id="@+id/act_exercise_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            
+            android:textSize="@dimen/txt_size_small"
+            android:drawableTop="@drawable/ic_study_time"
+            android:layout_marginRight="@dimen/margin_16"
+            android:drawablePadding="@dimen/padding_4"
+            android:textColor="@color/white"
+            android:text="30:00" />
+        </LinearLayout>
+
+        
+
+        
+        
+        
+        
+    
     </RelativeLayout>
     
     <android.support.v4.view.ViewPager
