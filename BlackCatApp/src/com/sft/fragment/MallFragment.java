@@ -33,6 +33,7 @@ import com.sft.blackcatapp.OrderExchangeGoodAct;
 import com.sft.blackcatapp.ProductDetailActivity;
 import com.sft.common.Config;
 import com.sft.event.ProductExchangeSuccessEvent;
+import com.sft.util.BaseUtils;
 import com.sft.util.CommonUtil;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
@@ -123,9 +124,14 @@ public class MallFragment extends BaseFragment implements
 				.setOnClickListener(this);
 
 		//
-		if (app.currency != null) {
-			myIntegralTvTextView.setText(app.currency);
+		if (app.isLogin) {
+			if (app.currency != null) {
+				myIntegralTvTextView.setText(app.currency);
+			}
+		} else {
+			myIntegralTvTextView.setText("0");
 		}
+
 	}
 
 	@Override
@@ -236,7 +242,6 @@ public class MallFragment extends BaseFragment implements
 		JSONArray dataArray = null;
 		String dataString = null;
 		try {
-
 			JSONObject jsonObject = new JSONObject(new String(responseBody));
 			result = jsonObject.getString("type");
 			msg = jsonObject.getString("msg");
@@ -336,9 +341,14 @@ public class MallFragment extends BaseFragment implements
 		switch (v.getId()) {
 		case R.id.mall_header_exchange_record_btn:
 			// 兑换记录
-			Intent intent = new Intent(mContext, OrderExchangeGoodAct.class);
-			intent.putExtra("isexchangerecord", true);
-			startActivity(intent);
+			if (app.isLogin) {
+
+				Intent intent = new Intent(mContext, OrderExchangeGoodAct.class);
+				intent.putExtra("isexchangerecord", true);
+				startActivity(intent);
+			} else {
+				BaseUtils.toLogin(getActivity());
+			}
 			break;
 
 		default:

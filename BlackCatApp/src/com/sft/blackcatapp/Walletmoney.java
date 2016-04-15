@@ -76,7 +76,6 @@ public class Walletmoney extends BaseActivity {
 	}
 
 	private void initView() {
-
 		error_iv = (ImageView) findViewById(R.id.error_iv);
 		error_rl = (RelativeLayout) findViewById(R.id.error_rl);
 		error_tv = (TextView) findViewById(R.id.error_tv);

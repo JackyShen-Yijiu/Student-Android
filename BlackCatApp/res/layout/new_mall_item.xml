@@ -10,8 +10,8 @@
     android:layout_height="156dp"
     android:layout_alignParentTop="true"
     android:layout_centerHorizontal="true"
-    android:scaleType="fitXY"
-    android:src="@drawable/defaultimage" />
+    android:scaleType="fitXY" 
+    android:src="@drawable/shop_pic"/>
 
         <RelativeLayout 
             android:layout_width="156dp"

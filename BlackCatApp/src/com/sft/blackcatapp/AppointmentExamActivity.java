@@ -166,6 +166,13 @@ public class AppointmentExamActivity extends BaseActivity {
 			return false;
 		}
 
+		if (beginDate.after(endDate)) {
+
+			ZProgressHUD.getInstance(this).show();
+			ZProgressHUD.getInstance(this).dismissWithFailure("开始时间不能大于结束时间");
+			return false;
+		}
+
 		return true;
 	}
 
