@@ -39,32 +39,22 @@ public class MyScrollView extends ScrollView {
 		}
 	}
 
-	/**监听滑动位置*/
+	/** 监听滑动位置 */
 	@Override
 	protected void onScrollChanged(int l, int t, int oldl, int oldt) {
-		if(listener!=null)
+		if (listener != null)
 			listener.onScrollChanged(t, oldt);
 		super.onScrollChanged(l, t, oldl, oldt);
 	}
 
-//	@SuppressLint("NewApi") @Override
-//	public void onScreenStateChanged(int screenState) {
-//		// TODO Auto-generated method stub
-//		LogUtil.print("ScrollView---onScreenStateChanged"+screenState);
-//		super.onScreenStateChanged(screenState);
-//	}
-	
-	public interface scrollStateListener{
-		public void onScrollChanged(int t,int oldt);
+	public interface scrollStateListener {
+		public void onScrollChanged(int t, int oldt);
 	}
-	
-	public void setOnStateListener(scrollStateListener listener){
+
+	public void setOnStateListener(scrollStateListener listener) {
 		this.listener = listener;
 	}
-	
+
 	scrollStateListener listener;
-	
-	
-	
-	
+
 }

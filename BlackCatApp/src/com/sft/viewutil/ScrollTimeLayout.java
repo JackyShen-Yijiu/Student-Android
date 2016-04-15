@@ -5,19 +5,19 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.jzjf.app.R;
 import com.sft.dialog.CustomDialog;
 import com.sft.util.LogUtil;
 import com.sft.viewutil.AppointmentCarTimeLayout.TimeLayoutSelectedChangeListener;
 import com.sft.vo.CoachCourseV2VO;
 
-@SuppressLint("NewApi")
 public class ScrollTimeLayout extends LinearLayout implements
 		TimeLayoutSelectedChangeListener {
 
@@ -47,7 +47,7 @@ public class ScrollTimeLayout extends LinearLayout implements
 	private void init(Context context) {
 		this.context = context;
 		screenWidth = getResources().getDisplayMetrics().widthPixels;
-		setLayoutDirection(LinearLayout.VERTICAL);
+		// setLayoutDirection(LinearLayout.VERTICAL);
 		courseComp = new Comparator<Object>() {
 			@Override
 			public int compare(Object o1, Object o2) {
@@ -117,15 +117,17 @@ public class ScrollTimeLayout extends LinearLayout implements
 				LinearLayout.LayoutParams.MATCH_PARENT, (int) (screenWidth
 						/ aspect / 3), 1);
 
-		LinearLayout.LayoutParams rowParams = new LayoutParams(
-				LinearLayout.LayoutParams.MATCH_PARENT,
-				LinearLayout.LayoutParams.WRAP_CONTENT);
-		rowParams.setLayoutDirection(LinearLayout.HORIZONTAL);
+		// LinearLayout.LayoutParams rowParams = new LayoutParams(
+		// LinearLayout.LayoutParams.MATCH_PARENT,
+		// LinearLayout.LayoutParams.WRAP_CONTENT);
+		// rowParams.setLayoutDirection(LinearLayout.HORIZONTAL);
 
 		for (int i = 0; i < row - 1; i++) {
 			// 此时每行有column个
-			LinearLayout innerLayout = new LinearLayout(context);
-			addView(innerLayout, rowParams);
+			LinearLayout innerLayout = (LinearLayout) View.inflate(context,
+					R.layout.linearlayout, null);
+			// LinearLayout innerLayout = new LinearLayout(context);
+			addView(innerLayout);
 
 			for (int j = 0; j < column; j++) {
 				AppointmentCarTimeLayout timeLayout = new AppointmentCarTimeLayout(
@@ -146,9 +148,10 @@ public class ScrollTimeLayout extends LinearLayout implements
 			addView(devider, horitalDeviderParams);
 
 		}
-
-		LinearLayout innerLayout = new LinearLayout(context);
-		addView(innerLayout, rowParams);
+		// View.inflate(context, resource, root)
+		LinearLayout innerLayout = (LinearLayout) View.inflate(context,
+				R.layout.linearlayout, null);
+		addView(innerLayout);
 
 		lastConut = lastConut == 0 ? column : lastConut;
 		for (int i = 0; i < lastConut; i++) {

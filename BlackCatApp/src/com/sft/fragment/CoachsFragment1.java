@@ -7,7 +7,6 @@ import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -34,13 +33,13 @@ import android.widget.TextView.OnEditorActionListener;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
 import com.google.gson.reflect.TypeToken;
+import com.jzjf.app.R;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.sft.adapter.SchoolDetailCoachHoriListAdapter;
 import com.sft.api.ApiHttpClient;
 import com.sft.blackcatapp.ApplyActivity;
 import com.sft.blackcatapp.CoachDetailActivity;
-import com.jzjf.app.R;
 import com.sft.common.Config;
 import com.sft.listener.MOnScrollListener;
 import com.sft.util.JSONUtil;
@@ -59,7 +58,7 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener,
 	private List<OpenCityVO> openCityList;
 	private Context mContext;
 	private String currCity = null;
-	
+
 	private View headerView;
 	private EditText searchCoach;
 	private ImageView imgDelete;
@@ -250,7 +249,6 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener,
 				lastId = firstVisibleItem;
 			}
 
-			@SuppressLint("NewApi")
 			@Override
 			public void downPull() {
 				if (lastId == 0) {
@@ -270,8 +268,8 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener,
 		//
 		// }
 
-		headerView = View.inflate(getActivity(),
-				R.layout.search_coach_header, null);
+		headerView = View.inflate(getActivity(), R.layout.search_coach_header,
+				null);
 		//
 		coachListView.addHeaderView(headerView);
 		searchCoach = (EditText) headerView
@@ -589,15 +587,15 @@ public class CoachsFragment1 extends BaseFragment implements OnRefreshListener,
 			if (popupWindow != null) {
 				popupWindow.dismiss();
 			}
-			
+
 			break;
 		case R.id.header_delete:
-			if(searchCoach.getText().toString().length()>0){
+			if (searchCoach.getText().toString().length() > 0) {
 				searchCoach.setText("");
 				coachname = "";
 				searchcoach(true);
 			}
-			
+
 			break;
 		}
 

@@ -3,7 +3,6 @@ package com.sft.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -199,7 +198,6 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 		doVideo(param1.getWebnote().getVideo_url());
 	}
 
-	@SuppressLint("NewApi")
 	private void doImage(String name) {
 		if (null == name) {
 			img.setVisibility(View.GONE);

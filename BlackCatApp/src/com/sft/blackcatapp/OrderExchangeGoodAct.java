@@ -64,13 +64,15 @@ public class OrderExchangeGoodAct extends BaseActivity implements
 	}
 
 	private void initView() {
-		setTitleText("我的订单");
+
 		boolean hasActionBar = getIntent()
 				.getBooleanExtra("hasActionBar", true);
 		if (hasActionBar) {
 			setTitleBarVisible(View.VISIBLE);
+			setTitleText("兑换记录");
 		} else {
 			setTitleBarVisible(View.GONE);
+			setTitleText("我的订单");
 		}
 
 		error_iv = (ImageView) findViewById(R.id.error_iv);
