@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="30dp"
-    android:paddingBottom="30dp"
+    android:paddingTop="20dp"
+    android:paddingBottom="20dp"
     >
     
 <TextView 
@@ -26,6 +26,15 @@
     android:text=""
     android:textSize="14sp"
     android:layout_height="wrap_content"/>
+<TextView 
+    android:id="@+id/subject_number"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_toRightOf="@+id/section_title"
+    android:text=""
+    android:layout_marginLeft="6dp"
+    android:layout_centerVertical="true"
+    android:textSize="14sp"/>
 <ImageView 
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"

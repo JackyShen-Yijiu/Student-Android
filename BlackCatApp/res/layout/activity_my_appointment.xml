@@ -42,6 +42,7 @@
     <RelativeLayout 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:layout_marginLeft="33dp"
         >
         <TextView 
@@ -50,38 +51,22 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:text="已约25课时"
+            android:textColor="@color/new_app_main_color"
             android:id="@+id/my_appoint_studied"
             />
-        <TextView 
+      <TextView 
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginLeft="15dp"
             android:text="已约25课时"
-            android:layout_marginRight="15dp"
-            android:id="@+id/my_appoint_really"
-            />
-        
-        <TextView 
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_below="@+id/my_appoint_studied"
-            android:layout_marginLeft="15dp"
-            android:text="已约25课时"
-            android:layout_marginRight="15dp"
-            android:id="@+id/my_appoint_notsign"
-            />
-        
-        <TextView 
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="已约25课时"
-            android:layout_below="@+id/my_appoint_studied"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
+            android:layout_toRightOf="@+id/my_appoint_studied"
+           android:layout_marginLeft="15dp"
+           android:textColor="@color/new_button_color"
             android:id="@+id/my_appoint_last"
             />
+        
+        
+        
+      
         
     </RelativeLayout>
 
