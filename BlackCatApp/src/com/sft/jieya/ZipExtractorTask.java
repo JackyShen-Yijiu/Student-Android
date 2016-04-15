@@ -13,6 +13,8 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 
+import com.sft.util.LogUtil;
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -86,7 +88,7 @@ public class ZipExtractorTask extends AsyncTask<Void, Integer, Long> {
 					cancel(true);
 				}
 			});
-			mDialog.show();
+//			mDialog.show();
 		}
 	}
 
@@ -104,6 +106,7 @@ public class ZipExtractorTask extends AsyncTask<Void, Integer, Long> {
 	}
 
 	private long unzip() {
+		LogUtil.print("unZip-->");
 		long extractedSize = 0L;
 		Enumeration<ZipEntry> entries;
 		ZipFile zip = null;
@@ -174,7 +177,6 @@ public class ZipExtractorTask extends AsyncTask<Void, Integer, Long> {
 			}
 			out.flush();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			try {

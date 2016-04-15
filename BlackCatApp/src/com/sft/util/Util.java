@@ -458,7 +458,7 @@ public class Util {
 		SQLiteDatabase db = DataBaseUtil.openDatabase(BlackCatApplication
 				.getInstance());
 		// 插入之前先删除
-		db.execSQL("delete from error_book where id =" + error.getId());
+		db.execSQL("delete from error_book where webnoteid =" + error.getId());
 		LogUtil.print("delete-->from--id>>"+error.getId());
 		db.close();
 	}

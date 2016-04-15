@@ -77,7 +77,7 @@ public class UnZipUtils {
 	private void CopyFile(Context context, String assertName, String targetPath)
 			throws IOException {
 		// String path11 = "/storage/emulated/0/aa/test.zip";
-		LogUtil.print(assertName + "--copy-->" + targetPath);
+//		LogUtil.print(assertName + "--copy-->" + targetPath);
 		File file = new File(targetPath);
 		if (!file.exists()) {
 			file.createNewFile();
@@ -90,7 +90,6 @@ public class UnZipUtils {
 		while (true) {
 			count++;
 			int len = is.read(buffer);
-			LogUtil.print("copy-->" + count);
 			if (len == -1) {
 				break;
 			}
@@ -98,7 +97,6 @@ public class UnZipUtils {
 		}
 		is.close();
 		fos.close();
-		LogUtil.print("copy--end");
 	}
 
 	/**
@@ -110,8 +108,8 @@ public class UnZipUtils {
 	 * @throws IOException
 	 */
 	public void doZip(Context context, String localPath, String targetPath,
-			ZipCall call) throws IOException {
-
+			ZipCall call) throws Exception {
+		LogUtil.print("zip---unzip-start---->");
 		// Environment.getExternalStorageDirectory()
 
 		File f1 = new File(localPath);
@@ -122,25 +120,11 @@ public class UnZipUtils {
 		if (!f2.exists()) {
 			f2.mkdir();
 		}
-
+		
 		LogUtil.print("res-file--zip->>" + localPath);
 		LogUtil.print("target-path-zip->>" + targetPath);
 		ZipExtractorTask task = new ZipExtractorTask(localPath, targetPath,
 				context, true, call);
-		// new ZipCall() {
-		//
-		// @Override
-		// public void unzipSuccess() {
-		// // 解压成功
-		// LogUtil.print("zip->>成功");
-		// }
-		//
-		// @Override
-		// public void unzipFailed() {
-		// // 解压失败
-		// }
-		// });
-
 		task.execute();
 	}
 
