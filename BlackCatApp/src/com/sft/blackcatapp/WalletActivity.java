@@ -13,6 +13,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -153,7 +154,7 @@ public class WalletActivity extends BaseActivity {
 			startActivity(intent);
 			break;
 		case R.id.rl_record:
-			Intent intent1 = new Intent(this, MyOrderActivity.class);
+			Intent intent1 = new Intent(this, OrderExchangeGoodAct.class);
 			startActivity(intent1);
 			break;
 
@@ -182,6 +183,15 @@ public class WalletActivity extends BaseActivity {
 		public void onCheckedChanged(RadioGroup group, int checkedId) {
 			viewPager.setOnPageChangeListener(null);
 			if (checkedId == R.id.wallet_integral_btn) {
+				rl_record.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						Intent intent = new Intent(WalletActivity.this,
+								OrderExchangeGoodAct.class);
+						startActivity(intent);
+					}
+				});
 				viewPager.setCurrentItem(0);
 				setTabBkground(0);
 				tv_help.setVisibility(View.VISIBLE);
@@ -194,6 +204,15 @@ public class WalletActivity extends BaseActivity {
 				iv_integral.setImageResource(R.drawable.wallet_integral);
 				tv_code.setText(app.currency + "积分");
 			} else if (checkedId == R.id.wallet_coupons_btn) {
+				rl_record.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						Intent intent = new Intent(WalletActivity.this,
+								RecordActivity.class);
+						startActivity(intent);
+					}
+				});
 				viewPager.setCurrentItem(1);
 				setTabBkground(1);
 				tv_record.setText("使用记录");
@@ -202,6 +221,16 @@ public class WalletActivity extends BaseActivity {
 				wall_shop.setVisibility(View.GONE);
 				tv_code.setText(app.coupons + "张");
 			} else {
+
+				rl_record.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						Intent intent = new Intent(WalletActivity.this,
+								MoneyRecord.class);
+						startActivity(intent);
+					}
+				});
 				viewPager.setCurrentItem(2);
 				setTabBkground(2);
 				tv_help.setVisibility(View.GONE);
@@ -228,6 +257,15 @@ public class WalletActivity extends BaseActivity {
 			radioGroup.setOnCheckedChangeListener(null);
 
 			if (position == 0) {
+				rl_record.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						Intent intent = new Intent(WalletActivity.this,
+								OrderExchangeGoodAct.class);
+						startActivity(intent);
+					}
+				});
 				radioGroup.check(R.id.wallet_integral_btn);
 				tv_help.setVisibility(View.VISIBLE);
 				iv_integral.setImageResource(R.drawable.wallet_integral);
@@ -240,6 +278,15 @@ public class WalletActivity extends BaseActivity {
 				wall_shop.setEnabled(true);
 			}
 			if (position == 1) {
+				rl_record.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						Intent intent = new Intent(WalletActivity.this,
+								RecordActivity.class);
+						startActivity(intent);
+					}
+				});
 				radioGroup.check(R.id.wallet_coupons_btn);
 				iv_integral.setImageResource(R.drawable.wallet_ticket);
 				wall_shop.setVisibility(View.GONE);
@@ -248,6 +295,15 @@ public class WalletActivity extends BaseActivity {
 				tv_code.setText(app.coupons + "张");
 			}
 			if (position == 2) {
+				rl_record.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						Intent intent = new Intent(WalletActivity.this,
+								MoneyRecord.class);
+						startActivity(intent);
+					}
+				});
 				radioGroup.check(R.id.wallet_money_btn);
 				iv_integral.setImageResource(R.drawable.wallet_cash);
 				wall_shop.setVisibility(View.VISIBLE);

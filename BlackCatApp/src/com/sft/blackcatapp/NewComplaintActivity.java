@@ -215,7 +215,8 @@ public class NewComplaintActivity extends BaseActivity implements
 		if (!TextUtils.isEmpty(content.trim())) {
 			Map<String, String> paramMap = new HashMap<String, String>();
 			paramMap.put("userid", app.userVO.getUserid());
-
+			paramMap.put("coachid", app.userVO.getApplycoachinfo().getId());
+			paramMap.put("schoolid", app.userVO.getApplyschoolinfo().getId());
 			paramMap.put("feedbackmessage", content);
 
 			ConnectivityManager connectionManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
