@@ -88,7 +88,7 @@
         <item name="android:drawableBottom">@drawable/select_rg_wall</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">14dp</item>
-        <item name="android:textColor">@drawable/select_coach_radiobtn_textcolor</item>
+        <item name="android:textColor">@drawable/coach_detail_select_textcolor</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_weight">1</item>
         <item name="android:layout_height">@dimen/selectcoach_radiogroup_height</item>

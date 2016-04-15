@@ -49,8 +49,6 @@ public class Walletmoney extends BaseActivity {
 	private String producttype;
 	private WalletActivity parentActivity;
 
-	private ImageView error_iv;
-
 	private RelativeLayout error_rl;
 
 	private TextView error_tv;
@@ -76,7 +74,7 @@ public class Walletmoney extends BaseActivity {
 	}
 
 	private void initView() {
-		error_iv = (ImageView) findViewById(R.id.error_iv);
+		ImageView error_iv = (ImageView) findViewById(R.id.error_iv);
 		error_rl = (RelativeLayout) findViewById(R.id.error_rl);
 		error_tv = (TextView) findViewById(R.id.error_tv);
 
@@ -86,12 +84,8 @@ public class Walletmoney extends BaseActivity {
 
 		invitCodeTv = (TextView) findViewById(R.id.my_wallet_invit_code_tv);
 
-		error_iv = (ImageView) findViewById(R.id.error_iv);
-
-	}
-
-	private void setListener() {
 		inviteBtn.setOnClickListener(this);
+
 	}
 
 	private void changeMoneyType() {
@@ -148,7 +142,6 @@ public class Walletmoney extends BaseActivity {
 
 					if (amountInCashVO.getMoneylist().size() == 0) {
 						error_rl.setVisibility(View.VISIBLE);
-						error_iv.setImageResource(R.drawable.image_xianjin);
 						incomeList.setVisibility(View.GONE);
 						error_tv.setText("您还没有可领取的现金额度");
 					}

@@ -47,7 +47,7 @@ public class CallBackActivity extends BaseActivity {
 		setTitleText(R.string.callback);
 
 		showTitlebarText(BaseActivity.SHOW_RIGHT_TEXT);
-		setText(0, R.string.save);
+		setText(0, R.string.comit);
 
 		et = (EditText) findViewById(R.id.consultation_ask_et);
 

@@ -13,12 +13,14 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.sft.infinitescrollviewpager.MyHandler;
 
@@ -38,6 +40,8 @@ public class WalletActivity extends BaseActivity {
 	public TextView tv_code;
 	private ImageView iv_integral;
 	private Button wall_shop;
+	private TextView tv_record;
+	private RelativeLayout rl_record;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -86,8 +90,12 @@ public class WalletActivity extends BaseActivity {
 		iv_integral = (ImageView) findViewById(R.id.iv_integral);
 		wall_shop = (Button) findViewById(R.id.wall_shop);
 
+		tv_record = (TextView) findViewById(R.id.tv_record);
+
 		tv_help = (TextView) findViewById(R.id.tv_help);
 		tv_code = (TextView) findViewById(R.id.tv_code);
+
+		rl_record = (RelativeLayout) findViewById(R.id.rl_record);
 
 		if (!app.isLogin) {
 			BaseUtils.toLogin(WalletActivity.this);
@@ -103,6 +111,7 @@ public class WalletActivity extends BaseActivity {
 		viewPager.setOnPageChangeListener(new MyPageChangeListener());
 		wall_shop.setOnClickListener(this);
 		tv_help.setOnClickListener(this);
+		rl_record.setOnClickListener(this);
 	}
 
 	@Override
@@ -144,6 +153,10 @@ public class WalletActivity extends BaseActivity {
 			Intent intent = new Intent(this, IntegralHelpActivity.class);
 			startActivity(intent);
 			break;
+		case R.id.rl_record:
+			Intent intent1 = new Intent(this, OrderExchangeGoodAct.class);
+			startActivity(intent1);
+			break;
 
 		}
 	}
@@ -170,10 +183,20 @@ public class WalletActivity extends BaseActivity {
 		public void onCheckedChanged(RadioGroup group, int checkedId) {
 			viewPager.setOnPageChangeListener(null);
 			if (checkedId == R.id.wallet_integral_btn) {
+				rl_record.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						Intent intent = new Intent(WalletActivity.this,
+								OrderExchangeGoodAct.class);
+						startActivity(intent);
+					}
+				});
 				viewPager.setCurrentItem(0);
 				setTabBkground(0);
 				tv_help.setVisibility(View.VISIBLE);
 				wall_shop.setText("积分商城");
+				tv_record.setText("兑换记录");
 				wall_shop.setVisibility(View.VISIBLE);
 				wall_shop.setTextColor(Color.parseColor("#ffffff"));
 				wall_shop.setBackgroundResource(R.drawable.wall_btn_select);
@@ -181,17 +204,38 @@ public class WalletActivity extends BaseActivity {
 				iv_integral.setImageResource(R.drawable.wallet_integral);
 				tv_code.setText(app.currency + "积分");
 			} else if (checkedId == R.id.wallet_coupons_btn) {
+				rl_record.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						Intent intent = new Intent(WalletActivity.this,
+								RecordActivity.class);
+						startActivity(intent);
+					}
+				});
 				viewPager.setCurrentItem(1);
 				setTabBkground(1);
+				tv_record.setText("使用记录");
 				tv_help.setVisibility(View.GONE);
 				iv_integral.setImageResource(R.drawable.wallet_ticket);
 				wall_shop.setVisibility(View.GONE);
 				tv_code.setText(app.coupons + "张");
 			} else {
+
+				rl_record.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						Intent intent = new Intent(WalletActivity.this,
+								MoneyRecord.class);
+						startActivity(intent);
+					}
+				});
 				viewPager.setCurrentItem(2);
 				setTabBkground(2);
 				tv_help.setVisibility(View.GONE);
 				wall_shop.setText("立即提现");
+				tv_record.setText("提现记录");
 				wall_shop.setVisibility(View.VISIBLE);
 				wall_shop.setTextColor(Color.parseColor("#eeeeee"));
 				wall_shop.setBackgroundResource(R.drawable.wall_select_hui);
@@ -213,28 +257,58 @@ public class WalletActivity extends BaseActivity {
 			radioGroup.setOnCheckedChangeListener(null);
 
 			if (position == 0) {
+				rl_record.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						Intent intent = new Intent(WalletActivity.this,
+								OrderExchangeGoodAct.class);
+						startActivity(intent);
+					}
+				});
 				radioGroup.check(R.id.wallet_integral_btn);
 				tv_help.setVisibility(View.VISIBLE);
 				iv_integral.setImageResource(R.drawable.wallet_integral);
 				tv_code.setText(app.currency + "积分");
 				wall_shop.setVisibility(View.VISIBLE);
 				wall_shop.setText("积分商城");
+				tv_record.setText("兑换记录");
 				wall_shop.setTextColor(Color.parseColor("#ffffff"));
 				wall_shop.setBackgroundResource(R.drawable.wall_btn_select);
 				wall_shop.setEnabled(true);
 			}
 			if (position == 1) {
+				rl_record.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						Intent intent = new Intent(WalletActivity.this,
+								RecordActivity.class);
+						startActivity(intent);
+					}
+				});
 				radioGroup.check(R.id.wallet_coupons_btn);
 				iv_integral.setImageResource(R.drawable.wallet_ticket);
 				wall_shop.setVisibility(View.GONE);
 				tv_help.setVisibility(View.GONE);
+				tv_record.setText("使用记录");
 				tv_code.setText(app.coupons + "张");
 			}
 			if (position == 2) {
+				rl_record.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						Intent intent = new Intent(WalletActivity.this,
+								MoneyRecord.class);
+						startActivity(intent);
+					}
+				});
 				radioGroup.check(R.id.wallet_money_btn);
 				iv_integral.setImageResource(R.drawable.wallet_cash);
 				wall_shop.setVisibility(View.VISIBLE);
 				wall_shop.setText("立即提现");
+				tv_record.setText("提现记录");
 				tv_help.setVisibility(View.GONE);
 				wall_shop.setTextColor(Color.parseColor("#eeeeee"));
 				wall_shop.setBackgroundResource(R.drawable.wall_select_hui);

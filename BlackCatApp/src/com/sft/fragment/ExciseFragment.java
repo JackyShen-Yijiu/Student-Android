@@ -3,6 +3,7 @@ package com.sft.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -30,6 +31,7 @@ import android.widget.VideoView;
 
 import com.jzjf.app.R;
 import com.sft.adapter.ExamAdapter;
+import com.sft.blackcatapp.ExamSussess;
 import com.sft.blackcatapp.ExerciseOrderAct;
 import com.sft.common.BlackCatApplication;
 import com.sft.jieya.UnZipUtils;
@@ -211,8 +213,8 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 			Bitmap b = BitmapFactory.decodeFile(localPath + name);
 			int w = 0, h = 0;
 			if (b != null) {
-				w = b.getWidth();
-				h = b.getHeight();
+				w = b.getWidth()*2;
+				h = b.getHeight()*2;
 				b.recycle();
 				b = null;
 			}
@@ -224,6 +226,7 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 			} else {
 				p = new LayoutParams(LayoutParams.MATCH_PARENT,
 						LayoutParams.WRAP_CONTENT);
+//				img.set
 				img.setLayoutParams(p);
 				img.setImageDrawable(d);
 				img.setVisibility(View.VISIBLE);
@@ -379,20 +382,17 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 	 * 回答正确
 	 */
 	private void onRight(){
-		
 		((ExerciseOrderAct) getActivity()).addRight();
 		((ExerciseOrderAct) getActivity()).next();
 		//如果是错题，删除错题
 		if(((ExerciseOrderAct) getActivity()).flag == 2){//错题
-			
+			error_book book = new error_book();
+			book.setId(param1.getWebnote().getId());
+			Util.deleteErrorBook(book);
+//			LogUtil.print("delete----.>>"+);
+		}else if(((ExerciseOrderAct) getActivity()).flag == 1){//考试
+			onEnd();
 		}
-		
-		if (((ExerciseOrderAct) getActivity()).isEnd()) {// 是否结束
-			Toast.makeText(getActivity(), "end", Toast.LENGTH_SHORT).show();
-			((ExerciseOrderAct) getActivity()).requestExam();
-		}
-
-		
 	}
 	
 	private void onError(){
@@ -400,16 +400,27 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 		((ExerciseOrderAct) getActivity()).addWrong();
 		//插入数据库
 		insertError();
-		
-		if (((ExerciseOrderAct) getActivity()).wrong > 10) {
-			showDialogFinish();
+		//考试
+		if(((ExerciseOrderAct) getActivity()).flag == 1){//考试
+			if (((ExerciseOrderAct) getActivity()).wrong > 10) {
+				showDialogFinish();
+			}
+			onEnd();
 		}
-		
+	}
+	
+	private void onEnd(){
 		if (((ExerciseOrderAct) getActivity()).isEnd()) {// 是否结束
 			Toast.makeText(getActivity(), "end", Toast.LENGTH_SHORT).show();
 			((ExerciseOrderAct) getActivity()).requestExam();
+			Intent i = new Intent(getActivity(),ExamSussess.class);
+			if(((ExerciseOrderAct) getActivity()).kemu == 1){//科目一
+				i.putExtra("score", ((ExerciseOrderAct) getActivity()).right);
+			}else{
+				i.putExtra("score", ((ExerciseOrderAct) getActivity()).right*2);
+			}
+			startActivity(i);
 		}
-
 	}
 
 	/**
@@ -512,7 +523,7 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 		tvTitle.setText("考试不通过");
 		tvContent.setText("非常抱歉，您已经答错了十一道题目，模拟考试未通过，请再接再厉!");
 		view.findViewById(R.id.pay_cancel).setVisibility(View.INVISIBLE);
-		view.setFocusable(true);
+//		view.setFocusable(true);
 		view.setOnClickListener(new OnClickListener() {
 
 			@Override

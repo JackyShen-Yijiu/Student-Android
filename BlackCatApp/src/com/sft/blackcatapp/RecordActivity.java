@@ -7,7 +7,10 @@ import java.util.Map;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import cn.sft.baseactivity.util.HttpSendUtils;
 
 import com.jzjf.app.R;
@@ -20,6 +23,9 @@ public class RecordActivity extends BaseActivity {
 
 	private ListView recordlist;
 	private RecordAdapter recordAdapter;
+	private ImageView error_iv;
+	private RelativeLayout error_rl;
+	private TextView error_tv;
 	// 兑换券
 	private final static String myCoinCertificate = "myCoinCertificate";
 
@@ -40,6 +46,11 @@ public class RecordActivity extends BaseActivity {
 		} else {
 			setTitleBarVisible(View.GONE);
 		}
+
+		error_iv = (ImageView) findViewById(R.id.error_iv);
+		error_rl = (RelativeLayout) findViewById(R.id.error_rl);
+		error_tv = (TextView) findViewById(R.id.error_tv);
+
 		recordlist = (ListView) findViewById(R.id.record_list);
 	}
 
@@ -78,6 +89,12 @@ public class RecordActivity extends BaseActivity {
 				if (dataArray != null) {
 					int length = dataArray.length();
 					myCuponList = new ArrayList<MyCuponVO>();
+					if (myCuponList.size() == 0) {
+						error_rl.setVisibility(View.VISIBLE);
+						error_iv.setImageResource(R.drawable.image_quan);
+						recordlist.setVisibility(View.GONE);
+						error_tv.setText("您还没有报名兑换券");
+					}
 					for (int i = 0; i < length; i++) {
 
 						MyCuponVO myCuponVO = JSONUtil.toJavaBean(

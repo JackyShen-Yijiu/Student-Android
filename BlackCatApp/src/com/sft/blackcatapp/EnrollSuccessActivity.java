@@ -205,7 +205,7 @@ public class EnrollSuccessActivity extends BaseActivity {
 						// 保存报名信息
 						LogUtil.print("successVO11" + successVO);
 						setQrCode(successVO.scanauditurl);
-//						successVO.
+						// successVO.
 						tv_qrcode.setText(successVO.userid);
 						// app.userVO.setApplystate(EnrollResult.SUBJECT_ENROLLING
 						// .getValue());
@@ -252,7 +252,7 @@ public class EnrollSuccessActivity extends BaseActivity {
 		// tvPayState
 		tvSchoolName.setText(successVO.applyschoolinfo.name);
 		tvClassType.setText(successVO.applyclasstypeinfo.name);
-		tvPayMoney.setText("实付款: ￥" + successVO.applyclasstypeinfo.price);
+		tvPayMoney.setText("实付款: ￥" + successVO.applyclasstypeinfo.onsaleprice);
 		tvApplytime.setText("报名时间:" + successVO.applytime);
 		// UTC2LOC.instance.getDate(pay.creattime, "yyyy-MM-dd HH:mm:ss")
 

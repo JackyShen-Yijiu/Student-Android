@@ -48,7 +48,7 @@
     <string name="yibu_superiority">平台优势</string>
     <string name="yibu_student_know">学员须知</string>
     <string name="enroll_info_table">报名</string>
-    <string name="apply_left">投诉</string>
+    <string name="apply_left">我的投诉</string>
     <string name="apply_left_coach">投诉教练</string>
     <string name="apply_left_school">投诉驾校名</string>
     <string name="in_uploading">正在上传</string>
@@ -153,6 +153,7 @@
     <string name="callback">反馈</string>
     <string name="section">章节选择</string>
     <string name="integra">赚积分</string>
+    <string name="money_record">提现记录</string>
     <string name="user_record">使用记录</string>
      <string name="activitys">活动</string>
     <string name="opinions_suggestions">请留下宝贵的意见和建议</string>
@@ -202,11 +203,12 @@
     <string name="invite_friends">分享好友</string>
     <string name="share">分享</string>
     <string name="save">保存</string>
+    <string name="comit">提交</string>
     <string name="exchange">兑换券兑换</string>
     <string name="deal_detail">交易详情</string>
     <string name="share_income">分享收益</string>
     <string name="invite_friends_get_bonus">分享好友得现金</string>
-    <string name="invite_success_income">成功邀请某某入利</string>
+    <string name="invite_success_income">成功分享 月月入利</string>
     <string name="send_invite">发出邀请：</string>
     <string name="weixin">微信</string>
     <string name="weibo">微博</string>
