@@ -365,6 +365,8 @@
         <activity
             android:name="com.sft.emchat.ShowBigImage"
             android:screenOrientation="portrait" />
+        
+        
         <activity
             android:name="com.sft.emchat.ShowVideoActivity"
             android:screenOrientation="portrait" />
@@ -398,6 +400,10 @@
         <activity
             android:name="com.sft.blackcatapp.PhotographActivity"
             android:screenOrientation="portrait" />
+          <activity
+            android:name="com.sft.blackcatapp.ExamSussess"
+            android:screenOrientation="portrait" />
+        
         <activity
             android:name="com.sft.blackcatapp.NewCropImageActivity"
             android:screenOrientation="portrait" />

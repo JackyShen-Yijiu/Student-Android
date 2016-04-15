@@ -9,8 +9,8 @@
     android:background="@color/white"
     android:layout_width="match_parent"
     android:scrollbars="none" 
-    android:divider="@color/new_text_color_light"  
-    android:dividerHeight="1dip"
+    android:divider="#e8e8ed"  
+    android:dividerHeight="0.5dip"
     android:layout_height="wrap_content">
 </ListView>
     
