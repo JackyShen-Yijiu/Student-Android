@@ -3,7 +3,6 @@ package com.sft.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -192,6 +191,7 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 		adapter.setSubmit(param1.submit);
 		adapter.setType(param1.getWebnote().getType());
 		lv.setAdapter(adapter);
+		LogUtil.print("adapter--->size-->"+param1.getAnswers().size());
 		BaseUtils.setListViewHeightBasedOnChildren(lv);
 		// 显示图片
 		doImage(param1.getWebnote().getImg_url());
@@ -199,7 +199,6 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 		doVideo(param1.getWebnote().getVideo_url());
 	}
 
-	@SuppressLint("NewApi")
 	private void doImage(String name) {
 		if (null == name) {
 			img.setVisibility(View.GONE);
@@ -301,11 +300,9 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 			adapter.setSubmit(param1.submit);
 			adapter.notifyDataSetChanged();
 			if (checkAnswerSingle(arg2)) {// 正确
-				((ExerciseOrderAct) getActivity()).addRight();
-				((ExerciseOrderAct) getActivity()).next();
+				onRight();
 			} else {// 错误
-				showAnalysy();
-				((ExerciseOrderAct) getActivity()).addWrong();
+				onError();
 			}
 			break;
 		case 3:
@@ -332,10 +329,9 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 			adapter.setSubmit(param1.submit);
 			adapter.notifyDataSetChanged();
 			if (checkMulity()) {// 正确
-				((ExerciseOrderAct) getActivity()).addRight();
+				onRight();
 			} else {// 错误
-				((ExerciseOrderAct) getActivity()).addWrong();
-				showAnalysy();
+				onError();
 			}
 			btnSubmit.setEnabled(false);
 			break;
@@ -378,6 +374,43 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 		}
 		return true;
 	}
+	
+	/**
+	 * 回答正确
+	 */
+	private void onRight(){
+		
+		((ExerciseOrderAct) getActivity()).addRight();
+		((ExerciseOrderAct) getActivity()).next();
+		//如果是错题，删除错题
+		if(((ExerciseOrderAct) getActivity()).flag == 2){//错题
+			
+		}
+		
+		if (((ExerciseOrderAct) getActivity()).isEnd()) {// 是否结束
+			Toast.makeText(getActivity(), "end", Toast.LENGTH_SHORT).show();
+			((ExerciseOrderAct) getActivity()).requestExam();
+		}
+
+		
+	}
+	
+	private void onError(){
+		showAnalysy();
+		((ExerciseOrderAct) getActivity()).addWrong();
+		//插入数据库
+		insertError();
+		
+		if (((ExerciseOrderAct) getActivity()).wrong > 10) {
+			showDialogFinish();
+		}
+		
+		if (((ExerciseOrderAct) getActivity()).isEnd()) {// 是否结束
+			Toast.makeText(getActivity(), "end", Toast.LENGTH_SHORT).show();
+			((ExerciseOrderAct) getActivity()).requestExam();
+		}
+
+	}
 
 	/**
 	 * 显示解析
@@ -391,15 +424,10 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 		LogUtil.print(temp1 + "right::" + param1.getWebnote().getAnswer_true());
 		tvRightAnswer.setText("正确答案:  " + temp1);
 
-		insertError();
-		if (((ExerciseOrderAct) getActivity()).wrong > 8) {
-			showDialogFinish();
-		}
+		
+		
 
-		if (((ExerciseOrderAct) getActivity()).isEnd()) {// 是否结束
-			Toast.makeText(getActivity(), "end", Toast.LENGTH_SHORT).show();
-		}
-
+		
 	}
 
 	/**

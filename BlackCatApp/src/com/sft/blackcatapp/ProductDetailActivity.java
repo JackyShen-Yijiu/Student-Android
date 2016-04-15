@@ -13,9 +13,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.jzjf.app.R;
+import com.sft.event.ProductExchangeSuccessEvent;
 import com.sft.util.LogUtil;
 import com.sft.vo.MyCuponVO;
 import com.sft.vo.ProductVO;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * 商品详情
@@ -36,6 +39,8 @@ public class ProductDetailActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		addView(R.layout.activity_product_detail);
+		showTitlebarBtn(3);
+		setBtnBkground(R.drawable.base_left_btn_bkground, 0);
 		webView = (WebView) findViewById(R.id.product_detail_webview);
 		// currencyTv = (TextView)
 		// findViewById(R.id.product_detail_currentcy_tv);
@@ -43,6 +48,8 @@ public class ProductDetailActivity extends BaseActivity {
 		productName = (TextView) findViewById(R.id.product_detail_product_name);
 		buyBtn.setOnClickListener(this);
 		initData();
+
+		EventBus.getDefault().register(this);
 	}
 
 	@Override
@@ -82,7 +89,7 @@ public class ProductDetailActivity extends BaseActivity {
 
 		if (!isCupon) {
 
-			productName.setText("需要消费积分：" + productVO.getProductprice() + "YB");
+			productName.setText("" + productVO.getProductprice() + "积分");
 			try {
 				LogUtil.print(productVO.getProductprice() + "------"
 						+ app.currency);
@@ -147,11 +154,20 @@ public class ProductDetailActivity extends BaseActivity {
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()) {
-			webView.goBack();
-			return true;
-		}
+		// if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()) {
+		// webView.goBack();
+		// return true;
+		// }
 		return super.onKeyDown(keyCode, event);
 	}
 
+	public void onEvent(ProductExchangeSuccessEvent event) {
+		this.finish();
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		EventBus.getDefault().unregister(this);
+	}
 }

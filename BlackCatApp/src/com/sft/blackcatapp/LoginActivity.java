@@ -317,10 +317,11 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 			util.saveParam(Config.LAST_LOGIN_PHONE, app.userVO.getTelephone());
 			util.saveParam(Config.LAST_LOGIN_ACCOUNT, phontEt.getText()
 					.toString());
-			util.saveParam(Config.LAST_LOGIN_PASSWORD, util.MD5(passwordEt.getText().toString()));
-			
+			util.saveParam(Config.LAST_LOGIN_PASSWORD,
+					util.MD5(passwordEt.getText().toString()));
+
 			if (isMyServiceRunning()) {
-				ZProgressHUD.getInstance(this).dismiss();
+
 				app.isLogin = true;
 				toMainAndFinish();
 			} else {

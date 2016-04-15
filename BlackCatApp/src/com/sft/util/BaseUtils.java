@@ -53,6 +53,7 @@ public class BaseUtils {
 			return;
 		}
 		int totalHeight = 0;
+		LogUtil.print("count--->"+listAdapter.getCount());
 		for (int i = 0; i < listAdapter.getCount(); i++) {
 			View listItem = listAdapter.getView(i, null, listView);
 			listItem.measure(0, 0);

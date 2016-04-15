@@ -2,22 +2,19 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="20dp"
-    android:background="#e8e8ed" >
+     >
  <include layout="@layout/layout_error"/>
+
     <ListView
         android:id="@+id/my_wallet_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#e8e8ed"
         android:descendantFocusability="blocksDescendants"
-        android:fadingEdge="none"
-        android:divider="#00000000"  
+        android:divider="#00000000"
         android:dividerHeight="0dip"
+        android:fadingEdge="none"
         android:listSelector="@android:color/transparent"
         android:overScrollMode="always"
         android:scrollbars="none" />
-
-    
 
 </RelativeLayout>

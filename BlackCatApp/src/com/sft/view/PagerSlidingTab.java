@@ -28,8 +28,6 @@ import android.widget.TextView;
 import com.jzjf.app.R;
 import com.sft.util.LogUtil;
 
-
-
 public class PagerSlidingTab extends HorizontalScrollView {
 
 	public interface IconTabProvider {
@@ -67,11 +65,11 @@ public class PagerSlidingTab extends HorizontalScrollView {
 	private boolean shouldExpand = false;
 	private boolean textAllCaps = true;
 
-	private int scrollOffset = 52;//52
+	private int scrollOffset = 52;// 52
 	private int indicatorHeight = 8;
 	private int underlineHeight = 2;
-	private int dividerPadding = 12;//12
-	private int tabPadding = 16;//16
+	private int dividerPadding = 12;// 12
+	private int tabPadding = 16;// 16
 	private int dividerWidth = 1;
 
 	private int tabTextSize = 14;
@@ -123,8 +121,7 @@ public class PagerSlidingTab extends HorizontalScrollView {
 		tabTextSize = (int) TypedValue.applyDimension(
 				TypedValue.COMPLEX_UNIT_DIP, tabTextSize, dm);
 
-		
-		LogUtil.print("tabPadding--->"+tabPadding);
+		LogUtil.print("tabPadding--->" + tabPadding);
 		// get system attrs (android:textSize and android:textColor)
 
 		TypedArray a = context.obtainStyledAttributes(attrs, ATTRS);
@@ -160,7 +157,7 @@ public class PagerSlidingTab extends HorizontalScrollView {
 				R.styleable.PagerSlidingTab_scrollOffset, scrollOffset);
 		textAllCaps = a.getBoolean(R.styleable.PagerSlidingTab_pst_textAllCaps,
 				textAllCaps);
-		LogUtil.print("PagerSliding---->"+scrollOffset);
+		LogUtil.print("PagerSliding---->" + scrollOffset);
 		a.recycle();
 
 		rectPaint = new Paint();
@@ -224,7 +221,6 @@ public class PagerSlidingTab extends HorizontalScrollView {
 				new OnGlobalLayoutListener() {
 
 					@SuppressWarnings("deprecation")
-					@SuppressLint("NewApi")
 					@Override
 					public void onGlobalLayout() {
 
@@ -249,12 +245,15 @@ public class PagerSlidingTab extends HorizontalScrollView {
 		tab.setText(title);
 		tab.setFocusable(true);
 		tab.setGravity(Gravity.CENTER);
-//		LinearLayout.LayoutParams params = (android.widget.LinearLayout.LayoutParams) tab.getLayoutParams();
-		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+		// LinearLayout.LayoutParams params =
+		// (android.widget.LinearLayout.LayoutParams) tab.getLayoutParams();
+		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+				LayoutParams.MATCH_PARENT,
+				LinearLayout.LayoutParams.WRAP_CONTENT);
 		params.weight = 1;
 		tab.setLayoutParams(params);
 		tab.setSingleLine();
-//		tab.setLayoutParams();
+		// tab.setLayoutParams();
 		tab.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -302,11 +301,11 @@ public class PagerSlidingTab extends HorizontalScrollView {
 				TextView tab = (TextView) v;
 				tab.setTextSize(TypedValue.COMPLEX_UNIT_PX, tabTextSize);
 				tab.setTypeface(tabTypeface, tabTypefaceStyle);
-//				tab.setTextColor(i == 0 ? getResources().getColor(
-//						R.color.slidingtab_indicatorcolor) : tabTextColor);
-				tab.setTextColor(i == 0 ? getResources().getColor(
-						R.color.white) : tabTextColor);
-//				LogUtil.print("teextColor--->"+tabTextColor);
+				// tab.setTextColor(i == 0 ? getResources().getColor(
+				// R.color.slidingtab_indicatorcolor) : tabTextColor);
+				tab.setTextColor(i == 0 ? getResources()
+						.getColor(R.color.white) : tabTextColor);
+				// LogUtil.print("teextColor--->"+tabTextColor);
 				// setAllCaps() is only available from API 14, so the upper case
 				// is made manually if we are on a
 				// pre-ICS-build
@@ -474,8 +473,7 @@ public class PagerSlidingTab extends HorizontalScrollView {
 				if (v instanceof TextView) {
 					TextView textView = (TextView) v;
 					textView.setTextColor(i == pager.getCurrentItem() ? getResources()
-							.getColor(R.color.white)
-							: tabTextColor);
+							.getColor(R.color.white) : tabTextColor);
 				}
 			}
 		}
@@ -586,7 +584,7 @@ public class PagerSlidingTab extends HorizontalScrollView {
 	}
 
 	public void setTextColor(int textColor) {
-//		LogUtil.print("TextColor-->"+textColor);
+		// LogUtil.print("TextColor-->"+textColor);
 		this.tabTextColor = textColor;
 		updateTabStyles();
 	}

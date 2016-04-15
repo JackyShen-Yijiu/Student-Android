@@ -528,7 +528,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 			length = adImageUrl.length;
 		} else {
 			adapter = new InfinitePagerAdapter(this,
-					new int[] { R.drawable.defaultimage });
+					new int[] { R.drawable.school_pic });
 			length = 1;
 		}
 		adapter.setPageClickListener(new MyPageClickListener());

@@ -13,7 +13,6 @@ import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -813,7 +812,6 @@ public class MainActivity extends BaseMainActivity implements
 	/** 未评论 */
 	NoCommentDialog commentDialog = null;
 
-	@SuppressLint("NewApi")
 	private void showOpenCityPopupWindow(View parent) {
 		if (openCityPopupWindow == null) {
 			LinearLayout popWindowLayout = (LinearLayout) View.inflate(this,

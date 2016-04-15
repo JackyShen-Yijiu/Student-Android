@@ -3,16 +3,16 @@ package com.sft.view;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.LinearLayout;
 
+import com.jzjf.app.R;
 import com.sft.util.CommonUtil;
 import com.sft.view.ApplyClassTypeRowLayout.ClassTypeSelectedChangeListener;
 import com.sft.vo.ClassVO;
 
-@SuppressLint("NewApi")
 public class ApplyClassTypeLayout extends LinearLayout implements
 		ClassTypeSelectedChangeListener {
 
@@ -41,7 +41,7 @@ public class ApplyClassTypeLayout extends LinearLayout implements
 
 	private void init(Context context) {
 		this.context = context;
-		setLayoutDirection(LinearLayout.VERTICAL);
+		// setLayoutDirection(LinearLayout.VERTICAL);
 	}
 
 	public void setSelectClass(ClassVO selectClass) {
@@ -80,14 +80,17 @@ public class ApplyClassTypeLayout extends LinearLayout implements
 				LinearLayout.LayoutParams.WRAP_CONTENT, 1);
 		typeParams.rightMargin = CommonUtil.dip2px(context, 25);
 
-		LinearLayout.LayoutParams rowParams = new LayoutParams(
-				LinearLayout.LayoutParams.WRAP_CONTENT,
-				LinearLayout.LayoutParams.WRAP_CONTENT);
-		rowParams.bottomMargin = CommonUtil.dip2px(context, 27);
-		rowParams.setLayoutDirection(LinearLayout.HORIZONTAL);
+		// LinearLayout.LayoutParams rowParams = new LayoutParams(
+		// LinearLayout.LayoutParams.WRAP_CONTENT,
+		// LinearLayout.LayoutParams.WRAP_CONTENT);
+		// rowParams.bottomMargin = CommonUtil.dip2px(context, 27);
+		// rowParams.setLayoutDirection(LinearLayout.HORIZONTAL);
 
 		for (int i = 0; i < row - 1; i++) {
-			LinearLayout innerLayout = new LinearLayout(context);
+			LinearLayout innerLayout = (LinearLayout) View.inflate(context,
+					R.layout.linearlayout, null);
+			LinearLayout.LayoutParams rowParams = (LayoutParams) innerLayout
+					.getLayoutParams();
 			addView(innerLayout, rowParams);
 
 			for (int j = 0; j < column; j++) {
@@ -102,7 +105,10 @@ public class ApplyClassTypeLayout extends LinearLayout implements
 
 		}
 
-		LinearLayout innerLayout = new LinearLayout(context);
+		LinearLayout innerLayout = (LinearLayout) View.inflate(context,
+				R.layout.linearlayout, null);
+		LinearLayout.LayoutParams rowParams = (LayoutParams) innerLayout
+				.getLayoutParams();
 		addView(innerLayout, rowParams);
 
 		lastConut = lastConut == 0 ? column : lastConut;

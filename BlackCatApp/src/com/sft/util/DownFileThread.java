@@ -9,7 +9,6 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -21,7 +20,6 @@ import android.util.Log;
 
 import com.sft.common.Config;
 
-@SuppressLint("NewApi")
 public class DownFileThread implements Runnable {
 	public final static int DOWNLOAD_COMPLETE = -2;
 	public final static int DOWNLOAD_FAIL = -1;
@@ -89,7 +87,6 @@ public class DownFileThread implements Runnable {
 				conn.setReadTimeout(20000);
 				iStream = conn.getInputStream();
 
-				
 				try {
 					File destDir = new File(Config.APKPATH);
 					if (!destDir.exists()) {
@@ -145,7 +142,7 @@ public class DownFileThread implements Runnable {
 						}
 						times++;
 					}
-					
+
 					if (total == length) {
 						isFinished = true;
 						mHandler.sendEmptyMessage(DOWNLOAD_COMPLETE);
@@ -173,16 +170,16 @@ public class DownFileThread implements Runnable {
 				e.printStackTrace();
 			} finally {
 				try {
-					if(fos!=null)
+					if (fos != null)
 						fos.close();
-					if(bis!=null)
+					if (bis != null)
 						bis.close();
-					if(iStream!=null)
+					if (iStream != null)
 						iStream.close();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				
+
 			}
 		} else {
 			Log.i(TAG, "外部存储卡不存在，下载失败！");

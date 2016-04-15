@@ -40,6 +40,7 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 
 	private static final String schoolCoach = "schoolCoach";
 	private static final String usefulcoachtimely = "usefulcoachtimely";
+	private static final String usefulcoach = "usefulcoach";
 	private XListView coachListView;
 	private RelativeLayout layout;
 	// 更多教练的页数
@@ -49,6 +50,8 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 	//
 	private CoachListAdapter adapter;
 	private String schoolId;
+
+	private int usefulCoachIndex = 1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +64,7 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 		coachCourse = (CoachCourseV2VO) getIntent().getSerializableExtra(
 				"coachCourse");
 		selectDate = getIntent().getStringExtra("selectDate");
-		boolean isFromApply = getIntent().getBooleanExtra("isFromApply", false);
+		isFromApply = getIntent().getBooleanExtra("isFromApply", false);
 
 		// 标题
 		setTitleText(R.string.more_coach);
@@ -78,7 +81,7 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 				obtainUsefulcoachTimely();
 			} else {
 				schoolId = app.userVO.getApplyschoolinfo().getId();
-				obtainSchoolCoach(moreCoachPage);
+				obtainUsefulcoach();
 			}
 		}
 
@@ -153,6 +156,17 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 		HttpSendUtils.httpGetSend(usefulcoachtimely, this,
 				Config.IP + "api/v1/userinfo/getusefulcoachtimely/index/"
 						+ moreCoachPage, paramMap, 10000, headerMap);
+	}
+
+	// 获取我当前可以预约的教练
+	private void obtainUsefulcoach() {
+		Map<String, String> paramMap = new HashMap<String, String>();
+		// paramMap.put("index", usefulCoachIndex + "");
+		Map<String, String> headerMap = new HashMap<String, String>();
+		headerMap.put("authorization", app.userVO.getToken());
+		HttpSendUtils.httpGetSend(usefulcoach, this, Config.IP
+				+ "api/v1/userinfo/getusefulcoachtimely/index/"
+				+ usefulCoachIndex, paramMap, 10000, headerMap);
 	}
 
 	@Override
@@ -264,6 +278,49 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 					coachListView.stopLoadMore();
 					coachListView.stopRefresh();
 				}
+			} else if (type.equals(usefulcoach)) {
+				if (dataArray != null) {
+					int length = dataArray.length();
+					LogUtil.print("length---" + length);
+					if (length > 0) {
+
+						if (moreCoachPage == 1) {
+							ZProgressHUD.getInstance(
+									AppointmentMoreCoachActivity.this)
+									.dismiss();
+							coachListView.setVisibility(View.VISIBLE);
+							coachList.clear();
+						}
+						moreCoachPage++;
+					} else if (length == 0) {
+						if (moreCoachPage == 1) {
+							coachListView.setVisibility(View.GONE);
+							layout.setVisibility(View.VISIBLE);
+						} else {
+
+							toast.setText("没有更多数据了");
+							coachListView.setPullLoadEnable(false);
+						}
+					}
+					int curLength = coachList.size();
+					for (int i = 0; i < length; i++) {
+						CoachVO coachVO = JSONUtil.toJavaBean(CoachVO.class,
+								dataArray.getJSONObject(i));
+						// if (app.favouriteCoach.contains(coachVO))
+						// continue;
+						coachList.add(coachVO);
+					}
+					if (adapter == null) {
+						adapter = new CoachListAdapter(this, coachList,
+								mListener);
+					} else {
+						adapter.setData(coachList);
+					}
+					coachListView.setAdapter(adapter);
+					coachListView.setSelection(curLength);
+					coachListView.stopLoadMore();
+					coachListView.stopRefresh();
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -293,23 +350,36 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 	@Override
 	public void onRefresh() {
 		moreCoachPage = 1;
-		if (null != coachCourse && (!TextUtils.isEmpty(selectDate))) {
-			// 获取当前时间段可以预约的教练
-			obtainUsefulcoachTimely();
-		} else {
-			schoolId = app.userVO.getApplyschoolinfo().getId();
+		usefulCoachIndex = 1;
+		if (isFromApply) {
 			obtainSchoolCoach(moreCoachPage);
+		} else {
+			if (null != coachCourse && (!TextUtils.isEmpty(selectDate))) {
+				// 获取当前时间段可以预约的教练
+				obtainUsefulcoachTimely();
+			} else {
+				schoolId = app.userVO.getApplyschoolinfo().getId();
+				obtainUsefulcoach();
+			}
 		}
+
 	}
 
 	@Override
 	public void onLoadMore() {
-		if (null != coachCourse && (!TextUtils.isEmpty(selectDate))) {
-			// 获取当前时间段可以预约的教练
-			obtainUsefulcoachTimely();
-		} else {
-			schoolId = app.userVO.getApplyschoolinfo().getId();
+		moreCoachPage++;
+		usefulCoachIndex++;
+
+		if (isFromApply) {
 			obtainSchoolCoach(moreCoachPage);
+		} else {
+			if (null != coachCourse && (!TextUtils.isEmpty(selectDate))) {
+				// 获取当前时间段可以预约的教练
+				obtainUsefulcoachTimely();
+			} else {
+				schoolId = app.userVO.getApplyschoolinfo().getId();
+				obtainUsefulcoach();
+			}
 		}
 	}
 
@@ -334,4 +404,5 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 	private CoachCourseV2VO coachCourse;
 	private String selectDate;
 	private RelativeLayout headerRl;
+	private boolean isFromApply;
 }

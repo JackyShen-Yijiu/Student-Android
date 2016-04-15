@@ -9,7 +9,6 @@ import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
@@ -45,13 +44,13 @@ import cn.sft.infinitescrollviewpager.PageChangeListener;
 import cn.sft.infinitescrollviewpager.PageClickListener;
 
 import com.google.gson.reflect.TypeToken;
+import com.jzjf.app.R;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.sft.adapter.SchoolListAdapter;
 import com.sft.api.ApiHttpClient;
 import com.sft.blackcatapp.ApplyActivity;
 import com.sft.blackcatapp.ConfirmOrderActivity;
-import com.jzjf.app.R;
 import com.sft.blackcatapp.SchoolDetailActivity;
 import com.sft.common.Config;
 import com.sft.common.Config.EnrollResult;
@@ -151,7 +150,7 @@ public class SchoolsFragment extends BaseFragment implements
 	static SchoolsFragment fragment = null;
 
 	private static int type;
-	
+
 	private RelativeLayout errorRl;
 	private TextView errorTv;
 
@@ -263,13 +262,13 @@ public class SchoolsFragment extends BaseFragment implements
 	// 搜索成功
 	protected void processSuccess(String value) {
 
-		if (!isSearchSchool){
+		if (!isSearchSchool) {
 			searchSchool.setVisibility(View.GONE);
 			imgDelete.setVisibility(View.GONE);
 			headerView.setVisibility(View.GONE);
 		}
-//			headerView.setVisibility(View.GONE);
-			
+		// headerView.setVisibility(View.GONE);
+
 		// ((EnrollSchoolActivity1)getActivity()).etSearch.setVisibility(View.GONE);
 		// searchSchool.setVisibility(View.GONE);
 		if (value != null) {
@@ -353,17 +352,17 @@ public class SchoolsFragment extends BaseFragment implements
 				android.R.color.holo_orange_light,
 				android.R.color.holo_red_light);
 
-		headerView = View.inflate(getActivity(),
-				R.layout.enroll_school_header, null);
-		
+		headerView = View.inflate(getActivity(), R.layout.enroll_school_header,
+				null);
+
 		//
-		
+
 		schoolListView = (ListView) rootView
 				.findViewById(R.id.enroll_select_school_listview);
-		
+
 		schoolListView.addHeaderView(headerView);
 		adapter = new SchoolListAdapter(getActivity(), schoolList);
-		
+
 		schoolListView.setAdapter(adapter);
 
 		swipeLayout.setChildScroll(new MOnScrollListener() {
@@ -409,7 +408,6 @@ public class SchoolsFragment extends BaseFragment implements
 				lastId = firstVisibleItem;
 			}
 
-			@SuppressLint("NewApi")
 			@Override
 			public void downPull() {
 				if (lastId == 0) {
@@ -447,7 +445,6 @@ public class SchoolsFragment extends BaseFragment implements
 		// }
 		// }
 
-		
 		//
 		// // 查找搜索框
 		// llSearch = (LinearLayout) headerView
@@ -463,8 +460,7 @@ public class SchoolsFragment extends BaseFragment implements
 		// .findViewById(R.id.enroll_school_top_defaultimage);
 		searchSchool = (EditText) headerView
 				.findViewById(R.id.enroll_school_search_et);
-		imgDelete = (ImageView) headerView
-				.findViewById(R.id.header_delete);
+		imgDelete = (ImageView) headerView.findViewById(R.id.header_delete);
 		imgDelete.setOnClickListener(this);
 		EditTextUtils.setEditTextHint(searchSchool,
 				getString(R.string.search_school), 12);
@@ -619,17 +615,15 @@ public class SchoolsFragment extends BaseFragment implements
 			isLoadingMore = false;
 		}
 	}
-	
-	private void noData(int size){
-		if(size == 0){
+
+	private void noData(int size) {
+		if (size == 0) {
 			errorRl.setVisibility(View.VISIBLE);
 			errorTv.setText(R.string.no_school);
-		}else{
+		} else {
 			errorRl.setVisibility(View.GONE);
 		}
-		
-		
-		
+
 	}
 
 	/**
@@ -641,7 +635,7 @@ public class SchoolsFragment extends BaseFragment implements
 	}
 
 	private void obtainNearBySchool() {
-		LogUtil.print("nearBySchool-->"+app.curCity);
+		LogUtil.print("nearBySchool-->" + app.curCity);
 		RequestParams paramMap = new RequestParams();
 		paramMap.put("latitude", app.latitude);
 		paramMap.put("longitude", app.longtitude);
@@ -742,13 +736,13 @@ public class SchoolsFragment extends BaseFragment implements
 				popupWindow.dismiss();
 			}
 			break;
-		case R.id.header_delete://删除 输入框 ，从新刷新请求数据
-			if(searchSchool.getText().toString().length()>0){
+		case R.id.header_delete:// 删除 输入框 ，从新刷新请求数据
+			if (searchSchool.getText().toString().length() > 0) {
 				searchSchool.setText("");
 				schoolname = "";
 				searchSchool(true);
 			}
-			
+
 			break;
 		}
 	}
@@ -1119,25 +1113,25 @@ public class SchoolsFragment extends BaseFragment implements
 					PayOrderVO pay;
 					pay = JSONUtil.toJavaBean(PayOrderVO.class,
 							dataArray.getJSONObject(i));
-					LogUtil.print("state-->"+pay.userpaystate);
+					LogUtil.print("state-->" + pay.userpaystate);
 					if (pay.userpaystate.equals("0")
 							|| pay.userpaystate.equals("3")) {// 订单刚生成，支付失败
 
 						// 存在未支付订单
-//						app.userVO.setApplystate(EnrollResult.SUBJECT_NONE
-//								.getValue());
+						// app.userVO.setApplystate(EnrollResult.SUBJECT_NONE
+						// .getValue());
 
 						app.isEnrollAgain = true;
-//						if (pay.userpaystate.equals("0")
-//								|| pay.userpaystate.equals("3")) {// 订单刚生成，支付失败
-//							LogUtil.print("notFinish---->" + i);
-//							if (!hasNotFinishDialog) {
-//								HasOrder(pay);
-//								hasNotFinishDialog = true;
-//							}
-//
-//							break;
-//						}
+						// if (pay.userpaystate.equals("0")
+						// || pay.userpaystate.equals("3")) {// 订单刚生成，支付失败
+						// LogUtil.print("notFinish---->" + i);
+						// if (!hasNotFinishDialog) {
+						// HasOrder(pay);
+						// hasNotFinishDialog = true;
+						// }
+						//
+						// break;
+						// }
 						payList.add(pay);
 					}
 
@@ -1260,7 +1254,7 @@ public class SchoolsFragment extends BaseFragment implements
 	// 下拉加载
 	@Override
 	public void onLoad() {
-		LogUtil.print("more--->"+index);
+		LogUtil.print("more--->" + index);
 		isLoadingMore = true;
 		if (isSearchSchool) {
 			searchIndex++;
@@ -1278,8 +1272,6 @@ public class SchoolsFragment extends BaseFragment implements
 		initView(v);
 		return v;
 	}
-	
-	
 
 	private void initView(View v) {
 		LogUtil.print("schooll--initView");
@@ -1287,7 +1279,7 @@ public class SchoolsFragment extends BaseFragment implements
 		// addView(R.layout.activity_enroll_school);
 
 		// isFromMenu = getIntent().getBooleanExtra("isFromMenu", false);
-		
+
 		currCity = app.curCity;
 		isSearchSchool = false;
 		// initView();
@@ -1311,7 +1303,7 @@ public class SchoolsFragment extends BaseFragment implements
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("userid", app.userVO.getUserid());
 		paramMap.put("orderstate", "-1");// 订单的状态 // 0 订单生成 2 支付成功 3 支付失败 4 订单取消
-										// -1 全部(未支付的订单)
+											// -1 全部(未支付的订单)
 
 		Map<String, String> headerMap = new HashMap<String, String>();
 		headerMap.put("authorization", app.userVO.getToken());

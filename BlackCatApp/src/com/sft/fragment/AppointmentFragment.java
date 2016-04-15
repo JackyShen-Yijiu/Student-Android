@@ -306,7 +306,7 @@ public class AppointmentFragment extends BaseFragment implements
 		}
 		try {
 			if (type.equals(RESERVATION)) {
-				ZProgressHUD.getInstance(getActivity()).dismiss();
+
 				if (dataArray != null) {
 					if (list == null) {
 						list = new ArrayList<MyAppointmentVO>();
@@ -373,7 +373,7 @@ public class AppointmentFragment extends BaseFragment implements
 					} else {
 						adapter.notifyDataSetChanged();
 					}
-
+					ZProgressHUD.getInstance(getActivity()).dismiss();
 					if (isRefreshing) {
 						appointmentSwipeLaout.setRefreshing(false);
 						isRefreshing = false;

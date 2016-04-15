@@ -23,11 +23,14 @@ import cn.sft.infinitescrollviewpager.BitmapManager;
 
 import com.jzjf.app.R;
 import com.sft.common.Config;
+import com.sft.event.ProductExchangeSuccessEvent;
 import com.sft.util.JSONUtil;
 import com.sft.util.LogUtil;
 import com.sft.vo.MyCuponVO;
 import com.sft.vo.ProductBuySuccessVO;
 import com.sft.vo.ProductVO;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * 订单信息
@@ -59,6 +62,7 @@ public class ProductOrderActivity extends BaseActivity {
 	private ImageView productNumAddIv;
 	private TextView exchangeAddrTv;
 	private int productNum = 1;
+	private double productPrice = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +71,7 @@ public class ProductOrderActivity extends BaseActivity {
 		initView();
 		initData();
 		setListener();
+		EventBus.getDefault().register(this);
 	}
 
 	@Override
@@ -115,7 +120,7 @@ public class ProductOrderActivity extends BaseActivity {
 		}
 		boolean isCupon = getIntent().getBooleanExtra("isCupon", false);
 		prodectBelowPrice.setText(productVO.getProductprice() + "");
-
+		productPrice = Double.parseDouble(productVO.getProductprice());
 		try {
 			LogUtil.print(productVO.getProductprice() + "------" + app.currency);
 			if (Long.parseLong(app.currency) >= Long.parseLong(productVO
@@ -242,6 +247,9 @@ public class ProductOrderActivity extends BaseActivity {
 						.setImageResource(R.drawable.quantity_subtract_on);
 				productNum--;
 				productNumTv.setText(productNum + "");
+				productPrice = productPrice
+						- Double.parseDouble(productVO.getProductprice());
+				prodectBelowPrice.setText((int) productPrice + "");
 			}
 			if (Integer.parseInt(productNumTv.getText().toString()) <= 1) {
 				productNumSubIv.setEnabled(false);
@@ -267,6 +275,9 @@ public class ProductOrderActivity extends BaseActivity {
 				productNumAddIv.setEnabled(true);
 				productNumAddIv.setImageResource(R.drawable.quantity_add_on);
 				productNum++;
+				productPrice = productPrice
+						+ Double.parseDouble(productVO.getProductprice());
+				prodectBelowPrice.setText((int) productPrice + "");
 				productNumTv.setText(productNum + "");
 			}
 
@@ -333,6 +344,8 @@ public class ProductOrderActivity extends BaseActivity {
 						ProductOrderSuccessActivity.class);
 				intent.putExtra("productVO", productVO);
 				if (productBuySuccessVO != null) {
+					// 将兑换所花费的积分传给下一个界面
+					intent.putExtra("money", productPrice);
 					intent.putExtra("orderscanaduiturl",
 							productBuySuccessVO.getOrderscanaduiturl());
 				}
@@ -381,5 +394,15 @@ public class ProductOrderActivity extends BaseActivity {
 			e.printStackTrace();
 		}
 		return true;
+	}
+
+	public void onEvent(ProductExchangeSuccessEvent event) {
+		this.finish();
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		EventBus.getDefault().unregister(this);
 	}
 }
