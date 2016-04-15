@@ -55,7 +55,7 @@ public class ExamAdapter extends BaseAdapter {
 
 	@Override
 	public Object getItem(int position) {
-		return null;
+		return data.get(position);
 	}
 
 	@Override
@@ -67,7 +67,6 @@ public class ExamAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder = null;
 		if (convertView == null) {
-
 			convertView = View.inflate(mContext, R.layout.exam_item, null);
 			holder = new ViewHolder(convertView);
 			convertView.setTag(holder);
@@ -136,10 +135,8 @@ public class ExamAdapter extends BaseAdapter {
 					}
 				}
 			}
-			
-		
 		}
-
+		LogUtil.print("getView=====-->"+convertView);
 		return convertView;
 	}
 

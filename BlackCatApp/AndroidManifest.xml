@@ -365,6 +365,8 @@
         <activity
             android:name="com.sft.emchat.ShowBigImage"
             android:screenOrientation="portrait" />
+        
+        
         <activity
             android:name="com.sft.emchat.ShowVideoActivity"
             android:screenOrientation="portrait" />
@@ -398,6 +400,10 @@
         <activity
             android:name="com.sft.blackcatapp.PhotographActivity"
             android:screenOrientation="portrait" />
+          <activity
+            android:name="com.sft.blackcatapp.ExamSussess"
+            android:screenOrientation="portrait" />
+        
         <activity
             android:name="com.sft.blackcatapp.NewCropImageActivity"
             android:screenOrientation="portrait" />
@@ -602,6 +608,16 @@
                 <category android:name="com.sft.blackcatapp" />
             </intent-filter>
         </activity>
+        <service 
+            android:name="cn.jpush.android.service.DaemonService"
+            >
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />
+                
+            </intent-filter>
+            
+        </service>
+        
         <!-- Required  SDK核心功能 -->
         <service
             android:name="cn.jpush.android.service.DownloadService"

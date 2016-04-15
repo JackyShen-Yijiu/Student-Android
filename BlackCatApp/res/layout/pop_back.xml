@@ -34,7 +34,7 @@
             android:layout_below="@+id/textView1"
             android:layout_marginLeft="35dp"
             android:layout_marginTop="12dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="30dp"
             android:text="您还没有支付成功，确定要退出支付吗?"
             android:textColor="@color/new_text_color_dark"
             android:textSize="@dimen/txt_size_small" />
@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/textView2"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="27dp"
+            android:layout_marginTop="20dp"
             android:layout_toLeftOf="@+id/pay_ok"
             android:padding="8dp"
             android:text="取消"

@@ -55,6 +55,8 @@ public class SectionAdapter extends BaseAdapter {
 					.findViewById(R.id.section_title);
 			holder.number = (TextView) convertView
 					.findViewById(R.id.section_number);
+			holder.numbers = (TextView) convertView
+					.findViewById(R.id.subject_number);
 
 			convertView.setTag(holder);
 		} else {
@@ -63,13 +65,15 @@ public class SectionAdapter extends BaseAdapter {
 		holder.data.setText(list.get(position).getTitle());
 
 		holder.number.setText((position + 1) + "");
+
+		holder.numbers.setText("(" + list.get(position).getCount() + "题)");
 		return convertView;
 	}
 
 	private class ViewHolder {
 		public TextView data;
 		public TextView number;
-
+		public TextView numbers;
 	}
 
 }

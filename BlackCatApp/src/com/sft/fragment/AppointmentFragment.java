@@ -63,7 +63,7 @@ public class AppointmentFragment extends BaseFragment implements
 	//
 	private StudentSubject subject = null;
 
-	private TextView tvLeft1, tvRight1, tvLeft2, tvRight2;
+	private TextView tvLeft1, tvRight2;
 
 	//
 	private SwipeRefreshLayout appointmentSwipeLaout;
@@ -88,6 +88,7 @@ public class AppointmentFragment extends BaseFragment implements
 
 	private String subjectId = "0";
 	private LinearLayout yuekaoLr;
+	private TextView tvLeft2;
 
 	public AppointmentFragment() {
 	}
@@ -116,8 +117,8 @@ public class AppointmentFragment extends BaseFragment implements
 				.findViewById(R.id.learn_progress_yuekao);
 		yuekaoLr.setOnClickListener(this);
 		tvLeft1 = (TextView) rootView.findViewById(R.id.my_appoint_studied);
-		tvRight1 = (TextView) rootView.findViewById(R.id.my_appoint_really);
-		tvRight2 = (TextView) rootView.findViewById(R.id.my_appoint_last);
+		// tvRight1 = (TextView) rootView.findViewById(R.id.my_appoint_really);
+		// tvRight2 = (TextView) rootView.findViewById(R.id.my_appoint_last);
 		tvLeft2 = (TextView) rootView.findViewById(R.id.my_appoint_notsign);
 
 		subjectId = app.userVO.getSubject().getSubjectid();
@@ -152,15 +153,13 @@ public class AppointmentFragment extends BaseFragment implements
 		// app.userVO.
 		if (null != subject) {
 
-			subjectTextTv.setText("已学" + subject.getFinishcourse() + "课时  "
+			subjectTextTv.setText("已学:" + subject.getFinishcourse() + "课时  "
 					+ subject.getProgress());// +subject.getProgress()
 			// 规定xx 学时 完成XX学时
-			tvLeft1.setText("规定" + subject.officialhours + "学时  完成"
-					+ subject.officialfinishhours + "学时");
+			tvLeft1.setText("规定:" + subject.officialhours + "课时");
 
 			// 购买 XX学时 已学XX学时
-			tvLeft2.setText("购买" + subject.getTotalcourse() + "课时  已学"
-					+ subject.getFinishcourse() + "课时");
+			tvLeft2.setText("已学:" + subject.getFinishcourse() + "课时");
 			if ((subject.officialhours - subject.officialfinishhours) == 0) {// 可以报考
 				yuekaoLr.setBackgroundResource(R.drawable.button_rounded_corners);
 				yuekaoLr.setClickable(true);
@@ -177,8 +176,8 @@ public class AppointmentFragment extends BaseFragment implements
 		} else {
 			tvLeft1.setVisibility(View.GONE);
 			tvLeft2.setVisibility(View.GONE);
-			tvRight2.setVisibility(View.GONE);
-			tvRight1.setVisibility(View.GONE);
+			// tvRight2.setVisibility(View.GONE);
+			// tvRight1.setVisibility(View.GONE);
 		}
 	}
 

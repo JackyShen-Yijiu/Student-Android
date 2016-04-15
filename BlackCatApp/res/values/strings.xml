@@ -129,7 +129,7 @@
     <string name="help_exam">理论考试</string>
     <string name="help_newcomer">新手上路</string>
     <string name="help_problem">常见问题</string>
-    
+     <string name="exam_result">考试结果</string>
     <string name="enroll_detail">报名详情</string>
      <string name="enroll_infor">报名信息</string>
     <string name="testing_detail">验证报名信息</string>
