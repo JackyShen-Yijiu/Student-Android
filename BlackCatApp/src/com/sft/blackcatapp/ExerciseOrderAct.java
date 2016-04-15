@@ -195,11 +195,11 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect,
 					} else {
 						d = Util.getAllSubjectFourBank();
 					}
-					LogUtil.print("Kaoshi--->" + d.size());
+//					LogUtil.print("Kaoshi--->" + d.size());
 					data1 = doData(d);
-					LogUtil.print("Kaoshi---1111>" + data1.size());
+//					LogUtil.print("Kaoshi---1111>" + data1.size());
 					getRandWeb(data1, kemu);
-					LogUtil.print("Kaoshi---2222>" + dataExam.size());
+//					LogUtil.print("Kaoshi---2222>" + dataExam.size());
 
 					break;
 				case 2:// 错题模式
@@ -334,7 +334,7 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect,
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			if (flag == 1) {// 模拟考试
-				Toast.makeText(this, "keydown-->", Toast.LENGTH_SHORT).show();
+//				Toast.makeText(this, "keydown-->", Toast.LENGTH_SHORT).show();
 				showDialogBack();
 				return false;
 			}

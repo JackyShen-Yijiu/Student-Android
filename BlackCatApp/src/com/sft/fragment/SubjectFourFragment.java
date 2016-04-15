@@ -115,6 +115,7 @@ public class SubjectFourFragment extends BaseFragment implements
 			if (app.questionVO != null) {
 				intent = new Intent(mContext, SectionActivity.class);
 				intent.putExtra("subjectid", 4);
+				intent.putExtra("flag", 0);
 			} else {
 				ZProgressHUD.getInstance(mContext).show();
 				ZProgressHUD.getInstance(mContext).dismissWithFailure("暂无题库");
@@ -123,7 +124,7 @@ public class SubjectFourFragment extends BaseFragment implements
 		case R.id.simulation_test:
 			intent = new Intent(mContext, ExerciseOrderAct.class);
 			intent.putExtra("subjectid", 4);
-			
+			intent.putExtra("flag", 1);
 			// 模拟考试
 //			if (app.questionVO != null) {
 //				intent = new Intent(mContext, QuestionActivity.class);
@@ -137,9 +138,12 @@ public class SubjectFourFragment extends BaseFragment implements
 		case R.id.my_error_data:
 			// 我的错题
 			if (app.questionVO != null) {
-				intent = new Intent(mContext, QuestionActivity.class);
-				intent.putExtra("url", app.questionVO.getSubjectfour()
-						.getQuestionerrorurl());
+				intent = new Intent(mContext, ExerciseOrderAct.class);
+				intent.putExtra("subjectid", 4);
+				intent.putExtra("flag", 2);
+//				intent = new Intent(mContext, QuestionActivity.class);
+//				intent.putExtra("url", app.questionVO.getSubjectfour()
+//						.getQuestionerrorurl());
 			} else {
 				ZProgressHUD.getInstance(mContext).show();
 				ZProgressHUD.getInstance(mContext).dismissWithFailure("暂无题库");
