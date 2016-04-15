@@ -89,10 +89,8 @@ public class Walletmoney extends BaseActivity {
 
 		error_iv = (ImageView) findViewById(R.id.error_iv);
 
-	}
-
-	private void setListener() {
 		inviteBtn.setOnClickListener(this);
+
 	}
 
 	private void changeMoneyType() {

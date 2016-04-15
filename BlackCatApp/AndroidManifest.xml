@@ -219,6 +219,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.sft.blackcatapp.CallBackActivity"
+            android:windowSoftInputMode="stateAlwaysVisible"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.sft.blackcatapp.SettingHelp"
@@ -393,7 +394,7 @@
         <activity
             android:name="com.sft.blackcatapp.NewComplaintActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustUnspecified" />
+            android:windowSoftInputMode="stateAlwaysVisible" />
         <activity
             android:name="com.sft.blackcatapp.QRCodeCreateActivity"
             android:screenOrientation="portrait" />

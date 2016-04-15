@@ -101,7 +101,8 @@ public class OrderApplyAct extends BaseActivity {
 		// img.setScaleType(ScaleType.CENTER_CROP);
 		// img.setImageResource(R.drawable.default_small_pic);
 		// img.setOval(true);
-		ll_main = (LinearLayout) findViewById(R.id.ll_main);
+		ll_main = (LinearLayout) findViewById(R.id.item_order);
+
 		tvTitle = (TextView) findViewById(R.id.item_order_title);
 		tvOrderName = (TextView) findViewById(R.id.item_order_left1);
 		tvPay1 = (TextView) findViewById(R.id.item_order_right10);

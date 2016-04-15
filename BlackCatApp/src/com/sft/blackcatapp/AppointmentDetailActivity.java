@@ -262,7 +262,7 @@ public class AppointmentDetailActivity extends BaseActivity implements
 				Config.AppointmentResult.missclass.getValue())) {
 			appointState.setText("该预约漏课");
 			qrcodeIv.setImageResource(R.drawable.appointment_detail_systemcancel);
-			appointInfoTv.setText("您没能及时签到该预约，请及时联系客服进行补课事宜");
+			appointInfoTv.setText("请及时联系客服进行补课事宜");
 			appointInfoTv.setTextSize(14);
 			signKnowTv.setVisibility(View.GONE);
 			cancelBtnHintTv.setVisibility(View.GONE);

@@ -76,8 +76,6 @@ public class Walletcoupons extends BaseActivity {
 
 		incomeList = (ListView) findViewById(R.id.my_wallet_listview);
 
-		error_iv = (ImageView) findViewById(R.id.error_iv);
-
 	}
 
 	private void changeMoneyType() {

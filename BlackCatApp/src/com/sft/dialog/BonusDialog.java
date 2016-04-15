@@ -142,8 +142,8 @@ public class BonusDialog extends Activity {
 						.setCallback(umShareListener)
 						.withText("极致驾服，就是让你so esay的通过驾照考试！ ")
 						.withTitle("极致驾服")
-						.withTargetUrl("http://www.ybxch.com").withMedia(image)
-						.share();
+						.withTargetUrl("http://jizhijiafu.cn/")
+						.withMedia(image).share();
 				break;
 			case R.id.send_invite_weibo_btn:
 				/**
@@ -154,16 +154,16 @@ public class BonusDialog extends Activity {
 						.setCallback(umShareListener)
 						.withText("极致驾服，就是让你so esay的通过驾照考试！ ")
 						.withTitle("极致驾服")
-						.withTargetUrl("http://www.ybxch.com").withMedia(image)
-						.share();
+						.withTargetUrl("http://jizhijiafu.cn/")
+						.withMedia(image).share();
 				break;
 			case R.id.send_invite_qq_btn:
 				new ShareAction(BonusDialog.this).setPlatform(SHARE_MEDIA.QQ)
 						.setCallback(umShareListener)
 						.withText("极致驾服，就是让你so esay的通过驾照考试！ ")
 						.withTitle("极致驾服")
-						.withTargetUrl("http://www.ybxch.com").withMedia(image)
-						.share();
+						.withTargetUrl("http://jizhijiafu.cn/")
+						.withMedia(image).share();
 				break;
 			case R.id.send_invite_message_btn:
 				new ShareAction(BonusDialog.this)
@@ -171,8 +171,8 @@ public class BonusDialog extends Activity {
 						.setCallback(umShareListener)
 						.withText("极致驾服，就是让你so esay的通过驾照考试！ ")
 						.withTitle("极致驾服")
-						.withTargetUrl("http://www.ybxch.com").withMedia(image)
-						.share();
+						.withTargetUrl("http://jizhijiafu.cn/")
+						.withMedia(image).share();
 				break;
 			}
 		}

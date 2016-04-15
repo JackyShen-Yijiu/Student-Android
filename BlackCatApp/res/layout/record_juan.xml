@@ -6,7 +6,7 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:orientation="vertical" >
-    
+    <include layout="@layout/layout_error"/>
 <ListView 
     android:id="@+id/record_list"
     android:layout_width="match_parent"
