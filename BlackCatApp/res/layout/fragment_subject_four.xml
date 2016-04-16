@@ -58,7 +58,7 @@
         android:id="@+id/question_banks"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/study_height"
-        study:itemDescribe="800多道官方海量题库"
+        study:itemDescribe="1000多道官方海量题库"
         android:layout_marginTop="10dp"
         study:itemIcon="@drawable/question_banks"
         study:itemTitle="题库" >

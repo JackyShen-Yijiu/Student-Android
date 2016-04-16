@@ -459,8 +459,13 @@ public class Util {
 		SQLiteDatabase db = DataBaseUtil.openDatabase(BlackCatApplication
 				.getInstance());
 		// 插入之前先删除
-		db.execSQL("delete from error_book where webnoteid =" + error.getId());
-		LogUtil.print("delete-->from--id>>" + error.getId());
+		db.execSQL("delete from error_book where webnoteid ="
+				+ error.getWebnoteid());
+		//
+		// LogUtil.print("delete-->from--id>>" + error.getWebnoteid());
+		// db.execSQL("delete from error_book where webnoteid =" +
+		// error.getId());
+		// LogUtil.print("delete-->from--id>>" + error.getId());
 		db.close();
 	}
 
@@ -472,11 +477,14 @@ public class Util {
 	public static List<web_note> getAllSubjectOneErrorQuestion() {
 		SQLiteDatabase db = DataBaseUtil.openDatabase(BlackCatApplication
 				.getInstance());
-		String sql = "select * from web_note w, error_book e where e.kemu=? and w.kemu=? and e.webnoteid = w.id";
+		String sql = "select w.* from web_note w, error_book e where e.kemu=? and w.kemu=? and e.webnoteid = w.id";
 		// String sql =
 		// "select w.* from web_note w error_book e where kemu=? and e.webnoteid = w.id";
 		List<web_note> list = DataBaseUtil.getArrays(db, web_note.class, sql,
 				new String[] { "1", "1" });
+		for (int i = 0; i < list.size(); i++) {
+			LogUtil.print("web_note---->id-->" + list.get(i).getId());
+		}
 		db.close();
 		return list;
 	}

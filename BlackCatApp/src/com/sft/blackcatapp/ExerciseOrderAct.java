@@ -1,7 +1,5 @@
 package com.sft.blackcatapp;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -13,6 +11,7 @@ import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -25,7 +24,6 @@ import android.view.View.OnClickListener;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.listener.ICallBack;
 
@@ -35,10 +33,10 @@ import com.sft.common.BlackCatApplication;
 import com.sft.common.Config;
 import com.sft.fragment.ExciseFragment;
 import com.sft.fragment.ExciseFragment.doConnect;
-import com.sft.jieya.UnZipUtils;
-import com.sft.jieya.ZipCall;
 import com.sft.util.LogUtil;
+import com.sft.util.SharedPreferencesUtil;
 import com.sft.util.Util;
+import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.ExerciseVO;
 import com.sft.vo.questionbank.web_note;
 
@@ -76,14 +74,18 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect,
 
 		@Override
 		public void handleMessage(Message msg) {
+
 			if (msg.arg1 == 1) {// 倒计时
 				handler();
+
 			} else {
 
 				if (flag == 1) {// 考试
 					adapter = new ExerciseAdapter(getSupportFragmentManager(),
 							dataExam);
 					tvTotal.setText("1/" + dataExam.size());
+					// 开始倒计时
+					Exam();
 				} else {
 					adapter = new ExerciseAdapter(getSupportFragmentManager(),
 							data1);
@@ -92,8 +94,9 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect,
 				// 刷新 显示
 				// LogUtil.print("size--->" + dataExam.size());
 				viewpager.setAdapter(adapter);
-				
-				requestExam();
+
+				// requestExam();
+				ZProgressHUD.getInstance(ExerciseOrderAct.this).dismiss();
 			}
 
 		}
@@ -107,8 +110,17 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect,
 		initView();
 		initData();
 		// getData();
-//		unzip();
-		Exam();
+		// unzip();
+
+		if (SharedPreferencesUtil.getBoolean(this, "study", true)) {
+			showFirstPop();
+			SharedPreferencesUtil.putBoolean(this, "study", false);
+		}
+		ZProgressHUD.getInstance(this).setMessage("拼命加载中...");
+		ZProgressHUD.getInstance(this).show();
+		LogUtil.print("show--------------->"
+				+ ZProgressHUD.getInstance(this).isShowing());
+
 	}
 
 	private void initView() {
@@ -165,7 +177,7 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect,
 			} else if (kemu == 4) {
 				dataExam = new ArrayList<ExerciseVO>(50);
 			}
-			beginTime = System.currentTimeMillis()+"";
+			beginTime = System.currentTimeMillis() + "";
 		} else if (flag == 0) {// 练习模式
 			tvTime.setVisibility(View.GONE);
 		} else if (flag == 2) {// 错题模式
@@ -195,11 +207,11 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect,
 					} else {
 						d = Util.getAllSubjectFourBank();
 					}
-//					LogUtil.print("Kaoshi--->" + d.size());
+					// LogUtil.print("Kaoshi--->" + d.size());
 					data1 = doData(d);
-//					LogUtil.print("Kaoshi---1111>" + data1.size());
+					// LogUtil.print("Kaoshi---1111>" + data1.size());
 					getRandWeb(data1, kemu);
-//					LogUtil.print("Kaoshi---2222>" + dataExam.size());
+					// LogUtil.print("Kaoshi---2222>" + dataExam.size());
 
 					break;
 				case 2:// 错题模式
@@ -233,6 +245,7 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect,
 		for (int i = 0; i < data1.size(); i++) {
 			vo = new ExerciseVO();
 			vo.setWebnote(data1.get(i));
+			LogUtil.print("error_id-->" + data1.get(i).getId());
 			data.add(vo);
 		}
 		return data;
@@ -242,7 +255,6 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect,
 		switch (view.getId()) {
 		case R.id.base_left_btn:// 干掉页面
 			if (flag == 1) {// 模拟考试
-				Toast.makeText(this, "keydown-->", Toast.LENGTH_SHORT).show();
 				showDialogBack();
 			} else {
 				finish();
@@ -285,12 +297,12 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect,
 		tvPercentage.setText((100 * right / (right + wrong)) + "%");
 	}
 
-	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			if (flag == 1) {// 模拟考试
-//				Toast.makeText(this, "keydown-->", Toast.LENGTH_SHORT).show();
+				// Toast.makeText(this, "keydown-->",
+				// Toast.LENGTH_SHORT).show();
 				showDialogBack();
 				return false;
 			}
@@ -357,18 +369,25 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect,
 		pop.showAtLocation(this.getWindow().getDecorView(), Gravity.CENTER, 0,
 				0);
 	}
-	
+
 	/**
-	 *考试时间到
+	 * 考试时间到
 	 */
 	private void showDialogTimeOut() {
-		final PopupWindow pop = new PopupWindow(this);
-		pop.setHeight(LayoutParams.MATCH_PARENT);
-		pop.setWidth(LayoutParams.MATCH_PARENT);
+		final Dialog dialog = new Dialog(this, R.style.dialog);
 		View view = View.inflate(this, R.layout.pop_back, null);
 		TextView tvTitle = (TextView) view.findViewById(R.id.textView1);
 		TextView tvContent = (TextView) view.findViewById(R.id.textView2);
 		tvTitle.setText("模拟考试时间到");
+		dialog.setContentView(view);
+
+		// final PopupWindow pop = new PopupWindow(this);
+		// pop.setHeight(LayoutParams.MATCH_PARENT);
+		// pop.setWidth(LayoutParams.MATCH_PARENT);
+		// View view = View.inflate(this, R.layout.pop_back, null);
+		// TextView tvTitle = (TextView) view.findViewById(R.id.textView1);
+		// TextView tvContent = (TextView) view.findViewById(R.id.textView2);
+		// tvTitle.setText("模拟考试时间到");
 		int last = 0;
 		if (flag == 1) {
 			last = 100 - right - wrong;
@@ -381,17 +400,18 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect,
 
 			@Override
 			public void onClick(View arg0) {
-				pop.dismiss();
+				dialog.dismiss();
+				// pop.dismiss();
 			}
 		});
-		pop.setContentView(view);
+		// pop.setContentView(view);
 		view.findViewById(R.id.pay_ok).setOnClickListener(
 				new OnClickListener() {
 
 					@Override
 					public void onClick(View arg0) {
 						// 跳转
-						pop.dismiss();
+						dialog.dismiss();
 						finish();
 						// 退出支付流程,干掉之前的
 					}
@@ -401,11 +421,13 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect,
 
 					@Override
 					public void onClick(View arg0) {
-						pop.dismiss();
+						dialog.dismiss();
 					}
 				});
-		pop.showAtLocation(this.getWindow().getDecorView(), Gravity.CENTER, 0,
-				0);
+		dialog.show();
+		// pop.showAtLocation(this.getWindow().getDecorView(), Gravity.CENTER,
+		// 0,
+		// 0);
 	}
 
 	/**
@@ -482,9 +504,10 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect,
 	TimerTask timerTask;
 
 	private void handler() {
+		LogUtil.print("time===>" + minute + ":" + second);
 		if (minute == 0) {
 			if (second == 0) {
-				
+
 				tvTime.setText("Time out !");
 				if (timer != null) {
 					timer.cancel();
@@ -556,25 +579,25 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect,
 	 */
 	public void requestExam() {
 		BlackCatApplication app = BlackCatApplication.getInstance();
-		//如果不登录 ，不需要请求
-		if(!app.isLogin){
+		// 如果不登录 ，不需要请求
+		if (!app.isLogin) {
 			return;
 		}
-//		int right = 99;
-		//如果成绩不合格不需要请求
-		int score = 0; 
-		if(kemu == 1){
+		// int right = 99;
+		// 如果成绩不合格不需要请求
+		int score = 0;
+		if (kemu == 1) {
 			score = right;
-		}else{
-			score = right *2;
+		} else {
+			score = right * 2;
 		}
-		if(score<90){//成绩不合格
-			return ;
+		if (score < 90) {// 成绩不合格
+			return;
 		}
-//		LogUtil.print(app.userVO.getUserid()+"request--Exam>>"+score);
-		String endTime = System.currentTimeMillis()+"";
-		
-//		LogUtil.print("request--Exam>参数-开始时间::"+beginTime+"结束时间"+endTime+"score-->"+score+"kemu::"+kemu);
+		// LogUtil.print(app.userVO.getUserid()+"request--Exam>>"+score);
+		String endTime = System.currentTimeMillis() + "";
+
+		// LogUtil.print("request--Exam>参数-开始时间::"+beginTime+"结束时间"+endTime+"score-->"+score+"kemu::"+kemu);
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("userid", app.userVO.getUserid());
 		paramMap.put("begintime", beginTime);
@@ -584,19 +607,42 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect,
 
 		Map<String, String> headerMap = new HashMap<String, String>();
 		headerMap.put("authorization", app.userVO.getToken());
-		HttpSendUtils
-				.httpPostSend("doScore", this, Config.IP
-						+ "api/v1/userinfo/sendtestscore", paramMap, 10000,
-						headerMap);
+		HttpSendUtils.httpPostSend("doScore", this, Config.IP
+				+ "api/v1/userinfo/sendtestscore", paramMap, 10000, headerMap);
 
-//post /userinfo/sendtestscore 
 	}
-	
+
+	private void showFirstPop() {
+		final Dialog dialog = new Dialog(this, R.style.dialog);
+		// dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		View view = View.inflate(this, R.layout.dialog_study, null);
+		dialog.setContentView(view);
+		dialog.show();
+		view.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+			}
+		});
+	}
+
+	@Override
+	protected void onDestroy() {
+		if (timer != null) {
+			timer.cancel();
+			timer = null;
+		}
+		if (timerTask != null) {
+			timerTask = null;
+		}
+		super.onDestroy();
+	}
+
 	/**
 	 * 考试开始
 	 */
 	private String beginTime = "";
-
 
 	@Override
 	public boolean doCallBack(String arg0, Object arg1) {

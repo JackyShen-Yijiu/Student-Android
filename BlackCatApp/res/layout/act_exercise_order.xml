@@ -3,114 +3,102 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    <RelativeLayout 
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/base_titlebar_height"
-        android:background="@color/new_app_main_color"
-        >
+        android:background="@color/new_app_main_color" >
+
         <ImageButton
             android:id="@+id/base_left_btn"
             android:layout_width="@dimen/base_titlebar_leftright_btn_height"
             android:layout_height="@dimen/base_titlebar_leftright_btn_height"
+            android:layout_centerVertical="true"
             android:background="@drawable/base_left_btn_bkground"
-            android:layout_centerVertical="true"
-            android:onClick="onClick"
-            android:contentDescription="@string/app_name" />
-        
-        <LinearLayout 
+            android:contentDescription="@string/app_name"
+            android:onClick="onClick" />
+
+        <LinearLayout
             android:layout_width="wrap_content"
-        	android:layout_height="@dimen/actionBarSize"
-        	android:orientation="horizontal"
-        	android:layout_alignParentRight="true"
+            android:layout_height="@dimen/actionBarSize"
+            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:gravity="center"
-            >
-            
-                <TextView
-            android:id="@+id/act_exercise_total"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/act_exercise_right"
-            android:drawableTop="@drawable/ic_study_total"
-            android:layout_marginRight="@dimen/margin_16"
-            android:drawablePadding="@dimen/padding_4"
-            android:text="100/100"
-            android:textColor="@color/white"
-            android:textSize="@dimen/txt_size_ss" />
-            
+            android:orientation="horizontal" >
+
             <TextView
-            android:id="@+id/act_exercise_right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/act_exercise_wrong"
-            android:drawableTop="@drawable/ic_study_right"
-            android:layout_marginRight="@dimen/margin_16"
-            android:drawablePadding="@dimen/padding_4"
-            android:gravity="center"
-            android:text="0"
-            android:textColor="@color/white"
-            android:textSize="@dimen/txt_size_ss" />
-        
-            
-            
+                android:id="@+id/act_exercise_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/margin_16"
+                android:layout_toLeftOf="@+id/act_exercise_right"
+                android:drawablePadding="@dimen/padding_4"
+                android:drawableTop="@drawable/ic_study_total"
+                android:text="0/0"
+                android:textColor="@color/white"
+                android:textSize="@dimen/txt_size_ss" />
+
             <TextView
-            android:id="@+id/act_exercise_wrong"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/act_exercise_percentage"
-            android:drawableTop="@drawable/ic_study_wrong"
-            android:layout_marginRight="@dimen/margin_16"
-            android:drawablePadding="@dimen/padding_4"
-            android:text="0"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="@dimen/txt_size_ss" />
-            
+                android:id="@+id/act_exercise_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/margin_16"
+                android:layout_toLeftOf="@+id/act_exercise_wrong"
+                android:drawablePadding="@dimen/padding_4"
+                android:drawableTop="@drawable/ic_study_right"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@color/white"
+                android:textSize="@dimen/txt_size_ss" />
+
             <TextView
-            android:id="@+id/act_exercise_percentage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/act_exercise_time"
-            android:drawableTop="@drawable/ic_study_percentage"
-            android:layout_marginRight="@dimen/margin_16"
-            android:drawablePadding="@dimen/padding_4"
-            android:text="0%"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="@dimen/txt_size_ss" />
-            
+                android:id="@+id/act_exercise_wrong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/margin_16"
+                android:layout_toLeftOf="@+id/act_exercise_percentage"
+                android:drawablePadding="@dimen/padding_4"
+                android:drawableTop="@drawable/ic_study_wrong"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@color/white"
+                android:textSize="@dimen/txt_size_ss" />
+
             <TextView
-            android:id="@+id/act_exercise_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            
-            android:textSize="@dimen/txt_size_small"
-            android:drawableTop="@drawable/ic_study_time"
-            android:layout_marginRight="@dimen/margin_16"
-            android:drawablePadding="@dimen/padding_4"
-            android:textColor="@color/white"
-            android:text="30:00" />
+                android:id="@+id/act_exercise_percentage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/margin_16"
+                android:layout_toLeftOf="@+id/act_exercise_time"
+                android:drawablePadding="@dimen/padding_4"
+                android:drawableTop="@drawable/ic_study_percentage"
+                android:gravity="center"
+                android:text="0%"
+                android:textColor="@color/white"
+                android:textSize="@dimen/txt_size_ss" />
+
+            <TextView
+                android:id="@+id/act_exercise_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/margin_16"
+                android:drawablePadding="@dimen/padding_4"
+                android:drawableTop="@drawable/ic_study_time"
+                android:text="30:00"
+                android:textColor="@color/white"
+                android:textSize="@dimen/txt_size_small" />
         </LinearLayout>
-
-        
-
-        
-        
-        
-        
-    
     </RelativeLayout>
-    
+
     <android.support.v4.view.ViewPager
         android:id="@+id/act_exer_order_vp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/main_bg"
-        >
-        
+        android:background="@color/main_bg" >
     </android.support.v4.view.ViewPager>
+
 </LinearLayout>

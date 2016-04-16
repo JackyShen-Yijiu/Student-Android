@@ -3,6 +3,9 @@ package com.sft.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,7 +15,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,7 +26,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -104,7 +105,7 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 		// video_url = localPath+"/test.mp4";
 		localPath = Environment.getExternalStorageDirectory()
 				+ "/jzjf/img/a/ggtkFile/resources/";
-		// LogUtil.print("instantiateItem---onCreate-->Excise"+video_url);
+		// LogUtil.print("instantiateItem---onCreate->" + param1.getWebnote());
 	}
 
 	@Override
@@ -176,7 +177,8 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 				answers.add(new ExerciseAnswerVO("错误"));
 				param1.setAnswers(answers);
 			}
-			LogUtil.print("answeer--->" + param1.getAnswers());
+			LogUtil.print(param1.getAnswers().size() + "answeer--->"
+					+ param1.getWebnote().getQuestion());
 			break;
 		case 2:// 单选
 			imgType.setImageResource(R.drawable.ic_study_single_select);
@@ -391,7 +393,7 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 		// 如果是错题，删除错题
 		if (((ExerciseOrderAct) getActivity()).flag == 2) {// 错题
 			error_book book = new error_book();
-			book.setId(param1.getWebnote().getId());
+			book.setWebnoteid(param1.getWebnote().getId());
 			Util.deleteErrorBook(book);
 			// LogUtil.print("delete----.>>"+);
 		} else if (((ExerciseOrderAct) getActivity()).flag == 1) {// 考试
@@ -402,8 +404,10 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 	private void onError() {
 		showAnalysy();
 		((ExerciseOrderAct) getActivity()).addWrong();
-		// 插入数据库
-		insertError();
+		if (((ExerciseOrderAct) getActivity()).flag != 2) {
+			// 插入数据库
+			insertError();
+		}
 		// 考试
 		if (((ExerciseOrderAct) getActivity()).flag == 1) {// 考试
 			if (((ExerciseOrderAct) getActivity()).wrong > 10) {
@@ -496,7 +500,8 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 		error.setChapterid(((ExerciseOrderAct) getActivity()).chartId);
 		error.setKemu(((ExerciseOrderAct) getActivity()).kemu);
 		error.setWebnoteid(param1.getWebnote().getId());
-
+		LogUtil.print(param1.getWebnote().getQuestion() + "delete-->"
+				+ param1.getWebnote().getId());
 		Util.insertErrorBank(error);
 		List<web_note> list = Util.getAllSubjectFourErrorQuestion();
 		LogUtil.print("error---size>" + list.size());
@@ -516,31 +521,29 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 	 * 考试结束,未通过
 	 */
 	private void showDialogFinish() {
-		final PopupWindow pop = new PopupWindow(getActivity());
-		pop.setHeight(LayoutParams.MATCH_PARENT);
-		pop.setWidth(LayoutParams.MATCH_PARENT);
+		final Dialog dialog = new Dialog(getActivity(), R.style.dialog);
 		View view = View.inflate(getActivity(), R.layout.pop_back, null);
 		TextView tvTitle = (TextView) view.findViewById(R.id.textView1);
 		TextView tvContent = (TextView) view.findViewById(R.id.textView2);
 		tvTitle.setText("考试不通过");
 		tvContent.setText("非常抱歉，您已经答错了十一道题目，模拟考试未通过，请再接再厉!");
 		view.findViewById(R.id.pay_cancel).setVisibility(View.INVISIBLE);
-		// view.setFocusable(true);
+		dialog.setContentView(view);
+
 		view.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
-				pop.dismiss();
+				dialog.dismiss();
 			}
 		});
-		pop.setContentView(view);
 		view.findViewById(R.id.pay_ok).setOnClickListener(
 				new OnClickListener() {
 
 					@Override
 					public void onClick(View arg0) {
 						// 跳转
-						pop.dismiss();
+						dialog.dismiss();
 						getActivity().finish();
 						// 退出支付流程,干掉之前的
 					}
@@ -550,11 +553,18 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 
 					@Override
 					public void onClick(View arg0) {
-						pop.dismiss();
+						dialog.dismiss();
 					}
 				});
-		pop.showAtLocation(getActivity().getWindow().getDecorView(),
-				Gravity.CENTER, 0, 0);
-	}
+		dialog.setOnDismissListener(new OnDismissListener() {
 
+			@Override
+			public void onDismiss(DialogInterface paramDialogInterface) {
+				// TODO Auto-generated method stub
+				dialog.dismiss();
+				getActivity().finish();
+			}
+		});
+		dialog.show();
+	}
 }
