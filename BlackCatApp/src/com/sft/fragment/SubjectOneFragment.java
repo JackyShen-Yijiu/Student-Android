@@ -126,17 +126,17 @@ public class SubjectOneFragment extends BaseFragment implements OnClickListener 
 			intent = new Intent(mContext, ExerciseOrderAct.class);
 			intent.putExtra("flag", 1);
 			intent.putExtra("subjectid", 1);
-//			kemu = getIntent().getIntExtra("subjectid",1);
-			//练习模式
-			
-//			if (app.questionVO != null) {
-//				intent = new Intent(mContext, QuestionActivity.class);
-//				intent.putExtra("url", app.questionVO.getSubjectone()
-//						.getQuestiontesturl());
-//			} else {
-//				ZProgressHUD.getInstance(mContext).show();
-//				ZProgressHUD.getInstance(mContext).dismissWithFailure("暂无题库");
-//			}
+			// kemu = getIntent().getIntExtra("subjectid",1);
+			// 练习模式
+
+			// if (app.questionVO != null) {
+			// intent = new Intent(mContext, QuestionActivity.class);
+			// intent.putExtra("url", app.questionVO.getSubjectone()
+			// .getQuestiontesturl());
+			// } else {
+			// ZProgressHUD.getInstance(mContext).show();
+			// ZProgressHUD.getInstance(mContext).dismissWithFailure("暂无题库");
+			// }
 			break;
 		case R.id.my_error_data:
 			// 我的错题
@@ -145,9 +145,9 @@ public class SubjectOneFragment extends BaseFragment implements OnClickListener 
 				intent.putExtra("flag", 2);
 				intent.putExtra("subjectid", 1);
 				if (app.questionVO != null) {
-//					intent = new Intent(mContext, QuestionActivity.class);
-//					intent.putExtra("url", app.questionVO.getSubjectone()
-//							.getQuestionerrorurl());
+					// intent = new Intent(mContext, QuestionActivity.class);
+					// intent.putExtra("url", app.questionVO.getSubjectone()
+					// .getQuestionerrorurl());
 				} else {
 					ZProgressHUD.getInstance(mContext).show();
 					ZProgressHUD.getInstance(mContext).dismissWithFailure(
@@ -168,8 +168,9 @@ public class SubjectOneFragment extends BaseFragment implements OnClickListener 
 				// intent.putExtra("subjectid", "1");
 
 			} else {
-				NoLoginDialog dialog = new NoLoginDialog(getActivity());
-				dialog.show();
+				// NoLoginDialog dialog = new NoLoginDialog(getActivity());
+				// dialog.show();
+				BaseUtils.toLogin(getActivity());
 			}
 
 			break;
