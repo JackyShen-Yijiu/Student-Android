@@ -190,7 +190,7 @@ public class SubjectThreeFragment extends BaseFragment implements
 		studyProgressBar.setMax(subject.getTotalcourse());
 		studyProgressBar.setProgress(subject.getFinishcourse());
 		studyProgressTv.setText("规定课时   " + subject.getFinishcourse() + "/"
-				+ subject.getOfficialhours());
+				+ subject.getTotalcourse());
 		// finishedClass.setText("已完成" + subject.getFinishcourse());
 		// ruleClass.setText("规定课时" + subject.getTotalcourse());
 		// officalClass.setText("官方学时" + subject.getOfficialhours());

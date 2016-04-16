@@ -463,11 +463,9 @@ public class Util {
 				+ error.getWebnoteid());
 		//
 		// LogUtil.print("delete-->from--id>>" + error.getWebnoteid());
-		// =======
 		// db.execSQL("delete from error_book where webnoteid =" +
 		// error.getId());
 		// LogUtil.print("delete-->from--id>>" + error.getId());
-		// >>>>>>> eb6db6f54058d0f97d795a35cd567665a1a926d1
 		db.close();
 	}
 
