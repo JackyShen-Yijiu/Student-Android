@@ -164,7 +164,6 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 		HttpSendUtils.httpGetSend(usefulcoachtimely, this,
 				Config.IP + "api/v1/userinfo/getusefulcoachtimely/index/"
 						+ moreCoachPage, paramMap, 10000, headerMap);
-		LogUtil.print("moreCoachPage---" + moreCoachPage);
 	}
 
 	// 获取我当前可以预约的教练

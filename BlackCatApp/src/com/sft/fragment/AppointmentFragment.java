@@ -153,7 +153,7 @@ public class AppointmentFragment extends BaseFragment implements
 		// app.userVO.
 		if (null != subject) {
 
-			subjectTextTv.setText("已学:" + subject.getFinishcourse() + "课时  "
+			subjectTextTv.setText("上次学习:" + subject.getFinishcourse() + "课时  "
 					+ subject.getProgress());// +subject.getProgress()
 			// 规定xx 学时 完成XX学时
 			tvLeft1.setText("规定:" + subject.getTotalcourse() + "课时");
@@ -264,6 +264,7 @@ public class AppointmentFragment extends BaseFragment implements
 		} else {
 			noCaochErrorRl.setVisibility(View.VISIBLE);
 			hasCaochRl.setVisibility(View.GONE);
+			
 		}
 
 		//

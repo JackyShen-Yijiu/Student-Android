@@ -24,6 +24,7 @@ import android.view.View.OnClickListener;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.listener.ICallBack;
 
@@ -566,6 +567,7 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect,
 			if ((right + wrong) == 50)
 				return true;
 		}
+//		Toast.makeText(this, "right::<>"+right+"wrong-->"+wrong, Toast.LENGTH_SHORT).show();
 		return false;
 
 	}

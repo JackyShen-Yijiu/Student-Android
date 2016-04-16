@@ -172,8 +172,7 @@ public class SubjectOneFragment extends BaseFragment implements OnClickListener 
 				// intent.putExtra("subjectid", "1");
 
 			} else {
-				NoLoginDialog dialog = new NoLoginDialog(getActivity());
-				dialog.show();
+				BaseUtils.toLogin(getActivity());
 			}
 
 			break;
@@ -191,8 +190,9 @@ public class SubjectOneFragment extends BaseFragment implements OnClickListener 
 							"暂无成绩单");
 				}
 			} else {
-				NoLoginDialog dialog = new NoLoginDialog(mContext);
-				dialog.show();
+				BaseUtils.toLogin(getActivity());
+//				NoLoginDialog dialog = new NoLoginDialog(mContext);
+//				dialog.show();
 			}
 			break;
 

@@ -84,7 +84,7 @@ public class MyComplaintAdapter extends BaseAdapter {
 
 		holder.date.setText(""
 				+ UTC2LOC.instance.getDate(list.get(position).createtime,
-						"MM/dd HH:ss"));
+						"MM/dd HH:mm"));
 		if (list.get(position).feedbacktype == 1) {
 			holder.type.setText("投诉教练:");
 		} else {

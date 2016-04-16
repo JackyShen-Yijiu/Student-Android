@@ -59,7 +59,7 @@
                 android:singleLine="true"
                 android:text="商铺起步"
                 android:textColor="@color/txt_333"
-                android:textSize="@dimen/txt_size_large" />
+                android:textSize="14sp" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
