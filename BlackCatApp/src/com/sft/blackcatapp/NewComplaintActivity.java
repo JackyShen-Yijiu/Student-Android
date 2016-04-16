@@ -134,7 +134,7 @@ public class NewComplaintActivity extends BaseActivity implements
 		setTitleText(R.string.apply_left);
 
 		showTitlebarText(BaseActivity.SHOW_RIGHT_TEXT);
-		setText(0, R.string.complain);
+		setText(0, R.string.complains);
 		tv_1 = (TextView) findViewById(R.id.tv_1);
 		rl_coach = (RelativeLayout) findViewById(R.id.rl_coach);
 		name_ck = (CheckBox) findViewById(R.id.setting_appointment_ck);

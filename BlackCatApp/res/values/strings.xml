@@ -48,7 +48,7 @@
     <string name="yibu_superiority">平台优势</string>
     <string name="yibu_student_know">学员须知</string>
     <string name="enroll_info_table">报名</string>
-    <string name="apply_left">我的投诉</string>
+    <string name="apply_left">投诉</string>
     <string name="apply_left_coach">投诉教练</string>
     <string name="apply_left_school">投诉驾校名</string>
     <string name="in_uploading">正在上传</string>
@@ -164,6 +164,7 @@
     <string name="sametime_student">同时段学员</string>
     <string name="confirm_study">确定学完</string>
     <string name="complain">投诉</string>
+    <string name="complains">我的投诉</string>
     <string name="comment">评价</string>
     <string name="course_info">课程信息</string>
     <string name="total_comment">总体评价</string>
