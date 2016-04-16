@@ -111,6 +111,7 @@ public class Walletcoupons extends BaseActivity {
 
 		try {
 			if (type.equals(myCoinCertificate)) {
+
 				if (dataArray != null) {
 					int length = dataArray.length();
 					myCuponList = new ArrayList<MyCuponVO>();
@@ -129,7 +130,6 @@ public class Walletcoupons extends BaseActivity {
 						cupontAdapter.setData(myCuponList);
 					}
 					incomeList.setAdapter(cupontAdapter);
-
 					if (myCuponList.size() == 0) {
 						error_rl.setVisibility(View.VISIBLE);
 						incomeList.setVisibility(View.GONE);

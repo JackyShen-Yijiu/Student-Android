@@ -154,7 +154,6 @@ public class CupontAdapter extends BaseAdapter {
 		} else {
 			createQr(url, holder.code);
 		}
-
 		holder.date.setText(UTC2LOC.instance.getDate(mData.get(position)
 				.getCreatetime(), "有效期至:" + "yyyy/MM/dd"));
 		// duihuanjuanAdapter.setData(mData.get(position).getUseproductidlist());

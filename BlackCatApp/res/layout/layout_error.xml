@@ -35,7 +35,7 @@
         android:text=""
         android:layout_marginTop="10dp"
         android:layout_below="@+id/error_tv"
-        android:textColor="#FFB7B7B7"
-        android:textSize="12sp" />
+        android:textColor="#6e6e6e"
+        android:textSize="14sp" />
 
 </RelativeLayout>

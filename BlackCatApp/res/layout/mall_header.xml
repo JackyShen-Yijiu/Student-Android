@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 	android:paddingBottom="15dp"
+	android:paddingTop="15dp"
     android:background="@color/white"
      >
 
@@ -36,7 +37,6 @@
         android:layout_marginRight="16dp"
         android:background="@drawable/button_rounded_corners_blue"
         android:text="兑换记录" 
-        android:layout_marginTop="12dp"
         android:layout_alignParentRight="true"
         android:textColor="@color/new_button_color"
         android:textSize="@dimen/txt_size_small"/>

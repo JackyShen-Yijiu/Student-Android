@@ -16,8 +16,8 @@
     <ImageView 
         android:id="@+id/iv_code"
         android:layout_width="46dp"
-        android:layout_marginTop="22dp"
-        android:layout_marginLeft="22dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="16dp"
         android:layout_height="46dp"/>
     <TextView 
 		android:id="@+id/tv_1"
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/iv_code"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         android:textSize="14sp"
         android:text="兑换劵"/>
  <TextView 
@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_1"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:layout_alignLeft="@+id/tv_1"
         android:textSize="12sp"
         android:text="时间"/>
@@ -45,7 +45,7 @@
      android:layout_below="@+id/mywallet_item_date_tv"
      android:layout_alignLeft="@+id/iv_code"
      android:textSize="12sp"
-     android:layout_marginTop="32dp"
+     android:layout_marginTop="36dp"
      android:textColor="@color/new_button_color"
      android:text="兑换劵详情"
      />
