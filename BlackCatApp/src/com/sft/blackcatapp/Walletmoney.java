@@ -8,6 +8,7 @@ import java.util.Map;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -73,7 +74,7 @@ public class Walletmoney extends BaseActivity {
 	}
 
 	private void initView() {
-
+		ImageView error_iv = (ImageView) findViewById(R.id.error_iv);
 		error_rl = (RelativeLayout) findViewById(R.id.error_rl);
 		error_tv = (TextView) findViewById(R.id.error_tv);
 

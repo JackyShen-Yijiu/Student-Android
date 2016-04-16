@@ -88,7 +88,7 @@ public class MallProductAdapter extends BaseAdapter {
 		ProductVO productVO = mData.get(position);
 
 		if (TextUtils.isEmpty(productVO.getProductimg())) {
-			holder.productImage.setBackgroundResource(R.drawable.defaultimage);
+			holder.productImage.setBackgroundResource(R.drawable.shop_pic);
 		} else {
 
 			BitmapManager.INSTANCE.loadBitmap2(productVO.getProductimg(),

@@ -92,7 +92,8 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect,
 				// 刷新 显示
 				// LogUtil.print("size--->" + dataExam.size());
 				viewpager.setAdapter(adapter);
-
+				
+				requestExam();
 			}
 
 		}
@@ -106,8 +107,7 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect,
 		initView();
 		initData();
 		// getData();
-
-		unzip();
+//		unzip();
 		Exam();
 	}
 
@@ -285,51 +285,7 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect,
 		tvPercentage.setText((100 * right / (right + wrong)) + "%");
 	}
 
-	private void unzip() {
-		UnZipUtils zip = new UnZipUtils();
-		File f = new File(zip.targetPath);
-		if (f.exists()) {
-			LogUtil.print(zip.targetPath + "video--copy--fhdht>snvjsdl");
-			return;
-		} else {
-			zip.createDir();
-		}
-
-		zip.CopyFileThread(this, UnZipUtils.assertName, UnZipUtils.targetPath,
-				new Handler() {
-
-					@Override
-					public void handleMessage(Message msg) {
-
-						try {
-							new UnZipUtils().doZip(ExerciseOrderAct.this,
-									UnZipUtils.targetPath,
-									UnZipUtils.localPath, new ZipCall() {
-
-										@Override
-										public void unzipSuccess() {
-											// 解压成功
-											Toast.makeText(
-													ExerciseOrderAct.this,
-													"success",
-													Toast.LENGTH_SHORT).show();
-										}
-
-										@Override
-										public void unzipFailed() {
-
-										}
-
-									});
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-
-					}
-
-				});
-	}
-
+	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -604,6 +560,7 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect,
 		if(!app.isLogin){
 			return;
 		}
+//		int right = 99;
 		//如果成绩不合格不需要请求
 		int score = 0; 
 		if(kemu == 1){
@@ -614,10 +571,10 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect,
 		if(score<90){//成绩不合格
 			return ;
 		}
-		LogUtil.print("request--Exam>>"+score);
+//		LogUtil.print(app.userVO.getUserid()+"request--Exam>>"+score);
 		String endTime = System.currentTimeMillis()+"";
 		
-		
+//		LogUtil.print("request--Exam>参数-开始时间::"+beginTime+"结束时间"+endTime+"score-->"+score+"kemu::"+kemu);
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("userid", app.userVO.getUserid());
 		paramMap.put("begintime", beginTime);
@@ -629,8 +586,10 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect,
 		headerMap.put("authorization", app.userVO.getToken());
 		HttpSendUtils
 				.httpPostSend("doScore", this, Config.IP
-						+ "api/v1/userinfo/userapplyschool", paramMap, 10000,
+						+ "api/v1/userinfo/sendtestscore", paramMap, 10000,
 						headerMap);
+
+//post /userinfo/sendtestscore 
 	}
 	
 	/**

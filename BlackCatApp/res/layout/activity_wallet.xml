@@ -104,7 +104,7 @@
                android:text="兑换记录"/>
        </RelativeLayout>
    
-   
+  
      <android.support.v4.view.ViewPager
         android:id="@+id/wallet_viewpager"
         android:layout_width="fill_parent"
