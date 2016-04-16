@@ -169,7 +169,7 @@ public class AppointmentFragment extends BaseFragment implements
 				yuekaoLr.setClickable(false);
 				tvLastXueShi.setVisibility(View.VISIBLE);
 				tvLastXueShi.setText("还需"
-						+ (subject.officialhours - subject.officialfinishhours)
+						+ (subject.getTotalcourse() - subject.getFinishcourse())
 						+ "学时");
 			}
 
