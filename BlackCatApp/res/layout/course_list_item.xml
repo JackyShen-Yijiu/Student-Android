@@ -11,26 +11,16 @@
         android:contentDescription="@string/app_name"
         />
     
-    <ImageView 
-        android:id="@+id/course_start_btn"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:background="@drawable/start"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="17dp"
-        android:layout_marginLeft="17dp"
-        />
+    
     
     <TextView 
         android:id="@+id/course_title_tv"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_marginBottom="17dp"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/course_start_btn"
-        android:layout_marginLeft="10dp"
+        android:layout_height="wrap_content"
         android:textColor="#ffffff"
-        android:text="asdfasdf"
-        android:textSize="16dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:text=""
+        android:textSize="24dp"
         />
 </RelativeLayout>

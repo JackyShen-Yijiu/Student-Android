@@ -423,6 +423,7 @@ public class Util {
 		// 插入之前先删除
 		db.execSQL("delete from error_book where webnoteid ="
 				+ error.getWebnoteid());
+
 		db.execSQL("INSERT INTO error_book VALUES (NULL, ?, ?,?,?)",
 				new Object[] { error.getChapterid(), error.getWebnoteid(),
 						error.getUserid(), error.getKemu() });
@@ -461,7 +462,12 @@ public class Util {
 		db.execSQL("delete from error_book where webnoteid ="
 				+ error.getWebnoteid());
 		//
-		LogUtil.print("delete-->from--id>>" + error.getWebnoteid());
+		// LogUtil.print("delete-->from--id>>" + error.getWebnoteid());
+		// =======
+		// db.execSQL("delete from error_book where webnoteid =" +
+		// error.getId());
+		// LogUtil.print("delete-->from--id>>" + error.getId());
+		// >>>>>>> eb6db6f54058d0f97d795a35cd567665a1a926d1
 		db.close();
 	}
 

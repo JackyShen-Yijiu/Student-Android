@@ -494,7 +494,9 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 			app = BlackCatApplication.getInstance();
 		}
 		error_book error = new error_book();
-		error.setUserid(app.userVO.getUserid());
+		if (app.userVO != null) {
+			error.setUserid(app.userVO.getUserid());
+		}
 		error.setChapterid(((ExerciseOrderAct) getActivity()).chartId);
 		error.setKemu(((ExerciseOrderAct) getActivity()).kemu);
 		error.setWebnoteid(param1.getWebnote().getId());
@@ -565,5 +567,4 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 		});
 		dialog.show();
 	}
-
 }
