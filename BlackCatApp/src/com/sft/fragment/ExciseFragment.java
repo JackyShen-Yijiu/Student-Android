@@ -199,6 +199,10 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 		doImage(param1.getWebnote().getImg_url());
 		// 显示视频
 		doVideo(param1.getWebnote().getVideo_url());
+		if(param1.submit == 1){//已经提交了
+			showAnalysy();
+		}
+		
 	}
 
 	private void doImage(String name) {
@@ -434,11 +438,6 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 				.replace("3", "C ").replace("4", "D ");
 		LogUtil.print(temp1 + "right::" + param1.getWebnote().getAnswer_true());
 		tvRightAnswer.setText("正确答案:  " + temp1);
-
-		
-		
-
-		
 	}
 
 	/**

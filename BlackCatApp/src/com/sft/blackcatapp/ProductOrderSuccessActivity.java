@@ -99,7 +99,8 @@ public class ProductOrderSuccessActivity extends BaseActivity {
 			//
 			successPic.setVisibility(View.GONE);
 			productNameTv.setText(exchangeOrderItemVO.productname);
-			productPriceTv.setText(exchangeOrderItemVO.productprice + "");
+			LogUtil.print(exchangeOrderItemVO.productprice*exchangeOrderItemVO.count+"---=="+exchangeOrderItemVO.count+"--"+exchangeOrderItemVO.productprice);
+			productPriceTv.setText(exchangeOrderItemVO.productprice*exchangeOrderItemVO.count+ "");
 			timeTv.setText("兑换时间：" + exchangeOrderItemVO.createtime);
 			if (TextUtils.isEmpty(exchangeOrderItemVO.productimg)) {
 				productPic.setBackgroundResource(R.drawable.defaultimage);
@@ -121,7 +122,7 @@ public class ProductOrderSuccessActivity extends BaseActivity {
 				int price = (int) getIntent().getDoubleExtra("money",
 						Double.parseDouble(productVO.getProductprice()));
 				productNameTv.setText(productVO.getProductname());
-				productPriceTv.setText(price);
+				productPriceTv.setText(price+"");
 				SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
 				timeTv.setText("兑换时间：" + format.format(new Date()));
 

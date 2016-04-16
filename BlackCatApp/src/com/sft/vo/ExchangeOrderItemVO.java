@@ -21,4 +21,5 @@ public class ExchangeOrderItemVO implements Serializable{
 	public String merchantname;
 	public String merchantmobile;
 	public String merchantaddress;
+	public int count;
 }

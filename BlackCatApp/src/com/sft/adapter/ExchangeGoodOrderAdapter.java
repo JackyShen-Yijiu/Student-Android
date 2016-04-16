@@ -87,7 +87,7 @@ public class ExchangeGoodOrderAdapter extends BaseAdapter {
 					holder.productPicIv, headParams.width, headParams.height);
 		}
 		holder.productNameTv.setText(b.productname);
-		holder.productPriceTv.setText(b.productprice + "");
+		holder.productPriceTv.setText(b.productprice*b.count + "");
 		holder.productTimeTv.setText(b.createtime);
 		if ("5".equals(b.orderstate)) {
 			holder.productStatus.setText("已领取");
