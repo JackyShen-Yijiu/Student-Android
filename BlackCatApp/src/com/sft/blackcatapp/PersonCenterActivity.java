@@ -407,8 +407,8 @@ public class PersonCenterActivity extends BaseActivity implements
 							|| pay.userpaystate.equals("3")) {// 订单刚生成，支付失败
 
 						// 存在未支付订单
-						app.userVO.setApplystate(EnrollResult.SUBJECT_NONE
-								.getValue());
+						// app.userVO.setApplystate(EnrollResult.SUBJECT_NONE
+						// .getValue());
 
 						app.isEnrollAgain = true;
 						hasNotPay = true;

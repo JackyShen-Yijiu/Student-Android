@@ -100,5 +100,6 @@
 	<dimen name="img_height">60dp</dimen>
 	<dimen name="margin_16">16dp</dimen>
 	<dimen name="padding_4">4dp</dimen>
+	<dimen name="study_height">72dp</dimen>
 							
 </resources>

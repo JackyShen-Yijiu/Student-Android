@@ -64,7 +64,7 @@
     <com.sft.viewutil.StudyItemLayout
         android:id="@+id/courseware"
         android:layout_width="wrap_content"
-        android:layout_height="68dp"
+        android:layout_height="@dimen/study_height"
         study:itemDescribe="真人实操教学视频"
         android:layout_marginTop="10dp"
         study:itemIcon="@drawable/question_banks"
@@ -74,7 +74,7 @@
     <com.sft.viewutil.StudyItemLayout
         android:id="@+id/learn_car_cheats"
         android:layout_width="wrap_content"
-        android:layout_height="68dp"
+        android:layout_height="@dimen/study_height"
         study:itemDescribe="独家学车秘籍总是快人一步"
         study:itemIcon="@drawable/cheats"
         study:itemTitle="学车秘籍" >
@@ -84,7 +84,7 @@
     <com.sft.viewutil.StudyItemLayout
         android:id="@+id/make_an_appointment"
         android:layout_width="wrap_content"
-        android:layout_height="68dp"
+        android:layout_height="@dimen/study_height"
         study:itemDescribe="足不出户轻松报考"
         study:itemIcon="@drawable/make_an_appointment"
         study:itemTitle="我要约考" >
@@ -92,7 +92,7 @@
         <com.sft.viewutil.StudyItemLayout
         android:id="@+id/my_school_report"
         android:layout_width="wrap_content"
-        android:layout_height="68dp"
+        android:layout_height="@dimen/study_height"
         study:itemDescribe="记录你的成长历程"
         study:itemIcon="@drawable/school_report"
         android:visibility="gone"
@@ -102,7 +102,7 @@
     <com.sft.viewutil.StudyItemLayout
         android:id="@+id/communication"
         android:layout_width="wrap_content"
-        android:layout_height="68dp"
+        android:layout_height="@dimen/study_height"
         study:itemDescribe="专项科目交流平台"
         study:itemIcon="@drawable/communication"
         study:itemTitle="交流" 

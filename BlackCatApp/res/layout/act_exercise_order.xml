@@ -5,17 +5,16 @@
     android:orientation="vertical" >
     <RelativeLayout 
         android:layout_width="match_parent"
-        android:layout_height="@dimen/actionBarSize"
+        android:layout_height="@dimen/base_titlebar_height"
         android:background="@color/new_app_main_color"
         >
         <ImageButton
             android:id="@+id/base_left_btn"
-            android:layout_width="@dimen/base_titlebar_leftright_btn_width"
+            android:layout_width="@dimen/base_titlebar_leftright_btn_height"
             android:layout_height="@dimen/base_titlebar_leftright_btn_height"
-            android:src="@drawable/base_left_btn_bkground"
+            android:background="@drawable/base_left_btn_bkground"
             android:layout_centerVertical="true"
             android:onClick="onClick"
-            android:background="@null"
             android:contentDescription="@string/app_name" />
         
         <LinearLayout 

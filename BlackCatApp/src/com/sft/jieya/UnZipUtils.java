@@ -29,6 +29,8 @@ public class UnZipUtils {
 	public UnZipUtils() {
 		String Path = Environment.getExternalStorageDirectory() + "/jzjf/img";
 		targetPath = Path + "/a.zip";
+		localPath = Path + "/a";
+		// targetPath = Path + "/a";//
 	}
 
 	public void createDir() {
@@ -77,7 +79,7 @@ public class UnZipUtils {
 	private void CopyFile(Context context, String assertName, String targetPath)
 			throws IOException {
 		// String path11 = "/storage/emulated/0/aa/test.zip";
-//		LogUtil.print(assertName + "--copy-->" + targetPath);
+		// LogUtil.print(assertName + "--copy-->" + targetPath);
 		File file = new File(targetPath);
 		if (!file.exists()) {
 			file.createNewFile();
@@ -109,23 +111,24 @@ public class UnZipUtils {
 	 */
 	public void doZip(Context context, String localPath, String targetPath,
 			ZipCall call) throws Exception {
-		LogUtil.print("zip---unzip-start---->");
+
 		// Environment.getExternalStorageDirectory()
 
 		File f1 = new File(localPath);
 		if (!f1.exists()) {
 			f1.mkdir();
 		}
+		LogUtil.print(localPath + "zip---unzip-start---->" + targetPath);
 		File f2 = new File(targetPath);
+
 		if (!f2.exists()) {
 			f2.mkdir();
 		}
-		
+
 		LogUtil.print("res-file--zip->>" + localPath);
 		LogUtil.print("target-path-zip->>" + targetPath);
 		ZipExtractorTask task = new ZipExtractorTask(localPath, targetPath,
 				context, true, call);
 		task.execute();
 	}
-
 }
