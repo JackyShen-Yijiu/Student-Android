@@ -25,6 +25,7 @@ import com.sft.dialog.NoLoginDialog;
 import com.sft.util.BaseUtils;
 import com.sft.util.CommonUtil;
 import com.sft.util.JSONUtil;
+import com.sft.util.LogUtil;
 import com.sft.viewutil.StudyItemLayout;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.MyExamInfoVO;
@@ -32,6 +33,7 @@ import com.sft.vo.SubjectForOneVO;
 
 public class SubjectOneFragment extends BaseFragment implements OnClickListener {
 	private static final String MYEXAMINFO = "myexaminfo";
+	private static final String MYSCORE = "myscore";
 	// 交流
 	private StudyItemLayout communication;
 	// 我要约考
@@ -48,6 +50,7 @@ public class SubjectOneFragment extends BaseFragment implements OnClickListener 
 	// private TextView testTimes;
 	// 学习进度
 	private ProgressBar studyProgressBar;
+	private int studyNUmber = 0;
 
 	// 学习进度信息
 	private SubjectForOneVO subject;
@@ -64,6 +67,7 @@ public class SubjectOneFragment extends BaseFragment implements OnClickListener 
 		mContext = getActivity();
 		initViews(rootView);
 		setListener();
+		obtainMyScore();
 		return rootView;
 	}
 
@@ -126,17 +130,17 @@ public class SubjectOneFragment extends BaseFragment implements OnClickListener 
 			intent = new Intent(mContext, ExerciseOrderAct.class);
 			intent.putExtra("flag", 1);
 			intent.putExtra("subjectid", 1);
-//			kemu = getIntent().getIntExtra("subjectid",1);
-			//练习模式
-			
-//			if (app.questionVO != null) {
-//				intent = new Intent(mContext, QuestionActivity.class);
-//				intent.putExtra("url", app.questionVO.getSubjectone()
-//						.getQuestiontesturl());
-//			} else {
-//				ZProgressHUD.getInstance(mContext).show();
-//				ZProgressHUD.getInstance(mContext).dismissWithFailure("暂无题库");
-//			}
+			// kemu = getIntent().getIntExtra("subjectid",1);
+			// 练习模式
+
+			// if (app.questionVO != null) {
+			// intent = new Intent(mContext, QuestionActivity.class);
+			// intent.putExtra("url", app.questionVO.getSubjectone()
+			// .getQuestiontesturl());
+			// } else {
+			// ZProgressHUD.getInstance(mContext).show();
+			// ZProgressHUD.getInstance(mContext).dismissWithFailure("暂无题库");
+			// }
 			break;
 		case R.id.my_error_data:
 			// 我的错题
@@ -145,9 +149,9 @@ public class SubjectOneFragment extends BaseFragment implements OnClickListener 
 				intent.putExtra("flag", 2);
 				intent.putExtra("subjectid", 1);
 				if (app.questionVO != null) {
-//					intent = new Intent(mContext, QuestionActivity.class);
-//					intent.putExtra("url", app.questionVO.getSubjectone()
-//							.getQuestionerrorurl());
+					// intent = new Intent(mContext, QuestionActivity.class);
+					// intent.putExtra("url", app.questionVO.getSubjectone()
+					// .getQuestionerrorurl());
 				} else {
 					ZProgressHUD.getInstance(mContext).show();
 					ZProgressHUD.getInstance(mContext).dismissWithFailure(
@@ -169,8 +173,6 @@ public class SubjectOneFragment extends BaseFragment implements OnClickListener 
 
 			} else {
 				BaseUtils.toLogin(getActivity());
-//				NoLoginDialog dialog = new NoLoginDialog(getActivity());
-//				dialog.show();
 			}
 
 			break;
@@ -217,6 +219,22 @@ public class SubjectOneFragment extends BaseFragment implements OnClickListener 
 				+ "api/v1/userinfo/getmyexaminfo", paramMap, 10000, headerMap);
 	}
 
+	// 获取我的考试成绩
+	private void obtainMyScore() {
+		if (app.userVO == null && app.userVO.getUserid() == null) {
+			return;
+		}
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("subjectid", "1");
+		paramMap.put("userid", app.userVO.getUserid());
+		Map<String, String> headerMap = new HashMap<String, String>();
+		headerMap.put("authorization", app.userVO.getToken());
+		//
+		HttpSendUtils.httpGetSend(MYSCORE, this, Config.IP
+				+ "api/v1/userinfo/getmyscore", paramMap, 10000, headerMap);
+
+	}
+
 	@Override
 	public synchronized boolean doCallBack(String type, Object jsonString) {
 		if (super.doCallBack(type, jsonString)) {
@@ -245,6 +263,13 @@ public class SubjectOneFragment extends BaseFragment implements OnClickListener 
 						startActivity(intent);
 					}
 				}
+			} else if (type.equals(MYSCORE)) {
+				//
+				if (null != dataArray) {
+					studyNUmber = dataArray.length();
+					LogUtil.print("studyNUmber---" + studyNUmber);
+					refreshUI();
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -262,8 +287,8 @@ public class SubjectOneFragment extends BaseFragment implements OnClickListener 
 
 	private void refreshUI() {
 		studyProgressBar.setMax(3);
-		studyProgressBar.setProgress(0);
-		studyProgressTv.setText("学习进度   " + "0" + "/3");
+		studyProgressBar.setProgress(studyNUmber);
+		studyProgressTv.setText("学习进度   " + studyNUmber + "/3");
 		// testTimes.setText("模拟考试" + subject.getFinishcourse() + "次");
 		// officalClass.setText("官方学时" + subject.getOfficialhours());
 	}

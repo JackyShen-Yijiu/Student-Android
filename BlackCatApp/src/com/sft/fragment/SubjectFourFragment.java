@@ -25,6 +25,7 @@ import com.sft.dialog.NoLoginDialog;
 import com.sft.util.BaseUtils;
 import com.sft.util.CommonUtil;
 import com.sft.util.JSONUtil;
+import com.sft.util.LogUtil;
 import com.sft.viewutil.StudyItemLayout;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.MyExamInfoVO;
@@ -33,6 +34,7 @@ import com.sft.vo.SubjectForOneVO;
 public class SubjectFourFragment extends BaseFragment implements
 		OnClickListener {
 	private static final String MYEXAMINFO = "myexaminfo";
+	private static final String MYSCORE = "myscore";
 	// 交流
 	private StudyItemLayout communication;
 	// 我要约考
@@ -52,6 +54,7 @@ public class SubjectFourFragment extends BaseFragment implements
 	private Context mContext;
 	private StudyItemLayout schoolReport;
 	private TextView studyProgressTv;
+	private int studyNUmber = 0;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,6 +64,7 @@ public class SubjectFourFragment extends BaseFragment implements
 		mContext = getActivity();
 		initViews(rootView);
 		setListener();
+		obtainMyScore();
 		return rootView;
 	}
 
@@ -126,14 +130,14 @@ public class SubjectFourFragment extends BaseFragment implements
 			intent.putExtra("subjectid", 4);
 			intent.putExtra("flag", 1);
 			// 模拟考试
-//			if (app.questionVO != null) {
-//				intent = new Intent(mContext, QuestionActivity.class);
-//				intent.putExtra("url", app.questionVO.getSubjectfour()
-//						.getQuestiontesturl());
-//			} else {
-//				ZProgressHUD.getInstance(mContext).show();
-//				ZProgressHUD.getInstance(mContext).dismissWithFailure("暂无题库");
-//			}
+			// if (app.questionVO != null) {
+			// intent = new Intent(mContext, QuestionActivity.class);
+			// intent.putExtra("url", app.questionVO.getSubjectfour()
+			// .getQuestiontesturl());
+			// } else {
+			// ZProgressHUD.getInstance(mContext).show();
+			// ZProgressHUD.getInstance(mContext).dismissWithFailure("暂无题库");
+			// }
 			break;
 		case R.id.my_error_data:
 			// 我的错题
@@ -141,9 +145,9 @@ public class SubjectFourFragment extends BaseFragment implements
 				intent = new Intent(mContext, ExerciseOrderAct.class);
 				intent.putExtra("subjectid", 4);
 				intent.putExtra("flag", 2);
-//				intent = new Intent(mContext, QuestionActivity.class);
-//				intent.putExtra("url", app.questionVO.getSubjectfour()
-//						.getQuestionerrorurl());
+				// intent = new Intent(mContext, QuestionActivity.class);
+				// intent.putExtra("url", app.questionVO.getSubjectfour()
+				// .getQuestionerrorurl());
 			} else {
 				ZProgressHUD.getInstance(mContext).show();
 				ZProgressHUD.getInstance(mContext).dismissWithFailure("暂无题库");
@@ -201,6 +205,22 @@ public class SubjectFourFragment extends BaseFragment implements
 				+ "api/v1/userinfo/getmyexaminfo", paramMap, 10000, headerMap);
 	}
 
+	// 获取我的考试成绩
+	private void obtainMyScore() {
+		if (app.userVO == null && app.userVO.getUserid() == null) {
+			return;
+		}
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("subjectid", "4");
+		paramMap.put("userid", app.userVO.getUserid());
+		Map<String, String> headerMap = new HashMap<String, String>();
+		headerMap.put("authorization", app.userVO.getToken());
+		//
+		HttpSendUtils.httpGetSend(MYSCORE, this, Config.IP
+				+ "api/v1/userinfo/getmyscore", paramMap, 10000, headerMap);
+
+	}
+
 	@Override
 	public synchronized boolean doCallBack(String type, Object jsonString) {
 		if (super.doCallBack(type, jsonString)) {
@@ -229,6 +249,13 @@ public class SubjectFourFragment extends BaseFragment implements
 						startActivity(intent);
 					}
 				}
+			} else if (type.equals(MYSCORE)) {
+				//
+				if (null != dataArray) {
+					studyNUmber = dataArray.length();
+					LogUtil.print("studyNUmber---" + studyNUmber);
+					setLearnProgressInfo(null);
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -238,8 +265,8 @@ public class SubjectFourFragment extends BaseFragment implements
 
 	public void setLearnProgressInfo(SubjectForOneVO subject) {
 		studyProgressBar.setMax(3);
-		studyProgressBar.setProgress(0);
-		studyProgressTv.setText("学习进度   " + "0" + "/3");
+		studyProgressBar.setProgress(studyNUmber);
+		studyProgressTv.setText("学习进度   " + studyNUmber + "/3");
 		// testTimes.setText("模拟考试" + subject.getFinishcourse() + "次");
 		// officalClass.setText("官方学时" + subject.getOfficialhours());
 

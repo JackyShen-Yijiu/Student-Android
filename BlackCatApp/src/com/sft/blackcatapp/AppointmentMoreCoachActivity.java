@@ -156,6 +156,7 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 		HttpSendUtils.httpGetSend(usefulcoachtimely, this,
 				Config.IP + "api/v1/userinfo/getusefulcoachtimely/index/"
 						+ moreCoachPage, paramMap, 10000, headerMap);
+		LogUtil.print("===" + moreCoachPage);
 	}
 
 	// 获取我当前可以预约的教练
@@ -205,7 +206,7 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 							coachListView.setVisibility(View.VISIBLE);
 							coachList.clear();
 						}
-						moreCoachPage++;
+						// moreCoachPage++;
 					} else if (length == 0) {
 						if (moreCoachPage == 1) {
 							coachListView.setVisibility(View.GONE);

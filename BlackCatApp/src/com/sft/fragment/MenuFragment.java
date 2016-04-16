@@ -18,6 +18,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -85,6 +86,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 
 	// private TextView left_tv_map;
 	private String currCity;
+	private RelativeLayout rl_xunijian;
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -114,12 +116,19 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 		// setData();
 		initData();
 		setListener();
+		judgeNavigation();
 		return rootView;
 	}
 
 	private void initData() {
 		obtainMyMoney();
+	}
 
+	public void judgeNavigation() {
+		if (!ViewConfiguration.get(getActivity()).hasPermanentMenuKey()) {
+			// 这里是有导航
+			rl_xunijian.setPadding(0, 0, 0, 120);
+		}
 	}
 
 	private void obtainMyMoney() {
@@ -154,6 +163,8 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 		// drivingSchool = (TextView) rootView
 		// .findViewById(R.id.fragment_menu_driving_school);
 		code = (TextView) rootView.findViewById(R.id.fragment_menu_code);
+
+		rl_xunijian = (RelativeLayout) rootView.findViewById(R.id.rl_xunijian);
 		// doubiNumber = (TextView) rootView
 		// .findViewById(R.id.fragment_menu_number);
 		// earnings = (TextView) rootView
