@@ -207,6 +207,7 @@ public class NewComplaintActivity extends BaseActivity implements
 		case R.id.rl_coach:
 			// 弹出教练列表
 			intent = new Intent(this, AppointmentMoreCoachActivity.class);
+			intent.putExtra("isSchoolAllCoach", true);
 			startActivityForResult(intent, v.getId());
 			break;
 		}

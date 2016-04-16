@@ -65,6 +65,8 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 				"coachCourse");
 		selectDate = getIntent().getStringExtra("selectDate");
 		isFromApply = getIntent().getBooleanExtra("isFromApply", false);
+		boolean isSchoolAllCoach = getIntent().getBooleanExtra(
+				"isSchoolAllCoach", false);
 
 		// 标题
 		setTitleText(R.string.more_coach);
@@ -80,8 +82,14 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 				// 获取当前时间段可以预约的教练
 				obtainUsefulcoachTimely();
 			} else {
-				schoolId = app.userVO.getApplyschoolinfo().getId();
-				obtainUsefulcoach();
+				if (isSchoolAllCoach) {
+					schoolId = app.userVO.getApplyschoolinfo().getId();
+					obtainSchoolCoach(moreCoachPage);
+				} else {
+					schoolId = app.userVO.getApplyschoolinfo().getId();
+					obtainUsefulcoach();
+				}
+
 			}
 		}
 
@@ -156,7 +164,6 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 		HttpSendUtils.httpGetSend(usefulcoachtimely, this,
 				Config.IP + "api/v1/userinfo/getusefulcoachtimely/index/"
 						+ moreCoachPage, paramMap, 10000, headerMap);
-		LogUtil.print("===" + moreCoachPage);
 	}
 
 	// 获取我当前可以预约的教练
@@ -166,8 +173,8 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 		Map<String, String> headerMap = new HashMap<String, String>();
 		headerMap.put("authorization", app.userVO.getToken());
 		HttpSendUtils.httpGetSend(usefulcoach, this, Config.IP
-				+ "api/v1/userinfo/getusefulcoachtimely/index/"
-				+ usefulCoachIndex, paramMap, 10000, headerMap);
+				+ "api/v1/userinfo/getusefulcoach/index/" + usefulCoachIndex,
+				paramMap, 10000, headerMap);
 	}
 
 	@Override
@@ -206,7 +213,6 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 							coachListView.setVisibility(View.VISIBLE);
 							coachList.clear();
 						}
-						// moreCoachPage++;
 					} else if (length == 0) {
 						if (moreCoachPage == 1) {
 							coachListView.setVisibility(View.GONE);
@@ -249,7 +255,6 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 							coachListView.setVisibility(View.VISIBLE);
 							coachList.clear();
 						}
-						moreCoachPage++;
 					} else if (length == 0) {
 						if (moreCoachPage == 1) {
 							coachListView.setVisibility(View.GONE);
@@ -292,7 +297,6 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 							coachListView.setVisibility(View.VISIBLE);
 							coachList.clear();
 						}
-						moreCoachPage++;
 					} else if (length == 0) {
 						if (moreCoachPage == 1) {
 							coachListView.setVisibility(View.GONE);
