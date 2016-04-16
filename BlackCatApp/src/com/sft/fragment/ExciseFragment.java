@@ -15,6 +15,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -259,6 +260,7 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 		}
 		int height = (int) (CommonUtil.getWindowsWidth(getActivity()) * 0.4);
 		LayoutParams p = new LayoutParams(LayoutParams.MATCH_PARENT, height);
+		p.gravity = Gravity.CENTER;
 		videoView.setLayoutParams(p);
 		LogUtil.print("video-->" + localPath + name);
 		videoView.setVisibility(View.VISIBLE);
@@ -410,25 +412,49 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 		}
 		// 考试
 		if (((ExerciseOrderAct) getActivity()).flag == 1) {// 考试
-			if (((ExerciseOrderAct) getActivity()).wrong > 10) {
-				showDialogFinish();
+			if (((ExerciseOrderAct) getActivity()).kemu == 1
+					&& ((ExerciseOrderAct) getActivity()).wrong > 10) {
+				showDialogFinish("十一");
+			}else if(((ExerciseOrderAct) getActivity()).kemu == 4
+					&& ((ExerciseOrderAct) getActivity()).wrong > 5){
+				showDialogFinish("六");
+			}else{
+				onEnd();
 			}
-			onEnd();
 		}
 	}
 
 	private void onEnd() {
 		if (((ExerciseOrderAct) getActivity()).isEnd()) {// 是否结束
-			Toast.makeText(getActivity(), "end", Toast.LENGTH_SHORT).show();
+//			Toast.makeText(getActivity(), "end", Toast.LENGTH_SHORT).show();
 			((ExerciseOrderAct) getActivity()).requestExam();
 			Intent i = new Intent(getActivity(), ExamSussess.class);
+			score s = new score();
 			if (((ExerciseOrderAct) getActivity()).kemu == 1) {// 科目一
+				s.setChenji(((ExerciseOrderAct) getActivity()).right+"");
 				i.putExtra("score", ((ExerciseOrderAct) getActivity()).right);
 			} else {
+				s.setChenji(((ExerciseOrderAct) getActivity()).right*2+"");
+				
 				i.putExtra("score",
 						((ExerciseOrderAct) getActivity()).right * 2);
 			}
+			
+			
+//			s.setId(0);
+//			s.setKemu(((ExerciseOrderAct) getActivity()).kemu);
+//			s.setRiqi("");
+//			s.setChenji(((ExerciseOrderAct) getActivity()).right+"");
+//			if(app.isLogin){
+////				s.setUid(uid)
+//			}
+//			else{
+//				
+//			}
+//			s.setUsetime("");
+//			Util.insertScore(s);
 			startActivity(i);
+			getActivity().finish();
 		}
 	}
 
@@ -520,13 +546,13 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 	/**
 	 * 考试结束,未通过
 	 */
-	private void showDialogFinish() {
+	private void showDialogFinish(String str) {
 		final Dialog dialog = new Dialog(getActivity(), R.style.dialog);
 		View view = View.inflate(getActivity(), R.layout.pop_back, null);
 		TextView tvTitle = (TextView) view.findViewById(R.id.textView1);
 		TextView tvContent = (TextView) view.findViewById(R.id.textView2);
 		tvTitle.setText("考试不通过");
-		tvContent.setText("非常抱歉，您已经答错了十一道题目，模拟考试未通过，请再接再厉!");
+		tvContent.setText("非常抱歉，您已经答错了"+str+"道题目，模拟考试未通过，请再接再厉!");
 		view.findViewById(R.id.pay_cancel).setVisibility(View.INVISIBLE);
 		dialog.setContentView(view);
 

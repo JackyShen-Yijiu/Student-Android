@@ -264,6 +264,7 @@ public class AppointmentFragment extends BaseFragment implements
 		} else {
 			noCaochErrorRl.setVisibility(View.VISIBLE);
 			hasCaochRl.setVisibility(View.GONE);
+			
 		}
 
 		//
