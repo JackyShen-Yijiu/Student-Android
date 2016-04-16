@@ -9,7 +9,7 @@
   <com.sft.viewutil.StudyItemLayout
         android:id="@+id/help_guide"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="68dp"
         study:itemDescribe="App的使用说明"
         study:itemIcon="@drawable/help_guide"
         study:itemTitle="使用指南" >
@@ -18,7 +18,7 @@
   <com.sft.viewutil.StudyItemLayout
         android:id="@+id/help_exam"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="68dp"
         study:itemDescribe="科一科四的理论考试流程"
         study:itemIcon="@drawable/help_exam"
         study:itemTitle="理论考试" >
@@ -28,7 +28,7 @@
   <com.sft.viewutil.StudyItemLayout
         android:id="@+id/help_newcomer"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="68dp"
         study:itemDescribe="菜鸟变老鸟的经验池"
         study:itemIcon="@drawable/help_newcomer"
         study:itemTitle="新手上路" >
@@ -38,7 +38,7 @@
   <com.sft.viewutil.StudyItemLayout
         android:id="@+id/help_problem"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="68dp "
         study:itemDescribe="汇总常见问题"
         study:itemIcon="@drawable/help_problem"
         study:itemTitle="常见问题" >

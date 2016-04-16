@@ -160,7 +160,7 @@ public class AppointmentFragment extends BaseFragment implements
 
 			// 购买 XX学时 已学XX学时
 			tvLeft2.setText("已学:" + subject.getFinishcourse() + "课时");
-			if ((subject.officialhours - subject.officialfinishhours) == 0) {// 可以报考
+			if ((subject.getFinishcourse() - subject.getTotalcourse()) >= 0) {// 可以报考
 				yuekaoLr.setBackgroundResource(R.drawable.button_rounded_corners);
 				yuekaoLr.setClickable(true);
 				tvLastXueShi.setVisibility(View.GONE);

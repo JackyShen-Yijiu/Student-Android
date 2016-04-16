@@ -11,7 +11,7 @@ public class MyCuponVO extends DBVO {
 	private String _id;
 	private String userid;
 	// 优惠卷状态// 0未领取 1领取 2过期 3作废 4 已消费
-	private String state;
+	private int state;
 	// 是否可以兑换现金
 	private boolean is_forcash;
 	// 优惠券来源 1 报名奖励 2 活动奖励
@@ -76,23 +76,11 @@ public class MyCuponVO extends DBVO {
 		this.userid = userid;
 	}
 
-	public String getState() {
-		// 0未领取 1领取 2过期 3作废 4 已消费
-		if ("0".equals(state)) {
-			return "未领取兑换券1张";
-		} else if ("1".equals(state)) {
-			return "已领取兑换券1张";
-		} else if ("2".equals(state)) {
-			return "已过期兑换券1张";
-		} else if ("3".equals(state)) {
-			return "已作废兑换券1张";
-		} else if ("4".equals(state)) {
-			return "已消费兑换券1张";
-		}
+	public int getState() {
 		return state;
 	}
 
-	public void setState(String state) {
+	public void setState(int state) {
 		this.state = state;
 	}
 

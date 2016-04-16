@@ -81,6 +81,8 @@ public class NewComplaintActivity extends BaseActivity implements
 
 	private CheckBox name_ck;
 
+	private ImageView iv_jiantou;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -136,6 +138,7 @@ public class NewComplaintActivity extends BaseActivity implements
 		tv_1 = (TextView) findViewById(R.id.tv_1);
 		rl_coach = (RelativeLayout) findViewById(R.id.rl_coach);
 		name_ck = (CheckBox) findViewById(R.id.setting_appointment_ck);
+		iv_jiantou = (ImageView) findViewById(R.id.iv_jiantou);
 
 		feedbacktypeRg = (RadioGroup) findViewById(R.id.complaint_feedbacktype_rg);
 		feedbacktypeCoachRb = (RadioButton) findViewById(R.id.complaint_feedbacktype_coach);
@@ -337,6 +340,7 @@ public class NewComplaintActivity extends BaseActivity implements
 			coachNameTv.setText(app.userVO.getApplyschoolinfo().getName());
 			coachNameTv.setCompoundDrawables(null, null, null, null);
 			coachNameTv.setEnabled(false);
+			iv_jiantou.setVisibility(View.GONE);
 			feedbacktype = "2";
 			complaint_coach_show.setText("投诉 "
 					+ app.userVO.getApplyschoolinfo().getName() + "驾校");
