@@ -9,7 +9,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="170dp" 
+        android:layout_height="250dp" 
         android:layout_centerInParent="true"
         android:background="@drawable/bg_tuichu"
         >
@@ -20,8 +20,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="25dp"
-            android:layout_marginLeft="30dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginLeft="35dp"
             android:text="退出支付"
             android:textColor="@color/new_text_color_dark"
             android:textSize="@dimen/txt_size_large" />
@@ -37,32 +37,34 @@
             android:layout_marginRight="30dp"
             android:text="您还没有支付成功，确定要退出支付吗?"
             android:textColor="@color/new_text_color_dark"
-            android:textSize="@dimen/txt_size_small" />
+            android:textSize="@dimen/txt_size_large" />
 
         <TextView
             android:id="@+id/pay_ok"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/pay_cancel"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="25dp"
+            android:layout_marginRight="35dp"
+            android:layout_marginBottom="50dp"
             android:padding="8dp"
             android:text="确定"
             android:textColor="@color/new_button_color"
-            android:textSize="@dimen/txt_size_small" />
+            android:textSize="@dimen/txt_size_large" />
 
         <TextView
             android:id="@+id/pay_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textView2"
+            android:layout_alignParentBottom="true"
             android:layout_marginRight="10dp"
             android:layout_marginTop="20dp"
+            android:layout_marginBottom="50dp"
             android:layout_toLeftOf="@+id/pay_ok"
             android:padding="8dp"
             android:text="取消"
             android:textColor="@color/new_text_color_dark"
-            android:textSize="@dimen/txt_size_small" />
+            android:textSize="@dimen/txt_size_large" />
     </RelativeLayout>
 
 </RelativeLayout>

@@ -31,6 +31,7 @@
         android:layout_height="68dp"
         study:itemDescribe="菜鸟变老鸟的经验池"
         study:itemIcon="@drawable/help_newcomer"
+        android:visibility="gone"
         study:itemTitle="新手上路" >
     </com.sft.viewutil.StudyItemLayout>
 
