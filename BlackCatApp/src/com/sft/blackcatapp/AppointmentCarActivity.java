@@ -199,11 +199,13 @@ public class AppointmentCarActivity extends BaseActivity implements
 		int appointTime = 0;
 		if (app.userVO.getSubject().getSubjectid()
 				.equals(SubjectStatu.SUBJECT_TWO.getValue())) {
-			finishTime = app.userVO.getSubjecttwo().getFinishcourse();
+			finishTime = app.userVO.getSubjecttwo().getFinishcourse()
+					+ app.userVO.getSubjecttwo().getReservation();
 			appointTime = app.userVO.getSubjecttwo().getReservation();
 		} else if (app.userVO.getSubject().getSubjectid()
 				.equals(SubjectStatu.SUBJECT_THREE.getValue())) {
-			finishTime = app.userVO.getSubjectthree().getFinishcourse();
+			finishTime = app.userVO.getSubjectthree().getFinishcourse()
+					+ app.userVO.getSubjecttwo().getReservation();
 			appointTime = app.userVO.getSubjectthree().getReservation();
 		}
 		String subjectName = app.userVO.getSubject().getName();
@@ -452,7 +454,7 @@ public class AppointmentCarActivity extends BaseActivity implements
 					sendBroadcast(new Intent(
 							MyAppointmentActivity.class.getName()).putExtra(
 							"isRefresh", true));
-					
+
 					final CustomDialog dialog = new CustomDialog(this,
 							CustomDialog.APPOINTMENT_TIME_SUCCESS);
 					dialog.setCanceledOnTouchOutside(false);

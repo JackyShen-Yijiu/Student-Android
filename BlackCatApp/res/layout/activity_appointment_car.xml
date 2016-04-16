@@ -106,6 +106,9 @@
                 android:layout_below="@+id/appointment_car_coach_iv"
                 android:layout_marginTop="20dp"
                 android:text="教练"
+                android:paddingRight="1dp"
+                android:maxEms="5"
+                android:singleLine="true"
                 android:textColor="@color/new_text_color_dark"
                 android:textSize="14dp" />
 
