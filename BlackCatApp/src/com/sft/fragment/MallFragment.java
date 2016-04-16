@@ -363,6 +363,9 @@ public class MallFragment extends BaseFragment implements
 			myIntegralTvTextView
 					.setText((Integer.parseInt(app.currency) - money) + "");
 		}
+		index = 1;
+		obtainMailProduct();
+
 	}
 
 	@Override
