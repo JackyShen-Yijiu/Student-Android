@@ -193,16 +193,16 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 		adapter.setSubmit(param1.submit);
 		adapter.setType(param1.getWebnote().getType());
 		lv.setAdapter(adapter);
-		LogUtil.print("adapter--->size-->"+param1.getAnswers().size());
+		LogUtil.print("adapter--->size-->" + param1.getAnswers().size());
 		BaseUtils.setListViewHeightBasedOnChildren(lv);
 		// 显示图片
 		doImage(param1.getWebnote().getImg_url());
 		// 显示视频
 		doVideo(param1.getWebnote().getVideo_url());
-		if(param1.submit == 1){//已经提交了
+		if (param1.submit == 1) {// 已经提交了
 			showAnalysy();
 		}
-		
+
 	}
 
 	private void doImage(String name) {
@@ -217,8 +217,8 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 			Bitmap b = BitmapFactory.decodeFile(localPath + name);
 			int w = 0, h = 0;
 			if (b != null) {
-				w = b.getWidth()*2;
-				h = b.getHeight()*2;
+				w = b.getWidth() * 2;
+				h = b.getHeight() * 2;
 				b.recycle();
 				b = null;
 			}
@@ -230,7 +230,7 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 			} else {
 				p = new LayoutParams(LayoutParams.MATCH_PARENT,
 						LayoutParams.WRAP_CONTENT);
-//				img.set
+				// img.set
 				img.setLayoutParams(p);
 				img.setImageDrawable(d);
 				img.setVisibility(View.VISIBLE);
@@ -381,47 +381,48 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 		}
 		return true;
 	}
-	
+
 	/**
 	 * 回答正确
 	 */
-	private void onRight(){
+	private void onRight() {
 		((ExerciseOrderAct) getActivity()).addRight();
 		((ExerciseOrderAct) getActivity()).next();
-		//如果是错题，删除错题
-		if(((ExerciseOrderAct) getActivity()).flag == 2){//错题
+		// 如果是错题，删除错题
+		if (((ExerciseOrderAct) getActivity()).flag == 2) {// 错题
 			error_book book = new error_book();
 			book.setId(param1.getWebnote().getId());
 			Util.deleteErrorBook(book);
-//			LogUtil.print("delete----.>>"+);
-		}else if(((ExerciseOrderAct) getActivity()).flag == 1){//考试
+			// LogUtil.print("delete----.>>"+);
+		} else if (((ExerciseOrderAct) getActivity()).flag == 1) {// 考试
 			onEnd();
 		}
 	}
-	
-	private void onError(){
+
+	private void onError() {
 		showAnalysy();
 		((ExerciseOrderAct) getActivity()).addWrong();
-		//插入数据库
+		// 插入数据库
 		insertError();
-		//考试
-		if(((ExerciseOrderAct) getActivity()).flag == 1){//考试
+		// 考试
+		if (((ExerciseOrderAct) getActivity()).flag == 1) {// 考试
 			if (((ExerciseOrderAct) getActivity()).wrong > 10) {
 				showDialogFinish();
 			}
 			onEnd();
 		}
 	}
-	
-	private void onEnd(){
+
+	private void onEnd() {
 		if (((ExerciseOrderAct) getActivity()).isEnd()) {// 是否结束
 			Toast.makeText(getActivity(), "end", Toast.LENGTH_SHORT).show();
 			((ExerciseOrderAct) getActivity()).requestExam();
-			Intent i = new Intent(getActivity(),ExamSussess.class);
-			if(((ExerciseOrderAct) getActivity()).kemu == 1){//科目一
+			Intent i = new Intent(getActivity(), ExamSussess.class);
+			if (((ExerciseOrderAct) getActivity()).kemu == 1) {// 科目一
 				i.putExtra("score", ((ExerciseOrderAct) getActivity()).right);
-			}else{
-				i.putExtra("score", ((ExerciseOrderAct) getActivity()).right*2);
+			} else {
+				i.putExtra("score",
+						((ExerciseOrderAct) getActivity()).right * 2);
 			}
 			startActivity(i);
 		}
@@ -489,7 +490,9 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 			app = BlackCatApplication.getInstance();
 		}
 		error_book error = new error_book();
-		error.setUserid(app.userVO.getUserid());
+		if (app.userVO != null) {
+			error.setUserid(app.userVO.getUserid());
+		}
 		error.setChapterid(((ExerciseOrderAct) getActivity()).chartId);
 		error.setKemu(((ExerciseOrderAct) getActivity()).kemu);
 		error.setWebnoteid(param1.getWebnote().getId());
@@ -522,7 +525,7 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 		tvTitle.setText("考试不通过");
 		tvContent.setText("非常抱歉，您已经答错了十一道题目，模拟考试未通过，请再接再厉!");
 		view.findViewById(R.id.pay_cancel).setVisibility(View.INVISIBLE);
-//		view.setFocusable(true);
+		// view.setFocusable(true);
 		view.setOnClickListener(new OnClickListener() {
 
 			@Override

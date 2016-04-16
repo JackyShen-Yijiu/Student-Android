@@ -357,7 +357,7 @@ public class Util {
 				.getInstance());
 		String sql = "SELECT * FROM web_note where kemu =?   and strTppe=? order by id";
 		List<web_note> list = DataBaseUtil.getArrays(db, web_note.class, sql,
-				new String[] { "1", chapter});
+				new String[] { "1", chapter });
 		db.close();
 		return list;
 	}
@@ -373,7 +373,7 @@ public class Util {
 		String sql = "SELECT * FROM web_note where kemu =?   and strTppe=? order by id";
 		List<web_note> list = DataBaseUtil.getArrays(db, web_note.class, sql,
 				new String[] { "4", chapter });
-		LogUtil.print(chapter+"<<444444444444444--size>"+list.size());
+		LogUtil.print(chapter + "<<444444444444444--size>" + list.size());
 		db.close();
 		return list;
 	}
@@ -423,6 +423,7 @@ public class Util {
 		// 插入之前先删除
 		db.execSQL("delete from error_book where webnoteid ="
 				+ error.getWebnoteid());
+
 		db.execSQL("INSERT INTO error_book VALUES (NULL, ?, ?,?,?)",
 				new Object[] { error.getChapterid(), error.getWebnoteid(),
 						error.getUserid(), error.getKemu() });
@@ -459,7 +460,7 @@ public class Util {
 				.getInstance());
 		// 插入之前先删除
 		db.execSQL("delete from error_book where webnoteid =" + error.getId());
-		LogUtil.print("delete-->from--id>>"+error.getId());
+		LogUtil.print("delete-->from--id>>" + error.getId());
 		db.close();
 	}
 
