@@ -2,7 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    
     android:orientation="vertical" >
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,7 +14,7 @@
             android:id="@+id/appointment_has_coach_rl"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#e8e8ed"
+            android:background="@color/new_main_bg"
              >
 
             <android.support.v4.widget.SwipeRefreshLayout

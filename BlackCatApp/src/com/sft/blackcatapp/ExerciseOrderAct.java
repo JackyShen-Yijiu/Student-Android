@@ -138,9 +138,19 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect,
 			public void onPageSelected(int arg0) {
 
 				if (flag == 1) {// 考试
-					tvTotal.setText((arg0 + 1) + "/" + dataExam.size());
+					if(dataExam.size()==0){
+						tvTotal.setText("0/0");
+					}else{
+						tvTotal.setText((arg0 + 1) + "/" + dataExam.size());
+					}
+					
 				} else {
-					tvTotal.setText((arg0 + 1) + "/" + data1.size());
+					if(data1.size() == 0){
+						tvTotal.setText("0/0");
+					}else{
+						tvTotal.setText((arg0 + 1) + "/" + data1.size());
+					}
+					
 				}
 
 				ExciseFragment t = adapter.getByTag(arg0 + "");

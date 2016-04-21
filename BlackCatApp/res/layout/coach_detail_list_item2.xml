@@ -4,7 +4,6 @@
     android:layout_height="fill_parent"
     android:background="#00000000"
     android:orientation="vertical"
-    android:paddingLeft="10dp"
     android:paddingTop="25dp" >
 
     <RelativeLayout
@@ -13,8 +12,10 @@
 
         <ImageView
             android:id="@+id/coach_detail_comment_headpic_im"
+            android:layout_marginLeft="10dp"
             android:layout_width="@dimen/coachdetail_comment_headpic_widthheight"
             android:layout_height="@dimen/coachdetail_comment_headpic_widthheight" >
+            
         </ImageView>
 
         <TextView
@@ -63,15 +64,15 @@
             android:layout_alignParentRight="true"
             android:layout_below="@+id/coach_detail_comment_classtype_tv"
             android:layout_marginTop="15dp"
+            android:hint="暂无评价"
             android:text="comment_content" />
 
         <ImageView
             style="@style/coachdetail_devider_style1"
-            android:layout_height="1dp"
-            android:layout_alignParentRight="true"
+            android:layout_height="1px"
+            android:layout_width="match_parent"
             android:layout_below="@+id/coach_detail_comment_content_tv"
             android:layout_marginTop="20dp"
-            android:layout_toRightOf="@+id/coach_detail_comment_headpic_im"
             android:contentDescription="@string/app_name" />
 
     </RelativeLayout>
