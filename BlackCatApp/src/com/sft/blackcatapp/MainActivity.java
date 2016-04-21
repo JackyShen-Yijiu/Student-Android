@@ -13,11 +13,15 @@ import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
@@ -91,6 +95,7 @@ import com.sft.vo.MyAppointmentVO;
 import com.sft.vo.OpenCityVO;
 import com.sft.vo.QuestionVO;
 import com.sft.vo.SchoolVO;
+import com.sft.vo.VersionVO;
 
 public class MainActivity extends BaseMainActivity implements
 		SLMenuListOnItemClickListener, OnClickListener, OnTabLisener,
@@ -109,7 +114,7 @@ public class MainActivity extends BaseMainActivity implements
 	private static final String school = "school";
 	private static final String NOT_COMMENT = "nocomment";
 	private static final String comment = "comment";
-
+	private static final String version = "version";
 	private static final String questionaddress = "questionaddress";
 	private static final String TODAY_IS_OPEN_ACTIVITIES = "today_is_open_activities";
 	public static final String ISCLICKCONFIRM = "isclickconfirm";
@@ -193,6 +198,7 @@ public class MainActivity extends BaseMainActivity implements
 		setListener();
 		// 气球按钮
 		// initBalloon();
+		obtainVersionInfo();
 		obtainFavouriteSchool();
 		obtainFavouriteCoach();
 		obtainQuestionAddress();
@@ -221,6 +227,13 @@ public class MainActivity extends BaseMainActivity implements
 	}
 
 	// }
+	/**
+	 * 版本号
+	 */
+	private void obtainVersionInfo() {
+		HttpSendUtils.httpGetSend(version, this, Config.IP
+				+ "api/v1/appversion/1");
+	}
 
 	/**
 	 * 检查学时状态 对话框，
@@ -307,7 +320,6 @@ public class MainActivity extends BaseMainActivity implements
 		drawerLayout = (DrawerLayout) findViewById(R.id.main_drawerlayout);
 		mapView = (MapView) findViewById(R.id.main_bmapView);
 		mBaiduMap = mapView.getMap();
-
 		// set the Behind View
 		// setBehindContentView(R.layout.frame_left_menu);
 
@@ -792,21 +804,81 @@ public class MainActivity extends BaseMainActivity implements
 					ZProgressHUD.getInstance(this).dismissWithSuccess("评论成功");
 					MainRl.setClickable(true);
 					rlMustComment.setVisibility(View.GONE);
-					// commentDialog.dismiss();
-					// new MyHandler(1000) {
-					// @Override
-					// public void run() {
-					// Intent intent = new Intent();
-					// setResult(RESULT_OK, intent);
-					// finish();
-					// }
-					// };
+				}
+			} else if (type.equals(version)) {
+				try {
+					VersionVO versionVO = JSONUtil.toJavaBean(VersionVO.class,
+							data);
+					app.versionVO = versionVO;
+					update(versionVO);
+
+				} catch (Exception e) {
+					ZProgressHUD.getInstance(this).dismiss();
+					ZProgressHUD.getInstance(this).show();
+					ZProgressHUD.getInstance(this).dismissWithFailure(
+							"版本数据解析错误");
+					e.printStackTrace();
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return true;
+	}
+
+	/**
+	 * 更新
+	 */
+	private void update(final VersionVO vo) {
+		if (vo.innerversionCode > BaseUtils.getVersionCode(this)) {// 去更新
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setTitle("发现新版本");
+			builder.setMessage(getString(R.string.app_name) + "有新版本啦！");
+			builder.setPositiveButton("立即更新",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog,
+								int whichButton) {
+							toDownLoad(vo.getDownloadUrl());
+							dialog.dismiss();
+						}
+					});
+			builder.setNegativeButton("以后再说",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog,
+								int whichButton) {
+							dialog.dismiss();
+						}
+					});
+			Dialog dialog = builder.create();
+			dialog.show();
+
+		} else {// 已经是最新版
+			// Toast("已经是最新版！");
+		}
+	}
+
+	private void toDownLoad(String url) {
+		if (url == null) {
+			Toast("下载地址错误，请在应用市场更新");
+			return;
+		}
+		Intent intent = new Intent();
+		intent.setAction("android.intent.action.VIEW");
+		Uri content_url = Uri.parse(url);
+		intent.setData(content_url);
+		startActivity(intent);
+	}
+
+	private Toast mToast;
+
+	private void Toast(String str) {
+		if (mToast == null) {
+			mToast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
+		}
+		mToast.setText(str);
+		mToast.show();
 	}
 
 	/** 未评论 */
@@ -1430,4 +1502,5 @@ public class MainActivity extends BaseMainActivity implements
 		totalStar.setRating(total / 3);
 
 	}
+
 }

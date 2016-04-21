@@ -169,6 +169,7 @@ public class SettingActivity extends BaseActivity implements
 		case R.id.setting_update:
 			// showDialog();
 			obtainVersionInfo();
+
 			break;
 		case R.id.person_center_logout_btn:
 			ZProgressHUD.getInstance(this).setMessage("正在退出登录...");
@@ -366,7 +367,6 @@ public class SettingActivity extends BaseActivity implements
 	 */
 	private void update(final VersionVO vo) {
 		if (vo.innerversionCode > BaseUtils.getVersionCode(this)) {// 去更新
-
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setTitle("发现新版本");
 			builder.setMessage(getString(R.string.app_name) + "有新版本啦！");

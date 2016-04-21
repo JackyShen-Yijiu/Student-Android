@@ -256,5 +256,5 @@ public class Config {
 	/**
 	 * 科目三考试技巧口诀大揭秘
 	 */
-	public static final String THREE_EXAM_FORMULA = "http://mp.weixin.qq.com/s?__biz=MzIxNTEyNzY4OA==&mid=402027666&idx=7&sn=a476a88c0fe6d016840f9a6b2e38e3a0&scene=1&srcid=0227yDo5HLeoi5N8HXWQ6ha7#wechat_redirect";
+	public static final String THREE_EXAM_FORMULA = "http://yibuxueche.com/03-ksjq.htm";
 }

@@ -19,6 +19,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.net.ConnectivityManager;
@@ -38,7 +39,7 @@ import com.sft.blackcatapp.NewLoginActivity;
 import com.sft.common.BlackCatApplication;
 
 public class BaseUtils {
-	
+
 	/**
 	 * 动态设置ListView的高度
 	 * 
@@ -53,12 +54,12 @@ public class BaseUtils {
 			return;
 		}
 		int totalHeight = 0;
-		LogUtil.print("count--->"+listAdapter.getCount());
+		LogUtil.print("count--->" + listAdapter.getCount());
 		for (int i = 0; i < listAdapter.getCount(); i++) {
 			View listItem = listAdapter.getView(i, null, listView);
 			listItem.measure(0, 0);
 			int h = listItem.getMeasuredHeight();
-			LogUtil.print(i+"item-->"+h);
+			LogUtil.print(i + "item-->" + h);
 			totalHeight += h;
 		}
 		ViewGroup.LayoutParams params = listView.getLayoutParams();
@@ -483,19 +484,16 @@ public class BaseUtils {
 		return res;
 	}
 
-	public static int getVersionCode(Context ctx) {
-		int res = -1;
-		if (ctx == null)
-			return res;
-		PackageInfo packageInfo = null;
+	public static int getVersionCode(Context context) {// 获取版本号(内部识别号)
+
 		try {
-			packageInfo = ctx.getPackageManager().getPackageInfo(
-					ctx.getPackageName(), 0);
-			res = packageInfo.versionCode;
-		} catch (Exception e) {
+			PackageInfo pi = context.getPackageManager().getPackageInfo(
+					context.getPackageName(), 0);
+			return pi.versionCode;
+		} catch (PackageManager.NameNotFoundException e) {
 			e.printStackTrace();
+			return 0;
 		}
-		return res;
 	}
 
 	/**
