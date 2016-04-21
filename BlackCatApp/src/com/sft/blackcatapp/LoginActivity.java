@@ -334,6 +334,20 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 					ZProgressHUD.getInstance(LoginActivity.this).show();
 					ZProgressHUD.getInstance(LoginActivity.this)
 							.dismissWithFailure("初始化聊天失败");
+					util.saveParam(Config.LAST_LOGIN_PHONE,
+							app.userVO.getTelephone());
+					util.saveParam(Config.LAST_LOGIN_ACCOUNT, phontEt.getText()
+							.toString());
+					util.saveParam(Config.LAST_LOGIN_PASSWORD,
+							util.MD5(passwordEt.getText().toString()));
+
+					if (isMyServiceRunning()) {
+
+						app.isLogin = true;
+						toMainAndFinish();
+					} else {
+						showDialog(LoginActivity.this);
+					}
 				}
 			});
 		}

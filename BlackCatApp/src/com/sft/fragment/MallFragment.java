@@ -88,6 +88,7 @@ public class MallFragment extends BaseFragment implements
 		producttype = "0";
 		initViews(rootView);
 		obtainMailProduct();
+
 		return rootView;
 	}
 

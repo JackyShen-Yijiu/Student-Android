@@ -44,9 +44,9 @@
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
     <!-- 极光推送权限 -->
     <permission
-        android:name="com.sft.blackcatapp.permission.JPUSH_MESSAGE"
+        android:name="com.jzjf.app.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />
-    <!-- <uses-permission android:name="com.sft.blackcatapp.permission.JPUSH_MESSAGE" /> -->
+    <uses-permission android:name="com.jzjf.app.permission.JPUSH_MESSAGE" />
 
 
     <!-- 官方定义的权限，允许应用接收JPUSH内部代码发送的广播消息。 -->
@@ -610,7 +610,7 @@
                 <action android:name="cn.jpush.android.ui.PushActivity" />
 
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="com.sft.blackcatapp" />
+                <category android:name="com.jzjf.app" />
             </intent-filter>
         </activity>
         <service 
@@ -618,7 +618,7 @@
             >
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />
-                
+                <category android:name="com.jzjf.app"/>
             </intent-filter>
             
         </service>
@@ -651,7 +651,7 @@
             <intent-filter android:priority="1000" >
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />
                 <!-- Required  显示通知栏 -->
-                <category android:name="com.sft.blackcatapp" />
+                <category android:name="com.jzjf.app" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.USER_PRESENT" />
@@ -688,7 +688,7 @@
                 <!-- Optional 用户接受Rich Push Javascript 回调函数的intent -->
                 <action android:name="cn.jpush.android.intent.CONNECTION" />
                 <!-- 接收网络变化 连接/断开 since 1.6.3 -->
-                <category android:name="com.sft.blackcatapp" />
+                <category android:name="com.jzjf.app" />
             </intent-filter>
         </receiver>
 
