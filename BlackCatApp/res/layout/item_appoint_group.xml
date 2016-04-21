@@ -8,7 +8,7 @@
     <View 
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:background="@color/app_bg_dark"
+        android:background="@color/new_main_bg"
         />
 	<RelativeLayout 
 	    android:layout_width="match_parent"

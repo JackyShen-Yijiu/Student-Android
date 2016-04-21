@@ -1,7 +1,6 @@
 package com.sft.blackcatapp;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,7 +25,6 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.widget.Toast;
 import cn.sft.baseactivity.util.HttpSendUtils;
 import cn.sft.infinitescrollviewpager.MyHandler;
 
@@ -61,17 +59,17 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 		setContentView(R.layout.activity_welcome);
 		initView();
 		initData();
-//		addShortcutToDesktop();
+		// addShortcutToDesktop();
 		unzip();
 	}
-	
+
 	private void unzip() {
 		UnZipUtils zip = new UnZipUtils();
 		File f = new File(zip.targetPath);
 		LogUtil.print(zip.targetPath + "zip--target--path;;");
 		if (f.exists()) {
-//			doZip();
-//			return;
+			// doZip();
+			// return;
 		} else {
 			zip.createDir();
 		}
@@ -87,20 +85,19 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 
 				});
 	}
-	
-	private void doZip(){
+
+	private void doZip() {
 		try {
-			new UnZipUtils().doZip(WelcomeActivity.this,
-					UnZipUtils.targetPath,
+			new UnZipUtils().doZip(WelcomeActivity.this, UnZipUtils.targetPath,
 					UnZipUtils.localPath, new ZipCall() {
 
 						@Override
 						public void unzipSuccess() {
 							// 解压成功
-//							Toast.makeText(
-//									WelcomeActivity.this,
-//									"Zipsuccess",
-//									Toast.LENGTH_SHORT).show();
+							// Toast.makeText(
+							// WelcomeActivity.this,
+							// "Zipsuccess",
+							// Toast.LENGTH_SHORT).show();
 						}
 
 						@Override
@@ -114,10 +111,6 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 		}
 
 	}
-	
-
-	
-	
 
 	void addShortcutToDesktop() {
 
@@ -485,6 +478,17 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 					ZProgressHUD.getInstance(WelcomeActivity.this).show();
 					ZProgressHUD.getInstance(WelcomeActivity.this)
 							.dismissWithFailure("初始化聊天失败");
+					if (isMyServiceRunning()) {
+						app.isLogin = true;
+
+						Intent intent = new Intent(WelcomeActivity.this,
+								MainActivity.class);
+						update(app.versionVO, intent);
+						// startActivity(intent);
+						// finish();
+					} else {
+						showDialog(WelcomeActivity.this);
+					}
 				}
 			});
 			new MyHandler(1000) {

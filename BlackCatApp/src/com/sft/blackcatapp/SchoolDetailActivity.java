@@ -246,7 +246,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 		// 中文字体加粗
 		titleTV.getPaint().setFakeBoldText(true);
 		titleTV.setText("");
-		titleLayout = findViewById(R.id.base_titlebar_layout_bg);
+		titleLayout = findViewById(R.id.base_titlebar_layout);
 		bus.setImageResource(R.drawable.bus_white_icon);
 		left.setBackgroundResource(R.drawable.base_left_btn_bkground);
 		phone.setImageResource(R.drawable.phone_white_icon);

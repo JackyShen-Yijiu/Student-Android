@@ -87,6 +87,7 @@ public class BlackCatApplication extends Application {
 		LogUtil.print("jpush---init");
 		JPushInterface.setDebugMode(true);
 		JPushInterface.init(this);
+
 		SDKInitializer.initialize(this);
 
 		uploadManager = new UploadManager();
