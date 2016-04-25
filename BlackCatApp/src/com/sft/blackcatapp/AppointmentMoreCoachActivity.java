@@ -70,33 +70,35 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 
 		// 标题
 		setTitleText(R.string.more_coach);
-		if (isFromApply) {
+		if ((getIntent().getBooleanExtra("isOnClickToDetail", false))) {
+			setTitleText(R.string.coach_list);
 			schoolId = getIntent().getStringExtra("schoolId");
-			setTitleText(R.string.select_coach);
-			headerRl.setVisibility(View.VISIBLE);
-			LogUtil.print("xxxx-adfsf-" + schoolId);
 			obtainSchoolCoach(moreCoachPage);
 		} else {
-			headerRl.setVisibility(View.GONE);
-			if (null != coachCourse && (!TextUtils.isEmpty(selectDate))) {
-				// 获取当前时间段可以预约的教练
-				obtainUsefulcoachTimely();
+			if (isFromApply) {
+				schoolId = getIntent().getStringExtra("schoolId");
+				setTitleText(R.string.select_coach);
+				headerRl.setVisibility(View.VISIBLE);
+				LogUtil.print("xxxx-adfsf-" + schoolId);
+				obtainSchoolCoach(moreCoachPage);
 			} else {
-				if (isSchoolAllCoach) {
-					schoolId = app.userVO.getApplyschoolinfo().getId();
-					obtainSchoolCoach(moreCoachPage);
+				headerRl.setVisibility(View.GONE);
+				if (null != coachCourse && (!TextUtils.isEmpty(selectDate))) {
+					// 获取当前时间段可以预约的教练
+					obtainUsefulcoachTimely();
 				} else {
-					schoolId = app.userVO.getApplyschoolinfo().getId();
-					obtainUsefulcoach();
-				}
+					if (isSchoolAllCoach) {
+						schoolId = app.userVO.getApplyschoolinfo().getId();
+						obtainSchoolCoach(moreCoachPage);
+					} else {
+						schoolId = app.userVO.getApplyschoolinfo().getId();
+						obtainUsefulcoach();
+					}
 
+				}
 			}
 		}
 
-		if ((getIntent().getBooleanExtra("isOnClickToDetail", false))) {
-
-			setTitleText(R.string.coach_list);
-		}
 	}
 
 	@Override
@@ -117,7 +119,7 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 		coachListView.setVisibility(View.GONE);
 
 		((TextView) findViewById(R.id.more_coach_no_tv))
-				.setText(R.string.no_favourite_coach);
+				.setText(R.string.nocoach);
 	}
 
 	private void setListener() {

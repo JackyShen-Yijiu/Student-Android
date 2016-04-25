@@ -726,6 +726,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 			if (app.isLogin) {
 				intent = new Intent(this, AppointmentMoreCoachActivity.class);
 				intent.putExtra("isOnClickToDetail", true);
+				intent.putExtra("schoolId", school.getSchoolid());
 				startActivity(intent);
 			} else {
 				BaseUtils.toLogin(this);

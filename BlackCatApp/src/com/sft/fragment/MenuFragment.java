@@ -18,7 +18,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -116,7 +115,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 		// setData();
 		initData();
 		setListener();
-		judgeNavigation();
+		// judgeNavigation();
 		return rootView;
 	}
 
@@ -124,12 +123,12 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 		obtainMyMoney();
 	}
 
-	public void judgeNavigation() {
-		if (!ViewConfiguration.get(getActivity()).hasPermanentMenuKey()) {
-			// 这里是有导航
-			rl_xunijian.setPadding(0, 0, 0, 120);
-		}
-	}
+	// public void judgeNavigation() {
+	// if (!ViewConfiguration.get(getActivity()).hasPermanentMenuKey()) {
+	// // 这里是有导航
+	// rl_xunijian.setPadding(0, 0, 0, 120);
+	// }
+	// }
 
 	private void obtainMyMoney() {
 		if (app.isLogin) {
