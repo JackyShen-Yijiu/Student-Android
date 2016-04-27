@@ -149,6 +149,7 @@ public class SchoolListAdapter extends BaseAdapter {
 					+ "km");
 		} catch (Exception e) {
 			holder.distance.setText(distance + "km");
+			holder.distance.setVisibility(View.INVISIBLE);
 		}
 		String price = mData.get(position).getPrice();
 		holder.price.setText(price);
