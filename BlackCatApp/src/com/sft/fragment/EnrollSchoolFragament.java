@@ -63,6 +63,7 @@ public class EnrollSchoolFragament extends BaseFragment{
 	
 	public void requestByCity(String name){
 		for(int i=0;i<3;i++){
+			schools[i].setIndex(1);
 			schools[i].getSchoolByCity(name);//viewPager.getCurrentItem()
 		}
 	}

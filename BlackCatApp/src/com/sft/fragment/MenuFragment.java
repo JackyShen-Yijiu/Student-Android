@@ -127,7 +127,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 	public void judgeNavigation() {
 		if (!ViewConfiguration.get(getActivity()).hasPermanentMenuKey()) {
 			// 这里是有导航
-			rl_xunijian.setPadding(0, 0, 0, 120);
+//			rl_xunijian.setPadding(0, 0, 0, 120);
 		}
 	}
 

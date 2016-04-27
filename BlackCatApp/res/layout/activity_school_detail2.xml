@@ -2,23 +2,24 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clipToPadding="false"
-    android:fitsSystemWindows="false"
-    android:background="@color/new_app_main_color"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
     >
-
     <!-- 2.0 版本 android:clipToPadding="true" -->
 
     <View
         android:id="@+id/school_detail_top_static"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/base_titlebar_height_status"
+        android:background="@color/app_bg_dark"
         android:visibility="invisible" />
 
     <com.sft.viewutil.MyScrollView
         android:id="@+id/school_detail_scrollview"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:clipToPadding="true"
+    	android:fitsSystemWindows="true"
         android:background="@color/white"
         android:fillViewport="true" >
 
@@ -584,9 +585,8 @@
     <include
         android:id="@+id/base_titlebar_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/base_titlebar_height_status"
-        android:fitsSystemWindows="true"
-        layout="@layout/title" >
+        android:layout_height="@dimen/base_titlebar_height"
+        layout="@layout/title_detail" >
     </include>
 
     <View

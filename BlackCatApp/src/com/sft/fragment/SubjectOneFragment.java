@@ -276,6 +276,18 @@ public class SubjectOneFragment extends BaseFragment implements OnClickListener 
 		}
 		return true;
 	}
+	
+	
+
+	
+
+	@Override
+	public void doError(String type, String msg) {
+		if(type.equals(MYSCORE)){
+			return;
+		}
+		super.doError(type, msg);
+	}
 
 	public void setLearnProgressInfo(SubjectForOneVO subject) {
 

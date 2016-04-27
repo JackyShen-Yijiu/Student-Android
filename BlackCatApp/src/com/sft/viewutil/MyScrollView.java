@@ -1,9 +1,12 @@
 package com.sft.viewutil;
 
+import com.sft.util.LogUtil;
+
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ScrollView;
@@ -21,11 +24,33 @@ public class MyScrollView extends ScrollView {
 		mGestureDetector = new GestureDetector(new YScrollDetector());
 		setFadingEdgeLength(0);
 	}
+	
+	public void setDispatch(boolean dis){
+		this.dis = dis;
+	}
+	
+	boolean dis = false;
+	
+	/**
+	 * 是否向下 传递
+	 */
+//	@Override
+//	public boolean dispatchKeyEvent(KeyEvent event) {
+//		LogUtil.print("disPatchKey--->"+dis);
+//		return dis;
+//	}
+
+	
 
 	@Override
 	public boolean onInterceptTouchEvent(MotionEvent ev) {
-		return super.onInterceptTouchEvent(ev)
+		boolean r = super.onInterceptTouchEvent(ev)
 				&& mGestureDetector.onTouchEvent(ev);
+		LogUtil.print(super.onInterceptTouchEvent(ev)+"||"+mGestureDetector.onTouchEvent(ev)+"onInterceptTouchEvent--->"+r);
+//		if(dis){//是否拦截
+//			return dis;
+//		}
+		return r;
 	}
 
 	class YScrollDetector extends SimpleOnGestureListener {

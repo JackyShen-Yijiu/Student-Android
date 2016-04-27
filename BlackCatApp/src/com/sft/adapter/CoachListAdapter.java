@@ -164,16 +164,26 @@ public class CoachListAdapter extends BaseAdapter {
 			subjectString = subject.getName() + " ";
 		}
 		holder.subjects.setText(subjectString);
-		holder.passRate
-				.setText("通过率" + mData.get(position).getPassrate() + "%");
-		holder.comment.setText(mData.get(position).getCommentcount() + "条评论");
-
-		if (mData.get(position).getSeniority().contains("年")) {
-			holder.teachAge.setText(mData.get(position).getSeniority() + "教龄");
-		} else {
-			holder.teachAge.setText(mData.get(position).getSeniority() + "年教龄");
+		if( mData.get(position).getPassrate() == null){
+			holder.passRate
+			.setText("通过率0%");
+		}else{
+			holder.passRate
+			.setText("通过率" + mData.get(position).getPassrate() + "%");
 		}
+		
+		holder.comment.setText(mData.get(position).getCommentcount() + "条评论");
+		if(mData.get(position).getSeniority()==null){
+			holder.teachAge.setText("0年教龄");
+		}else{
+			if (mData.get(position).getSeniority().contains("年")) {
+				holder.teachAge.setText(mData.get(position).getSeniority() + "教龄");
+			} else {
+				holder.teachAge.setText(mData.get(position).getSeniority() + "年教龄");
+			}
 
+		}
+		
 		RelativeLayout.LayoutParams headParam = (RelativeLayout.LayoutParams) holder.headPic
 				.getLayoutParams();
 

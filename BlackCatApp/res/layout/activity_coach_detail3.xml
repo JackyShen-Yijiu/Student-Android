@@ -2,9 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/new_main_bg"
-    android:clipToPadding="false"
-    android:fitsSystemWindows="false" >
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true" >
 
     <!-- 2.0 版本     android:background="@color/new_app_main_color" -->
 
@@ -432,9 +431,9 @@
     <include
         android:id="@+id/base_titlebar_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/base_titlebar_height_status"
+        android:layout_height="@dimen/base_titlebar_height"
         android:fitsSystemWindows="true"
-        layout="@layout/title"
+        layout="@layout/title_detail"
          >
     </include>
 

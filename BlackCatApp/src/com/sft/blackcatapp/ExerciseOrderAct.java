@@ -493,7 +493,7 @@ public class ExerciseOrderAct extends BaseFragmentAct implements doConnect,
 	 * 
 	 */
 	private void Exam() {// 考试
-		minute = 30;
+		minute = 45;
 		second = 0;
 		timerTask = new TimerTask() {
 

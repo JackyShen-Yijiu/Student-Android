@@ -2,8 +2,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_drawerlayout"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
-
+    android:layout_height="fill_parent"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+     >
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
@@ -144,7 +146,6 @@
             android:layout_height="match_parent"
             android:clickable="false"
             android:layout_marginBottom="52dp" >
-
             <include layout="@layout/dialog_comment" 
                 android:visibility="visible"/>
         </RelativeLayout>  

@@ -52,7 +52,6 @@ public class StudyFragment extends BaseFragment implements OnClickListener {
 
 	private void obtainLearnProgress() {
 		Map<String, String> paramsMap = new HashMap<String, String>();
-
 		paramsMap.put("userid", app.userVO.getUserid());
 		Map<String, String> headerMap = new HashMap<String, String>();
 		headerMap.put("authorization", app.userVO.getToken());

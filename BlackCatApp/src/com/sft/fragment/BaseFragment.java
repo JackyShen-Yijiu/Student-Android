@@ -13,6 +13,7 @@ import android.widget.Toast;
 import cn.sft.baseactivity.util.Util;
 import cn.sft.listener.ICallBack;
 
+import com.sft.api.IICallBack;
 import com.sft.common.BlackCatApplication;
 import com.sft.viewutil.ZProgressHUD;
 import com.sft.vo.CarModelVO;
@@ -23,7 +24,7 @@ import com.sft.vo.SchoolVO;
 import com.sft.vo.UserVO;
 import com.umeng.analytics.MobclickAgent;
 
-public class BaseFragment extends Fragment implements ICallBack {
+public class BaseFragment extends Fragment implements IICallBack {
 
 	protected BlackCatApplication app;
 	protected static Util util;
@@ -126,9 +127,8 @@ public class BaseFragment extends Fragment implements ICallBack {
 		}
 
 		if (!TextUtils.isEmpty(msg)) {
-			ZProgressHUD.getInstance(getActivity()).show();
-			ZProgressHUD.getInstance(getActivity()).dismissWithFailure(msg,
-					2000);
+			doError(type,msg);
+			
 			return true;
 		}
 
@@ -218,6 +218,13 @@ public class BaseFragment extends Fragment implements ICallBack {
 
 	public void Toast(String str) {
 		Toast.makeText(getActivity(), str, Toast.LENGTH_SHORT).show();
+	}
+
+	@Override
+	public void doError(String type, String msg) {
+		ZProgressHUD.getInstance(getActivity()).show();
+		ZProgressHUD.getInstance(getActivity()).dismissWithFailure(msg,
+				2000);
 	}
 
 }

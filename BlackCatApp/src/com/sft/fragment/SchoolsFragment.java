@@ -261,7 +261,8 @@ public class SchoolsFragment extends BaseFragment implements
 
 	// 搜索成功
 	protected void processSuccess(String value) {
-
+		
+		
 		if (!isSearchSchool) {
 			searchSchool.setVisibility(View.GONE);
 			imgDelete.setVisibility(View.GONE);
@@ -289,7 +290,8 @@ public class SchoolsFragment extends BaseFragment implements
 						}
 					}
 				}
-
+//				LogUtil.print("processSuccess---->"+schoolList.size());
+//				Toast("processSuccess---->"+schoolList.size());
 				if (isSearchSchool) {
 					setSearchData(schoolList, selectIndex);
 				} else {
@@ -632,6 +634,10 @@ public class SchoolsFragment extends BaseFragment implements
 	public void getSchoolByCity(String cityName) {
 		// cityname =cityName;
 		obtainNearBySchool();
+	}
+	
+	public void setIndex(int i){
+		index = i;
 	}
 
 	private void obtainNearBySchool() {
@@ -997,7 +1003,7 @@ public class SchoolsFragment extends BaseFragment implements
 	@Override
 	public void onActivityResult(int requestCode, final int resultCode,
 			final Intent data) {
-		Toast("onactviityResult-->" + resultCode);
+//		Toast("onactviityResult-->" + resultCode);
 		if (data != null) {
 			if (resultCode == R.id.base_left_btn) {
 				SchoolVO school = (SchoolVO) data

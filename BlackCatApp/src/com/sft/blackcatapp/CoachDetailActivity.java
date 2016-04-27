@@ -269,6 +269,7 @@ public class CoachDetailActivity extends BaseActivity implements
 
 		scrollView = (MyScrollView) findViewById(R.id.coach_detail_scrollview);
 		scrollView.setOnStateListener(this);
+		scrollView.setDispatch(true);
 		
 		coachHeadPicIm = (SelectableRoundedImageView) findViewById(R.id.coach_detail_headicon_im);
 		coachHeadPicIm.setScaleType(ScaleType.CENTER_CROP);
@@ -298,6 +299,7 @@ public class CoachDetailActivity extends BaseActivity implements
 		FeeArrow = (ImageView) findViewById(R.id.coach_detail_fee_arrow);
 		CommentArrow = (ImageView) findViewById(R.id.coach_detail_comment_arrow);
 //		
+		getWindow().getDecorView().setBackgroundResource(android.R.color.transparent);
 		
 
 		coachVO = (CoachVO) getIntent().getSerializableExtra("coach");
@@ -1025,6 +1027,8 @@ public class CoachDetailActivity extends BaseActivity implements
 			if (viewTop.getVisibility() != View.GONE) {
 				viewTop.setVisibility(View.GONE);
 				titleLayout.setBackgroundResource(android.R.color.transparent);
+				getWindow().getDecorView().setBackgroundResource(R.color.black);
+				
 				LogUtil.print("onStart--->透明的");
 				collectCk.setVisibility(View.VISIBLE);
 //				coachNameTv.setVisibility(View.VISIBLE);
@@ -1044,6 +1048,8 @@ public class CoachDetailActivity extends BaseActivity implements
 				LogUtil.print("onStart--->红色的");
 //				Toast("红色");
 				titleLayout.setBackgroundResource(R.color.new_app_main_color);
+				getWindow().getDecorView().setBackgroundResource(R.color.new_app_main_color);
+				
 				collectCk.setVisibility(View.INVISIBLE);
 //				coachNameTv.setVisibility(View.INVISIBLE);
 //				tvTitle.setText(coachVO.getName());

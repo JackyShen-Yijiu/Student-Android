@@ -14,11 +14,20 @@
 
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
-
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
 
        <!--  <item name="android:windowAnimationStyle">@style/FeelyouWindowAnimTheme</item> -->
         <item name="android:windowNoTitle">true</item>
+    </style>
+    
+    <style name="title_21" parent="AppBaseTheme">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+    </style>
+    
+    <style name="title_21_below" parent="AppBaseTheme">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
     </style>
 
     <style name="registerlogin_et_style">
