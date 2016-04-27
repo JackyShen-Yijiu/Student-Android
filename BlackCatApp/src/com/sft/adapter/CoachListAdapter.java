@@ -183,6 +183,17 @@ public class CoachListAdapter extends BaseAdapter {
 			}
 
 		}
+		if (mData.get(position).getSeniority() != null) {
+			if (mData.get(position).getSeniority().contains("年")) {
+				holder.teachAge.setText(mData.get(position).getSeniority()
+						+ "教龄");
+			} else {
+				holder.teachAge.setText(mData.get(position).getSeniority()
+						+ "年教龄");
+			}
+		} else {
+			holder.teachAge.setText("未知");
+		}
 		
 		RelativeLayout.LayoutParams headParam = (RelativeLayout.LayoutParams) holder.headPic
 				.getLayoutParams();
@@ -204,7 +215,8 @@ public class CoachListAdapter extends BaseAdapter {
 		return convertView;
 	}
 
-	private class ViewHolder {
+
+	class ViewHolder {
 		public ImageView selectIm;
 		public SelectableRoundedImageView headPic;
 		public TextView coachName;

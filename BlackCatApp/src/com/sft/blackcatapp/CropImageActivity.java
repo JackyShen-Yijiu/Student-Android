@@ -301,9 +301,9 @@ public class CropImageActivity extends BaseActivity implements OnClickListener,
 			String path = format1.format(date);
 			String fileName = format2.format(date) + "-"
 					+ app.userVO.getUserid() + ".png";
-
 			File file = Util.savePic(cropImageView.getCroppedImage(), path,
 					fileName);
+			LogUtil.print("file----" + file.length());
 			app.uploadPic(file, path + "/" + fileName);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -333,6 +333,8 @@ public class CropImageActivity extends BaseActivity implements OnClickListener,
 			app.userVO.getHeadportrait().setOriginalpic(
 					"http://7xnjg0.com1.z0.glb.clouddn.com/"
 							+ jsonObject.getString("key"));
+			LogUtil.print("http://7xnjg0.com1.z0.glb.clouddn.com/"
+					+ jsonObject.getString("key"));
 			Map<String, String> paramMap = new HashMap<String, String>();
 			paramMap.put("userid", app.userVO.getUserid());
 			paramMap.put("headportrait", app.userVO.getHeadportrait()

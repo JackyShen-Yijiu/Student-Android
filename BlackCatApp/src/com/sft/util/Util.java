@@ -1,5 +1,6 @@
 package com.sft.util;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -57,10 +58,22 @@ public class Util {
 			if (!file.exists()) {
 				file.mkdirs();
 			}
+			LogUtil.print("file---dd-->" + bitmap.getByteCount());
+			ByteArrayOutputStream os = new ByteArrayOutputStream();
+			int options = 100;
+			bitmap.compress(Bitmap.CompressFormat.JPEG, options, os);
+			while (os.toByteArray().length / 1024 > 50) {// 循环判断如果压缩后图片是否大于50kb,大于继续压缩
+				os.reset();
+				options -= 10;
+				bitmap.compress(Bitmap.CompressFormat.JPEG, options, os);
+			}
+
 			FileOutputStream out = new FileOutputStream(f);
-			bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+			// bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+			out.write(os.toByteArray());
 			out.flush();
 			out.close();
+			LogUtil.print("file---dd--end>" + bitmap.getByteCount());
 			return f;
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
