@@ -28,8 +28,9 @@ public class UnZipUtils {
 
 	public UnZipUtils() {
 		String Path = Environment.getExternalStorageDirectory() + "/jzjf/img";
+		String Path1 = "data/data/com.jzjf.app/files";
 		targetPath = Path + "/a.zip";
-		localPath = Path + "/a";
+		localPath = Path1;
 		// targetPath = Path + "/a";//
 	}
 
