@@ -436,4 +436,5 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 		overridePendingTransition(R.anim.alpha_in,
 				R.anim.option_leave_from_bottom);
 	}
+
 }
