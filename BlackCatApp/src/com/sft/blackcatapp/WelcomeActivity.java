@@ -87,6 +87,7 @@ public class WelcomeActivity extends BaseActivity implements EMLoginListener {
 	}
 
 	private void doZip() {
+		LogUtil.print(UnZipUtils.localPath+"<<path-->"+UnZipUtils.targetPath);
 		try {
 			new UnZipUtils().doZip(WelcomeActivity.this, UnZipUtils.targetPath,
 					UnZipUtils.localPath, new ZipCall() {

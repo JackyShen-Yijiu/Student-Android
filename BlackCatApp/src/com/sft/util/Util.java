@@ -11,6 +11,7 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import cn.sft.sqlhelper.DBHelper;
@@ -38,6 +39,21 @@ public class Util {
 		public static final int carStyleChange = 3;
 
 		void enrollInfoChange(int type);
+	}
+	
+	public static void testTables(){
+		String sql = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES ";
+		SQLiteDatabase db = DataBaseUtil.openDatabase(BlackCatApplication
+				.getInstance());
+		
+		String[] str = {};
+		Cursor c = db.rawQuery(sql, str);
+		while(c.moveToNext()){
+			LogUtil.print("move--toNExt-->"+c.getString(0));
+		}
+		c.close();
+		db.close();
+		
 	}
 
 	private static String getUserid() {
@@ -366,6 +382,9 @@ public class Util {
 	 * */
 
 	public static List<web_note> getSubjectOneQuestionWithChapter(String chapter) {
+//		testTables();
+		
+		
 		SQLiteDatabase db = DataBaseUtil.openDatabase(BlackCatApplication
 				.getInstance());
 		String sql = "SELECT * FROM web_note where kemu =?   and strTppe=? order by id";

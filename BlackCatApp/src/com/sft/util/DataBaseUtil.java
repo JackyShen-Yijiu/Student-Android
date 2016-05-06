@@ -71,6 +71,8 @@ public class DataBaseUtil {
 			return openDatabase(context);
 		}
 	}
+	
+	
 
 	public static List getArrays(SQLiteDatabase db, Class cls, String sql,
 			String[] paramsvalues) {

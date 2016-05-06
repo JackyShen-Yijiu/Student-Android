@@ -20,6 +20,7 @@ import com.sft.blackcatapp.AppointmentExamSuccessActivity;
 import com.sft.blackcatapp.ExerciseOrderAct;
 import com.sft.blackcatapp.QuestionActivity;
 import com.sft.blackcatapp.SectionActivity;
+import com.sft.common.BlackCatApplication;
 import com.sft.common.Config;
 import com.sft.dialog.NoLoginDialog;
 import com.sft.util.BaseUtils;
@@ -101,17 +102,13 @@ public class SubjectOneFragment extends BaseFragment implements OnClickListener 
 
 	@Override
 	public void onClick(View v) {
-		if (!CommonUtil.isNetworkConnected(mContext)) {
-			ZProgressHUD.getInstance(mContext).show();
-			ZProgressHUD.getInstance(mContext).dismissWithFailure("网络异常");
-			return;
-		}
+		
 		Intent intent = null;
 		switch (v.getId()) {
 		case R.id.question_banks:
 
 			// 题库
-			if (app.questionVO != null) {
+//			if (app.questionVO != null) {
 
 				intent = new Intent(mContext, SectionActivity.class);
 				intent.putExtra("subjectid", 1);
@@ -120,10 +117,10 @@ public class SubjectOneFragment extends BaseFragment implements OnClickListener 
 				// intent.putExtra("url", app.questionVO.getSubjectone()
 				// .getQuestionlisturl());
 
-			} else {
-				ZProgressHUD.getInstance(mContext).show();
-				ZProgressHUD.getInstance(mContext).dismissWithFailure("暂无题库");
-			}
+//			} else {
+//				ZProgressHUD.getInstance(mContext).show();
+//				ZProgressHUD.getInstance(mContext).dismissWithFailure("暂无题库");
+//			}
 			break;
 		case R.id.simulation_test:
 			// 模拟考试
@@ -144,27 +141,23 @@ public class SubjectOneFragment extends BaseFragment implements OnClickListener 
 			break;
 		case R.id.my_error_data:
 			// 我的错题
-			if (app.isLogin) {
+//			if (app.isLogin) {
 				intent = new Intent(mContext, ExerciseOrderAct.class);
 				intent.putExtra("flag", 2);
 				intent.putExtra("subjectid", 1);
-				if (app.questionVO != null) {
-					// intent = new Intent(mContext, QuestionActivity.class);
-					// intent.putExtra("url", app.questionVO.getSubjectone()
-					// .getQuestionerrorurl());
-				} else {
-					ZProgressHUD.getInstance(mContext).show();
-					ZProgressHUD.getInstance(mContext).dismissWithFailure(
-							"暂无题库");
-				}
-			} else {
-
-				BaseUtils.toLogin(getActivity());
-				// NoLoginDialog dialog = new NoLoginDialog(mContext);
-				// dialog.show();
-			}
+//			} else {
+//
+//				BaseUtils.toLogin(getActivity());
+//				// NoLoginDialog dialog = new NoLoginDialog(mContext);
+//				// dialog.show();
+//			}
 			break;
 		case R.id.make_an_appointment:
+//			if (!CommonUtil.isNetworkConnected(mContext)) {
+//				ZProgressHUD.getInstance(mContext).show();
+//				ZProgressHUD.getInstance(mContext).dismissWithFailure("网络异常");
+//				return;
+//			}
 			if (app.isLogin) {
 				obtainMyExaminfo();
 				// intent = new Intent(mContext,
@@ -178,6 +171,11 @@ public class SubjectOneFragment extends BaseFragment implements OnClickListener 
 			break;
 
 		case R.id.my_school_report:
+			if (!CommonUtil.isNetworkConnected(mContext)) {
+				ZProgressHUD.getInstance(mContext).show();
+				ZProgressHUD.getInstance(mContext).dismissWithFailure("网络异常");
+				return;
+			}
 			// 成绩单
 			if (app.isLogin) {
 				if (app.questionVO != null) {
@@ -221,9 +219,16 @@ public class SubjectOneFragment extends BaseFragment implements OnClickListener 
 
 	// 获取我的考试成绩
 	private void obtainMyScore() {
-		if (app.userVO == null && app.userVO.getUserid() == null) {
+//		if (app.userVO == null && app.userVO.getUserid() == null) {
+//			return;
+//		}
+		if (app == null) {
+			app = BlackCatApplication.getInstance();
+		}
+		if(!app.isLogin){
 			return;
 		}
+		
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("subjectid", "1");
 		paramMap.put("userid", app.userVO.getUserid());

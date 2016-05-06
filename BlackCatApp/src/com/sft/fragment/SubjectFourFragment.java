@@ -101,29 +101,20 @@ public class SubjectFourFragment extends BaseFragment implements
 
 	@Override
 	public void onClick(View v) {
-		if (!CommonUtil.isNetworkConnected(mContext)) {
-			ZProgressHUD.getInstance(mContext).show();
-			ZProgressHUD.getInstance(mContext).dismissWithFailure("网络异常");
-			return;
-		}
-		if (!app.isLogin) {
-			BaseUtils.toLogin(getActivity());
-			// NoLoginDialog dialog = new NoLoginDialog(mContext);
-			// dialog.show();
-			return;
-		}
+		
+		
 		Intent intent = null;
 		switch (v.getId()) {
 		case R.id.question_banks:
 			// 题库
-			if (app.questionVO != null) {
+//			if (app.questionVO != null) {
 				intent = new Intent(mContext, SectionActivity.class);
 				intent.putExtra("subjectid", 4);
 				intent.putExtra("flag", 0);
-			} else {
-				ZProgressHUD.getInstance(mContext).show();
-				ZProgressHUD.getInstance(mContext).dismissWithFailure("暂无题库");
-			}
+//			} else {
+//				ZProgressHUD.getInstance(mContext).show();
+//				ZProgressHUD.getInstance(mContext).dismissWithFailure("暂无题库");
+//			}
 			break;
 		case R.id.simulation_test:
 			intent = new Intent(mContext, ExerciseOrderAct.class);
@@ -140,20 +131,25 @@ public class SubjectFourFragment extends BaseFragment implements
 			// }
 			break;
 		case R.id.my_error_data:
+			
 			// 我的错题
-			if (app.questionVO != null) {
+//			if (app.questionVO != null) {
 				intent = new Intent(mContext, ExerciseOrderAct.class);
 				intent.putExtra("subjectid", 4);
 				intent.putExtra("flag", 2);
 				// intent = new Intent(mContext, QuestionActivity.class);
 				// intent.putExtra("url", app.questionVO.getSubjectfour()
 				// .getQuestionerrorurl());
-			} else {
-				ZProgressHUD.getInstance(mContext).show();
-				ZProgressHUD.getInstance(mContext).dismissWithFailure("暂无题库");
-			}
+//			} else {
+//				ZProgressHUD.getInstance(mContext).show();
+//				ZProgressHUD.getInstance(mContext).dismissWithFailure("暂无错题");
+//			}
 			break;
 		case R.id.make_an_appointment:
+			if (!app.isLogin) {
+				BaseUtils.toLogin(getActivity());
+				return;
+			}
 			if (app.isLogin) {
 				obtainMyExaminfo();
 				// intent = new Intent(mContext,
@@ -161,11 +157,15 @@ public class SubjectFourFragment extends BaseFragment implements
 				// intent.putExtra("subjectid", "4");
 
 			} else {
-				NoLoginDialog dialog = new NoLoginDialog(getActivity());
-				dialog.show();
+				BaseUtils.toLogin(getActivity());
 			}
 			break;
 		case R.id.my_school_report:
+			if (!CommonUtil.isNetworkConnected(mContext)) {
+				ZProgressHUD.getInstance(mContext).show();
+				ZProgressHUD.getInstance(mContext).dismissWithFailure("网络异常");
+				return;
+			}
 			// 成绩单
 			if (app.isLogin) {
 				if (app.questionVO != null) {
@@ -178,8 +178,7 @@ public class SubjectFourFragment extends BaseFragment implements
 							"暂无成绩单");
 				}
 			} else {
-				NoLoginDialog dialog = new NoLoginDialog(mContext);
-				dialog.show();
+				BaseUtils.toLogin(getActivity());
 			}
 			break;
 		case R.id.communication:
@@ -207,7 +206,11 @@ public class SubjectFourFragment extends BaseFragment implements
 
 	// 获取我的考试成绩
 	private void obtainMyScore() {
-		if (app.userVO == null && app.userVO.getUserid() == null) {
+//		if (app.userVO == null && app.userVO.getUserid() == null) {
+//			return;
+//		}
+		
+		if(!app.isLogin){
 			return;
 		}
 		Map<String, String> paramMap = new HashMap<String, String>();

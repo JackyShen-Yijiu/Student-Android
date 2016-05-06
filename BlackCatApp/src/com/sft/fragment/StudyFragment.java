@@ -140,17 +140,13 @@ public class StudyFragment extends BaseFragment implements OnClickListener {
 			break;
 		case R.id.study_subject_two:
 			viewPager.setCurrentItem(1);
-
 			break;
 		case R.id.study_subject_three:
 			viewPager.setCurrentItem(2);
-
 			break;
 		case R.id.study_subject_four:
 			viewPager.setCurrentItem(3);
-
 			break;
-
 		default:
 			break;
 		}

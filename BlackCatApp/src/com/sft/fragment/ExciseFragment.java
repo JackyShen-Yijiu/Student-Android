@@ -82,7 +82,7 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 
 	// private String video_url = "";
 	/** 本地文件的路径 */
-	private String localPath = UnZipUtils.localPath + "/ggtkFile/resources/";
+	private String localPath = "data/data/com.jzjf.app/files" + "/ggtkFile/resources/";
 
 	public static ExciseFragment newInstance(ExerciseVO param1, String param2) {
 		ExciseFragment fragment = new ExciseFragment();
@@ -102,10 +102,10 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 			param1 = (ExerciseVO) getArguments().getSerializable(PARAM1);
 			param2 = getArguments().getString(PARAM2);
 		}
-		localPath = Environment.getExternalStorageDirectory().toString();
-		// video_url = localPath+"/test.mp4";
-		localPath = Environment.getExternalStorageDirectory()
-				+ "/jzjf/img/a/ggtkFile/resources/";
+//		localPath = Environment.getExternalStorageDirectory().toString();
+//		// video_url = localPath+"/test.mp4";
+//		localPath = Environment.getExternalStorageDirectory()
+//				+ "/jzjf/img/a/ggtkFile/resources/";
 		// LogUtil.print("instantiateItem---onCreate->" + param1.getWebnote());
 	}
 
@@ -209,11 +209,13 @@ public class ExciseFragment extends Fragment implements OnItemClickListener,
 	}
 
 	private void doImage(String name) {
+		LogUtil.print("doImage--->>>>"+(localPath+name));
 		if (null == name) {
 			img.setVisibility(View.GONE);
 		} else {
 			int height = (int) (CommonUtil.getWindowsWidth(getActivity()) * 0.4);
 			Uri uri = Uri.parse(localPath + name);
+			
 			// img.setImageURI(uri);
 			LayoutParams p = new LayoutParams(LayoutParams.MATCH_PARENT, height);
 			Drawable d = Drawable.createFromPath(localPath + name);
