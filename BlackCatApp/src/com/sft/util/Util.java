@@ -382,8 +382,6 @@ public class Util {
 	 * */
 
 	public static List<web_note> getSubjectOneQuestionWithChapter(String chapter) {
-//		testTables();
-		
 		
 		SQLiteDatabase db = DataBaseUtil.openDatabase(BlackCatApplication
 				.getInstance());
