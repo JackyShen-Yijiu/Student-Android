@@ -81,9 +81,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 	// private TextView phone;
 	private String result;
 	private String msg;
-
 	private int showType;// 展示类型： 0驾校 1 教练;
-
 	// private TextView left_tv_map;
 	private String currCity;
 	private RelativeLayout rl_xunijian;
@@ -127,9 +125,10 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 	public void judgeNavigation() {
 		if (!ViewConfiguration.get(getActivity()).hasPermanentMenuKey()) {
 			// 这里是有导航
-//			rl_xunijian.setPadding(0, 0, 0, 120);
+			// rl_xunijian.setPadding(0, 0, 0, 120);
 		}
 	}
+
 	// public void judgeNavigation() {
 	// if (!ViewConfiguration.get(getActivity()).hasPermanentMenuKey()) {
 	// // 这里是有导航
@@ -160,6 +159,8 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 		}
 	}
 
+	public static final int REQUEST_EVALUATE = 0X110;
+
 	private void initView(View rootView) {
 
 		// left_tv_map = (TextView) rootView.findViewById(R.id.left_tv_map);
@@ -188,7 +189,6 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 		// listView.setCacheColorHint(android.R.color.transparent);
 		// listView.setDividerHeight(0);
 		// listView.setSelector(R.drawable.drawer_list_item_selector);
-
 		if (app.isLogin) {
 
 			setPersonInfo();
