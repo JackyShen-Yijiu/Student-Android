@@ -188,7 +188,8 @@ public enum BitmapManager {
 		try {
 			String encodeUrl = url.substring(0, 7)
 					+ URLEncoder.encode(url.substring(7), "utf-8");
-			encodeUrl = encodeUrl.replace("%2F", "/").replace("%2f", "/");
+			encodeUrl = encodeUrl.replace("%2F", "/").replace("%2f", "/")
+					.replace("%3F", "?").replace("%3f", "?");
 			Bitmap bitmap = BitmapFactory.decodeStream((InputStream) new URL(
 					encodeUrl).getContent());
 			if (width > 0 && height > 0) {

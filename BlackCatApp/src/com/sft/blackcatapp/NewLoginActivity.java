@@ -353,7 +353,7 @@ public class NewLoginActivity extends BaseActivity implements EMLoginListener {
 			// util.saveParam(Config.LAST_LOGIN_PASSWORD, passwordEt.getText()
 			// .toString());
 			loginBtn.setEnabled(true);
-			lookAroundBtn.setEnabled(true);
+			// lookAroundBtn.setEnabled(true);
 			ZProgressHUD.getInstance(this).dismiss();
 			if (isMyServiceRunning()) {
 				ZProgressHUD.getInstance(this).dismiss();

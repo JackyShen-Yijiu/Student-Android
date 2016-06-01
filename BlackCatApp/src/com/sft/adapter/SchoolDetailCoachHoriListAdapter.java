@@ -11,10 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.ImageView.ScaleType;
 import cn.sft.infinitescrollviewpager.BitmapManager;
 
 import com.joooonho.SelectableRoundedImageView;
@@ -96,15 +96,14 @@ public class SchoolDetailCoachHoriListAdapter extends BaseAdapter {
 					.findViewById(R.id.search_coach_coachname_tv);
 			holder.className = (TextView) convertView
 					.findViewById(R.id.search_coach_schoolname_tv);
-//			holder.headPic = (ImageView) convertView
-//					.findViewById(R.id.search_coach_headpin_im);
+			// holder.headPic = (ImageView) convertView
+			// .findViewById(R.id.search_coach_headpin_im);
 			holder.headPic1 = (SelectableRoundedImageView) convertView
 					.findViewById(R.id.search_coach_headpin_im1);
 			holder.headPic1.setScaleType(ScaleType.CENTER_CROP);
-			holder.headPic1.setImageResource(R.drawable.default_small_pic);
+			holder.headPic1.setImageResource(R.drawable.login_head);
 			holder.headPic1.setOval(true);
-			
-			
+
 			holder.rateBar = (RatingBar) convertView
 					.findViewById(R.id.search_coach_ratingBar);
 			holder.shuttle = (TextView) convertView
@@ -136,17 +135,17 @@ public class SchoolDetailCoachHoriListAdapter extends BaseAdapter {
 		} else {
 			holder.selectIm.setBackgroundResource(android.R.color.transparent);
 		}
-//		if (mData.get(position).getIs_shuttle().equals("true")) {
-//			holder.shuttle.setVisibility(View.VISIBLE);
-//		} else {
-//			holder.shuttle.setVisibility(View.GONE);
-//		}
-//		if (mData.get(position).isGeneral()) {
-//			holder.general.setVisibility(View.VISIBLE);
-//		} else {
-//			holder.general.setVisibility(View.GONE);
-//		}
-		 
+		// if (mData.get(position).getIs_shuttle().equals("true")) {
+		// holder.shuttle.setVisibility(View.VISIBLE);
+		// } else {
+		// holder.shuttle.setVisibility(View.GONE);
+		// }
+		// if (mData.get(position).isGeneral()) {
+		// holder.general.setVisibility(View.VISIBLE);
+		// } else {
+		// holder.general.setVisibility(View.GONE);
+		// }
+
 		String coachName = mData.get(position).getName();
 		holder.coachName.setText(coachName);
 		if (isShowSchool) {
@@ -180,31 +179,40 @@ public class SchoolDetailCoachHoriListAdapter extends BaseAdapter {
 		} catch (Exception e) {
 			holder.rateBar.setRating(0f);
 		}
-////		String age = mData.get(position).getSeniority();
-//		String distance = mData.get(position).getDistance();
-//		holder.teachAge.setText("距您:" + age + "km");
+		// // String age = mData.get(position).getSeniority();
+		// String distance = mData.get(position).getDistance();
+		// holder.teachAge.setText("距您:" + age + "km");
 		String distance = mData.get(position).getDistance();
 		float distanceInt = 0;
 		try {
 			distanceInt = Float.parseFloat(distance);
 		} catch (NumberFormatException e) {
 		}
-		holder.teachAge.setText("距您"+distanceInt / 1000f + "km");
+		holder.teachAge.setText("距您" + distanceInt / 1000f + "km");
 
 		LinearLayout.LayoutParams headParam = (LinearLayout.LayoutParams) holder.headPic1
 				.getLayoutParams();
 
-		String url = mData.get(position).getHeadportrait().getOriginalpic();
-		if (TextUtils.isEmpty(url)) {
-			holder.headPic1.setBackgroundResource(R.drawable.default_small_pic);
+		String url = mData.get(position).getHeadportrait().getOriginalpic()
+				+ "?imageView2/0/w/" + headParam.width + "/h/"
+				+ headParam.height;
+		if (TextUtils.isEmpty(mData.get(position).getHeadportrait()
+				.getOriginalpic())) {
+			holder.headPic1.setImageResource(R.drawable.login_head);
 		} else {
+			LogUtil.print(headParam.height + "sssssss--==" + url);
 			BitmapManager.INSTANCE.loadBitmap2(url, holder.headPic1,
 					headParam.width, headParam.height);
+		}
+		if (mData.get(position).getName().equals("蒋")) {
+			LogUtil.print("------"
+					+ mData.get(position).getHeadportrait().getOriginalpic());
+
 		}
 		holder.price.setText("¥" + mData.get(position).getMinprice() + "起");
 		// if (position == mData.size() - 1) {
 		LogUtil.print(mData.size() + "ssssssd===="
-				+ mData.get(position).getName() + position);
+				+ mData.get(position).getName() + position + url);
 		// }
 		return convertView;
 	}
@@ -213,7 +221,7 @@ public class SchoolDetailCoachHoriListAdapter extends BaseAdapter {
 		public ImageView selectIm;
 		public TextView coachName;
 		public TextView className;
-//		public ImageView headPic;
+		// public ImageView headPic;
 		public com.joooonho.SelectableRoundedImageView headPic1;
 		public RatingBar rateBar;
 		public TextView shuttle, general;

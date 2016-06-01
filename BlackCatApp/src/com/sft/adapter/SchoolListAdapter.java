@@ -158,13 +158,15 @@ public class SchoolListAdapter extends BaseAdapter {
 				+ "名认证教练");
 		// 评论 mData.get(position).getCommentcount()+ "条评论 | " +
 
-		String headUrl = mData.get(position).getLogoimg().getOriginalpic();
-
 		RelativeLayout.LayoutParams headParams = (RelativeLayout.LayoutParams) holder.headPic1
 				.getLayoutParams();
+		String headUrl = mData.get(position).getLogoimg().getOriginalpic()
+				+ "?imageView2/0/w/" + headParams.width + "/h/"
+				+ headParams.height;
 
-		if (TextUtils.isEmpty(headUrl)) {
-			holder.headPic1.setBackgroundResource(R.drawable.default_small_pic);
+		if (TextUtils
+				.isEmpty(mData.get(position).getLogoimg().getOriginalpic())) {
+			holder.headPic1.setImageResource(R.drawable.school_pic);
 		} else {
 			BitmapManager.INSTANCE.loadBitmap2(headUrl, holder.headPic1,
 					headParams.width, headParams.height);
