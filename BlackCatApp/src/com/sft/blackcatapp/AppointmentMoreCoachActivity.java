@@ -379,14 +379,14 @@ public class AppointmentMoreCoachActivity extends BaseActivity implements
 
 		if (isFromApply) {
 			obtainSchoolCoach(moreCoachPage);
+		} else if (null != coachCourse && (!TextUtils.isEmpty(selectDate))) {
+			// 获取当前时间段可以预约的教练
+			obtainUsefulcoachTimely();
+		} else if ((getIntent().getBooleanExtra("isOnClickToDetail", false))) {
+			obtainSchoolCoach(moreCoachPage);
 		} else {
-			if (null != coachCourse && (!TextUtils.isEmpty(selectDate))) {
-				// 获取当前时间段可以预约的教练
-				obtainUsefulcoachTimely();
-			} else {
-				schoolId = app.userVO.getApplyschoolinfo().getId();
-				obtainUsefulcoach();
-			}
+			schoolId = app.userVO.getApplyschoolinfo().getId();
+			obtainUsefulcoach();
 		}
 	}
 
