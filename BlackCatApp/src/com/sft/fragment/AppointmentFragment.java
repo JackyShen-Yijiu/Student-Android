@@ -168,9 +168,10 @@ public class AppointmentFragment extends BaseFragment implements
 				yuekaoLr.setBackgroundResource(R.drawable.button_rounded_corners_gray);
 				yuekaoLr.setClickable(false);
 				tvLastXueShi.setVisibility(View.VISIBLE);
-				tvLastXueShi.setText("还需"
-						+ (subject.getTotalcourse() - subject.getFinishcourse())
-						+ "学时");
+				tvLastXueShi
+						.setText("还需"
+								+ (subject.getTotalcourse() - subject
+										.getFinishcourse()) + "学时");
 			}
 
 		} else {
@@ -264,10 +265,15 @@ public class AppointmentFragment extends BaseFragment implements
 		} else {
 			noCaochErrorRl.setVisibility(View.VISIBLE);
 			hasCaochRl.setVisibility(View.GONE);
-			
+
 		}
 
-		//
+		// 屏幕适配（在小屏幕上的布局）
+		if (CommonUtil.getWindowsHeight(getActivity()) < 1000) {
+			LinearLayout appointLayout = (LinearLayout) headerView
+					.findViewById(R.id.appoint_layout);
+			appointLayout.setOrientation(LinearLayout.VERTICAL);
+		}
 	}
 
 	@Override

@@ -207,8 +207,8 @@ public class NewLoginActivity extends BaseActivity implements EMLoginListener {
 		lookAroundBtn.setEnabled(false);
 		String checkResult = checkLoginInfo();
 		if (checkResult == null) {
-			ZProgressHUD.getInstance(this).setMessage("正在登录...");
-			ZProgressHUD.getInstance(this).show();
+			// ZProgressHUD.getInstance(this).setMessage("正在登录...");
+			// ZProgressHUD.getInstance(this).show();
 			Map<String, String> paramMap = new HashMap<String, String>();
 			paramMap.put("mobile", phontEt.getText().toString());
 			paramMap.put("usertype", "1");
@@ -263,6 +263,12 @@ public class NewLoginActivity extends BaseActivity implements EMLoginListener {
 			// }
 			return true;
 		}
+		if (!type.equals(obtainCode)) {
+			if (!ZProgressHUD.getInstance(this).isShowing()) {
+				ZProgressHUD.getInstance(this).setMessage("正在登录...");
+				ZProgressHUD.getInstance(this).show();
+			}
+		}
 		if (type.equals(obtainCode)) {
 			codeHandler = new MyHandler(true, 1000) {
 				private int time = codeTime;
@@ -286,9 +292,6 @@ public class NewLoginActivity extends BaseActivity implements EMLoginListener {
 			};
 		} else if (type.equals(login)) {
 			try {
-				loginBtn.setEnabled(true);
-				lookAroundBtn.setEnabled(true);
-				ZProgressHUD.getInstance(this).dismiss();
 
 				if (data != null && result.equals("1")) {
 					app.userVO = JSONUtil.toJavaBean(UserVO.class, data);
@@ -349,7 +352,9 @@ public class NewLoginActivity extends BaseActivity implements EMLoginListener {
 					.toString());
 			// util.saveParam(Config.LAST_LOGIN_PASSWORD, passwordEt.getText()
 			// .toString());
-
+			loginBtn.setEnabled(true);
+			lookAroundBtn.setEnabled(true);
+			ZProgressHUD.getInstance(this).dismiss();
 			if (isMyServiceRunning()) {
 				ZProgressHUD.getInstance(this).dismiss();
 				app.isLogin = true;

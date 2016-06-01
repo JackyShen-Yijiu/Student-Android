@@ -26,6 +26,13 @@ public class CommonUtil {
 		return dm.widthPixels;
 	}
 
+	/** 获取屏幕的高度 */
+	public final static int getWindowsHeight(Activity activity) {
+		DisplayMetrics dm = new DisplayMetrics();
+		activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
+		return dm.heightPixels;
+	}
+
 	/**
 	 * dip转为 px
 	 */

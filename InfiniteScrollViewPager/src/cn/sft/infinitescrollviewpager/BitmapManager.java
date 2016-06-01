@@ -31,7 +31,8 @@ public enum BitmapManager {
 	INSTANCE;
 	private final Map<String, SoftReference<Bitmap>> cache;
 	private final ExecutorService pool;
-	private Map<View, String> imageViews = Collections.synchronizedMap(new WeakHashMap<View, String>());
+	private Map<View, String> imageViews = Collections
+			.synchronizedMap(new WeakHashMap<View, String>());
 	// private Bitmap placeholder;
 	private final Map<String, SoftReference<Bitmap>> cache2;
 	private BitMapURLExcepteionListner listener;
@@ -58,8 +59,8 @@ public enum BitmapManager {
 	}
 
 	@SuppressLint("HandlerLeak")
-	public void queueJob(final String url, final CropRoundView imageView, final int width, final int height,
-			final int id) {
+	public void queueJob(final String url, final CropRoundView imageView,
+			final int width, final int height, final int id) {
 
 		final Handler handler = new Handler() {
 
@@ -97,8 +98,8 @@ public enum BitmapManager {
 	 * @param width
 	 * @param height
 	 */
-	public void loadBitmap(final String url, final CropRoundView imageView, final int width, final int height,
-			final int id) {
+	public void loadBitmap(final String url, final CropRoundView imageView,
+			final int width, final int height, final int id) {
 		// 将listview中的image放入Map
 		imageViews.put(imageView, url + width + height);
 		// 从内存中获取
@@ -127,9 +128,11 @@ public enum BitmapManager {
 	private Bitmap downloadBitmap(String url, int width, int height) {
 
 		try {
-			String encodeUrl = url.substring(0, 7) + URLEncoder.encode(url.substring(7), "utf-8");
+			String encodeUrl = url.substring(0, 7)
+					+ URLEncoder.encode(url.substring(7), "utf-8");
 			encodeUrl = encodeUrl.replace("%2F", "/").replace("%2f", "/");
-			Bitmap bitmap = BitmapFactory.decodeStream((InputStream) new URL(encodeUrl).getContent());
+			Bitmap bitmap = BitmapFactory.decodeStream((InputStream) new URL(
+					encodeUrl).getContent());
 			if (width > 0 && height > 0) {
 				bitmap = Bitmap.createScaledBitmap(bitmap, width, height, true);
 			}
@@ -154,7 +157,8 @@ public enum BitmapManager {
 	 * @param width
 	 * @param height
 	 */
-	public void loadBitmap2(final String url, final ImageView imageView, final int width, final int height) {
+	public void loadBitmap2(final String url, final ImageView imageView,
+			final int width, final int height) {
 		// 将listview中的image放入Map
 		imageViews.put(imageView, url + width + height);
 		// 从内存中获取
@@ -182,9 +186,11 @@ public enum BitmapManager {
 	public Bitmap downloadBitmap2(String url, int width, int height) {
 
 		try {
-			String encodeUrl = url.substring(0, 7) + URLEncoder.encode(url.substring(7), "utf-8");
+			String encodeUrl = url.substring(0, 7)
+					+ URLEncoder.encode(url.substring(7), "utf-8");
 			encodeUrl = encodeUrl.replace("%2F", "/").replace("%2f", "/");
-			Bitmap bitmap = BitmapFactory.decodeStream((InputStream) new URL(encodeUrl).getContent());
+			Bitmap bitmap = BitmapFactory.decodeStream((InputStream) new URL(
+					encodeUrl).getContent());
 			if (width > 0 && height > 0) {
 				bitmap = Bitmap.createScaledBitmap(bitmap, width, height, true);
 			}
@@ -202,7 +208,8 @@ public enum BitmapManager {
 	}
 
 	@SuppressLint("HandlerLeak")
-	public void queueJob2(final String url, final ImageView imageView, final int width, final int height) {
+	public void queueJob2(final String url, final ImageView imageView,
+			final int width, final int height) {
 
 		final Handler handler = new Handler() {
 
@@ -213,6 +220,7 @@ public enum BitmapManager {
 					if (msg.obj != null) {
 						imageView.setImageBitmap((Bitmap) msg.obj);
 					} else {
+						System.out.println("------00000-sd0igfsdj" + url);
 						// imageView.setImageBitmap(placeholder);
 					}
 				}

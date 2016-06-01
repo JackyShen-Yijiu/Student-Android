@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView.ScaleType;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -86,7 +87,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 
 	// private TextView left_tv_map;
 	private String currCity;
-	private RelativeLayout rl_xunijian;
+	private LinearLayout rl_xunijian;
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -127,9 +128,10 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 	public void judgeNavigation() {
 		if (!ViewConfiguration.get(getActivity()).hasPermanentMenuKey()) {
 			// 这里是有导航
-//			rl_xunijian.setPadding(0, 0, 0, 120);
+			// rl_xunijian.setPadding(0, 0, 0, 120);
 		}
 	}
+
 	// public void judgeNavigation() {
 	// if (!ViewConfiguration.get(getActivity()).hasPermanentMenuKey()) {
 	// // 这里是有导航
@@ -170,7 +172,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 		// .findViewById(R.id.fragment_menu_driving_school);
 		code = (TextView) rootView.findViewById(R.id.fragment_menu_code);
 
-		rl_xunijian = (RelativeLayout) rootView.findViewById(R.id.rl_xunijian);
+		rl_xunijian = (LinearLayout) rootView.findViewById(R.id.rl_xunijian);
 		// doubiNumber = (TextView) rootView
 		// .findViewById(R.id.fragment_menu_number);
 		// earnings = (TextView) rootView

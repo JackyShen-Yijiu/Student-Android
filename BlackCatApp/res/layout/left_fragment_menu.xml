@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#f0f0f0"
@@ -46,10 +46,10 @@
     </RelativeLayout>
     <ScrollView 
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:scrollbars="none"
-        android:paddingBottom="10dp"
-        android:layout_below="@+id/rl_head">
+        android:paddingBottom="10dp">
     <LinearLayout 
         android:id="@+id/ll_menu"
         android:layout_width="match_parent"
@@ -108,7 +108,6 @@
             android:id="@+id/complaint_feedbacktype_rg"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
             android:background="@color/white"
             android:orientation="horizontal" >
 
@@ -139,4 +138,4 @@
                 android:textSize="14sp"
                 android:textColor="#7b7b7b"/>
         </RadioGroup>
-</RelativeLayout>
+</LinearLayout>

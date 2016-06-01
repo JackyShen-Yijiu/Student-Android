@@ -28,16 +28,17 @@ public class ZProgressHUD extends Dialog {
 	static Context mContext = null;
 
 	public static ZProgressHUD getInstance(Context context) {
-		if(mContext!=null && !mContext.equals(context)){
-				
-				synchronized (ZProgressHUD.class) {
-					if(instance!=null && instance.isShowing()){
-						instance.dismiss();
-					}
-//					if (instance == null) {
-						instance = new ZProgressHUD(context);
-//					}
+		if (mContext != null && !mContext.equals(context)) {
+
+			synchronized (ZProgressHUD.class) {
+				if (instance != null && instance.isShowing()) {
+					instance.dismiss();
+					LogUtil.print(mContext + "getInstance");
 				}
+				// if (instance == null) {
+				instance = new ZProgressHUD(context);
+				// }
+			}
 		}
 		if (instance == null) {
 			synchronized (ZProgressHUD.class) {
@@ -87,7 +88,8 @@ public class ZProgressHUD extends Dialog {
 
 	@Override
 	public void show() {
-		LogUtil.print(mContext+"callBack--finish>"+((Activity) mContext).isFinishing());
+		LogUtil.print(mContext + "callBack--finish>"
+				+ ((Activity) mContext).isFinishing());
 		if (!((Activity) mContext).isFinishing()) {
 			super.show();
 		} else {
@@ -177,6 +179,7 @@ public class ZProgressHUD extends Dialog {
 			protected void onPostExecute(Long result) {
 				super.onPostExecute(result);
 				try {
+					LogUtil.print(mContext + "dismissHUD");
 					dismiss();
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -189,5 +192,12 @@ public class ZProgressHUD extends Dialog {
 
 	protected void dismissHUD() {
 		dismissHUD(1000);
+	}
+
+	public void dismisss(String tag) {
+		if (instance != null && instance.isShowing()) {
+			dismiss();
+		}
+		LogUtil.print(tag + "xxxxxx--" + System.currentTimeMillis());
 	}
 }

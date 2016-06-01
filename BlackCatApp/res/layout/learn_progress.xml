@@ -61,10 +61,12 @@
                 android:textColor="@color/txt_333"
                 android:textSize="14sp" />
 
-            <RelativeLayout
+            <LinearLayout
+                android:id="@+id/appoint_layout"
                 android:layout_width="match_parent"
                 android:layout_marginTop="12dp"
                 android:layout_height="wrap_content" 
+                android:orientation="horizontal"
                 >
 
                 <TextView
@@ -82,13 +84,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="15dp"
-                    android:layout_toRightOf="@+id/my_appoint_studied"
                     android:text="购买"
                     android:textColor="@color/new_button_color"
                     android:textSize="12sp" />
 
                 
-            </RelativeLayout>
+            </LinearLayout>
         </LinearLayout>
         
         <LinearLayout 

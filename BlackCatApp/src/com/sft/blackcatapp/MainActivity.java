@@ -192,6 +192,7 @@ public class MainActivity extends BaseMainActivity implements
 
 		setContentView(R.layout.frame_content);
 		// EventBus.getDefault().register(this);
+		LogUtil.print("+++---" + this.getFilesDir());
 		init();
 		initView();
 		initData(savedInstanceState);

@@ -54,6 +54,15 @@
             android:progress="0"
             android:progressDrawable="@drawable/progressbar_horizontal_color" />
     </RelativeLayout>
+    
+
+    <ScrollView 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
     <com.sft.viewutil.StudyItemLayout
         android:id="@+id/question_banks"
         android:layout_width="wrap_content"
@@ -108,5 +117,6 @@
         study:itemTitle="交流" 
         android:visibility="gone">
     </com.sft.viewutil.StudyItemLayout>
-
+</LinearLayout>
+</ScrollView>
 </LinearLayout>

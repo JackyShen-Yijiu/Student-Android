@@ -64,6 +64,8 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 	private static final String version = "version";
 	private static final String qiniutoken = "qiniutoken";
 
+	private Context mConext;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -76,7 +78,7 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 			getWindow().addFlags(
 					WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 		}
-
+		mConext = this;
 		addView(R.layout.activity_login);
 		initView();
 		setListener();
@@ -196,17 +198,19 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 	}
 
 	private void login() {
+		// ZProgressHUD.getInstance(mConext).setMessage("正在登录...");
+		// ZProgressHUD.getInstance(mConext).show();
 		loginBtn.setEnabled(false);
 		String checkResult = checkLoginInfo();
 		if (checkResult == null) {
-			ZProgressHUD.getInstance(this).setMessage("正在登录...");
-			ZProgressHUD.getInstance(this).show();
+
 			Map<String, String> paramMap = new HashMap<String, String>();
 			paramMap.put("mobile", phontEt.getText().toString());
 			paramMap.put("usertype", "1");
 			paramMap.put("password", util.MD5(passwordEt.getText().toString()));
 			HttpSendUtils.httpPostSend(login, this, Config.IP
 					+ "api/v1/userinfo/userlogin", paramMap);
+
 		} else {
 			loginBtn.setEnabled(true);
 			ZProgressHUD.getInstance(this).show();
@@ -239,27 +243,31 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 	@Override
 	public void doException(String type, Exception e, int code) {
 		super.doException(type, e, code);
-		loginBtn.setEnabled(true);
+		if (type.equals(login)) {
+			loginBtn.setEnabled(true);
+		}
 		ZProgressHUD.getInstance(this).dismiss();
 	}
 
 	@Override
 	public synchronized boolean doCallBack(String type, Object jsonString) {
 		if (super.doCallBack(type, jsonString)) {
-			if (type.equals(login)) {
-				loginBtn.setEnabled(true);
-			}
+			// if (type.equals(login)) {
+			//
+			// }
 			return true;
 		}
-
+		if (!ZProgressHUD.getInstance(mConext).isShowing()) {
+			ZProgressHUD.getInstance(mConext).setMessage("正在登录...");
+			ZProgressHUD.getInstance(mConext).show();
+		}
 		if (type.equals(login)) {
+
 			try {
-				loginBtn.setEnabled(true);
 
 				if (data != null && result.equals("1")) {
 					app.userVO = JSONUtil.toJavaBean(UserVO.class, data);
 					obtainVersionInfo();
-					LogUtil.print("msgggggggg3333" + jsonString);
 					util.saveParam(Config.LAST_LOGIN_MESSAGE,
 							jsonString.toString());
 				} else {
@@ -281,6 +289,7 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 				app.versionVO = versionVO;
 				obtainQiNiuToken();
 			} catch (Exception e) {
+
 				ZProgressHUD.getInstance(this).dismiss();
 				ZProgressHUD.getInstance(this).show();
 				ZProgressHUD.getInstance(this).dismissWithFailure("版本数据解析错误");
@@ -312,16 +321,18 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 
 	@Override
 	public void loginResult(boolean result, int code, String message) {
-
+		if (ZProgressHUD.getInstance(this).isShowing()) {
+			LogUtil.print("xxxxxxxxxxxxxxxxx--result");
+		}
 		if (result) {
 			util.saveParam(Config.LAST_LOGIN_PHONE, app.userVO.getTelephone());
 			util.saveParam(Config.LAST_LOGIN_ACCOUNT, phontEt.getText()
 					.toString());
 			util.saveParam(Config.LAST_LOGIN_PASSWORD,
 					util.MD5(passwordEt.getText().toString()));
-
 			if (isMyServiceRunning()) {
 
+				LogUtil.print("xxxxxxxxxxxxxxxxx--login2");
 				app.isLogin = true;
 				toMainAndFinish();
 			} else {
@@ -417,9 +428,11 @@ public class LoginActivity extends BaseActivity implements EMLoginListener {
 	}
 
 	private void toMainAndFinish() {
+		loginBtn.setEnabled(true);
 		if (ZProgressHUD.getInstance(this).isShowing()) {
 			ZProgressHUD.getInstance(this).dismiss();
 		}
+
 		Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 		startActivity(intent);
 		setResult(9, new Intent());

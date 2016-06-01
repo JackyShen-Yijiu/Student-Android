@@ -333,8 +333,11 @@ public class AppointmentCarActivity extends BaseActivity implements
 
 		case R.id.appointment_car_coach_iv:
 			intent = new Intent(this, CoachDetailActivity.class);
+			if (selectCoach == null) {
+				return;
+			}
 			intent.putExtra("coach", selectCoach);
-			startActivity(intent);
+			// startActivity(intent);
 			break;
 		default:
 			break;
@@ -357,6 +360,7 @@ public class AppointmentCarActivity extends BaseActivity implements
 	}
 
 	private void appointmentCar() {
+		LogUtil.print("appointmentCarxsss");
 		Map<String, String> paramsMap = new HashMap<String, String>();
 		paramsMap.put("userid", app.userVO.getUserid());
 		paramsMap.put("coachid", selectCoach.getCoachid());
@@ -533,6 +537,7 @@ public class AppointmentCarActivity extends BaseActivity implements
 
 	@Override
 	public void doException(String type, Exception e, int code) {
+		LogUtil.print("doException");
 		if (sameTimeStudent.equals(type))
 			studentListView.setLoadMoreCompleted();
 		// super.doException(type, e, code);
@@ -546,6 +551,7 @@ public class AppointmentCarActivity extends BaseActivity implements
 
 	@Override
 	public void doTimeOut(String type) {
+		LogUtil.print("doTimeOut");
 		if (sameTimeStudent.equals(type))
 			studentListView.setLoadMoreCompleted();
 		ZProgressHUD.getInstance(this).dismiss();
@@ -683,8 +689,9 @@ public class AppointmentCarActivity extends BaseActivity implements
 					RelativeLayout.LayoutParams headParam = (RelativeLayout.LayoutParams) coachPic
 							.getLayoutParams();
 					String url = selectCoach.getHeadportrait().getOriginalpic();
+					coachPic.setBackgroundResource(R.drawable.login_head);
 					if (TextUtils.isEmpty(url)) {
-						coachPic.setBackgroundResource(R.drawable.login_head);
+						coachPic.setImageResource(R.drawable.login_head);
 					} else {
 						BitmapManager.INSTANCE.loadBitmap2(url, coachPic,
 								headParam.width, headParam.height);
