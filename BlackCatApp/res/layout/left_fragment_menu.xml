@@ -4,6 +4,7 @@
     android:layout_height="fill_parent"
     android:background="#f0f0f0"
     android:clickable="true"
+    android:fitsSystemWindows="true"
     android:id="@+id/rl_xunijian"
     android:orientation="vertical" >
     
@@ -108,6 +109,9 @@
             android:id="@+id/complaint_feedbacktype_rg"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:clipToPadding="true"
+    		android:clipChildren="true"
+    		android:fitsSystemWindows="true"
             android:background="@color/white"
             android:orientation="horizontal" >
 

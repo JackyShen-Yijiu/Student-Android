@@ -82,6 +82,8 @@ public class NewComplaintActivity extends BaseActivity implements
 	private CheckBox name_ck;
 
 	private ImageView iv_jiantou;
+	
+	private CoachVO coach = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -219,7 +221,8 @@ public class NewComplaintActivity extends BaseActivity implements
 		if (!TextUtils.isEmpty(content.trim())) {
 			Map<String, String> paramMap = new HashMap<String, String>();
 			paramMap.put("userid", app.userVO.getUserid());
-			paramMap.put("coachid", app.userVO.getApplycoachinfo().getId());
+			
+			paramMap.put("coachid", coach==null?app.userVO.getApplycoachinfo().getId():coach.getCoachid());
 			paramMap.put("schoolid", app.userVO.getApplyschoolinfo().getId());
 			paramMap.put("feedbackmessage", content);
 
@@ -309,7 +312,7 @@ public class NewComplaintActivity extends BaseActivity implements
 				// BitmapManager.INSTANCE.loadBitmap2(url2, iv_applystates, 90,
 				// 90);
 			} else if (requestCode == R.id.rl_coach) {
-				CoachVO coach = (CoachVO) data.getSerializableExtra("coach");
+				coach = (CoachVO) data.getSerializableExtra("coach");
 				LogUtil.print(coach + "ssssssssssssss");
 				if (coach != null) {
 					coachNameTv.setText(coach.getName());
