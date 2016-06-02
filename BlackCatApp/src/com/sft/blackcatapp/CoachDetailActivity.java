@@ -370,11 +370,10 @@ public class CoachDetailActivity extends BaseActivity implements
 			seniorityTv.setText("教龄: " + coachVO.getSeniority() + "年");
 			if (coachVO.getDriveschoolinfo() != null)
 				placeTv.setText("训练场地: "
-						+ coachVO.getDriveschoolinfo().getName());
-			schoolTv.setText("所属驾校: "
-					+ coachVO.getTrainfieldlinfo().getFieldname());
+						+ coachVO.getTrainfieldlinfo().getFieldname());
+			schoolTv.setText("所属驾校: " + coachVO.getDriveschoolinfo().getName());
 
-			carTypeTv.setText("教学车型: " + coachVO.getCartype());
+			carTypeTv.setText("教学车型: " + coachVO.getCarmodel().getName());
 			String subjectString = "";
 			for (int i = 0; i < coachVO.getSubject().size(); i++) {
 				if (i == coachVO.getSubject().size() - 1) {
