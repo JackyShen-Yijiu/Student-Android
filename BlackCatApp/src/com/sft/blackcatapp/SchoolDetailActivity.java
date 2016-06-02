@@ -19,7 +19,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
@@ -163,21 +162,21 @@ public class SchoolDetailActivity extends BaseActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 			setTheme(R.style.title_21);
-		}else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+		} else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 			setTheme(R.style.title_21_below);
 			// 透明状态栏
 			// getWindow().addFlags(
 			// WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 			// 透明导航栏
-//			 getWindow().addFlags(
-//			 WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-//			// 底部 导航
-//			getWindow().addFlags(
-//					WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+			// getWindow().addFlags(
+			// WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+			// // 底部 导航
+			// getWindow().addFlags(
+			// WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 		}
-		
+
 		setContentView(R.layout.activity_school_detail2);
 		// addView(R.layout.
 
@@ -185,21 +184,23 @@ public class SchoolDetailActivity extends BaseActivity implements
 		initView();
 		setListener();
 		obtainEnrollSchoolDetail();
-//		test();
+		// test();
 	}
 
 	private void test() {
-		boolean hasBackKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
-		boolean hasHomeKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_HOME);
+		boolean hasBackKey = KeyCharacterMap
+				.deviceHasKey(KeyEvent.KEYCODE_BACK);
+		boolean hasHomeKey = KeyCharacterMap
+				.deviceHasKey(KeyEvent.KEYCODE_HOME);
 
 		if (hasBackKey && hasHomeKey) {
 			Toast("NO");
-		    // 没有虚拟按键
+			// 没有虚拟按键
 		} else {
 			Toast("有");
-		    // 有虚拟按键：99%可能。
+			// 有虚拟按键：99%可能。
 		}
-		
+
 	}
 
 	private void obtainSchoolCoach(int coachPage) {
@@ -254,8 +255,8 @@ public class SchoolDetailActivity extends BaseActivity implements
 
 		viewStatus = findViewById(R.id.act_school_detail_status);
 
-//		findViewById(R.id.base_titlebar_layout).setBackgroundResource(
-//				android.R.color.transparent);
+		// findViewById(R.id.base_titlebar_layout).setBackgroundResource(
+		// android.R.color.transparent);
 
 		ImageButton bus = (ImageButton) findViewById(R.id.base_right_btn2);
 
@@ -295,7 +296,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 		sv_container = (MyScrollView) findViewById(R.id.school_detail_scrollview);
 		sv_container.setOnStateListener(this);
 		sv_container.setDispatch(true);
-		
+
 		adLayout = (RelativeLayout) findViewById(R.id.school_detail_headpic_im);
 		viewPager = (ViewPager) findViewById(R.id.school_detail_viewpager);
 		dotLayout = (LinearLayout) findViewById(R.id.school_detail_dotlayout);
@@ -321,8 +322,8 @@ public class SchoolDetailActivity extends BaseActivity implements
 		// 顶部红色背景
 		viewTop = findViewById(R.id.school_detail_top_ll);
 		viewTopStatic = findViewById(R.id.school_detail_top_static);
-		getWindow().getDecorView().setBackgroundResource(android.R.color.transparent);
-		
+		getWindow().getDecorView().setBackgroundResource(
+				android.R.color.transparent);
 
 		schoolNameTv = (TextView) findViewById(R.id.school_detail_name_tv);
 		schoolRatingRar = (RatingBar) findViewById(R.id.school_detail_ratingrar);
@@ -749,6 +750,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 			if (app.isLogin) {
 				intent = new Intent(this, AppointmentMoreCoachActivity.class);
 				intent.putExtra("isOnClickToDetail", true);
+				intent.putExtra("schoolName", school);
 				intent.putExtra("schoolId", school.getSchoolid());
 				startActivity(intent);
 			} else {
@@ -1141,7 +1143,7 @@ public class SchoolDetailActivity extends BaseActivity implements
 				viewTop.setVisibility(View.GONE);
 				titleLayout.setBackgroundResource(android.R.color.transparent);
 				getWindow().getDecorView().setBackgroundResource(R.color.black);
-				
+
 				addDeleteSchoolCk.setVisibility(View.VISIBLE);
 				schoolNameTv.setVisibility(View.VISIBLE);
 				titleTV.setText("");
@@ -1159,9 +1161,10 @@ public class SchoolDetailActivity extends BaseActivity implements
 		} else if (topStatic > y || topStatic == y) {// 已经滑动很多，
 
 			if (viewTop.getVisibility() != View.VISIBLE) {
-				viewTop.setVisibility(View.VISIBLE);//new_app_main_color
+				viewTop.setVisibility(View.VISIBLE);// new_app_main_color
 				titleLayout.setBackgroundResource(R.color.new_app_main_color);
-				getWindow().getDecorView().setBackgroundResource(R.color.new_app_main_color);
+				getWindow().getDecorView().setBackgroundResource(
+						R.color.new_app_main_color);
 				addDeleteSchoolCk.setVisibility(View.INVISIBLE);
 				schoolNameTv.setVisibility(View.INVISIBLE);
 				titleTV.setText(school.getName());
